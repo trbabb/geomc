@@ -1,0 +1,405 @@
+what if:
+  Vec<T,N>::ones,zeroes,pi,one_half,X_AXIS,etc ?
+    x Yes.
+ 
+MATRIX:
+  - fix mtx multiplication for SimpleMtx to operate on T* rather than the matrix, to prevent code bloat
+  - in-place LU solving (collapse L and U storage to one matrix). 
+      inverse still requires double-alloc for dynamic mtxs;
+      not great for many repeated inversions.
+  - determinant.
+  - conversion/assignment operator to SimpleMatrix
+  - make a type_traits header for matrix operations
+    - use this to clean up the defs of some of the operators
+  - test matrix intercompatibility
+  - matrix generalized iterator is slower
+  - end() operator needs clear definition
+  - problem: some functions have unpredictable return types. could make 
+    usage difficult except in cases of fn(a) * b, e.g.
+  x matrix in-place transpose
+  x fix mtxcopy to be src, dest
+    x everything else is dst, src; and this is better.
+  x major problem: copy vs. reference semantics are different depending on template parameters.
+    > actually not a problem. just be sure to document it.
+  x major problem: matrix iterator order is broken.
+    x could not reproduce
+  x pull in parent get() functions when not overriding both const-nesses. 
+  x dynamic mtx * vector is broken
+  x mtx mult return type with vecs for dynamic mtxs.
+  x current refactor issues
+    x cannot "circularly" inherit iterator types.
+      (i.e. base cannot inspect Derived's [possibly more specific] 
+       iterator type). This is because c++ is a dumb, broken language.
+       The workaround is to use a tertiary "traits" class to contain the
+       types. I hate C++.
+    x need to think of a way to do constructors for SimpleMatrix.
+      Constructor(int, int) meaningless for static matrices.
+      Constructor() meaningless for dynamic matrices.
+      x fixed with a default argument trick
+  x implement common base class
+    x find possible way to give base class full functionality of derived?
+      o will work, but may be un-optimized
+    x would allow utility functions to template across the base (e.g. inv(MatrixBase<Derived>))
+      making template resolution more explicit, less of a nightmare.
+    - could allow an element conversion operator...?
+  x implement common base class for static/dynamic matrices
+    x refactor presented functions to deal with this
+    x refactor rest of codebase to deal with this
+  x implement shares_memory()
+    x default to data ptr comparison; deriveds that nest shall call
+      child.shares_memory(b) for all childs
+  x implement equality test operators.
+  x remove or refactor PermutedMatrix
+  - clean up iterators.
+    - begin/end are probably broken.
+    - backwards grid iterators are definitely broken.
+
+GENERAL CLEANUP/MAJOR TODOS:
+  x major problem: matrix copy/reference semantics change based on
+    dynamic-ness. should always be copy-like. consider using && ref operators.
+    > actually not a problem, given that small matrices should be static and large
+      should be dynamic. just be sure to document.
+  - switch to scons or automake/autoconf; ditch shitty eclipse build system. and ditch eclipse.
+  x make Raster 
+  - raster doesn't work with dynamic size (specialize the class)
+    - also consider templating the input type at call sites, there is no
+      reason to decide that in the object.
+  x implement matrix equality
+  x fix Matrix to figure out if two matrices share memory.
+    x &a == &b not reliable; a or b may be a wrapper matrix.
+    x matrix->memoryID()?
+    x matrix->shares_memory(M)?
+  - method for pointing to general traceable objects
+    - templated wrapper?
+  x give static/dynamic matrix a common subclass, a la PermutationMatrix
+  x give all matrices a common subclass (for boilerplate iterator BS)
+    and override only those methods that have special "native" iterators, etc.
+    x PermutationMatrix throws a wrench in it, however, as it cannot have non-const
+      iterators. therefore it cannot inherit from the base class.
+      x MutableMatrix inherits from MatrixBase? PermutationMatrix inherits from MatrixBase?
+  - end() pointers appear all fucked up for matrix regions.
+  - cleanup all the <using>s that accidentally leaked into namespace geom
+  x extricate specialized classes from Expr<>; make wrapper exprs for each instead
+    - Image (needs wrapper)
+    x Perlin
+    x Path
+  - Image:
+    - factor input type template to call sites.
+    - make EdgeBehavior and Intrepolation into classes?
+      - Abyss edge behavior can store supplied abyss value.
+      - Cubic interpolator can store sharpness parameters.
+      - add possible quintic two-point interpolation. (flat tangents)
+      - edge behavior receives rect bound from caller.
+      - more generalized, for non-raster classes to use.
+      - can know/compute their derivatives/integrals?
+        - (for arclength computation)?
+      - Put this all into a function/Interpolation.h
+        - add interps for dynamic-length points?
+  x test operators on quaternions
+  x merge FunctionTypes and ExprTypes headers.
+  - virtualize shapes for trace(), contains(), etc.?
+    - or leave as templated?
+    - namespace-global trace() mechanism? (with templates, gets tricky)
+  - expose a dimension-independent NormalFromBasis() type function
+    - what you want is the orthogonal complement, or the space of basis vectors that are perpendicular to your N-1 dimensional subspace
+    - in the cross product case, you have two equations (b1 . n = 0; b2 . n = 0) and three unknowns (nx, ny, nz).
+      the last degree of freedom is the magnitude of n. unclear as of yet how this arises.
+    - compute by taking the ~~determinant~~ cofactor expansion with i,j,k,...
+  - mtx determinant
+    x reduce to upper triangular and mult rows?
+    - specialize, validate, and expose this
+  x make a mtx base class.
+    x use curiously recurring template pattern
+      x parent must know type of derived for creating iterators.
+    x use it to restrict troublesome matrix templates using boost_static_assert/boost::is_base_of().
+  - Shapes:
+    - implement frustums
+      - note that a frustum is an affineTransformed box
+      - this will make raytesting easy.
+      - separating axis theorem for frst/box or fst/frst isxn
+        - note that using a general AffineTransform on a Rect
+          will complicate this test, because the number of unique
+          axes in the general case is large (whereas far and near
+          rects all collapse to 2 in the Frustum case). Is this
+          an algebraic property of transforms which we can compute
+          and preserve? 
+        - consider using a QR decomposition, which factors a matrix
+          into an orthogonal matrix and an upper triangular matrix.
+          You may be able to determine from this which axes, and thus
+          which vectors, are subject to skew, and therefore may
+          be made distinct from previously parallel vectors.
+          - No, probably what you want is the singular value decomposition,
+            which factors a matrix into an orthogonal matrix, and 
+            a matrix with non-negative diagonal values.
+        - see if you can limit, with bounding, which axes/faces
+          may contribute to an intersection. 
+        - basically, finding the axes to test is tricky.
+        - hey dumbass! a keystone transform is NOT AFFINE. it is a PROJECTIVE TRANSFORM.
+          - but then what is clip space?
+            - clip space transforms the FOV to the unit interval at unit distance.
+            - this is done, for example, by transforming the camera view direction to the Z axis,
+              and horizontal scaling to account for the FOV.
+            - perspective divide happens thereafter. 
+          - you need a full 4x4 matrix (with nonzero crap in the W line) to account for the
+            dependency on P.
+    - define Region<T,N> which simply has contains(Vec<T,N>)
+      can be used for planar shapes, or volumes, etc.
+      Rects and Spheres are regions, as are planes, arguably.
+    x implement planes
+    x implement triangles(/quads?)
+    - implement oriented bounding boxes
+    - implement orientedShape?
+      - OBB isxn test: separating axis theorem (6 axes for 3d OBBs).
+        - use a radius test first and/or a bbox test.
+        - xform other rectangle into first rectangle's local space. this cuts axis projection in half
+        - http://www.gamedev.net/page/resources/_/technical/game-programming/2d-rotated-rectangle-collision-r2604
+    - implement PlanarFigure
+    x change Rect to be templated on T,N; not T instanceof Vec
+      x specialize for N=1
+    - make a virtual base class Shape<T,N> or Region<T,N>, with `bool contains(Vec<T,N>)`
+      - Shape<T,N> inherits bounded and implements contains()? An unbounded region should
+        just be an Expr.
+      - make a RegionExpr that implements Expr<Vec<T,N>, bool> and wraps shape.contains()
+        - object ownership will be a Thing, so there's that.
+    x make shapes (box, frustum) traceable.
+      - make a Traceable virtual class.
+    - implement lots of `bool intersects(ShapeA a, ShapeB b)`
+      - Intersection.h
+        - intersection, defined as overlap-- i.e. total containment, and partial intrusion.
+      - object.fully_contains(objectB)
+      - surface_intersection
+        - defined as overlap(A,B) and !(B.fully_contains(A) || A.fully_contains(B))
+      - generalize separating axis theorem
+        - in higher dimensions, this gets weird
+          - note that the 3d separating axis test uses the cross product.
+            Not clear how to do this in N dimensions. See probably "wedge product".
+            A vector perpendicular to N-1 vectors in N dimensions is possible to 
+            obtain in general.
+          - what axes do we test?
+          - do we test for each edge, face, and volume for a 4D shape?
+            And on up into higher dimensions? how do you generalize that?
+    - implement ShapeSet<T,N-1> intersect_surface_solve(ShapeA a, ShapeB b) ?
+      - i.e. a plane and a sphere returns a circle, or a plane and a box returns
+        a set of line segments, etc.
+    - make AffineTransform<> frustum(...)
+    x change Rect to be a template of <T,N>?
+  - move Path back to Shape lib? 
+  - implement general mat.Inverse
+  x define a clear (signed) index_t with numbits = numbits(size_t)
+    x use it everywhere
+  x refactor matrices for less virtual indirection
+  x add fast, class-specific copy functionality to matrices
+  - AffineTransform:
+    - add perspective(Frustum<T,N> f)
+    x add transform(Matrix<T,N-1> m)
+      - see:
+          http://stackoverflow.com/questions/2624422/efficient-4x4-matrix-inverse-affine-transform
+        for inverse.
+  x cast operator to other Vec<T,N>?
+    x ambiguity problems?
+  x work out a better include scheme for all the vector types
+  - intrusive_ptr on Expr
+    - shared_ptrs allocate memory to share among references. storing data on the obj
+      itself reduces mallocs
+  x rename norm() and norm2() to mag() and mag2() for less ambiguity
+  x clean up HashCode in vecbase to return size_t
+  x Make a pure abstract VecBase<T,N> which depends only on a function T& get(int n)
+    x Vec<T,N> shall inherit from this and specify only get() and T[N]
+    x Vec<T,{2,3,4}> shall also inherit from this, specify x,y,..., and
+      extra dimension-specific functionality
+  x finish RandomTools<T> and remove RandomUtils
+  x Template-ize PerlinNoise across T,N using new RandomTools<T> class
+  - Thread safety, particularly in Exprs and the generic pointer types (AnyArray, AnyPtr)
+    - boost::atomic
+  - Use AffineTransform to continue with Craft.cpp
+  - Exprs need a robust and extensible simplification scheme
+  - Exprs need a scheme for tree walking and multiple inputs
+    - many inputs of many general types is probably not feasible with templates
+      - probably need to declare uniform input type
+      - make a general wrapper type for objects with varied inputs.
+      - advantage of uniform input: derivatives can be sensible and general.
+        * I wonder what I meant by this. Why?
+    - need to be able to getInputs()
+  - create a base class for Expr<I,O> with no template params, which can
+    be created/stored/operated on even when param types are unknown at compile time.
+    - write: void eval(AnyPtr in, AnyPtr out)
+    - write: void eval(AnyArray inBuffer, AnyArray outBuffer)
+    - Expr<I,O> is a subtype of master class
+    - Expr<I,O> has specializations of operations which resolve/check type at compile time
+    - otherwise, operations on master class pointers do runtime checks.
+  - Exprs are slow
+
+x Should have at least two categories: Shape and Function
+  this means a large reorganization. urrgh.  
+  
+All top level shape categories:
+  
+    Bounded, Visible (gltoy), Traceable, Volume.
+
+Should maybe move Sized out of glToy; things like Spheres and Boxes and Disks, etc. may not be drawn
+  This would further convolute the inheritance tree:
+  
+  Bounded
+    - AABox (also Volume)
+    - Sphere (also Volume)
+    - OrientedShape (?)
+    - BoundedVisible (also Drawable, in gltoy)
+      - VisBox (also AABox, thus inherits Bounded twice! Beware)
+      - VisSphere (also Sphere, thus inherits Bounded twice)
+      
+    Might you need a Bounded that isn't a Volume?
+      yes, I don't need to test if a point is inside my complex, possibly not closed character model
+    Might you need a Bounded that isn't Visible?
+      absolutely, I might be doing geometry calculations, but not rendering them with openGL
+    Might you need a Visible that isn't Bounded?
+      yes; a Visible can be a good way to model a render setting, like fog, or an entire
+      playing field, which might be infinite.
+    Might you need a Volume that isn't Bounded?
+      Yes. Like a half-space, for example. Or the area underneath a function, such as Perlin noise,
+      or an infinite thresholded real-valued function.
+    Might you need a Volume that isn't Visible?
+      Yep.
+  
+ 
+PROBLEM:
+  how to deal with bounded shapes that need to be affineTransformed?
+    - some bounded shapes will also be Exprs, which can also be affineTransformed.
+      how should this play together? Beware of ambiguity (i.e. do I use the operator for Bounded, ThisSpecificObj, or Expr?)
+    - Will it give me back the right thing if it uses Bounded's AffineXform mult and I am treating my obj as an Expr? Vice versa?
+
+I wish everything was an expression. Because really, a Volume is a Vec3 -> bool. Then we could wrap it, transform it, warp it, etc.
+    >>scratch all the BS below. let's make Volume BE a specialization of Expression.
+    >>what about having a specialization of Expression<Vec3d,bool> that wraps a volume?
+      >>what about having all volumes return Expressions of vec3->bool?
+        >> bad, because then a Sphere must have a separate, private class duplicate which is a specialization
+           of Expression.
+	        >> have a function that makes an Expression out of a function callback?
+	          >> No, because the function pointer can't store data with it. (sphere position; radius, e.g.)
+	        >>...out of a functor? Then volumes can return an expression of <Vec3->bool> which is itself an instance
+	          of the generic functor-wrapper. The volume primitive itself could be the functor to wrap-- but that's 
+	          not really good design. What if we don't want to make a Sphere callable? That makes not sense to 
+	          "call a sphere". Or what if we want a call() operation on our volumes to do something else? That's 
+	          not a good way to do it.
+	          >> could have a simple, inner function object which calls Volume->contains() (private)
+	            >> hey, look, we are kind of where we started
+	            >> This is an exceedingly complex way to implement a Volume object. What if I just want to code
+	               a damn sphere? I have to understand functors and expressions and bullshit like that.
+	               Or if I just want to test if a point is inside a sphere? I have to do mysphere->inside()->eval(pt)?
+	               No. Rejected. Wrapping volumes where needed it is.
+	               >> in the real language, inside() would only return a function if its arguments were unfilled.
+	                  so it would be mysphere->inside() or mysphere->inside(x, y) or mysphere->inside(x,y,z), etc.
+	                  or /really/, mysphere->(fn_of_two_args) or mysphere->(fn_of_three_args)
+  I wish I could have camera.pos = Expr(unclosed_function_of_t)
+  
+  
+
+POLYMORPHIC and/or VARIABLE SIZE VECTORS: WHY NOT?
+/*      VecBase<T> has size()
+ *        Vec<T,N> inherits VecBase<T>
+ *        DynamicVec<T> inherits VecBase (as with equiv mtx class)
+ *        MatrixSlice<T[,N]> inherits VecBase<T>
+ *        ExpressionVec<T> accepts ExprPtr<int, T> inherits VecBase<T>
+ *      all operations must accept VecBase&s instead of hard vecs.
+ *      also const-correctness will be necessary because of temporary variable bullshits
+ *  >>  problem: all vec operations that return vecs by value must return DynamicVector<T>.
+ *         the return type cannot be overridden per-class because a Vec<T,N> is not a DynamicVector or a pointer.
+ *         and we cannot return a BaseVec by value because it is abstract. in short, this is dumb
+ *   in short, we are sacrificing efficiency for generality, but I can't think of many cases where I would need
+ *   the general and not the specific. so for now, F this
+ * EDIT: This is feasible if we specialize Vec for a special dimension N=DYNAMIC (-1). 
+ *   We just need to be sure that we never use N when we mean size() in the common classes.
+ *     ...or anywhere. This is a risky design.
+ *     consider also that all usages will have to check whether a.size() == b.size().
+ *        boost::enable_if()? plus a macro to throw? 
+ *   Interoperability between Vec<T,DYNAMIC> and Vec<T,N> will be a trick. 
+ *     we could use implicit conversion (maybe) but that would malloc for trivial operations.
+ *       (i.e. if you want to add() a static vec to a dynamic vec, you first malloc space for a
+ *        copy of your static vec, then perform the add, then release your copy).
+ *     if you implement overloaded operators templated over N in the Vec<T,N=DYNAMIC> specialization,
+ *       it could work. 
+ *     as it stands, operations solely between dynamic vectors return other dyn. vectors without trouble.
+ *     perhaps add a third template param which defaults to STATIC (and for DYNAMIC there is only an N=0 specialization)? 
+ *       therefore classes which don't templatize/specialize the dynamic parameter don't offer support for dynamic vectors.
+ */
+
+VECTORS THAT ARE MATRICES: WHY NOT?
+
+//Vec inherits VecMatrix inherits Matrix?
+//      VecMatrix is a template which houses all of common Vec code, ala
+//      matrix ditches [][] crap?
+//  >>  problem: * has different meaning for matrices
+
+Vector notes:
+
+//DONE: The get() system might need rethinking. Every get and set will require a function call and
+//a stack push. This is way slower (12-14 times slower) then simple array indexing. Note that get() 
+//cannot be inlined because it is virtual. Is there some magic we could do with specializations?
+
+/*
+ * New design:
+ * 
+ * VecBase has only x,y,z,w or V[]. inline get() is defined (non-virtual) in this class, and nothing else.
+ * VecBase has partial specializations for N={2,3,4}. Base template has v[].
+ * VecCommon inherits from VecBase<T,N>. VecCommon has all N-independent common-code; e.g. add(), operator[], etc.
+ * VecCommon can inline get() because it knows destination of get() at compile time.
+ * Vec inherits from VecCommon<T,N>. 
+ * Vec is specialized for N={2,3,4}, with extra functions that make sense for that dimension.
+ * 
+ * Undesirable effects:
+ *   - VecBase::x must be used everywhere inside of Vec instead of just 'x' because x is a template dependent name.
+ *   - Initialization lists cannot be used because VecBase's constructor must be called first, wherein x,y,z have already been inited.
+ *     - Cannot delegate to VecBase's constructors, even if specialized, because VecBase is not a direct base of Vec
+ *       (VecBase's constructor would have been called again after VecCommon's)
+ *     - Cannot specialize x,y,z specific constructors in VecCommon because that would mandate re-specifying all of VecCommon's 
+ *       functionality, thus defeating the purpose of the entire setup.
+ *     - Cannot inherit constructors.
+ *     > There is not much speed to be gained here, though. std::fill gets us most/all of the way there.
+ *   - It is unknown whether the redundant construction or function call access is worse for performance.
+ *     - should finish this "failed" design (do something janky with constructors), and just see.
+ *       - results: add() seems to be mildly slower.
+ *       - other ops (norm, norm2, cross) get a 3-4x speedup
+ *       - perlin gets a ~< 2x speedup, except for 3d and 4d, which are just barely faster.
+ *       - single-vector operations (norm(); hash() especially) are much MUCH faster than two-vec ops, like add and dot.
+ *         - hash() is 10-11x faster than add(). that is quite weird.
+ *           (this is no longer true, hash is ~< 2x as fast)
+ *       - Case statement get()s are about 50%-78% as fast as array index.
+ *         - case statements are weirdly sensitive to the number of cases. can make factor of 2 difference
+ *         - adding a throw() in there slows everything to hell
+ *         x done: should factor out throw() / #ifdef it based on GEOMC_CHECK_BOUNDS
+ *         - TODO: should tune switch statement for dimensionality of vector / investigate other methods
+ *       - using a ref instead of pass-by-value produces speedup
+ *       - using const args produces speedup
+ *       - having a subclass does not appear to produce slowdown.
+ *       x currently within a factor of 4 from raw add. with more tuning, maybe factor of 2?
+ *         > now within about 80-90% of raw add speed.
+ *         - with vectorization, even faster?
+ */
+
+/***********************************
+ * Matrix Specializations          *
+ ***********************************/
+
+/* this will not work because we have not overloaded copy() or fillIdentity() in the class definition
+
+#define OVERLOAD_DYNMAT_COPY(t) \
+template <> virtual DynamicMatrix<T>::DynamicMatrix<T> copy() { \
+	DynamicMatrix<T> n(nrows,ncols); \
+	std::memcpy(n->m, this->m, sizeof(T)*nrows*ncols); \
+	return m; \
+}
+
+#define OVERLOAD_DYNMAT_FILL(t) \
+template <> virtual void DynamicMatrix<T>::fillIdentity(){ \
+	std::memset(this->m, 0, sizeof(T)*nrows*ncols); \
+	for (int i = 0; i < min(nrows, ncols); i++){ \
+	    this->m[ncols*i + i] = 1; \
+	} \
+}
+
+OVERLOAD_DYNMAT_COPY(int)
+OVERLOAD_DYNMAT_COPY(bool)
+OVERLOAD_DYNMAT_COPY(long)
+OVERLOAD_DYNMAT_COPY(float)
+OVERLOAD_DYNMAT_COPY(double)
+OVERLOAD_DYNMAT_COPY(long long)
+*/
