@@ -289,7 +289,7 @@ namespace geom {
      *******************************/
 
     template <typename T> 
-    AffineTransform<T,3> rotation(const Vec<T,3> &axis, T radians) {
+    AffineTransform<T,3> rotation(Vec<T,3> axis, T radians) {
         AffineTransform<T,3> atnew;
         axis = axis.unit();
         rotmat(&atnew.mat, axis.x, axis.y, axis.z, radians);
@@ -298,7 +298,7 @@ namespace geom {
     }
     
     template <typename T> 
-    AffineTransform<T,3> rotation(const Vec<T,3> &axis, const Vec<T,3> &center, T radians) {
+    AffineTransform<T,3> rotation(Vec<T,3> axis, const Vec<T,3> &center, T radians) {
         AffineTransform<T,3> atnew;
         axis = axis.unit();
         
@@ -309,7 +309,7 @@ namespace geom {
     }
     
     template <typename T> 
-    AffineTransform<T,3> rotation(const Quat<T> &q) {
+    AffineTransform<T,3> rotation(Quat<T> q) {
         AffineTransform<T,3> atnew;
         q = q.unit();
         rotmat(&atnew.mat, q);
@@ -360,8 +360,13 @@ namespace geom {
     AffineTransform<T,N> transformation(const SimpleMatrix<T,N,N> &mat) {
         SimpleMatrix<T,N,N> m_inv;
         AffineTransform<T,N> atnew;
+        
+        if (N == DYNAMIC_DIM and mat.rows() != mat.cols()) {
+            throw NonsquareMatrixException(mat.rows(), mat.cols());
+        }
+        
         inv(&m_inv, mat);
-        MatrixRegion region(MatrixCoord::zeros, MatrixCoord(N));
+        MatrixRegion region(MatrixCoord::zeros, MatrixCoord(mat.rows()));
         std::copy(  mat.begin(),   mat.end(), atnew.mat.region(region).first);
         std::copy(m_inv.begin(), m_inv.end(), atnew.inv.region(region).first);
         return atnew;

@@ -58,18 +58,18 @@ public:
         point_t p_modulus = pt - p0f; //pos. within grid
         const index_t corners = 1 << N;
         T planeVals[corners];
-        for (index_t c = 0; c < corners; c++){
+        for (index_t c = 0; c < corners; c++) {
             grid_t cPt;
-            for (index_t axis = 0; axis < N; axis++){
+            for (index_t axis = 0; axis < N; axis++) {
                 cPt[axis] = (c & (1 << axis)) != 0;
             }
             const point_t &grid_grad = get_grid_gradient(p0 + cPt);
             planeVals[c] = (p_modulus - (point_t)cPt).dot(grid_grad);
         }
         
-        for (index_t axis = 0; axis < N; axis++){
+        for (index_t axis = 0; axis < N; axis++) {
             T t = fade(p_modulus[axis]); //interpolation parameter
-            for (index_t pair = 0; pair < (1 << (N-axis-1)); pair++){
+            for (index_t pair = 0; pair < (1 << (N-axis-1)); pair++) {
                 planeVals[pair] = mix(t, planeVals[pair*2], planeVals[pair*2+1]);
             }
         }
@@ -85,7 +85,7 @@ public:
     point_t gradient(point_t pt) {
         point_t g;
         //central difference method
-        for (index_t axis = 0; axis < N; axis++){
+        for (index_t axis = 0; axis < N; axis++) {
             point_t dx;
             dx[axis] = PERLIN_EPSILON;
             g[axis] = eval(pt + dx) - eval(pt - dx);
@@ -97,7 +97,7 @@ protected:
     
     inline const point_t& get_grid_gradient(const grid_t &pt) {
         index_t idx = 0;
-        for (index_t axis = 0; axis < N; axis++){
+        for (index_t axis = 0; axis < N; axis++) {
             idx = p[(idx + pt[axis]) & ((index_t)PERLIN_MODULO_MASK)];
         }
         return gradients[idx];

@@ -101,39 +101,33 @@ namespace detail {
         VecBase(T a[2]):x(a[0]),y(a[1]){}
         
         inline const T& get(index_t idx) const {
-            //a three-branch switch is actually faster than a dereference with gcc. out-of-bounds behavior
-            //when bounds checking is turned off returns x. considered returning a reference to NULL to guarantee
-            //a segfault, but returning X is faster. Why? No idea.
+            #ifdef GEOMC_VEC_CHECK_BOUNDS
             switch(idx){
             case 0:
                 return x;
             case 1:
                 return y;
             default:
-                //speed is sensitive to presence of default.
-            #ifdef GEOMC_VEC_CHECK_BOUNDS
                 throw std::out_of_range("vector index");
-            #else
-                return x; //"undefined" behavior
-                //return *(T*)((void*)0);  //somewhat slower
-                //assert(false) //also slower, but perhaps preferable
-            #endif
             }
+            #else
+            return idx ? x : y;
+            #endif
         }
         
         inline T& get(index_t idx) {
+            #ifdef GEOMC_VEC_CHECK_BOUNDS
             switch(idx){
             case 0:
                 return x;
             case 1:
                 return y;
             default:
-            #ifdef GEOMC_VEC_CHECK_BOUNDS
                 throw std::out_of_range("vector index");
-            #else
-                return x; //"undefined" behavior
-            #endif
             }
+            #else
+                return idx ? x : y;
+            #endif
         }
         
         inline const T* begin() const {

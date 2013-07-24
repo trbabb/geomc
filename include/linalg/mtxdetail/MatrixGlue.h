@@ -36,6 +36,7 @@ template <typename T, index_t N>
 struct Storage {
     T data[N];
     
+    Storage() {}
     explicit Storage(index_t n) {}
     
     inline       T* get()       { return data; }
@@ -126,6 +127,38 @@ struct Dimension<DYNAMIC_DIM> {
     static inline void set(storage_t s, index_t v) { s[0] = v; }
     static inline index_t value(const storage_t v) { return *v; }
     
+};
+
+/****************************************************
+ * SizedStorage                                     *
+ *                                                  *
+ * Storage which also carries a count of its        *
+ * capacity. We don't do this everywhere because    *
+ * some classes have parallel arrays, so there      *
+ * would be duplicate counts which waste space.     *
+ ****************************************************/
+
+template <typename T, index_t N>
+class SizedStorage : public Storage<T,N> {
+    public:
+    
+             SizedStorage():Storage<T,N>() {}
+    explicit SizedStorage(index_t n):Storage<T,N>(n) {}
+    
+    index_t size() const { return N; }
+};
+
+template <typename T>
+class SizedStorage<T,DYNAMIC_DIM> : public Storage<T,DYNAMIC_DIM> {
+    private:
+    index_t sz;
+    
+    public:
+    SizedStorage(index_t n):
+        Storage<T,DYNAMIC_DIM>(n),
+        sz(n) {}
+    
+    index_t size() const { return sz; };
 };
 
 /****************************************************

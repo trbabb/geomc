@@ -152,11 +152,28 @@ public:
         return out;
     }
     
-    inline void getL(SimpleMatrix<T,M,N> *into) const {
+    template <typename S, index_t J, index_t K>
+    inline typename boost::enable_if_c<
+            detail::MatrixDimensionMatch<SimpleMatrix<T,M,M>, SimpleMatrix<S,J,K> >::isStaticMatch,
+        void>::type 
+    getL(SimpleMatrix<S,J,K> *into) const {
+        if ((M * J == 0 or M != J) and into->rows() != LU.rows()) {
+            throw DimensionMismatchException(into->rows(), into->cols(), LU.rows(), LU.cols());
+        }
+        if ((J * K == 0 or J != K) and into->rows() != into->cols()) {
+            throw NonsquareMatrixException(into->rows(), into->cols());
+        }
         _copyL(into);
     }
     
-    inline void getU(SimpleMatrix<T,M,N> *into) const {
+    template <typename S, index_t J, index_t K>
+    inline typename boost::enable_if_c<
+            detail::MatrixDimensionMatch<SimpleMatrix<T,M,N>, SimpleMatrix<S,J,K> >::isStaticMatch,
+        void>::type
+    getU(SimpleMatrix<S,J,K> *into) const {
+        if ((M * J == 0 or M != J) and (into->rows() != LU.rows() or into->cols() != LU.cols())) {
+            throw DimensionMismatchException(into->rows(), into->cols(), LU.rows(), LU.cols());
+        }
         _copyU(into);
     }
     
