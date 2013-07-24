@@ -6,8 +6,8 @@
 using namespace std;
 using namespace geom;
 
-int poo(int argc, char **argv) {
-//int main(int argc, char **argv) {
+//int poo(int argc, char **argv) {
+int main(int argc, char **argv) {
     const static index_t sz = 5;
     SimpleMatrix<double,sz,sz> m;
     
@@ -19,17 +19,23 @@ int poo(int argc, char **argv) {
         }
     }
     
-    PLUDecomposition<double,sz,sz> plu = plu_decompose(m);
+    PLUDecomposition<double,sz,sz> plu(m);
     
     cout << "singular? " << plu.isSingular() << endl;
     
-    cout << m << endl;
-    cout << "P = " << endl << plu.P << endl;
-    cout << "L = " << endl << plu.L << endl;
-    cout << "U = " << endl << plu.U << endl;
+    SimpleMatrix<double,sz,sz> L;
+    SimpleMatrix<double,sz,sz> U;
     
-    cout << (plu.L * plu.U) << endl;
-    cout << (plu.P * m) << endl;
+    plu.getL(&L);
+    plu.getU(&U);
+    
+    cout << m << endl;
+    cout << "P = " << endl << plu.getP() << endl;
+    cout << "L = " << endl << L << endl;
+    cout << "U = " << endl << U << endl;
+    
+    cout << (L * U) << endl;
+    cout << (plu.getP() * m) << endl;
     
     Vec<double,sz> b;
     Vec<double,sz> x;
@@ -52,7 +58,7 @@ int poo(int argc, char **argv) {
     cout << "inv: " << endl;
     cout << m_inv << endl;
     cout << "M * M^-1:" << endl << (m * m_inv) << endl;
-    cout << "inv(M): " << endl << m * inv(m, &ok) << endl;
+    cout << "inv(M): "  << endl <<  m * inv(m, &ok) << endl;
     
     return 0;
 }

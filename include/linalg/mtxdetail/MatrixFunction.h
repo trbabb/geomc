@@ -211,7 +211,7 @@ mul(Md *into, const Ma &a, const Mb &b) {
     // adaptors types for arguments:
     typedef detail::_ImplMtxAdaptor<Ma, detail::ORIENT_VEC_ROW> A;
     typedef detail::_ImplMtxAdaptor<Mb, detail::ORIENT_VEC_COL> B;
-     //multiplier implementaiton
+     //multiplier implementation
     typedef detail::_ImplMtxMul<Ma,Mb> mult_t;
     typedef typename mult_t::return_t buffer_t;
     
@@ -273,7 +273,7 @@ mul(const Ma &a, const Mb &b) {
 template <typename Md, typename Mx>
 Md& transpose(Md *into, const Mx &m, 
               M_ENABLE_IF_C(
-                  IS_MATRIX(Md) and IS_MATRIX(Mx) and
+                  detail::IsMatrix<Md>::val and detail::IsMatrix<Mx>::val and
                   (Md::ROWDIM == Mx::COLDIM or
                    Md::ROWDIM *  Mx::COLDIM == 0) and
                   (Md::COLDIM == Mx::ROWDIM or 
@@ -323,22 +323,19 @@ transpose(const Mx &m) {
 template <typename Md, typename Mx>
 bool inv(Md *into, const Mx &src,
          M_ENABLE_IF_C(
-             MATRIX_DIM_AGREE(Md, Mx) and
-             (Mx::ROWDIM == Mx::COLDIM or Mx::ROWDIM * Mx::COLDIM == DYNAMIC_DIM)
+             (detail::MatrixDimensionMatch<Md,Mx>::isStaticMatch and
+             (Mx::ROWDIM == Mx::COLDIM or Mx::ROWDIM * Mx::COLDIM == DYNAMIC_DIM))
          )) {
     typedef detail::_ImplMtxInv<Mx> inv_t;
 #ifdef GEOMC_MTX_CHECK_DIMS
     if (Mx::ROWDIM * Mx::COLDIM == DYNAMIC_DIM and src.rows() != src.cols()) {
         throw NonsquareMatrixException(src.rows(), src.cols());
     } 
-    if ((Mx::ROWDIM * Md::ROWDIM == DYNAMIC_DIM and src.rows() != into->rows()) or
-        (Mx::COLDIM * Md::COLDIM == DYNAMIC_DIM and src.cols() != into->cols())) {
-        throw DimensionMismatchException(into->rows(), into->cols(), src.rows(), src.cols());
-    }
+    detail::MatrixDimensionMatch<Md,Mx>::check(*into, src);
 #endif
     // matrix inv() implementations, unlike mul() or txpose(), shall assume
     // that the destination and source may be aliased. this design decision
-    // was made because several inv() implmentations are agnostic about
+    // was made because several inv() implementations are agnostic about
     // aliasing (they perform internal copies), making a check unnecessary.
     // therefore we delegate the aliasing check to those inv()s which care. 
     return inv_t::inv(into, src);
@@ -365,9 +362,10 @@ typename detail::_ImplMtxInv<Mx>::return_t inv(const Mx &m, bool *success,
  * Matrix operators              *
  *********************************/
 
-// This almost reads like a poem:
 template <typename Ma, typename Mb>
 inline 
+//error if uncommented. cannot figure out why.
+//typename boost::enable_if_c<(detail::MatrixMultipliable<Ma,Mb>::val), typename detail::_ImplMtxMul<Ma,Mb>::return_t>::type 
 typename boost::enable_if_c<MATRIX_MUL_DIM_AGREE(Ma,Mb), typename detail::_ImplMtxMul<Ma,Mb>::return_t>::type 
 operator*(const Ma &a, const Mb &b) {
     return mul<Ma,Mb>(a, b);
@@ -375,10 +373,12 @@ operator*(const Ma &a, const Mb &b) {
 
 // equality operator
 template <typename Ma, typename Mb>
-typename boost::enable_if_c<IS_MATRIX(Ma) and IS_MATRIX(Mb) and MATRIX_DIM_AGREE(Ma,Mb), bool>::type
+typename boost::enable_if_c<
+        detail::IsMatrix<Ma>::val and detail::IsMatrix<Mb>::val and
+        detail::MatrixDimensionMatch<Ma,Mb>::isStaticMatch, 
+    bool>::type
 operator==(const Ma &a, const Mb &b) {
-    if ((Ma::ROWDIM * Mb::ROWDIM == 0 and a.rows() != b.rows()) or 
-        (Ma::COLDIM * Mb::COLDIM == 0 and a.cols() != b.cols())) {
+    if (not detail::MatrixDimensionMatch<Ma,Mb>::isMatch(a,b)) {
         // dimension mismatch, cannot be the same.
         return false;
     }
@@ -388,14 +388,17 @@ operator==(const Ma &a, const Mb &b) {
 
 // equality operator (static dimension mismatch; never equal)
 template <typename Ma, typename Mb>
-typename boost::enable_if_c<IS_MATRIX(Ma) and IS_MATRIX(Mb) and not MATRIX_DIM_AGREE(Ma,Mb), bool>::type
+typename boost::enable_if_c<
+                detail::IsMatrix<Ma>::val and detail::IsMatrix<Mb>::val and
+            not detail::MatrixDimensionMatch<Ma,Mb>::isStaticMatch, 
+        bool>::type
 operator==(const Ma &a, const Mb &b) {
     return false;
 }
 
 // inequality operator
 template <typename Ma, typename Mb>
-inline typename boost::enable_if_c<IS_MATRIX(Ma) and IS_MATRIX(Mb), bool>::type
+inline typename boost::enable_if_c<detail::IsMatrix<Ma>::val and detail::IsMatrix<Mb>::val, bool>::type
 operator!=(const Ma &a, const Mb &b) {
     return not (a == b);
 }
@@ -403,7 +406,7 @@ operator!=(const Ma &a, const Mb &b) {
 #ifdef GEOMC_LINALG_USE_STREAMS
 // stream output operator
 template <typename Mx>
-typename boost::enable_if_c<IS_MATRIX(Mx), std::ostream &>::type
+typename boost::enable_if_c<detail::IsMatrix<Mx>::val, std::ostream &>::type
 operator<<(std::ostream &s, const Mx &mtx) {
     s << std::setfill(' '); //xxx statefulness bad
     s << "[ ";

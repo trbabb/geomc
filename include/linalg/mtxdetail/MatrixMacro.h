@@ -19,9 +19,6 @@
 // Mt is a type
 #define REQUIRE_MATRIX_T(Mt) typename boost::enable_if<boost::is_base_of<geom::detail::MatrixBase<typename Mt::elem_t, Mt::ROWDIM, Mt::COLDIM, Mt>, Mt> >::type
 
-// Mt is a type
-#define IS_MATRIX(Mt) (boost::is_base_of<geom::detail::MatrixBase<typename Mt::elem_t, Mt::ROWDIM, Mt::COLDIM, Mt>, Mt>::value)
-
 // Ma and Mb are types
 #define MATRIX_MUL_DIM_AGREE(Ma, Mb) \
             /* inner dimension match */ \
@@ -29,11 +26,6 @@
             /* ...or dynamic inner dimension demands runtime check: */ \
             detail::_ImplMtxAdaptor<Ma, detail::ORIENT_VEC_ROW>::COLDIM == DYNAMIC_DIM or \
             detail::_ImplMtxAdaptor<Mb, detail::ORIENT_VEC_COL>::ROWDIM == DYNAMIC_DIM)
-
-// Ma and Mb are types
-#define MATRIX_DIM_AGREE(Ma, Mb) \
-    ((Ma::ROWDIM == Mb::ROWDIM or Ma::ROWDIM * Mb::ROWDIM == 0) and \
-     (Ma::COLDIM == Mb::COLDIM or Ma::COLDIM * Mb::COLDIM == 0))
 
 // Ma and Mb are types
 #define LINALG_DIM_AGREE(Ma, Mb) \

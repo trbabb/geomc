@@ -181,14 +181,61 @@ struct _ImplStorageObjCount {
  * IsMatrix check                                     *
  ******************************************************/
 
-template <typename M, typename Enable=void>
+template <typename Mt, typename Enable=void>
 struct IsMatrix {
     static const bool val = false;
 };
 
-template <typename M>
-struct IsMatrix<M, typename boost::enable_if_c<IS_MATRIX(M),void>::type> {
+template <typename Mt>
+struct IsMatrix<Mt, typename boost::enable_if_c<
+            boost::is_base_of<
+                geom::detail::MatrixBase<typename Mt::elem_t, Mt::ROWDIM, Mt::COLDIM, Mt>, 
+                Mt>::value,
+            void>::type> {
     static const bool val = true;
+};
+
+/*****************************************************
+ * Matrix dimension agreement                        *
+ *                                                   *
+ * Check if two matrices' dimensions match           *
+ *****************************************************/
+
+template <typename Ma, typename Mb, typename Enable=void>
+struct MatrixDimensionMatch {
+    static const bool isStaticMatch = false;
+    
+    static inline bool isMatch(const Ma &ma, const Mb &mb) {
+        return false;
+    }
+    
+    static inline void check(const Ma &ma, const Mb &mb) {
+        throw DimensionMismatchException(ma.rows(), ma.cols(), mb.rows(), mb.cols());
+    }
+};
+
+template <typename Ma, typename Mb>
+struct MatrixDimensionMatch <Ma, Mb, 
+        typename boost::enable_if_c<
+            ((Ma::ROWDIM == Mb::ROWDIM or Ma::ROWDIM * Mb::ROWDIM == 0) and 
+             (Ma::COLDIM == Mb::COLDIM or Ma::COLDIM * Mb::COLDIM == 0))
+        >::type> {
+    
+    static const bool isStaticMatch = true;
+    
+    static inline bool isMatch(const Ma &ma, const Mb &mb) {
+        if ((Ma::ROWDIM * Mb::ROWDIM == 0 and ma.rows() != mb.rows()) or
+            (Ma::COLDIM * Mb::COLDIM == 0 and ma.cols() != mb.cols())) {
+            return false;
+        }
+        return true;
+    }
+    
+    static inline void check(const Ma& ma, const Mb &mb) {
+        if (not isMatch(ma, mb)) {
+            throw DimensionMismatchException(ma.rows(), ma.cols(), mb.rows(), mb.cols());
+        }
+    }
 };
 
 /******************************************************
@@ -370,7 +417,7 @@ struct _ImplVecOrient <Vec<A,N>, Vec<B,N>, void> {
 
 // two matrices
 template <typename Ma, typename Mb>
-struct _ImplVecOrient <Ma, Mb, typename boost::enable_if_c<(IS_MATRIX(Ma) and IS_MATRIX(Mb)), void>::type> {
+struct _ImplVecOrient <Ma, Mb, typename boost::enable_if_c<(IsMatrix<Ma>::val and IsMatrix<Mb>::val), void>::type> {
     // arbitrary
     static const VecOrientation orient = ORIENT_VEC_COL;
 };
@@ -386,7 +433,14 @@ struct MatrixMultipliable {
 
 template <typename Ma, typename Mb>
 struct MatrixMultipliable <Ma, Mb, 
-    typename boost::enable_if_c<MATRIX_MUL_DIM_AGREE(Ma,Mb), void>::type> {
+    typename boost::enable_if_c<
+            /* inner dimension match */
+            (_ImplMtxAdaptor<Ma, ORIENT_VEC_ROW>::COLDIM == _ImplMtxAdaptor<Mb, ORIENT_VEC_COL>::ROWDIM or
+            /* ...or dynamic inner dimension demands runtime check: */
+            _ImplMtxAdaptor<Ma, ORIENT_VEC_ROW>::COLDIM == DYNAMIC_DIM or
+            _ImplMtxAdaptor<Mb, ORIENT_VEC_COL>::ROWDIM == DYNAMIC_DIM),
+//MATRIX_MUL_DIM_AGREE(Ma,Mb),
+        void>::type> {
     static const bool val = true;
 };
 

@@ -41,23 +41,23 @@ namespace geom {
          * Operators                   *
          *******************************/
         
-        friend Ray<T,N> operator*(const AffineTransform<T,N> &at, Ray<T,N> r){
+        friend Ray<T,N> operator*(const AffineTransform<T,N> &at, Ray<T,N> r) {
             return Ray<T,N>(at.apply(r.origin), at.applyVector(r.direction));
         }
         
-        friend Ray<T,N> operator/(Ray<T,N> r, const AffineTransform<T,N> &at){
+        friend Ray<T,N> operator/(Ray<T,N> r, const AffineTransform<T,N> &at) {
             return Ray<T,N>(at.applyInverse(r.origin), at.applyInverseVector(r.direction));
         }
         
-        friend Vec<T,N> operator*(const AffineTransform<T,N> &at, Vec<T,N> v){
+        friend Vec<T,N> operator*(const AffineTransform<T,N> &at, Vec<T,N> v) {
             return at.apply(v);
         }
         
-        friend Vec<T,N> operator/(Vec<T,N> v, const AffineTransform<T,N> &at){
+        friend Vec<T,N> operator/(Vec<T,N> v, const AffineTransform<T,N> &at) {
             return at.applyInverse(v);
         }
         
-        friend AffineTransform<T,N> operator*(const AffineTransform<T,N> &at1, const AffineTransform<T,N> &at2){
+        friend AffineTransform<T,N> operator*(const AffineTransform<T,N> &at1, const AffineTransform<T,N> &at2) {
             return at1.apply(at2);
         }
         
@@ -67,7 +67,7 @@ namespace geom {
         }
         
         #ifdef GEOMC_LINALG_USE_STREAMS
-        friend std::ostream &operator<<(std::ostream &stream, const AffineTransform<T,N> at){
+        friend std::ostream &operator<<(std::ostream &stream, const AffineTransform<T,N> at) {
             stream << at.mat;
             return stream;
         }
@@ -77,54 +77,54 @@ namespace geom {
          * Methods                     *
          *******************************/
         
-        const Vec<T,N> apply(Vec<T,N> p) const {
+        const Vec<T,N> apply(const Vec<T,N> &p) const {
             Vec<T,N+1> p_hom(p,1);
             p_hom = mat * p_hom;
             return p_hom.template resized<N>(); //c++ is awful
         }
         
-        const Vec<T,N> applyVector(Vec<T,N> v) const {
+        const Vec<T,N> applyVector(const Vec<T,N> &v) const {
             Vec<T,N> o;
-            for (index_t r = 0; r < N; r++){
-                for (index_t c = 0; c < N; c++){
+            for (index_t r = 0; r < N; r++) {
+                for (index_t c = 0; c < N; c++) {
                     o[r] += mat.get(r,c) * v[c];
                 }
             }
             return o;
-        }   
-        
-        const Vec<T,N> applyInverse(Vec<T,N> p) const {
-            Vec<T,N+1> p_hom(p,1);
-            p_hom = inv * p_hom; // this is returning a dynamic matrix for some reason.
-            return p_hom.template resized<N>();
         }
         
-        const Vec<T,N> applyInverseVector(Vec<T,N> v) const {
-            Vec<T,N> o;
-            for (index_t r = 0; r < N; r++){
-                for (index_t c = 0; c < N; c++){
-                    o[r] += inv.get(r,c) * v[c];
-                }
-            }
-            return o;
-        }
-        
-        const Vec<T,N> applyNormal(Vec<T,N> n) const {
+        const Vec<T,N> applyNormal(const Vec<T,N> &n) const {
             // normal matrix = txpose of inverse.
             Vec<T,N> o;
-            for (index_t r = 0; r < N; r++){
-                for (index_t c = 0; c < N; c++){
+            for (index_t r = 0; r < N; r++) {
+                for (index_t c = 0; c < N; c++) {
                     o[r] += inv.get(c,r) * n[c];
                 }
             }
             return o;
         }
         
-        const Vec<T,N> applyInverseNormal(Vec<T,N> n) const {
+        const Vec<T,N> applyInverse(const Vec<T,N> &p) const {
+            Vec<T,N+1> p_hom(p,1);
+            p_hom = inv * p_hom; // this is returning a dynamic matrix for some reason.
+            return p_hom.template resized<N>();
+        }
+        
+        const Vec<T,N> applyInverseVector(const Vec<T,N> &v) const {
+            Vec<T,N> o;
+            for (index_t r = 0; r < N; r++) {
+                for (index_t c = 0; c < N; c++) {
+                    o[r] += inv.get(r,c) * v[c];
+                }
+            }
+            return o;
+        }
+        
+        const Vec<T,N> applyInverseNormal(const Vec<T,N> &n) const {
             // txpose of inverse of inverse.
             Vec<T,N> o;
-            for (index_t r = 0; r < N; r++){
-                for (index_t c = 0; c < N; c++){
+            for (index_t r = 0; r < N; r++) {
+                for (index_t c = 0; c < N; c++) {
                     o[r] += mat.get(c,r) * n[c];
                 }
             }
@@ -169,7 +169,7 @@ namespace geom {
     
     // rotation about an axis
     template <typename T>
-    inline void rotmat(SimpleMatrix<T,4,4> *into, Vec<T,3> axis, T theta) {
+    inline void rotmat(SimpleMatrix<T,4,4> *into, const Vec<T,3> &axis, T theta) {
         rotmat(into, axis.x, axis.y, axis.z, theta);
     }
 
@@ -268,7 +268,7 @@ namespace geom {
         std::copy(from, from+16, inv);
         
         // add sine terms in.
-        for (index_t i = 0; i < 12; i++, mat++, inv++, sfrom++){
+        for (index_t i = 0; i < 12; i++, mat++, inv++, sfrom++) {
             *mat += *sfrom;
             *inv -= *sfrom; // sin(-x) == -sin(x); thus all the s-terms go negative
         }
@@ -278,8 +278,8 @@ namespace geom {
     template <typename T>
     inline void rotmat(SimpleMatrix<T,4,4> *out_mat,
                        SimpleMatrix<T,4,4> *out_inv,
-                       Vec<T,3> axis,
-                       Vec<T,3> ctr,
+                       const Vec<T,3> &axis,
+                       const Vec<T,3> &ctr,
                        T theta) {
         rotmat(out_mat, out_inv, axis.x, axis.y, axis.z, ctr.x, ctr.y, ctr.z, theta);
     }
@@ -289,7 +289,7 @@ namespace geom {
      *******************************/
 
     template <typename T> 
-    AffineTransform<T,3> rotation(Vec<T,3> axis, T radians){
+    AffineTransform<T,3> rotation(const Vec<T,3> &axis, T radians) {
         AffineTransform<T,3> atnew;
         axis = axis.unit();
         rotmat(&atnew.mat, axis.x, axis.y, axis.z, radians);
@@ -298,7 +298,7 @@ namespace geom {
     }
     
     template <typename T> 
-    AffineTransform<T,3> rotation(Vec<T,3> axis, Vec<T,3> center, T radians){
+    AffineTransform<T,3> rotation(const Vec<T,3> &axis, const Vec<T,3> &center, T radians) {
         AffineTransform<T,3> atnew;
         axis = axis.unit();
         
@@ -309,7 +309,7 @@ namespace geom {
     }
     
     template <typename T> 
-    AffineTransform<T,3> rotation(Quat<T> q){
+    AffineTransform<T,3> rotation(const Quat<T> &q) {
         AffineTransform<T,3> atnew;
         q = q.unit();
         rotmat(&atnew.mat, q);
@@ -318,7 +318,7 @@ namespace geom {
     }
     
     template <typename T> 
-    AffineTransform<T,2> rotation(T radians){
+    AffineTransform<T,2> rotation(T radians) {
         AffineTransform<T,2> atnew;
         T s = sin(radians);
         T c = cos(radians);
@@ -337,9 +337,9 @@ namespace geom {
     }
     
     template <typename T, index_t N> 
-    AffineTransform<T,N> translation(Vec<T,N> tx){
+    AffineTransform<T,N> translation(const Vec<T,N> &tx) {
         AffineTransform<T,N> atnew;
-        for (index_t i = 0; i < N; i++){
+        for (index_t i = 0; i < N; i++) {
             atnew.mat[i][3] =  tx[i];
             atnew.inv[i][3] = -tx[i];
         }
@@ -347,9 +347,9 @@ namespace geom {
     }
     
     template <typename T, index_t N> 
-    AffineTransform<T,N> scale(Vec<T,N> sx){
+    AffineTransform<T,N> scale(const Vec<T,N> &sx) {
         AffineTransform<T,N> atnew;
-        for (index_t i = 0; i < N; i++){
+        for (index_t i = 0; i < N; i++) {
             atnew.mat[i][i] = sx[i];
             atnew.inv[i][i] = 1 / sx[i];
         }
@@ -357,7 +357,7 @@ namespace geom {
     }
     
     template <typename T, index_t N> 
-    AffineTransform<T,N> transformation(const SimpleMatrix<T,N,N> &mat){
+    AffineTransform<T,N> transformation(const SimpleMatrix<T,N,N> &mat) {
         SimpleMatrix<T,N,N> m_inv;
         AffineTransform<T,N> atnew;
         inv(&m_inv, mat);
@@ -370,22 +370,22 @@ namespace geom {
     //2D & 3D convenience:
     
     template <typename T> 
-    AffineTransform<T,3> scale(T sx, T sy, T sz){
+    AffineTransform<T,3> scale(T sx, T sy, T sz) {
         return scale(Vec<T,3>(sx,sy,sz));
     }
     
     template <typename T> 
-    AffineTransform<T,2> scale(T sx, T sy){
+    AffineTransform<T,2> scale(T sx, T sy) {
             return scale(Vec<T,2>(sx,sy));
         }
     
     template <typename T> 
-    AffineTransform<T,3> translation(T tx, T ty, T tz){
+    AffineTransform<T,3> translation(T tx, T ty, T tz) {
         return translation(Vec<T,3>(tx,ty,tz));
     }
     
     template <typename T> 
-    AffineTransform<T,2> translation(T tx, T ty){
+    AffineTransform<T,2> translation(T tx, T ty) {
         return translation(Vec<T,2>(tx,ty));
     }
 

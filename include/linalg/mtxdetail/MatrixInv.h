@@ -42,7 +42,7 @@ struct _ImplMtxInvRaw {
     
     template <typename S, index_t J, index_t K, typename Mx>
     static inline bool inv(SimpleMatrix<S,J,K> *into, const Mx &m) {
-        PLUDecomposition<typename Mx::elem_t, Mx::ROWDIM, Mx::COLDIM> plu = plu_decompose(m);
+        PLUDecomposition<typename Mx::elem_t, Mx::ROWDIM, Mx::COLDIM> plu(m);
         if (plu.isSingular()) return false;
         plu.inverse(into);
         return true;
@@ -64,7 +64,7 @@ struct _ImplMtxInvRaw<T,DYNAMIC_DIM> {
             case 4:
                 return geom::detail::_ImplMtxInvRaw<T,4>::inv(into, m);
             default:
-                PLUDecomposition<typename Mx::elem_t, Mx::ROWDIM, Mx::COLDIM> plu = plu_decompose(m);
+                PLUDecomposition<typename Mx::elem_t, Mx::ROWDIM, Mx::COLDIM> plu(m);
                 if (plu.isSingular()) return false;
                 plu.inverse(into);
                 return true;
