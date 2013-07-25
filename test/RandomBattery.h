@@ -8,7 +8,7 @@
 #ifndef RANDOMBATTERY_H_
 #define RANDOMBATTERY_H_
 
-#include "random/Random.h"
+#include <geomc/random/Random.h>
 
 namespace geom {
 

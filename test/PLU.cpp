@@ -1,7 +1,7 @@
 #include <iostream>
-#include "random/MTRand.h"
-#include "random/RandomTools.h"
-#include "linalg/Matrix.h"
+#include <geomc/random/MTRand.h>
+#include <geomc/random/RandomTools.h>
+#include <geomc/linalg/Matrix.h>
 
 using namespace std;
 using namespace geom;

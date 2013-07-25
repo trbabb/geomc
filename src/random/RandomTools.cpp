@@ -6,8 +6,8 @@
  */
 
 #include <cmath>
-#include "random/RandomTools.h"
-#include "random/MTRand.h"
+#include <geomc/random/RandomTools.h>
+#include <geomc/random/MTRand.h>
 
 using namespace geom;
 

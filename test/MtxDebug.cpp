@@ -1,7 +1,7 @@
 #include <iostream>
 #include <typeinfo>
-#include "linalg/Matrix.h"
-#include "linalg/Vec.h"
+#include <geomc/linalg/Matrix.h>
+#include <geomc/linalg/Vec.h>
 
 using namespace std;
 using namespace geom;

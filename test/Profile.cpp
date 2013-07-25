@@ -11,17 +11,19 @@
 
 #include <boost/iterator/counting_iterator.hpp>
 
-#include "linalg/Vec.h"
-#include "linalg/Matrix.h"
-#include "function/Path.h"
-#include "random/RandomTools.h"
+#include <geomc/linalg/Vec.h>
+#include <geomc/linalg/Matrix.h>
+#include <geomc/function/Path.h>
+#include <geomc/random/RandomTools.h>
+#include <geomc/random/MTRand.h>
+#include <geomc/random/LCRand.h>
+#include <geomc/function/PerlinNoise.h>
+#include <geomc/function/Raster.h>
+#include <geomc/shape/BinLatticePartition.h>
+#include <geomc/shape/Trace.h>
+
+
 #include "RandomBattery.h"
-#include "random/MTRand.h"
-#include "random/LCRand.h"
-#include "function/PerlinNoise.h"
-#include "function/Raster.h"
-#include "shape/BinLatticePartition.h"
-#include "shape/Trace.h"
 
 //#include "linalg/mtxdetail/SimpleMatrix.h"
 
@@ -422,7 +424,7 @@ void test_matrixOrder() {
 	index_t sz_r = 5;
 	index_t sz_c = 7;
 	SparseMatrix<double> mtx(sz_r,sz_c);
-
+    
 	double ct = 0;
 	for (SparseMatrix<double>::iterator it = mtx.begin(); it != mtx.end(); it++) {
 		*it = ct++;

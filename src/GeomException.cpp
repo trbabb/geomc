@@ -7,7 +7,7 @@
 
 #include <stdexcept>
 #include <stdio.h>
-#include "GeomException.h"
+#include <geomc/GeomException.h>
 
 /////////////// GeomException ///////////////
 

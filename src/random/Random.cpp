@@ -10,7 +10,7 @@
 #include <algorithm>
 #include <limits>
 
-#include "random/Random.h"
+#include <geomc/random/Random.h>
 
 #define INT_SIGNBIT       (1 << std::numeric_limits<int>::digits)
 #define LONG_SIGNBIT      (1L << std::numeric_limits<long>::digits)

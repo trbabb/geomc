@@ -26,8 +26,8 @@ build/%.o : src/random/%.cpp
 	$(CC) $(CFLAGS) $(addprefix -I, $(INCLUDES)) -o $@ $<
 
 install:
-	mkdir -p $(INCDIR)/geomc
-	cp -rf ./include/* $(INCDIR)/geomc
+	mkdir -p $(INCDIR)
+	cp -rf ./include/geomc $(INCDIR)
 	cp -rf $(LIB) $(LIBDIR)
 
 clean:

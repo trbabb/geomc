@@ -6,7 +6,7 @@
  */
 
 #include <ctime>
-#include "random/LCRand.h"
+#include <geomc/random/LCRand.h>
 
 namespace geom {
 

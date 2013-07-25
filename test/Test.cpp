@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-#include "function/Raster.h"
+#include <geomc/function/Raster.h>
 
 using namespace std;
 using namespace geom;

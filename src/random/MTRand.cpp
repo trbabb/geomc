@@ -14,8 +14,8 @@
 #include <cstdlib>
 #include <ctime>
 #include <limits>
-#include "random/MTRand.h"
-#include "random/LCRand.h"
+#include <geomc/random/MTRand.h>
+#include <geomc/random/LCRand.h>
 
 using namespace geom;
 
