@@ -4,7 +4,7 @@ what if:
  
 MATRIX:
   - fix mtx multiplication for SimpleMtx to operate on T* rather than the matrix, to prevent code bloat
-  - in-place LU solving (collapse L and U storage to one matrix). 
+  x in-place LU solving (collapse L and U storage to one matrix). 
       inverse still requires double-alloc for dynamic mtxs;
       not great for many repeated inversions.
   - determinant.
@@ -55,11 +55,12 @@ MATRIX:
     - backwards grid iterators are definitely broken.
 
 GENERAL CLEANUP/MAJOR TODOS:
+  - fix include path to use geomc/ prefix.
   x major problem: matrix copy/reference semantics change based on
     dynamic-ness. should always be copy-like. consider using && ref operators.
     > actually not a problem, given that small matrices should be static and large
       should be dynamic. just be sure to document.
-  - switch to scons or automake/autoconf; ditch shitty eclipse build system. and ditch eclipse.
+  x switch to scons or automake/autoconf; ditch shitty eclipse build system. and ditch eclipse.
   x make Raster 
   - raster doesn't work with dynamic size (specialize the class)
     - also consider templating the input type at call sites, there is no
@@ -104,7 +105,8 @@ GENERAL CLEANUP/MAJOR TODOS:
     - what you want is the orthogonal complement, or the space of basis vectors that are perpendicular to your N-1 dimensional subspace
     - in the cross product case, you have two equations (b1 . n = 0; b2 . n = 0) and three unknowns (nx, ny, nz).
       the last degree of freedom is the magnitude of n. unclear as of yet how this arises.
-    - compute by taking the ~~determinant~~ cofactor expansion with i,j,k,...
+    o compute by taking the ~~determinant~~ cofactor expansion with i,j,k,...
+      - no, that will be slow and unstable. look up 'matrix kernel' or 'matrix null space'.
   - mtx determinant
     x reduce to upper triangular and mult rows?
     - specialize, validate, and expose this
