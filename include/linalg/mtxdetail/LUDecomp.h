@@ -94,6 +94,10 @@ bool _ImplDecompPLU(T* m, index_t rows, index_t cols, index_t *reorder, bool *sw
 
 template <typename T, index_t M, index_t N>
 class PLUDecomposition {
+public:
+    static const index_t DIAG = M<N?M:N;
+    typedef SimpleMatrix<T,M,DIAG> L_t;
+    typedef SimpleMatrix<T,DIAG,N> U_t;
     
 protected:
     SimpleMatrix<T,M,N> LU;
@@ -138,42 +142,54 @@ public:
         return LU;
     }
     
-    const SimpleMatrix<T,M,M> getL() const {
-        typedef detail::_ImplMtxInstance< SimpleMatrix<T,M,M> > instancer;
-        SimpleMatrix<T,M,M> out = instancer::instance(LU.rows(), LU.rows());
+    const SimpleMatrix<T,M,DIAG> getL() const {
+        typedef detail::_ImplMtxInstance< SimpleMatrix<T,M,DIAG> > instancer;
+        const index_t diag = std::min(LU.rows(), LU.cols());
+        SimpleMatrix<T,M,DIAG> out = instancer::instance(LU.rows(), diag);
         _copyL(out);
         return out;
     }
     
-    const SimpleMatrix<T,M,N> getU() const {
-        typedef detail::_ImplMtxInstance< SimpleMatrix<T,M,N> > instancer;
-        SimpleMatrix<T,M,N> out = instancer::instance(LU.rows(), LU.cols());
+    const SimpleMatrix<T,DIAG,N> getU() const {
+        typedef detail::_ImplMtxInstance< SimpleMatrix<T,DIAG,N> > instancer;
+        const index_t diag = std::min(LU.rows(), LU.cols());
+        SimpleMatrix<T,DIAG,N> out = instancer::instance(diag, LU.cols());
         _copyU(out);
         return out;
     }
     
     template <typename S, index_t J, index_t K>
     inline typename boost::enable_if_c<
-            detail::MatrixDimensionMatch<SimpleMatrix<T,M,M>, SimpleMatrix<S,J,K> >::isStaticMatch,
+            detail::MatrixDimensionMatch<L_t, SimpleMatrix<S,J,K> >::isStaticMatch,
         void>::type 
     getL(SimpleMatrix<S,J,K> *into) const {
-        if ((M * J == 0 or M != J) and into->rows() != LU.rows()) {
-            throw DimensionMismatchException(into->rows(), into->cols(), LU.rows(), LU.cols());
+        #ifdef GEOMC_MTX_CHECK_DIMS
+        const index_t diag = std::min(LU.rows(), LU.cols());
+        if ((J * L_t::ROWDIM == 0 or J != L_t::ROWDIM or
+             K * L_t::COLDIM == 0 or K != L_t::COLDIM) and 
+             (into->rows() != LU.rows() or into->cols() != diag)) {
+            throw DimensionMismatchException(into->rows(), into->cols(), LU.rows(), diag);
         }
         if ((J * K == 0 or J != K) and into->rows() != into->cols()) {
             throw NonsquareMatrixException(into->rows(), into->cols());
         }
+        #endif
         _copyL(into);
     }
     
     template <typename S, index_t J, index_t K>
     inline typename boost::enable_if_c<
-            detail::MatrixDimensionMatch<SimpleMatrix<T,M,N>, SimpleMatrix<S,J,K> >::isStaticMatch,
+            detail::MatrixDimensionMatch<U_t, SimpleMatrix<S,J,K> >::isStaticMatch,
         void>::type
     getU(SimpleMatrix<S,J,K> *into) const {
-        if ((M * J == 0 or M != J) and (into->rows() != LU.rows() or into->cols() != LU.cols())) {
-            throw DimensionMismatchException(into->rows(), into->cols(), LU.rows(), LU.cols());
+        #ifdef GEOMC_MTX_CHECK_DIMS
+        const index_t diag = std::min(LU.rows(), LU.cols());
+        if ((J * U_t::ROWDIM == 0 or J != U_t::ROWDIM or 
+             K * U_t::COLDIM == 0 or K != U_t::COLDIM) and
+             (into->rows() != diag or into->cols() != LU.cols())) {
+            throw DimensionMismatchException(into->rows(), into->cols(), diag, LU.cols());
         }
+        #endif
         _copyU(into);
     }
     

@@ -1,7 +1,0 @@
-#!/bin/bash
-
-for f in ./src/*cpp ./src/*/*cpp; do 
-    g++ -I"/usr/local/boost" -I"./include" -O3 -Wall -c -fmessage-length=0 -Wno-unused -Wno-unused-local-typedefs $f -o ./build/`basename $f .cpp`.o;
-done
-ar rvs lib/libgeomc.a build/*.o
-

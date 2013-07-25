@@ -1,17 +1,17 @@
 CC = g++
 AR = ar
-CFLAGS  = -O3 -Wall -c -fmessage-length=0 -Wno-unused -Wno-unused-local-typedefs
+CFLAGS   = -O3 -Wall -c -fmessage-length=0 -Wno-unused -Wno-unused-local-typedefs
 INCLUDES = /usr/local/boost ./include
-SOURCES = src/GeomException.cpp \
-	src/random/LCRand.cpp \
-	src/random/MTRand.cpp \
-	src/random/Random.cpp \
-	src/random/RandomTools.cpp
+SOURCES  = src/GeomException.cpp \
+	   src/random/LCRand.cpp \
+	   src/random/MTRand.cpp \
+	   src/random/Random.cpp \
+	   src/random/RandomTools.cpp
 
-OBJECTS = $(addprefix build/, $(notdir $(SOURCES:.cpp=.o)))
-LIB     = lib/libgeomc.a
-INCDIR  = /opt/local/include
-LIBDIR  = /opt/local/lib
+OBJECTS  = $(addprefix build/, $(notdir $(SOURCES:.cpp=.o)))
+LIB      = lib/libgeomc.a
+INCDIR   = /opt/local/include
+LIBDIR   = /opt/local/lib
 
 all: lib
 	echo done.
