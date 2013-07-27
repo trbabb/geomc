@@ -2,11 +2,11 @@ CC = g++
 AR = ar
 CFLAGS   = -O3 -Wall -c -fmessage-length=0 -Wno-unused -Wno-unused-local-typedefs
 INCLUDES = /usr/local/boost ./include
-SOURCES  = src/GeomException.cpp \
-	   src/random/LCRand.cpp \
-	   src/random/MTRand.cpp \
-	   src/random/Random.cpp \
-	   src/random/RandomTools.cpp
+SOURCES  = geomc/GeomException.cpp \
+	   geomc/random/LCRand.cpp \
+	   geomc/random/MTRand.cpp \
+	   geomc/random/Random.cpp \
+	   geomc/random/RandomTools.cpp
 
 OBJECTS  = $(addprefix build/, $(notdir $(SOURCES:.cpp=.o)))
 LIB      = lib/libgeomc.a
@@ -19,15 +19,15 @@ all: lib
 lib: $(OBJECTS)
 	$(AR) rs $(LIB) $(OBJECTS)
 
-build/GeomException.o : src/GeomException.cpp
-	$(CC) $(CFLAGS) $(addprefix -I, $(INCLUDES)) -o build/GeomException.o src/GeomException.cpp
+build/%.o : geomc/random/%.cpp
+	$(CC) $(CFLAGS) $(addprefix -I, $(INCLUDES)) -o $@ $<
 
-build/%.o : src/random/%.cpp
+build/%.o : geomc/%.cpp
 	$(CC) $(CFLAGS) $(addprefix -I, $(INCLUDES)) -o $@ $<
 
 install:
 	mkdir -p $(INCDIR)
-	cp -rf ./include/geomc $(INCDIR)
+	cp -rf ./geomc $(INCDIR)
 	cp -rf $(LIB) $(LIBDIR)
 
 clean:

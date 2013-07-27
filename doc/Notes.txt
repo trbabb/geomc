@@ -55,7 +55,10 @@ MATRIX:
     - backwards grid iterators are definitely broken.
 
 GENERAL CLEANUP/MAJOR TODOS:
-  - fix include path to use geomc/ prefix.
+  - fix hash functions
+  - put sources back in with headers; remove redundant /include dir
+    and fix up makefile to work with it.
+  x fix include path to use geomc/ prefix.
   x major problem: matrix copy/reference semantics change based on
     dynamic-ness. should always be copy-like. consider using && ref operators.
     > actually not a problem, given that small matrices should be static and large
@@ -78,8 +81,9 @@ GENERAL CLEANUP/MAJOR TODOS:
     x PermutationMatrix throws a wrench in it, however, as it cannot have non-const
       iterators. therefore it cannot inherit from the base class.
       x MutableMatrix inherits from MatrixBase? PermutationMatrix inherits from MatrixBase?
-  - end() pointers appear all fucked up for matrix regions.
-  - cleanup all the <using>s that accidentally leaked into namespace geom
+  x end() pointers appear all fucked up for matrix regions.
+    x as far as I can tell, this is fixed.
+  x cleanup all the <using>s that accidentally leaked into namespace geom
   x extricate specialized classes from Expr<>; make wrapper exprs for each instead
     - Image (needs wrapper)
     x Perlin
