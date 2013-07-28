@@ -10,15 +10,17 @@ SOURCES  = geomc/GeomException.cpp \
 	   geomc/random/RandomTools.cpp
 
 OBJECTS  = $(addprefix build/, $(notdir $(SOURCES:.cpp=.o)))
-LIB      = lib/libgeomc.a
+LIBNAME  = libgeomc.a
+LIB      = lib/$(LIBNAME)
 INCDIR   = /opt/local/include
 LIBDIR   = /opt/local/lib
 
 all: lib
-	echo done.
 
 lib: $(OBJECTS)
 	$(AR) rs $(LIB) $(OBJECTS)
+	@echo
+	@echo Done building library.
 
 profile: lib build/Profile.o
 	$(CC) $(LIB) build/Profile.o -o bin/profile
@@ -43,4 +45,4 @@ clean:
 
 uninstall:
 	rm -rf $(INCDIR)/geomc
-	rm -f $(LIBDIR)/$(LIB)
+	rm -f $(LIBDIR)/$(LIBNAME)
