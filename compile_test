@@ -1,6 +1,6 @@
 #!/bin/bash
 
-g++ -I"/usr/local/boost" -Iinclude -O3 -Wall -c -fmessage-length=0 -Wno-unused -Wno-unused-local-typedefs test/PLU.cpp -o build/test/PLU.o && g++ ./lib/libgeomc.a build/test/PLU.o -o bin/plu
+g++ -I"/usr/local/boost" -I. -O3 -Wall -c -fmessage-length=0 -Wno-unused -Wno-unused-local-typedefs test/PLU.cpp -o build/test/PLU.o && g++ ./lib/libgeomc.a build/test/PLU.o -o bin/plu
 
-g++ -I"/usr/local/boost" -Iinclude -O3 -Wall -c -fmessage-length=0 -Wno-unused -Wno-unused-local-typedefs test/Profile.cpp && g++ ./lib/libgeomc.a Profile.o -o bin/profile
+g++ -I"/usr/local/boost" -I. -O3 -Wall -c -fmessage-length=0 -Wno-unused -Wno-unused-local-typedefs test/Profile.cpp && g++ ./lib/libgeomc.a Profile.o -o bin/profile
 

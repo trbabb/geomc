@@ -86,10 +86,10 @@ bool _ImplDecompPLU(T* m, index_t rows, index_t cols, index_t *reorder, bool *sw
 
 //////////// PLU class ////////////
 
-// LU is stores both the upper and lower triangular parts of the decomposition.
+// LU stores both the upper and lower triangular parts of the decomposition.
 // The diagonal one elements (which belong to L) are not stored.
 
-// P has dimension (U.rows() x U.rows())
+// P has dimension (LU.rows() x LU.rows())
 // LU has the dimension of the source
 
 template <typename T, index_t M, index_t N>

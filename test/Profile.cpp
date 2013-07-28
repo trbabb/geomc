@@ -25,8 +25,6 @@
 
 #include "RandomBattery.h"
 
-//#include "linalg/mtxdetail/SimpleMatrix.h"
-
 #define NUM_PROFILE_CASES 1024;
 
 using namespace geom;
@@ -389,6 +387,19 @@ template <typename M> void test_mtxRegionCopy(index_t rows, index_t cols) {
 	cout << m;
 }
 
+template <typename T, index_t M, index_t N> void test_mtxArithmetic(index_t rows, index_t cols) {
+	SimpleMatrix<T,M,N> a(rows,cols);
+    SimpleMatrix<T,M,N> b(rows,cols);
+    SimpleMatrix<T,M,N == 0 ? 0 : N+1> bogus(rows,cols+1);
+    
+    cout << "addTest:" << endl;
+    cout << a + b << endl;
+    cout << a * 3 << endl;
+    cout << 3 * a << endl;
+    //correctly does not compile:
+    //cout << a + bogus << endl;
+}
+
 template <index_t N> void test_permuteMatrix() {
 	PermutationMatrix<N> p;
 	Vec<double,N> v;
@@ -470,6 +481,7 @@ int main(int argc, char** argv) {
     
     test_permuteMatrix<5>();
     test_simpleMatrix<4,3>();
+    test_mtxArithmetic<double,4,3>(4,3);
     
     profile("3d cross product", profile_vec_cross, iters);
     std::cout << std::endl;

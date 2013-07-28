@@ -9,10 +9,12 @@
 #ifndef MATRIXFUNCTION_H_
 #define MATRIXFUNCTION_H_
 
+#include <boost/type_traits/is_scalar.hpp>
 #include <geomc/linalg/mtxdetail/MatrixFunctionImpl.h>
 #include <geomc/linalg/mtxdetail/MatrixMult.h>
 #include <geomc/linalg/mtxdetail/LUDecomp.h>
 #include <geomc/linalg/mtxdetail/MatrixInv.h>
+#include <geomc/linalg/mtxdetail/MatrixArithmetic.h>
 
 #ifdef GEOMC_LINALG_USE_STREAMS
   #include <iostream>
@@ -117,7 +119,7 @@ void mtxcopy(Md *into, const Ms &src,
 
 
 /************************************
- * Matrix functions                 *
+ * Matrix mul                       *
  ************************************/
 
 /* Matrix <-> Matrix / Matrix <-> Vector mult operation
@@ -268,6 +270,9 @@ mul(const Ma &a, const Mb &b) {
     return dest;
 }
 
+/*********************************
+ * Matrix transpose              *
+ *********************************/
 
 // matrix <- matrix transpose
 template <typename Md, typename Mx>
@@ -319,6 +324,10 @@ transpose(const Mx &m) {
 }
 
 
+/*********************************
+ * Matrix inverse                *
+ *********************************/
+
 // mtx <- inv(mtx)
 template <typename Md, typename Mx>
 bool inv(Md *into, const Mx &src,
@@ -349,12 +358,122 @@ typename detail::_ImplMtxInv<Mx>::return_t inv(const Mx &m, bool *success,
     typedef detail::_ImplMtxInv<Mx> inv_t;
     typedef typename inv_t::return_t return_t;
     
+#ifdef GEOMC_MTX_CHECK_DIMS
     if ((Mx::ROWDIM == DYNAMIC_DIM or Mx::COLDIM == DYNAMIC_DIM) and m.rows() != m.cols()) {
         throw NonsquareMatrixException(m.rows(), m.cols());
     }
+#endif
     
     return_t into = detail::_ImplMtxInstance<return_t>::instance(m.rows(), m.cols());
     *success = inv_t::inv(&into, m);
+    return into;
+}
+
+
+/*********************************
+ * Matrix add/sub                *
+ *********************************/
+
+// mtx <- mtx + mtx
+template <typename Md, typename Ma, typename Mb>
+typename boost::enable_if_c<
+    detail::MatrixDimensionMatch<Ma,Mb>::isStaticMatch and
+    detail::MatrixDimensionMatch<Ma,Md>::isStaticMatch,
+    void
+>::type 
+add(Md *d, const Ma &a, const Mb &b) {
+    typedef detail::_ImplMatrixAdd<Ma,Mb> add_t;
+#ifdef GEOMC_MTX_CHECK_DIMS
+    detail::MatrixDimensionMatch<Ma,Mb>::check(a,b);
+    detail::MatrixDimensionMatch<Md,Ma>::check(*d,a);
+#endif
+    add_t::add(d,a,b);
+}
+
+// mtx <- mtx - mtx
+template <typename Md, typename Ma, typename Mb>
+typename boost::enable_if_c<
+    detail::MatrixDimensionMatch<Ma,Mb>::isStaticMatch and
+    detail::MatrixDimensionMatch<Ma,Md>::isStaticMatch,
+    void
+>::type 
+sub(Md *d, const Ma &a, const Mb &b) {
+    typedef detail::_ImplMatrixAdd<Ma,Mb> add_t;
+#ifdef GEOMC_MTX_CHECK_DIMS
+    detail::MatrixDimensionMatch<Ma,Mb>::check(a,b);
+    detail::MatrixDimensionMatch<Md,Ma>::check(*d,a);
+#endif
+    add_t::sub(d,a,b);
+}
+
+// mtx + mtx -> mtx
+template <typename Ma, typename Mb>
+typename boost::enable_if_c<
+    detail::MatrixDimensionMatch<Ma,Mb>::isStaticMatch,
+    typename detail::_ImplMatrixAdd<Ma,Mb>::return_t
+>::type 
+add(const Ma &a, const Mb &b) {
+    typedef detail::_ImplMatrixAdd<Ma,Mb> add_t;
+    typedef typename add_t::return_t return_t;
+#ifdef GEOMC_MTX_CHECK_DIMS
+    detail::MatrixDimensionMatch<Ma,Mb>::check(a,b);
+#endif
+    return_t into = detail::_ImplMtxInstance<return_t>::instance(a.rows(), a.cols());
+    add_t::add(&into, a, b);
+    return into;
+}
+
+// mtx - mtx -> mtx
+template <typename Ma, typename Mb>
+typename boost::enable_if_c<
+    detail::MatrixDimensionMatch<Ma,Mb>::isStaticMatch,
+    typename detail::_ImplMatrixAdd<Ma,Mb>::return_t
+>::type 
+sub(const Ma &a, const Mb &b) {
+    typedef detail::_ImplMatrixAdd<Ma,Mb> add_t;
+    typedef typename add_t::return_t return_t;
+#ifdef GEOMC_MTX_CHECK_DIMS
+    detail::MatrixDimensionMatch<Ma,Mb>::check(a,b);
+#endif
+    return_t into = return_t(a.rows(), a.cols());
+    add_t::sub(&into, a, b);
+    return into;
+}
+
+
+/*********************************
+ * Matrix scale                  *
+ *********************************/
+
+// mtx <- const * mtx
+template <typename U, typename Mx, typename Md>
+typename boost::enable_if_c<
+    detail::IsMatrix<Mx>::val and
+    boost::is_scalar<U>::value and
+    detail::MatrixDimensionMatch<Mx,Md>::isStaticMatch,
+    void
+>::type 
+scale(Md *d, U k, const Mx &m) {
+    typedef detail::_ImplMatrixScale<Mx> scale_t;
+    typedef typename scale_t::return_t return_t;
+#ifdef GEOMC_MTX_CHECK_DIMS
+    detail::MatrixDimensionMatch<Mx,Md>::check(m,*d);
+#endif
+    scale_t::scale(d, k, m);
+}
+
+// const * mtx -> mtx
+template <typename U, typename Mx>
+typename boost::enable_if_c<
+    detail::IsMatrix<Mx>::val and
+    boost::is_scalar<U>::value,
+    typename detail::_ImplMatrixScale<Mx>::return_t
+>::type 
+scale(U k, const Mx &m) {
+    typedef detail::_ImplMatrixScale<Mx> scale_t;
+    typedef typename scale_t::return_t return_t;
+    return_t into = return_t(m.rows(), m.cols());
+    scale_t::scale(&into, k, m);
     return into;
 }
 
@@ -362,16 +481,48 @@ typename detail::_ImplMtxInv<Mx>::return_t inv(const Mx &m, bool *success,
  * Matrix operators              *
  *********************************/
 
+// constant * mtx
+template <typename U, typename Mx>
+inline typename boost::enable_if_c<
+    detail::IsMatrix<Mx>::val and boost::is_scalar<U>::value,
+    typename detail::_ImplMatrixScale<Mx>::return_t
+>::type operator*(U k, const Mx &m) {
+    return scale(k,m);
+}
+
+// mtx * constant
+template <typename U, typename Mx>
+inline typename boost::enable_if_c<
+    detail::IsMatrix<Mx>::val and boost::is_scalar<U>::value,
+    typename detail::_ImplMatrixScale<Mx>::return_t
+>::type operator*(const Mx &m, U k) {
+    return scale(k,m);
+}
+
+// mtx + mtx
 template <typename Ma, typename Mb>
-inline 
+inline typename detail::_ImplMatrixAddReturnType<Ma,Mb>::return_t
+operator+(const Ma &a, const Mb &b) {
+    return add(a,b);
+}
+
+// mtx - mtx
+template <typename Ma, typename Mb>
+inline typename detail::_ImplMatrixAddReturnType<Ma,Mb>::return_t
+operator-(const Ma &a, const Mb &b) {
+    return sub(a,b);
+}
+
+// mtx * mtx
+template <typename Ma, typename Mb>
 //error if uncommented. cannot figure out why.
 //typename boost::enable_if_c<(detail::MatrixMultipliable<Ma,Mb>::val), typename detail::_ImplMtxMul<Ma,Mb>::return_t>::type 
-typename boost::enable_if_c<MATRIX_MUL_DIM_AGREE(Ma,Mb), typename detail::_ImplMtxMul<Ma,Mb>::return_t>::type 
+inline typename boost::enable_if_c<MATRIX_MUL_DIM_AGREE(Ma,Mb), typename detail::_ImplMtxMul<Ma,Mb>::return_t>::type 
 operator*(const Ma &a, const Mb &b) {
     return mul<Ma,Mb>(a, b);
 }
 
-// equality operator
+// mtx == mtx
 template <typename Ma, typename Mb>
 typename boost::enable_if_c<
         detail::IsMatrix<Ma>::val and detail::IsMatrix<Mb>::val and
@@ -386,7 +537,8 @@ operator==(const Ma &a, const Mb &b) {
     return detail::mtxequal(a,b);
 }
 
-// equality operator (static dimension mismatch; never equal)
+// mtx == mtx 
+// (static dimension mismatch; never equal)
 template <typename Ma, typename Mb>
 typename boost::enable_if_c<
                 detail::IsMatrix<Ma>::val and detail::IsMatrix<Mb>::val and
@@ -396,7 +548,7 @@ operator==(const Ma &a, const Mb &b) {
     return false;
 }
 
-// inequality operator
+// mtx != mtx
 template <typename Ma, typename Mb>
 inline typename boost::enable_if_c<detail::IsMatrix<Ma>::val and detail::IsMatrix<Mb>::val, bool>::type
 operator!=(const Ma &a, const Mb &b) {
@@ -425,9 +577,6 @@ operator<<(std::ostream &s, const Mx &mtx) {
 }
 
 #endif
-
-//TODO: +/-, scalar mult/div on matrices.
-//TODO: LU_decomp (and hookup to inv)
 
 }; // namespace geom
 

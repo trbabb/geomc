@@ -1,7 +1,8 @@
 CC = g++
 AR = ar
+INCLUDES = /usr/local/boost .
 CFLAGS   = -O3 -Wall -c -fmessage-length=0 -Wno-unused -Wno-unused-local-typedefs
-INCLUDES = /usr/local/boost ./include
+IFLAGS   = $(addprefix -I, $(INCLUDES))
 SOURCES  = geomc/GeomException.cpp \
 	   geomc/random/LCRand.cpp \
 	   geomc/random/MTRand.cpp \
@@ -19,13 +20,19 @@ all: lib
 lib: $(OBJECTS)
 	$(AR) rs $(LIB) $(OBJECTS)
 
+profile: lib build/Profile.o
+	$(CC) $(LIB) build/Profile.o -o bin/profile
+
+build/Profile.o: test/Profile.cpp
+	$(CC) $(CFLAGS) $(IFLAGS) -o build/Profile.o test/Profile.cpp 
+
 build/%.o : geomc/random/%.cpp
-	$(CC) $(CFLAGS) $(addprefix -I, $(INCLUDES)) -o $@ $<
+	$(CC) $(CFLAGS) $(IFLAGS) -o $@ $<
 
 build/%.o : geomc/%.cpp
-	$(CC) $(CFLAGS) $(addprefix -I, $(INCLUDES)) -o $@ $<
+	$(CC) $(CFLAGS) $(IFLAGS) -o $@ $<
 
-install:
+install: all
 	mkdir -p $(INCDIR)
 	cp -rf ./geomc $(INCDIR)
 	cp -rf $(LIB) $(LIBDIR)
