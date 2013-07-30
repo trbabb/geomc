@@ -3,11 +3,9 @@ AR = ar
 INCLUDES = /usr/local/boost .
 CFLAGS   = -O3 -Wall -c -fmessage-length=0 -Wno-unused -Wno-unused-local-typedefs
 IFLAGS   = $(addprefix -I, $(INCLUDES))
-SOURCES  = geomc/GeomException.cpp \
-	   geomc/random/LCRand.cpp \
-	   geomc/random/MTRand.cpp \
-	   geomc/random/Random.cpp \
-	   geomc/random/RandomTools.cpp
+MODULES  = function linalg random shape
+SOURCES  = $(wildcard geomc/*.cpp) \
+           $(foreach m, $(MODULES), $(wildcard geomc/$(m)/*.cpp))
 
 OBJECTS  = $(addprefix build/, $(notdir $(SOURCES:.cpp=.o)))
 LIBNAME  = libgeomc.a
