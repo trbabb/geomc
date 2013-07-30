@@ -47,7 +47,6 @@ public:
      * Operators                   *
      *******************************/
     
-    // TODO: do I have to do a conj, or something?
     friend inline Quat<T> operator*(const Quat<T> &q1, const Quat<T> &q2) {
         return q1.mult(q2);
     }
@@ -134,7 +133,6 @@ public:
         return Quat<T>(sin(theta) * vectorPart().unit(), cos(theta));
     }
 
-    //TODO: test this.
     //TODO: nlerp for small t for better numerical stability.
     Quat<T> slerp(const Quat<T> &q1, T t) const {
         // assumed unit quaternion.

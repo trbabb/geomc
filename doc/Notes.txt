@@ -13,9 +13,10 @@ MATRIX:
     - use this to clean up the defs of some of the operators
   - test matrix intercompatibility
   - matrix generalized iterator is slower
-  - end() operator needs clear definition
+  - end() iterator position needs clear definition
   - problem: some functions have unpredictable return types. could make 
     usage difficult except in cases of fn(a) * b, e.g.
+  x matrix +/-/* operators
   x matrix in-place transpose
   x fix mtxcopy to be src, dest
     x everything else is dst, src; and this is better.

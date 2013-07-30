@@ -12,7 +12,9 @@
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <geomc/shape/GridIterator.h>
-#include <geomc/linalg/mtxdetail/MatrixMacro.h>
+
+// Mt is a type
+#define REQUIRE_MATRIX_T(Mt) typename boost::enable_if<boost::is_base_of<geom::detail::MatrixBase<typename Mt::elem_t, Mt::ROWDIM, Mt::COLDIM, Mt>, Mt> >::type
 
 namespace geom {
 
@@ -456,6 +458,29 @@ struct _ImplVecOrient <Ma, Mb, typename boost::enable_if_c<(IsMatrix<Ma>::val an
 };
 
 /////////////////////////////////////////
+// Do two linear algebra objects       //
+// (matrixes/vectors) have matching    //
+// dimension?                          //
+/////////////////////////////////////////
+
+template <typename Ma, typename Mb, typename Enable=void>
+struct LinalgDimensionMatch {
+    static const bool val = false;
+};
+
+template <typename Ma, typename Mb>
+struct LinalgDimensionMatch <Ma,Mb,
+        typename boost::enable_if_c<
+            (((_ImplMtxAdaptor<Ma, _ImplVecOrient<Ma,Mb>::orient>::ROWDIM == _ImplMtxAdaptor<Mb, _ImplVecOrient<Ma,Mb>::orient>::ROWDIM) or 
+              (_ImplMtxAdaptor<Ma, _ImplVecOrient<Ma,Mb>::orient>::ROWDIM  * _ImplMtxAdaptor<Mb, _ImplVecOrient<Ma,Mb>::orient>::ROWDIM == 0)) and 
+              /* col dimension match */
+             ((_ImplMtxAdaptor<Ma, _ImplVecOrient<Ma,Mb>::orient>::COLDIM == _ImplMtxAdaptor<Mb, detail::_ImplVecOrient<Ma,Mb>::orient>::COLDIM) or 
+              (_ImplMtxAdaptor<Ma, _ImplVecOrient<Ma,Mb>::orient>::COLDIM  * _ImplMtxAdaptor<Mb, detail::_ImplVecOrient<Ma,Mb>::orient>::COLDIM == 0))),
+        void>::type> {
+    static const bool val = true;
+};
+
+/////////////////////////////////////////
 // Are two matrices multipliable?      //
 /////////////////////////////////////////
 
@@ -467,14 +492,37 @@ struct MatrixMultipliable {
 template <typename Ma, typename Mb>
 struct MatrixMultipliable <Ma, Mb, 
     typename boost::enable_if_c<
+            /* at least one arg is a matrix */
+            (IsMatrix<Ma>::val or IsMatrix<Mb>::val) and
             /* inner dimension match */
             (_ImplMtxAdaptor<Ma, ORIENT_VEC_ROW>::COLDIM == _ImplMtxAdaptor<Mb, ORIENT_VEC_COL>::ROWDIM or
             /* ...or dynamic inner dimension demands runtime check: */
             _ImplMtxAdaptor<Ma, ORIENT_VEC_ROW>::COLDIM == DYNAMIC_DIM or
             _ImplMtxAdaptor<Mb, ORIENT_VEC_COL>::ROWDIM == DYNAMIC_DIM),
-//MATRIX_MUL_DIM_AGREE(Ma,Mb),
         void>::type> {
     static const bool val = true;
+};
+
+/////////////////////////////////////////////////
+// Matrix return type template                 //
+//                                             //
+// this needs aspecial case because of reasons //
+/////////////////////////////////////////////////
+
+//fwd decl
+template <typename Ma, typename Mb, typename Enable>
+class _ImplMtxMul;
+
+template <typename Ma, typename Mb, typename Enable=void>
+struct MatrixMultReturnType {
+    // not multipliable; no return type; engage SFINAE
+};
+
+template <typename Ma, typename Mb>
+struct MatrixMultReturnType <Ma, Mb,
+        typename boost::enable_if_c<
+            MatrixMultipliable<Ma,Mb>::val, void>::type> {
+    typedef typename detail::_ImplMtxMul<Ma,Mb,void>::return_t return_t;
 };
 
 /////////////////////////////////////////

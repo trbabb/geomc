@@ -387,7 +387,7 @@ namespace detail {
         }
         
         inline const Vec<T,N>  operator-(const Vec<T,N> &v) const {
-            return this->minus(v);
+            return this->sub(v);
         }
 
         VecCommon<T,N>& operator-=(const Vec<T,N> &vv){
@@ -435,7 +435,7 @@ namespace detail {
             return r;
         }
         
-        inline const Vec<T,N> minus(const Vec<T,N> &v) const {
+        inline const Vec<T,N> sub(const Vec<T,N> &v) const {
             Vec<T,N> r;
             for (index_t i = 0; i < N; i++){
                 r[i] = this->get(i) - v[i];
@@ -500,11 +500,11 @@ namespace detail {
         }
 
         T dist(const Vec<T,N> &pt) const {
-            return (this->minus(pt)).mag();
+            return (this->sub(pt)).mag();
         }
 
         T dist2(const Vec<T,N> &pt) const {
-            return (this->minus(pt)).mag2();
+            return (this->sub(pt)).mag2();
         }
 
         const Vec<T,N> reflect(const Vec<T,N> &axis) const {

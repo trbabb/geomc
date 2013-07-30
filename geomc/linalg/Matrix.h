@@ -51,7 +51,6 @@
 //TODO: clean arbitrary Matrix handle construction
 //TODO: verify correct matrix template function resolution.
 
-//future: function- or expression-valued matrices?
 //future: look for ways to keep object code bloat down.
 //future: mechanism for col-major mtxs? (iterator based wrapper?) 
 //        (could clutter code, because then other classes must be similarly templated).

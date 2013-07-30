@@ -101,7 +101,7 @@ namespace geom {
         
         //do not hide these; we want to overload them: 
         using detail::VecCommon<T,3>::add;
-        using detail::VecCommon<T,3>::minus;
+        using detail::VecCommon<T,3>::sub;
         using detail::VecCommon<T,3>::scale;
         using detail::VecCommon<T,3>::dot;
         
@@ -109,7 +109,7 @@ namespace geom {
             return Vec<T,3>(detail::VecBase<T,3>::x+dx, detail::VecBase<T,3>::y+dy, detail::VecBase<T,3>::z+dz);
         }
 
-        const Vec<T,3> minus(T dx, T dy, T dz) const {
+        const Vec<T,3> sub(T dx, T dy, T dz) const {
             return Vec<T,3>(detail::VecBase<T,3>::x-dx, detail::VecBase<T,3>::y-dy, detail::VecBase<T,3>::z-dz);
         }
 

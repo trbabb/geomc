@@ -13,7 +13,6 @@
 #include <boost/type_traits/is_same.hpp>
 
 #include <geomc/linalg/LinalgTypes.h>
-#include <geomc/linalg/mtxdetail/MatrixMacro.h>
 #include <geomc/linalg/mtxdetail/MatrixGlue.h>
 
 namespace geom {

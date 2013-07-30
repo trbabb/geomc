@@ -11,6 +11,7 @@
 #include <boost/integer.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <limits>
+#include <algorithm>
 
 // Shall a generic Vec<N> check whether an index is out-of-bounds on every access?
 // Bounds checks can incur signficant cost.
@@ -41,7 +42,7 @@
 #define PI  (3.141592653589793238462643383)
 #define TAU (6.283185307179586476925286767)
 
-#define M_CLAMP(v,lo,hi) std::min(std::max(v,lo),hi)
+#define M_CLAMP(v,lo,hi) std::min(std::max((v),(lo)),(hi))
 
 #define M_ENABLE_IF(cond)   typename boost::enable_if<(cond), int>::type DUMMY=0
 #define M_ENABLE_IF_C(cond) typename boost::enable_if_c<(cond), int>::type DUMMY=0

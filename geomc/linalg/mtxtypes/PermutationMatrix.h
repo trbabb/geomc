@@ -68,7 +68,7 @@ protected:
 
 // fwd decl
 namespace detail {
-template <typename Md, typename Ma, typename Mb> class _ImplMtxMul;
+template <typename Ma, typename Mb, typename Enable> class _ImplMtxMul;
 };
 
 template <index_t N>

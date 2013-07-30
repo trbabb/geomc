@@ -75,7 +75,8 @@ inline bool mtx_aliases_storage(const Vec<T,N> &a, const Vec<T,N> &b) {
 template <typename Md, typename Ms>
 void mtxcopy(Md *into, const Ms &src,
                 typename boost::enable_if_c<
-                     LINALG_DIM_AGREE(Md,Ms) and
+                     detail::LinalgDimensionMatch<Md,Ms>::val and
+//                     LINALG_DIM_AGREE(Md,Ms) and
                      (detail::_ImplVecOrient<Md,Ms>::orient != detail::ORIENT_VEC_UNKNOWN), 
                      int>::type dummy=0) {
 #ifdef GEOMC_MTX_CHECK_DIMS
@@ -304,7 +305,7 @@ Md& transpose(Md *into, const Mx &m,
         return *into;
     }
     #endif
-    detail::_ImplMtxTxpose<Mx>(into, m);
+    txpose_t::transpose(into, m);
     return *into;
 }
 
@@ -515,9 +516,7 @@ operator-(const Ma &a, const Mb &b) {
 
 // mtx * mtx
 template <typename Ma, typename Mb>
-//error if uncommented. cannot figure out why.
-//typename boost::enable_if_c<(detail::MatrixMultipliable<Ma,Mb>::val), typename detail::_ImplMtxMul<Ma,Mb>::return_t>::type 
-inline typename boost::enable_if_c<MATRIX_MUL_DIM_AGREE(Ma,Mb), typename detail::_ImplMtxMul<Ma,Mb>::return_t>::type 
+inline typename detail::MatrixMultReturnType<Ma,Mb>::return_t
 operator*(const Ma &a, const Mb &b) {
     return mul<Ma,Mb>(a, b);
 }

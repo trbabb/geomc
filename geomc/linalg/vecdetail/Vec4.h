@@ -82,7 +82,7 @@ namespace geom {
          *===========================*/
         
         using detail::VecCommon<T,4>::add;
-        using detail::VecCommon<T,4>::minus;
+        using detail::VecCommon<T,4>::sub;
         using detail::VecCommon<T,4>::scale;
         using detail::VecCommon<T,4>::dot;
 
@@ -93,7 +93,7 @@ namespace geom {
                             detail::VecBase<T,4>::w+dw);
         }
 
-        const Vec<T,4> minus(T dx, T dy, T dz, T dw) const {
+        const Vec<T,4> sub(T dx, T dy, T dz, T dw) const {
             return Vec<T,4>(detail::VecBase<T,4>::x-dx, 
                             detail::VecBase<T,4>::y-dy, 
                             detail::VecBase<T,4>::z-dz, 
