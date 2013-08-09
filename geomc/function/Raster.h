@@ -21,6 +21,8 @@ namespace geom {
 
 //TODO: remove cluttering templated sample functions? (15% speed difference, though)
 //TODO: "lobe-yness" of interp is subject to parameterization
+//TODO: really, interpolation and edge behavior should be objects.
+//      e.g. abyss color belongs to abyss edge behavior only.
 //TODO: make work for dynamic.
 //      (specialize entire class?)
 //      or, class RasterHandle<I,O,N,Channels> : public virtual AnyRaster
@@ -35,6 +37,11 @@ namespace geom {
  * Raster class          *
  *************************/
 
+// should be re-templated:
+// - input dimensions?
+// - point type
+// - point dimension
+// - out type (defaults to point type)
 template <typename I, typename O, index_t N, index_t Channels>
 class Raster {
 public:

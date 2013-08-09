@@ -13,34 +13,38 @@ LIB      = lib/$(LIBNAME)
 INCDIR   = /opt/local/include
 LIBDIR   = /opt/local/lib
 
-all: lib
+all : lib
 
-lib: $(OBJECTS)
+docs :
+	doxygen
+
+lib : $(OBJECTS)
 	$(AR) rs $(LIB) $(OBJECTS)
 	@echo
 	@echo Done building library.
 
-profile: lib build/Profile.o
+profile : lib build/Profile.o
 	$(CC) $(LIB) build/Profile.o -o bin/profile
 
-build/Profile.o: test/Profile.cpp
+build/Profile.o : test/Profile.cpp
 	$(CC) $(CFLAGS) $(IFLAGS) -o build/Profile.o test/Profile.cpp 
 
 build/%.o : geomc/random/%.cpp
+	echo '>>' $< $@
 	$(CC) $(CFLAGS) $(IFLAGS) -o $@ $<
 
 build/%.o : geomc/%.cpp
 	$(CC) $(CFLAGS) $(IFLAGS) -o $@ $<
 
-install: all
+install : all
 	mkdir -p $(INCDIR)
 	cp -rf ./geomc $(INCDIR)
 	cp -rf $(LIB) $(LIBDIR)
 
-clean:
+clean :
 	rm -f ./build/*.o
 	rm -f ./lib/*.a
 
-uninstall:
+uninstall :
 	rm -rf $(INCDIR)/geomc
 	rm -f $(LIBDIR)/$(LIBNAME)

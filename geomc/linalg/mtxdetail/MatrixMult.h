@@ -17,6 +17,9 @@
 
 namespace geom {
 namespace detail {
+    
+// Mt is a type
+#define REQUIRE_MATRIX_T(Mt) typename boost::enable_if<boost::is_base_of<geom::detail::MatrixBase<typename Mt::elem_t, Mt::ROWDIM, Mt::COLDIM, Mt>, Mt> >::type
 
 /************************************
  * Matrix mult implementations      *
@@ -275,6 +278,7 @@ public:
 //TODO: mult of vector could be made speedy for contiguous matrices.
 //      can increment matrix ptr and use     v++ % N.
 
+#undef REQUIRE_MATRIX_T
 
 }; // namespace geom
 }; // namespace detail

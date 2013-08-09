@@ -86,12 +86,12 @@ bool _ImplDecompPLU(T* m, index_t rows, index_t cols, index_t *reorder, bool *sw
 
 //////////// PLU class ////////////
 
-// LU stores both the upper and lower triangular parts of the decomposition.
-// The diagonal one elements (which belong to L) are not stored.
-
-// P has dimension (LU.rows() x LU.rows())
-// LU has the dimension of the source
-
+/** \ingroup linalg
+ * Computes the PLU decompostion for a matrix `A`, such that `PA = LU`.
+ * 
+ * `L` and `U` are lower and upper triangular matrices, respectively.
+ * `P` has dimension `(LU.rows() x LU.rows())`, and `LU` has the dimension of `A`.
+ */
 template <typename T, index_t M, index_t N>
 class PLUDecomposition {
 public:
@@ -100,6 +100,10 @@ public:
     typedef SimpleMatrix<T,DIAG,N> U_t;
     
 protected:
+    
+    // LU stores both the upper and lower triangular parts of the decomposition.
+    // The diagonal one elements (which belong to L) are not stored.
+
     SimpleMatrix<T,M,N> LU;
     PermutationMatrix<M> P;
     bool singular;
@@ -112,6 +116,15 @@ protected:
             swap_parity(false) {}
     
 public:
+    /**
+     * Perform a PLU decompostion on `m`.
+     * 
+     * M must be a matrix type.
+     */
+#ifdef PARSING_DOXYGEN
+    template <typename Mx> explicit PLUDecompostion(const Mx &m){}
+#endif
+    
     template <typename Mx>
     explicit PLUDecomposition(const Mx& m, 
                               typename boost::enable_if_c<detail::MatrixDimensionMatch<SimpleMatrix<T,M,N>, Mx>::isStaticMatch, int>::type dummy=0):
@@ -134,14 +147,25 @@ public:
     
 public:
     
+    /**
+     * Get the row-permutation matrix.
+     */
     const PermutationMatrix<M>& getP() const {
         return P;
     }
     
+    /**
+     * Get `L` and `U` as superimposed matrices. The elements of `L` fill
+     * the lower triangle, and the elements of `U` fill the upper. The diagonal
+     * unity elements, which belong to `L`, are not stored.
+     */
     const SimpleMatrix<T,M,N>& getLU() const {
         return LU;
     }
     
+    /**
+     * Get the lower-triangular matrix.
+     */
     const SimpleMatrix<T,M,DIAG> getL() const {
         typedef detail::_ImplMtxInstance< SimpleMatrix<T,M,DIAG> > instancer;
         const index_t diag = std::min(LU.rows(), LU.cols());
@@ -150,6 +174,9 @@ public:
         return out;
     }
     
+    /**
+     * Get the upper triangular matrix.
+     */
     const SimpleMatrix<T,DIAG,N> getU() const {
         typedef detail::_ImplMtxInstance< SimpleMatrix<T,DIAG,N> > instancer;
         const index_t diag = std::min(LU.rows(), LU.cols());
@@ -197,6 +224,13 @@ public:
     // we'll assume (perhaps unfairly?) that the client
     // is passing the right thing, since there is no
     // better way to enforce this.
+    /**
+     * Solve the linear matrix equation `Mx = b` for `x` 
+     * (where `M` is the matrix decomposed herein). `b` must
+     * be of length `LU.rows()`. 
+     * @param [out] dest
+     * @param [in]  b
+     */
     template <typename S>
     inline void linearSolve(S *dest, const S *b) const {
         
@@ -236,7 +270,10 @@ public:
         return dest;
     }
     
-    
+    /**
+     * Compute the matrix inverse of the decomposed matrix.
+     * @param [out] into
+     */
     template <typename S, index_t J, index_t K>
     void inverse(SimpleMatrix<S,J,K> *into) const {
         
@@ -252,7 +289,9 @@ public:
         into->transpose();
     }
     
-    
+    /**
+     * Compute the determinant of the decomposed matrix.
+     */
     T det() const {
         const index_t n = LU.rows();
         T k = getParity();
@@ -262,12 +301,17 @@ public:
         return k;
     }
     
-    
+    /**
+     * Returns `true` if the decomposed matrix is singular, in which case
+     * `L`, `U`, and `P` will contain undefined data.
+     */
     inline bool isSingular() const {
         return singular;
     }
     
-    
+    /**
+     * Returns -1 if `P` introduces a coordinate system handedness-swap; 1 otherwise.
+     */
     inline int getParity() const {
         return swap_parity ? -1 : 1;
     }

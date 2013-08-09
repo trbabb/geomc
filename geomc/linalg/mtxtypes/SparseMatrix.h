@@ -34,7 +34,7 @@ namespace detail {
     
 }; // end namespace detail
 
-
+/** \ingroup linalg */
 template <typename T>
 class SparseMatrix : public detail::WriteableMatrixBase<T, DYNAMIC_DIM, DYNAMIC_DIM, SparseMatrix<T> > {
     

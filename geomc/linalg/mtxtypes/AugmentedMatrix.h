@@ -42,6 +42,7 @@ namespace detail {
 // TODO: the mutability of the child classes may not match
 // TODO: ownership of child ptrs?
 
+/** \ingroup linalg */
 template <typename Ma, typename Mb>
 class AugmentedMatrix : public detail::WriteableMatrixBase<typename Ma::elem_t, DYNAMIC_DIM, DYNAMIC_DIM, AugmentedMatrix<Ma,Mb> > {
     

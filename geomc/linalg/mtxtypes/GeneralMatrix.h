@@ -33,7 +33,7 @@ namespace detail {
     
 }; // end namespace detail
 
-
+/** \ingroup linalg */
 template <typename T>
 class Matrix : public detail::WriteableMatrixBase<T,DYNAMIC_DIM, DYNAMIC_DIM, Matrix<T> > {
 public:

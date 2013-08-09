@@ -11,7 +11,7 @@
 #include <algorithm>
 
 #include <geomc/linalg/LinalgTypes.h>
-#include <geomc/linalg/mtxdetail/LUDecomp.h>
+#include <geomc/linalg/LUDecomp.h>
 
 namespace geom {
 namespace detail {

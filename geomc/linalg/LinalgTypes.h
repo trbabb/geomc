@@ -12,11 +12,17 @@
 
 #include <geomc/geomc_defs.h>
 
+/** @defgroup linalg */
+
 #include <boost/iterator/counting_iterator.hpp>
 
 #define DYNAMIC_DIM (0)
 
 //vector convenience macros
+
+/** /ingroup linalg 
+ * @{
+ */
 
 //4d
 #define ONE_VEC4d   (Vec<double,4>::ones)
@@ -56,6 +62,8 @@
 #define ZERO_VEC2f  (Vec<float,2>::zeros)
 #define X_AXIS2f    (Vec<float,2>::X_AXIS)
 #define Y_AXIS2f    (Vec<float,2>::Y_AXIS)
+
+// @}
 
 // type definitions
 

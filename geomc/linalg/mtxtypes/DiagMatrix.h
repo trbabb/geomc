@@ -22,7 +22,7 @@ namespace detail {
     
 }; // end namespace detail
 
-
+/** \ingroup linalg */
 template <typename T, index_t M, index_t N>
 class DiagMatrix : public detail::WriteableMatrixBase<T,M,N, DiagMatrix<T,M,N> > {
     index_t diag;

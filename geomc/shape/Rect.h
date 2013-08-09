@@ -23,6 +23,7 @@
 #include <cmath>
 #include <functional>
 
+#include <geomc/Hash.h>
 #include <geomc/shape/Bounded.h>
 #include <geomc/linalg/Ray.h>
 #include <geomc/linalg/Vec.h>
@@ -338,13 +339,10 @@ public:
 //allows RectBound<T,N>s to work with std::tr1 hash containers
 namespace std { namespace tr1 {
 
-   //TODO: This probably isn't a great hashing function
    template <typename T, index_t N>
    struct hash< geom::Rect<T,N> > : public unary_function<geom::Rect<T,N>, size_t> {
-       size_t operator()(const geom::Rect<T,N>& box) const {
-           size_t h1 = std::tr1::hash<typename geom::Rect<T,N>::point_t>(box.getMin());
-           size_t h2 = std::tr1::hash<typename geom::Rect<T,N>::point_t>(box.getMax());
-           return h1 + h2 + (h1 * h2) + (h1 ^ h2);
+       inline size_t operator() (const geom::Rect<T,N>& box) const {
+           return geom::general_hash(&box, sizeof(geom::Rect<T,N>));
        }
    };
 

@@ -13,9 +13,6 @@
 #include <boost/iterator/iterator_traits.hpp>
 #include <geomc/shape/GridIterator.h>
 
-// Mt is a type
-#define REQUIRE_MATRIX_T(Mt) typename boost::enable_if<boost::is_base_of<geom::detail::MatrixBase<typename Mt::elem_t, Mt::ROWDIM, Mt::COLDIM, Mt>, Mt> >::type
-
 namespace geom {
 
 typedef Rect<index_t,2> MatrixRegion;

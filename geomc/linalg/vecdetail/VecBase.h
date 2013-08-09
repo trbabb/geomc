@@ -15,6 +15,7 @@
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_integral.hpp>
 
+#include <geomc/Hash.h>
 #include <geomc/linalg/LinalgTypes.h>
 
 #ifdef GEOMC_VEC_CHECK_BOUNDS
@@ -616,33 +617,8 @@ namespace detail {
             return N;
         }
         
-        //TODO: better hash function. 
-        //TODO: doesn't work with large T.
-        size_t hashcode() const {
-            size_t h = 0;
-            const size_t magic = 31;
-            const int elembits  = sizeof(T)*8; 
-            const int sizetbits = std::numeric_limits<size_t>::digits;
-            const int foldings = (elembits + sizetbits - 1) / sizetbits; //ceil(elembits/sizetbits)
-            
-            typedef typename boost::uint_t<elembits>::least container_t;
-            
-            for (index_t axis = 0; axis < N; axis++){
-                //treat the bits of each component as an unsigned int of sufficient size
-                container_t xx = *((container_t*)&(this->get(axis)));
-                //take an N-bit float/int and fold it into a possibly 32-bit (or even 16-bit?) size_t
-                size_t folded_xx = 0;
-                if (elembits > sizetbits){
-                    for (index_t i = 0; i < foldings; i++){
-                        folded_xx = folded_xx ^ (xx & std::numeric_limits<size_t>::max());
-                        xx = xx >> sizetbits;
-                    }
-                } else {
-                    folded_xx = xx;
-                }
-                h = h*magic + folded_xx;
-            }
-            return h;
+        inline size_t hashcode() const {
+            return general_hash(this, sizeof(Vec<T,N>));
         }
 
     }; /* end VecCommon class */
