@@ -71,7 +71,7 @@ namespace detail {
 template <typename Ma, typename Mb, typename Enable> class _ImplMtxMul;
 };
 
-/** \ingroup linalg */
+/** \ingroup matrix */
 template <index_t N>
 class PermutationMatrix : public detail::MatrixBase<bool,N,N, PermutationMatrix<N> >, public detail::PermuteMatrixBase<N> {
 private:

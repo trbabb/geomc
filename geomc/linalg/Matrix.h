@@ -1,6 +1,20 @@
-/*
- * Matrix.h
+/* Matrix.h
+ *  
+ * Created on: Oct 27, 2010
+ *      Author: tbabb
+ */
+
+/** @ingroup linalg
+ *  @defgroup matrix
  * 
+ * @brief Matrix-related functions and classes
+ * 
+ * Include 
+ * =======
+ * `#include <geomc/linalg/Matrix.h>`
+ * 
+ * Design
+ * ======
  * There are currently six distinct matrix template classes.
  * They are all interoperable, and provide iterators which
  * are functionally interchangeable with each other and
@@ -13,18 +27,155 @@
  * does not have a corresponding memory location (DiagonalMatrix
  * is one such case, for example; off-diagonals are not stored).
  * 
- * In general, this scheme was chosen to satisfy the following
+ * In general, this scheme was designed to satisfy the following
  * requirements:
  * 
- * - All matrix types must interoperate via mul() and copy().
+ * - All matrix types must interoperate readily.
+ * - Using matrices with arithmetic operators should be straightforward,
+ *   efficient, and feel like using a native type.
+ * - Dimension mismatches should be caught at compile time wherever possible,
+ *   to avoid unnecessary runtime checks.
  * - Element access shall be non-virtual and inline-able wherever possible.
+ * - Dynamic memory allocations should be minimized wherever possible.
  * - Copies to and from contiguous memory shall be fast where the
  *   internal matrix representation is contiguous.
  * - Handles to matrices of arbitrary type are possible.
  * 
- *  Created on: Oct 27, 2010
- *      Author: tbabb
+ * Use
+ * ===
+ * 
+ * Matrix dimensions
+ * -----------------
+ * 
+ * Most matrices have templated size:
+ * 
+ *     SimpleMatrix<double, 3, 4> mat3x4;
+ * 
+ * In the example above, we construct a matrix with 3 rows and 4 columns. This 
+ * matrix has **static dimensions**, in that its size is chosen (and fixed) at 
+ * compile-time. Matrices with dimensions chosen at runtime may be written as:
+ * 
+ *     SimpleMatrix<double, 0, 0> matNxN(nrows, ncols);
+ * 
+ * There are two important functional differences between static matrices and 
+ * dynamic matrices:
+ * 
+ *   - Static matrix operators may perform dimension "agreement" checks at 
+ *     compile-time, catching errors early, and circumventing the cost of runtime 
+ *     dimension checks.
+ *   - Static matrices use "copy" semantics, while dynamic matrices use 
+ *     "reference" semantics, and refer to common storage when copy-constructed.
+ * 
+ * The latter point is important to understand, as writing:
+ * 
+ *     SimpleMatrix<double, 0, 0> m1 = some_matrix_function(...);
+ *     SimpleMatrix<double, 0, 0> m2 = m1;
+ *     m2[1][2] = 123;
+ * 
+ * means that element `(1, 2)` is altered in *both* `m1` and `m2`. This is **not** 
+ * the case with static matrices.
+ * 
+ * To check if two matrices share common storage:
+ *     
+ *     if (mtx_aliases_storage(m1, m2)) { ... }
+ * 
+ * To copy the elements from one matrix to another, without referencing, and regardless
+ * of matrix type or static/dynamic setting:
+ * 
+ *     mtxcopy(&dst_mtx, src_mtx);
+ * 
+ * Because of difference in storage strategy between static and dynamic matrices, copy 
+ * and pass-by-value operations can be much heavier for large static matrices, 
+ * because the entire matrix must be copied. Therefore it may be advisable to 
+ * choose dynamic matrices for any data much larger than a few elements along 
+ * each axis.
+ * 
+ * Operators
+ * ---------
+ * 
+ * Matrices support most basic arithmetic operators. We'll demonstrate with these 
+ * example objects:
+ * 
+ *     SimpleMatrix<double,3,3> m1;
+ *     SimpleMatrix<double,3,4> m2;
+ *     Vec<double,3> v;
+ * 
+ * Inter-matrix mult:
+ * 
+ *     m1 * m2
+ * 
+ * Matrix-scalar mult:
+ * 
+ *     m1 * 3
+ *     1.618 * m1
+ * 
+ * Matrix-vector mult:
+ * 
+ *     m1 * v
+ *     v * m2
+ * 
+ * Matrix addition / subtraction:
+ * 
+ *     m1 + m1
+ *     m1 - m1
+ * 
+ * Equality test:
+ * 
+ *     m1 == m1
+ *     m1 != m2
+ * 
+ * Indexing:
+ * 
+ *     double x = m1[1][2];
+ *     m[0][1] = 2.718;
+ * 
+ * Accessing elements
+ * ------------------
+ * 
+ * Indexing:
+ * 
+ *     // equivalent:
+ *     float f1 = m.get(2, 3);
+ *     float f2 = m[2][3]; 
+ * 
+ * Assignment:
+ *     
+ *     // all equivalent:    
+ *     m.set(2, 3, val);
+ *     m[2][3] = val;
+ *     m.get(2, 3) = val;
+ * 
+ * Matrix body iterators:
+ *     
+ *     typedef SimpleMatrix<double,3,3> mat3;
+ *     mat3 m;
+ *     // iterate over the matrix body in row-major order:
+ *     for (mat3::iterator i = mat.begin(), i != m.end(); m++) {
+ *         *i = ... ;
+ *     }
+ * 
+ * Matrix region iterators:
+ * 
+ *     typedef SimpleMatrix<double,3,3> mat3;
+ *     mat3 m;
+ *     Rect2i r = Rect2i(Vec2i(1,1), Vec2i(3,2));
+ *     // iterate over the elements in region `r` in row-major order:
+ *     for (mat3::region_iterator i = m.region_begin(r); i != m.region_end(r); i++) {
+ *         Vec2i c = i.point();
+ *         *i = f(p, ...);
+ *     }
+ * 
+ * .
  */
+
+//TODO: make exposed templates for the dynamically-chosen return types.
+//TODO: add parameters to all the docs
+//TODO: document:
+//      - matrix static/dynamic dims
+//      - matrix allowed operators
+//      - document inter-operation / dim checking
+//TODO: error reporting templates
+//TODO: rename Matrix (and SimpleMatrix?)
 
 //TODO: templatize memory layout choice
 //TODO: reduce bloat, particularly in matrix inv case.
@@ -39,7 +190,6 @@
 
 //refactoring:
 
-//TODO: copy methods for subsets that can grab chunks by row if mem is contiguous.
 //TODO: iterators for nonzero entries.
 //TODO: set() should return reference to (or value of) new element, so that `z = (mtx[x][y] = foo)` can
 //      evaluate properly with proxy references.
@@ -74,7 +224,7 @@
 
 namespace geom {
     
-/** @ingroup linalg
+/** @ingroup matrix
  *  @{
  */
     
@@ -87,6 +237,11 @@ namespace geom {
  * 
  * In other words, might writing to one object change the contents of the other?
  * `Ma` and `Mb` must be matrix or vector types.
+ * 
+ * @param [in] a A matrix or vector object.
+ * @param [in] b A matrix or vector object.
+ * 
+ * @return `true` if writing to `a` may alter `b` or vice versa; `false` otherwise.
  */
 #ifdef PARSING_DOXYGEN
 template <typename Ma, typename Mb> bool mtx_aliases_storage(const Ma &a, const Mb &b) {}
@@ -409,7 +564,7 @@ Md& transpose(Md *into, const Mx &m,
  * Matrix transpose.
  * 
  * `Mx` must be a matrix type. 
- * @returns A newly constructed matrix of type appropriate for the argument, usually
+ * @returns A transposed copy of `m`, of type appropriate for the argument, usually
  * a `SimpleMatrix`.
  */
 #ifdef PARSING_DOXYGEN
@@ -436,6 +591,9 @@ transpose(const Mx &m) {
 /**
  * Matrix inversion. `src` and `into` must be square matrices of the same dimension.
  * If a runtime check for square dimensions fails, a `NonsquareMatrixException` is raised.
+ * 
+ * @param [out] into A matrix with dimensions equal to `src`.
+ * @param [in]  src  A square matrix.
  * 
  * @return `false` if the matrix is singular and could not be inverted, `true` otherwise.
  */
@@ -469,8 +627,8 @@ bool inv(Md *into, const Mx &src,
  * @param [in] m A square matrix.
  * @param [out] success Will be set to `false` if the matrix was singular and could not
  * be inverted, otherwise will be set to `true`.
- * @return A newly constructed matrix of appropriate type, selected accordin to 
- * the type of `Mx`. 
+ * @return A new matrix containing the inverse of `m`, or undefined data if 
+ * `m` could not be inverted.
  */
 #ifdef PARSING_DOXYGEN
 template <typename Mx> Md inv(const Mx &m, bool *success) {}
@@ -497,7 +655,17 @@ typename detail::_ImplMtxInv<Mx>::return_t inv(const Mx &m, bool *success,
  * Matrix add/sub                *
  *********************************/
 
-// mtx <- mtx + mtx
+/**
+ * Matrix addition. Add the corresponding elements of `a` and `b`, whose dimensions
+ * must match.
+ * 
+ * @param [out] d Destination matrix, whose dimensions must match `a` and `b`.
+ * @param [in] a Matrix object
+ * @param [in] b Matrix object
+ */
+#ifdef PARSING_DOXYGEN
+template <typename Md, typename Ma, typename Mb> void add(Md *d, const Ma &a, const Mb &b) {}
+#endif
 template <typename Md, typename Ma, typename Mb>
 typename boost::enable_if_c<
     detail::MatrixDimensionMatch<Ma,Mb>::isStaticMatch and
@@ -513,7 +681,17 @@ add(Md *d, const Ma &a, const Mb &b) {
     add_t::add(d,a,b);
 }
 
-// mtx <- mtx - mtx
+/**
+ * Matrix subtraction. Subtract the corresponding elements of `b` from `a`'s. The 
+ * dimensions of `a` and `b` must match.
+ * 
+ * @param [out] d Destination matrix, whose dimensions must match `a` and `b`.
+ * @param [in] a Matrix object
+ * @param [in] b Matrix object
+ */
+#ifdef PARSING_DOXYGEN
+template <typename Md, typename Ma, typename Mb> void sub(Md *d, const Ma &a, const Mb &b) {}
+#endif
 template <typename Md, typename Ma, typename Mb>
 typename boost::enable_if_c<
     detail::MatrixDimensionMatch<Ma,Mb>::isStaticMatch and
@@ -529,7 +707,17 @@ sub(Md *d, const Ma &a, const Mb &b) {
     add_t::sub(d,a,b);
 }
 
-// mtx + mtx -> mtx
+/**
+ * Matrix addition. Add the corresponding elements of `a` and `b`, whose
+ * dimensions must match.
+ * 
+ * @param [in] a Matrix object
+ * @param [in] b Matrix object
+ * @return A new matrix containing `a + b`, usually a `SimpleMatrix`.
+ */
+#ifdef PARSING_DOXYGEN
+template <typename Ma, typename Mb> Md add(const Ma &a, const Mb &b) {}
+#endif
 template <typename Ma, typename Mb>
 typename boost::enable_if_c<
     detail::MatrixDimensionMatch<Ma,Mb>::isStaticMatch,
@@ -546,7 +734,17 @@ add(const Ma &a, const Mb &b) {
     return into;
 }
 
-// mtx - mtx -> mtx
+/**
+ * Matrix subtraction. Subtract the corresponding elements of `b` from `a`'s. The
+ * dimensions of `a` and `b` must match.
+ * 
+ * @param [in] a Matrix object
+ * @param [in] b Matrix object
+ * @return A new matrix containing `a - b`, usually a `SimpleMatrix`.
+ */
+#ifdef PARSING_DOXYGEN
+template <typename Ma, typename Mb> Md sub(const Ma &a, const Mb &b) {}
+#endif
 template <typename Ma, typename Mb>
 typename boost::enable_if_c<
     detail::MatrixDimensionMatch<Ma,Mb>::isStaticMatch,
@@ -601,7 +799,7 @@ scale(Md *d, U k, const Mx &m) {
  * 
  * @param [in]  k Scalar constant (whose type satisfies `boost::is_scalar<U>`).
  * @param [in]  m Matrix object to be scaled.
- * @return A newly constructed scaled copy of `m`.
+ * @return A scaled copy of `m`.
  */
 #ifdef PARSING_DOXYGEN
 template <typename U typename Mx> Mx scale(U k, const Mx &m) {}

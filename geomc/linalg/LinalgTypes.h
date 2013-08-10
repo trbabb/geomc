@@ -12,7 +12,9 @@
 
 #include <geomc/geomc_defs.h>
 
-/** @defgroup linalg */
+/** @defgroup linalg 
+ *  @brief Linear algebra functions and classes
+ */
 
 #include <boost/iterator/counting_iterator.hpp>
 
@@ -20,12 +22,12 @@
 
 //vector convenience macros
 
-/** /ingroup linalg 
- * @{
+/** @ingroup linalg 
+ *  @{
  */
 
 //4d
-#define ONE_VEC4d   (Vec<double,4>::ones)
+#define ONE_VEC4d   (Vec<double,4>::ones) 
 #define ZERO_VEC4d  (Vec<double,4>::zeros)
 #define X_AXIS4d    (Vec<double,4>::X_AXIS)
 #define Y_AXIS4d    (Vec<double,4>::Y_AXIS)
@@ -63,7 +65,7 @@
 #define X_AXIS2f    (Vec<float,2>::X_AXIS)
 #define Y_AXIS2f    (Vec<float,2>::Y_AXIS)
 
-// @}
+// @}  // ingroup linalg
 
 // type definitions
 

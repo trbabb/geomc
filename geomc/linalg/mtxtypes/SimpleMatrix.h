@@ -38,7 +38,7 @@ namespace detail {
     
 }; // end namespace detail
 
-/** \ingroup linalg */
+/** \ingroup matrix */
 template <typename T, index_t M, index_t N>
 class SimpleMatrix : public detail::WriteableMatrixBase<T,M,N, SimpleMatrix<T,M,N> > {
     detail::Storage<T,M*N> data;

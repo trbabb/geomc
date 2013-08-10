@@ -86,7 +86,7 @@ bool _ImplDecompPLU(T* m, index_t rows, index_t cols, index_t *reorder, bool *sw
 
 //////////// PLU class ////////////
 
-/** \ingroup linalg
+/** \ingroup matrix
  * Computes the PLU decompostion for a matrix `A`, such that `PA = LU`.
  * 
  * `L` and `U` are lower and upper triangular matrices, respectively.
@@ -117,9 +117,10 @@ protected:
     
 public:
     /**
-     * Perform a PLU decompostion on `m`.
+     * Construct a PLU decompostion of `m`. `Mx` must be a matrix type. 
      * 
-     * M must be a matrix type.
+     * `this->isSingular()` can be used to query whether the decomposition was 
+     * successful.
      */
 #ifdef PARSING_DOXYGEN
     template <typename Mx> explicit PLUDecompostion(const Mx &m){}
