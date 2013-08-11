@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -242,7 +242,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keyword">typedef</span> Mx return_t;</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    </div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md, <span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#ga4972da3cb8b6c6a34ef1615caad4bb1d">scale</a>(Md *d, U k, <span class="keyword">const</span> Mx &amp;m) {</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__linalg.html#gab4ef5a5844e69301ae83804a9770881b">scale</a>(Md *d, U k, <span class="keyword">const</span> Mx &amp;m) {</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        <span class="keywordflow">for</span> (index_t r = 0; r &lt; m.rows(); ++r) {</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;            <span class="keywordflow">for</span> (index_t c = 0; c &lt; m.cols(); ++c) {</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                d-&gt;set(r, c, k * m.get(r,c));</div>
@@ -257,7 +257,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keyword">typedef</span> DiagMatrix&lt;T,M,N&gt; return_t;</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    </div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md, <span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#ga4972da3cb8b6c6a34ef1615caad4bb1d">scale</a>(Md *d, U k, <span class="keyword">const</span> DiagMatrix&lt;T,M,N&gt; &amp;m) {</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__linalg.html#gab4ef5a5844e69301ae83804a9770881b">scale</a>(Md *d, U k, <span class="keyword">const</span> DiagMatrix&lt;T,M,N&gt; &amp;m) {</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        d-&gt;setZero();</div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        <span class="keyword">const</span> index_t diag = std::min(m.rows(), m.cols());</div>
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        <span class="keyword">const</span> T *m_i = m.diagonal_begin();</div>
@@ -267,7 +267,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    }</div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    </div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> S, index_t J, index_t K, <span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#ga4972da3cb8b6c6a34ef1615caad4bb1d">scale</a>(DiagMatrix&lt;S,J,K&gt; *d, U k, <span class="keyword">const</span> DiagMatrix&lt;T,M,N&gt; &amp;m) {</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__linalg.html#gab4ef5a5844e69301ae83804a9770881b">scale</a>(DiagMatrix&lt;S,J,K&gt; *d, U k, <span class="keyword">const</span> DiagMatrix&lt;T,M,N&gt; &amp;m) {</div>
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        S *d_i = d-&gt;diagonal_begin();</div>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        <span class="keyword">const</span> T *m_i = m.diagonal_begin();</div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        <span class="keywordflow">for</span> (; m_i != m.diagonal_end(); ++d_i, ++m_i) {</div>
@@ -282,7 +282,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keyword">typedef</span> SparseMatrix&lt;T&gt; return_t;</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    </div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Md, <span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#ga4972da3cb8b6c6a34ef1615caad4bb1d">scale</a>(Md *d, U k, <span class="keyword">const</span> SparseMatrix&lt;T&gt; &amp;m) {</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__linalg.html#gab4ef5a5844e69301ae83804a9770881b">scale</a>(Md *d, U k, <span class="keyword">const</span> SparseMatrix&lt;T&gt; &amp;m) {</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        d-&gt;setZero();</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        <span class="keyword">typename</span> SparseMatrix&lt;T&gt;::nonzero_iterator i;</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        <span class="keywordflow">for</span> (i = m.nonzero_begin(); i != m.nonzero_end(); i++) {</div>
@@ -301,7 +301,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 11 2013 00:02:26 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 11 2013 02:34:50 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -120,38 +120,40 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">// bitwise/masking logic allowed</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">// i.e. HIT_BOTH = HIT_FRONT | HIT_BACK</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">enum</span> HitSide {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    HIT_FRONT = 1,</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    HIT_BACK  = 2,</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    HIT_BOTH  = 3</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;};</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">// TODO: allow mechanism for supplying other primvars.</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">//       (I think only U,V(,W?) are needed; plus surface derivatives (a matrix; dPdu, dPdv, dPdw);</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">//       other user-supplied primvars will be interped based on these anyway).</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">//       Note: W could just be N... maybe. for volume tracing, mebbe not.</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">struct </span>Hit {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    Vec&lt;T,N&gt; p;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    Vec&lt;T,N&gt; n;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    T s;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    Ray&lt;T,N&gt; r;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">bool</span> hit;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    HitSide side;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    Hit():s(std::numeric_limits&lt;T&gt;::max()),hit(false),side(HIT_BOTH){}</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    Hit(Ray&lt;T,N&gt; r, HitSide s):s(std::numeric_limits&lt;T&gt;::max()),r(r),hit(false),side(s){}</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;};</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}; <span class="comment">// namespace geom</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* HIT_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="code" href="group__linalg.html#ga66505ffabe4da800c0ec653d493ea944">   36</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="group__linalg.html#ga66505ffabe4da800c0ec653d493ea944" title="Ray hit testing choice.">HitSide</a> {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    HIT_FRONT = 1,</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    HIT_BACK  = 2,</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    HIT_BOTH  = 3</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;};</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">// TODO: allow mechanism for supplying other primvars.</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">//       (I think only U,V(,W?) are needed; plus surface derivatives (a matrix; dPdu, dPdv, dPdw);</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">//       other user-supplied primvars will be interped based on these anyway).</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">//       Note: W could just be N... maybe. for volume tracing, mebbe not.</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="code" href="structgeom_1_1_hit.html">   50</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structgeom_1_1_hit.html">Hit</a> {</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="code" href="structgeom_1_1_hit.html#addd25c036eb4d1edf0d47d309ab54a7c">   52</a></span>&#160;    <a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">Vec&lt;T,N&gt;</a> <a class="code" href="structgeom_1_1_hit.html#addd25c036eb4d1edf0d47d309ab54a7c" title="Point of hit.">p</a>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="code" href="structgeom_1_1_hit.html#a43a5e21b964dcefa59974d28597f4d50">   54</a></span>&#160;    <a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">Vec&lt;T,N&gt;</a> <a class="code" href="structgeom_1_1_hit.html#a43a5e21b964dcefa59974d28597f4d50" title="Normal of surface at hit point.">n</a>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="code" href="structgeom_1_1_hit.html#abd307b4686d3cabec491ff8ba54bf302">   56</a></span>&#160;    T <a class="code" href="structgeom_1_1_hit.html#abd307b4686d3cabec491ff8ba54bf302" title="Ray parameter of hit, such that r * s = p">s</a>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="code" href="structgeom_1_1_hit.html#a4bba3ca6ed94622c37f8e6d08fbc592d">   58</a></span>&#160;    <a class="code" href="classgeom_1_1_ray.html" title="Ray class.">Ray&lt;T,N&gt;</a> <a class="code" href="structgeom_1_1_hit.html#a4bba3ca6ed94622c37f8e6d08fbc592d" title="Ray which generated the hit.">r</a>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="code" href="structgeom_1_1_hit.html#a60be6f7b3d0d908fcedf0842fd96c1f4">   60</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="structgeom_1_1_hit.html#a60be6f7b3d0d908fcedf0842fd96c1f4" title="Whether the ray hit the tested geometry.">hit</a>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="code" href="structgeom_1_1_hit.html#a8ea75572cc715a357bacad8863b209ad">   62</a></span>&#160;    <a class="code" href="group__linalg.html#ga66505ffabe4da800c0ec653d493ea944" title="Ray hit testing choice.">HitSide</a> <a class="code" href="structgeom_1_1_hit.html#a8ea75572cc715a357bacad8863b209ad" title="The side of the geometry which generated the hit.">side</a>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    </div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="code" href="structgeom_1_1_hit.html#a2d50f94642b7ba64cc49c35dd0ba334c">   65</a></span>&#160;    <a class="code" href="structgeom_1_1_hit.html#a2d50f94642b7ba64cc49c35dd0ba334c" title="Construct a new ray miss.">Hit</a>():<a class="code" href="structgeom_1_1_hit.html#abd307b4686d3cabec491ff8ba54bf302" title="Ray parameter of hit, such that r * s = p">s</a>(std::numeric_limits&lt;T&gt;::max()),<a class="code" href="structgeom_1_1_hit.html#a60be6f7b3d0d908fcedf0842fd96c1f4" title="Whether the ray hit the tested geometry.">hit</a>(false),<a class="code" href="structgeom_1_1_hit.html#a8ea75572cc715a357bacad8863b209ad" title="The side of the geometry which generated the hit.">side</a>(HIT_BOTH){}</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="code" href="structgeom_1_1_hit.html#a35dd5af2e8da1846e59ce920e31a76c7">   68</a></span>&#160;    <a class="code" href="structgeom_1_1_hit.html#a35dd5af2e8da1846e59ce920e31a76c7" title="Construct a new ray miss with ray r and HitSides s.">Hit</a>(<a class="code" href="classgeom_1_1_ray.html" title="Ray class.">Ray&lt;T,N&gt;</a> <a class="code" href="structgeom_1_1_hit.html#a4bba3ca6ed94622c37f8e6d08fbc592d" title="Ray which generated the hit.">r</a>, <a class="code" href="group__linalg.html#ga66505ffabe4da800c0ec653d493ea944" title="Ray hit testing choice.">HitSide</a> <a class="code" href="structgeom_1_1_hit.html#abd307b4686d3cabec491ff8ba54bf302" title="Ray parameter of hit, such that r * s = p">s</a>):s(std::numeric_limits&lt;T&gt;::max()),r(r),<a class="code" href="structgeom_1_1_hit.html#a60be6f7b3d0d908fcedf0842fd96c1f4" title="Whether the ray hit the tested geometry.">hit</a>(false),<a class="code" href="structgeom_1_1_hit.html#a8ea75572cc715a357bacad8863b209ad" title="The side of the geometry which generated the hit.">side</a>(s){}</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;};</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}; <span class="comment">// namespace geom</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* HIT_H_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 11 2013 00:02:26 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 11 2013 02:34:50 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -125,7 +125,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">//TODO: planar figures, to plug in with trace_planar_quad</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">inline</span> Hit&lt;T,3&gt; trace_tri(Vec&lt;T,3&gt; p[3], <span class="keyword">const</span> Ray&lt;T,3&gt; &amp;r, HitSide sides=HIT_FRONT){</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">inline</span> Hit&lt;T,3&gt; trace_tri(Vec&lt;T,3&gt; p[3], <span class="keyword">const</span> Ray&lt;T,3&gt; &amp;r, <a class="code" href="group__linalg.html#ga66505ffabe4da800c0ec653d493ea944" title="Ray hit testing choice.">HitSide</a> sides=HIT_FRONT){</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">return</span> trace_tri(p[0], p[1], p[2], r, sides);</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
@@ -134,7 +134,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                   <span class="keyword">const</span> Vec&lt;T,3&gt; &amp;p1, </div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                   <span class="keyword">const</span> Vec&lt;T,3&gt; &amp;p2, </div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                   <span class="keyword">const</span> Ray&lt;T,3&gt; &amp;r, </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                   HitSide sides=HIT_FRONT){</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                   <a class="code" href="group__linalg.html#ga66505ffabe4da800c0ec653d493ea944" title="Ray hit testing choice.">HitSide</a> sides=HIT_FRONT){</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    Hit&lt;T,3&gt; hit(r,sides);</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    Vec&lt;T,3&gt; dPdu = p1 - p0;</div>
@@ -180,7 +180,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;Hit&lt;T,3&gt; trace_planar_quad(<span class="keyword">const</span> Vec&lt;T,3&gt; &amp;dPdu, <span class="keyword">const</span> Vec&lt;T,3&gt; &amp;dPdv, <span class="keyword">const</span> Vec&lt;T,3&gt; &amp;origin, <span class="keyword">const</span> Ray&lt;T,3&gt; &amp;ray, HitSide sides){</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;Hit&lt;T,3&gt; trace_planar_quad(<span class="keyword">const</span> Vec&lt;T,3&gt; &amp;dPdu, <span class="keyword">const</span> Vec&lt;T,3&gt; &amp;dPdv, <span class="keyword">const</span> Vec&lt;T,3&gt; &amp;origin, <span class="keyword">const</span> Ray&lt;T,3&gt; &amp;ray, <a class="code" href="group__linalg.html#ga66505ffabe4da800c0ec653d493ea944" title="Ray hit testing choice.">HitSide</a> sides){</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    Hit&lt;T,3&gt; hit(ray,sides);</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    Plane&lt;T,3&gt; pl = Plane&lt;T,3&gt;::from_basis(dPdu, dPdv, origin);</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    T s;</div>
@@ -224,7 +224,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 11 2013 00:02:26 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 11 2013 02:34:50 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

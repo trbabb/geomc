@@ -66,7 +66,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -78,7 +78,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#groups">Modules</a> &#124;
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">Linalg</div>  </div>
 </div><!--header-->
@@ -95,8 +96,17 @@ Modules</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform&lt; T, N &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affine transformation class.  <a href="classgeom_1_1_affine_transform.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_quat.html">Quat&lt; T &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Quaternion class.  <a href="classgeom_1_1_quat.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_ray.html">Ray&lt; T, N &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classgeom_1_1_ray.html" title="Ray class.">Ray</a> class.  <a href="classgeom_1_1_ray.html#details">More...</a><br/></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_ray_3_01_t_00_013_01_4.html">Ray&lt; T, 3 &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">3D specialization of <a class="el" href="classgeom_1_1_ray.html" title="Ray class.">Ray</a> class  <a href="classgeom_1_1_ray_3_01_t_00_013_01_4.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_vec.html">Vec&lt; T, N &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A tuple of <code>N</code> elements of type <code>T</code>.  <a href="classgeom_1_1_vec.html#details">More...</a><br/></td></tr>
@@ -110,6 +120,48 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html">Vec&lt; T, 4 &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">4D specialization of vector class.  <a href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga081a590185005e8809a6d9995681ee3e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga081a590185005e8809a6d9995681ee3e"><td class="memTemplItemLeft" align="right" valign="top">AffineTransform&lt; T, 3 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga081a590185005e8809a6d9995681ee3e">rotation</a> (Vec&lt; T, 3 &gt; axis, T radians)</td></tr>
+<tr class="separator:ga081a590185005e8809a6d9995681ee3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab371046ba4f7183c8939199ae568fab2"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gab371046ba4f7183c8939199ae568fab2"><td class="memTemplItemLeft" align="right" valign="top">AffineTransform&lt; T, 3 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gab371046ba4f7183c8939199ae568fab2">rotation</a> (Vec&lt; T, 3 &gt; axis, const Vec&lt; T, 3 &gt; &amp;center, T radians)</td></tr>
+<tr class="separator:gab371046ba4f7183c8939199ae568fab2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf64b6f1940c73211da2c59506a17d6f3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaf64b6f1940c73211da2c59506a17d6f3"><td class="memTemplItemLeft" align="right" valign="top">AffineTransform&lt; T, 3 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gaf64b6f1940c73211da2c59506a17d6f3">rotation</a> (Quat&lt; T &gt; q)</td></tr>
+<tr class="separator:gaf64b6f1940c73211da2c59506a17d6f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabda4186cdeec7b5b9e7d9c1d843f2410"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gabda4186cdeec7b5b9e7d9c1d843f2410"><td class="memTemplItemLeft" align="right" valign="top">AffineTransform&lt; T, 2 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gabda4186cdeec7b5b9e7d9c1d843f2410">rotation</a> (T radians)</td></tr>
+<tr class="separator:gabda4186cdeec7b5b9e7d9c1d843f2410"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3f38c29ff149d7a57b5b81f613963177"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:ga3f38c29ff149d7a57b5b81f613963177"><td class="memTemplItemLeft" align="right" valign="top">AffineTransform&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga3f38c29ff149d7a57b5b81f613963177">translation</a> (const Vec&lt; T, N &gt; &amp;tx)</td></tr>
+<tr class="separator:ga3f38c29ff149d7a57b5b81f613963177"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab4ef5a5844e69301ae83804a9770881b"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:gab4ef5a5844e69301ae83804a9770881b"><td class="memTemplItemLeft" align="right" valign="top">AffineTransform&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gab4ef5a5844e69301ae83804a9770881b">scale</a> (const Vec&lt; T, N &gt; &amp;sx)</td></tr>
+<tr class="separator:gab4ef5a5844e69301ae83804a9770881b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac2a7ae372cc462b9cd90880aae33baab"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:gac2a7ae372cc462b9cd90880aae33baab"><td class="memTemplItemLeft" align="right" valign="top">AffineTransform&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gac2a7ae372cc462b9cd90880aae33baab">transformation</a> (const SimpleMatrix&lt; T, N, N &gt; &amp;mat)</td></tr>
+<tr class="separator:gac2a7ae372cc462b9cd90880aae33baab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9daaea3f18cbd65cc9a0b1d0281ee951"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga9daaea3f18cbd65cc9a0b1d0281ee951"><td class="memTemplItemLeft" align="right" valign="top">AffineTransform&lt; T, 3 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga9daaea3f18cbd65cc9a0b1d0281ee951">scale</a> (T sx, T sy, T sz)</td></tr>
+<tr class="separator:ga9daaea3f18cbd65cc9a0b1d0281ee951"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga27915ab0578e91cdf26e1169d73e1f9b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga27915ab0578e91cdf26e1169d73e1f9b"><td class="memTemplItemLeft" align="right" valign="top">AffineTransform&lt; T, 2 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga27915ab0578e91cdf26e1169d73e1f9b">scale</a> (T sx, T sy)</td></tr>
+<tr class="separator:ga27915ab0578e91cdf26e1169d73e1f9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4a563952d0db58601a788c7948b83583"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga4a563952d0db58601a788c7948b83583"><td class="memTemplItemLeft" align="right" valign="top">AffineTransform&lt; T, 3 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga4a563952d0db58601a788c7948b83583">translation</a> (T tx, T ty, T tz)</td></tr>
+<tr class="separator:ga4a563952d0db58601a788c7948b83583"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga59ed824baffef843e8f1acb74dfb33cf"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga59ed824baffef843e8f1acb74dfb33cf"><td class="memTemplItemLeft" align="right" valign="top">AffineTransform&lt; T, 2 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga59ed824baffef843e8f1acb74dfb33cf">translation</a> (T tx, T ty)</td></tr>
+<tr class="separator:ga59ed824baffef843e8f1acb74dfb33cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga77c2f623486d39daacbea76e399a50cb"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:ga77c2f623486d39daacbea76e399a50cb"><td class="memTemplItemLeft" align="right" valign="top">Vec&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga77c2f623486d39daacbea76e399a50cb">operator*</a> (const Ray&lt; T, N &gt; r, T s)</td></tr>
+<tr class="separator:ga77c2f623486d39daacbea76e399a50cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaabb5e0a61b75912c376dee1af9ab1cb8"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:gaabb5e0a61b75912c376dee1af9ab1cb8"><td class="memTemplItemLeft" align="right" valign="top">Vec&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gaabb5e0a61b75912c376dee1af9ab1cb8">operator*</a> (T s, const Ray&lt; T, N &gt; r)</td></tr>
+<tr class="separator:gaabb5e0a61b75912c376dee1af9ab1cb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8334139bfa0627a1ca0fe4c54363267e"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N, typename U &gt; </td></tr>
 <tr class="memitem:ga8334139bfa0627a1ca0fe4c54363267e"><td class="memTemplItemLeft" align="right" valign="top">Vec&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga8334139bfa0627a1ca0fe4c54363267e">operator*</a> (const Vec&lt; T, N &gt; &amp;v, U d)</td></tr>
 <tr class="separator:ga8334139bfa0627a1ca0fe4c54363267e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,6 +180,9 @@ Classes</h2></td></tr>
 <tr class="memitem:ga535b5ebdcf5f3316c81388223fc12326"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
 <tr class="memitem:ga535b5ebdcf5f3316c81388223fc12326"><td class="memTemplItemLeft" align="right" valign="top">const Vec&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga535b5ebdcf5f3316c81388223fc12326">operator/</a> (const Vec&lt; T, N &gt; &amp;a, const Vec&lt; T, N &gt; &amp;b)</td></tr>
 <tr class="separator:ga535b5ebdcf5f3316c81388223fc12326"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga66505ffabe4da800c0ec653d493ea944"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> </td></tr>
+<tr class="memdesc:ga66505ffabe4da800c0ec653d493ea944"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ray hit testing choice. <br/></td></tr>
+<tr class="separator:ga66505ffabe4da800c0ec653d493ea944"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Linear algebra functions and classes. </p>
@@ -253,6 +308,78 @@ Classes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ga77c2f623486d39daacbea76e399a50cb"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Vec&lt;T,N&gt; geom::operator* </td>
+          <td>(</td>
+          <td class="paramtype">const Ray&lt; T, N &gt;&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>s</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p><a class="el" href="classgeom_1_1_ray.html" title="Ray class.">Ray</a> multiple. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>(r.origin + s * r.direction)</code>. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gaabb5e0a61b75912c376dee1af9ab1cb8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Vec&lt;T,N&gt; geom::operator* </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Ray&lt; T, N &gt;&#160;</td>
+          <td class="paramname"><em>r</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p><a class="el" href="classgeom_1_1_ray.html" title="Ray class.">Ray</a> multiple. </p>
+<dl class="section return"><dt>Returns</dt><dd><code>(r.origin + s * r.direction)</code>. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ga9c54ebfd2fcd4cee569c91259d1bcf40"></a>
 <div class="memitem">
 <div class="memproto">
@@ -374,10 +501,321 @@ Classes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ga081a590185005e8809a6d9995681ee3e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">AffineTransform&lt;T,3&gt; geom::rotation </td>
+          <td>(</td>
+          <td class="paramtype">Vec&lt; T, 3 &gt;&#160;</td>
+          <td class="paramname"><em>axis</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>radians</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Rotation about an axis. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">axis</td><td>Axis of rotation. </td></tr>
+    <tr><td class="paramname">radians</td><td>Angle of rotation. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A transformation representing a rotation about <code>axis</code> by angle <code>radians</code>. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gab371046ba4f7183c8939199ae568fab2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">AffineTransform&lt;T,3&gt; geom::rotation </td>
+          <td>(</td>
+          <td class="paramtype">Vec&lt; T, 3 &gt;&#160;</td>
+          <td class="paramname"><em>axis</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Vec&lt; T, 3 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>center</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>radians</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Rotation about point.</p>
+<p>This transformation will not be a pure rotation; it will include a translation component.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">axis</td><td>Axis of rotation. </td></tr>
+    <tr><td class="paramname">center</td><td>Center of rotation. </td></tr>
+    <tr><td class="paramname">radians</td><td>Angle of rotation. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A transformation representing a rotation around the point <code>center</code> by angle <code>radians</code> and axis <code>axis</code>. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gaf64b6f1940c73211da2c59506a17d6f3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">AffineTransform&lt;T,3&gt; geom::rotation </td>
+          <td>(</td>
+          <td class="paramtype">Quat&lt; T &gt;&#160;</td>
+          <td class="paramname"><em>q</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Rotation from a quaternion. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">q</td><td>Rotation quaternion. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A rotation transformation. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gabda4186cdeec7b5b9e7d9c1d843f2410"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">AffineTransform&lt;T,2&gt; geom::rotation </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>radians</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>2D rotation about the origin by angle <code>radians</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">radians</td><td>Angle of rotation in the counterclockwise direction </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A 2D rotation transformation. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gab4ef5a5844e69301ae83804a9770881b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">AffineTransform&lt;T,N&gt; geom::scale </td>
+          <td>(</td>
+          <td class="paramtype">const Vec&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>sx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Scale transform. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sx</td><td>Vector whose elements describe a scaling along each axis. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A transform representing a non-uniform scale along each axis. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga9daaea3f18cbd65cc9a0b1d0281ee951"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">AffineTransform&lt;T,3&gt; geom::scale </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>sx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>sy</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>sz</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Per-axis 3D scale </p>
+
+</div>
+</div>
+<a class="anchor" id="ga27915ab0578e91cdf26e1169d73e1f9b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">AffineTransform&lt;T,2&gt; geom::scale </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>sx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>sy</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Per-axis 2D scale </p>
+
+</div>
+</div>
+<a class="anchor" id="gac2a7ae372cc462b9cd90880aae33baab"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">AffineTransform&lt;T,N&gt; geom::transformation </td>
+          <td>(</td>
+          <td class="paramtype">const SimpleMatrix&lt; T, N, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>mat</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Arbitrary transformation </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mat</td><td><code>N x N</code> matrix representing an arbitrary transformation. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A transformation by <code>mat</code> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga3f38c29ff149d7a57b5b81f613963177"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">AffineTransform&lt;T,N&gt; geom::translation </td>
+          <td>(</td>
+          <td class="paramtype">const Vec&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Translation transform </p>
+
+</div>
+</div>
+<a class="anchor" id="ga4a563952d0db58601a788c7948b83583"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">AffineTransform&lt;T,3&gt; geom::translation </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>tx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>ty</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>tz</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>3D translation </p>
+
+</div>
+</div>
+<a class="anchor" id="ga59ed824baffef843e8f1acb74dfb33cf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">AffineTransform&lt;T,2&gt; geom::translation </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>tx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>ty</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>2D translation </p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 11 2013 00:02:26 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 11 2013 02:34:50 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

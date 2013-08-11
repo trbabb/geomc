@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -577,7 +577,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;<span class="comment"> *********************************/</span></div>
 <div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;</div>
 <div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;<span class="preprocessor">#ifdef PARSING_DOXYGEN</span></div>
-<div class="line"><a name="l00791"></a><span class="lineno"><a class="code" href="group__matrix.html#ga4972da3cb8b6c6a34ef1615caad4bb1d">  791</a></span>&#160;<span class="preprocessor"></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> U <span class="keyword">typename</span> Mx, <span class="keyword">typename</span> Md&gt; <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#ga4972da3cb8b6c6a34ef1615caad4bb1d">scale</a>(Md *d, U k, <span class="keyword">const</span> Mx &amp;m) {}</div>
+<div class="line"><a name="l00791"></a><span class="lineno"><a class="code" href="group__matrix.html#ga4972da3cb8b6c6a34ef1615caad4bb1d">  791</a></span>&#160;<span class="preprocessor"></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> U <span class="keyword">typename</span> Mx, <span class="keyword">typename</span> Md&gt; <span class="keywordtype">void</span> <a class="code" href="group__linalg.html#gab4ef5a5844e69301ae83804a9770881b">scale</a>(Md *d, U k, <span class="keyword">const</span> Mx &amp;m) {}</div>
 <div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;<span class="preprocessor"></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> U, <span class="keyword">typename</span> Mx, <span class="keyword">typename</span> Md&gt;</div>
 <div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;<span class="keyword">typename</span> boost::enable_if_c&lt;</div>
@@ -586,17 +586,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;    detail::MatrixDimensionMatch&lt;Mx,Md&gt;::isStaticMatch,</div>
 <div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;    <span class="keywordtype">void</span></div>
 <div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;&gt;::type </div>
-<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;<a class="code" href="group__matrix.html#ga4972da3cb8b6c6a34ef1615caad4bb1d">scale</a>(Md *d, U k, <span class="keyword">const</span> Mx &amp;m) {</div>
+<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;<a class="code" href="group__linalg.html#gab4ef5a5844e69301ae83804a9770881b">scale</a>(Md *d, U k, <span class="keyword">const</span> Mx &amp;m) {</div>
 <div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160;    <span class="keyword">typedef</span> detail::_ImplMatrixScale&lt;Mx&gt; scale_t;</div>
 <div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> scale_t::return_t return_t;</div>
 <div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;<span class="preprocessor">#ifdef GEOMC_MTX_CHECK_DIMS</span></div>
 <div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;<span class="preprocessor"></span>    detail::MatrixDimensionMatch&lt;Mx,Md&gt;::check(m,*d);</div>
 <div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;<span class="preprocessor"></span>    <a class="code" href="group__matrix.html#ga4972da3cb8b6c6a34ef1615caad4bb1d">scale_t::scale</a>(d, k, m);</div>
+<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;<span class="preprocessor"></span>    <a class="code" href="group__linalg.html#gab4ef5a5844e69301ae83804a9770881b">scale_t::scale</a>(d, k, m);</div>
 <div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;}</div>
 <div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;</div>
 <div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160;<span class="preprocessor">#ifdef PARSING_DOXYGEN</span></div>
-<div class="line"><a name="l00818"></a><span class="lineno"><a class="code" href="group__matrix.html#ga50aba1796182cf79911df6fd74d7494f">  818</a></span>&#160;<span class="preprocessor"></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> U <span class="keyword">typename</span> Mx&gt; Mx <a class="code" href="group__matrix.html#ga4972da3cb8b6c6a34ef1615caad4bb1d">scale</a>(U k, <span class="keyword">const</span> Mx &amp;m) {}</div>
+<div class="line"><a name="l00818"></a><span class="lineno"><a class="code" href="group__matrix.html#ga50aba1796182cf79911df6fd74d7494f">  818</a></span>&#160;<span class="preprocessor"></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> U <span class="keyword">typename</span> Mx&gt; Mx <a class="code" href="group__linalg.html#gab4ef5a5844e69301ae83804a9770881b">scale</a>(U k, <span class="keyword">const</span> Mx &amp;m) {}</div>
 <div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00820"></a><span class="lineno">  820</span>&#160;<span class="preprocessor"></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> U, <span class="keyword">typename</span> Mx&gt;</div>
 <div class="line"><a name="l00821"></a><span class="lineno">  821</span>&#160;<span class="keyword">typename</span> boost::enable_if_c&lt;</div>
@@ -604,11 +604,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00823"></a><span class="lineno">  823</span>&#160;    boost::is_scalar&lt;U&gt;::value,</div>
 <div class="line"><a name="l00824"></a><span class="lineno">  824</span>&#160;    <span class="keyword">typename</span> detail::_ImplMatrixScale&lt;Mx&gt;::return_t</div>
 <div class="line"><a name="l00825"></a><span class="lineno">  825</span>&#160;&gt;::type </div>
-<div class="line"><a name="l00826"></a><span class="lineno">  826</span>&#160;<a class="code" href="group__matrix.html#ga4972da3cb8b6c6a34ef1615caad4bb1d">scale</a>(U k, <span class="keyword">const</span> Mx &amp;m) {</div>
+<div class="line"><a name="l00826"></a><span class="lineno">  826</span>&#160;<a class="code" href="group__linalg.html#gab4ef5a5844e69301ae83804a9770881b">scale</a>(U k, <span class="keyword">const</span> Mx &amp;m) {</div>
 <div class="line"><a name="l00827"></a><span class="lineno">  827</span>&#160;    <span class="keyword">typedef</span> detail::_ImplMatrixScale&lt;Mx&gt; scale_t;</div>
 <div class="line"><a name="l00828"></a><span class="lineno">  828</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> scale_t::return_t return_t;</div>
 <div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160;    return_t into = return_t(m.rows(), m.cols());</div>
-<div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160;    <a class="code" href="group__matrix.html#ga4972da3cb8b6c6a34ef1615caad4bb1d">scale_t::scale</a>(&amp;into, k, m);</div>
+<div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160;    <a class="code" href="group__linalg.html#gab4ef5a5844e69301ae83804a9770881b">scale_t::scale</a>(&amp;into, k, m);</div>
 <div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;    <span class="keywordflow">return</span> into;</div>
 <div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;}</div>
 <div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;</div>
@@ -624,7 +624,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;    detail::IsMatrix&lt;Mx&gt;::val and boost::is_scalar&lt;U&gt;::value,</div>
 <div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;    <span class="keyword">typename</span> detail::_ImplMatrixScale&lt;Mx&gt;::return_t</div>
 <div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;&gt;::type <a class="code" href="group__matrix.html#ga0002aa703c848adc96acb4714785baaa">operator*</a>(U k, <span class="keyword">const</span> Mx &amp;m) {</div>
-<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="group__matrix.html#ga4972da3cb8b6c6a34ef1615caad4bb1d">scale</a>(k,m);</div>
+<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="group__linalg.html#gab4ef5a5844e69301ae83804a9770881b">scale</a>(k,m);</div>
 <div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;}</div>
 <div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;</div>
 <div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;<span class="preprocessor">#ifdef PARSING_DOXYGEN</span></div>
@@ -635,7 +635,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;    detail::IsMatrix&lt;Mx&gt;::val and boost::is_scalar&lt;U&gt;::value,</div>
 <div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;    <span class="keyword">typename</span> detail::_ImplMatrixScale&lt;Mx&gt;::return_t</div>
 <div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;&gt;::type <a class="code" href="group__matrix.html#ga0002aa703c848adc96acb4714785baaa">operator*</a>(<span class="keyword">const</span> Mx &amp;m, U k) {</div>
-<div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="group__matrix.html#ga4972da3cb8b6c6a34ef1615caad4bb1d">scale</a>(k,m);</div>
+<div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="group__linalg.html#gab4ef5a5844e69301ae83804a9770881b">scale</a>(k,m);</div>
 <div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;}</div>
 <div class="line"><a name="l00871"></a><span class="lineno">  871</span>&#160;</div>
 <div class="line"><a name="l00879"></a><span class="lineno">  879</span>&#160;<span class="preprocessor">#ifdef PARSING_DOXYGEN</span></div>
@@ -735,7 +735,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 11 2013 00:02:26 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 11 2013 02:34:50 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

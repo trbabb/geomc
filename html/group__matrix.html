@@ -66,7 +66,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -77,7 +77,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">Matrix<div class="ingroups"><a class="el" href="group__linalg.html">Linalg</a></div></div>  </div>
 </div><!--header-->
@@ -109,6 +110,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_sparse_matrix.html">SparseMatrix&lt; T &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A (still weakly-supported) class which only stores nonzero matrix elements.  <a href="classgeom_1_1_sparse_matrix.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
 <tr class="memitem:gab21d5043e723f853c25239014392b5f6"><td class="memTemplParams" colspan="2">template&lt;typename Ma , typename Mb &gt; </td></tr>
 <tr class="memitem:gab21d5043e723f853c25239014392b5f6"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__matrix.html#gab21d5043e723f853c25239014392b5f6">mtx_aliases_storage</a> (const Ma &amp;a, const Mb &amp;b)</td></tr>
 <tr class="separator:gab21d5043e723f853c25239014392b5f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -191,7 +195,7 @@ Classes</h2></td></tr>
 <li>Handles to matrices of arbitrary type are possible.</li>
 </ul>
 <h1>Use</h1>
-<h2>Matrix dimensions</h2>
+<h2><a class="el" href="classgeom_1_1_matrix.html" title="A generic matrix class which can hold references to all other matrix types.">Matrix</a> dimensions</h2>
 <p>Most matrices have templated size: </p>
 <pre class="fragment">SimpleMatrix&lt;double, 3, 4&gt; mat3x4;
 </pre><p>In the example above, we construct a matrix with 3 rows and 4 columns. This matrix has <b>static dimensions</b>, in that its size is chosen (and fixed) at compile-time. Matrices with dimensions chosen at runtime may be written as: </p>
@@ -224,7 +228,7 @@ Vec&lt;double,3&gt; v;
 </pre><p>Matrix-vector mult: </p>
 <pre class="fragment">m1 * v
 v * m2
-</pre><p>Matrix addition / subtraction: </p>
+</pre><p><a class="el" href="classgeom_1_1_matrix.html" title="A generic matrix class which can hold references to all other matrix types.">Matrix</a> addition / subtraction: </p>
 <pre class="fragment">m1 + m1
 m1 - m1
 </pre><p>Equality test: </p>
@@ -243,14 +247,14 @@ float f2 = m[2][3];
 m.set(2, 3, val);
 m[2][3] = val;
 m.get(2, 3) = val;
-</pre><p>Matrix body iterators: </p>
+</pre><p><a class="el" href="classgeom_1_1_matrix.html" title="A generic matrix class which can hold references to all other matrix types.">Matrix</a> body iterators: </p>
 <pre class="fragment">typedef SimpleMatrix&lt;double,3,3&gt; mat3;
 mat3 m;
 // iterate over the matrix body in row-major order:
 for (mat3::iterator i = mat.begin(), i != m.end(); m++) {
     *i = ... ;
 }
-</pre><p>Matrix region iterators: </p>
+</pre><p><a class="el" href="classgeom_1_1_matrix.html" title="A generic matrix class which can hold references to all other matrix types.">Matrix</a> region iterators: </p>
 <pre class="fragment">typedef SimpleMatrix&lt;double,3,3&gt; mat3;
 mat3 m;
 Rect2i r = Rect2i(Vec2i(1,1), Vec2i(3,2));
@@ -968,7 +972,7 @@ for (mat3::region_iterator i = m.region_begin(r); i != m.region_end(r); i++) {
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 11 2013 00:02:26 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 11 2013 02:34:50 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>
