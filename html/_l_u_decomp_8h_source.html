@@ -70,7 +70,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Groups</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -325,8 +325,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    </div>
 <div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    </div>
 <div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> S, index_t K&gt;</div>
-<div class="line"><a name="l00288"></a><span class="lineno"><a class="code" href="classgeom_1_1_p_l_u_decomposition.html#a53e5ba3def1af81be8611e0830929ee6">  288</a></span>&#160;    <span class="keyword">inline</span> Vec&lt;S,K&gt; <a class="code" href="classgeom_1_1_p_l_u_decomposition.html#a53e5ba3def1af81be8611e0830929ee6">linearSolve</a>(<span class="keyword">const</span> Vec&lt;S,K&gt; &amp;b)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        Vec&lt;S,K&gt; dest;</div>
+<div class="line"><a name="l00288"></a><span class="lineno"><a class="code" href="classgeom_1_1_p_l_u_decomposition.html#a53e5ba3def1af81be8611e0830929ee6">  288</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">Vec&lt;S,K&gt;</a> <a class="code" href="classgeom_1_1_p_l_u_decomposition.html#a53e5ba3def1af81be8611e0830929ee6">linearSolve</a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">Vec&lt;S,K&gt;</a> &amp;b)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        <a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">Vec&lt;S,K&gt;</a> dest;</div>
 <div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;</div>
 <div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;        <span class="comment">// vectors get a dimension check, because we can:</span></div>
 <div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;<span class="preprocessor">        #ifdef GEOMC_MTX_CHECK_DIMS</span></div>
@@ -467,7 +467,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 10 2013 21:15:38 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 11 2013 00:02:26 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>
