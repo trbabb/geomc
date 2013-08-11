@@ -224,7 +224,7 @@
 
 namespace geom {
     
-/** @ingroup matrix
+/** @addtogroup matrix
  *  @{
  */
     

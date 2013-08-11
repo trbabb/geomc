@@ -1,13 +1,6 @@
 /*
  * AffineTransform.h
  *
- * Vectors are assumed to be columns; therefore a transformation
- * is ordered like:
- *   T * v
- * and so:
- *   A * B * v
- * applies B to v, then A to the result.
- *
  *  Created on: Oct 11, 2009
  *      Author: tbabb
  */
@@ -31,39 +24,82 @@
 
 namespace geom {
     
+/** @ingroup linalg
+ *  @brief Affine transformation class.
+ *
+ * Vectors are assumed to be columns; therefore a transformation is ordered like:
+ * 
+ *     T * v
+ * 
+ * and so:
+ * 
+ *     A * B * v
+ * 
+ * applies B to v, then A to the result.
+ * 
+ * The transform which "undoes" a transform can be obtained with `xf.inverse()`. 
+ * Because an AffineTransform internally stores both itself and its inverse, this 
+ * construction is fairly inexpensive, as are all inverse-application functions.
+ */
+    
     template <typename T, index_t N> class AffineTransform {
     public:
+        /// Matrix representing this transformation.
         SimpleMatrix<T,N+1,N+1> mat;
+        /// Matrix representing the inverse of this transformation.
         SimpleMatrix<T,N+1,N+1> inv;
 
+        /// Construct a new identity transform.
         AffineTransform() {}
         
         /*******************************
          * Operators                   *
          *******************************/
         
+        /**
+         * Transformation of a ray.
+         */
         friend Ray<T,N> operator*(const AffineTransform<T,N> &at, Ray<T,N> r) {
             return Ray<T,N>(at.apply(r.origin), at.applyVector(r.direction));
         }
         
+        /**
+         * Inverse transformation of a ray (`xf`<sup>`-1`</sup>` * ray`)
+         */
         friend Ray<T,N> operator/(Ray<T,N> r, const AffineTransform<T,N> &at) {
             return Ray<T,N>(at.applyInverse(r.origin), at.applyInverseVector(r.direction));
         }
         
-        friend Vec<T,N> operator*(const AffineTransform<T,N> &at, Vec<T,N> v) {
-            return at.apply(v);
+        /**
+         * Transformation of a point.
+         */
+        friend Vec<T,N> operator*(const AffineTransform<T,N> &at, Vec<T,N> p) {
+            return at.apply(p);
         }
         
-        friend Vec<T,N> operator/(Vec<T,N> v, const AffineTransform<T,N> &at) {
-            return at.applyInverse(v);
+        /**
+         * Inverse transformation of a point (`xf`<sup>`-1`</sup>` * pt`)
+         */
+        friend Vec<T,N> operator/(Vec<T,N> p, const AffineTransform<T,N> &at) {
+            return at.applyInverse(p);
         }
         
+        /**
+         * Concatenation of transforms. 
+         * @return A transformation representing an application of `at2` followed by
+         * `at1`.
+         */
         friend AffineTransform<T,N> operator*(const AffineTransform<T,N> &at1, const AffineTransform<T,N> &at2) {
             return at1.apply(at2);
         }
         
+        /**
+         * Concatenation of transforms.
+         * 
+         * Assign a transform representing an application of `this` followed by `at`.
+         */
         AffineTransform<T,N>& operator*=(const AffineTransform<T,N> &at) {
-            (*this) = apply(at);
+            (*this) = at.apply(*this);
             return (*this);
         }
         
@@ -78,12 +114,18 @@ namespace geom {
          * Methods                     *
          *******************************/
         
+        /**
+         * Transformation of a point.
+         */
         const Vec<T,N> apply(const Vec<T,N> &p) const {
             Vec<T,N+1> p_hom(p,1);
             p_hom = mat * p_hom;
             return p_hom.template resized<N>(); //c++ is awful
         }
         
+        /**
+         * Transformation of a direction vector; ignores any translation.
+         */
         const Vec<T,N> applyVector(const Vec<T,N> &v) const {
             Vec<T,N> o;
             for (index_t r = 0; r < N; r++) {
@@ -94,6 +136,10 @@ namespace geom {
             return o;
         }
         
+        /**
+         * Transformation of a normal. Preserves surface direction
+         * of geometry transformed by `this`. 
+         */
         const Vec<T,N> applyNormal(const Vec<T,N> &n) const {
             // normal matrix = txpose of inverse.
             Vec<T,N> o;
@@ -105,12 +151,18 @@ namespace geom {
             return o;
         }
         
+        /**
+         * Inverse transformation of a point.
+         */
         const Vec<T,N> applyInverse(const Vec<T,N> &p) const {
             Vec<T,N+1> p_hom(p,1);
             p_hom = inv * p_hom; // this is returning a dynamic matrix for some reason.
             return p_hom.template resized<N>();
         }
         
+        /**
+         * Inverse transformation of a direction vector; ignores any translation.
+         */
         const Vec<T,N> applyInverseVector(const Vec<T,N> &v) const {
             Vec<T,N> o;
             for (index_t r = 0; r < N; r++) {
@@ -121,6 +173,9 @@ namespace geom {
             return o;
         }
         
+        /**
+         * Inverse transformation of a normal.
+         */
         const Vec<T,N> applyInverseNormal(const Vec<T,N> &n) const {
             // txpose of inverse of inverse.
             Vec<T,N> o;
@@ -132,13 +187,21 @@ namespace geom {
             return o;
         }
         
+        /**
+         * Concatenation of transforms. 
+         * @return A transformation representing a transform by `this` followed by
+         * a transform by `at`.
+         */
         const AffineTransform<T,N> apply(const AffineTransform<T,N> &at) const {
             AffineTransform atnew;
-            atnew.mat = mat * at.mat;
-            atnew.inv = at.inv * inv;
+            atnew.mat = at.mat * mat;
+            atnew.inv = inv * at.inv;
             return atnew;
         }
         
+        /**
+         * @return The inverse transform of `this`.
+         */
         const AffineTransform<T,N> inverse() const {
             AffineTransform atnew;
             atnew.mat = inv;
@@ -152,7 +215,6 @@ namespace geom {
      * Matrix Construction         *
      *******************************/
 
-    // rotation about an axis
     template <typename T> 
     void rotmat(SimpleMatrix<T,4,4> *into, T x, T y, T z, T theta) {
         T c = cos(theta);
@@ -288,7 +350,17 @@ namespace geom {
     /*******************************
      * Creation Functions          *
      *******************************/
+    
+    /** @addtogroup linalg
+     *  @{
+     */
 
+    /**
+     * Rotation about an axis.
+     * @param axis Axis of rotation.
+     * @param radians Angle of rotation.
+     * @return A transformation representing a rotation about `axis` by angle `radians`.
+     */
     template <typename T> 
     AffineTransform<T,3> rotation(Vec<T,3> axis, T radians) {
         AffineTransform<T,3> atnew;
@@ -298,6 +370,18 @@ namespace geom {
         return atnew;
     }
     
+    /**
+     * Rotation about point. 
+     * 
+     * This transformation will not be a pure rotation; it will include a translation
+     * component.
+     * 
+     * @param axis Axis of rotation.
+     * @param center Center of rotation.
+     * @param radians Angle of rotation.
+     * @return A transformation representing a rotation around the point `center` 
+     * by angle `radians` and axis `axis`.
+     */
     template <typename T> 
     AffineTransform<T,3> rotation(Vec<T,3> axis, const Vec<T,3> &center, T radians) {
         AffineTransform<T,3> atnew;
@@ -309,6 +393,11 @@ namespace geom {
         return atnew;
     }
     
+    /**
+     * Rotation from a quaternion.
+     * @param q Rotation quaternion.
+     * @return A rotation transformation.
+     */
     template <typename T> 
     AffineTransform<T,3> rotation(Quat<T> q) {
         AffineTransform<T,3> atnew;
@@ -318,6 +407,11 @@ namespace geom {
         return atnew;
     }
     
+    /**
+     * 2D rotation about the origin by angle `radians`.
+     * @param radians Angle of rotation in the counterclockwise direction
+     * @return A 2D rotation transformation.
+     */
     template <typename T> 
     AffineTransform<T,2> rotation(T radians) {
         AffineTransform<T,2> atnew;
@@ -337,6 +431,9 @@ namespace geom {
         return atnew;
     }
     
+    /**
+     * Translation transform
+     */
     template <typename T, index_t N> 
     AffineTransform<T,N> translation(const Vec<T,N> &tx) {
         AffineTransform<T,N> atnew;
@@ -347,6 +444,11 @@ namespace geom {
         return atnew;
     }
     
+    /**
+     * Scale transform. 
+     * @param sx Vector whose elements describe a scaling along each axis.
+     * @return A transform representing a non-uniform scale along each axis.
+     */
     template <typename T, index_t N> 
     AffineTransform<T,N> scale(const Vec<T,N> &sx) {
         AffineTransform<T,N> atnew;
@@ -357,6 +459,11 @@ namespace geom {
         return atnew;
     }
     
+    /**
+     * Arbitrary transformation
+     * @param mat `N x N` matrix representing an arbitrary transformation.
+     * @return A transformation by `mat`
+     */
     template <typename T, index_t N> 
     AffineTransform<T,N> transformation(const SimpleMatrix<T,N,N> &mat) {
         SimpleMatrix<T,N,N> m_inv;
@@ -375,25 +482,39 @@ namespace geom {
     
     //2D & 3D convenience:
     
+    /**
+     * Per-axis 3D scale
+     */
     template <typename T> 
     AffineTransform<T,3> scale(T sx, T sy, T sz) {
         return scale(Vec<T,3>(sx,sy,sz));
     }
     
+    /**
+     * Per-axis 2D scale
+     */
     template <typename T> 
     AffineTransform<T,2> scale(T sx, T sy) {
             return scale(Vec<T,2>(sx,sy));
         }
     
+    /**
+     * 3D translation
+     */
     template <typename T> 
     AffineTransform<T,3> translation(T tx, T ty, T tz) {
         return translation(Vec<T,3>(tx,ty,tz));
     }
     
+    /**
+     * 2D translation
+     */
     template <typename T> 
     AffineTransform<T,2> translation(T tx, T ty) {
         return translation(Vec<T,2>(tx,ty));
     }
+    
+    /// @} // igroup linalg
 
 } //end namespace geom
 

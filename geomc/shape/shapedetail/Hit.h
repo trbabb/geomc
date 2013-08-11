@@ -29,6 +29,10 @@ namespace geom {
 // bitwise/masking logic allowed
 // i.e. HIT_BOTH = HIT_FRONT | HIT_BACK
 
+/** @ingroup linalg 
+ *  @{
+ */
+/// Ray hit testing choice
 enum HitSide {
     HIT_FRONT = 1,
     HIT_BACK  = 2,
@@ -40,19 +44,31 @@ enum HitSide {
 //       other user-supplied primvars will be interped based on these anyway).
 //       Note: W could just be N... maybe. for volume tracing, mebbe not.
 
+/** Ray hit class.
+ */
 template <typename T, index_t N>
 struct Hit {
+    /// Point of hit
     Vec<T,N> p;
+    /// Normal of surface at hit point
     Vec<T,N> n;
+    /// Ray parameter of hit, such that `r * s = p`
     T s;
+    /// Ray which generated the hit
     Ray<T,N> r;
+    /// Whether the ray hit the tested geometry
     bool hit;
+    /// The side of the geometry which generated the hit.
     HitSide side;
     
+    /// Construct a new ray miss.
     Hit():s(std::numeric_limits<T>::max()),hit(false),side(HIT_BOTH){}
     
+    /// Construct a new ray miss with ray `r` and HitSides `s`.
     Hit(Ray<T,N> r, HitSide s):s(std::numeric_limits<T>::max()),r(r),hit(false),side(s){}
 };
+
+/// @} // ingroup linalg
 
 }; // namespace geom
 

@@ -11,6 +11,10 @@
 #include <boost/utility/enable_if.hpp>
 #include <geomc/linalg/LinalgTypes.h>
 
+/** @defgroup shape Shape
+ *  @brief Shape-related classes and functions.
+ */
+
 namespace geom {
 
     enum ArrayOrder {
