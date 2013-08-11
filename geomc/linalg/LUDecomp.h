@@ -86,8 +86,8 @@ bool _ImplDecompPLU(T* m, index_t rows, index_t cols, index_t *reorder, bool *sw
 
 //////////// PLU class ////////////
 
-/** \ingroup matrix
- * Computes the PLU decompostion for a matrix `A`, such that `PA = LU`.
+/** @ingroup matrix
+ * @brief Computes the PLU decompostion for a matrix `A`, such that `PA = LU`.
  * 
  * `L` and `U` are lower and upper triangular matrices, respectively.
  * `P` has dimension `(LU.rows() x LU.rows())`, and `LU` has the dimension of `A`.
@@ -149,7 +149,14 @@ public:
 public:
     
     /**
-     * Get the row-permutation matrix.
+     * @return The number of elements in the diagonal of `LU`. 
+     */
+    inline index_t diagonal() const {
+        return std::min(LU.rows(), LU.cols());
+    }
+    
+    /**
+     * @return The row-permutation matrix.
      */
     const PermutationMatrix<M>& getP() const {
         return P;
@@ -165,34 +172,42 @@ public:
     }
     
     /**
-     * Get the lower-triangular matrix.
+     * @return A copy of the lower-triangular matrix.
      */
     const SimpleMatrix<T,M,DIAG> getL() const {
         typedef detail::_ImplMtxInstance< SimpleMatrix<T,M,DIAG> > instancer;
-        const index_t diag = std::min(LU.rows(), LU.cols());
+        const index_t diag = diagonal();
         SimpleMatrix<T,M,DIAG> out = instancer::instance(LU.rows(), diag);
         _copyL(out);
         return out;
     }
     
     /**
-     * Get the upper triangular matrix.
+     * @return A copy of the upper triangular matrix.
      */
     const SimpleMatrix<T,DIAG,N> getU() const {
         typedef detail::_ImplMtxInstance< SimpleMatrix<T,DIAG,N> > instancer;
-        const index_t diag = std::min(LU.rows(), LU.cols());
+        const index_t diag = diagonal();
         SimpleMatrix<T,DIAG,N> out = instancer::instance(diag, LU.cols());
         _copyU(out);
         return out;
     }
     
+    /**
+     * Get the lower triangular matrix.
+     * @param into A matrix of dimension `LU.rows() x diagonal()`
+     */
+#ifdef PARSING_DOXYGEN
+    template <typename S, index_t J, index_t K>
+    void getL(SimpleMatrix<S,J,K> *into) const {}
+#endif
     template <typename S, index_t J, index_t K>
     inline typename boost::enable_if_c<
             detail::MatrixDimensionMatch<L_t, SimpleMatrix<S,J,K> >::isStaticMatch,
         void>::type 
     getL(SimpleMatrix<S,J,K> *into) const {
         #ifdef GEOMC_MTX_CHECK_DIMS
-        const index_t diag = std::min(LU.rows(), LU.cols());
+        const index_t diag = diagonal();
         if ((J * L_t::ROWDIM == 0 or J != L_t::ROWDIM or
              K * L_t::COLDIM == 0 or K != L_t::COLDIM) and 
              (into->rows() != LU.rows() or into->cols() != diag)) {
@@ -205,13 +220,21 @@ public:
         _copyL(into);
     }
     
+    /**
+     * Get the upper triangular matrix.
+     * @param into A matrix of dimension `diagonal() x LU.cols()`
+     */
+#ifdef PARSING_DOXYGEN
+    template <typename S, index_t J, index_t K>
+    void getU(SimpleMatrix<S,J,K> *into) const {}
+#endif
     template <typename S, index_t J, index_t K>
     inline typename boost::enable_if_c<
             detail::MatrixDimensionMatch<U_t, SimpleMatrix<S,J,K> >::isStaticMatch,
         void>::type
     getU(SimpleMatrix<S,J,K> *into) const {
         #ifdef GEOMC_MTX_CHECK_DIMS
-        const index_t diag = std::min(LU.rows(), LU.cols());
+        const index_t diag = diagonal();
         if ((J * U_t::ROWDIM == 0 or J != U_t::ROWDIM or 
              K * U_t::COLDIM == 0 or K != U_t::COLDIM) and
              (into->rows() != diag or into->cols() != LU.cols())) {
@@ -226,11 +249,11 @@ public:
     // is passing the right thing, since there is no
     // better way to enforce this.
     /**
-     * Solve the linear matrix equation `Mx = b` for `x` 
-     * (where `M` is the matrix decomposed herein). `b` must
+     * Solve the linear matrix equation `Mx = b` for `x`,
+     * where `M` is the square matrix decomposed herein. `b` must
      * be of length `LU.rows()`. 
-     * @param [out] dest
-     * @param [in]  b
+     * @param [out] dest Array of length `LU.rows()`.
+     * @param [in]  b Array of length `LU.rows()`.
      */
     template <typename S>
     inline void linearSolve(S *dest, const S *b) const {
@@ -255,6 +278,12 @@ public:
      }
     
     
+    /**
+     * Solve the linear matrix equation `Mx = b` for `x`, where `M` is the
+     * square matrix decomposed herein.
+     * @param b A vector of length `LU.rows()`.
+     * @return The solution vector `x` to `Mx = b`.
+     */
     template <typename S, index_t K>
     inline Vec<S,K> linearSolve(const Vec<S,K> &b) const {
         Vec<S,K> dest;
@@ -272,8 +301,9 @@ public:
     }
     
     /**
-     * Compute the matrix inverse of the decomposed matrix.
-     * @param [out] into
+     * Compute the matrix inverse of the decomposed matrix `M`. `M` must be square.
+     *  
+     * @param [out] into A square matrix with dimensions equal to `LU`.
      */
     template <typename S, index_t J, index_t K>
     void inverse(SimpleMatrix<S,J,K> *into) const {
@@ -303,15 +333,15 @@ public:
     }
     
     /**
-     * Returns `true` if the decomposed matrix is singular, in which case
-     * `L`, `U`, and `P` will contain undefined data.
+     * @return `true` if the decomposed matrix is singular, in which case
+     * `L`, `U`, and `P` will contain undefined data; `false` otherwise.
      */
     inline bool isSingular() const {
         return singular;
     }
     
     /**
-     * Returns -1 if `P` introduces a coordinate system handedness-swap; 1 otherwise.
+     * @return -1 if `P` introduces a coordinate system handedness-swap; 1 otherwise.
      */
     inline int getParity() const {
         return swap_parity ? -1 : 1;

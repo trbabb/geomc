@@ -16,6 +16,7 @@ LIBDIR   = /opt/local/lib
 all : lib
 
 docs :
+	mkdir -p doc/gen
 	doxygen
 
 lib : $(OBJECTS)
@@ -42,8 +43,9 @@ install : all
 	cp -rf $(LIB) $(LIBDIR)
 
 clean :
-	rm -f ./build/*.o
-	rm -f ./lib/*.a
+	rm -f  ./build/*.o
+	rm -f  ./lib/*.a
+	rm -rf ./doc/gen
 
 uninstall :
 	rm -rf $(INCDIR)/geomc

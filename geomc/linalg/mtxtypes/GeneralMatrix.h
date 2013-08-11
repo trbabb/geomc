@@ -33,7 +33,10 @@ namespace detail {
     
 }; // end namespace detail
 
-/** \ingroup matrix */
+/** @ingroup matrix 
+ *  @brief A generic matrix class which can hold references to all other
+ *  matrix types.
+ */
 template <typename T>
 class Matrix : public detail::WriteableMatrixBase<T,DYNAMIC_DIM, DYNAMIC_DIM, Matrix<T> > {
 public:

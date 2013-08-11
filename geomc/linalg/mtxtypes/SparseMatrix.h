@@ -34,7 +34,13 @@ namespace detail {
     
 }; // end namespace detail
 
-/** \ingroup matrix */
+/** @ingroup matrix 
+ *  @brief A (still weakly-supported) class which only stores nonzero matrix elements.
+ * 
+ * Matrix multiplications, and many other operations, are still not yet optimized
+ * to take advantage of the sparse represenation. Future versions of the library
+ * will likely address this.
+ */
 template <typename T>
 class SparseMatrix : public detail::WriteableMatrixBase<T, DYNAMIC_DIM, DYNAMIC_DIM, SparseMatrix<T> > {
     

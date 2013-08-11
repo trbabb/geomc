@@ -297,6 +297,9 @@ inline bool mtx_aliases_storage(const Vec<T,N> &a, const Vec<T,N> &b) {
  * is considered invalid and the compilation will fail. If either object has dynamic
  * size, the check will be deferred to runtime, throwing a `DimensionMismatchException`
  * if the check fails.
+ * 
+ * @param [out] into A writeable matrix with dimensions matching `src`'s.
+ * @param [in]  src  A matrix object.
  */
 #ifdef PARSING_DOXYGEN
 template <typename Md, typename Ms> void mtxcopy(Md *into, const Ms &src) {}
@@ -366,6 +369,10 @@ void mtxcopy(Md *into, const Ms &src,
  * runtime, and a DimensionMismatchException thrown if the check fails. A 
  * compile-time dimension mismatch implies the program is invalid and compilation 
  * will error.
+ * 
+ * @param [out] into A writeable matrix or vector with dimensions `(a.rows() x b.cols())`
+ * @param [in]  a    A matrix object or vector with dimension `(N x b.rows())`
+ * @param [in]  b    A matrix object or vector with dimension `(a.cols() x N)`
  **/
 #ifdef PARSING_DOXYGEN
 template <typename Md, typename Ma, typename Mb> Md& mul(Md *into, const Ma &a, const Mb &b) {}
@@ -487,7 +494,11 @@ mul(Md *into, const Ma &a, const Mb &b) {
  * 
  * The return type will be chosen appropriately based on the arguments, and
  * will have dimension `(a x c)`.
- */
+ * 
+ * @param [in]  a    A matrix object or vector with dimension `(N x b.rows())`
+ * @param [in]  b    A matrix object or vector with dimension `(a.cols() x N)`
+ * @return A new matrix or vector object containing the result of `a * b`. 
+*/
 #ifdef PARSING_DOXYGEN
 template <typename Ma, typename Mb> Md mul(const Ma &a, const Mb &b) {}
 #endif
@@ -522,19 +533,22 @@ mul(const Ma &a, const Mb &b) {
 /**
  * Matrix transpose.
  * 
- * `Md` and `Mx` must be matrices whose dimensions satisfy `(a x b) = (b x a)`.
+ * @param [out] into A writeable matrix with dimensions `(m.cols(), m.rows())`
+ * @param [in] m A matrix object
  */
 #ifdef PARSING_DOXYGEN
-template <typename Md, typename Mx> Md& transpose(Md *into, const Mx &m) {}
+template <typename Md, typename Mx> void transpose(Md *into, const Mx &m) {}
 #endif
 template <typename Md, typename Mx>
-Md& transpose(Md *into, const Mx &m, 
-              M_ENABLE_IF_C(
-                  detail::IsMatrix<Md>::val and detail::IsMatrix<Mx>::val and
+typename boost::enable_if_c<
+    detail::IsMatrix<Md>::val and detail::IsMatrix<Mx>::val and
                   (Md::ROWDIM == Mx::COLDIM or
                    Md::ROWDIM *  Mx::COLDIM == 0) and
                   (Md::COLDIM == Mx::ROWDIM or 
-                   Md::COLDIM *  Mx::ROWDIM == 0) )) {
+                   Md::COLDIM *  Mx::ROWDIM == 0),
+    void
+>::type
+transpose(Md *into, const Mx &m) {
     
     typedef detail::_ImplMtxTxpose<Mx> txpose_t;
     typedef typename txpose_t::return_t return_t;
@@ -557,13 +571,12 @@ Md& transpose(Md *into, const Mx &m,
     }
     #endif
     txpose_t::transpose(into, m);
-    return *into;
 }
 
 /**
  * Matrix transpose.
  * 
- * `Mx` must be a matrix type. 
+ * @param [in] m A matrix object.
  * @returns A transposed copy of `m`, of type appropriate for the argument, usually
  * a `SimpleMatrix`.
  */
@@ -592,7 +605,7 @@ transpose(const Mx &m) {
  * Matrix inversion. `src` and `into` must be square matrices of the same dimension.
  * If a runtime check for square dimensions fails, a `NonsquareMatrixException` is raised.
  * 
- * @param [out] into A matrix with dimensions equal to `src`.
+ * @param [out] into A writeable matrix with dimensions equal to `src`.
  * @param [in]  src  A square matrix.
  * 
  * @return `false` if the matrix is singular and could not be inverted, `true` otherwise.
@@ -659,9 +672,9 @@ typename detail::_ImplMtxInv<Mx>::return_t inv(const Mx &m, bool *success,
  * Matrix addition. Add the corresponding elements of `a` and `b`, whose dimensions
  * must match.
  * 
- * @param [out] d Destination matrix, whose dimensions must match `a` and `b`.
- * @param [in] a Matrix object
- * @param [in] b Matrix object
+ * @param [out] d A writeable matrix, whose dimensions must match `a` and `b`.
+ * @param [in] a A matrix object
+ * @param [in] b A matrix object
  */
 #ifdef PARSING_DOXYGEN
 template <typename Md, typename Ma, typename Mb> void add(Md *d, const Ma &a, const Mb &b) {}
@@ -685,9 +698,9 @@ add(Md *d, const Ma &a, const Mb &b) {
  * Matrix subtraction. Subtract the corresponding elements of `b` from `a`'s. The 
  * dimensions of `a` and `b` must match.
  * 
- * @param [out] d Destination matrix, whose dimensions must match `a` and `b`.
- * @param [in] a Matrix object
- * @param [in] b Matrix object
+ * @param [out] d A writeable matrix, whose dimensions must match `a` and `b`.
+ * @param [in] a A matrix object
+ * @param [in] b A matrix object
  */
 #ifdef PARSING_DOXYGEN
 template <typename Md, typename Ma, typename Mb> void sub(Md *d, const Ma &a, const Mb &b) {}
@@ -711,8 +724,8 @@ sub(Md *d, const Ma &a, const Mb &b) {
  * Matrix addition. Add the corresponding elements of `a` and `b`, whose
  * dimensions must match.
  * 
- * @param [in] a Matrix object
- * @param [in] b Matrix object
+ * @param [in] a A matrix object
+ * @param [in] b A matrix object
  * @return A new matrix containing `a + b`, usually a `SimpleMatrix`.
  */
 #ifdef PARSING_DOXYGEN
@@ -770,7 +783,7 @@ sub(const Ma &a, const Mb &b) {
  * Scalar muliplication on matrices. In other words, multiply all the elements
  * of `m` by scalar value `k`.
  * 
- * @param [out] d Destination matrix, whose dimensions must match those of `m`.
+ * @param [out] d A writeable matrix, whose dimensions must match those of `m`.
  * @param [in]  k Scalar constant (whose type satisfies `boost::is_scalar<U>`).
  * @param [in]  m Matrix object to be scaled.
  */

@@ -71,7 +71,18 @@ namespace detail {
 template <typename Ma, typename Mb, typename Enable> class _ImplMtxMul;
 };
 
-/** \ingroup matrix */
+/** @ingroup matrix 
+ *  @brief A matrix which, by multiplication, permutes the rows or columns of
+ * another matrix.
+ * 
+ * A permutation matrix `P` permutes rows if left-multiplied (`P * M`), and permutes
+ * columns if right-multiplied (`M * P`).
+ * 
+ * Permutation matrices use O(n) storage, and multiplication operators with them
+ * are optimized to perform the permutation directly in O(n<sup>2</sup>) 
+ * (rather than O(n<sup>3</sup>)) 
+ * time.
+ */
 template <index_t N>
 class PermutationMatrix : public detail::MatrixBase<bool,N,N, PermutationMatrix<N> >, public detail::PermuteMatrixBase<N> {
 private:

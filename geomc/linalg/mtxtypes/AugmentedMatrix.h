@@ -42,7 +42,9 @@ namespace detail {
 // TODO: the mutability of the child classes may not match
 // TODO: ownership of child ptrs?
 
-/** \ingroup matrix */
+/** @ingroup matrix 
+ *  @brief A matrix which wraps two side-by-side sub-matrices.
+ */
 template <typename Ma, typename Mb>
 class AugmentedMatrix : public detail::WriteableMatrixBase<typename Ma::elem_t, DYNAMIC_DIM, DYNAMIC_DIM, AugmentedMatrix<Ma,Mb> > {
     

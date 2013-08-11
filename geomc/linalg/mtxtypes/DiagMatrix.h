@@ -22,7 +22,13 @@ namespace detail {
     
 }; // end namespace detail
 
-/** \ingroup matrix */
+/** @ingroup matrix 
+ * @brief A matrix with nonzero elements only along the main diagonal.
+ * 
+ * Storage for `DiagMatrix`es is O(n), and operations with diagonal matrices 
+ * usually benefit from the O(n) algorithmic improvement associated with their 
+ * lower dimension.
+ */
 template <typename T, index_t M, index_t N>
 class DiagMatrix : public detail::WriteableMatrixBase<T,M,N, DiagMatrix<T,M,N> > {
     index_t diag;
