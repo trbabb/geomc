@@ -53,6 +53,11 @@ namespace detail {
             std::copy(a, a+N, begin());
         }
         
+        /**
+         * Get the element at index `idx`.
+         * @param idx Index of element
+         * @return A const reference to the element at `idx`.
+         */
         inline const T& get(index_t idx) const {
             #ifdef GEOMC_VEC_CHECK_BOUNDS
                 // this is considerably slower
@@ -63,6 +68,11 @@ namespace detail {
             return v[idx];
         }
         
+        /**
+         * Get the element at index `idx`.
+         * @param idx Index of element
+         * @return A reference to the element at `idx`.
+         */
         inline T& get(index_t idx){
             #ifdef GEOMC_VEC_CHECK_BOUNDS
                 if (idx < 0 or idx >= N){
@@ -72,18 +82,30 @@ namespace detail {
             return v[idx];
         }
         
+        /**
+         * @return A read-only iterator pointing at the first element.
+         */
         inline const T* begin() const {
             return v;
         }
         
+        /**
+         * @return A read-only iterator pointing just beyond the last element.
+         */
         inline const T* end() const {
             return v+N;
         }
         
+        /**
+         * @return A writeable iterator pointing at the first element.
+         */
         inline T* begin() {
             return v;
         }
         
+        /**
+         * @return A writeable iterator pointing just beyond the last element.
+         */
         inline T* end() {
             return v+N;
         }
@@ -428,6 +450,10 @@ namespace detail {
          * Methods                     *
          *******************************/
         
+        /**
+         * @param v Another vector
+         * @return A new vector `x` such that `x[i] = this[i] + v[i]`
+         */
         inline const Vec<T,N> add(const Vec<T,N> &v) const {
             Vec<T,N> r;
             for (index_t i = 0; i < N; i++){
@@ -436,6 +462,10 @@ namespace detail {
             return r;
         }
         
+        /**
+         * @param v Another vector
+         * @return A new vector `x` such that `x[i] = this[i] - v[i]`
+         */
         inline const Vec<T,N> sub(const Vec<T,N> &v) const {
             Vec<T,N> r;
             for (index_t i = 0; i < N; i++){
@@ -444,6 +474,10 @@ namespace detail {
             return r;
         }
         
+        /**
+         * @param v Another vector
+         * @return A new vector `x` such that `x[i] = this[i] * v[i]`
+         */
         inline const Vec<T,N> scale(const Vec<T,N> &v) const {
             Vec<T,N> r;
             for (index_t i = 0; i < N; i++){
@@ -452,6 +486,10 @@ namespace detail {
             return r;
         }
         
+        /**
+         * @param a A constant scale factor
+         * @return A new vector `x` such that `x[i] = this[i] * a`
+         */
         inline const Vec<T,N> scale(T a) const {
             Vec<T,N> r;
             for (index_t i = 0; i < N; i++){
@@ -460,6 +498,9 @@ namespace detail {
             return r;
         }
         
+        /**
+         * @return A new vector `x` such that `x[i] = -this[i]`
+         */
         inline const Vec<T,N> neg() const {
             Vec<T,N> r;
             for (index_t i = 0; i < N; i++){
@@ -468,6 +509,10 @@ namespace detail {
             return r;
         }
  
+        
+        /**
+         * @return A copy of this vector with unit length
+         */
         inline const Vec<T,N> unit() const {
             T n = mag();
             Vec<T,N> r;
@@ -476,7 +521,12 @@ namespace detail {
             }
             return r;
         }
-
+        
+        
+        /**
+         * @param v Another vector
+         * @return The dot product of `this` with `v`
+         */
         inline T dot(const Vec<T,N> &v) const {
             T sum = 0;
             for (index_t i = 0; i < N; i++){
@@ -485,12 +535,16 @@ namespace detail {
             return sum;
         }
         
-        //vector magnitude
+        /**
+         * @return The magnitude (geometric length) of this vector.
+         */
         inline T mag() const {
             return sqrt(this->mag2());
         }
         
-        //magnitude squared
+        /**
+         * @return The square of the magnitude of this vector.
+         */
         inline T mag2() const {
             T sum = 0;
             for (index_t i = 0; i < N; i++){
@@ -500,27 +554,59 @@ namespace detail {
             return sum;
         }
 
+        /**
+         * @param pt Another point
+         * @return The distance between `this` and `pt`
+         */
         T dist(const Vec<T,N> &pt) const {
             return (this->sub(pt)).mag();
         }
 
+        /**
+         * @param pt Another point
+         * @return The square of the distance between `this` and `pt`
+         */
         T dist2(const Vec<T,N> &pt) const {
             return (this->sub(pt)).mag2();
         }
 
+        /**
+         * @param axis Axis of reflection
+         * @return This vector reflected across the given axis
+         */
         const Vec<T,N> reflect(const Vec<T,N> &axis) const {
             axis = axis.unit();
             return this->neg() + axis * 2 * this->dot(axis);
         }
 
+        /**
+         * Treat `this` as a velocity vector; this function returns
+         * the velocity reflected off of a surface with normal `normal`. 
+         * Equivalent to `-reflect(normal)`.
+         * 
+         * @param normal Normal of "bounce"
+         * @return The "bounced" direction vector
+         */
         const Vec<T,N> bounce(const Vec<T,N> &normal) const {
             return -reflect(normal);
         }
         
+        /**
+         * @param v A direction vector
+         * @return A vector in direction `v` with magnitude equal to the component
+         * of `this` aligned with `v`
+         */
         const Vec<T,N> projectOn(const Vec<T,N> &v) const {
             return v * this->dot(v) / v.mag2();
         }
 
+        /**
+         * Linear interpolation. A mix parameter of 0 evaluates to `this`, while 
+         * 1 is `v`.
+         * @param v Another vector
+         * @param mix A mixing factor between 0 and 1
+         * @return A linear mixing of `this` with `v`.
+         */
         const Vec<T,N> mix(const Vec<T,N> &v, T mix) const {
             T xim = 1 - mix;
             Vec<T,N> r;
@@ -530,14 +616,22 @@ namespace detail {
             return r;
         }
 
-        T angleTo(const Vec<T,N> &vv) const {
-            return acos(vv.unit().dot(unit()));
+        /**
+         * @param vv Another vector
+         * @return Angle between `this` and `v`
+         */
+        T angleTo(const Vec<T,N> &v) const {
+            return acos(v.unit().dot(unit()));
         }
         
         ///////////////////////
         // Clamping/Rounding //
         ///////////////////////
         
+        /**
+         * Element-wise absolute value
+         * @return A new vector `x` such that `x[i] = abs(this[i])`
+         */
         const Vec<T,N> abs() const {
             Vec<T,N> r;
             for (index_t i = 0; i < N; i++){
@@ -548,6 +642,10 @@ namespace detail {
         }
         
         //todo: handle integer cases
+        /**
+         * Element-wise floor function
+         * @return A new vector `x` such that `x[i] = floor(this[i])`
+         */
         const Vec<T,N> floor() const {
             Vec<T,N> r;
             for (index_t i = 0; i < N; i++){
@@ -557,6 +655,10 @@ namespace detail {
         }
         
         //todo: handle integer cases
+        /**
+         * Element-wise ceiling function
+         * @return A new vector `x` such that `x[i] = ceil(this[i])`
+         */
         const Vec<T,N> ceil() const {
             Vec<T,N> r;
             for (index_t i = 0; i < N; i++){
@@ -564,7 +666,12 @@ namespace detail {
             }
             return r;
         }
-
+        
+        /**
+         * Element-wise minimum
+         * @param v Another vector
+         * @return A new vector `x` such that `x[i] = min(this[i], v[i])`
+         */
         const Vec<T,N> min(const Vec<T,N> &v) const {
             Vec<T,N> r;
             for (index_t i = 0; i < N; i++){
@@ -572,7 +679,12 @@ namespace detail {
             }
             return r;
         }
-
+        
+        /**
+         * Element-wise maximum
+         * @param v Another vector
+         * @return A new vector `x` such that `x[i] = max(this[i], v[i])`
+         */
         const Vec<T,N> max(const Vec<T,N> &v) const {
             Vec<T,N> r;
             for (index_t i = 0; i < N; i++){
@@ -581,16 +693,24 @@ namespace detail {
             return r;
         }
         
-        const Vec<T,N> clamp(const Vec<T,N> &one, const Vec<T,N> &two) const {
+        /**
+         * Element-wise clamp
+         * @param one An element-wise lower extremes
+         * @param two Another element-wise upper extremes
+         * @return A new vector such that each element `x[i]` is clamped
+         * between `lo[i]` and `hi[i]`
+         */
+        const Vec<T,N> clamp(const Vec<T,N> &lo, const Vec<T,N> &hi) const {
             Vec<T,N> r;
             for (index_t i = 0; i < N; i++){
-                T low = std::min(one[i], two[i]);
-                T hi  = std::max(one[i], two[i]);
-                r[i]  = std::min(std::max(this->get(i), low), hi);
+                r[i]  = std::min(std::max(this->get(i), lo), hi);
             }
             return r;
         }
         
+        /**
+         * @return A new vector with each element rounded to the nearest integer.
+         */
         const Vec<T,N> round() const {
             Vec<T,N> r;
             for (index_t i = 0; i < N; i++){
@@ -599,6 +719,11 @@ namespace detail {
             return r;
         }
         
+        /**
+         * Resize a vector.
+         * @return A new vector with size `M`. If `M` is largner than `N`, the
+         * new elements will be set to zero.
+         */
         template <index_t M> inline Vec<T,M> resized() const {
             Vec<T,M> out;
             const T *p = this->begin();
@@ -606,6 +731,9 @@ namespace detail {
             return out;
         }
 
+        /**
+         * @return `true` if all elements are zero, `false` otherwise.
+         */
         bool isZero() const {
             for (index_t i = 0; i < N; i++){
                 if (this->get(i) != (T)0) return false;
@@ -613,10 +741,17 @@ namespace detail {
             return true;
         }
 
+        /**
+         * @return The number of elements in this vector. Always equal to `N`. 
+         */
         inline index_t getSize() const {
             return N;
         }
         
+        /**
+         * @return A set of pseudo-random bits deterministically related to the
+         * elements of this vector.
+         */
         inline size_t hashcode() const {
             return general_hash(this, sizeof(Vec<T,N>));
         }

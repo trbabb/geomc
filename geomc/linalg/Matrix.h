@@ -5,7 +5,7 @@
  */
 
 /** @ingroup linalg
- *  @defgroup matrix
+ *  @defgroup matrix Matrix
  * 
  * @brief Matrix-related functions and classes
  * 

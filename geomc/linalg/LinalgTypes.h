@@ -12,7 +12,7 @@
 
 #include <geomc/geomc_defs.h>
 
-/** @defgroup linalg 
+/** @defgroup linalg Linalg
  *  @brief Linear algebra functions and classes
  */
 

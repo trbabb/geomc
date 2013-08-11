@@ -17,5 +17,7 @@ Projects should link to libgeomc.a.
 Documentation
 =============
 
+Documentation is just beginning, so most of the classes and functions aren't listed yet.
+
 [Geomc modules](http://trbabb.github.io/geomc/html/modules.html)
 

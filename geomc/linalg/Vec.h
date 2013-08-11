@@ -16,7 +16,13 @@
 #include <geomc/linalg/vecdetail/Vec3.h>
 #include <geomc/linalg/vecdetail/Vec4.h>
 
+
 namespace geom {
+    
+    
+/** @ingroup linalg
+ *  @{
+ */
 
 /*******************************
  * Vector Operators            *
@@ -29,7 +35,17 @@ namespace geom {
 // more explicit matrix mult operators is beyond me.
 // c++ is a dumb, awful language.
 
-// scalar mult
+/**
+ * Vector-scalar multiplication
+ * 
+ * @param v A vector
+ * @param d Scalar value of type satisfying `boost::is_scalar`
+ * @return A new vector `x` such that `x[i] = v[i] * d`
+ */
+#ifdef PARSING_DOXYGEN
+    inline template <typename T, index_t N, typename U>
+    Vec<T,N> operator* (const Vec<T,N> &v, U d) {}
+#endif
 template <typename T, index_t N, typename U> 
 inline typename boost::enable_if<boost::is_scalar<U>,Vec<T,N> >::type operator* (const Vec<T,N> &v, U d) {
     Vec<T,N> r;
@@ -39,7 +55,17 @@ inline typename boost::enable_if<boost::is_scalar<U>,Vec<T,N> >::type operator* 
     return r;
 }
 
-// scalar mult
+/**
+ * Vector-scalar multiplication
+ * 
+ * @param d Scalar value of type satisfying `boost::is_scalar`
+ * @param v A vector
+ * @return A new vector `x` such that `x[i] = d * v[i]`
+ */
+#ifdef PARSING_DOXYGEN
+    inline template <typename T, index_t N, typename U>
+    Vec<T,N> operator* (U d, const Vec<T,N> &v) {}
+#endif
 template <typename T, index_t N, typename U> 
 inline typename boost::enable_if<boost::is_scalar<U>,Vec<T,N> >::type operator* (U d, const Vec<T,N> &v) {
     Vec<T,N> r;
@@ -49,13 +75,25 @@ inline typename boost::enable_if<boost::is_scalar<U>,Vec<T,N> >::type operator* 
     return r;
 }
 
-// componentwise mult
+/**
+ * Element-wise vector multiplication
+ * 
+ * @param a A vector
+ * @param b A vector
+ * @return A new vector `x` such that `x[i] = a[i] * b[i]`
+ */
 template <typename T, index_t N> 
 const Vec<T,N> operator* (const Vec<T,N> &a, const Vec<T,N> &b) {
     return a.scale(b);
 }
 
-// scalar div
+/**
+ * Vector division by a scalar
+ * 
+ * @param v A vector
+ * @param d Scalar value
+ * @return A new vector `x` such that `x[i] = v[i] / d`
+ */
 template <typename T, index_t N, typename U> 
 inline Vec<T,N> operator/ (const Vec<T,N> &v, U d) {
     Vec<T,N> r;
@@ -65,7 +103,13 @@ inline Vec<T,N> operator/ (const Vec<T,N> &v, U d) {
     return r;
 }
 
-// scalar div
+/**
+ * Scalar division by a vector
+ * 
+ * @param d Scalar value
+ * @param v A vector
+ * @return A new vector `x` such that `x[i] = d / v[i]`
+ */
 template <typename T, index_t N, typename U> 
 inline Vec<T,N> operator/ (U d, const Vec<T,N> &v) {
     Vec<T,N> r;
@@ -75,7 +119,13 @@ inline Vec<T,N> operator/ (U d, const Vec<T,N> &v) {
     return r;
 }
 
-// componentwise div
+/**
+ * Element-wise vector division
+ * 
+ * @param a A vector
+ * @param b A vector
+ * @return A new vector `x` such that `x[i] = a[i] / b[i]`
+ */
 template <typename T, index_t N> 
 const Vec<T,N> operator/ (const Vec<T,N> &a, const Vec<T,N> &b) {
     Vec<T,N> r;
@@ -106,19 +156,40 @@ std::ostream &operator<< (std::ostream &stream, const Vec<T,N> &v) {
  * All vectors are sizeof(T)*N and can be packed.
  */
 
+/**
+ * @ingroup linalg
+ * @brief A tuple of `N` elements of type `T`.
+ */
 template <typename T, index_t N> class Vec : public detail::VecCommon<T,N> {
 public:
     
-    //structors
+    /**
+     * Construct a new vector with all elements set to zero.
+     */
     Vec():detail::VecCommon<T,N>(){}
 
+    /**
+     * Construct a new vector with all elements set to the value of `a`.
+     * 
+     * @param a Scalar value
+     */
     Vec(T a):detail::VecCommon<T,N>(a){}
     
+    /**
+     * Construct a new vector with elements copied from `a`.
+     * @param a An array of length `N`. 
+     */
     Vec(T a[N]):detail::VecCommon<T,N>(a){}
     
-    Vec(Vec<T,N-1> &v, T x){
+    /**
+     * Construct a new vector with the elements from `v`, with `a` as the last 
+     * element.
+     * @param v A vector of dimension `N - 1`
+     * @param x The value of the last element
+     */
+    Vec(Vec<T,N-1> &v, T a){
         std::copy(v.begin(), v.end(), detail::VecBase<T,N>::begin());
-        this->get(N-1) = x;
+        this->get(N-1) = a;
     }
     
 }; /* class Vec */
@@ -129,7 +200,6 @@ public:
 namespace std {
 
 // these make vectors more interchangeable with bare types:
-
 template <typename T, index_t N>
 inline geom::Vec<T,N> max(const geom::Vec<T,N> &a, const geom::Vec<T,N> &b) {
     return a.max(b);
@@ -156,6 +226,8 @@ inline geom::Vec<T,N> ceil(const geom::Vec<T,N> &v) {
 }
 
 }; // namespace std
+
+/// @} //ingroup linalg
 
 
 #endif /* VEC_H_ */
