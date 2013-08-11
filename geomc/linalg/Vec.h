@@ -185,7 +185,7 @@ public:
      * Construct a new vector with the elements from `v`, with `a` as the last 
      * element.
      * @param v A vector of dimension `N - 1`
-     * @param x The value of the last element
+     * @param a The value of the last element
      */
     Vec(Vec<T,N-1> &v, T a){
         std::copy(v.begin(), v.end(), detail::VecBase<T,N>::begin());

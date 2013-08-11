@@ -82,30 +82,22 @@ namespace detail {
             return v[idx];
         }
         
-        /**
-         * @return A read-only iterator pointing at the first element.
-         */
+        /// @return A read-only iterator pointing at the first element.
         inline const T* begin() const {
             return v;
         }
         
-        /**
-         * @return A read-only iterator pointing just beyond the last element.
-         */
+        /// @return A read-only iterator pointing just beyond the last element.
         inline const T* end() const {
             return v+N;
         }
         
-        /**
-         * @return A writeable iterator pointing at the first element.
-         */
+        /// @return A writeable iterator pointing at the first element.
         inline T* begin() {
             return v;
         }
         
-        /**
-         * @return A writeable iterator pointing just beyond the last element.
-         */
+        /// @return A writeable iterator pointing just beyond the last element.
         inline T* end() {
             return v+N;
         }
@@ -123,6 +115,11 @@ namespace detail {
 
         VecBase(T a[2]):x(a[0]),y(a[1]){}
         
+        /**
+         * Get the element at index `idx`.
+         * @param idx Index of element
+         * @return A const reference to the element at `idx`.
+         */
         inline const T& get(index_t idx) const {
             #ifdef GEOMC_VEC_CHECK_BOUNDS
             switch(idx){
@@ -138,6 +135,11 @@ namespace detail {
             #endif
         }
         
+        /**
+         * Get the element at index `idx`.
+         * @param idx Index of element
+         * @return A reference to the element at `idx`.
+         */
         inline T& get(index_t idx) {
             #ifdef GEOMC_VEC_CHECK_BOUNDS
             switch(idx){
@@ -153,18 +155,22 @@ namespace detail {
             #endif
         }
         
+        /// @return A read-only iterator pointing at the first element.
         inline const T* begin() const {
             return &x;
         }
         
+        /// @return A read-only iterator pointing just beyond the last element.
         inline const T* end() const {
             return &y + 1;
         }
         
+        /// @return A writeable iterator pointing at the first element.
         inline T* begin() {
             return &x;
         }
         
+        /// @return A writeable iterator pointing just beyond the last element.
         inline T* end() {
             return &y + 1;
         }
@@ -191,6 +197,11 @@ namespace detail {
 
         VecBase(T a[3]):x(a[0]),y(a[1]),z(a[2]){}
 
+        /**
+         * Get the element at index `idx`.
+         * @param idx Index of element
+         * @return A const reference to the element at `idx`.
+         */
         inline const T& get(index_t idx) const {
         #ifdef GEOMC_VEC_CHECK_BOUNDS
             switch (idx){
@@ -208,6 +219,11 @@ namespace detail {
         #endif
         }
         
+        /**
+         * Get the element at index `idx`.
+         * @param idx Index of element
+         * @return A reference to the element at `idx`.
+         */
         inline T& get(index_t idx) {
 #ifdef GEOMC_CHECK_BOUNDS
             switch (idx){
@@ -225,18 +241,22 @@ namespace detail {
 #endif
         }
         
+        /// @return A read-only iterator pointing at the first element.
         inline const T* begin() const {
             return &x;
         }
         
+        /// @return A read-only iterator pointing just beyond the last element.
         inline const T* end() const {
             return &z + 1;
         }
         
+        /// @return A writeable iterator pointing at the first element.
         inline T* begin() {
             return &x;
         }
         
+        /// @return A writeable iterator pointing just beyond the last element.
         inline T* end() {
             return &z + 1;
         }
@@ -267,6 +287,11 @@ namespace detail {
 
         VecBase(T a[4]):x(a[0]),y(a[1]),z(a[2]),w(a[3]){}
 
+        /**
+         * Get the element at index `idx`.
+         * @param idx Index of element
+         * @return A const reference to the element at `idx`.
+         */
         inline const T& get(index_t idx) const {
 #ifdef GEOMC_VEC_CHECK_BOUNDS
             switch (idx){
@@ -286,6 +311,11 @@ namespace detail {
 #endif
         }
         
+        /**
+         * Get the element at index `idx`.
+         * @param idx Index of element
+         * @return A reference to the element at `idx`.
+         */
         inline T& get(index_t idx) {
 #ifdef GEOMC_VEC_CHECK_BOUNDS
             switch (idx){
@@ -305,18 +335,22 @@ namespace detail {
 #endif
         }
         
+        /// @return A read-only iterator pointing at the first element.
         inline const T* begin() const {
             return &x;
         }
         
+        /// @return A read-only iterator pointing just beyond the last element.
         inline const T* end() const {
             return &w + 1;
         }
         
+        /// @return A writeable iterator pointing at the first element.
         inline T* begin() {
             return &x;
         }
         
+        /// @return A writeable iterator pointing just beyond the last element.
         inline T* end() {
             return &w + 1;
         }
@@ -368,14 +402,30 @@ namespace detail {
          * Operators                   *
          *******************************/
 
+        /**
+         * Vector index
+         * 
+         * @param idx Index of element in this vector
+         * @return A read-only reference to the element at index `idx`
+         */
         inline const T& operator[](index_t idx) const {
             return this->get(idx);
         }
         
+        /**
+         * Vector index
+         * 
+         * @param idx Index of element in this vector
+         * @return A reference to the element at index `idx`
+         */
         inline T& operator[](index_t idx) {
             return this->get(idx);
         }
 
+        /**
+         * Element typecast
+         * @return A new vector with all elements cast to type `U`.
+         */
         template <typename U> operator Vec<U,N>() const {
             Vec<U,N> r;
             for (index_t i = 0; i < N; i++){
@@ -384,6 +434,7 @@ namespace detail {
             return r;
         }
 
+        /// @return `true` if all corresponding elements of `this` and `vv` are equal, `false` otherwise.
         inline bool operator==(const Vec<T,N> &vv) const {
             for (index_t i = 0; i < N; i++){
                 if (vv.get(i) != this->get(i)) return false;
@@ -391,6 +442,7 @@ namespace detail {
             return true;
         }
         
+        /// @return `true` if any corresponding elements of `this` and `vv` are unequal, `false` otherwise.
         inline bool operator!=(const Vec<T,N> &vv) const {
             for (index_t i = 0; i < N; i++){
                 if (vv.get(i) != this->get(i)) return true;
@@ -398,10 +450,12 @@ namespace detail {
             return false;
         }
 
+        /// Element-wise addition
         inline const Vec<T,N> operator+(const Vec<T,N> &v) const {
             return this->add(v);
         }
 
+        /// Element-wise addition and assignment
         VecCommon<T,N>& operator+=(const Vec<T,N> &vv){
             for (index_t i = 0; i < N; i++){
                 this->get(i) += vv[i];
@@ -409,10 +463,12 @@ namespace detail {
             return *this;
         }
         
+        /// Element-wise subtraction
         inline const Vec<T,N>  operator-(const Vec<T,N> &v) const {
             return this->sub(v);
         }
-
+        
+        /// Subtraction and assignment
         VecCommon<T,N>& operator-=(const Vec<T,N> &vv){
             for (index_t i = 0; i < N; i++){
                 this->get(i) -= vv[i];
@@ -420,6 +476,7 @@ namespace detail {
             return *this;
         }
 
+        /// Scalar multiplication and assignment
         VecCommon<T,N>& operator*=(T s){
             for (index_t i = 0; i < N; i++){
                 this->get(i) *= s;
@@ -427,6 +484,7 @@ namespace detail {
             return *this;
         }
 
+        /// Scalar division and assignment
         VecCommon<T,N>& operator/=(T s){
             for (index_t i = 0; i < N; i++){
                 this->get(i) /= s;
@@ -434,6 +492,7 @@ namespace detail {
             return *this;
         }
 
+        /// Element-wise multiplication and assignment
         VecCommon<T,N>& operator*=(const Vec<T,N> &vv){
             for (index_t i = 0; i < N; i++){
                 this->get(i) *= vv[i];
@@ -441,7 +500,9 @@ namespace detail {
             return *this;
         }
 
-        //negation
+        /** @return A copy of this vector with all elements negated (i.e. a 
+         * vector pointing in the opposite direction).
+         */
         inline const Vec<T,N> operator-() const {
             return this->neg();
         }
@@ -617,7 +678,7 @@ namespace detail {
         }
 
         /**
-         * @param vv Another vector
+         * @param v Another vector
          * @return Angle between `this` and `v`
          */
         T angleTo(const Vec<T,N> &v) const {
@@ -695,8 +756,8 @@ namespace detail {
         
         /**
          * Element-wise clamp
-         * @param one An element-wise lower extremes
-         * @param two Another element-wise upper extremes
+         * @param lo Element-wise lower extremes
+         * @param hi Element-wise upper extremes
          * @return A new vector such that each element `x[i]` is clamped
          * between `lo[i]` and `hi[i]`
          */
