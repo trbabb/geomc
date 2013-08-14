@@ -102,7 +102,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>An N-dimensional axis-aligned box.  
  <a href="classgeom_1_1_rect.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="_rect_8h_source.html">Rect.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_rect_8h_source.html">geomc/shape/Rect.h</a>&gt;</code></p>
 
 <p>Inherits Bounded&lt; T, N &gt;.</p>
 <table class="memberdecls">
@@ -220,8 +220,9 @@ class geom::Rect&lt; T, N &gt;</h3>
 </pre><p>Example:</p>
 <ul>
 <li><code><a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box.">Rect</a>&lt;double,4&gt;::point_t</code> is <code><a class="el" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">Vec</a>&lt;double,4&gt;</code>; <code>getMin()</code> returns a <code>Vec4d</code>.</li>
-<li><code><a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box.">Rect</a>&lt;double,1&gt;::point_t</code> is <code>double</code>; <code>getMin()</code> returns a <code>double</code>. </li>
+<li><code><a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box.">Rect</a>&lt;double,1&gt;::point_t</code> is <code>double</code>; <code>getMin()</code> returns a <code>double</code>.</li>
 </ul>
+<p>Rects obey the standard interval conventions, in that lower extremes are inclusive and upper extemes are exclusive. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a65d2b089437e1b7a461ae1ae56fb03ff"></a>
 <div class="memitem">
@@ -497,7 +498,7 @@ class geom::Rect&lt; T, N &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>The lengths of this region along each axis. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The size of this region along each axis. </dd></dl>
 
 </div>
 </div>
@@ -1122,7 +1123,7 @@ class geom::Rect&lt; T, N &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Preserving its extents, translate the center of this region to the point given by <code>center</code>. </p>
+<p>Preserving its size, translate the center of this region to the point given by <code>center</code>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">center</td><td>New center point. </td></tr>
@@ -1188,7 +1189,7 @@ class geom::Rect&lt; T, N &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Change the extents of this region, adjusting about its center. </p>
+<p>Change the size of this region, adjusting about its center. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">dim</td><td>New lengths along each axis. </td></tr>
@@ -1346,7 +1347,7 @@ class geom::Rect&lt; T, N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 11 2013 02:34:50 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2013 01:14:11 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

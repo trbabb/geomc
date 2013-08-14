@@ -203,7 +203,7 @@ Functions</h2></td></tr>
 </pre><p>There are two important functional differences between static matrices and dynamic matrices:</p>
 <ul>
 <li>Static matrix operators may perform dimension "agreement" checks at compile-time, catching errors early, and circumventing the cost of runtime dimension checks.</li>
-<li>Static matrices use "copy" semantics, while dynamic matrices use "reference" semantics, and refer to common storage when copy-constructed.</li>
+<li>Static matrices use "copy" semantics, while dynamic matrices use "reference" semantics, and point to common storage when copy-constructed.</li>
 </ul>
 <p>The latter point is important to understand, as writing: </p>
 <pre class="fragment">SimpleMatrix&lt;double, 0, 0&gt; m1 = some_matrix_function(...);
@@ -215,6 +215,21 @@ m2[1][2] = 123;
 </pre><p>To copy the elements from one matrix to another, without referencing, and regardless of matrix type or static/dynamic setting: </p>
 <pre class="fragment">mtxcopy(&amp;dst_mtx, src_mtx);
 </pre><p>Because of difference in storage strategy between static and dynamic matrices, copy and pass-by-value operations can be much heavier for large static matrices, because the entire matrix must be copied. Therefore it may be advisable to choose dynamic matrices for any data much larger than a few elements along each axis.</p>
+<h2>Dimension checking</h2>
+<p><a class="el" href="classgeom_1_1_matrix.html" title="A generic matrix class which can hold references to all other matrix types.">Matrix</a> operations often place restrictions on the dimensions of their matrix operands. For example, matrix addition requires that both operands have the same dimensions (in other words, a 3 x 4 matrix can only be added to another 3 x 4 matrix).</p>
+<p>When matrices with static dimensions are involved, the library can often prove at compile time that an argument's dimensions are correct or incorrect. If proven correct, run-time dimension checks can be skipped, resulting in slightly faster code. If incorrect, the compiler will error, catching program correctness problems early. Compile-time dimension mismatches / requirement failures will generally manifest as <code>template argument deduction/substitution failed</code> errors.</p>
+<p>This code will prove its dimension-correctness at compile time: </p>
+<pre class="fragment">SimpleMatrix&lt;double, 4, 4&gt; mat4x4;
+DiagMatrix&lt;double, 4, 4&gt; dmat4x4;
+mat4x4 + dmat4x4  // statically proven; no runtime dimension checking
+</pre><p>These will defer to a runtime check, since the dimensions of some arguments cannot be deduced from their type: </p>
+<pre class="fragment">SimpleMatrix&lt;double, 4, 4&gt; mat4x4;
+SimpleMatrix&lt;double, 0, 0&gt; mat_a_NxN(4,4);
+SimpleMatrix&lt;double, 0, 0&gt; mat_b_NxN(3,2);
+
+mat4x4 + mat_a_NxN; // runtime dimension check; will succeed.
+mat4x4 + mat_b_NxN; // runtime dimension check; will throw an exception.
+</pre><p>Runtime dimension checks will throw either a <code>DimensionMismatchException</code> or <code>NonsquareMatrixException</code> on failure. Runtime checks can be disabled completely (at the hazard of introducing memory access violations and other bugs) by un-defining <code>GEOMC_MTX_CHECK_DIMS</code> in <code><a class="el" href="geomc__defs_8h_source.html">geomc_defs.h</a></code>. A runtime dimension check will occurr if any checked dimension is dynamic.</p>
 <h2>Operators</h2>
 <p>Matrices support most basic arithmetic operators. We'll demonstrate with these example objects: </p>
 <pre class="fragment">SimpleMatrix&lt;double,3,3&gt; m1;
@@ -261,7 +276,7 @@ Rect2i r = Rect2i(Vec2i(1,1), Vec2i(3,2));
 // iterate over the elements in region `r` in row-major order:
 for (mat3::region_iterator i = m.region_begin(r); i != m.region_end(r); i++) {
     Vec2i c = i.point();
-    *i = f(p, ...);
+    *i = f(c, ...);
 }
 </pre><h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="gaa4a33c0f1bb911ce5235ceb09dca799a"></a>
@@ -972,7 +987,7 @@ for (mat3::region_iterator i = m.region_begin(r); i != m.region_end(r); i++) {
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 11 2013 02:34:50 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2013 01:14:11 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>
