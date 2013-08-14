@@ -64,7 +64,7 @@
  *     compile-time, catching errors early, and circumventing the cost of runtime 
  *     dimension checks.
  *   - Static matrices use "copy" semantics, while dynamic matrices use 
- *     "reference" semantics, and refer to common storage when copy-constructed.
+ *     "reference" semantics, and point to common storage when copy-constructed.
  * 
  * The latter point is important to understand, as writing:
  * 
@@ -89,6 +89,44 @@
  * because the entire matrix must be copied. Therefore it may be advisable to 
  * choose dynamic matrices for any data much larger than a few elements along 
  * each axis.
+ * 
+ * Dimension checking
+ * ------------------
+ * 
+ * Matrix operations often place restrictions on the dimensions of their matrix 
+ * operands. For example, matrix addition requires that both operands have the 
+ * same dimensions (in other words, a 3 x 4 matrix can only be added to another 
+ * 3 x 4 matrix). 
+ * 
+ * When matrices with static dimensions are involved, the library can often prove
+ * at compile time that an argument's dimensions are correct or incorrect. If proven
+ * correct, run-time dimension checks can be skipped, resulting in slightly faster
+ * code. If incorrect, the compiler will error, catching program correctness problems
+ * early. Compile-time dimension mismatches / requirement failures will generally
+ * manifest as `template argument deduction/substitution failed` errors.
+ * 
+ * This code will prove its dimension-correctness at compile time:
+ * 
+ *     SimpleMatrix<double, 4, 4> mat4x4;
+ *     DiagMatrix<double, 4, 4> dmat4x4;
+ *     mat4x4 + dmat4x4  // statically proven; no runtime dimension checking
+ * 
+ * These will defer to a runtime check, since the dimensions of some arguments
+ * cannot be deduced from their type:
+ * 
+ *     SimpleMatrix<double, 4, 4> mat4x4;
+ *     SimpleMatrix<double, 0, 0> mat_a_NxN(4,4);
+ *     SimpleMatrix<double, 0, 0> mat_b_NxN(3,2);
+ *     
+ *     mat4x4 + mat_a_NxN; // runtime dimension check; will succeed.
+ *     mat4x4 + mat_b_NxN; // runtime dimension check; will throw an exception.
+ * 
+ * 
+ * Runtime dimension checks will throw either a `DimensionMismatchException` or
+ * `NonsquareMatrixException` on failure. Runtime checks can be disabled
+ * completely (at the hazard of introducing memory access violations and other bugs)
+ * by un-defining `GEOMC_MTX_CHECK_DIMS` in `geomc_defs.h`. A runtime dimension check
+ * will occurr if any checked dimension is dynamic.
  * 
  * Operators
  * ---------
@@ -162,7 +200,7 @@
  *     // iterate over the elements in region `r` in row-major order:
  *     for (mat3::region_iterator i = m.region_begin(r); i != m.region_end(r); i++) {
  *         Vec2i c = i.point();
- *         *i = f(p, ...);
+ *         *i = f(c, ...);
  *     }
  * 
  * .
@@ -171,13 +209,15 @@
 //TODO: make exposed templates for the dynamically-chosen return types.
 //TODO: add parameters to all the docs
 //TODO: document:
-//      - matrix static/dynamic dims
-//      - matrix allowed operators
-//      - document inter-operation / dim checking
+//      x matrix static/dynamic dims
+//      x matrix allowed operators
+//      x document inter-operation / dim checking
 //TODO: error reporting templates
+//      x not fixing. c++ is too broken to support this (extremely basic) feature.
 //TODO: rename Matrix (and SimpleMatrix?)
 
-//TODO: templatize memory layout choice
+
+//TODO: templatize memory layout choice?
 //TODO: reduce bloat, particularly in matrix inv case.
 //TODO: determinant
 //TODO: matrix kernel (ND normal-finder)
@@ -219,6 +259,8 @@
 #ifdef GEOMC_LINALG_USE_STREAMS
   #include <iostream>
   #include <iomanip>
+
+#include "mtxdetail/MatrixGlue.h"
 #endif
 
 

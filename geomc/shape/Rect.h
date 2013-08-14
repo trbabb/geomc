@@ -340,14 +340,14 @@ public:
     }
 
     /**
-     * @return The lengths of this region along each axis.
+     * @return The size of this region along each axis.
      */
     inline point_t getDimensions() const {
         return maxs - mins;
     }
 
     /**
-     * Change the extents of this region, adjusting about its center.
+     * Change the size of this region, adjusting about its center.
      * @param dim New lengths along each axis.
      */
     void setDimensions(point_t dim) {
@@ -366,7 +366,7 @@ public:
     }
     
     /**
-     * Preserving its extents, translate the center of this region to the point
+     * Preserving its size, translate the center of this region to the point
      * given by `center`.
      * @param center New center point.
      */

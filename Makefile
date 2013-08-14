@@ -45,7 +45,7 @@ install : all
 clean :
 	rm -f  ./build/*.o
 	rm -f  ./lib/*.a
-	rm -rf ./doc/gen/*
+	rm -rf ./doc/gen/html
 
 uninstall :
 	rm -rf $(INCDIR)/geomc

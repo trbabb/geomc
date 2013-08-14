@@ -228,6 +228,20 @@ struct IsMatrix<Mt, typename boost::enable_if_c<
 };
 
 /*****************************************************
+ * IsVector check                                    *
+ *****************************************************/
+
+template <typename V>
+struct isVector {
+    static const bool val = false;
+};
+
+template <typename T, index_t N>
+struct isVector< Vec<T,N> > {
+    static const bool val = true;
+};
+
+/*****************************************************
  * Matrix dimension agreement                        *
  *                                                   *
  * Check if two matrices' dimensions match           *
