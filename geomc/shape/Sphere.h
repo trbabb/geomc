@@ -15,29 +15,66 @@
 
 namespace geom {
 
+    /** 
+     * @ingroup shape
+     * @brief A N-dimensional circle, sphere, or hypersphere
+     */
     template <typename T, index_t N>
     class Sphere : virtual public Bounded<T,N> {
     public:
+        /// Center of the sphere.
         Vec<T,N> center;
+        /// Radius of the sphere.
         T r;
 
-        //structors
+        /**
+         * Construct a sphere at the origin with radius 1.
+         */
         Sphere():center(Vec<T,N>::zeros),r(1){}
+        
+        /**
+         * Construct a sphere with center at the point `c`, having radius `r`.
+         * @param c Center of sphere.
+         * @param r Radius of spehre.
+         */
         Sphere(Vec<T,N> c, T r):center(c),r(r){}
         
+        /**
+         * @return An axis-aligned bounding box completely containing this
+         * sphere.
+         */
         Rect<T,N> bounds(){
             Vec<T,N> rvec = Vec<T,N>(r);
             return Rect<T,N>(center-rvec, center+rvec);
         }
 
+        /**
+         * Sphere-point intersection test.
+         * @param p A point
+         * @return `true` if `p` is inside or on the surface of the sphere, `false`
+         * otherwise.
+         */
         bool contains(Vec<T,N> p) const {
             return center.dist2(p) <= r*r;
         }
         
+        /**
+         * Sphere-sphere intersection test.
+         * @param s Another sphere.
+         * @return `true` if `s` overlaps with this sphere's volume, false otherwise.
+         */
         bool intersects(Sphere s) const {
             return s.center.dist2(center) <= r*r;
         }
         
+        /**
+         * Sphere-ray intersection test.
+         * @param ray The ray to intersect with this sphere.
+         * @param side Whether to hit-test the front (outside) or back-facing (inside)
+         * surfaces of this sphere.
+         * @return A ray hit describing whether and where the ray intersects this sphere,
+         * as well as the normal, side hit, and ray parameter.
+         */
         Hit<T,N> trace(const Ray<T,N> &ray, HitSide side) const {
             Hit<T,N> h = Hit<T,N>(ray, side); // defaults to miss 
             T r2 = r*r;

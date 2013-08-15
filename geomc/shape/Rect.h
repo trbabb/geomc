@@ -141,7 +141,7 @@ public:
      * @return A Rect fully containing `this` and box `b`.
      */
     inline Rect<T,N> operator|(const Rect<T,N> &b) const {
-        return boxUnion(b);
+        return rangeUnion(b);
     }
     
     /**
@@ -154,26 +154,6 @@ public:
         //box union
         maxs = std::max(b.maxs, maxs);
         mins = std::min(b.mins, mins);
-        return *this;
-    }
-    
-    /**
-     * Point union
-     * @return A Rect fully containing `this` and point `p`.
-     */
-    inline Rect<T,N> operator|(const point_t &p) const {
-        return ptUnion(p);
-    }
-    
-    /**
-     * Point union
-     * 
-     * Extend `this` to fully contain point `p`.
-     * @return A reference to `this`, for convenience.
-     */
-    Rect<T,N>& operator|=(const point_t &p) {
-        maxs = std::max(maxs, p);
-        mins = std::min(mins, p);
         return *this;
     }
     
@@ -432,17 +412,9 @@ public:
     }
 
     /**
-     * @return A new Rect completely containing `this` and point `p`.
-     */
-    Rect<T,N> ptUnion(point_t pt) const {
-        return Rect<T,N>(std::min(mins,pt),
-                         std::max(maxs,pt));
-    }
-
-    /**
      * @return `p`'s fractional position within this Rect.
      */
-    point_t boxCoords(point_t p) const {
+    point_t boxFraction(point_t p) const {
         return (point_t(1)-p) * mins + p * maxs ;
     }
     

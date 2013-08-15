@@ -32,9 +32,18 @@ namespace geom {
 
 // TODO: should this really be templated over array order? maybe that should be dynamic?
 // TODO: This shit is broken and walking off the edge of things (reverse dimension order only).
-
+// TODO: somehow add docs for the inherited operators.
+    
+/**
+ * @ingroup shape
+ * @brief Iterator over the points in an N-dimensional grid.
+ * 
+ * This class accepts an N-dimension region to iterate over, and returns
+ * points on the grid within than region. Row- or column-major order may be
+ * selected with the ArrayOrder template parameter.
+ */
 template <typename T, index_t N, ArrayOrder Order>
-class GridIterator : public boost::iterator_facade<GridIterator<T,N,Order>,      // self type
+class GridIterator : public boost::iterator_facade<GridIterator<T,N,Order>,            // self type
                                             typename PointType<T,N>::point_t,          // value (pointed to) type
                                             std::random_access_iterator_tag,           // implemented concepts (all)
                                             const typename PointType<T,N>::point_t&> { // reference to elem type (may be a proxy)
@@ -45,28 +54,54 @@ class GridIterator : public boost::iterator_facade<GridIterator<T,N,Order>,     
     const static index_t dim_increment = detail::_ImplArrayOrder<Order,N>::dim_increment;
     
 public:
+    /// Array order (row-major or column-major)
     const static ArrayOrder order; //for cxx11: use constexpr
+    /// Type of coordinate to be iterated over.
     typedef typename PointType<T,N>::point_t point_t;
     
+    /// Region over which to iterate
     const Rect<T,N> region;
+    /// Current point
     point_t pt;
     
+    /**
+     * Construct an iterator over the region `r` pointing to the first grid point.
+     */
     GridIterator(const Rect<T,N> &r):
                 region(r),
                 pt(region.min()) {}
+    /**
+     * Construct an interator over the region `r` pointing at the point given by `p`.
+     * @param r A region
+     * @param p A point inside `r`.
+     */
     GridIterator(const Rect<T,N> &r, const point_t &p):
                     region(r),
                     pt(p) {}
+    
+    /**
+     * Construct an iterator over the region bounded by the points
+     * `lo` and `hi`, pointing at the first cell.
+     * @param lo Lower extreme of the region (inclusive).
+     * @param hi Upper extreme of the region (exclusive).
+     */
     GridIterator(const point_t &lo, const point_t &hi):
                 region(lo,hi),
                 pt(lo) {}
     
+    /**
+     * @return An iterator pointing to the lower-most coordinate of the grid
+     */
     inline GridIterator<T,N,Order> begin() const {
         GridIterator<T,N,Order> other = *this;
         other.pt = region.min();
         return other;
     }
     
+    /**
+     * @return An iterator pointing just beyond the upper-most coordinate of the
+     * grid.
+     */
     inline GridIterator<T,N,Order> end() const {
         GridIterator<T,N,Order> other = *this;
         other.pt = region.min();

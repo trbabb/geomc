@@ -103,7 +103,7 @@
  * correct, run-time dimension checks can be skipped, resulting in slightly faster
  * code. If incorrect, the compiler will error, catching program correctness problems
  * early. Compile-time dimension mismatches / requirement failures will generally
- * manifest as `template argument deduction/substitution failed` errors.
+ * manifest as "`template argument deduction/substitution failed`" errors.
  * 
  * This code will prove its dimension-correctness at compile time:
  * 
@@ -215,6 +215,10 @@
 //TODO: error reporting templates
 //      x not fixing. c++ is too broken to support this (extremely basic) feature.
 //TODO: rename Matrix (and SimpleMatrix?)
+//TODO: rename MatrixRegion to vec2i, rect2i, etc.
+//TODO: create a 'subregion' matrix.
+//TODO: change 'scale' to 'mul'.
+//TODO: get 'intersection/intersects/overlap/union/etc' terminology in Rect consistent.
 
 
 //TODO: templatize memory layout choice?

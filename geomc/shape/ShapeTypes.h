@@ -17,9 +17,16 @@
 
 namespace geom {
 
+    /** 
+     * Array dimension order.
+     * 
+     * Specified in terms of which axes to increment first.
+     */
     enum ArrayOrder {
-        ARRAYORDER_FIRST_DIM_CONSECUTIVE, //colmajor; "fortran" order; if using (row,col) dimension order
-        ARRAYORDER_LAST_DIM_CONSECUTIVE   //rowmajor; "C" order; if using (row, col) dimension order
+        /// Column-major, i.e. "fortran" order, if using (row, col) ordered indexes
+        ARRAYORDER_FIRST_DIM_CONSECUTIVE,
+        /// Row-major, i.e. "C" order, if using (row, col) ordered indexes
+        ARRAYORDER_LAST_DIM_CONSECUTIVE
     };
     
     template <typename T, index_t N> class Plane;

@@ -34,8 +34,11 @@ namespace geom {
  */
 /// Ray hit testing choice
 enum HitSide {
+    /// Ray-test front-facing surfaces
     HIT_FRONT = 1,
+    /// Ray-test back-facing surfaces
     HIT_BACK  = 2,
+    /// Ray-test front- and back-facing surfaces.
     HIT_BOTH  = 3
 };
 
@@ -44,7 +47,9 @@ enum HitSide {
 //       other user-supplied primvars will be interped based on these anyway).
 //       Note: W could just be N... maybe. for volume tracing, mebbe not.
 
-/** Ray hit class.
+/**
+ * @ingroup shape 
+ * @brief Ray hit class.
  */
 template <typename T, index_t N>
 struct Hit {
