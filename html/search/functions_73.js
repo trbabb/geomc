@@ -11,5 +11,6 @@ var searchData=
   ['simplematrix',['SimpleMatrix',['../classgeom_1_1_simple_matrix.html#ac1d7026402effa87a698492603365e6f',1,'geom::SimpleMatrix']]],
   ['slerp',['slerp',['../classgeom_1_1_quat.html#af1e4da5338e67a9d5a0145e14a5698cb',1,'geom::Quat']]],
   ['spanningcorners',['spanningCorners',['../classgeom_1_1_rect.html#aba8dba77ee12851117749fa670d89ea8',1,'geom::Rect']]],
+  ['sphere',['Sphere',['../classgeom_1_1_sphere.html#a252f24bfb04481b0dbfbf734b492c436',1,'geom::Sphere::Sphere()'],['../classgeom_1_1_sphere.html#a99af9654dbf815d764d5a29bf5c7e5d5',1,'geom::Sphere::Sphere(Vec&lt; T, N &gt; c, T r)']]],
   ['sub',['sub',['../classgeom_1_1_vec_3_01_t_00_012_01_4.html#aa0f945277d58c48d83a7e583f706c915',1,'geom::Vec&lt; T, 2 &gt;::sub()'],['../classgeom_1_1_vec_3_01_t_00_013_01_4.html#ab6bfec52a5fd34fec760ce22ee6adeb6',1,'geom::Vec&lt; T, 3 &gt;::sub()'],['../classgeom_1_1_vec_3_01_t_00_014_01_4.html#aef4fccfc2196f557206223f3e48fa7fa',1,'geom::Vec&lt; T, 4 &gt;::sub()'],['../group__matrix.html#ga4ca8a4cc286eb011023e4c4adae9e27b',1,'geom::sub(Md *d, const Ma &amp;a, const Mb &amp;b)'],['../group__matrix.html#gacb3d20f8e69be52e491533ecbba17cbd',1,'geom::sub(const Ma &amp;a, const Mb &amp;b)']]]
 ];
