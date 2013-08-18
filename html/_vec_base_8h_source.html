@@ -40,6 +40,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -70,7 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -467,7 +468,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;        }</div>
 <div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;</div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;        <span class="keyword">inline</span> <span class="keyword">const</span> Vec&lt;T,N&gt; <a class="code" href="group__matrix.html#ga6502d1b57b8306893b83c0acf776bd7f">operator+</a>(<span class="keyword">const</span> Vec&lt;T,N&gt; &amp;v)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;        <span class="keyword">inline</span> <span class="keyword">const</span> Vec&lt;T,N&gt; operator+(<span class="keyword">const</span> Vec&lt;T,N&gt; &amp;v)<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;            <span class="keywordflow">return</span> this-&gt;<a class="code" href="group__matrix.html#gaa4a33c0f1bb911ce5235ceb09dca799a">add</a>(v);</div>
 <div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;        }</div>
 <div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;</div>
@@ -611,8 +612,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;            <span class="keywordflow">return</span> v * this-&gt;dot(v) / v.mag2();</div>
 <div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;        }</div>
 <div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;</div>
-<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;        <span class="keyword">const</span> Vec&lt;T,N&gt; mix(<span class="keyword">const</span> Vec&lt;T,N&gt; &amp;v, T mix)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;            T xim = 1 - mix;</div>
+<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;        <span class="keyword">const</span> Vec&lt;T,N&gt; <a class="code" href="group__function.html#ga544e92cb874abbcc6d0636db7150eced">mix</a>(<span class="keyword">const</span> Vec&lt;T,N&gt; &amp;v, T <a class="code" href="group__function.html#ga544e92cb874abbcc6d0636db7150eced">mix</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;            T xim = 1 - <a class="code" href="group__function.html#ga544e92cb874abbcc6d0636db7150eced">mix</a>;</div>
 <div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;            Vec&lt;T,N&gt; r;</div>
 <div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;            <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++){</div>
 <div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;                r[i] = xim*this-&gt;<span class="keyword">get</span>(i) + mix*v[i];</div>
@@ -669,7 +670,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;            <span class="keywordflow">return</span> r;</div>
 <div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;        }</div>
 <div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;        </div>
-<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;        <span class="keyword">const</span> Vec&lt;T,N&gt; clamp(<span class="keyword">const</span> Vec&lt;T,N&gt; &amp;lo, <span class="keyword">const</span> Vec&lt;T,N&gt; &amp;hi)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;        <span class="keyword">const</span> Vec&lt;T,N&gt; <a class="code" href="group__function.html#gafbda519a671cae9db99fef6c4c305eff">clamp</a>(<span class="keyword">const</span> Vec&lt;T,N&gt; &amp;lo, <span class="keyword">const</span> Vec&lt;T,N&gt; &amp;hi)<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;            Vec&lt;T,N&gt; r;</div>
 <div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;            <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++){</div>
 <div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;                r[i]  = std::min(std::max(this-&gt;<span class="keyword">get</span>(i), lo), hi);</div>
@@ -750,7 +751,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 17 2013 22:31:10 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2013 01:31:29 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

@@ -9,5 +9,5 @@ var searchData=
   ['applynormal',['applyNormal',['../classgeom_1_1_affine_transform.html#a535ae59ac4023fd5a30c7605b50d3143',1,'geom::AffineTransform']]],
   ['applyrotation',['applyRotation',['../classgeom_1_1_quat.html#a23c6929682fb1d0c09f9b5c2794da6fc',1,'geom::Quat']]],
   ['applyvector',['applyVector',['../classgeom_1_1_affine_transform.html#afe5b177c3adab6489a0bdfb064352544',1,'geom::AffineTransform']]],
-  ['arc',['arc',['../classgeom_1_1_random_vectors.html#a9ab0f796c427f76cc036cb452453bf4d',1,'geom::RandomVectors']]]
+  ['arc',['arc',['../classgeom_1_1_sampler.html#a9ab0f796c427f76cc036cb452453bf4d',1,'geom::Sampler']]]
 ];

@@ -40,6 +40,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -66,7 +67,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -84,7 +85,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="classgeom_1_1_random.html" title="Abstraction for a source of random or pseudorandom bits.">Random</a> number and object generation..  
+<p><a class="el" href="classgeom_1_1_random.html" title="Abstraction for a source of random or pseudorandom bits.">Random</a> number and object generation.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
@@ -98,8 +99,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_random.html">Random</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstraction for a source of random or pseudorandom bits.  <a href="classgeom_1_1_random.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_random_vectors.html">RandomVectors&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class for sampling a variety of regions over <code>R</code><sup><code>N</code></sup> space.  <a href="classgeom_1_1_random_vectors.html#details">More...</a><br/></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_sampler.html">Sampler&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class for sampling a variety of regions over <code>R</code><sup><code>N</code></sup> space.  <a href="classgeom_1_1_sampler.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -153,8 +154,12 @@ Functions</h2></td></tr>
 <tr class="separator:ga09e5bd110d04451a65907371e7f65c6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p><a class="el" href="classgeom_1_1_random.html" title="Abstraction for a source of random or pseudorandom bits.">Random</a> number and object generation.. </p>
-<h2 class="groupheader">Function Documentation</h2>
+<p><a class="el" href="classgeom_1_1_random.html" title="Abstraction for a source of random or pseudorandom bits.">Random</a> number and object generation. </p>
+<p>To obtain random numbers, choose and construct a random number generator, then call <code>rand()</code> with the desired type as a template parameter: </p>
+<pre class="fragment">Random *rng = new MTRand(mySeed);
+float f = rng-&gt;rand&lt;float&gt;(); // a random number between 0 and 1.0 
+</pre><p>Or use <code><a class="el" href="group__random.html#gaafd702a26c7914707002c7066da808e4">geom::getRandom()</a></code> for a quick-and-dirty (not reentrant or threadsafe!) generator instance: </p>
+<pre class="fragment">float f = getRandom()-&gt;rand&lt;float&gt;();</pre><h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="gaafd702a26c7914707002c7066da808e4"></a>
 <div class="memitem">
 <div class="memproto">
@@ -167,7 +172,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Return a "default" convenience pseudorandom number generator, seeded with the system clock. This generator is the default generator shared among many functions and classes if no other generator is provided. Note that because it is shared and global, it (and any code that calls it) is not re-entrant or threadsafe. For thread-safe random number generation, construct your own per-thread <code><a class="el" href="classgeom_1_1_random.html" title="Abstraction for a source of random or pseudorandom bits.">Random</a></code> objects and pass them to your sampling functions. </p>
+<p>Return a "default" convenience pseudorandom number generator, seeded with the system clock. This generator is the default generator shared among many functions and classes if no other generator is provided. Note that because it is shared and global, it (and any code that calls it) is not re-entrant or threadsafe. For thread-safe random number generation, construct your own per-thread <code><a class="el" href="classgeom_1_1_random.html" title="Abstraction for a source of random or pseudorandom bits.">Random</a></code> objects and pass them to your sampling functions and objects. </p>
 
 </div>
 </div>
@@ -201,7 +206,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Permute the elements of <code>objs</code> in-place.</p>
-<p>Non re-entrant unless a random number generator is supplied.</p>
+<p>Non re-entrant unless a safely-managed random number generator is supplied.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">objs</td><td>A list of objects to be permuted. </td></tr>
@@ -237,7 +242,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Permute the elements of <code>objs</code> in-place.</p>
-<p>Non re-entrant unless a random number generator is supplied.</p>
+<p>Non re-entrant unless a safely-managed random number generator is supplied.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">objs</td><td>A list of objects to be permuted. </td></tr>
@@ -587,7 +592,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 17 2013 22:31:10 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2013 01:31:29 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

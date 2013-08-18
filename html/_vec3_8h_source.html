@@ -40,6 +40,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -70,7 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -120,26 +121,26 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    }</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    Vec&lt;T,3&gt; triangle_normal(<span class="keyword">const</span> Vec&lt;T,3&gt; p1, <span class="keyword">const</span> Vec&lt;T,3&gt; p2, <span class="keyword">const</span> Vec&lt;T,3&gt; p3){</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="code" href="namespacegeom.html#a392a0809ae6efe37c1fd6baa0bb51425">   35</a></span>&#160;    <a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html" title="3D specialization of vector class.">Vec&lt;T,3&gt;</a> <a class="code" href="namespacegeom.html#a392a0809ae6efe37c1fd6baa0bb51425">triangle_normal</a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html" title="3D specialization of vector class.">Vec&lt;T,3&gt;</a> p1, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html" title="3D specialization of vector class.">Vec&lt;T,3&gt;</a> p2, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html" title="3D specialization of vector class.">Vec&lt;T,3&gt;</a> p3){</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">return</span> (p2-p1).<a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html#aef507418b3d15905f6905a13243f1d35">cross</a>(p3-p1).unit();</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    }</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    Vec&lt;T,3&gt; rainbow(<span class="keywordtype">double</span> s){</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="code" href="namespacegeom.html#a90536f5cb718d8ab802942e122869ea8">   48</a></span>&#160;    <a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html" title="3D specialization of vector class.">Vec&lt;T,3&gt;</a> <a class="code" href="namespacegeom.html#a90536f5cb718d8ab802942e122869ea8">rainbow</a>(<span class="keywordtype">double</span> s){</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        s = std::fmod(s,1);</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">if</span> (s &lt; 0) s = 1+s;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">return</span> Vec&lt;T,3&gt;(</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html" title="3D specialization of vector class.">Vec&lt;T,3&gt;</a>(</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                std::min( std::max( std::max( -6*s+2, 6*s-4 ), 0.0), 1.0),</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                std::max( std::min( std::min( 6*s,   -6*s+4 ), 1.0), 0.0),</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                std::max( std::min( std::min( 6*s-2, -6*s+6 ), 1.0), 0.0));</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    Vec&lt;T,3&gt; fromRGB(<span class="keywordtype">int</span> aRGB){</div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="code" href="namespacegeom.html#abdd4eebc7b195b3e0e9aba2fa746c166">   63</a></span>&#160;    <a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html" title="3D specialization of vector class.">Vec&lt;T,3&gt;</a> <a class="code" href="namespacegeom.html#abdd4eebc7b195b3e0e9aba2fa746c166">fromRGB</a>(<span class="keywordtype">int</span> aRGB){</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        T r = ((aRGB &amp; 0x00ff0000) &gt;&gt; 16) / detail::_RGBChannelConversion&lt;T&gt;::factor;</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        T g = ((aRGB &amp; 0x0000ff00) &gt;&gt; 8)  / detail::_RGBChannelConversion&lt;T&gt;::factor;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        T b =  (aRGB &amp; 0x000000ff)        / detail::_RGBChannelConversion&lt;T&gt;::factor;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">return</span> Vec&lt;T,3&gt;(r,g,b);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html" title="3D specialization of vector class.">Vec&lt;T,3&gt;</a>(r,g,b);</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="comment">/*===========================*</span></div>
@@ -344,7 +345,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 17 2013 22:31:10 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2013 01:31:29 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

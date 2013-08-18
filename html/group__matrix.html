@@ -40,6 +40,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -66,7 +67,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -217,15 +218,15 @@ m2[1][2] = 123;
 </pre><p>Because of difference in storage strategy between static and dynamic matrices, copy and pass-by-value operations can be much heavier for large static matrices, because the entire matrix must be copied. Therefore it may be advisable to choose dynamic matrices for any data much larger than a few elements along each axis.</p>
 <h2>Dimension checking</h2>
 <p>Matrix operations often place restrictions on the dimensions of their matrix operands. For example, matrix addition requires that both operands have the same dimensions (in other words, a 3 x 4 matrix can only be added to another 3 x 4 matrix).</p>
-<p>When matrices with static dimensions are involved, the library can often prove at compile time that an argument's dimensions are correct or incorrect. If proven correct, run-time dimension checks can be skipped, resulting in slightly faster code. If incorrect, the compiler will error, catching program correctness problems early. Compile-time dimension mismatches / requirement failures will generally manifest as "&lt;tt&gt;template argument deduction/substitution failed&lt;/tt&gt;" errors.</p>
+<p>When matrices with static dimensions are involved, the library can often prove at compile time that an argument's dimensions are correct or incorrect. If proven correct, run-time dimension checks can be skipped, resulting in slightly faster code. If incorrect, the compiler will error, catching program correctness problems early. Compile-time dimension mismatches / requirement failures will generally manifest as <code>"template argument deduction/substitution failed"</code> errors.</p>
 <p>This code will prove its dimension-correctness at compile time: </p>
 <pre class="fragment">SimpleMatrix&lt;double, 4, 4&gt; mat4x4;
 DiagMatrix&lt;double, 4, 4&gt; dmat4x4;
 mat4x4 + dmat4x4  // statically proven; no runtime dimension checking
 </pre><p>These will defer to a runtime check, since the dimensions of some arguments cannot be deduced from their type: </p>
 <pre class="fragment">SimpleMatrix&lt;double, 4, 4&gt; mat4x4;
-SimpleMatrix&lt;double, 0, 0&gt; mat_a_NxN(4,4);
-SimpleMatrix&lt;double, 0, 0&gt; mat_b_NxN(3,2);
+SimpleMatrix&lt;double, 0, 0&gt; mat_a_NxN(4,4); // 4x4 matrix
+SimpleMatrix&lt;double, 0, 0&gt; mat_b_NxN(3,2); // 3x2 matrix
 
 mat4x4 + mat_a_NxN; // runtime dimension check; will succeed.
 mat4x4 + mat_b_NxN; // runtime dimension check; will throw an exception.
@@ -987,7 +988,7 @@ for (mat3::region_iterator i = m.region_begin(r); i != m.region_end(r); i++) {
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 17 2013 22:31:10 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2013 01:31:29 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

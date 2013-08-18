@@ -8,6 +8,7 @@ var searchData=
   ['maxs',['maxs',['../classgeom_1_1_rect.html#a027343b74320c3528c3a881aa5399512',1,'geom::Rect']]],
   ['min',['min',['../classgeom_1_1_rect.html#a33a63681586b26b7db572c83999eaaa3',1,'geom::Rect']]],
   ['mins',['mins',['../classgeom_1_1_rect.html#a32caf6df617c835be8920f40874363c9',1,'geom::Rect']]],
+  ['mix',['mix',['../group__function.html#ga544e92cb874abbcc6d0636db7150eced',1,'geom']]],
   ['mtrand',['MTRand',['../classgeom_1_1_m_t_rand.html',1,'geom']]],
   ['mtx_5faliases_5fstorage',['mtx_aliases_storage',['../group__matrix.html#gab21d5043e723f853c25239014392b5f6',1,'geom']]],
   ['mtxcopy',['mtxcopy',['../group__matrix.html#ga33456f94a9ec6f71bf5bd3016ec787e3',1,'geom']]],

@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['geom',['geom',['../namespacegeom.html',1,'']]],
   ['get',['get',['../classgeom_1_1_simple_matrix.html#aa3c53d4f479316ebeae7c28adf65bfef',1,'geom::SimpleMatrix::get(index_t r, index_t c) const '],['../classgeom_1_1_simple_matrix.html#a4692adba7c7066bc37760f8dbf511e09',1,'geom::SimpleMatrix::get(index_t r, index_t c)']]],
   ['getangle',['getAngle',['../classgeom_1_1_vec_3_01_t_00_012_01_4.html#af021a592547ff3f2983260ccbe501f6c',1,'geom::Vec&lt; T, 2 &gt;']]],
   ['getcenter',['getCenter',['../classgeom_1_1_rect.html#a325aa65421b81a280e89a4f59b4c971e',1,'geom::Rect']]],
@@ -18,5 +19,6 @@ var searchData=
   ['grid_5ft',['grid_t',['../classgeom_1_1_raster.html#a1ba62fa2b0fcd8687520d9dc83f0e570',1,'geom::Raster']]],
   ['griditerator',['GridIterator',['../classgeom_1_1_grid_iterator.html#a1c7e17865ceff33f7b1c6e3a46323aa4',1,'geom::GridIterator::GridIterator(const Rect&lt; T, N &gt; &amp;r)'],['../classgeom_1_1_grid_iterator.html#a0686435f0a912cc73750977a2d640625',1,'geom::GridIterator::GridIterator(const Rect&lt; T, N &gt; &amp;r, const point_t &amp;p)'],['../classgeom_1_1_grid_iterator.html#ab250abd8a7e2208e674ec8243ed62363',1,'geom::GridIterator::GridIterator(const point_t &amp;lo, const point_t &amp;hi)']]],
   ['griditerator',['GridIterator',['../classgeom_1_1_grid_iterator.html',1,'geom']]],
-  ['griditerator_3c_20index_5ft_2c_202_2c_20arrayorder_5flast_5fdim_5fconsecutive_20_3e',['GridIterator&lt; index_t, 2, ARRAYORDER_LAST_DIM_CONSECUTIVE &gt;',['../classgeom_1_1_grid_iterator.html',1,'geom']]]
+  ['griditerator_3c_20index_5ft_2c_202_2c_20arrayorder_5flast_5fdim_5fconsecutive_20_3e',['GridIterator&lt; index_t, 2, ARRAYORDER_LAST_DIM_CONSECUTIVE &gt;',['../classgeom_1_1_grid_iterator.html',1,'geom']]],
+  ['geomc_20template_20geometry_20_2f_20linear_20algebra_20library',['GEOMC template geometry / linear algebra library',['../index.html',1,'']]]
 ];

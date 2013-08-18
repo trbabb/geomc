@@ -40,6 +40,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -70,7 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -625,33 +626,33 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00882"></a><span class="lineno">  882</span>&#160;<span class="comment"> *********************************/</span></div>
 <div class="line"><a name="l00883"></a><span class="lineno">  883</span>&#160;</div>
 <div class="line"><a name="l00890"></a><span class="lineno">  890</span>&#160;<span class="preprocessor">#ifdef PARSING_DOXYGEN</span></div>
-<div class="line"><a name="l00891"></a><span class="lineno"><a class="code" href="group__matrix.html#ga0002aa703c848adc96acb4714785baaa">  891</a></span>&#160;<span class="preprocessor"></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> U, <span class="keyword">typename</span> Mx&gt; Mx <a class="code" href="group__matrix.html#ga0002aa703c848adc96acb4714785baaa">operator*</a>(U k, <span class="keyword">const</span> Mx &amp;m) {}</div>
+<div class="line"><a name="l00891"></a><span class="lineno"><a class="code" href="group__matrix.html#ga0002aa703c848adc96acb4714785baaa">  891</a></span>&#160;<span class="preprocessor"></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> U, <span class="keyword">typename</span> Mx&gt; Mx operator*(U k, <span class="keyword">const</span> Mx &amp;m) {}</div>
 <div class="line"><a name="l00892"></a><span class="lineno">  892</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00893"></a><span class="lineno">  893</span>&#160;<span class="preprocessor"></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> U, <span class="keyword">typename</span> Mx&gt;</div>
 <div class="line"><a name="l00894"></a><span class="lineno">  894</span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> boost::enable_if_c&lt;</div>
 <div class="line"><a name="l00895"></a><span class="lineno">  895</span>&#160;    detail::IsMatrix&lt;Mx&gt;::val and boost::is_scalar&lt;U&gt;::value,</div>
 <div class="line"><a name="l00896"></a><span class="lineno">  896</span>&#160;    <span class="keyword">typename</span> detail::_ImplMatrixScale&lt;Mx&gt;::return_t</div>
-<div class="line"><a name="l00897"></a><span class="lineno">  897</span>&#160;&gt;::type <a class="code" href="group__matrix.html#ga0002aa703c848adc96acb4714785baaa">operator*</a>(U k, <span class="keyword">const</span> Mx &amp;m) {</div>
+<div class="line"><a name="l00897"></a><span class="lineno">  897</span>&#160;&gt;::type operator*(U k, <span class="keyword">const</span> Mx &amp;m) {</div>
 <div class="line"><a name="l00898"></a><span class="lineno">  898</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="group__linalg.html#gab4ef5a5844e69301ae83804a9770881b">scale</a>(k,m);</div>
 <div class="line"><a name="l00899"></a><span class="lineno">  899</span>&#160;}</div>
 <div class="line"><a name="l00900"></a><span class="lineno">  900</span>&#160;</div>
 <div class="line"><a name="l00907"></a><span class="lineno">  907</span>&#160;<span class="preprocessor">#ifdef PARSING_DOXYGEN</span></div>
-<div class="line"><a name="l00908"></a><span class="lineno"><a class="code" href="group__matrix.html#ga948c769c294a93b817cb05f1c2a15eeb">  908</a></span>&#160;<span class="preprocessor"></span> <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U, <span class="keyword">typename</span> Mx&gt; Mx <a class="code" href="group__matrix.html#ga0002aa703c848adc96acb4714785baaa">operator*</a>(<span class="keyword">const</span> Mx &amp;m, U k) {}</div>
+<div class="line"><a name="l00908"></a><span class="lineno"><a class="code" href="group__matrix.html#ga948c769c294a93b817cb05f1c2a15eeb">  908</a></span>&#160;<span class="preprocessor"></span> <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U, <span class="keyword">typename</span> Mx&gt; Mx operator*(<span class="keyword">const</span> Mx &amp;m, U k) {}</div>
 <div class="line"><a name="l00909"></a><span class="lineno">  909</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00910"></a><span class="lineno">  910</span>&#160;<span class="preprocessor"></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> U, <span class="keyword">typename</span> Mx&gt;</div>
 <div class="line"><a name="l00911"></a><span class="lineno">  911</span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> boost::enable_if_c&lt;</div>
 <div class="line"><a name="l00912"></a><span class="lineno">  912</span>&#160;    detail::IsMatrix&lt;Mx&gt;::val and boost::is_scalar&lt;U&gt;::value,</div>
 <div class="line"><a name="l00913"></a><span class="lineno">  913</span>&#160;    <span class="keyword">typename</span> detail::_ImplMatrixScale&lt;Mx&gt;::return_t</div>
-<div class="line"><a name="l00914"></a><span class="lineno">  914</span>&#160;&gt;::type <a class="code" href="group__matrix.html#ga0002aa703c848adc96acb4714785baaa">operator*</a>(<span class="keyword">const</span> Mx &amp;m, U k) {</div>
+<div class="line"><a name="l00914"></a><span class="lineno">  914</span>&#160;&gt;::type operator*(<span class="keyword">const</span> Mx &amp;m, U k) {</div>
 <div class="line"><a name="l00915"></a><span class="lineno">  915</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="group__linalg.html#gab4ef5a5844e69301ae83804a9770881b">scale</a>(k,m);</div>
 <div class="line"><a name="l00916"></a><span class="lineno">  916</span>&#160;}</div>
 <div class="line"><a name="l00917"></a><span class="lineno">  917</span>&#160;</div>
 <div class="line"><a name="l00925"></a><span class="lineno">  925</span>&#160;<span class="preprocessor">#ifdef PARSING_DOXYGEN</span></div>
-<div class="line"><a name="l00926"></a><span class="lineno"><a class="code" href="group__matrix.html#ga6502d1b57b8306893b83c0acf776bd7f">  926</a></span>&#160;<span class="preprocessor"></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb&gt; Mx <a class="code" href="group__matrix.html#ga6502d1b57b8306893b83c0acf776bd7f">operator+</a>(<span class="keyword">const</span> Ma &amp;a, <span class="keyword">const</span> Mb &amp;b) {}</div>
+<div class="line"><a name="l00926"></a><span class="lineno"><a class="code" href="group__matrix.html#ga6502d1b57b8306893b83c0acf776bd7f">  926</a></span>&#160;<span class="preprocessor"></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb&gt; Mx operator+(<span class="keyword">const</span> Ma &amp;a, <span class="keyword">const</span> Mb &amp;b) {}</div>
 <div class="line"><a name="l00927"></a><span class="lineno">  927</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00928"></a><span class="lineno">  928</span>&#160;<span class="preprocessor"></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb&gt;</div>
 <div class="line"><a name="l00929"></a><span class="lineno">  929</span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> detail::_ImplMatrixAddReturnType&lt;Ma,Mb&gt;::return_t</div>
-<div class="line"><a name="l00930"></a><span class="lineno">  930</span>&#160;<a class="code" href="group__matrix.html#ga6502d1b57b8306893b83c0acf776bd7f">operator+</a>(<span class="keyword">const</span> Ma &amp;a, <span class="keyword">const</span> Mb &amp;b) {</div>
+<div class="line"><a name="l00930"></a><span class="lineno">  930</span>&#160;operator+(<span class="keyword">const</span> Ma &amp;a, <span class="keyword">const</span> Mb &amp;b) {</div>
 <div class="line"><a name="l00931"></a><span class="lineno">  931</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="group__matrix.html#gaa4a33c0f1bb911ce5235ceb09dca799a">add</a>(a,b);</div>
 <div class="line"><a name="l00932"></a><span class="lineno">  932</span>&#160;}</div>
 <div class="line"><a name="l00933"></a><span class="lineno">  933</span>&#160;</div>
@@ -665,11 +666,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00948"></a><span class="lineno">  948</span>&#160;}</div>
 <div class="line"><a name="l00949"></a><span class="lineno">  949</span>&#160;</div>
 <div class="line"><a name="l00966"></a><span class="lineno">  966</span>&#160;<span class="preprocessor">#ifdef PARSING_DOXYGEN</span></div>
-<div class="line"><a name="l00967"></a><span class="lineno"><a class="code" href="group__matrix.html#ga2cf1ff3da39cde1d3419a32a4343dc20">  967</a></span>&#160;<span class="preprocessor"></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb&gt; Mx <a class="code" href="group__matrix.html#ga0002aa703c848adc96acb4714785baaa">operator*</a>(<span class="keyword">const</span> Ma &amp;a, <span class="keyword">const</span> Mb &amp;b) {}</div>
+<div class="line"><a name="l00967"></a><span class="lineno"><a class="code" href="group__matrix.html#ga2cf1ff3da39cde1d3419a32a4343dc20">  967</a></span>&#160;<span class="preprocessor"></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb&gt; Mx operator*(<span class="keyword">const</span> Ma &amp;a, <span class="keyword">const</span> Mb &amp;b) {}</div>
 <div class="line"><a name="l00968"></a><span class="lineno">  968</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00969"></a><span class="lineno">  969</span>&#160;<span class="preprocessor"></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb&gt;</div>
 <div class="line"><a name="l00970"></a><span class="lineno">  970</span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> detail::MatrixMultReturnType&lt;Ma,Mb&gt;::return_t</div>
-<div class="line"><a name="l00971"></a><span class="lineno">  971</span>&#160;<a class="code" href="group__matrix.html#ga0002aa703c848adc96acb4714785baaa">operator*</a>(<span class="keyword">const</span> Ma &amp;a, <span class="keyword">const</span> Mb &amp;b) {</div>
+<div class="line"><a name="l00971"></a><span class="lineno">  971</span>&#160;operator*(<span class="keyword">const</span> Ma &amp;a, <span class="keyword">const</span> Mb &amp;b) {</div>
 <div class="line"><a name="l00972"></a><span class="lineno">  972</span>&#160;    <span class="keywordflow">return</span> mul&lt;Ma,Mb&gt;(a, b);</div>
 <div class="line"><a name="l00973"></a><span class="lineno">  973</span>&#160;}</div>
 <div class="line"><a name="l00974"></a><span class="lineno">  974</span>&#160;</div>
@@ -743,7 +744,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 17 2013 22:31:10 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2013 01:31:29 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

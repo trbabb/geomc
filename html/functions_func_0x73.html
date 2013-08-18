@@ -40,6 +40,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -106,7 +107,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -125,13 +126,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>sample_discrete()
 : <a class="el" href="classgeom_1_1_raster.html#acac75ab54b8668c58f2ba575fc59da84">Raster&lt; I, O, M, N &gt;</a>
 </li>
+<li>Sampler()
+: <a class="el" href="classgeom_1_1_sampler.html#adb70f6be11d6a3843b04624d1797daae">Sampler&lt; T &gt;</a>
+</li>
 <li>scalarPart()
 : <a class="el" href="classgeom_1_1_quat.html#a609e15f60080081169c8435a9d807786">Quat&lt; T &gt;</a>
 </li>
 <li>scale()
-: <a class="el" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#ae9a71844a821b28957f51386515e050f">Vec&lt; T, 4 &gt;</a>
-, <a class="el" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html#a443abd9b78a5104e6de62049280bd197">Vec&lt; T, 2 &gt;</a>
+: <a class="el" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html#a443abd9b78a5104e6de62049280bd197">Vec&lt; T, 2 &gt;</a>
 , <a class="el" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html#aad75e1dbb19aaa663f62b77022687eb1">Vec&lt; T, 3 &gt;</a>
+, <a class="el" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#ae9a71844a821b28957f51386515e050f">Vec&lt; T, 4 &gt;</a>
 </li>
 <li>set()
 : <a class="el" href="classgeom_1_1_raster.html#abfee62b0245bcd073def3f9555957b37">Raster&lt; I, O, M, N &gt;</a>
@@ -156,7 +160,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classgeom_1_1_simple_matrix.html#a47affd1a10b589811fc4828c1a2e0c6d">SimpleMatrix&lt; T, M, N &gt;</a>
 </li>
 <li>shell()
-: <a class="el" href="classgeom_1_1_random_vectors.html#a4dcb870f7ef1284bec1a22864170eb7e">RandomVectors&lt; T &gt;</a>
+: <a class="el" href="classgeom_1_1_sampler.html#a4dcb870f7ef1284bec1a22864170eb7e">Sampler&lt; T &gt;</a>
 </li>
 <li>SimpleMatrix()
 : <a class="el" href="classgeom_1_1_simple_matrix.html#ac1d7026402effa87a698492603365e6f">SimpleMatrix&lt; T, M, N &gt;</a>
@@ -165,10 +169,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classgeom_1_1_quat.html#af1e4da5338e67a9d5a0145e14a5698cb">Quat&lt; T &gt;</a>
 </li>
 <li>solidarc()
-: <a class="el" href="classgeom_1_1_random_vectors.html#a9a73a2d85188c8afc455ad2cd6bd327e">RandomVectors&lt; T &gt;</a>
+: <a class="el" href="classgeom_1_1_sampler.html#a9a73a2d85188c8afc455ad2cd6bd327e">Sampler&lt; T &gt;</a>
 </li>
 <li>solidball()
-: <a class="el" href="classgeom_1_1_random_vectors.html#adf552ef7506b9bd1549e7cd5e58e9ae0">RandomVectors&lt; T &gt;</a>
+: <a class="el" href="classgeom_1_1_sampler.html#adf552ef7506b9bd1549e7cd5e58e9ae0">Sampler&lt; T &gt;</a>
 </li>
 <li>spanningCorners()
 : <a class="el" href="classgeom_1_1_rect.html#aba8dba77ee12851117749fa670d89ea8">Rect&lt; T, N &gt;</a>
@@ -177,9 +181,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="classgeom_1_1_sphere.html#a252f24bfb04481b0dbfbf734b492c436">Sphere&lt; T, N &gt;</a>
 </li>
 <li>sub()
-: <a class="el" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html#ab6bfec52a5fd34fec760ce22ee6adeb6">Vec&lt; T, 3 &gt;</a>
-, <a class="el" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html#aa0f945277d58c48d83a7e583f706c915">Vec&lt; T, 2 &gt;</a>
+: <a class="el" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html#aa0f945277d58c48d83a7e583f706c915">Vec&lt; T, 2 &gt;</a>
 , <a class="el" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#aef4fccfc2196f557206223f3e48fa7fa">Vec&lt; T, 4 &gt;</a>
+, <a class="el" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html#ab6bfec52a5fd34fec760ce22ee6adeb6">Vec&lt; T, 3 &gt;</a>
 </li>
 <li>swap_cols()
 : <a class="el" href="classgeom_1_1_permutation_matrix.html#a319b436521ffef3ca422966868933d8d">PermutationMatrix&lt; N &gt;</a>
@@ -191,7 +195,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 17 2013 22:31:10 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2013 01:31:29 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

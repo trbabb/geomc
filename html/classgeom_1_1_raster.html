@@ -40,6 +40,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -73,7 +74,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -84,7 +85,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>geom</b></li><li class="navelem"><a class="el" href="classgeom_1_1_raster.html">Raster</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespacegeom.html">geom</a></li><li class="navelem"><a class="el" href="classgeom_1_1_raster.html">Raster</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -136,7 +137,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8626f4c2ec3651d501701b327a19ac27"><td class="memTemplParams" colspan="2">template&lt;EdgeBehavior Edge, Interpolation Interp&gt; </td></tr>
 <tr class="memitem:a8626f4c2ec3651d501701b327a19ac27"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_raster.html#aaf76a11cdfb550f895d671a3c96f694e">sample_t</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_raster.html#a8626f4c2ec3651d501701b327a19ac27">sample</a> (const <a class="el" href="classgeom_1_1_raster.html#a0df6fa3b2a731bf3743e2c8b57687a1a">coord_t</a> &amp;pt) const </td></tr>
 <tr class="separator:a8626f4c2ec3651d501701b327a19ac27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32a12fdfdd24458c67aae9e8f19577c0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_raster.html#aaf76a11cdfb550f895d671a3c96f694e">sample_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_raster.html#a32a12fdfdd24458c67aae9e8f19577c0">sample</a> (const <a class="el" href="classgeom_1_1_raster.html#a0df6fa3b2a731bf3743e2c8b57687a1a">coord_t</a> &amp;pt, <a class="el" href="group__function.html#ga8c170080a988c99ae4546b1f8e44b4cf">EdgeBehavior</a> edge=EDGE_CLAMP, <a class="el" href="group__function.html#ga817402314dfc91b23b3642e5b6bb4549">Interpolation</a> interp=INTERP_LINEAR) const </td></tr>
+<tr class="memitem:a32a12fdfdd24458c67aae9e8f19577c0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_raster.html#aaf76a11cdfb550f895d671a3c96f694e">sample_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_raster.html#a32a12fdfdd24458c67aae9e8f19577c0">sample</a> (const <a class="el" href="classgeom_1_1_raster.html#a0df6fa3b2a731bf3743e2c8b57687a1a">coord_t</a> &amp;pt, <a class="el" href="group__function.html#ga8c170080a988c99ae4546b1f8e44b4cf">EdgeBehavior</a> edge=<a class="el" href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfad8f992c52a02c2f9f321fc06a7d8a858">EDGE_CLAMP</a>, <a class="el" href="group__function.html#ga817402314dfc91b23b3642e5b6bb4549">Interpolation</a> interp=<a class="el" href="group__function.html#gga817402314dfc91b23b3642e5b6bb4549a17abedd2e487446bf814c9da0b7791de">INTERP_LINEAR</a>) const </td></tr>
 <tr class="separator:a32a12fdfdd24458c67aae9e8f19577c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78f0b73129f4f7709980ed4d96474989"><td class="memTemplParams" colspan="2">template&lt;EdgeBehavior Edge&gt; </td></tr>
 <tr class="memitem:a78f0b73129f4f7709980ed4d96474989"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_raster.html#aaf76a11cdfb550f895d671a3c96f694e">sample_t</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_raster.html#a78f0b73129f4f7709980ed4d96474989">sample_discrete</a> (const <a class="el" href="classgeom_1_1_raster.html#a1ba62fa2b0fcd8687520d9dc83f0e570">grid_t</a> &amp;pt) const </td></tr>
@@ -166,7 +167,8 @@ class geom::Raster&lt; I, O, M, N &gt;</h3>
   </table>
   </dd>
 </dl>
-<p>In other words, a function of I<sup>M</sup> &rarr; O<sup>N</sup>. </p>
+<p>In other words, a function of I<sup>M</sup> &rarr; O<sup>N</sup>.</p>
+<p>Some functions are overloaded to have some arguments as template parameters. This allows some low-level sampling code to be inlined which can improve speed by as much as 15%. The traditional function-argument versions are available for when the parameters must be chosen at runtime. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="ad869950dc8712b18a3efa7e724a47551"></a>
 <div class="memitem">
@@ -189,7 +191,7 @@ class geom::Raster&lt; I, O, M, N &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Whether the grid location <code>pt</code> is within the bounds of this raster and has data or not. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the grid location <code>pt</code> is within the bounds of this raster and has data, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -418,13 +420,13 @@ class geom::Raster&lt; I, O, M, N &gt;</h3>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="group__function.html#ga8c170080a988c99ae4546b1f8e44b4cf">EdgeBehavior</a>&#160;</td>
-          <td class="paramname"><em>edge</em> = <code>EDGE_CLAMP</code>, </td>
+          <td class="paramname"><em>edge</em> = <code><a class="el" href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfad8f992c52a02c2f9f321fc06a7d8a858">EDGE_CLAMP</a></code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="group__function.html#ga817402314dfc91b23b3642e5b6bb4549">Interpolation</a>&#160;</td>
-          <td class="paramname"><em>interp</em> = <code>INTERP_LINEAR</code>&#160;</td>
+          <td class="paramname"><em>interp</em> = <code><a class="el" href="group__function.html#gga817402314dfc91b23b3642e5b6bb4549a17abedd2e487446bf814c9da0b7791de">INTERP_LINEAR</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -595,7 +597,7 @@ class geom::Raster&lt; I, O, M, N &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Set the sample value to be used "out-of-bounds" when <code>EDGE_CONSTANT</code> edge behavior is used. </p>
+<p>Set the sample value to be used for "out-of-bounds" samples when <code>EDGE_CONSTANT</code> behavior is used. </p>
 
 </div>
 </div>
@@ -606,7 +608,7 @@ class geom::Raster&lt; I, O, M, N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 17 2013 22:31:10 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2013 01:31:29 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

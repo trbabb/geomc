@@ -1,6 +1,7 @@
 var searchData=
 [
   ['center',['center',['../classgeom_1_1_sphere.html#af7758d07cb343a93ef77c390e47eac99',1,'geom::Sphere']]],
+  ['clamp',['clamp',['../group__function.html#gafbda519a671cae9db99fef6c4c305eff',1,'geom']]],
   ['closestapproach',['closestApproach',['../classgeom_1_1_ray_3_01_t_00_013_01_4.html#ad413a91240471b848826954b7dcc86de',1,'geom::Ray&lt; T, 3 &gt;']]],
   ['cols',['cols',['../classgeom_1_1_simple_matrix.html#aa0f1796902c9ad383ba037c6216e2aff',1,'geom::SimpleMatrix']]],
   ['conj',['conj',['../classgeom_1_1_quat.html#a9cb6c1ab398b3da090ef0724fa7381ca',1,'geom::Quat']]],

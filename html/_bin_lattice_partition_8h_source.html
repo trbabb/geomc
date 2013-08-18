@@ -40,6 +40,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
@@ -70,7 +71,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Groups</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Enumerations</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Enumerator</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Friends</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(9)"><span class="SelectionMark">&#160;</span>Groups</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(10)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -138,7 +139,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">// TODO: take advantage of GridIterator</span></div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">// TODO: move stuff to detail namespace.</span></div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">// curious case: iType will not cover the same dynamic range that T will. what happens on overflow?</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">// curious case: index_t will not cover the same dynamic range that T will. what happens on overflow?</span></div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">//               I think items can still be found; they will just fold into lower-order cells.</span></div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#ifndef BINLATTICEPARTITION_H_</span></div>
@@ -154,13 +155,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">namespace </span>geom {</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, index_t N, <span class="keyword">typename</span> O, <span class="keyword">typename</span> iType = index_t&gt;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, index_t N, <span class="keyword">typename</span> O&gt;</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">class </span>BinLatticePartition {</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> <a class="code" href="classgeom_1_1_rect.html#a1cb6b750c9af01a4f8cefeec08aa4ec8" title="Type of object confined by this Rect.">Rect&lt;iType,N&gt;::point_t</a>  bin_t;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> Rect&lt;T,N&gt;::point_t      point_t;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">typedef</span> std::pair&lt; Vec&lt;T,N&gt;, O &gt;         item_t;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> <a class="code" href="classgeom_1_1_rect.html#a1cb6b750c9af01a4f8cefeec08aa4ec8" title="Type of object confined by this Rect.">Rect&lt;index_t,N&gt;::point_t</a>  bin_t; <span class="comment">//edit: wait, what?</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> Rect&lt;T,N&gt;::point_t        point_t;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">typedef</span> std::pair&lt; Vec&lt;T,N&gt;, O &gt;           item_t;</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword">protected</span>:</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">typedef</span> std::tr1::unordered_multimap&lt;bin_t, item_t&gt; cellmap_t;</div>
@@ -200,8 +201,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        region_iterator() : grid(NULL),off_end(true) {}</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="comment">// iterator for a specific region</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keyword">explicit</span> region_iterator(BinLatticePartition&lt;T, N, O, iType&gt; *grid,</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                                 Rect&lt;iType, N&gt; region) :</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keyword">explicit</span> region_iterator(BinLatticePartition&lt;T, N, O&gt; *grid,</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                                 Rect&lt;index_t, N&gt; region) :</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                grid(grid),</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                cellblock(region),</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                off_end(false){</div>
@@ -235,7 +236,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;            }</div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        }</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        </div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        Rect&lt;iType,N&gt; query_block(){</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        Rect&lt;index_t,N&gt; query_block(){</div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;            <span class="keywordflow">return</span> cellblock;</div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        }</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        </div>
@@ -305,8 +306,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        }</div>
 <div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;</div>
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        BinLatticePartition&lt;T, N, O, iType&gt; *grid; <span class="comment">// iterator is off-end when this is null</span></div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        Rect&lt;iType, N&gt; cellblock; <span class="comment">//query region</span></div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        BinLatticePartition&lt;T, N, O&gt; *grid; <span class="comment">// iterator is off-end when this is null</span></div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        Rect&lt;index_t, N&gt; cellblock; <span class="comment">//query region</span></div>
 <div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;        <span class="keyword">typename</span> cellmap_t::iterator cur_cell_iter; <span class="comment">//iterator of currently inspected cell.</span></div>
 <div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        <span class="keywordtype">bool</span> off_end;</div>
 <div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;</div>
@@ -358,7 +359,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    region_iterator query(point_t pt, T radius){</div>
 <div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        point_t diag = point_t(radius);</div>
 <div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        Rect&lt;T,N&gt; region = Rect&lt;T,N&gt;(pt-diag, pt+diag);</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        Rect&lt;iType,N&gt; bins = binRegion(region);</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        Rect&lt;index_t,N&gt; bins = binRegion(region);</div>
 <div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;        <span class="keywordflow">return</span> region_iterator(<span class="keyword">this</span>, bins);</div>
 <div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    }</div>
 <div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;</div>
@@ -381,9 +382,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;</div>
 <div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <span class="keyword">protected</span>:</div>
 <div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    <span class="keyword">inline</span> Rect&lt;iType,N&gt; binRegion(Rect&lt;T,N&gt; r){</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    <span class="keyword">inline</span> Rect&lt;index_t,N&gt; binRegion(Rect&lt;T,N&gt; r){</div>
 <div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        <span class="comment">//high coordinate is, as always, one beyond the maximum cell to check</span></div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;        <span class="keywordflow">return</span> Rect&lt;iType,N&gt;(</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;        <span class="keywordflow">return</span> Rect&lt;index_t,N&gt;(</div>
 <div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;                (bin_t)((r.min() / _cellsize).floor()),</div>
 <div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;                (bin_t)((r.max() / _cellsize).ceil())</div>
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;        );</div>
@@ -399,7 +400,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 17 2013 22:31:10 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 18 2013 01:31:29 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>
