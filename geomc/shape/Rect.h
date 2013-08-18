@@ -137,7 +137,8 @@ public:
      *****************************/
 
     /**
-     * Box union
+     * @brief Box union.
+     * 
      * @return A Rect fully containing `this` and box `b`.
      */
     inline Rect<T,N> operator|(const Rect<T,N> &b) const {
@@ -145,7 +146,7 @@ public:
     }
     
     /**
-     * Box union
+     * @brief Box union.
      * 
      * Extend `this` to fully contain `b`.
      * @return A reference to `this`, for convenience.
@@ -158,7 +159,7 @@ public:
     }
     
     /**
-     * Box intersection.
+     * @brief Box intersection.
      * 
      * @return A Rect representing the area overlapped by both `this` and `b`.
      */
@@ -167,7 +168,7 @@ public:
     }
     
     /**
-     * Box intersection.
+     * @brief Box intersection.
      * 
      * Confine this Rect to the area overlapping `b`.
      * @return A reference to `this` for convenience.
@@ -178,7 +179,8 @@ public:
     }
 
     /**
-     * Translation
+     * @brief Translation.
+     * 
      * @param dx Amount by which to translate this region.
      * @return A translated Rect.
      */
@@ -188,7 +190,8 @@ public:
     
 
     /**
-     * Translation
+     * @brief Translation.
+     * 
      * @param dx Amount by which to translate this region.
      * @return  A reference to `this`, for convenience.
      */
@@ -199,7 +202,8 @@ public:
     }
 
     /**
-     * Equality test
+     * @brief Equality test.
+     * 
      * @return `true` if and only if all the corresponding extremes of `b` are the same.
      */
     bool operator==(Rect<T,N> b) const {
@@ -207,7 +211,8 @@ public:
     }
     
     /**
-     * Inequality test.
+     * @brief Inequality test.
+     * 
      * @return `true` if and only if any extreme of `b` is different from
      * the corresponding extreme in `this`.
      */
@@ -216,7 +221,8 @@ public:
     }
 
     /**
-     * Uniform scale
+     * @brief Uniform scale.
+     * 
      * @param a Scale factor.
      * @return A new Rect, scaled about the origin by factor `a`.
      */
@@ -225,7 +231,10 @@ public:
     }
 
     /**
-     * Uniform scale. Scale this Rect about the origin by factor `a`. 
+     * @brief Uniform scale. 
+     * 
+     * Scale this Rect about the origin by factor `a`. 
+     * 
      * @param a Scale factor
      * @return A reference to `this`, for convenience.
      */
@@ -236,7 +245,8 @@ public:
     }
 
     /**
-     * Uniform scale.
+     * @brief Uniform scale.
+     * 
      * @param a Scale factor.
      * @return A new Rect, scaled about the origin by multiple `1 / a`.
      */
@@ -245,7 +255,9 @@ public:
     }
 
     /**
-     * Uniform scale. Scale this Rect about the origin by factor `1 / a`. 
+     * @brief Uniform scale. 
+     * 
+     * Scale this Rect about the origin by factor `1 / a`. 
      * @param a Scale factor
      * @return A reference to `this`, for convenience.
      */
@@ -256,7 +268,8 @@ public:
     }
 
     /**
-     * Element-wise typecast.
+     * @brief Element-wise typecast.
+     * 
      * @return A new Rect, with elements all of type `U`.
      */
     template <typename U, index_t M> operator Rect<U,M>() {

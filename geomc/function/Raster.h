@@ -23,9 +23,11 @@ namespace geom {
 //TODO: "lobe-yness" of interp is subject to parameterization
 //TODO: really, interpolation and edge behavior should be objects.
 //      e.g. abyss color belongs to abyss edge behavior only.
+//      - could parameterize in the Raster object. i.e. r.setEdgeBehavior()
+//        or in the call site, i.e. r.sample(pt, EdgeBehavior(...));
 //TODO: make work for dynamic.
 //      (specialize entire class?)
-//      or, class RasterHandle<I,O,N,Channels> : public virtual AnyRaster
+//      or, class RasterHandle<I,O,M,N> : public virtual AnyRaster
 //TODO: add:
 //      - resample<MAG_FILTER,MIN_FILTER>(grid)
 //      - resample<...>(affineTransform)
@@ -42,37 +44,64 @@ namespace geom {
 // - point type
 // - point dimension
 // - out type (defaults to point type)
-template <typename I, typename O, index_t N, index_t Channels>
+//   > can't template over input type at call site because compiler will get confused by:
+//       template <typename T,K>
+//       void sample(const typename PointType<T,K>::point_t &pt)
+
+/**
+ * @ingroup function
+ * @brief An M-dimensional grid of interpolated data which can be continuously sampled.
+ * 
+ * @tparam I Domain data type.
+ * @tparam O Range data type.
+ * @tparam M Domain dimension.
+ * @tparam N Range dimension.
+ * 
+ * In other words, a function of I<sup>M</sup> &rarr; O<sup>N</sup>.
+ */
+template <typename I, typename O, index_t M, index_t N>
 class Raster {
 public:
     
-    typedef typename PointType<I,N>::point_t        coord_t;
-    typedef typename PointType<index_t,N>::point_t  grid_t;
-    typedef typename PointType<O,Channels>::point_t sample_t;
+    /// Type of sample location. `I` if `M` is 1, otherwise `Vec<I,M>`.
+    typedef typename PointType<I,M>::point_t        coord_t;
+    /// Type for indexing data, i.e. a grid coordinate. `index_t` if `M` is 1, `Vec<index_t,M>` otherwise.
+    typedef typename PointType<index_t,M>::point_t  grid_t;
+    /// Type of resultant data. `O` if `N` is 1, otherwise `Vec<O,N>`.
+    typedef typename PointType<O,N>::point_t sample_t;
     
 protected:
     grid_t  extent;
     index_t size;
     boost::shared_array<O> data;
-    sample_t abyss; //xxx no worky with dynamic
+    sample_t abyss;
     
 public:
     
     ////////// Structors //////////
     
+    /// Construct a Raster with `dims` elements along each axis.
     Raster(const grid_t &dims):
             extent(dims),
-            size(detail::array_product<N>(PointType<index_t,N>::iterator(dims)) * Channels),
+            size(detail::array_product<M>(PointType<index_t,M>::iterator(dims)) * N),
             data(new O[size]){
         std::fill(data.get(), data.get()+size, 0);
     }
     
     ////////// Methods //////////
     
+    /**
+     * Set the sample value to be used "out-of-bounds" when `EDGE_CONSTANT` edge behavior is used.
+     */
     void setAbyss(sample_t val) {
         abyss = val;
     }
     
+    /**
+     * Set the value of the raster at the point `pt`. 
+     * @param pt Coordinate of datapoint to set.
+     * @param val New value of datapoint.
+     */
     void set(const grid_t &pt, const sample_t &val) {
         if (contains(pt)){
             O *p = data.get() + this->template index<EDGE_CONSTANT>(pt);
@@ -81,29 +110,61 @@ public:
         }
     }
     
-    //xxx not work with dynamic
+    /**
+     * Copy the data in `region` into the array `dest`, in row-major 
+     * (first dimension consecutive) order. Templated over edge sampling
+     * behavior.
+     * 
+     * @tparam Edge Edge sampling behavior.
+     * @param dest Destination array.
+     * @param region Region of this Raster to copy from.
+     */
     template <EdgeBehavior Edge>
-    void copy(sample_t *dest, const Rect<index_t,N> &region) const {
-        GridIterator<index_t,N> i = GridIterator<index_t,N>(region);
-        GridIterator<index_t,N> end = i.end();
+    void copy(sample_t *dest, const Rect<index_t,M> &region) const {
+        GridIterator<index_t,M> i = GridIterator<index_t,M>(region);
+        GridIterator<index_t,M> end = i.end();
         for (; i != end; ++i, ++dest){
             *dest = this->template sample_discrete<Edge>(*i);
         }
     }
     
-    void copy(sample_t *dest, const Rect<index_t,N> &region, EdgeBehavior edge) const {
-        GridIterator<index_t,N> i = GridIterator<index_t,N>(region);
-        GridIterator<index_t,N> end = i.end();
+    /**
+     * Copy the data in `region` into the array `dest`, in row-major
+     * (first dimension consecutive) order. Dynamic edge sampling behavior.
+     * 
+     * @param dest Destination array.
+     * @param region Region of this raster to copy from.
+     * @param edge Edge sampling behavior.
+     */
+    void copy(sample_t *dest, const Rect<index_t,M> &region, EdgeBehavior edge) const {
+        GridIterator<index_t,M> i = GridIterator<index_t,M>(region);
+        GridIterator<index_t,M> end = i.end();
         for (; i != end; ++i, ++dest){
             *dest = this->sample_discrete(*i, edge);
         }
     }
     
+    /**
+     * Sample this Raster at `pt`.
+     * 
+     * @tparam Edge Edge sampling behavior.
+     * @tparam Interp Sample interpolation strategy.
+     * @param pt Point to sample.
+     * @return Sampled data.
+     */
     template <EdgeBehavior Edge, Interpolation Interp>
     inline sample_t sample(const coord_t &pt) const {
-        return detail::_ImplRasterSample<I,O,N,Channels,Edge,Interp>::sample(this, pt);
+        return detail::_ImplRasterSample<I,O,M,N,Edge,Interp>::sample(this, pt);
     }
     
+    /**
+     * Sample this Raster at `pt`.
+     * 
+     * @param pt Point to sample.
+     * @param edge Edge sampling behavior.
+     * @param interp Sample interpolation strategy.
+     * @return Sampled data.
+     */
     sample_t sample(const coord_t &pt, EdgeBehavior edge=EDGE_CLAMP, Interpolation interp=INTERP_LINEAR) const {
         grid_t gridPt;
         
@@ -113,31 +174,38 @@ public:
             return sample_discrete(gridPt, edge);
         case INTERP_LINEAR:
         {
-            sample_t buf_l[1<<N];
+            sample_t buf_l[1<<M];
             gridPt = (grid_t)pt;
             coord_t s = pt - ((coord_t)gridPt);
             
-            // copy surrounding 2^N sample pts into a contiguous buffer
-            copy(buf_l, Rect<index_t,N>(gridPt, gridPt + grid_t(2)), edge);
+            // copy surrounding 2^M sample pts into a contiguous buffer
+            copy(buf_l, Rect<index_t,M>(gridPt, gridPt + grid_t(2)), edge);
             
-            return interp_linear(s.begin(), buf_l, N);
+            return interp_linear(s.begin(), buf_l, M);
         }
         case INTERP_CUBIC:
         {
-            sample_t buf_c[1<<(2*N)];
+            sample_t buf_c[1<<(2*M)];
             gridPt = (grid_t)pt;
             coord_t s = pt - ((coord_t)gridPt);
             
-            // copy surrounding 4^N sample pts into a contiguous buffer
-            copy(buf_c, Rect<index_t,N>(gridPt - grid_t(1), gridPt + grid_t(3)), edge);
+            // copy surrounding 4^M sample pts into a contiguous buffer
+            copy(buf_c, Rect<index_t,M>(gridPt - grid_t(1), gridPt + grid_t(3)), edge);
             
-            return interp_cubic(s.begin(), buf_c, N);
+            return interp_cubic(s.begin(), buf_c, M);
         }
         default:
             return abyss;
         }
     }
     
+    /**
+     * Retrieve the data at discrete grid location `pt`. 
+     * 
+     * @tparam Edge sampling behavior.
+     * @param pt Grid location to sample.
+     * @return Data at `pt`.
+     */
     template <EdgeBehavior Edge>
     sample_t sample_discrete(const grid_t &pt) const {
         index_t offs;
@@ -153,9 +221,16 @@ public:
                 offs = this->template index<Edge>(pt);
                 break;
         }
-        return PointType<O,Channels>::from_ptr(data.get() + offs);
+        return PointType<O,N>::from_ptr(data.get() + offs);
     }
     
+    /**
+     * Retrieve the data at discrete grid location `pt`.
+     * 
+     * @param pt Grid location to sample.
+     * @param edge Edge sampling behavior.
+     * @return Data at `pt`.
+     */
     sample_t sample_discrete(const grid_t &pt, EdgeBehavior edge) const {
         index_t offs;
         
@@ -180,31 +255,50 @@ public:
         return sample_t(data.get() + offs);
     }
     
+    /**
+     * @return Whether the grid location `pt` is within the bounds of this
+     * raster and has data or not.
+     */
     bool contains(const grid_t &pt) const {
-        typedef PointType<index_t,N> nfo;
+        typedef PointType<index_t,M> grid_info;
         
-        for (index_t i = 0; i < N; i++){
-            index_t c = nfo::iterator(pt)[0];
-            if (c < 0 or c >= nfo::iterator(extent)[i]) {
+        index_t *p_i = grid_info::iterator(pt);
+        index_t *e_i = grid_info::iterator(extent);
+        for (index_t i = 0; i < M; i++){
+            index_t c = p_i[i];
+            if (c < 0 or c >= e_i[i]) {
                 return false;
             }
         }
         return true;
     }
     
+    /**
+     * Size of this raster along each axis.
+     */
     inline grid_t extents() const {
         return extent;
     }
     
-    inline index_t numChannels() const {
-        return Channels;
+    /**
+     * Number of input dimensions.
+     */
+    inline index_t inputDimension() const {
+        return M;
+    }
+    
+    /**
+     * Number of output dimensions.
+     */
+    inline index_t outputDimension() const {
+        return N;
     }
     
 protected:
     template <EdgeBehavior Edge>
     inline index_t index(const grid_t &c) const {
-        // specialized where N=1
-        return detail::_ImplRasterIndex<grid_t,N,Edge>::index(this->extent, c) * numChannels();
+        // specialized where M=1
+        return detail::_ImplRasterIndex<grid_t,M,Edge>::index(this->extent, c) * numN();
     }
 };
 

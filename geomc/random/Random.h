@@ -1,32 +1,6 @@
 /*
  * Random.h
  * 
- * Abstract class for random number generation.
- * Implementations provide random bits by overriding rand32(), which should return 
- * no fewer than 32 random bits.
- * 
- * Client-friendly random numbers are exposed via Random::rand<T>(). Specializations
- * are provided for a selection of primitive T. Specializations for other T may be written,
- * without the need to create new subclasses.
- * 
- * 
- * The general contract of rand() which should be followed by all specializations:
- * 
- *   rand(void)
- *     - if T is discrete, than this function should return values evenly over the entire 
- *       space of possible T.
- *     - if T is a continuous type, then this function should return values evenly
- *       over an analogue of the interval [0,1], inclusive.
- * 
- *   rand(T max)
- *     - should return random values evenly distributed over all possible states between
- *       0 (or the T analogue of 0) and the value of <max>
- * 
- *   rand(T lo, T hi)
- *     - should return random values evenly distributed over all possible states 
- *       bounded by <lo> and <hi>
- * 
- * 
  * (!) This class was designed to be portable between systems with different integer sizes,
  * although this feature has not been tested (!)
  * 
@@ -56,16 +30,16 @@ namespace geom {
     
     /**
      * @ingroup random
-     * @brief Source of random or pseudorandom bits.
+     * @brief Abstraction for a source of random or pseudorandom bits.
      * 
-     * Implementations provide random bits by overriding rand32(), which should 
+     * Implementations provide random bits by overriding `rand32()`, which should 
      * return no fewer than 32 random bits.
      * 
-     * Client-friendly random numbers are exposed via Random::rand<T>(). Specializations
-     * are provided for a selection of primitive T. Specializations for other T may be written,
-     * which will automatically be inherited by all subclasses of `Random`.
+     * Client-friendly random numbers are exposed via `Random::rand<T>()`. Specializations
+     * are provided for a selection of primitive `T`. Specializations of `rand()` for 
+     * other `T` may be written, which will automatically be inherited by all subclasses of `Random`.
      * 
-     * The general contract of rand() which should be followed by all specializations:
+     * The general contract of `rand()` which should be followed by all specializations:
      * 
      * `rand(void)`
      *   - If `T` is discrete, than this function should return values evenly over the entire 

@@ -21,20 +21,20 @@
 namespace geom {
 
 /**
- * Return a "default" convenience pseudorandom number generator, seeded with the system clock.
- * This generator is the default generator shared among many functions and classes
- * if no other generator is provided. Note that because it is shared and global,
- * it (and any code that calls it) is not re-entrant or threadsafe. (For
- * thread-safe random number generation, construct your own per-thread `Random` objects
- * and pass them to your sampling functions).
- * 
- */
-Random* getRandom();
-
-/**
  * @addtogroup random
  * @{
  */
+ 
+/**
+ * @ingroup random
+ * Return a "default" convenience pseudorandom number generator, seeded with the system clock.
+ * This generator is the default generator shared among many functions and classes
+ * if no other generator is provided. Note that because it is shared and global,
+ * it (and any code that calls it) is not re-entrant or threadsafe. For
+ * thread-safe random number generation, construct your own per-thread `Random` objects
+ * and pass them to your sampling functions.
+ */
+Random* getRandom();
 
 /**
  * Permute the elements of `objs` in-place.
@@ -72,7 +72,7 @@ template <typename T> void permute(std::vector<T> &objs, Random& rng=*getRandom(
 }
 
 /**
- * @brief A class for sampling a variety of distributions over `R`<sup>`N`</sup> space.
+ * @brief A class for sampling a variety of regions over `R`<sup>`N`</sup> space.
  */
 template <typename T>
 class RandomVectors {
@@ -197,7 +197,7 @@ public:
     template <index_t N> Vec<T,N> box(const Rect<T,N> &box){
         Vec<T,N> v;
         for (index_t i = 0; i < N; i++){
-            v[i] = this->rng->template rand<T>(box.mins[i], box.maxs[i]);
+            v[i] = this->rng->template rand<T>(box.min()[i], box.max()[i]);
         }
         return v;
     }

@@ -23,6 +23,12 @@
 
 namespace geom {
 
+/**
+ * @ingroup function
+ * @brief Real-valued smooth noise over `N` dimensions.
+ * 
+ * Perlin noise has _O(2<sup>N</sup>)_ time cost.
+ */
 template <typename T, index_t N>
 class PerlinNoise {
 public:
@@ -36,12 +42,19 @@ public:
      * Structors                      *
      **********************************/
     
+    /**
+     * Construct a new perlin noise object with the default (non-reentrant) random number generator.
+     */
     PerlinNoise():
             gradients(new point_t[PERLIN_NUM_GRADIENTS]),
             p(new index_t[PERLIN_NUM_GRADIENTS]) {
         detail::_ImplPerlinInit<T,N>::init(this, getRandom(), PERLIN_NUM_GRADIENTS);
     }
     
+    /**
+     * Construct a new perlin noise object with the supplied random number generator.
+     * @param rng A source of random bits.
+     */
     PerlinNoise(Random *rng):
             gradients(new point_t[PERLIN_NUM_GRADIENTS]),
             p(new index_t[PERLIN_NUM_GRADIENTS]) {
@@ -52,6 +65,9 @@ public:
      * Expr Functions                 *
      **********************************/
     
+    /**
+     * Evaluate the noise at `pt`.
+     */
     T eval(point_t pt) {
         point_t p0f = std::floor(pt);
         grid_t p0 = (grid_t)p0f; //grid pt
@@ -81,7 +97,13 @@ public:
      * Other Functions                *
      **********************************/
     
-    //2N times more expensive than eval()
+    /**
+     * Evaluate the gradient of the noise function via discrete difference.
+     * 
+     * Has _2N_ cost over `eval()`.
+     * @param pt
+     * @return 
+     */
     point_t gradient(point_t pt) {
         point_t g;
         //central difference method

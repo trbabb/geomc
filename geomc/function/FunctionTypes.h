@@ -11,6 +11,11 @@
 #include <geomc/linalg/LinalgTypes.h>
 
 namespace geom {
+    
+/**
+ * @defgroup function
+ * @brief Tools for constructing and sampling continuous-valued objects.
+ */
 
 // classes
 template <typename I, typename O, index_t N, index_t Channels> class Raster;
@@ -18,16 +23,30 @@ template <typename I, typename O> class Expr;
 template <typename T, index_t N>  class PerlinNoise;
 template <typename T, index_t N>  class Path;
 
+/**
+ * @addtogroup function
+ * @{
+ */
+
+/// Raster edge-sampling behavior.
 enum EdgeBehavior {
+    /// Clip sample coordinates to the sampleable area, thus repeating edge values beyond the boundary
     EDGE_CLAMP,
+    /// Wrap around sample coordinates to the opposite edge, thus tiling the sampled data beyond the boundary
     EDGE_PERIODIC,
+    /// Mirror the sample coordinates across edges
     EDGE_MIRROR,
+    /// Regions outside the sampleable area have a uniform, defined value (usually zero by default).
     EDGE_CONSTANT
 };
 
+/// Behavior for sampling between data points.
 enum Interpolation {
+    /// Return the data nearest to the sample point.
     INTERP_NEAREST,
+    /// Linearly interpolate the nearest 2<sup>n</sup> data points.
     INTERP_LINEAR,
+    /// Cubically interpolate the nearest 4<sup>n</sup> data points. 
     INTERP_CUBIC
 };
 
@@ -70,6 +89,8 @@ typedef Raster<double,double,3,1> Volumed1d;
 typedef Raster<double,double,3,2> Volumed2d;
 typedef Raster<double,double,3,3> Volumed3d;
 typedef Raster<double,double,3,4> Volumed4d;
+
+/// @} // addtogroup function
 
 }; // namespace geom
 

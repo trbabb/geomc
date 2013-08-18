@@ -30,13 +30,13 @@
  * In general, this scheme was designed to satisfy the following
  * requirements:
  * 
- * - All matrix types must interoperate readily.
+ * - All matrix types must interoperate.
  * - Using matrices with arithmetic operators should be straightforward,
  *   efficient, and feel like using a native type.
  * - Dimension mismatches should be caught at compile time wherever possible,
  *   to avoid unnecessary runtime checks.
  * - Element access shall be non-virtual and inline-able wherever possible.
- * - Dynamic memory allocations should be minimized wherever possible.
+ * - Dynamic memory allocations should be minimized or eliminated wherever possible.
  * - Copies to and from contiguous memory shall be fast where the
  *   internal matrix representation is contiguous.
  * - Handles to matrices of arbitrary type are possible.
