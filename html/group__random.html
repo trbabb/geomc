@@ -84,7 +84,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="classgeom_1_1_random.html" title="Source of random or pseudorandom bits.">Random</a> number and object generation functions and classes.  
+<p><a class="el" href="classgeom_1_1_random.html" title="Abstraction for a source of random or pseudorandom bits.">Random</a> number and object generation functions and classes.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
@@ -96,14 +96,16 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mersenne twister pseudorandom number generator.  <a href="classgeom_1_1_m_t_rand.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_random.html">Random</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Source of random or pseudorandom bits.  <a href="classgeom_1_1_random.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstraction for a source of random or pseudorandom bits.  <a href="classgeom_1_1_random.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_random_vectors.html">RandomVectors&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class for sampling a variety of distributions over <code>R</code><sup><code>N</code></sup> space.  <a href="classgeom_1_1_random_vectors.html#details">More...</a><br/></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class for sampling a variety of regions over <code>R</code><sup><code>N</code></sup> space.  <a href="classgeom_1_1_random_vectors.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:gaafd702a26c7914707002c7066da808e4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_random.html">Random</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__random.html#gaafd702a26c7914707002c7066da808e4">getRandom</a> ()</td></tr>
+<tr class="separator:gaafd702a26c7914707002c7066da808e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga4854838b50087ac7e261ff9b05f8aba9"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga4854838b50087ac7e261ff9b05f8aba9"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__random.html#ga4854838b50087ac7e261ff9b05f8aba9">permute</a> (T objs[], size_t len, Random &amp;rng=*getRandom())</td></tr>
 <tr class="separator:ga4854838b50087ac7e261ff9b05f8aba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,8 +153,24 @@ Functions</h2></td></tr>
 <tr class="separator:ga09e5bd110d04451a65907371e7f65c6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p><a class="el" href="classgeom_1_1_random.html" title="Source of random or pseudorandom bits.">Random</a> number and object generation functions and classes. </p>
+<p><a class="el" href="classgeom_1_1_random.html" title="Abstraction for a source of random or pseudorandom bits.">Random</a> number and object generation functions and classes. </p>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="gaafd702a26c7914707002c7066da808e4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_random.html">Random</a> * getRandom </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Return a "default" convenience pseudorandom number generator, seeded with the system clock. This generator is the default generator shared among many functions and classes if no other generator is provided. Note that because it is shared and global, it (and any code that calls it) is not re-entrant or threadsafe. For thread-safe random number generation, construct your own per-thread <code><a class="el" href="classgeom_1_1_random.html" title="Abstraction for a source of random or pseudorandom bits.">Random</a></code> objects and pass them to your sampling functions. </p>
+
+</div>
+</div>
 <a class="anchor" id="ga4854838b50087ac7e261ff9b05f8aba9"></a>
 <div class="memitem">
 <div class="memproto">
@@ -569,7 +587,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 17 2013 17:25:10 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Aug 17 2013 21:59:55 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

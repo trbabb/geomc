@@ -7,6 +7,7 @@ var searchData=
   ['randomvectors',['RandomVectors',['../classgeom_1_1_random_vectors.html#ae47770059f014c1f6b8ea539035fa8d2',1,'geom::RandomVectors::RandomVectors()'],['../classgeom_1_1_random_vectors.html#ae956c3c510c80d73ccf59c725d0a59be',1,'geom::RandomVectors::RandomVectors(Random *rng)']]],
   ['rangeintersection',['rangeIntersection',['../classgeom_1_1_rect.html#a98b9f69c3fd1d9b5d5fa611dc495e29e',1,'geom::Rect']]],
   ['rangeunion',['rangeUnion',['../classgeom_1_1_rect.html#a702d5a491ea404edcfa24934a94e70b8',1,'geom::Rect']]],
+  ['raster',['Raster',['../classgeom_1_1_raster.html#a85d40e38d0895ab5727f4d6bb2629e60',1,'geom::Raster']]],
   ['ray',['Ray',['../classgeom_1_1_ray.html#a2ec5ed52d9c0ad8a22530dea8d7369d5',1,'geom::Ray::Ray()'],['../classgeom_1_1_ray_3_01_t_00_013_01_4.html#a2ec5ed52d9c0ad8a22530dea8d7369d5',1,'geom::Ray&lt; T, 3 &gt;::Ray()']]],
   ['rect',['Rect',['../classgeom_1_1_rect.html#a65d2b089437e1b7a461ae1ae56fb03ff',1,'geom::Rect::Rect(point_t lo, point_t hi)'],['../classgeom_1_1_rect.html#ae436fd0322c99157c5443a3385961e22',1,'geom::Rect::Rect()']]],
   ['reflectx',['reflectX',['../classgeom_1_1_vec_3_01_t_00_012_01_4.html#a731aacc91ebd67ef0524b8d88e6483f1',1,'geom::Vec&lt; T, 2 &gt;::reflectX()'],['../classgeom_1_1_vec_3_01_t_00_013_01_4.html#a1d43f6e31d50876521a6defd4ffb7fae',1,'geom::Vec&lt; T, 3 &gt;::reflectX()']]],

@@ -96,7 +96,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>Source of random or pseudorandom bits.  
+<p>Abstraction for a source of random or pseudorandom bits.  
  <a href="classgeom_1_1_random.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_random_8h_source.html">geomc/random/Random.h</a>&gt;</code></p>
@@ -200,10 +200,10 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="separator:ga09e5bd110d04451a65907371e7f65c6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Source of random or pseudorandom bits. </p>
-<p>Implementations provide random bits by overriding <a class="el" href="classgeom_1_1_random.html#a33293ce43cd109243fb4b6cf14120e09">rand32()</a>, which should return no fewer than 32 random bits.</p>
-<p>Client-friendly random numbers are exposed via <a class="el" href="classgeom_1_1_random.html#a264aa766211c9277407585b322882daa">Random::rand&lt;T&gt;()</a>. Specializations are provided for a selection of primitive T. Specializations for other T may be written, which will automatically be inherited by all subclasses of <code><a class="el" href="classgeom_1_1_random.html" title="Source of random or pseudorandom bits.">Random</a></code>.</p>
-<p>The general contract of <a class="el" href="classgeom_1_1_random.html#a264aa766211c9277407585b322882daa">rand()</a> which should be followed by all specializations:</p>
+<div class="textblock"><p>Abstraction for a source of random or pseudorandom bits. </p>
+<p>Implementations provide random bits by overriding <code><a class="el" href="classgeom_1_1_random.html#a33293ce43cd109243fb4b6cf14120e09">rand32()</a></code>, which should return no fewer than 32 random bits.</p>
+<p>Client-friendly random numbers are exposed via <code><a class="el" href="classgeom_1_1_random.html#a264aa766211c9277407585b322882daa">Random::rand</a>&lt;T&gt;()</code>. Specializations are provided for a selection of primitive <code>T</code>. Specializations of <code><a class="el" href="classgeom_1_1_random.html#a264aa766211c9277407585b322882daa">rand()</a></code> for other <code>T</code> may be written, which will automatically be inherited by all subclasses of <code><a class="el" href="classgeom_1_1_random.html" title="Abstraction for a source of random or pseudorandom bits.">Random</a></code>.</p>
+<p>The general contract of <code><a class="el" href="classgeom_1_1_random.html#a264aa766211c9277407585b322882daa">rand()</a></code> which should be followed by all specializations:</p>
 <p><code><a class="el" href="classgeom_1_1_random.html#a264aa766211c9277407585b322882daa">rand(void)</a></code></p>
 <ul>
 <li>If <code>T</code> is discrete, than this function should return values evenly over the entire space of possible <code>T</code>.</li>
@@ -343,7 +343,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 17 2013 17:25:10 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Aug 17 2013 21:59:55 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

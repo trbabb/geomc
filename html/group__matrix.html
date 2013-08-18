@@ -186,11 +186,11 @@ Functions</h2></td></tr>
 <p>These iterators are compatible with std::copy(). Some of them are not writeable (or may possibly throw an error upon writing) in the case where a matrix element does not have a corresponding memory location (DiagonalMatrix is one such case, for example; off-diagonals are not stored).</p>
 <p>In general, this scheme was designed to satisfy the following requirements:</p>
 <ul>
-<li>All matrix types must interoperate readily.</li>
+<li>All matrix types must interoperate.</li>
 <li>Using matrices with arithmetic operators should be straightforward, efficient, and feel like using a native type.</li>
 <li>Dimension mismatches should be caught at compile time wherever possible, to avoid unnecessary runtime checks.</li>
 <li>Element access shall be non-virtual and inline-able wherever possible.</li>
-<li>Dynamic memory allocations should be minimized wherever possible.</li>
+<li>Dynamic memory allocations should be minimized or eliminated wherever possible.</li>
 <li>Copies to and from contiguous memory shall be fast where the internal matrix representation is contiguous.</li>
 <li>Handles to matrices of arbitrary type are possible.</li>
 </ul>
@@ -987,7 +987,7 @@ for (mat3::region_iterator i = m.region_begin(r); i != m.region_end(r); i++) {
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 17 2013 17:25:10 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Aug 17 2013 21:59:55 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

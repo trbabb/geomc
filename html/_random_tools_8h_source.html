@@ -111,9 +111,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span>geom {</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;Random* getRandom();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="code" href="group__random.html#ga4854838b50087ac7e261ff9b05f8aba9">   48</a></span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keywordtype">void</span> <a class="code" href="group__random.html#ga4854838b50087ac7e261ff9b05f8aba9">permute</a>(T objs[], <span class="keywordtype">size_t</span> len, <a class="code" href="classgeom_1_1_random.html" title="Source of random or pseudorandom bits.">Random</a>&amp; rng=*getRandom()){</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;Random* <a class="code" href="group__random.html#gaafd702a26c7914707002c7066da808e4">getRandom</a>();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="code" href="group__random.html#ga4854838b50087ac7e261ff9b05f8aba9">   48</a></span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keywordtype">void</span> <a class="code" href="group__random.html#ga4854838b50087ac7e261ff9b05f8aba9">permute</a>(T objs[], <span class="keywordtype">size_t</span> len, <a class="code" href="classgeom_1_1_random.html" title="Abstraction for a source of random or pseudorandom bits.">Random</a>&amp; rng=*<a class="code" href="group__random.html#gaafd702a26c7914707002c7066da808e4">getRandom</a>()){</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; len; i++){</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordtype">size_t</span> swapIdx = rng.rand(len - i) + i;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        T tmp = objs[swapIdx];</div>
@@ -122,7 +122,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="code" href="group__random.html#gaa74a4ab39a947c769e8f19ed082d5597">   65</a></span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keywordtype">void</span> <a class="code" href="group__random.html#ga4854838b50087ac7e261ff9b05f8aba9">permute</a>(std::vector&lt;T&gt; &amp;objs, <a class="code" href="classgeom_1_1_random.html" title="Source of random or pseudorandom bits.">Random</a>&amp; rng=*getRandom()){</div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="code" href="group__random.html#gaa74a4ab39a947c769e8f19ed082d5597">   65</a></span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keywordtype">void</span> <a class="code" href="group__random.html#ga4854838b50087ac7e261ff9b05f8aba9">permute</a>(std::vector&lt;T&gt; &amp;objs, <a class="code" href="classgeom_1_1_random.html" title="Abstraction for a source of random or pseudorandom bits.">Random</a>&amp; rng=*<a class="code" href="group__random.html#gaafd702a26c7914707002c7066da808e4">getRandom</a>()){</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> i = 0; i &lt; objs.size(); i++){</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> swapIdx = rng.rand(objs.size() - i) + i;</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        T tmp = objs[swapIdx];</div>
@@ -132,19 +132,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="code" href="classgeom_1_1_random_vectors.html">   78</a></span>&#160;<span class="keyword">class </span><a class="code" href="classgeom_1_1_random_vectors.html" title="A class for sampling a variety of distributions over RN space.">RandomVectors</a> {</div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="code" href="classgeom_1_1_random_vectors.html">   78</a></span>&#160;<span class="keyword">class </span><a class="code" href="classgeom_1_1_random_vectors.html" title="A class for sampling a variety of regions over RN space.">RandomVectors</a> {</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <a class="code" href="classgeom_1_1_random.html" title="Source of random or pseudorandom bits.">Random</a> *rng;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <a class="code" href="classgeom_1_1_random.html" title="Abstraction for a source of random or pseudorandom bits.">Random</a> *rng;</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    </div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="comment">/**********************************</span></div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">     * Structors                      *</span></div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">     **********************************/</span></div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    </div>
-<div class="line"><a name="l00090"></a><span class="lineno"><a class="code" href="classgeom_1_1_random_vectors.html#ae47770059f014c1f6b8ea539035fa8d2">   90</a></span>&#160;    <a class="code" href="classgeom_1_1_random_vectors.html#ae47770059f014c1f6b8ea539035fa8d2">RandomVectors</a>():rng(getRandom()){</div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="code" href="classgeom_1_1_random_vectors.html#ae47770059f014c1f6b8ea539035fa8d2">   90</a></span>&#160;    <a class="code" href="classgeom_1_1_random_vectors.html#ae47770059f014c1f6b8ea539035fa8d2">RandomVectors</a>():rng(<a class="code" href="group__random.html#gaafd702a26c7914707002c7066da808e4">getRandom</a>()){</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="comment">//do nothing else</span></div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    </div>
-<div class="line"><a name="l00099"></a><span class="lineno"><a class="code" href="classgeom_1_1_random_vectors.html#ae956c3c510c80d73ccf59c725d0a59be">   99</a></span>&#160;    <a class="code" href="classgeom_1_1_random_vectors.html#ae956c3c510c80d73ccf59c725d0a59be">RandomVectors</a>(<a class="code" href="classgeom_1_1_random.html" title="Source of random or pseudorandom bits.">Random</a> *rng):rng(rng){</div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="code" href="classgeom_1_1_random_vectors.html#ae956c3c510c80d73ccf59c725d0a59be">   99</a></span>&#160;    <a class="code" href="classgeom_1_1_random_vectors.html#ae956c3c510c80d73ccf59c725d0a59be">RandomVectors</a>(<a class="code" href="classgeom_1_1_random.html" title="Abstraction for a source of random or pseudorandom bits.">Random</a> *rng):rng(rng){</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="comment">//do nothing else</span></div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    </div>
@@ -207,7 +207,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00197"></a><span class="lineno"><a class="code" href="classgeom_1_1_random_vectors.html#a0da3f4b944969d78d6f79395db37a8bf">  197</a></span>&#160;    <span class="keyword">template</span> &lt;index_t N&gt; <a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">Vec&lt;T,N&gt;</a> <a class="code" href="classgeom_1_1_random_vectors.html#a0da3f4b944969d78d6f79395db37a8bf">box</a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box.">Rect&lt;T,N&gt;</a> &amp;<a class="code" href="classgeom_1_1_random_vectors.html#a49918fe1f6f00bad7b9d83fe32d1f60b">box</a>){</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        <a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">Vec&lt;T,N&gt;</a> v;</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++){</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;            v[i] = this-&gt;rng-&gt;template rand&lt;T&gt;(box.<a class="code" href="classgeom_1_1_rect.html#a32caf6df617c835be8920f40874363c9" title="Lower extremes.">mins</a>[i], box.<a class="code" href="classgeom_1_1_rect.html#a027343b74320c3528c3a881aa5399512" title="Upper extremes.">maxs</a>[i]);</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;            v[i] = this-&gt;rng-&gt;template rand&lt;T&gt;(box.<a class="code" href="classgeom_1_1_rect.html#a33a63681586b26b7db572c83999eaaa3">min</a>()[i], box.<a class="code" href="classgeom_1_1_rect.html#ae0d448b5c9ab84f88d1ac56203d48096">max</a>()[i]);</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        }</div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        <span class="keywordflow">return</span> v;</div>
 <div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    }</div>
@@ -295,7 +295,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 17 2013 17:25:10 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Aug 17 2013 21:59:55 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>
