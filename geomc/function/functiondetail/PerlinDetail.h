@@ -26,7 +26,7 @@ template <typename T, int N>
 class _ImplPerlinInit {
 public:
     static void init(PerlinNoise<T,N> *pln, Random *rng, index_t n) {
-        RandomVectors<T> rndVecs = RandomVectors<T>(rng);
+        Sampler<T> rndVecs = Sampler<T>(rng);
         for (index_t i = 0; i < n; i++){
             pln->gradients[i] = rndVecs.template unit<N>();
             pln->p[i] = i;

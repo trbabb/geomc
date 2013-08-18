@@ -18,7 +18,20 @@
 
 /**
  * @defgroup random
- * @brief Random number and object generation..
+ * @brief Random number and object generation.
+ * 
+ * To obtain random numbers, choose and construct a random number generator,
+ * then call `rand()` with the desired type as a template parameter:
+ * 
+ *     Random *rng = new MTRand(mySeed);
+ *     float f = rng->rand<float>(); // a random number between 0 and 1.0 
+ * 
+ * Or use `geom::getRandom()` for a quick-and-dirty (not reentrant or threadsafe!) 
+ * generator instance:
+ * 
+ *     float f = getRandom()->rand<float>();
+ * 
+ * 
  */
 
 #ifndef RANDOM_H_

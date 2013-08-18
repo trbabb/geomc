@@ -36,7 +36,7 @@ enum EdgeBehavior {
     EDGE_PERIODIC,
     /// Mirror the sample coordinates across edges
     EDGE_MIRROR,
-    /// Regions outside the sampleable area have a uniform, defined value (usually zero by default).
+    /// Regions outside the sampleable area have a uniform, defined value (zero by default).
     EDGE_CONSTANT
 };
 

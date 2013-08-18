@@ -20,7 +20,7 @@ namespace geom {
  * @ingroup shape
  * @brief A geometric plane or hyperplane
  * 
- * An planar object in @f${\rm I\!R}^{N}@f$ space with dimension N-1.
+ * A Euclidean subspace of R<sup>N</sup> with dimension N-1.
  */
 template <typename T, index_t N>
 class Plane {

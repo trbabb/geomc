@@ -48,7 +48,7 @@
 // TODO: take advantage of GridIterator
 // TODO: move stuff to detail namespace.
 
-// curious case: iType will not cover the same dynamic range that T will. what happens on overflow?
+// curious case: index_t will not cover the same dynamic range that T will. what happens on overflow?
 //               I think items can still be found; they will just fold into lower-order cells.
 
 #ifndef BINLATTICEPARTITION_H_
@@ -64,13 +64,13 @@
 
 namespace geom {
 
-template<typename T, index_t N, typename O, typename iType = index_t>
+template<typename T, index_t N, typename O>
 class BinLatticePartition {
 
 public:
-    typedef typename Rect<iType,N>::point_t  bin_t;
-    typedef typename Rect<T,N>::point_t      point_t;
-    typedef std::pair< Vec<T,N>, O >         item_t;
+    typedef typename Rect<index_t,N>::point_t  bin_t; //edit: wait, what?
+    typedef typename Rect<T,N>::point_t        point_t;
+    typedef std::pair< Vec<T,N>, O >           item_t;
 
 protected:
     typedef std::tr1::unordered_multimap<bin_t, item_t> cellmap_t;
@@ -111,8 +111,8 @@ public:
         region_iterator() : grid(NULL),off_end(true) {}
 
         // iterator for a specific region
-        explicit region_iterator(BinLatticePartition<T, N, O, iType> *grid,
-                                 Rect<iType, N> region) :
+        explicit region_iterator(BinLatticePartition<T, N, O> *grid,
+                                 Rect<index_t, N> region) :
                 grid(grid),
                 cellblock(region),
                 off_end(false){
@@ -146,7 +146,7 @@ public:
             }
         }
         
-        Rect<iType,N> query_block(){
+        Rect<index_t,N> query_block(){
             return cellblock;
         }
         
@@ -218,8 +218,8 @@ public:
 
         /////// members ///////
 
-        BinLatticePartition<T, N, O, iType> *grid; // iterator is off-end when this is null
-        Rect<iType, N> cellblock; //query region
+        BinLatticePartition<T, N, O> *grid; // iterator is off-end when this is null
+        Rect<index_t, N> cellblock; //query region
         typename cellmap_t::iterator cur_cell_iter; //iterator of currently inspected cell.
         bool off_end;
 
@@ -271,7 +271,7 @@ public:
     region_iterator query(point_t pt, T radius){
         point_t diag = point_t(radius);
         Rect<T,N> region = Rect<T,N>(pt-diag, pt+diag);
-        Rect<iType,N> bins = binRegion(region);
+        Rect<index_t,N> bins = binRegion(region);
         return region_iterator(this, bins);
     }
 
@@ -294,9 +294,9 @@ public:
 
     protected:
 
-    inline Rect<iType,N> binRegion(Rect<T,N> r){
+    inline Rect<index_t,N> binRegion(Rect<T,N> r){
         //high coordinate is, as always, one beyond the maximum cell to check
-        return Rect<iType,N>(
+        return Rect<index_t,N>(
                 (bin_t)((r.min() / _cellsize).floor()),
                 (bin_t)((r.max() / _cellsize).ceil())
         );

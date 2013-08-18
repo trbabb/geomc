@@ -12,7 +12,7 @@
 #include <boost/integer.hpp>
 #include <limits>
 
-#include <geomc/Utils.h>
+#include <geomc/function/Utils.h>
 #include <geomc/linalg/Vec.h>
 #include <geomc/function/functiondetail/PerlinDetail.h>
 

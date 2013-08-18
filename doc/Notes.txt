@@ -14,8 +14,7 @@ MATRIX:
   - test matrix intercompatibility
   - matrix generalized iterator is slower
   - end() iterator position needs clear definition
-  - problem: some functions have unpredictable return types. could make 
-    usage difficult except in cases of fn(a) * b, e.g.
+  - make a SubsetMatrix, and possibly kill AugmentedMatrix? or template over concatenation axis?
   x matrix +/-/* operators
   x matrix in-place transpose
   x fix mtxcopy to be src, dest
@@ -56,6 +55,7 @@ MATRIX:
     - backwards grid iterators are definitely broken.
 
 GENERAL CLEANUP/MAJOR TODOS:
+  - make more spatial partitions?
   - fix hash functions
   - put sources back in with headers; remove redundant /include dir
     and fix up makefile to work with it.
@@ -69,13 +69,12 @@ GENERAL CLEANUP/MAJOR TODOS:
   - raster doesn't work with dynamic size (specialize the class)
     - also consider templating the input type at call sites, there is no
       reason to decide that in the object.
+      > this may be problematic because of variadic point_t and C++'s ass-dumb template solving.
   x implement matrix equality
   x fix Matrix to figure out if two matrices share memory.
     x &a == &b not reliable; a or b may be a wrapper matrix.
     x matrix->memoryID()?
     x matrix->shares_memory(M)?
-  - method for pointing to general traceable objects
-    - templated wrapper?
   x give static/dynamic matrix a common subclass, a la PermutationMatrix
   x give all matrices a common subclass (for boilerplate iterator BS)
     and override only those methods that have special "native" iterators, etc.
@@ -89,6 +88,7 @@ GENERAL CLEANUP/MAJOR TODOS:
     - Image (needs wrapper)
     x Perlin
     x Path
+  - RadialBasisFunction? with parameterized power?
   - Image:
     - factor input type template to call sites.
     - make EdgeBehavior and Intrepolation into classes?
@@ -106,15 +106,15 @@ GENERAL CLEANUP/MAJOR TODOS:
   - virtualize shapes for trace(), contains(), etc.?
     - or leave as templated?
     - namespace-global trace() mechanism? (with templates, gets tricky)
+  - refactor trace() to accept a Hit as an output argument.
+    - rename Hit to RayTest
   - expose a dimension-independent NormalFromBasis() type function
     - what you want is the orthogonal complement, or the space of basis vectors that are perpendicular to your N-1 dimensional subspace
     - in the cross product case, you have two equations (b1 . n = 0; b2 . n = 0) and three unknowns (nx, ny, nz).
       the last degree of freedom is the magnitude of n. unclear as of yet how this arises.
     o compute by taking the ~~determinant~~ cofactor expansion with i,j,k,...
       - no, that will be slow and unstable. look up 'matrix kernel' or 'matrix null space'.
-  - mtx determinant
-    x reduce to upper triangular and mult rows?
-    - specialize, validate, and expose this
+  - yarrow RNG?
   x make a mtx base class.
     x use curiously recurring template pattern
       x parent must know type of derived for creating iterators.

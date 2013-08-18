@@ -23,12 +23,18 @@ namespace geom {
      * 
      * `Vec<T,2>`'s elements may be accessed under these equivalent naming schemes:
      * 
-     *     v.{x,y}
-     *     v.{s,t}
-     *     v.{row,col}
+     *     v.{x,y}     // conventional Euclidean coordinate names
+     *     v.{s,t}     // conventional parameterization coordinate names
+     *     v.{row,col} // matrix coordinate names
      * 
      * with the latter scheme intended for use as matrix coordinates. `x`, `s`, and
      * `row` all refer to the same element.
+     * 
+     * Take special note that, in accordance with convention, `row` refers to the
+     * vertical position of a matrix element, despite being the first coordinate.
+     * This means that `row`, a vertical coordinate, aliases `x`, a traditionally 
+     * horizontal coordinate. For this reason it is **inadviseable to interchange 
+     * usage** of the "matrix coordinate" and "Euclidean" naming schemes.
      */
     template <typename T> class Vec<T,2> : public detail::VecCommon<T,2> {
 

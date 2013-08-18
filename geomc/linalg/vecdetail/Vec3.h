@@ -76,9 +76,9 @@ namespace geom {
      * 
      * `Vec<T,3>`'s elements may be accessed under these equivalent naming schemes:
      * 
-     *     v.{x,y,z}
-     *     v.{s,t,y}
-     *     v.{r,g,b}
+     *     v.{x,y,z} // conventional Euclidean coordinate names
+     *     v.{s,t,u} // conventional parameterization coordinate names
+     *     v.{r,g,b} // conventional color tuple coordinate names
      * 
      * `x`, `s`, and `r` all refer to the same element.
      */

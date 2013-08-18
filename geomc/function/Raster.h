@@ -11,10 +11,10 @@
 #include <algorithm>
 #include <boost/shared_array.hpp>
 
-#include <geomc/Utils.h>
 #include <geomc/linalg/Vec.h>
 #include <geomc/shape/Rect.h>
 #include <geomc/shape/GridIterator.h>
+#include <geomc/function/Utils.h>
 #include <geomc/function/functiondetail/RasterDetail.h>
 
 namespace geom {
@@ -58,6 +58,11 @@ namespace geom {
  * @tparam N Range dimension.
  * 
  * In other words, a function of I<sup>M</sup> &rarr; O<sup>N</sup>.
+ * 
+ * Some functions are overloaded to have some arguments as template parameters.
+ * This allows some low-level sampling code to be inlined which can improve
+ * speed by as much as 15%. The traditional function-argument versions are available
+ * for when the parameters must be chosen at runtime.
  */
 template <typename I, typename O, index_t M, index_t N>
 class Raster {
@@ -91,7 +96,8 @@ public:
     ////////// Methods //////////
     
     /**
-     * Set the sample value to be used "out-of-bounds" when `EDGE_CONSTANT` edge behavior is used.
+     * Set the sample value to be used for "out-of-bounds" samples when 
+     * `EDGE_CONSTANT` behavior is used.
      */
     void setAbyss(sample_t val) {
         abyss = val;
@@ -256,8 +262,8 @@ public:
     }
     
     /**
-     * @return Whether the grid location `pt` is within the bounds of this
-     * raster and has data or not.
+     * @return `true` if the grid location `pt` is within the bounds of this
+     * raster and has data, `false` otherwise.
      */
     bool contains(const grid_t &pt) const {
         typedef PointType<index_t,M> grid_info;

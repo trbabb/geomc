@@ -32,6 +32,7 @@ namespace geom {
 
 // TODO: should this really be templated over array order? maybe that should be dynamic?
 // TODO: This shit is broken and walking off the edge of things (reverse dimension order only).
+    // edit: cannot reproduce.
 // TODO: somehow add docs for the inherited operators.
     
 /**

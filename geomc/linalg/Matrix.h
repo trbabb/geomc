@@ -103,7 +103,7 @@
  * correct, run-time dimension checks can be skipped, resulting in slightly faster
  * code. If incorrect, the compiler will error, catching program correctness problems
  * early. Compile-time dimension mismatches / requirement failures will generally
- * manifest as "`template argument deduction/substitution failed`" errors.
+ * manifest as `"template argument deduction/substitution failed"` errors.
  * 
  * This code will prove its dimension-correctness at compile time:
  * 
@@ -115,8 +115,8 @@
  * cannot be deduced from their type:
  * 
  *     SimpleMatrix<double, 4, 4> mat4x4;
- *     SimpleMatrix<double, 0, 0> mat_a_NxN(4,4);
- *     SimpleMatrix<double, 0, 0> mat_b_NxN(3,2);
+ *     SimpleMatrix<double, 0, 0> mat_a_NxN(4,4); // 4x4 matrix
+ *     SimpleMatrix<double, 0, 0> mat_b_NxN(3,2); // 3x2 matrix
  *     
  *     mat4x4 + mat_a_NxN; // runtime dimension check; will succeed.
  *     mat4x4 + mat_b_NxN; // runtime dimension check; will throw an exception.

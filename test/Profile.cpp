@@ -32,7 +32,7 @@ using namespace std;
 
 template <index_t N> 
 void fill_unit_vec_array(typename PointType<double,N>::point_t *dst, index_t n){
-    RandomVectors<double> rntools = RandomVectors<double>();
+    Sampler<double> rntools = Sampler<double>();
     
     for (index_t i = 0; i < n; i++){
         dst[i] = rntools.template unit<N>();
@@ -40,7 +40,7 @@ void fill_unit_vec_array(typename PointType<double,N>::point_t *dst, index_t n){
 }
 
 template <index_t N> void fill_unit_raw_vec_array(double dst[][N], index_t n){
-    RandomVectors<double> rntools = RandomVectors<double>();
+    Sampler<double> rntools = Sampler<double>();
     Vec<double,N> v;
     
     for (index_t i = 0; i < n; i++){
@@ -52,7 +52,7 @@ template <index_t N> void fill_unit_raw_vec_array(double dst[][N], index_t n){
 }
 
 template <index_t N> void fill_range_vec_array(Vec<double, N> *dst, index_t n, Vec<double,N> lo, Vec<double,N> hi){
-    RandomVectors<double> rntools = RandomVectors<double>();
+    Sampler<double> rntools = Sampler<double>();
     
     for (index_t i = 0; i < n; i++){
         dst[i] = rntools.box(lo, hi);
@@ -209,7 +209,7 @@ template <index_t N> double profile_perlin(index_t iters){
 
 // careful with this. allocates lots o memory.
 template <typename T> double profile_rayTriangleTest(index_t iters){
-    RandomVectors<T> rvs;
+    Sampler<T> rvs;
 	Ray<T,3> *rays = new Ray<T,3>[iters];
 	// generate N random rays. 
 	for (index_t i = 0; i < iters; i++){
@@ -234,7 +234,7 @@ template <typename T> double profile_rayTriangleTest(index_t iters){
 
 template <typename T, index_t N> double profile_path(index_t iters){
     Path<T,N> p;
-    RandomVectors<T> rvs;
+    Sampler<T> rvs;
     int n_knots = 50;
     for (index_t i = 0; i < n_knots; i++){
         p.knots.push_back(Ray<T,N>(rvs.template box<N>(), rvs.template solidball<N>()));
@@ -253,7 +253,7 @@ double profile_raster(index_t iters){
 	Vec<index_t,N> dim(n);
     Raster<T,T,N,Channels> image(dim);
     Vec<T,N> coords[n];
-    RandomVectors<T> rvs;
+    Sampler<T> rvs;
     
     for (index_t i = 0; i < n; i++){
     	coords[i] = rvs.box(Vec<T,N>::zeros, (Vec<T,N>)dim);
@@ -271,7 +271,7 @@ double profile_raster(index_t iters){
 }
 
 template <typename T> double profile_rotCtr(index_t iters){
-    RandomVectors<T> rvs;
+    Sampler<T> rvs;
     AffineTransform<T,3> xf;
     clock_t start = clock();
     for (index_t i = 0; i < iters; i++){

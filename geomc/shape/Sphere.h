@@ -11,7 +11,7 @@
 #include <geomc/linalg/Vec.h>
 #include <geomc/shape/shapedetail/Hit.h>
 #include <geomc/shape/Bounded.h>
-#include <geomc/Utils.h>
+#include <geomc/function/Utils.h>
 
 namespace geom {
 

@@ -13,6 +13,12 @@
 #include <limits>
 #include <algorithm>
 
+/**
+ * @mainpage GEOMC template geometry / linear algebra library
+ * 
+ * Source available at: http://github.com/trbabb/geomc
+ */
+
 // Shall a generic Vec<N> check whether an index is out-of-bounds on every access?
 // Bounds checks can incur signficant cost.
 
@@ -57,5 +63,13 @@ template <typename T> inline T positive_mod(T a, T b){
     T r = a % b;
     return r<0?r+b:r;
 }
+
+/**
+ * @brief Namepsace of all `geomc` functions and classes.
+ * 
+ */
+namespace geom {
+    
+};
 
 #endif /* GEOMC_DEFS_H_ */
