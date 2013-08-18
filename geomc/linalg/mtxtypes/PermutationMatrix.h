@@ -78,10 +78,12 @@ template <typename Ma, typename Mb, typename Enable> class _ImplMtxMul;
  * A permutation matrix `P` permutes rows if left-multiplied (`P * M`), and permutes
  * columns if right-multiplied (`M * P`).
  * 
- * Permutation matrices use O(n) storage, and multiplication operators with them
- * are optimized to perform the permutation directly in O(n<sup>2</sup>) 
- * (rather than O(n<sup>3</sup>)) 
- * time.
+ * Permutation matrices use _O(n)_ storage, and multiplication operators with them
+ * are optimized to perform the permutation directly in _O(n<sup>2</sup>)_
+ * (rather than _O(n<sup>3</sup>)_) time.
+ * 
+ * Permutation matrices are always (n x n) and have only elements that are zero 
+ * or 1. Each row and column has exactly one `1` element.
  */
 template <index_t N>
 class PermutationMatrix : public detail::MatrixBase<bool,N,N, PermutationMatrix<N> >, public detail::PermuteMatrixBase<N> {
@@ -93,10 +95,17 @@ public:
     template <typename Md, typename Ma, typename Mb>
     friend class detail::_ImplMtxMul;
     
+    /**
+     * Construct a new identity permutation matrix.
+     */
     PermutationMatrix() {
         setIdentity();
     }
     
+    /**
+     * Construct a new identity permutation matrix of size `n`.
+     * (Dynamic only).
+     */
     explicit PermutationMatrix(index_t n):parent_t(n) {
         setIdentity();
     }
@@ -111,10 +120,30 @@ public:
         return parent_t::_cols();
     }
     
+    /**
+     * Array containing a mapping of destination rows to source rows in a 
+     * row-permuting operation. 
+     * 
+     * In other words, given the row-permuting multiplicaton:
+     * 
+     *     P * M = D
+     * 
+     * return an array `a` such that row `D[i] = M[a[i]]`. 
+     */
     inline const index_t *getRowSources() const {
         return parent_t::getSrcData();
     }
     
+    /**
+     * Array containing a mapping of destination columns to source columns in a 
+     * column-permuting operation. 
+     * 
+     * In other words, given the column-permuting multiplicaton:
+     * 
+     *     M * P = D
+     * 
+     * return an array `a` such that column `D[i] = M[a[i]]`. 
+     */
     inline const index_t *getColSources() const {
         return parent_t::getDstData();
     }
@@ -139,14 +168,36 @@ public:
         }
     }
     
-    // for conceptual clarity
-    // because of the transpose == inverse property,
-    // col source == row dest
-    
+    /**
+     * Array containing a mapping of source columns to destination columns in a 
+     * column-permuting operation. 
+     * 
+     * In other words, given the column-permuting multiplication:
+     * 
+     *     M * P = D
+     * 
+     * return an array `a` such that column `D[a[i]] = M[i]`.
+     * 
+     * Because of the property that a permutation matrix's inverse is its 
+     * transpose, this function is equivalent to `getRowSources()`.
+     */
     inline const index_t *getColDestinations() const {
         return parent_t::getSrcData();
     }
     
+    /**
+     * Array containing a mapping of source rows to destination rows in a row-permuting
+     * operation. 
+     * 
+     * In other words, given the row-permuting multiplication:
+     * 
+     *     P * M = D
+     * 
+     * return an array `a` such that row `D[a[i]] = M[i]`.
+     * 
+     * Because of the property that a permutation matrix's inverse is its 
+     * transpose, this function is equivalent to `getColSources()`.
+     */
     inline const index_t *getRowDestinations() const {
         return parent_t::getDstData();
     }
@@ -161,6 +212,14 @@ public:
     
     ///////////////////////////////////////////////////
     
+    /**
+     * Adjust this matrix such that rows `a` and `b` are swapped in the destination
+     * matrix after applying a row permutation. This operation is cumulative on 
+     * any previous swaps.
+     * 
+     * @param a A row index.
+     * @param b A row index.
+     */
     void swap_rows(index_t a, index_t b) {
         index_t *src = parent_t::getSrcData();
         index_t *dst = parent_t::getDstData();
@@ -171,6 +230,14 @@ public:
         std::swap(src[a], src[b]);
     }
     
+    /**
+     * Adjust this matrix such that columns `a` and `b` are swapped in the destination
+     * matrix after applying a column permutation. This operation is cumulative on 
+     * any previous swaps.
+     * 
+     * @param a A column index.
+     * @param b A column index.
+     */
     void swap_cols(index_t a, index_t b) {
         index_t *src = parent_t::getSrcData();
         index_t *dst = parent_t::getDstData();
@@ -194,6 +261,9 @@ public:
         }
     }
     
+    /**
+     * Matrix transpose. For this type of matrix, also the inverse matrix.
+     */
     inline void transpose() {
         detail::PermuteMatrixBase<N>::swapPointers();
     }

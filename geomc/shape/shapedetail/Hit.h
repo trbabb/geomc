@@ -25,14 +25,22 @@ namespace geom {
 //   world-to-object space transform of hit object.
 // perhaps these should be exposed via overloaded trace() functions
 // with different kinds of output Hit parameters.
+    // no, the Hit should actually be called HitTest.
+    // and the ray test function should be passed flags for what information
+    // is queried. Then the Hit is written to accordingly. trace functions return
+    // a bool.
 
 // bitwise/masking logic allowed
 // i.e. HIT_BOTH = HIT_FRONT | HIT_BACK
 
-/** @ingroup linalg 
+/** @ingroup shape 
  *  @{
  */
-/// Ray hit testing choice
+    
+/** @brief Ray hit testing flags
+ * 
+ * May be bitwise-combined (i.e. `HIT_BOTH = HIT_FRONT & HIT_BACK`)
+ */
 enum HitSide {
     /// Ray-test front-facing surfaces
     HIT_FRONT = 1,

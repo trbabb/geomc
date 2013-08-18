@@ -31,7 +31,6 @@ build/Profile.o : test/Profile.cpp
 	$(CC) $(CFLAGS) $(IFLAGS) -o build/Profile.o test/Profile.cpp 
 
 build/%.o : geomc/random/%.cpp
-	echo '>>' $< $@
 	$(CC) $(CFLAGS) $(IFLAGS) -o $@ $<
 
 build/%.o : geomc/%.cpp

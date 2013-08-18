@@ -55,7 +55,7 @@ namespace detail {
         
         /**
          * Get the element at index `idx`.
-         * @param idx Index of element
+         * @param idx Index of element.
          * @return A const reference to the element at `idx`.
          */
         inline const T& get(index_t idx) const {
@@ -70,7 +70,7 @@ namespace detail {
         
         /**
          * Get the element at index `idx`.
-         * @param idx Index of element
+         * @param idx Index of element.
          * @return A reference to the element at `idx`.
          */
         inline T& get(index_t idx){
@@ -117,7 +117,7 @@ namespace detail {
         
         /**
          * Get the element at index `idx`.
-         * @param idx Index of element
+         * @param idx Index of element.
          * @return A const reference to the element at `idx`.
          */
         inline const T& get(index_t idx) const {
@@ -137,7 +137,7 @@ namespace detail {
         
         /**
          * Get the element at index `idx`.
-         * @param idx Index of element
+         * @param idx Index of element.
          * @return A reference to the element at `idx`.
          */
         inline T& get(index_t idx) {
@@ -199,7 +199,7 @@ namespace detail {
 
         /**
          * Get the element at index `idx`.
-         * @param idx Index of element
+         * @param idx Index of element.
          * @return A const reference to the element at `idx`.
          */
         inline const T& get(index_t idx) const {
@@ -221,7 +221,7 @@ namespace detail {
         
         /**
          * Get the element at index `idx`.
-         * @param idx Index of element
+         * @param idx Index of element.
          * @return A reference to the element at `idx`.
          */
         inline T& get(index_t idx) {
@@ -289,7 +289,7 @@ namespace detail {
 
         /**
          * Get the element at index `idx`.
-         * @param idx Index of element
+         * @param idx Index of element.
          * @return A const reference to the element at `idx`.
          */
         inline const T& get(index_t idx) const {
@@ -313,7 +313,7 @@ namespace detail {
         
         /**
          * Get the element at index `idx`.
-         * @param idx Index of element
+         * @param idx Index of element.
          * @return A reference to the element at `idx`.
          */
         inline T& get(index_t idx) {
@@ -403,27 +403,28 @@ namespace detail {
          *******************************/
 
         /**
-         * Vector index
+         * Vector index.
          * 
-         * @param idx Index of element in this vector
-         * @return A read-only reference to the element at index `idx`
+         * @param idx Index of element in this vector.
+         * @return A read-only reference to the element at index `idx`.
          */
         inline const T& operator[](index_t idx) const {
             return this->get(idx);
         }
         
         /**
-         * Vector index
+         * Vector index.
          * 
-         * @param idx Index of element in this vector
-         * @return A reference to the element at index `idx`
+         * @param idx Index of element in this vector.
+         * @return A reference to the element at index `idx`.
          */
         inline T& operator[](index_t idx) {
             return this->get(idx);
         }
 
         /**
-         * Element typecast
+         * Element typecast.
+         * 
          * @return A new vector with all elements cast to type `U`.
          */
         template <typename U> operator Vec<U,N>() const {
@@ -450,12 +451,12 @@ namespace detail {
             return false;
         }
 
-        /// Element-wise addition
+        /// Element-wise addition.
         inline const Vec<T,N> operator+(const Vec<T,N> &v) const {
             return this->add(v);
         }
 
-        /// Element-wise addition and assignment
+        /// Element-wise addition and assignment.
         VecCommon<T,N>& operator+=(const Vec<T,N> &vv){
             for (index_t i = 0; i < N; i++){
                 this->get(i) += vv[i];
@@ -463,12 +464,12 @@ namespace detail {
             return *this;
         }
         
-        /// Element-wise subtraction
+        /// Element-wise subtraction.
         inline const Vec<T,N>  operator-(const Vec<T,N> &v) const {
             return this->sub(v);
         }
         
-        /// Subtraction and assignment
+        /// Subtraction and assignment.
         VecCommon<T,N>& operator-=(const Vec<T,N> &vv){
             for (index_t i = 0; i < N; i++){
                 this->get(i) -= vv[i];
@@ -476,7 +477,7 @@ namespace detail {
             return *this;
         }
 
-        /// Scalar multiplication and assignment
+        /// Scalar multiplication and assignment.
         VecCommon<T,N>& operator*=(T s){
             for (index_t i = 0; i < N; i++){
                 this->get(i) *= s;
@@ -484,7 +485,7 @@ namespace detail {
             return *this;
         }
 
-        /// Scalar division and assignment
+        /// Scalar division and assignment.
         VecCommon<T,N>& operator/=(T s){
             for (index_t i = 0; i < N; i++){
                 this->get(i) /= s;
@@ -492,7 +493,7 @@ namespace detail {
             return *this;
         }
 
-        /// Element-wise multiplication and assignment
+        /// Element-wise multiplication and assignment.
         VecCommon<T,N>& operator*=(const Vec<T,N> &vv){
             for (index_t i = 0; i < N; i++){
                 this->get(i) *= vv[i];
@@ -512,8 +513,8 @@ namespace detail {
          *******************************/
         
         /**
-         * @param v Another vector
-         * @return A new vector `x` such that `x[i] = this[i] + v[i]`
+         * @param v Another vector.
+         * @return A new vector `x` such that `x[i] = this[i] + v[i]`.
          */
         inline const Vec<T,N> add(const Vec<T,N> &v) const {
             Vec<T,N> r;
@@ -524,8 +525,8 @@ namespace detail {
         }
         
         /**
-         * @param v Another vector
-         * @return A new vector `x` such that `x[i] = this[i] - v[i]`
+         * @param v Another vector.
+         * @return A new vector `x` such that `x[i] = this[i] - v[i]`.
          */
         inline const Vec<T,N> sub(const Vec<T,N> &v) const {
             Vec<T,N> r;
@@ -536,8 +537,8 @@ namespace detail {
         }
         
         /**
-         * @param v Another vector
-         * @return A new vector `x` such that `x[i] = this[i] * v[i]`
+         * @param v Another vector.
+         * @return A new vector `x` such that `x[i] = this[i] * v[i]`.
          */
         inline const Vec<T,N> scale(const Vec<T,N> &v) const {
             Vec<T,N> r;
@@ -548,8 +549,8 @@ namespace detail {
         }
         
         /**
-         * @param a A constant scale factor
-         * @return A new vector `x` such that `x[i] = this[i] * a`
+         * @param a A constant scale factor.
+         * @return A new vector `x` such that `x[i] = this[i] * a`.
          */
         inline const Vec<T,N> scale(T a) const {
             Vec<T,N> r;
@@ -560,7 +561,7 @@ namespace detail {
         }
         
         /**
-         * @return A new vector `x` such that `x[i] = -this[i]`
+         * @return A new vector `x` such that `x[i] = -this[i]`.
          */
         inline const Vec<T,N> neg() const {
             Vec<T,N> r;
@@ -572,7 +573,7 @@ namespace detail {
  
         
         /**
-         * @return A copy of this vector with unit length
+         * @return A copy of this vector with unit length.
          */
         inline const Vec<T,N> unit() const {
             T n = mag();
@@ -585,8 +586,8 @@ namespace detail {
         
         
         /**
-         * @param v Another vector
-         * @return The dot product of `this` with `v`
+         * @param v Another vector.
+         * @return The dot product of `this` with `v`.
          */
         inline T dot(const Vec<T,N> &v) const {
             T sum = 0;
@@ -616,24 +617,24 @@ namespace detail {
         }
 
         /**
-         * @param pt Another point
-         * @return The distance between `this` and `pt`
+         * @param pt Another point.
+         * @return The distance between `this` and `pt`.
          */
         T dist(const Vec<T,N> &pt) const {
             return (this->sub(pt)).mag();
         }
 
         /**
-         * @param pt Another point
-         * @return The square of the distance between `this` and `pt`
+         * @param pt Another point.
+         * @return The square of the distance between `this` and `pt`.
          */
         T dist2(const Vec<T,N> &pt) const {
             return (this->sub(pt)).mag2();
         }
 
         /**
-         * @param axis Axis of reflection
-         * @return This vector reflected across the given axis
+         * @param axis Axis of reflection.
+         * @return This vector reflected across the given axis.
          */
         const Vec<T,N> reflect(const Vec<T,N> &axis) const {
             axis = axis.unit();
@@ -645,17 +646,17 @@ namespace detail {
          * the velocity reflected off of a surface with normal `normal`. 
          * Equivalent to `-reflect(normal)`.
          * 
-         * @param normal Normal of "bounce"
-         * @return The "bounced" direction vector
+         * @param normal Normal of "bounce".
+         * @return The "bounced" direction vector.
          */
         const Vec<T,N> bounce(const Vec<T,N> &normal) const {
             return -reflect(normal);
         }
         
         /**
-         * @param v A direction vector
+         * @param v A direction vector.
          * @return A vector in direction `v` with magnitude equal to the component
-         * of `this` aligned with `v`
+         * of `this` aligned with `v`.
          */
         const Vec<T,N> projectOn(const Vec<T,N> &v) const {
             return v * this->dot(v) / v.mag2();
@@ -664,8 +665,8 @@ namespace detail {
         /**
          * Linear interpolation. A mix parameter of 0 evaluates to `this`, while 
          * 1 is `v`.
-         * @param v Another vector
-         * @param mix A mixing factor between 0 and 1
+         * @param v Another vector.
+         * @param mix A mixing factor between 0 and 1.
          * @return A linear mixing of `this` with `v`.
          */
         const Vec<T,N> mix(const Vec<T,N> &v, T mix) const {
@@ -678,8 +679,8 @@ namespace detail {
         }
 
         /**
-         * @param v Another vector
-         * @return Angle between `this` and `v`
+         * @param v Another vector.
+         * @return Angle in radians between `this` and `v`, between 0 and `pi`.
          */
         T angleTo(const Vec<T,N> &v) const {
             return acos(v.unit().dot(unit()));
@@ -690,8 +691,8 @@ namespace detail {
         ///////////////////////
         
         /**
-         * Element-wise absolute value
-         * @return A new vector `x` such that `x[i] = abs(this[i])`
+         * Element-wise absolute value.
+         * @return A new vector `x` such that `x[i] = abs(this[i])`.
          */
         const Vec<T,N> abs() const {
             Vec<T,N> r;
@@ -704,8 +705,8 @@ namespace detail {
         
         //todo: handle integer cases
         /**
-         * Element-wise floor function
-         * @return A new vector `x` such that `x[i] = floor(this[i])`
+         * Element-wise floor function.
+         * @return A new vector `x` such that `x[i] = floor(this[i])`.
          */
         const Vec<T,N> floor() const {
             Vec<T,N> r;
@@ -717,8 +718,8 @@ namespace detail {
         
         //todo: handle integer cases
         /**
-         * Element-wise ceiling function
-         * @return A new vector `x` such that `x[i] = ceil(this[i])`
+         * Element-wise ceiling function.
+         * @return A new vector `x` such that `x[i] = ceil(this[i])`.
          */
         const Vec<T,N> ceil() const {
             Vec<T,N> r;
@@ -729,9 +730,9 @@ namespace detail {
         }
         
         /**
-         * Element-wise minimum
-         * @param v Another vector
-         * @return A new vector `x` such that `x[i] = min(this[i], v[i])`
+         * Element-wise minimum.
+         * @param v Another vector.
+         * @return A new vector `x` such that `x[i] = min(this[i], v[i])`.
          */
         const Vec<T,N> min(const Vec<T,N> &v) const {
             Vec<T,N> r;
@@ -742,9 +743,9 @@ namespace detail {
         }
         
         /**
-         * Element-wise maximum
-         * @param v Another vector
-         * @return A new vector `x` such that `x[i] = max(this[i], v[i])`
+         * Element-wise maximum.
+         * @param v Another vector.
+         * @return A new vector `x` such that `x[i] = max(this[i], v[i])`.
          */
         const Vec<T,N> max(const Vec<T,N> &v) const {
             Vec<T,N> r;
@@ -755,11 +756,11 @@ namespace detail {
         }
         
         /**
-         * Element-wise clamp
-         * @param lo Element-wise lower extremes
-         * @param hi Element-wise upper extremes
+         * Element-wise clamp.
+         * @param lo Element-wise lower extremes.
+         * @param hi Element-wise upper extremes.
          * @return A new vector such that each element `x[i]` is clamped
-         * between `lo[i]` and `hi[i]`
+         * between `lo[i]` and `hi[i]`.
          */
         const Vec<T,N> clamp(const Vec<T,N> &lo, const Vec<T,N> &hi) const {
             Vec<T,N> r;

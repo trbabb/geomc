@@ -79,7 +79,7 @@ public:
      ****************************/
 
     /**
-     * Construct a non-empty Rect from a center point and extent.
+     * Construct a Rect from a center point and extent.
      * @param center Center of the new Rect
      * @param dims Lengths of each axis; may be negative.
      * @return A new Rect with its center at `center`.
@@ -90,9 +90,9 @@ public:
     }
 
     /**
-     * Construct a non-empty Rect from a corner point and an extent.
+     * Construct a Rect from a corner point and an extent.
      * @param corner Arbitrary corner point.
-     * @param dims Lengths of each axis. Lengths may be negative.
+     * @param dims Lengths of each axis relative to given corner. Lengths may be negative.
      * @return A new Rect with one corner at `corner`.
      */
     inline static Rect<T,N> fromCorner(typename Rect<T,N>::point_t corner,
@@ -101,9 +101,9 @@ public:
     }
     
     /**
-     * Construct a non-empty Rect exactly containing corners `c1` and `c2`. 
-     * @param c1 An extreme point 
-     * @param c2 An extreme point
+     * Construct a Rect bounded by corners `c1` and `c2`. 
+     * @param c1 A corner of the Rect 
+     * @param c2 The corner opposite `c1`
      * @return A new Rect with corners at `c1` and `c2`.
      */
     static Rect<T,N> spanningCorners(typename Rect<T,N>::point_t c1,
@@ -133,7 +133,7 @@ public:
     }
 
     /*****************************
-     * Operators                   *
+     * Operators                 *
      *****************************/
 
     /**

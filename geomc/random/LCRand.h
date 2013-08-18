@@ -1,16 +1,6 @@
 /*
  * LCRand.h
  *
- * Implements a linear congruential generator with period 2^64. The parameters
- * are the same as those chosen for Donald Knuth's MMIX language. The underlying
- * state is 64 bits; the top 32 high-quality bits are returned.
- * 
- * The results of this generator are very fast and generally higher-quality
- * and longer-period than those returned by std::rand().
- * 
- * This is NOT cryptographically secure; do NOT use for gambling or cryptography! 
- * An attacker may predict all future numbers by observing one or two results.
- *
  *  Created on: Nov 11, 2012
  *      Author: tbabb
  */
@@ -24,6 +14,20 @@
 
 namespace geom {
 
+/**
+ * @ingroup random
+ * @brief Implements a linear congruential generator with period 2<sup>64</sup>. 
+ * 
+ * The parameters are the same as those chosen for Donald Knuth's MMIX language. 
+ * The underlying state is 64 bits; rand32() returns the 32 most significant digits.
+ * 
+ * The results of this generator are very fast and generally higher-quality
+ * and longer-period than those returned by std::rand().
+ * 
+ * This generator is **NOT** cryptographically secure; do **NOT** use for 
+ * gambling or cryptography! An attacker may predict all future numbers by 
+ * observing one or two results.
+ */
 class LCRand: public geom::Random {
 public:
     LCRand();
@@ -34,7 +38,7 @@ public:
     virtual uint32_t rand32();
     virtual void rseed(uint64_t seed);
 
-    // return 64 random bits.
+    /// @return 64 random bits.
     inline uint64_t rand64(){
         uint64_t A = 6364136223846793005LL;
         uint64_t C = 1442695040888963407LL;

@@ -85,18 +85,34 @@ public:
         std::fill(data.get(), data.get() + diag, 0);
     }
     
+    /**
+     * @return An iterator over the elements of the main diagonal (those with
+     * matching row and column coordinates), pointing at element `(0, 0)`. 
+     */
     T* diagonal_begin() {
         return data.get();
     }
     
+    /**
+     * @return A read-only iterator over the elements of the main diagonal (those with
+     * matching row and column coordinates), pointing at element `(0, 0)`. 
+     */
     const T* diagonal_begin() const {
         return data.get();
     }
     
+    /**
+     * @return An iterator over the elements of the main diagonal (those with
+     * matching row and column coordinates), pointing at the last diagonal element.
+     */
     T* diagonal_end() {
         return data.get() + diag;
     }
     
+    /**
+     * @return A read-only iterator over the elements of the main diagonal (those with
+     * matching row and column coordinates), pointing at the last diagonal element.
+     */
     const T* diagonal_end() const {
         return data.get() + diag;
     }
