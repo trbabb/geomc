@@ -98,8 +98,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_diag_matrix.html">DiagMatrix&lt; T, M, N &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A matrix with nonzero elements only along the main diagonal.  <a href="classgeom_1_1_diag_matrix.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_matrix.html">Matrix&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A generic matrix class which can hold references to all other matrix types.  <a href="classgeom_1_1_matrix.html#details">More...</a><br/></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_matrix_handle.html">MatrixHandle&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A generic matrix class which can hold references to all other matrix types.  <a href="classgeom_1_1_matrix_handle.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_permutation_matrix.html">PermutationMatrix&lt; N &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A matrix which, by multiplication, permutes the rows or columns of another matrix.  <a href="classgeom_1_1_permutation_matrix.html#details">More...</a><br/></td></tr>
@@ -195,7 +195,7 @@ Functions</h2></td></tr>
 <li>Handles to matrices of arbitrary type are possible.</li>
 </ul>
 <h1>Use</h1>
-<h2><a class="el" href="classgeom_1_1_matrix.html" title="A generic matrix class which can hold references to all other matrix types.">Matrix</a> dimensions</h2>
+<h2>Matrix dimensions</h2>
 <p>Most matrices have templated size: </p>
 <pre class="fragment">SimpleMatrix&lt;double, 3, 4&gt; mat3x4;
 </pre><p>In the example above, we construct a matrix with 3 rows and 4 columns. This matrix has <b>static dimensions</b>, in that its size is chosen (and fixed) at compile-time. Matrices with dimensions chosen at runtime may be written as: </p>
@@ -216,7 +216,7 @@ m2[1][2] = 123;
 <pre class="fragment">mtxcopy(&amp;dst_mtx, src_mtx);
 </pre><p>Because of difference in storage strategy between static and dynamic matrices, copy and pass-by-value operations can be much heavier for large static matrices, because the entire matrix must be copied. Therefore it may be advisable to choose dynamic matrices for any data much larger than a few elements along each axis.</p>
 <h2>Dimension checking</h2>
-<p><a class="el" href="classgeom_1_1_matrix.html" title="A generic matrix class which can hold references to all other matrix types.">Matrix</a> operations often place restrictions on the dimensions of their matrix operands. For example, matrix addition requires that both operands have the same dimensions (in other words, a 3 x 4 matrix can only be added to another 3 x 4 matrix).</p>
+<p>Matrix operations often place restrictions on the dimensions of their matrix operands. For example, matrix addition requires that both operands have the same dimensions (in other words, a 3 x 4 matrix can only be added to another 3 x 4 matrix).</p>
 <p>When matrices with static dimensions are involved, the library can often prove at compile time that an argument's dimensions are correct or incorrect. If proven correct, run-time dimension checks can be skipped, resulting in slightly faster code. If incorrect, the compiler will error, catching program correctness problems early. Compile-time dimension mismatches / requirement failures will generally manifest as "&lt;tt&gt;template argument deduction/substitution failed&lt;/tt&gt;" errors.</p>
 <p>This code will prove its dimension-correctness at compile time: </p>
 <pre class="fragment">SimpleMatrix&lt;double, 4, 4&gt; mat4x4;
@@ -243,7 +243,7 @@ Vec&lt;double,3&gt; v;
 </pre><p>Matrix-vector mult: </p>
 <pre class="fragment">m1 * v
 v * m2
-</pre><p><a class="el" href="classgeom_1_1_matrix.html" title="A generic matrix class which can hold references to all other matrix types.">Matrix</a> addition / subtraction: </p>
+</pre><p>Matrix addition / subtraction: </p>
 <pre class="fragment">m1 + m1
 m1 - m1
 </pre><p>Equality test: </p>
@@ -262,14 +262,14 @@ float f2 = m[2][3];
 m.set(2, 3, val);
 m[2][3] = val;
 m.get(2, 3) = val;
-</pre><p><a class="el" href="classgeom_1_1_matrix.html" title="A generic matrix class which can hold references to all other matrix types.">Matrix</a> body iterators: </p>
+</pre><p>Matrix body iterators: </p>
 <pre class="fragment">typedef SimpleMatrix&lt;double,3,3&gt; mat3;
 mat3 m;
 // iterate over the matrix body in row-major order:
 for (mat3::iterator i = mat.begin(), i != m.end(); m++) {
     *i = ... ;
 }
-</pre><p><a class="el" href="classgeom_1_1_matrix.html" title="A generic matrix class which can hold references to all other matrix types.">Matrix</a> region iterators: </p>
+</pre><p>Matrix region iterators: </p>
 <pre class="fragment">typedef SimpleMatrix&lt;double,3,3&gt; mat3;
 mat3 m;
 Rect2i r = Rect2i(Vec2i(1,1), Vec2i(3,2));
@@ -308,7 +308,7 @@ for (mat3::region_iterator i = m.region_begin(r); i != m.region_end(r); i++) {
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="classgeom_1_1_matrix.html" title="A generic matrix class which can hold references to all other matrix types.">Matrix</a> addition. Add the corresponding elements of <code>a</code> and <code>b</code>, whose dimensions must match.</p>
+<p>Matrix addition. Add the corresponding elements of <code>a</code> and <code>b</code>, whose dimensions must match.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">d</td><td>A writeable matrix, whose dimensions must match <code>a</code> and <code>b</code>. </td></tr>
@@ -343,7 +343,7 @@ for (mat3::region_iterator i = m.region_begin(r); i != m.region_end(r); i++) {
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="classgeom_1_1_matrix.html" title="A generic matrix class which can hold references to all other matrix types.">Matrix</a> addition. Add the corresponding elements of <code>a</code> and <code>b</code>, whose dimensions must match.</p>
+<p>Matrix addition. Add the corresponding elements of <code>a</code> and <code>b</code>, whose dimensions must match.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>A matrix object </td></tr>
@@ -378,7 +378,7 @@ for (mat3::region_iterator i = m.region_begin(r); i != m.region_end(r); i++) {
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="classgeom_1_1_matrix.html" title="A generic matrix class which can hold references to all other matrix types.">Matrix</a> inversion. <code>src</code> and <code>into</code> must be square matrices of the same dimension. If a runtime check for square dimensions fails, a <code>NonsquareMatrixException</code> is raised.</p>
+<p>Matrix inversion. <code>src</code> and <code>into</code> must be square matrices of the same dimension. If a runtime check for square dimensions fails, a <code>NonsquareMatrixException</code> is raised.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">into</td><td>A writeable matrix with dimensions equal to <code>src</code>. </td></tr>
@@ -413,7 +413,7 @@ for (mat3::region_iterator i = m.region_begin(r); i != m.region_end(r); i++) {
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="classgeom_1_1_matrix.html" title="A generic matrix class which can hold references to all other matrix types.">Matrix</a> inversion. </p>
+<p>Matrix inversion. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">m</td><td>A square matrix. </td></tr>
@@ -562,7 +562,7 @@ for (mat3::region_iterator i = m.region_begin(r); i != m.region_end(r); i++) {
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="classgeom_1_1_matrix.html" title="A generic matrix class which can hold references to all other matrix types.">Matrix</a> multiplication.</p>
+<p>Matrix multiplication.</p>
 <p><code>Ma</code> and <code>Mb</code> may either be matrices or vectors. Left operands are, if vectors, assumed to be rows, while right operands will be treated as columns. The dimensions of <code>a</code> and <code>b</code> must satisfy <code>(a x b) * (b x c)</code>. If the dimensions can be determined to mismatch at compile time, the program is considered invalid and will not compile. If either argument has dynamic size, the dimension check will be performed at runtime, raising a <code>DimensionMismatchException</code> if it fails.</p>
 <p>The return type will be chosen appropriately based on the arguments, and will have dimension <code>(a x c)</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -684,7 +684,7 @@ for (mat3::region_iterator i = m.region_begin(r); i != m.region_end(r); i++) {
       </table>
 </div><div class="memdoc">
 <p>matrix * matrix</p>
-<p><a class="el" href="classgeom_1_1_matrix.html" title="A generic matrix class which can hold references to all other matrix types.">Matrix</a> multiplication is performed on <code>a</code> and <code>b</code>.</p>
+<p>Matrix multiplication is performed on <code>a</code> and <code>b</code>.</p>
 <p><code>Ma</code> and <code>Mb</code> may either be matrices or vectors (but may not <em>both</em> be vectors; this is handled by a different multiplication operator). Left operands are, if vectors, assumed to be rows, while right operands will be treated as columns. The dimensions of <code>a</code> and <code>b</code> must satisfy <code>(a x b) * (b x c)</code>. If the dimensions can be determined to mismatch at compile time, the program is considered invalid and will not compile. If either argument has dynamic size, the dimension check will be performed at runtime, raising a <code>DimensionMismatchException</code> if it fails.</p>
 <p>The return type will be chosen appropriately based on the arguments, and will have dimension <code>(a x c)</code>. </p>
 
@@ -808,7 +808,7 @@ for (mat3::region_iterator i = m.region_begin(r); i != m.region_end(r); i++) {
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">d</td><td>A writeable matrix, whose dimensions must match those of <code>m</code>. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">k</td><td>Scalar constant (whose type satisfies <code>boost::is_scalar&lt;U&gt;</code>). </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">m</td><td><a class="el" href="classgeom_1_1_matrix.html" title="A generic matrix class which can hold references to all other matrix types.">Matrix</a> object to be scaled. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">m</td><td>Matrix object to be scaled. </td></tr>
   </table>
   </dd>
 </dl>
@@ -842,7 +842,7 @@ for (mat3::region_iterator i = m.region_begin(r); i != m.region_end(r); i++) {
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">k</td><td>Scalar constant (whose type satisfies <code>boost::is_scalar&lt;U&gt;</code>). </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">m</td><td><a class="el" href="classgeom_1_1_matrix.html" title="A generic matrix class which can hold references to all other matrix types.">Matrix</a> object to be scaled. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">m</td><td>Matrix object to be scaled. </td></tr>
   </table>
   </dd>
 </dl>
@@ -879,7 +879,7 @@ for (mat3::region_iterator i = m.region_begin(r); i != m.region_end(r); i++) {
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="classgeom_1_1_matrix.html" title="A generic matrix class which can hold references to all other matrix types.">Matrix</a> subtraction. Subtract the corresponding elements of <code>b</code> from <code>a</code>'s. The dimensions of <code>a</code> and <code>b</code> must match.</p>
+<p>Matrix subtraction. Subtract the corresponding elements of <code>b</code> from <code>a</code>'s. The dimensions of <code>a</code> and <code>b</code> must match.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">d</td><td>A writeable matrix, whose dimensions must match <code>a</code> and <code>b</code>. </td></tr>
@@ -914,11 +914,11 @@ for (mat3::region_iterator i = m.region_begin(r); i != m.region_end(r); i++) {
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="classgeom_1_1_matrix.html" title="A generic matrix class which can hold references to all other matrix types.">Matrix</a> subtraction. Subtract the corresponding elements of <code>b</code> from <code>a</code>'s. The dimensions of <code>a</code> and <code>b</code> must match.</p>
+<p>Matrix subtraction. Subtract the corresponding elements of <code>b</code> from <code>a</code>'s. The dimensions of <code>a</code> and <code>b</code> must match.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td><a class="el" href="classgeom_1_1_matrix.html" title="A generic matrix class which can hold references to all other matrix types.">Matrix</a> object </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td><a class="el" href="classgeom_1_1_matrix.html" title="A generic matrix class which can hold references to all other matrix types.">Matrix</a> object </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>Matrix object </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">b</td><td>Matrix object </td></tr>
   </table>
   </dd>
 </dl>
@@ -949,7 +949,7 @@ for (mat3::region_iterator i = m.region_begin(r); i != m.region_end(r); i++) {
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="classgeom_1_1_matrix.html" title="A generic matrix class which can hold references to all other matrix types.">Matrix</a> transpose.</p>
+<p>Matrix transpose.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">into</td><td>A writeable matrix with dimensions <code>(m.cols(), m.rows())</code> </td></tr>
@@ -973,7 +973,7 @@ for (mat3::region_iterator i = m.region_begin(r); i != m.region_end(r); i++) {
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="classgeom_1_1_matrix.html" title="A generic matrix class which can hold references to all other matrix types.">Matrix</a> transpose.</p>
+<p>Matrix transpose.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">m</td><td>A matrix object. </td></tr>
@@ -987,7 +987,7 @@ for (mat3::region_iterator i = m.region_begin(r); i != m.region_end(r); i++) {
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 17 2013 21:59:55 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Aug 17 2013 22:31:10 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

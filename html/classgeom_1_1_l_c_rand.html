@@ -96,7 +96,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>Implements a linear congruential generator with period 2<sup>64</sup>.  
+<p>Implements a linear congruential pseudorandom number generator with period 2<sup>64</sup>.  
  <a href="classgeom_1_1_l_c_rand.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_l_c_rand_8h_source.html">geomc/random/LCRand.h</a>&gt;</code></p>
@@ -195,10 +195,13 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="separator:ga09e5bd110d04451a65907371e7f65c6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Implements a linear congruential generator with period 2<sup>64</sup>. </p>
-<p>The parameters are the same as those chosen for Donald Knuth's MMIX language. The underlying state is 64 bits; <a class="el" href="classgeom_1_1_l_c_rand.html#a47fd98ad7fb9682d8e9de6cb39927c52">rand32()</a> returns the 32 most significant digits.</p>
+<div class="textblock"><p>Implements a linear congruential pseudorandom number generator with period 2<sup>64</sup>. </p>
+<p>The parameters are the same as those chosen for Donald Knuth's MMIX language: </p>
+<pre class="fragment">multiplier: 6364136223846793005
+increment:  1442695040888963407
+</pre><p>The underlying state is 64 bits; <a class="el" href="classgeom_1_1_l_c_rand.html#a47fd98ad7fb9682d8e9de6cb39927c52">rand32()</a> returns the 32 most significant digits.</p>
 <p>The results of this generator are very fast and generally higher-quality and longer-period than those returned by std::rand().</p>
-<p>This generator is <b>NOT</b> cryptographically secure; do <b>NOT</b> use for gambling or cryptography! An attacker may predict all future numbers by observing one or two results. </p>
+<p>This generator is <b>NOT</b> cryptographically secure; do <b>NOT</b> use for gambling or cryptography. An attacker may predict all future numbers by observing one or two results. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a264aa766211c9277407585b322882daa"></a>
 <div class="memitem">
@@ -355,7 +358,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 17 2013 21:59:55 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Aug 17 2013 22:31:10 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

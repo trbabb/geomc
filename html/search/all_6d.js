@@ -1,9 +1,9 @@
 var searchData=
 [
   ['mat',['mat',['../classgeom_1_1_affine_transform.html#a787773472ebe58ae9d5c43b6589386aa',1,'geom::AffineTransform']]],
-  ['matrix',['Matrix',['../classgeom_1_1_matrix.html',1,'geom']]],
   ['matrix',['Matrix',['../group__matrix.html',1,'']]],
-  ['matrix_3c_20m_3a_3aelem_5ft_20_3e',['Matrix&lt; M::elem_t &gt;',['../classgeom_1_1_matrix.html',1,'geom']]],
+  ['matrixhandle',['MatrixHandle',['../classgeom_1_1_matrix_handle.html',1,'geom']]],
+  ['matrixhandle_3c_20m_3a_3aelem_5ft_20_3e',['MatrixHandle&lt; M::elem_t &gt;',['../classgeom_1_1_matrix_handle.html',1,'geom']]],
   ['max',['max',['../classgeom_1_1_rect.html#ae0d448b5c9ab84f88d1ac56203d48096',1,'geom::Rect']]],
   ['maxs',['maxs',['../classgeom_1_1_rect.html#a027343b74320c3528c3a881aa5399512',1,'geom::Rect']]],
   ['min',['min',['../classgeom_1_1_rect.html#a33a63681586b26b7db572c83999eaaa3',1,'geom::Rect']]],
