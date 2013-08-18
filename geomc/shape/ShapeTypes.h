@@ -12,7 +12,7 @@
 #include <geomc/linalg/LinalgTypes.h>
 
 /** @defgroup shape Shape
- *  @brief Shape-related classes and functions.
+ *  @brief Shape-relates functions and classes.
  */
 
 namespace geom {

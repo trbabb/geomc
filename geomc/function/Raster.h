@@ -262,8 +262,8 @@ public:
     bool contains(const grid_t &pt) const {
         typedef PointType<index_t,M> grid_info;
         
-        index_t *p_i = grid_info::iterator(pt);
-        index_t *e_i = grid_info::iterator(extent);
+        const index_t *p_i = grid_info::iterator(pt);
+        const index_t *e_i = grid_info::iterator(extent);
         for (index_t i = 0; i < M; i++){
             index_t c = p_i[i];
             if (c < 0 or c >= e_i[i]) {
@@ -298,7 +298,7 @@ protected:
     template <EdgeBehavior Edge>
     inline index_t index(const grid_t &c) const {
         // specialized where M=1
-        return detail::_ImplRasterIndex<grid_t,M,Edge>::index(this->extent, c) * numN();
+        return detail::_ImplRasterIndex<grid_t,M,Edge>::index(this->extent, c) * outputDimension();
     }
 };
 

@@ -18,7 +18,7 @@
 
 /**
  * @defgroup random
- * @brief Random number and object generation functions and classes.
+ * @brief Random number and object generation..
  */
 
 #ifndef RANDOM_H_

@@ -16,16 +16,21 @@ namespace geom {
 
 /**
  * @ingroup random
- * @brief Implements a linear congruential generator with period 2<sup>64</sup>. 
+ * @brief Implements a linear congruential pseudorandom number generator with 
+ * period 2<sup>64</sup>. 
  * 
- * The parameters are the same as those chosen for Donald Knuth's MMIX language. 
+ * The parameters are the same as those chosen for Donald Knuth's MMIX language:
+ * 
+ *     multiplier: 6364136223846793005
+ *     increment:  1442695040888963407
+ * 
  * The underlying state is 64 bits; rand32() returns the 32 most significant digits.
  * 
  * The results of this generator are very fast and generally higher-quality
  * and longer-period than those returned by std::rand().
  * 
  * This generator is **NOT** cryptographically secure; do **NOT** use for 
- * gambling or cryptography! An attacker may predict all future numbers by 
+ * gambling or cryptography. An attacker may predict all future numbers by 
  * observing one or two results.
  */
 class LCRand: public geom::Random {

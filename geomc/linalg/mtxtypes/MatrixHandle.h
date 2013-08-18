@@ -1,5 +1,5 @@
 /*
- * GeneralMatrix.h
+ * MatrixHandle.h
  *
  *  Created on: Apr 28, 2013
  *      Author: tbabb
@@ -17,18 +17,18 @@ namespace detail {
 
     // const T because m[r][c].mutate() may not make sense. m[r][c] = X is allowed, however.
     template <typename T>
-    struct _ImplMtxReftype<Matrix<T>, T> {
-        typedef detail::MtxAssignmentProxy<Matrix<T>, const T> reference;
+    struct _ImplMtxReftype<MatrixHandle<T>, T> {
+        typedef detail::MtxAssignmentProxy<MatrixHandle<T>, const T> reference;
     };
     
     // storage count is dynamic
     template <typename T>
-    struct _ImplStorageObjCount<Matrix<T> > {
+    struct _ImplStorageObjCount<MatrixHandle<T> > {
         const static index_t count;
     };
     
     template <typename T>
-    const index_t _ImplStorageObjCount<Matrix<T> >::count = DYNAMIC_DIM;
+    const index_t _ImplStorageObjCount<MatrixHandle<T> >::count = DYNAMIC_DIM;
 
     
 }; // end namespace detail
@@ -38,14 +38,14 @@ namespace detail {
  *  matrix types.
  */
 template <typename T>
-class Matrix : public detail::WriteableMatrixBase<T,DYNAMIC_DIM, DYNAMIC_DIM, Matrix<T> > {
+class MatrixHandle : public detail::WriteableMatrixBase<T,DYNAMIC_DIM, DYNAMIC_DIM, MatrixHandle<T> > {
 public:
-    typedef typename detail::_ImplMtxReftype<Matrix<T>,T>::reference reference;
+    typedef typename detail::_ImplMtxReftype<MatrixHandle<T>,T>::reference reference;
     
-    using detail::WriteableMatrixBase<T,DYNAMIC_DIM,DYNAMIC_DIM, Matrix<T> >::get;
+    using detail::WriteableMatrixBase<T,DYNAMIC_DIM,DYNAMIC_DIM, MatrixHandle<T> >::get;
     
-    Matrix() {}
-    virtual ~Matrix() {}
+    MatrixHandle() {}
+    virtual ~MatrixHandle() {}
     
     //////////// methods ////////////
     
@@ -62,17 +62,17 @@ public:
 };
 
 template <typename M>
-class MatrixHandle : public Matrix<typename M::elem_t> {
+class MatrixWrapper : public MatrixHandle<typename M::elem_t> {
 public:
     
     typedef typename M::elem_t elem_t;
-    typedef typename Matrix<elem_t>::reference reference;
+    typedef typename MatrixHandle<elem_t>::reference reference;
     
-    using Matrix<elem_t>::get;
+    using MatrixHandle<elem_t>::get;
     
     M *m;
-    MatrixHandle(M *m):m(m) {}
-    virtual ~MatrixHandle() {}
+    MatrixWrapper(M *m):m(m) {}
+    virtual ~MatrixWrapper() {}
     
     //////////// methods ////////////
     

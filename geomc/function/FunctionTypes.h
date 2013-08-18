@@ -18,7 +18,7 @@ namespace geom {
  */
 
 // classes
-template <typename I, typename O, index_t N, index_t Channels> class Raster;
+template <typename I, typename O, index_t M, index_t N> class Raster;
 template <typename I, typename O> class Expr;
 template <typename T, index_t N>  class PerlinNoise;
 template <typename T, index_t N>  class Path;

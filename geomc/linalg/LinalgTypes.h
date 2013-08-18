@@ -13,7 +13,7 @@
 #include <geomc/geomc_defs.h>
 
 /** @defgroup linalg Linalg
- *  @brief Linear algebra functions and classes
+ *  @brief Linear algebra functions and classes.
  */
 
 #include <boost/iterator/counting_iterator.hpp>
@@ -103,7 +103,7 @@ namespace detail {
     template <typename T>                       class SparseMatrix;
     template <typename Ma, typename Mb>         class AugmentedMatrix;
     template <index_t N>                        class PermutationMatrix;
-    template <typename T>                       class Matrix;
+    template <typename T>                       class MatrixHandle;
 
     // Vec
     typedef Vec<double,2>  Vec2d;
