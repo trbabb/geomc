@@ -106,13 +106,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>detail {</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keywordtype">bool</span> _ImplTracePlane(T* s, <span class="keyword">const</span> Plane&lt;T,N&gt; &amp;p, <span class="keyword">const</span> Ray&lt;T,N&gt; &amp;r, <a class="code" href="group__linalg.html#ga66505ffabe4da800c0ec653d493ea944" title="Ray hit testing choice.">HitSide</a> *side){</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keywordtype">bool</span> _ImplTracePlane(T* s, <span class="keyword">const</span> Plane&lt;T,N&gt; &amp;p, <span class="keyword">const</span> Ray&lt;T,N&gt; &amp;r, <a class="code" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944" title="Ray hit testing flags.">HitSide</a> *side){</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    T dot = p.normal.dot(r.direction);</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordflow">if</span> (dot &lt; 0 and (*side &amp; <a class="code" href="group__linalg.html#gga66505ffabe4da800c0ec653d493ea944a0cc724de9c2be8b3c506f45d4811ddec" title="Ray-test front-facing surfaces.">HIT_FRONT</a>)){</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        *side = <a class="code" href="group__linalg.html#gga66505ffabe4da800c0ec653d493ea944a0cc724de9c2be8b3c506f45d4811ddec" title="Ray-test front-facing surfaces.">HIT_FRONT</a>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dot &gt;= 0 and (*side &amp; <a class="code" href="group__linalg.html#gga66505ffabe4da800c0ec653d493ea944a69d567fc54e1147a9879d610a90b2133" title="Ray-test back-facing surfaces.">HIT_BACK</a>)){</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        *side = <a class="code" href="group__linalg.html#gga66505ffabe4da800c0ec653d493ea944a69d567fc54e1147a9879d610a90b2133" title="Ray-test back-facing surfaces.">HIT_BACK</a>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordflow">if</span> (dot &lt; 0 and (*side &amp; <a class="code" href="group__shape.html#gga66505ffabe4da800c0ec653d493ea944a0cc724de9c2be8b3c506f45d4811ddec" title="Ray-test front-facing surfaces.">HIT_FRONT</a>)){</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        *side = <a class="code" href="group__shape.html#gga66505ffabe4da800c0ec653d493ea944a0cc724de9c2be8b3c506f45d4811ddec" title="Ray-test front-facing surfaces.">HIT_FRONT</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dot &gt;= 0 and (*side &amp; <a class="code" href="group__shape.html#gga66505ffabe4da800c0ec653d493ea944a69d567fc54e1147a9879d610a90b2133" title="Ray-test back-facing surfaces.">HIT_BACK</a>)){</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        *side = <a class="code" href="group__shape.html#gga66505ffabe4da800c0ec653d493ea944a69d567fc54e1147a9879d610a90b2133" title="Ray-test back-facing surfaces.">HIT_BACK</a>;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="comment">// backface culled.</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
@@ -137,7 +137,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Aug 14 2013 22:15:23 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Aug 17 2013 17:25:10 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

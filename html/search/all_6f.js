@@ -16,5 +16,6 @@ var searchData=
   ['operator_7c',['operator|',['../classgeom_1_1_rect.html#aade031e6caafe561f1a1f9204af197f2',1,'geom::Rect']]],
   ['operator_7c_3d',['operator|=',['../classgeom_1_1_rect.html#a93f3e2b0596745e35eec2094315a6eb3',1,'geom::Rect']]],
   ['order',['order',['../classgeom_1_1_grid_iterator.html#a40effeea71956a56cef974061a706194',1,'geom::GridIterator']]],
+  ['oriented_5fdisk',['oriented_disk',['../classgeom_1_1_random_vectors.html#a898949dcf7e7ef5b812526f52943ac9b',1,'geom::RandomVectors']]],
   ['origin',['origin',['../classgeom_1_1_plane.html#abe8df26c679c8b4794a9f1a1d2445612',1,'geom::Plane']]]
 ];

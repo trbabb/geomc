@@ -15,5 +15,6 @@ var searchData=
   ['operator_5e',['operator^',['../classgeom_1_1_vec_3_01_t_00_013_01_4.html#a17d4931998700a9c1f01e60153ae7631',1,'geom::Vec&lt; T, 3 &gt;']]],
   ['operator_7c',['operator|',['../classgeom_1_1_rect.html#aade031e6caafe561f1a1f9204af197f2',1,'geom::Rect']]],
   ['operator_7c_3d',['operator|=',['../classgeom_1_1_rect.html#a93f3e2b0596745e35eec2094315a6eb3',1,'geom::Rect']]],
+  ['oriented_5fdisk',['oriented_disk',['../classgeom_1_1_random_vectors.html#a898949dcf7e7ef5b812526f52943ac9b',1,'geom::RandomVectors']]],
   ['origin',['origin',['../classgeom_1_1_plane.html#abe8df26c679c8b4794a9f1a1d2445612',1,'geom::Plane']]]
 ];

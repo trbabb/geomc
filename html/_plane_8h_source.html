@@ -206,7 +206,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        <span class="keywordflow">return</span> (p.<a class="code" href="classgeom_1_1_plane.html#a97a283c4b6e5c00898477c179ff36c9d" title="Normal direction, unit length.">normal</a>.cross(<a class="code" href="classgeom_1_1_plane.html#a97a283c4b6e5c00898477c179ff36c9d" title="Normal direction, unit length.">normal</a>) != 0);</div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    }</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;     </div>
-<div class="line"><a name="l00203"></a><span class="lineno"><a class="code" href="classgeom_1_1_plane.html#a439a957075e8f6861bbcff83958d97cc">  203</a></span>&#160;    <a class="code" href="structgeom_1_1_hit.html" title="Ray hit class.">Hit&lt;T,N&gt;</a> <a class="code" href="classgeom_1_1_plane.html#a439a957075e8f6861bbcff83958d97cc">trace</a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_ray.html" title="Ray class.">Ray&lt;T,N&gt;</a> &amp;ray, <a class="code" href="group__linalg.html#ga66505ffabe4da800c0ec653d493ea944" title="Ray hit testing choice.">HitSide</a> sides)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00203"></a><span class="lineno"><a class="code" href="classgeom_1_1_plane.html#a439a957075e8f6861bbcff83958d97cc">  203</a></span>&#160;    <a class="code" href="structgeom_1_1_hit.html" title="Ray hit class.">Hit&lt;T,N&gt;</a> <a class="code" href="classgeom_1_1_plane.html#a439a957075e8f6861bbcff83958d97cc">trace</a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_ray.html" title="Ray class.">Ray&lt;T,N&gt;</a> &amp;ray, <a class="code" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944" title="Ray hit testing flags.">HitSide</a> sides)<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <a class="code" href="structgeom_1_1_hit.html" title="Ray hit class.">Hit&lt;T,N&gt;</a> hit(ray, sides);</div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        T s;</div>
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        <span class="keywordflow">if</span> (!detail::_ImplTracePlane(&amp;s, *<span class="keyword">this</span>, ray, &amp;sides)) {</div>
@@ -256,7 +256,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Aug 14 2013 22:15:23 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Aug 17 2013 17:25:10 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

@@ -275,7 +275,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md&gt;</div>
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#ga1f2513740215784239349db200787eac">mul</a>(Md *d, <span class="keyword">const</span> Mat &amp;a, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_permutation_matrix.html" title="A matrix which, by multiplication, permutes the rows or columns of another matrix.">geom::PermutationMatrix&lt;N&gt;</a> &amp;b) {</div>
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        index_t rows = a.rows();</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        <span class="keyword">const</span> index_t *p = b.getColSources();</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        <span class="keyword">const</span> index_t *p = b.<a class="code" href="classgeom_1_1_permutation_matrix.html#ab41e814f842a7422b4ed18b4181adb2e">getColSources</a>();</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        <span class="keywordflow">for</span> (index_t col = 0; col &lt; b.cols(); col++) {</div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;            index_t src_col = p[col];</div>
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;            std::copy(a.col(src_col), a.col(src_col) + rows, d-&gt;col(col));</div>
@@ -296,7 +296,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md, index_t N&gt;</div>
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#ga1f2513740215784239349db200787eac">mul</a>(Md *d, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_permutation_matrix.html" title="A matrix which, by multiplication, permutes the rows or columns of another matrix.">geom::PermutationMatrix&lt;N&gt;</a> &amp;a, <span class="keyword">const</span> Mat &amp;b) {</div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        index_t cols = b.cols();</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <span class="keyword">const</span> index_t *p = a.getRowSources();</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <span class="keyword">const</span> index_t *p = a.<a class="code" href="classgeom_1_1_permutation_matrix.html#abd3c626926a66635fecd28425c17ed04">getRowSources</a>();</div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        <span class="keywordflow">for</span> (index_t row = 0; row &lt; a.rows(); row++) {</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;            index_t src_row = p[row];</div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;            std::copy(b.row(src_row), b.row(src_row) + cols, d-&gt;row(row));</div>
@@ -313,7 +313,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> _ImplVectorLikeMatrix&lt;T,N2,ORIENT_VEC_COL&gt;::type return_t; <span class="comment">// Vec&lt;T,N2&gt;, unless dynamic</span></div>
 <div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    </div>
 <div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#ga1f2513740215784239349db200787eac">mul</a>(Vec&lt;T,N2&gt; *d, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_permutation_matrix.html" title="A matrix which, by multiplication, permutes the rows or columns of another matrix.">geom::PermutationMatrix&lt;N1&gt;</a> &amp;a, <a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">geom::Vec&lt;T,N2&gt;</a> b) {</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;        <span class="keyword">const</span> index_t *p = a.getRowSources();</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;        <span class="keyword">const</span> index_t *p = a.<a class="code" href="classgeom_1_1_permutation_matrix.html#abd3c626926a66635fecd28425c17ed04">getRowSources</a>();</div>
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        <span class="keywordflow">for</span> (index_t i = 0; i &lt; N2; i++) {</div>
 <div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;            (*d)[i] = b[p[i]];</div>
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        }</div>
@@ -321,7 +321,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    </div>
 <div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md&gt;</div>
 <div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#ga1f2513740215784239349db200787eac">mul</a>(Md *d, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_permutation_matrix.html" title="A matrix which, by multiplication, permutes the rows or columns of another matrix.">geom::PermutationMatrix&lt;N1&gt;</a> &amp;a, <a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">geom::Vec&lt;T,N2&gt;</a> b, REQUIRE_MATRIX_T(Md) *dummy=0) {</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        <span class="keyword">const</span> index_t *p = a.getRowSources();</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        <span class="keyword">const</span> index_t *p = a.<a class="code" href="classgeom_1_1_permutation_matrix.html#abd3c626926a66635fecd28425c17ed04">getRowSources</a>();</div>
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;        <span class="keywordflow">for</span> (index_t i = 0; i &lt; N2; i++) {</div>
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;            d-&gt;set(i, 0, b[p[i]]);</div>
 <div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        }</div>
@@ -337,7 +337,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> _ImplVectorLikeMatrix&lt;T,N1,ORIENT_VEC_ROW&gt;::type return_t; <span class="comment">// Vec&lt;T,N1&gt;, unless dynamic</span></div>
 <div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    </div>
 <div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#ga1f2513740215784239349db200787eac">mul</a>(<a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">geom::Vec&lt;T,N1&gt;</a> *d, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">geom::Vec&lt;T,N1&gt;</a> &amp;a, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_permutation_matrix.html" title="A matrix which, by multiplication, permutes the rows or columns of another matrix.">geom::PermutationMatrix&lt;N2&gt;</a> &amp;b) {</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        <span class="keyword">const</span> index_t *p = b.getColSources();</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        <span class="keyword">const</span> index_t *p = b.<a class="code" href="classgeom_1_1_permutation_matrix.html#ab41e814f842a7422b4ed18b4181adb2e">getColSources</a>();</div>
 <div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        <span class="keywordflow">for</span> (index_t i = 0; i &lt; N1; i++) {</div>
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;            (*d)[i] = a[p[i]];</div>
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        }</div>
@@ -345,7 +345,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    </div>
 <div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md&gt;</div>
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#ga1f2513740215784239349db200787eac">mul</a>(Md *d, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">geom::Vec&lt;T,N1&gt;</a> &amp;a, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_permutation_matrix.html" title="A matrix which, by multiplication, permutes the rows or columns of another matrix.">geom::PermutationMatrix&lt;N2&gt;</a> &amp;b, REQUIRE_MATRIX_T(Md) *dummy=0) {</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;        <span class="keyword">const</span> index_t *p = b.getColSources();</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;        <span class="keyword">const</span> index_t *p = b.<a class="code" href="classgeom_1_1_permutation_matrix.html#ab41e814f842a7422b4ed18b4181adb2e">getColSources</a>();</div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;        <span class="keywordflow">for</span> (index_t i = 0; i &lt; N1; i++) {</div>
 <div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;            d-&gt;set(0, i, a[p[i]]);</div>
 <div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        }</div>
@@ -379,7 +379,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Aug 14 2013 22:15:23 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Aug 17 2013 17:25:10 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

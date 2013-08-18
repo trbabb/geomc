@@ -179,7 +179,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a702d5a491ea404edcfa24934a94e70b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a732ee9d4e9cccfbb36a2a510ca8776"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html#a1cb6b750c9af01a4f8cefeec08aa4ec8">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_rect.html#a6a732ee9d4e9cccfbb36a2a510ca8776">boxFraction</a> (<a class="el" href="classgeom_1_1_rect.html#a1cb6b750c9af01a4f8cefeec08aa4ec8">point_t</a> p) const </td></tr>
 <tr class="separator:a6a732ee9d4e9cccfbb36a2a510ca8776"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c5176d528bb8d66e2648bd109cb8ae7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_hit.html">Hit</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_rect.html#a8c5176d528bb8d66e2648bd109cb8ae7">trace</a> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; &amp;r, <a class="el" href="group__linalg.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> sides) const </td></tr>
+<tr class="memitem:a8c5176d528bb8d66e2648bd109cb8ae7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_hit.html">Hit</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_rect.html#a8c5176d528bb8d66e2648bd109cb8ae7">trace</a> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; &amp;r, <a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> sides) const </td></tr>
 <tr class="separator:a8c5176d528bb8d66e2648bd109cb8ae7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -393,7 +393,7 @@ class geom::Rect&lt; T, N &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Construct a non-empty <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box.">Rect</a> from a center point and extent. </p>
+<p>Construct a <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box.">Rect</a> from a center point and extent. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">center</td><td>Center of the new <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box.">Rect</a> </td></tr>
@@ -436,11 +436,11 @@ class geom::Rect&lt; T, N &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Construct a non-empty <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box.">Rect</a> from a corner point and an extent. </p>
+<p>Construct a <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box.">Rect</a> from a corner point and an extent. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">corner</td><td>Arbitrary corner point. </td></tr>
-    <tr><td class="paramname">dims</td><td>Lengths of each axis. Lengths may be negative. </td></tr>
+    <tr><td class="paramname">dims</td><td>Lengths of each axis relative to given corner. Lengths may be negative. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1146,11 +1146,11 @@ class geom::Rect&lt; T, N &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Construct a non-empty <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box.">Rect</a> exactly containing corners <code>c1</code> and <code>c2</code>. </p>
+<p>Construct a <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box.">Rect</a> bounded by corners <code>c1</code> and <code>c2</code>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">c1</td><td>An extreme point </td></tr>
-    <tr><td class="paramname">c2</td><td>An extreme point </td></tr>
+    <tr><td class="paramname">c1</td><td>A corner of the <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box.">Rect</a> </td></tr>
+    <tr><td class="paramname">c2</td><td>The corner opposite <code>c1</code> </td></tr>
   </table>
   </dd>
 </dl>
@@ -1174,7 +1174,7 @@ class geom::Rect&lt; T, N &gt;</h3>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="group__linalg.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a>&#160;</td>
           <td class="paramname"><em>sides</em>&#160;</td>
         </tr>
         <tr>
@@ -1263,7 +1263,7 @@ class geom::Rect&lt; T, N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Aug 14 2013 22:15:23 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Aug 17 2013 17:25:10 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

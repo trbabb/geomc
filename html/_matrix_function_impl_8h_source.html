@@ -208,13 +208,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    }</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    </div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#ga293381c8fe7ffa4ed9889db1f4ca7787">transpose</a>(<a class="code" href="classgeom_1_1_permutation_matrix.html" title="A matrix which, by multiplication, permutes the rows or columns of another matrix.">geom::PermutationMatrix&lt;DYNAMIC_DIM&gt;</a> *d, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_permutation_matrix.html" title="A matrix which, by multiplication, permutes the rows or columns of another matrix.">geom::PermutationMatrix&lt;N&gt;</a> &amp;m) {</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        d-&gt;setRowSources(m.getColSources()); <span class="comment">// better than (*d = m).transpose(), which aliases memory.</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        d-&gt;setRowSources(m.<a class="code" href="classgeom_1_1_permutation_matrix.html#ab41e814f842a7422b4ed18b4181adb2e">getColSources</a>()); <span class="comment">// better than (*d = m).transpose(), which aliases memory.</span></div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    }</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    </div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keyword">template</span> &lt;index_t L&gt;</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#ga293381c8fe7ffa4ed9889db1f4ca7787">transpose</a>(<a class="code" href="classgeom_1_1_permutation_matrix.html" title="A matrix which, by multiplication, permutes the rows or columns of another matrix.">geom::PermutationMatrix&lt;L&gt;</a> *d, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_permutation_matrix.html" title="A matrix which, by multiplication, permutes the rows or columns of another matrix.">geom::PermutationMatrix&lt;N&gt;</a> &amp;m) {</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        *d = m;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        d-&gt;transpose();</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        d-&gt;<a class="code" href="classgeom_1_1_permutation_matrix.html#af3a99ffb20127be48232d12260e934dc">transpose</a>();</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    }</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;};</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;</div>
@@ -279,7 +279,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;</div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="keyword">template</span> &lt;index_t N&gt;</div>
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> _mtxcopy(<a class="code" href="classgeom_1_1_permutation_matrix.html" title="A matrix which, by multiplication, permutes the rows or columns of another matrix.">geom::PermutationMatrix&lt;N&gt;</a> *into, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_permutation_matrix.html" title="A matrix which, by multiplication, permutes the rows or columns of another matrix.">geom::PermutationMatrix&lt;N&gt;</a> &amp;src) {</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    into-&gt;setRowSources(src.getRowSources());</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    into-&gt;setRowSources(src.<a class="code" href="classgeom_1_1_permutation_matrix.html#abd3c626926a66635fecd28425c17ed04">getRowSources</a>());</div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;}</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;</div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;</div>
@@ -321,7 +321,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Td, index_t N&gt;</div>
 <div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;<span class="keywordtype">void</span> _mtxcopy(<a class="code" href="classgeom_1_1_sparse_matrix.html" title="A (still weakly-supported) class which only stores nonzero matrix elements.">geom::SparseMatrix&lt;Td&gt;</a> *into, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_permutation_matrix.html" title="A matrix which, by multiplication, permutes the rows or columns of another matrix.">geom::PermutationMatrix&lt;N&gt;</a> &amp;src) {</div>
 <div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    into-&gt;setZero();</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    index_t *rowdst = src.getColSources(); </div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    index_t *rowdst = src.<a class="code" href="classgeom_1_1_permutation_matrix.html#ab41e814f842a7422b4ed18b4181adb2e">getColSources</a>(); </div>
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; src.rows(); i++) {</div>
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        into-&gt;set(i, rowdst[i], 1);</div>
 <div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    }</div>
@@ -363,7 +363,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Aug 14 2013 22:15:23 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Aug 17 2013 17:25:10 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

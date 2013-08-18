@@ -414,9 +414,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;    </div>
 <div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    </div>
 <div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> S&gt;</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    <span class="keywordtype">void</span> _linearSolve(S *dest, <span class="keyword">const</span> S *b, <span class="keywordtype">bool</span> permute=<span class="keyword">true</span>)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    <span class="keywordtype">void</span> _linearSolve(S *dest, <span class="keyword">const</span> S *b, <span class="keywordtype">bool</span> <a class="code" href="group__random.html#ga4854838b50087ac7e261ff9b05f8aba9">permute</a>=<span class="keyword">true</span>)<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;        <span class="keyword">const</span> index_t  n = LU.rows();</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;        <span class="keyword">const</span> index_t *p = P.getRowSources(); <span class="comment">// permutation map</span></div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;        <span class="keyword">const</span> index_t *p = P.<a class="code" href="classgeom_1_1_permutation_matrix.html#abd3c626926a66635fecd28425c17ed04">getRowSources</a>(); <span class="comment">// permutation map</span></div>
 <div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;        </div>
 <div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;        <span class="comment">// &lt;y&gt; and &lt;dest&gt;&#39;s elements are used such that</span></div>
 <div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;        <span class="comment">// y[i] is never read after dest[i] is written.</span></div>
@@ -426,9 +426,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;        <span class="comment">// LUx = Pb</span></div>
 <div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;        <span class="comment">// (Ux) is a vector, so let&#39;s solve for it:</span></div>
 <div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;        <span class="comment">// Ly  = Pb</span></div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;        y[0] = permute ? b[p[0]] : b[0];</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;        y[0] = <a class="code" href="group__random.html#ga4854838b50087ac7e261ff9b05f8aba9">permute</a> ? b[p[0]] : b[0];</div>
 <div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;        <span class="keywordflow">for</span> (index_t r = 1; r &lt; n; r++) {</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;            y[r] = permute ? b[p[r]] : b[r];</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;            y[r] = <a class="code" href="group__random.html#ga4854838b50087ac7e261ff9b05f8aba9">permute</a> ? b[p[r]] : b[r];</div>
 <div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;            <span class="keywordflow">for</span> (index_t c = 0; c &lt; r; c++) {</div>
 <div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;                y[r] -= y[c] * LU.get(r,c);</div>
 <div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;            }</div>
@@ -450,7 +450,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;        <span class="comment">// Set LUx = PI and solve for x, choosing columns of PI one at a time.</span></div>
 <div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;        <span class="comment">// Here, we use the rows of our destination matrix as though they are</span></div>
 <div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;        <span class="comment">// column vectors, and the caller will transpose.</span></div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;        <span class="keyword">const</span> index_t *p = P.getColSources();</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;        <span class="keyword">const</span> index_t *p = P.<a class="code" href="classgeom_1_1_permutation_matrix.html#ab41e814f842a7422b4ed18b4181adb2e">getColSources</a>();</div>
 <div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;        <span class="keyword">const</span> index_t n = LU.rows();</div>
 <div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;        std::fill(dest, dest + (n*n), 0);</div>
 <div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;        <span class="keywordflow">for</span> (index_t i = 0; i &lt; n; i++, dest += n) {</div>
@@ -467,7 +467,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Aug 14 2013 22:15:22 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Aug 17 2013 17:25:10 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>
