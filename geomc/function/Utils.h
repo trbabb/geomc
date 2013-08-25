@@ -44,7 +44,7 @@ namespace geom {
     /**
      * Linearly interpolate across `dim` input dimensions.
      * @param s An array of `dim` values; a point on `(0, 1)`<sup>`dim`</sup> at which to interpolate.
-     * @param p An array of the 2<sup>`dim`</sup> values adjacent to `p`.
+     * @param p An array of the 2<sup>`dim`</sup> values adjacent to `s`.
      * @param dim Number of input dimensions.
      * @return Interpolated value.
      */
@@ -64,7 +64,7 @@ namespace geom {
     /**
      * Cubic interpolation in 1 dimension.
      * @param s Interpolation parameter between 0 and 1, representing the point between p[1] and p[2] at which to interpolate.
-     * @param p An array of 4 values surrounding `p`.
+     * @param p An array of 4 values surrounding `s`.
      * @return Interpolated value.
      */
     template <typename S, typename T>
@@ -75,7 +75,7 @@ namespace geom {
     /**
      * Cubic interpolation across `dim` input dimensions.
      * @param s An array of `dim` values; a point on `(0, 1)`<sup>`dim`</sup> representing the position in the center grid cell at which to interpolate.
-     * @param p An array of the 4<sup>dim</sup> values adjacent to `p`.
+     * @param p An array of the 4<sup>dim</sup> values adjacent to `s`.
      * @param dim Number of input dimensions.
      * @return Interpolated value.
      */
@@ -104,7 +104,7 @@ namespace geom {
      * @param b Coefficient of `x`.
      * @param c Constant.
      * @return `true` if real roots exist; `false` otherwise (in which case 
-     * the contents of `roots` will be unaltered).
+     * the contents of `results` will be unaltered).
      */
     template <typename T> bool quadratic_solve(T results[2], T a, T b, T c){
         T descr = b*b - 4*a*c;

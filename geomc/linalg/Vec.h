@@ -200,26 +200,41 @@ public:
 namespace std {
 
 // these make vectors more interchangeable with bare types:
+/**
+ * Elemnt-wise maximum.
+ */
 template <typename T, index_t N>
 inline geom::Vec<T,N> max(const geom::Vec<T,N> &a, const geom::Vec<T,N> &b) {
     return a.max(b);
 }
 
+/**
+ * Element-wise minimum.
+ */
 template <typename T, index_t N>
 inline geom::Vec<T,N> min(const geom::Vec<T,N> &a, const geom::Vec<T,N> &b) {
     return a.min(b);
 }
 
+/**
+ * Element-wise absolute value.
+ */
 template <typename T, index_t N>
 inline geom::Vec<T,N> abs(const geom::Vec<T,N> &v) {
     return v.abs();
 }
 
+/**
+ * Element-wise floor.
+ */
 template <typename T, index_t N>
 inline geom::Vec<T,N> floor(const geom::Vec<T,N> &v) {
     return v.floor();
 }
 
+/**
+ * Element-wise ceiling.
+ */
 template <typename T, index_t N>
 inline geom::Vec<T,N> ceil(const geom::Vec<T,N> &v) {
     return v.ceil();

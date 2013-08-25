@@ -186,41 +186,53 @@ public:
         return cos(theta) * q0 + sin(theta) * q2;
     }
     
-    /*
-    
-    // TODO: test this.
-    Quat<T> exp() const {
-        T m = vectorPart().mag();
-        T e = exp(detail::VecBase<T,4>::w);
-        return e * Quat<T>(sin(m) * vectorPart() / m,
-                           cos(m));
+    /**
+     * Quaternion exponential. (`e`<sup>`q`</sup>)
+     * @return A quaternion representing a rotation about `q.vectorPart()` by
+     * angle `|q|` and a scaling by `e`<sup>`q.realPart()`</sup>.
+     */
+    inline Quat<T> exp() const {
+        return std::exp(*this);
     }
     
-    // TODO: test this.
-    Quat<T> ln() const {
-        T mv = vectorPart().mag();
-        T mq = mag();
-        T w = detail::VecBase<T,4>::w;
-        return Quat<T>(
-            std::acos(s/mq) * vectorPart() / mv,
-            std::ln(mq));
+    /**
+     * Quaternion natural log.
+     */
+    inline Quat<T> log() const {
+        return std::log(*this);
     }
-    
-    // TODO: test this.
-    Quat<T> pow(T a) const {
-        // this doesn't look like it can be right.
-        // taken from a formula 
-        return Quat<T>(
-                std::exp(std::ln(detail::VecBase::x) * a),
-                std::exp(std::ln(detail::VecBase::y) * a),
-                std::exp(std::ln(detail::VecBase::z) * a),
-                std::exp(std::ln(detail::VecBase::w) * a));
-    }
-    */
     
 };
 
 
 }; //namespace geom
+
+namespace std {
+    
+    /**
+     * Quaternion exponential. Represents a rotation about `q.vectorPart()` by
+     * angle `|q|` and a scaling by `e`<sup>`q.realPart()`</sup>.
+     */
+    template <typename T>
+    geom::Quat<T> exp(const geom::Quat<T>& q) {
+        T k = exp(q.w);
+        T m = q.vectorPart().mag();
+        T c = cos(m);
+        T s = sin(m);
+        return geom::Quat<T>(k * s * q.vectorPart() / m, k * c);
+    }
+    
+    /**
+     * Quaternion natural log.
+     */
+    template <typename T>
+    geom::Quat<T> log(const geom::Quat<T>& q) {
+        T q_m = q.mag();
+        T v_m = q.vectorPart().mag();
+        T k   = acos(q.w / q_m);
+        return geom::Quat(k * q.vectorPart() / q_m, log(q_m));
+    }
+};
+
 
 #endif /* QUATERNION_H_ */

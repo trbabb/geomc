@@ -8,6 +8,10 @@ MATRIX:
       inverse still requires double-alloc for dynamic mtxs;
       not great for many repeated inversions.
   - determinant.
+  - nicer constructors for matrix, particularly simplematrix.
+    - diagonal from a vector
+    - diagonal from a number?
+    - from another matrix.
   - conversion/assignment operator to SimpleMatrix
   - make a type_traits header for matrix operations
     - use this to clean up the defs of some of the operators
@@ -55,6 +59,7 @@ MATRIX:
     - backwards grid iterators are definitely broken.
 
 GENERAL CLEANUP/MAJOR TODOS:
+  - open / closed interval logic on rect?
   - make more spatial partitions?
   - fix hash functions
   - put sources back in with headers; remove redundant /include dir

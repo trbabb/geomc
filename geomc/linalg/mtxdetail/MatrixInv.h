@@ -246,7 +246,7 @@ template <typename T, index_t M, index_t N>
 class _ImplMtxInv<geom::DiagMatrix<T,M,N> > {
 public:
     
-    typedef geom::DiagMatrix<T,M != 0 ? M : N, M != 0 ? M : N> return_t;
+    typedef geom::DiagMatrix<T, (M != 0 ? M : N), (M != 0 ? M : N)> return_t;
     
     template <typename Md>
     static bool inv(Md *into, const geom::DiagMatrix<T,M,N>& m) {

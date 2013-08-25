@@ -64,12 +64,14 @@ template <typename T> inline T positive_mod(T a, T b){
     return r<0?r+b:r;
 }
 
-/**
- * @brief Namepsace of all `geomc` functions and classes.
- * 
- */
-namespace geom {
-    
-};
+#ifdef PARSING_DOXYGEN
+
+/** @brief Namepsace of all `geomc` functions and classes. */
+namespace geom { };
+
+/** @brief Functions to extend support of stdlib to geomc classes. */
+namespace std { };
+
+#endif
 
 #endif /* GEOMC_DEFS_H_ */
