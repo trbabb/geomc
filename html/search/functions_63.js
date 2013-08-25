@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['ceil',['ceil',['../namespacestd.html#a940d79ad42b88fd9843ba51a629d40e1',1,'std']]],
   ['clamp',['clamp',['../group__function.html#gafbda519a671cae9db99fef6c4c305eff',1,'geom']]],
   ['closestapproach',['closestApproach',['../classgeom_1_1_ray_3_01_t_00_013_01_4.html#ad413a91240471b848826954b7dcc86de',1,'geom::Ray&lt; T, 3 &gt;']]],
   ['cols',['cols',['../classgeom_1_1_simple_matrix.html#aa0f1796902c9ad383ba037c6216e2aff',1,'geom::SimpleMatrix']]],

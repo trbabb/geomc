@@ -338,7 +338,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;<span class="keyword">class </span>_ImplMtxInv&lt;geom::DiagMatrix&lt;T,M,N&gt; &gt; {</div>
 <div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    </div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keyword">typedef</span> <a class="code" href="classgeom_1_1_diag_matrix.html" title="A matrix with nonzero elements only along the main diagonal.">geom::DiagMatrix&lt;T,M != 0 ? M : N, M != 0 ? M : N&gt;</a> return_t;</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keyword">typedef</span> <a class="code" href="classgeom_1_1_diag_matrix.html" title="A matrix with nonzero elements only along the main diagonal.">geom::DiagMatrix&lt;T, (M != 0 ? M : N), (M != 0 ? M : N)&gt;</a> return_t;</div>
 <div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    </div>
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md&gt;</div>
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="group__matrix.html#ga289fd7275b5cabfe4506146872626c29">inv</a>(Md *into, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_diag_matrix.html" title="A matrix with nonzero elements only along the main diagonal.">geom::DiagMatrix&lt;T,M,N&gt;</a>&amp; m) {</div>
@@ -377,7 +377,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2013 01:31:29 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 25 2013 12:29:46 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

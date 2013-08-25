@@ -145,7 +145,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">     **********************************/</span></div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    </div>
 <div class="line"><a name="l00071"></a><span class="lineno"><a class="code" href="classgeom_1_1_perlin_noise.html#a73c789bfc85de4632c0dac13e6f4c144">   71</a></span>&#160;    T <a class="code" href="classgeom_1_1_perlin_noise.html#a73c789bfc85de4632c0dac13e6f4c144">eval</a>(<a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">point_t</a> pt) {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">point_t</a> p0f = std::floor(pt);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">point_t</a> p0f = <a class="code" href="namespacestd.html#aec98ef7d00508b932139c05b10672a02">std::floor</a>(pt);</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">grid_t</a> p0 = (<a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">grid_t</a>)p0f; <span class="comment">//grid pt</span></div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">point_t</a> p_modulus = pt - p0f; <span class="comment">//pos. within grid</span></div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keyword">const</span> index_t corners = 1 &lt;&lt; N;</div>
@@ -220,7 +220,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2013 01:31:28 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 25 2013 12:29:45 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

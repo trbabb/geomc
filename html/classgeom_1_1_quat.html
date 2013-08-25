@@ -158,6 +158,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aecfb1b497defb3af4b3e9574a1ce55c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1e4da5338e67a9d5a0145e14a5698cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_quat.html">Quat</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_quat.html#af1e4da5338e67a9d5a0145e14a5698cb">slerp</a> (const <a class="el" href="classgeom_1_1_quat.html">Quat</a>&lt; T &gt; &amp;q1, T t) const </td></tr>
 <tr class="separator:af1e4da5338e67a9d5a0145e14a5698cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63e5c175aecd22b6010941d3e51f4b12"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_quat.html">Quat</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_quat.html#a63e5c175aecd22b6010941d3e51f4b12">exp</a> () const </td></tr>
+<tr class="separator:a63e5c175aecd22b6010941d3e51f4b12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31eb06de61f242b2a153f979983d7035"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_quat.html">Quat</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_quat.html#a31eb06de61f242b2a153f979983d7035">log</a> () const </td></tr>
+<tr class="separator:a31eb06de61f242b2a153f979983d7035"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4afc2122e2ee885d071033df9420bd93"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#a4afc2122e2ee885d071033df9420bd93">add</a> (T dx, T dy, T dz, T dw) const </td></tr>
 <tr class="separator:a4afc2122e2ee885d071033df9420bd93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a031446eb4380340cd6eb3a5fb4398d55"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>add</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;v) const </td></tr>
@@ -811,6 +815,31 @@ class geom::Quat&lt; T &gt;</h3>
 
 </div>
 </div>
+<a class="anchor" id="a63e5c175aecd22b6010941d3e51f4b12"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_quat.html">Quat</a>&lt;T&gt; exp </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Quaternion exponential. (<code>e</code><sup><code>q</code></sup>) </p>
+<dl class="section return"><dt>Returns</dt><dd>A quaternion representing a rotation about <code>q.vectorPart()</code> by angle <code>|q|</code> and a scaling by <code>e</code><sup><code>q.realPart()</code></sup>. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a1b75cef7a6ae8165f7bcb200e7b6fd75"></a>
 <div class="memitem">
 <div class="memproto">
@@ -969,6 +998,30 @@ class geom::Quat&lt; T &gt;</h3>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if all elements are zero, <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a31eb06de61f242b2a153f979983d7035"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_quat.html">Quat</a>&lt;T&gt; log </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Quaternion natural log. </p>
 
 </div>
 </div>
@@ -1850,7 +1903,7 @@ class geom::Quat&lt; T &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2013 01:31:29 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 25 2013 12:29:46 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

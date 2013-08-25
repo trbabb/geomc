@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['floor',['floor',['../namespacestd.html#aec98ef7d00508b932139c05b10672a02',1,'std']]],
   ['from_5fbasis',['from_basis',['../classgeom_1_1_plane.html#ae0572d837419319e0aa4f9c57322fdc5',1,'geom::Plane::from_basis(Vec&lt; T, N &gt; a, Vec&lt; T, N &gt; b)'],['../classgeom_1_1_plane.html#a674937c7f329fb4a8894d5058b76fadb',1,'geom::Plane::from_basis(Vec&lt; T, N &gt; a, Vec&lt; T, N &gt; b, Vec&lt; T, N &gt; pt)']]],
   ['from_5ftriangle',['from_triangle',['../classgeom_1_1_plane.html#a28d542176718191b81a6b67b0664ccce',1,'geom::Plane::from_triangle(Vec&lt; T, N &gt; p0, Vec&lt; T, N &gt; p1, Vec&lt; T, N &gt; p2)'],['../classgeom_1_1_plane.html#a77b33149a1801415200b2fbdb491e6a8',1,'geom::Plane::from_triangle(Vec&lt; T, N &gt; p[N])']]],
   ['fromcenter',['fromCenter',['../classgeom_1_1_rect.html#ad6033bfee82cf9b5c18e9ae88432d8c0',1,'geom::Rect']]],

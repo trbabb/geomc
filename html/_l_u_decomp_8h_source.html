@@ -119,7 +119,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">// different static sizes of SimpleMatrix. It&#39;s 7% faster too!</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keywordtype">bool</span> _ImplDecompPLU(T* m, index_t rows, index_t cols, index_t *reorder, <span class="keywordtype">bool</span> *swap_parity) {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">const</span> index_t n = std::min(rows, cols);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">const</span> index_t n = <a class="code" href="namespacestd.html#ab72c97cbf1524c7ccd3263d793823616">std::min</a>(rows, cols);</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    *swap_parity = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="comment">// fill permutation array</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; n; i++){</div>
@@ -128,10 +128,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    </div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; n - 1; i++) {</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="comment">// find pivot</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        T biggest = std::abs(_MxElem(i,i));</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        T biggest = <a class="code" href="namespacestd.html#a1c9486d7173f6c910e1f995c6fa13e8c">std::abs</a>(_MxElem(i,i));</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        index_t pvt = i;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">for</span> (index_t p = i + 1; p &lt; rows; p++) {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            T pvt_val = std::abs(_MxElem(p,i));</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            T pvt_val = <a class="code" href="namespacestd.html#a1c9486d7173f6c910e1f995c6fa13e8c">std::abs</a>(_MxElem(p,i));</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keywordflow">if</span> (pvt_val &gt; biggest) {</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                pvt = p;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                biggest = pvt_val;</div>
@@ -228,7 +228,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    </div>
 <div class="line"><a name="l00154"></a><span class="lineno"><a class="code" href="classgeom_1_1_p_l_u_decomposition.html#a070256d0abafc7c932b2b103a4e73394">  154</a></span>&#160;    <span class="keyword">inline</span> index_t <a class="code" href="classgeom_1_1_p_l_u_decomposition.html#a070256d0abafc7c932b2b103a4e73394">diagonal</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        <span class="keywordflow">return</span> std::min(LU.rows(), LU.cols());</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacestd.html#ab72c97cbf1524c7ccd3263d793823616">std::min</a>(LU.rows(), LU.cols());</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    }</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    </div>
 <div class="line"><a name="l00161"></a><span class="lineno"><a class="code" href="classgeom_1_1_p_l_u_decomposition.html#a5b7a2fcbb2b9372a06af8cdfc2ce7dde">  161</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="classgeom_1_1_permutation_matrix.html">PermutationMatrix&lt;M&gt;</a>&amp; <a class="code" href="classgeom_1_1_p_l_u_decomposition.html#a5b7a2fcbb2b9372a06af8cdfc2ce7dde">getP</a>()<span class="keyword"> const </span>{</div>
@@ -468,7 +468,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2013 01:31:29 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 25 2013 12:29:46 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

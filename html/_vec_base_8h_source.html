@@ -627,7 +627,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160;        </div>
 <div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;        <span class="comment">// Clamping/Rounding //</span></div>
 <div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;<span class="comment"></span>        </div>
-<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;        <span class="keyword">const</span> Vec&lt;T,N&gt; abs()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;        <span class="keyword">const</span> Vec&lt;T,N&gt; <a class="code" href="namespacestd.html#a1c9486d7173f6c910e1f995c6fa13e8c">abs</a>()<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;            Vec&lt;T,N&gt; r;</div>
 <div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;            <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++){</div>
 <div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;                T coord = this-&gt;<span class="keyword">get</span>(i);</div>
@@ -637,35 +637,35 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;        }</div>
 <div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;        </div>
 <div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;        <span class="comment">//todo: handle integer cases</span></div>
-<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;<span class="comment"></span>        <span class="keyword">const</span> Vec&lt;T,N&gt; floor()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;<span class="comment"></span>        <span class="keyword">const</span> Vec&lt;T,N&gt; <a class="code" href="namespacestd.html#aec98ef7d00508b932139c05b10672a02">floor</a>()<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;            Vec&lt;T,N&gt; r;</div>
 <div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;            <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++){</div>
-<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;                r[i] = std::floor(this-&gt;<span class="keyword">get</span>(i));</div>
+<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;                r[i] = <a class="code" href="namespacestd.html#aec98ef7d00508b932139c05b10672a02">std::floor</a>(this-&gt;<span class="keyword">get</span>(i));</div>
 <div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;            }</div>
 <div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;            <span class="keywordflow">return</span> r;</div>
 <div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;        }</div>
 <div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;        </div>
 <div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;        <span class="comment">//todo: handle integer cases</span></div>
-<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;<span class="comment"></span>        <span class="keyword">const</span> Vec&lt;T,N&gt; ceil()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;<span class="comment"></span>        <span class="keyword">const</span> Vec&lt;T,N&gt; <a class="code" href="namespacestd.html#a940d79ad42b88fd9843ba51a629d40e1">ceil</a>()<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;            Vec&lt;T,N&gt; r;</div>
 <div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;            <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++){</div>
-<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;                r[i] = std::ceil(this-&gt;<span class="keyword">get</span>(i));</div>
+<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;                r[i] = <a class="code" href="namespacestd.html#a940d79ad42b88fd9843ba51a629d40e1">std::ceil</a>(this-&gt;<span class="keyword">get</span>(i));</div>
 <div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;            }</div>
 <div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;            <span class="keywordflow">return</span> r;</div>
 <div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;        }</div>
 <div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;        </div>
-<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;        <span class="keyword">const</span> Vec&lt;T,N&gt; min(<span class="keyword">const</span> Vec&lt;T,N&gt; &amp;v)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;        <span class="keyword">const</span> Vec&lt;T,N&gt; <a class="code" href="namespacestd.html#ab72c97cbf1524c7ccd3263d793823616">min</a>(<span class="keyword">const</span> Vec&lt;T,N&gt; &amp;v)<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;            Vec&lt;T,N&gt; r;</div>
 <div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;            <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++){</div>
-<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;                r[i] = std::min(this-&gt;<span class="keyword">get</span>(i), v[i]);</div>
+<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;                r[i] = <a class="code" href="namespacestd.html#ab72c97cbf1524c7ccd3263d793823616">std::min</a>(this-&gt;<span class="keyword">get</span>(i), v[i]);</div>
 <div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;            }</div>
 <div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;            <span class="keywordflow">return</span> r;</div>
 <div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;        }</div>
 <div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;        </div>
-<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;        <span class="keyword">const</span> Vec&lt;T,N&gt; max(<span class="keyword">const</span> Vec&lt;T,N&gt; &amp;v)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;        <span class="keyword">const</span> Vec&lt;T,N&gt; <a class="code" href="namespacestd.html#a0ec62350e795e225863d4d372a677df2">max</a>(<span class="keyword">const</span> Vec&lt;T,N&gt; &amp;v)<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;            Vec&lt;T,N&gt; r;</div>
 <div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;            <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++){</div>
-<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;                r[i] = std::max(this-&gt;<span class="keyword">get</span>(i), v[i]);</div>
+<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;                r[i] = <a class="code" href="namespacestd.html#a0ec62350e795e225863d4d372a677df2">std::max</a>(this-&gt;<span class="keyword">get</span>(i), v[i]);</div>
 <div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;            }</div>
 <div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;            <span class="keywordflow">return</span> r;</div>
 <div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;        }</div>
@@ -673,7 +673,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;        <span class="keyword">const</span> Vec&lt;T,N&gt; <a class="code" href="group__function.html#gafbda519a671cae9db99fef6c4c305eff">clamp</a>(<span class="keyword">const</span> Vec&lt;T,N&gt; &amp;lo, <span class="keyword">const</span> Vec&lt;T,N&gt; &amp;hi)<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;            Vec&lt;T,N&gt; r;</div>
 <div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;            <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++){</div>
-<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;                r[i]  = std::min(std::max(this-&gt;<span class="keyword">get</span>(i), lo), hi);</div>
+<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;                r[i]  = <a class="code" href="namespacestd.html#ab72c97cbf1524c7ccd3263d793823616">std::min</a>(<a class="code" href="namespacestd.html#a0ec62350e795e225863d4d372a677df2">std::max</a>(this-&gt;<span class="keyword">get</span>(i), lo), hi);</div>
 <div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;            }</div>
 <div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;            <span class="keywordflow">return</span> r;</div>
 <div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;        }</div>
@@ -681,7 +681,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;        <span class="keyword">const</span> Vec&lt;T,N&gt; round()<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;            Vec&lt;T,N&gt; r;</div>
 <div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;            <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++){</div>
-<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;                r[i] = std::floor(this-&gt;<span class="keyword">get</span>(i) + 0.5);</div>
+<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;                r[i] = <a class="code" href="namespacestd.html#aec98ef7d00508b932139c05b10672a02">std::floor</a>(this-&gt;<span class="keyword">get</span>(i) + 0.5);</div>
 <div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;            }</div>
 <div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;            <span class="keywordflow">return</span> r;</div>
 <div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;        }</div>
@@ -689,7 +689,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;        <span class="keyword">template</span> &lt;index_t M&gt; <span class="keyword">inline</span> Vec&lt;T,M&gt; resized()<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;            Vec&lt;T,M&gt; out;</div>
 <div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;            <span class="keyword">const</span> T *p = this-&gt;begin();</div>
-<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;            std::copy(p, p + std::min(M,N), out.begin());</div>
+<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;            std::copy(p, p + <a class="code" href="namespacestd.html#ab72c97cbf1524c7ccd3263d793823616">std::min</a>(M,N), out.begin());</div>
 <div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;            <span class="keywordflow">return</span> out;</div>
 <div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;        }</div>
 <div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;</div>
@@ -751,7 +751,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2013 01:31:29 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 25 2013 12:29:46 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

@@ -118,7 +118,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">class </span>_ImplEdge&lt;<a class="code" href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfad8f992c52a02c2f9f321fc06a7d8a858" title="Clip sample coordinates to the sampleable area, thus repeating edge values beyond the boundary...">EDGE_CLAMP</a>&gt; {</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> index_t coord(index_t c, index_t max) {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">return</span> std::max(std::min(c,max-1),(index_t)0);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacestd.html#a0ec62350e795e225863d4d372a677df2">std::max</a>(<a class="code" href="namespacestd.html#ab72c97cbf1524c7ccd3263d793823616">std::min</a>(c,max-1),(index_t)0);</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    }</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
@@ -134,7 +134,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">class </span>_ImplEdge&lt;<a class="code" href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfa3014a9f4a7f12c3e7d77da27b69804f5" title="Mirror the sample coordinates across edges.">EDGE_MIRROR</a>&gt; {</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> index_t coord(index_t c, index_t max) {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        c = abs(c);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        c = <a class="code" href="namespacestd.html#a1c9486d7173f6c910e1f995c6fa13e8c">abs</a>(c);</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        max -= 1;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordtype">int</span> cyc = c/max;</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordtype">int</span> i   = c%max;</div>
@@ -278,7 +278,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2013 01:31:28 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 25 2013 12:29:45 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

@@ -130,9 +130,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        s = std::fmod(s,1);</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">if</span> (s &lt; 0) s = 1+s;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html" title="3D specialization of vector class.">Vec&lt;T,3&gt;</a>(</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                std::min( std::max( std::max( -6*s+2, 6*s-4 ), 0.0), 1.0),</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                std::max( std::min( std::min( 6*s,   -6*s+4 ), 1.0), 0.0),</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                std::max( std::min( std::min( 6*s-2, -6*s+6 ), 1.0), 0.0));</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                <a class="code" href="namespacestd.html#ab72c97cbf1524c7ccd3263d793823616">std::min</a>( <a class="code" href="namespacestd.html#a0ec62350e795e225863d4d372a677df2">std::max</a>( <a class="code" href="namespacestd.html#a0ec62350e795e225863d4d372a677df2">std::max</a>( -6*s+2, 6*s-4 ), 0.0), 1.0),</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                <a class="code" href="namespacestd.html#a0ec62350e795e225863d4d372a677df2">std::max</a>( <a class="code" href="namespacestd.html#ab72c97cbf1524c7ccd3263d793823616">std::min</a>( <a class="code" href="namespacestd.html#ab72c97cbf1524c7ccd3263d793823616">std::min</a>( 6*s,   -6*s+4 ), 1.0), 0.0),</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                <a class="code" href="namespacestd.html#a0ec62350e795e225863d4d372a677df2">std::max</a>( <a class="code" href="namespacestd.html#ab72c97cbf1524c7ccd3263d793823616">std::min</a>( <a class="code" href="namespacestd.html#ab72c97cbf1524c7ccd3263d793823616">std::min</a>( 6*s-2, -6*s+6 ), 1.0), 0.0));</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; </div>
@@ -345,7 +345,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 18 2013 01:31:29 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 25 2013 12:29:46 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>
