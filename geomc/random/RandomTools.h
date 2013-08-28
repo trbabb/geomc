@@ -236,7 +236,7 @@ public:
         // we pick a height with uniform probability
         // because a slice through the sphere with thickness t at height h
         // has unchanging area regardless of h. 
-        T min_h = 1 - cos(half_angle_radians);
+        T min_h = cos(half_angle_radians);
         T h = this->rng->template rand<T>(min_h, 1);
         T r = sqrt(1 - h * h);
         T theta = this->rng->template rand<T>(2*M_PI);

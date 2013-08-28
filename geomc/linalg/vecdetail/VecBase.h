@@ -765,7 +765,7 @@ namespace detail {
         const Vec<T,N> clamp(const Vec<T,N> &lo, const Vec<T,N> &hi) const {
             Vec<T,N> r;
             for (index_t i = 0; i < N; i++){
-                r[i]  = std::min(std::max(this->get(i), lo), hi);
+                r[i]  = std::min(std::max(this->get(i), lo[i]), hi[i]);
             }
             return r;
         }

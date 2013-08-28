@@ -423,6 +423,17 @@ public:
         return Rect<T,N>(std::min(mins, b.mins),
                          std::max(maxs, b.maxs));
     }
+    
+    /**
+     * Extend the upper/lower extremes to `p`.
+     * @param p A point.
+     * @return `this`, for convenience.
+     */
+    Rect<T,N>& extendTo(point_t p) {
+        mins = std::min(mins, p);
+        maxs = std::max(maxs, p);
+        return *this;
+    }
 
     /**
      * @return `p`'s fractional position within this Rect.

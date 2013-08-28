@@ -613,7 +613,6 @@ transpose(Md *into, const Mx &m) {
         return_t buf = detail::_ImplMtxInstance<return_t>::instance(m.cols(), m.rows());
         txpose_t::transpose(&buf, m);
         detail::_mtxcopy(into, buf);
-        return *into;
     }
     #endif
     txpose_t::transpose(into, m);
