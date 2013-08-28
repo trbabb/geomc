@@ -132,6 +132,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0da3f4b944969d78d6f79395db37a8bf"><td class="memTemplParams" colspan="2">template&lt;index_t N&gt; </td></tr>
 <tr class="memitem:a0da3f4b944969d78d6f79395db37a8bf"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_sampler.html#a0da3f4b944969d78d6f79395db37a8bf">box</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, N &gt; &amp;box)</td></tr>
 <tr class="separator:a0da3f4b944969d78d6f79395db37a8bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98502b00f91e9584bc1f8dffe40c8cdb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_sampler.html#a98502b00f91e9584bc1f8dffe40c8cdb">cap</a> (T half_angle_radians)</td></tr>
+<tr class="separator:a98502b00f91e9584bc1f8dffe40c8cdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a79aa95fcc0914bbd136be21c5a1287"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_sampler.html#a1a79aa95fcc0914bbd136be21c5a1287">cap</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt; dir, T half_angle_radians)</td></tr>
+<tr class="separator:a1a79aa95fcc0914bbd136be21c5a1287"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f8a50ffe6074a0e0604550a57c2e90d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_sampler.html#a8f8a50ffe6074a0e0604550a57c2e90d">solidcap</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt; dir, T half_angle_radians, T minR, T maxR)</td></tr>
+<tr class="separator:a8f8a50ffe6074a0e0604550a57c2e90d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a898949dcf7e7ef5b812526f52943ac9b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_sampler.html#a898949dcf7e7ef5b812526f52943ac9b">oriented_disk</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt; normal, T r)</td></tr>
 <tr class="separator:a898949dcf7e7ef5b812526f52943ac9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fdcdd34c9079b47baeabba16b9563f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_sampler.html#a8fdcdd34c9079b47baeabba16b9563f4">box</a> (T minx, T miny, T minz, T maxx, T maxy, T maxz)</td></tr>
@@ -477,6 +483,79 @@ Vec&lt;double,3&gt; p = rvg.unit&lt;3&gt;();</pre> </div><h2 class="groupheader"
 
 </div>
 </div>
+<a class="anchor" id="a98502b00f91e9584bc1f8dffe40c8cdb"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,3&gt; cap </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>half_angle_radians</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">half_angle_radians</td><td>Angle from the z+ axis to the cap's edge. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A random 3D vector of unit length uniformly distributed over the spherical cap with internal angle <code>half_angle_radians</code>. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a1a79aa95fcc0914bbd136be21c5a1287"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,3&gt; cap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td>
+          <td class="paramname"><em>dir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>half_angle_radians</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dir</td><td>Direction about which to sample. </td></tr>
+    <tr><td class="paramname">half_angle_radians</td><td>Angle from <code>dir</code> to sample within. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A random 3D vector of unit length uniformly distributed over the spherical cap with center along direction <code>dir</code>, with angle <code>half_angle_radians</code> between the axis and edge of the cap. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a09d8545103cce1e7e5126f99d85f0b24"></a>
 <div class="memitem">
 <div class="memproto">
@@ -748,6 +827,62 @@ Vec&lt;double,3&gt; p = rvg.unit&lt;3&gt;();</pre> </div><h2 class="groupheader"
 
 </div>
 </div>
+<a class="anchor" id="a8f8a50ffe6074a0e0604550a57c2e90d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,3&gt; solidcap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td>
+          <td class="paramname"><em>dir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>half_angle_radians</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>minR</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>maxR</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dir</td><td>Direction about which to sample. </td></tr>
+    <tr><td class="paramname">half_angle_radians</td><td>Angle from <code>dir</code> to sample within. </td></tr>
+    <tr><td class="paramname">minR</td><td>Minimum distance of sample from origin. </td></tr>
+    <tr><td class="paramname">maxR</td><td>Maximum distance of sample from origin. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A random 3D vector inside the cone with axial angle <code>half_angle_radians</code> and between the surfaces of two spheres with radii <code>minR</code> and <code>maxR</code>, uniformly distributed throughout the volume. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a53030cff4ce1502f8d688ff8a2f76862"></a>
 <div class="memitem">
 <div class="memproto">
@@ -821,7 +956,7 @@ Vec&lt;double,3&gt; p = rvg.unit&lt;3&gt;();</pre> </div><h2 class="groupheader"
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 25 2013 12:29:46 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Aug 27 2013 22:46:09 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

@@ -262,7 +262,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        T q_m = q.mag();</div>
 <div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        T v_m = q.<a class="code" href="classgeom_1_1_quat.html#a982d343e7da4c3707e1e10db10d4c10c">vectorPart</a>().mag();</div>
 <div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        T k   = acos(q.w / q_m);</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classgeom_1_1_quat.html" title="Quaternion class.">geom::Quat</a>(k * q.<a class="code" href="classgeom_1_1_quat.html#a982d343e7da4c3707e1e10db10d4c10c">vectorPart</a>() / q_m, <a class="code" href="namespacestd.html#a33a9556aaf94463ba9fe13865f8c8f2c">log</a>(q_m));</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="classgeom_1_1_quat.html" title="Quaternion class.">geom::Quat&lt;T&gt;</a>(k * q.<a class="code" href="classgeom_1_1_quat.html#a982d343e7da4c3707e1e10db10d4c10c">vectorPart</a>() / q_m, <a class="code" href="namespacestd.html#a33a9556aaf94463ba9fe13865f8c8f2c">log</a>(q_m));</div>
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    }</div>
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;};</div>
 <div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;</div>
@@ -271,7 +271,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 25 2013 12:29:46 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Aug 27 2013 22:46:09 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

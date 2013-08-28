@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['cap',['cap',['../classgeom_1_1_sampler.html#a98502b00f91e9584bc1f8dffe40c8cdb',1,'geom::Sampler::cap(T half_angle_radians)'],['../classgeom_1_1_sampler.html#a1a79aa95fcc0914bbd136be21c5a1287',1,'geom::Sampler::cap(Vec&lt; T, 3 &gt; dir, T half_angle_radians)']]],
   ['ceil',['ceil',['../namespacestd.html#a940d79ad42b88fd9843ba51a629d40e1',1,'std']]],
   ['center',['center',['../classgeom_1_1_sphere.html#af7758d07cb343a93ef77c390e47eac99',1,'geom::Sphere']]],
   ['clamp',['clamp',['../group__function.html#gafbda519a671cae9db99fef6c4c305eff',1,'geom']]],
