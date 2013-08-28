@@ -45,8 +45,8 @@ Random* getRandom();
  * @param len Count of elements in `objs`.
  * @param rng A random number generator.
  */
-template <typename T> void permute(T objs[], size_t len, Random& rng=*getRandom()){
-    for (size_t i = 0; i < len; i++){
+template <typename T> void permute(T objs[], size_t len, Random& rng=*getRandom()) {
+    for (size_t i = 0; i < len; i++) {
         size_t swapIdx = rng.rand(len - i) + i;
         T tmp = objs[swapIdx];
         objs[swapIdx] = objs[i];
@@ -62,8 +62,8 @@ template <typename T> void permute(T objs[], size_t len, Random& rng=*getRandom(
  * @param objs A list of objects to be permuted.
  * @param rng A random number generator.
  */
-template <typename T> void permute(std::vector<T> &objs, Random& rng=*getRandom()){
-    for (unsigned long i = 0; i < objs.size(); i++){
+template <typename T> void permute(std::vector<T> &objs, Random& rng=*getRandom()) {
+    for (unsigned long i = 0; i < objs.size(); i++) {
         unsigned long swapIdx = rng.rand(objs.size() - i) + i;
         T tmp = objs[swapIdx];
         objs[swapIdx] = objs[i];
@@ -96,7 +96,7 @@ public:
      * Construct a new `Sampler` using the default (non-reentrant) 
      * pseudorandom number generator as the source of random bits.
      */
-    Sampler():rng(getRandom()){
+    Sampler():rng(getRandom()) {
         //do nothing else
     }
     
@@ -105,7 +105,7 @@ public:
      * generator as the source of random bits.
      * @param rng A (pseudo-) random number generator.
      */
-    Sampler(Random *rng):rng(rng){
+    Sampler(Random *rng):rng(rng) {
         //do nothing else
     }
     
@@ -118,10 +118,10 @@ public:
      * @return A random vector of unit length. Distribution is uniform over
      * the surface of the `R`<sup>`N`</sup> sphere.
      */
-    template <index_t N> Vec<T,N> unit(){
+    template <index_t N> Vec<T,N> unit() {
         Vec<T,N> v;
         do {
-            for (index_t i = 0; i < N; i++){
+            for (index_t i = 0; i < N; i++) {
                 // pick a point inside the unit cube
                 v[i] = this->rng->template rand<T>(-1,1);
             }
@@ -136,7 +136,7 @@ public:
      * @return A random vector with length `radius`. Distribution is uniform over
      * the surface of the `R`<sup>`N`</sup> sphere.
      */
-    template <index_t N> inline Vec<T,N> unit(T radius){
+    template <index_t N> inline Vec<T,N> unit(T radius) {
         return unit<N>() * radius;
     }
     
@@ -145,10 +145,10 @@ public:
      * @return A random vector inside the unit sphere. Samples are uniformly distributed
      * throughout the volume.
      */
-    template <index_t N> Vec<T,N> solidball(){
+    template <index_t N> Vec<T,N> solidball() {
         Vec<T,N> v;
         do {
-            for (index_t i = 0; i < N; i++){
+            for (index_t i = 0; i < N; i++) {
                 v[i] = this->rng->template rand<T>(-1,1);
             }
         } while (v.mag2() > 1);
@@ -161,9 +161,9 @@ public:
      * @return A random vector inside the sphere of radius `radius`. Samples
      * are uniformly distributed throughout the volume.
      */
-    template <index_t N> inline Vec<T,N> solidball(T radius){
-        T r = pow(this->rng->template rand<T>(radius), 1.0/N);
-        return solidball<N>() * r;
+    template <index_t N> inline Vec<T,N> solidball(T radius) {
+        T r = pow(this->rng->template rand<T>(), ((T)1)/N);
+        return solidball<N>() * r * radius;
     }
     
     /**
@@ -175,18 +175,18 @@ public:
      * co-centric spheres of differing radius. Samples are uniformly distributed
      * throughout the volume.
      */
-    template <index_t N> Vec<T,N> shell(T minradius, T maxradius){
-        T radius = pow(this->rng->template rand<T>(minradius, maxradius), 1.0/N);
-        return this->unit<N>() * radius;
+    template <index_t N> Vec<T,N> shell(T minradius, T maxradius) {
+        T radius = pow(this->rng->template rand<T>(minradius/maxradius, 1), ((T)1)/N);
+        return this->unit<N>() * radius * maxradius;
     }
     
     /**
      * @tparam N Dimension of generated sample.
      * @return A random vector inside the box `(0, 1)`<sup>`N`</sup>.
      */
-    template <index_t N> Vec<T,N> box(){
+    template <index_t N> Vec<T,N> box() {
         Vec<T,N> v;
-        for (index_t i = 0; i < N; i++){
+        for (index_t i = 0; i < N; i++) {
             v[i] = this->rng->template rand<T>();
         }
         return v;
@@ -198,9 +198,9 @@ public:
      * @param hi Maximum coordinates of sample.
      * @return A random vector inside the rectangle bounded by `lo` and `hi`.
      */
-    template <index_t N> Vec<T,N> box(Vec<T,N> lo, Vec<T,N> hi){
+    template <index_t N> Vec<T,N> box(Vec<T,N> lo, Vec<T,N> hi) {
         Vec<T,N> v;
-        for (index_t i = 0; i < N; i++){  
+        for (index_t i = 0; i < N; i++) {  
             v[i] = this->rng->template rand<T>(lo[i], hi[i]);
         }
         return v;
@@ -211,9 +211,9 @@ public:
      * @param box Region to sample.
      * @return A random vector inside the provided region.
      */
-    template <index_t N> Vec<T,N> box(const Rect<T,N> &box){
+    template <index_t N> Vec<T,N> box(const Rect<T,N> &box) {
         Vec<T,N> v;
-        for (index_t i = 0; i < N; i++){
+        for (index_t i = 0; i < N; i++) {
             v[i] = this->rng->template rand<T>(box.min()[i], box.max()[i]);
         }
         return v;
@@ -227,21 +227,49 @@ public:
     // that way, they could cache certain internal parameters and
     // dump out many samples quickly.
     
-    //TODO: FIX THIS.
-    Vec<T,3> cap(Vec<T,3> dir, T angle, T radius){
-        Vec<T,3> v = Vec<T,3>(radius,
-                              std::asin(this->rng->template rand<T>(2*angle/M_PI) - 1) + M_PI_2, //phi
-                              this->rng->template rand<T>(2*M_PI)).fromSpherical();              //theta
-        Vec<T,3> axis = Vec<T,3>(0,0,1).cross(dir);
-        if (axis.isZero()) return v;
-        // xxx: this is uniform on the cap, but f's up the angle.
-        return v.rotate(axis, std::acos(dir.z/dir.mag()));
+    /**
+     * @param half_angle_radians Angle from the z+ axis to the cap's edge.
+     * @return A random 3D vector of unit length uniformly distributed
+     * over the spherical cap with internal angle `half_angle_radians`.
+     */
+    Vec<T,3> cap(T half_angle_radians) {
+        // we pick a height with uniform probability
+        // because a slice through the sphere with thickness t at height h
+        // has unchanging area regardless of h. 
+        T min_h = 1 - cos(half_angle_radians);
+        T h = this->rng->template rand<T>(min_h, 1);
+        T r = sqrt(1 - h * h);
+        T theta = this->rng->template rand<T>(2*M_PI);
+        return Vec<T,3>(r * cos(theta), r * sin(theta), h);
     }
     
-    inline Vec<T,3> solidcap(Vec<T,3> dir, T angle, T minR, T maxR){
-        T r = this->rng->template rand<T>(minR, maxR);
-        r = cbrt(r); //TODO: cbrt before or after?
-        return this->cap(dir, angle, r);
+    /**
+     * @param dir Direction about which to sample.
+     * @param half_angle_radians Angle from `dir` to sample within.
+     * @return A random 3D vector of unit length uniformly distributed over
+     * the spherical cap with center along direction `dir`, with angle `half_angle_radians`
+     * between the axis and edge of the cap.
+     */
+    inline Vec<T,3> cap(Vec<T,3> dir, T half_angle_radians) {
+        Vec<T,3> v = this->cap(half_angle_radians);
+        Vec<T,3> rotAxis = Vec<T,3>(0,0,1).cross(dir);
+        if (rotAxis.isZero()) return v;
+        return v.rotate(rotAxis, std::acos(dir.z/dir.mag()));
+    }
+    
+    /**
+     * @param dir Direction about which to sample.
+     * @param half_angle_radians Angle from `dir` to sample within.
+     * @param minR Minimum distance of sample from origin.
+     * @param maxR Maximum distance of sample from origin.
+     * @return A random 3D vector inside the cone with axial angle `half_angle_radians`
+     * and between the surfaces of two spheres with radii `minR` and `maxR`, uniformly
+     * distributed throughout the volume.
+     */
+    inline Vec<T,3> solidcap(Vec<T,3> dir, T half_angle_radians, T minR, T maxR) {
+        T r = this->rng->template rand<T>(minR / maxR, 1);
+        r = maxR * cbrt(r);
+        return r * this->cap(dir, half_angle_radians);
     }
     
     /**
@@ -249,12 +277,10 @@ public:
      * @param r Radius of disk to sample.
      * @return A random 3D vector on the surface of a disk of radius `r` and normal `n`.
      */
-    Vec<T,3> oriented_disk(Vec<T,3> normal, T r){
+    Vec<T,3> oriented_disk(Vec<T,3> normal, T r) {
         //choose a point on 2D disk first, then
         //rotate the disk to be aligned with <axis>
         Vec<T,3> raxis = Vec<T,3>(0,0,1).cross(normal);
-        T angle = this->rng->template rand<T>(2*M_PI);
-        T radius = std::sqrt(this->rng->template rand<T>())*r;
         Vec<T,3> disk = this->disk(r).template resized<3>();
         if (raxis.isZero()) return disk;
         return disk.rotate(raxis, std::acos(normal.z/normal.mag()));
@@ -264,7 +290,7 @@ public:
      * @return A random 3D vector inside the axis-aligned box bounded by the provided coordinates.
      */
     inline Vec<T,3> box(T minx, T miny, T minz,
-                        T maxx, T maxy, T maxz){
+                        T maxx, T maxy, T maxz) {
         return Vec<T,3>(
                 this->rng->template rand<T>(minx, maxx),
                 this->rng->template rand<T>(miny, maxy),
@@ -282,7 +308,7 @@ public:
      * @return A random 2D vector inside a circle with radius 1 and centered at the origin.
      * Samples are uniformly distributed across the area of the disk.
      */
-    inline Vec<T,2> disk(){
+    inline Vec<T,2> disk() {
         return solidball<2>();
     }
     
@@ -293,7 +319,7 @@ public:
      * @return A random 2D vector inside a circle with radius `r` and centered at the origin.
      * Samples are uniformly distributed across the area of the disk.
      */
-    inline Vec<T,2> disk(T radius){
+    inline Vec<T,2> disk(T radius) {
         return solidball<2>() * radius;
     }
     
@@ -308,9 +334,9 @@ public:
      * @return A random 2D vector of unit length with heading between `min_radians`
      * and `max_radians`. 
      */
-    inline Vec<T,2> arc(T min_radians, T max_radians){
+    inline Vec<T,2> arc(T min_radians, T max_radians) {
         T angle = this->rng->template rand<T>(min_radians, max_radians);
-        return Vec<T,2>(-cos(angle), sin(angle));
+        return Vec<T,2>(cos(angle), sin(angle));
     }
     
     /**
@@ -329,9 +355,9 @@ public:
      * and heading between `min_radians` and `max_radians`. 
      */
     Vec<T,2> solidarc(T min_radians, T max_radians,
-                      T min_radius,  T max_radius){
+                      T min_radius,  T max_radius) {
         T angle = this->rng->template rand<T>(min_radians, max_radians);
-        T len   = std::sqrt(this->rng->template rand<T>(min_radius, max_radius));
+        T len   = max_radius * std::sqrt(this->rng->template rand<T>(min_radius / max_radius, 1));
         return Vec<T,2>(len,angle).fromPolar();
     }
     
@@ -339,7 +365,7 @@ public:
      * @return A random 2D vector inside the axis-aligned box bounded by the provided coordinates.
      */
     inline Vec<T,2> box(T minx, T miny, 
-                        T maxx, T maxy){
+                        T maxx, T maxy) {
         return Vec<T,2>(this->rng->template rand<T>(minx, maxx),
                         this->rng->template rand<T>(miny, maxy));
     }

@@ -187,7 +187,7 @@ public:
     }
     
     /**
-     * Quaternion exponential. (`e`<sup>`q`</sup>)
+     * Quaternion exponential `e`<sup>`q`</sup>.
      * @return A quaternion representing a rotation about `q.vectorPart()` by
      * angle `|q|` and a scaling by `e`<sup>`q.realPart()`</sup>.
      */
@@ -230,7 +230,7 @@ namespace std {
         T q_m = q.mag();
         T v_m = q.vectorPart().mag();
         T k   = acos(q.w / q_m);
-        return geom::Quat(k * q.vectorPart() / q_m, log(q_m));
+        return geom::Quat<T>(k * q.vectorPart() / q_m, log(q_m));
     }
 };
 
