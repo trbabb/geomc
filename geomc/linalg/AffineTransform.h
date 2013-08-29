@@ -90,7 +90,7 @@ namespace geom {
          * `at1`.
          */
         friend AffineTransform<T,N> operator*(const AffineTransform<T,N> &at1, const AffineTransform<T,N> &at2) {
-            return at1.apply(at2);
+            return at2.apply(at1);
         }
         
         /**
@@ -99,7 +99,8 @@ namespace geom {
          * Assign a transform representing an application of `this` followed by `at`.
          */
         AffineTransform<T,N>& operator*=(const AffineTransform<T,N> &at) {
-            (*this) = at.apply(*this);
+            mat = at.mat * mat;
+            inv = inv * at.inv;
             return (*this);
         }
         
