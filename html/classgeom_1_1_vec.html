@@ -228,7 +228,32 @@ VecCommon&lt; T, N &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"
 class geom::Vec&lt; T, N &gt;</h3>
 
 <p>A tuple of <code>N</code> elements of type <code>T</code>. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<p>Vectors are lightweight and generally perform as well as a bare array of their element type. Geomc makes no type distinction between vectors, points, or normals; the distinction is to be made by the programmer based on usage.</p>
+<p>Declaring a 3-dimensional vector of doubles: </p>
+<pre class="fragment">Vec&lt;double,3&gt; v;
+</pre><p>Basic arithmetic: </p>
+<pre class="fragment">v3 = v1 + v2;
+v3 = v1 - v2;
+v3 = -v1;
+v3 = 2.71 * v1
+</pre><p>Element-wise multiplication: </p>
+<pre class="fragment">v3 = v1 * v2;
+</pre><p>Element access: </p>
+<pre class="fragment">double z = v[2];
+z = v.get(2);
+</pre><p>Access to / iteration over internal array: </p>
+<pre class="fragment">for (double *p = v.begin(); p != v.end(); p++) {
+    double a = f(*p, ...);
+}
+</pre><p>Cross product (3D only): </p>
+<pre class="fragment">v3 = v1 ^ v2;
+</pre><p>Compatibility with std: </p>
+<pre class="fragment">// element-wise operations
+std::min(v1, v2);
+std::max(v1, v2);
+std::abs(v1);
+std::floor(v1);
+std::ceil(v1);</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a82cf7e1c93ee9188fefb25b86fc6c5b0"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1472,7 +1497,7 @@ class geom::Vec&lt; T, N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Aug 27 2013 22:46:09 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 7 2013 17:27:33 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

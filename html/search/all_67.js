@@ -20,5 +20,5 @@ var searchData=
   ['griditerator',['GridIterator',['../classgeom_1_1_grid_iterator.html#a1c7e17865ceff33f7b1c6e3a46323aa4',1,'geom::GridIterator::GridIterator(const Rect&lt; T, N &gt; &amp;r)'],['../classgeom_1_1_grid_iterator.html#a0686435f0a912cc73750977a2d640625',1,'geom::GridIterator::GridIterator(const Rect&lt; T, N &gt; &amp;r, const point_t &amp;p)'],['../classgeom_1_1_grid_iterator.html#ab250abd8a7e2208e674ec8243ed62363',1,'geom::GridIterator::GridIterator(const point_t &amp;lo, const point_t &amp;hi)']]],
   ['griditerator',['GridIterator',['../classgeom_1_1_grid_iterator.html',1,'geom']]],
   ['griditerator_3c_20index_5ft_2c_202_2c_20arrayorder_5flast_5fdim_5fconsecutive_20_3e',['GridIterator&lt; index_t, 2, ARRAYORDER_LAST_DIM_CONSECUTIVE &gt;',['../classgeom_1_1_grid_iterator.html',1,'geom']]],
-  ['geomc_20template_20geometry_20_2f_20linear_20algebra_20library',['GEOMC template geometry / linear algebra library',['../index.html',1,'']]]
+  ['geomc_20library',['GEOMC Library',['../index.html',1,'']]]
 ];

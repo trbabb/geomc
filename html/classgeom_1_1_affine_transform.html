@@ -163,7 +163,15 @@ class geom::AffineTransform&lt; T, N &gt;</h3>
 </pre><p>and so: </p>
 <pre class="fragment">A * B * v
 </pre><p>applies B to v, then A to the result.</p>
-<p>The transform which "undoes" a transform can be obtained with <code>xf.inverse()</code>. Because an <a class="el" href="classgeom_1_1_affine_transform.html" title="Affine transformation class.">AffineTransform</a> internally stores both itself and its inverse, this construction is fairly inexpensive, as are all inverse-application functions. </p>
+<p>The transform which "undoes" a transform can be obtained with <code>xf.inverse()</code>. Because an <a class="el" href="classgeom_1_1_affine_transform.html" title="Affine transformation class.">AffineTransform</a> internally stores both itself and its inverse, this construction is fairly inexpensive, as are all inverse-application functions.</p>
+<h1>Construction</h1>
+<p>Transforms are best constructed using the methods provided by the <a class="el" href="group__linalg.html">linalg module</a>: </p>
+<pre class="fragment">Vec&lt;double,3&gt; v = ... ;
+AffineTransform&lt;double,3&gt; xf = rotation(axis, angle);
+xf *= translation(v);
+xf *= scale(v);
+xf *= transformation(mat3x3);
+</pre><p>These convenient methods will generally be most efficient and robust, especially when constructing the internal inverse transformation matrix needed by <a class="el" href="classgeom_1_1_affine_transform.html" title="Affine transformation class.">AffineTransform</a> objects. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="ab0c280a5ad66f0aa94c0a23764c0333e"></a>
 <div class="memitem">
@@ -574,7 +582,7 @@ class geom::AffineTransform&lt; T, N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Aug 27 2013 22:46:09 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 7 2013 17:27:33 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

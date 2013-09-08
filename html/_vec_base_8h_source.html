@@ -673,7 +673,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;        <span class="keyword">const</span> Vec&lt;T,N&gt; <a class="code" href="group__function.html#gafbda519a671cae9db99fef6c4c305eff">clamp</a>(<span class="keyword">const</span> Vec&lt;T,N&gt; &amp;lo, <span class="keyword">const</span> Vec&lt;T,N&gt; &amp;hi)<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;            Vec&lt;T,N&gt; r;</div>
 <div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;            <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++){</div>
-<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;                r[i]  = <a class="code" href="namespacestd.html#ab72c97cbf1524c7ccd3263d793823616">std::min</a>(<a class="code" href="namespacestd.html#a0ec62350e795e225863d4d372a677df2">std::max</a>(this-&gt;<span class="keyword">get</span>(i), lo), hi);</div>
+<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;                r[i]  = <a class="code" href="namespacestd.html#ab72c97cbf1524c7ccd3263d793823616">std::min</a>(<a class="code" href="namespacestd.html#a0ec62350e795e225863d4d372a677df2">std::max</a>(this-&gt;<span class="keyword">get</span>(i), lo[i]), hi[i]);</div>
 <div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;            }</div>
 <div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;            <span class="keywordflow">return</span> r;</div>
 <div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;        }</div>
@@ -751,7 +751,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Aug 27 2013 22:46:09 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 7 2013 17:27:33 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

@@ -191,6 +191,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a98b9f69c3fd1d9b5d5fa611dc495e29e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a702d5a491ea404edcfa24934a94e70b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_rect.html#a702d5a491ea404edcfa24934a94e70b8">rangeUnion</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, N &gt; &amp;b) const </td></tr>
 <tr class="separator:a702d5a491ea404edcfa24934a94e70b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35312a8fc983330cf4da64a56a116ef2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, N &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_rect.html#a35312a8fc983330cf4da64a56a116ef2">extendTo</a> (<a class="el" href="classgeom_1_1_rect.html#a1cb6b750c9af01a4f8cefeec08aa4ec8">point_t</a> p)</td></tr>
+<tr class="separator:a35312a8fc983330cf4da64a56a116ef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a732ee9d4e9cccfbb36a2a510ca8776"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html#a1cb6b750c9af01a4f8cefeec08aa4ec8">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_rect.html#a6a732ee9d4e9cccfbb36a2a510ca8776">boxFraction</a> (<a class="el" href="classgeom_1_1_rect.html#a1cb6b750c9af01a4f8cefeec08aa4ec8">point_t</a> p) const </td></tr>
 <tr class="separator:a6a732ee9d4e9cccfbb36a2a510ca8776"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c5176d528bb8d66e2648bd109cb8ae7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_hit.html">Hit</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_rect.html#a8c5176d528bb8d66e2648bd109cb8ae7">trace</a> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; &amp;r, <a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> sides) const </td></tr>
@@ -373,6 +375,38 @@ class geom::Rect&lt; T, N &gt;</h3>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if <code>pt</code> is inside this rectangle. Lower extremes are inclusive, while upper are exclusive. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a35312a8fc983330cf4da64a56a116ef2"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt;T,N&gt;&amp; extendTo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classgeom_1_1_rect.html#a1cb6b750c9af01a4f8cefeec08aa4ec8">point_t</a>&#160;</td>
+          <td class="paramname"><em>p</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Extend the upper/lower extremes to <code>p</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>A point. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>this</code>, for convenience. </dd></dl>
 
 </div>
 </div>
@@ -1292,7 +1326,7 @@ class geom::Rect&lt; T, N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Aug 27 2013 22:46:09 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 7 2013 17:27:33 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>
