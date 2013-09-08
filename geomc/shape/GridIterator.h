@@ -121,32 +121,19 @@ private:
     }
     
     inline void increment() { 
-        for (index_t i = dim_first; i != dim_end; i += dim_increment){
-            if (pt[i] >= region.max()[i] - 1) {
-                pt[i] = region.min()[i];
-            } else {
-                pt[i]++;
-                return;
-            }
+        for (index_t i = dim_first; 
+                i != dim_end and ++(pt[i]) >= region.max()[i]; 
+                i += dim_increment) {
+            if (i != dim_last) pt[i] = region.min()[i];
         }
-        // just beyond end.
-        pt[dim_last] = region.max()[dim_last];
     }
     
     inline void decrement() {
-        for (index_t i = dim_first; i != dim_end; i += dim_increment){
-            if (pt[i] <= region.min()[i]) {
-                pt[i] = region.max()[i] - 1;
-            } else {
-                pt[i]--;
-                return;
-            }
+        for (index_t i = dim_first;
+                i != dim_end and --(pt[i]) < region.min()[i];
+                i += dim_increment) {
+            if (i != dim_last) pt[i] = region.max()[i] - 1;
         }
-        // if we don't do this, then we'll wrap around again to max();
-        // we can never leave the region. i == i.end() needs to be
-        // possible, so we allow the pointer to increment/decrement 
-        // beyond the edge.
-        pt[dim_last] = region.min()[dim_last] - 1;
     }
     
     inline void advance(index_t n) {

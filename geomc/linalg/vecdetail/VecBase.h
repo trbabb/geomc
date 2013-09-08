@@ -403,9 +403,9 @@ namespace detail {
          *******************************/
 
         /**
-         * Vector index.
+         * Vector element access.
          * 
-         * @param idx Index of element in this vector.
+         * @param idx Index of element to retrieve.
          * @return A read-only reference to the element at index `idx`.
          */
         inline const T& operator[](index_t idx) const {
@@ -413,9 +413,9 @@ namespace detail {
         }
         
         /**
-         * Vector index.
+         * Vector element access.
          * 
-         * @param idx Index of element in this vector.
+         * @param idx Index of element to retrieve.
          * @return A reference to the element at index `idx`.
          */
         inline T& operator[](index_t idx) {
@@ -634,7 +634,7 @@ namespace detail {
 
         /**
          * @param axis Axis of reflection.
-         * @return This vector reflected across the given axis.
+         * @return A copy of this vector reflected across the given axis.
          */
         const Vec<T,N> reflect(const Vec<T,N> &axis) const {
             axis = axis.unit();
@@ -642,11 +642,11 @@ namespace detail {
         }
 
         /**
-         * Treat `this` as a velocity vector; this function returns
+         * Treat `this` as a velocity vector or incident ray; this function returns
          * the velocity reflected off of a surface with normal `normal`. 
          * Equivalent to `-reflect(normal)`.
          * 
-         * @param normal Normal of "bounce".
+         * @param normal Normal of surface to "bounce" on.
          * @return The "bounced" direction vector.
          */
         const Vec<T,N> bounce(const Vec<T,N> &normal) const {

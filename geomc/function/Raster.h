@@ -89,7 +89,7 @@ public:
     Raster(const grid_t &dims):
             extent(dims),
             size(detail::array_product<M>(PointType<index_t,M>::iterator(dims)) * N),
-            data(new O[size]){
+            data(new O[size]) {
         std::fill(data.get(), data.get()+size, 0);
     }
     
@@ -109,7 +109,7 @@ public:
      * @param val New value of datapoint.
      */
     void set(const grid_t &pt, const sample_t &val) {
-        if (contains(pt)){
+        if (contains(pt)) {
             O *p = data.get() + this->template index<EDGE_CONSTANT>(pt);
             //xxx no worky with dynamic
             *(sample_t*)p = val;
@@ -129,7 +129,7 @@ public:
     void copy(sample_t *dest, const Rect<index_t,M> &region) const {
         GridIterator<index_t,M> i = GridIterator<index_t,M>(region);
         GridIterator<index_t,M> end = i.end();
-        for (; i != end; ++i, ++dest){
+        for (; i != end; ++i, ++dest) {
             *dest = this->template sample_discrete<Edge>(*i);
         }
     }
@@ -145,7 +145,7 @@ public:
     void copy(sample_t *dest, const Rect<index_t,M> &region, EdgeBehavior edge) const {
         GridIterator<index_t,M> i = GridIterator<index_t,M>(region);
         GridIterator<index_t,M> end = i.end();
-        for (; i != end; ++i, ++dest){
+        for (; i != end; ++i, ++dest) {
             *dest = this->sample_discrete(*i, edge);
         }
     }
@@ -174,7 +174,7 @@ public:
     sample_t sample(const coord_t &pt, EdgeBehavior edge=EDGE_CLAMP, Interpolation interp=INTERP_LINEAR) const {
         grid_t gridPt;
         
-        switch (interp){
+        switch (interp) {
         case INTERP_NEAREST:
             gridPt = grid_t(pt + coord_t(0.5));
             return sample_discrete(gridPt, edge);
@@ -215,9 +215,9 @@ public:
     template <EdgeBehavior Edge>
     sample_t sample_discrete(const grid_t &pt) const {
         index_t offs;
-        switch (Edge){
+        switch (Edge) {
             case EDGE_CONSTANT:
-                if (contains(pt)){
+                if (contains(pt)) {
                     offs = this->template index<EDGE_CONSTANT>(pt);
                 } else {
                     return abyss;
@@ -240,7 +240,7 @@ public:
     sample_t sample_discrete(const grid_t &pt, EdgeBehavior edge) const {
         index_t offs;
         
-        switch (edge){
+        switch (edge) {
         case EDGE_CONSTANT:
             if (!contains(pt)) return abyss;
             offs = this->template index<EDGE_CONSTANT>(pt);
@@ -270,7 +270,7 @@ public:
         
         const index_t *p_i = grid_info::iterator(pt);
         const index_t *e_i = grid_info::iterator(extent);
-        for (index_t i = 0; i < M; i++){
+        for (index_t i = 0; i < M; i++) {
             index_t c = p_i[i];
             if (c < 0 or c >= e_i[i]) {
                 return false;
@@ -298,6 +298,13 @@ public:
      */
     inline index_t outputDimension() const {
         return N;
+    }
+    
+    /**
+     * Number of grid sample points in this raster.
+     */
+    inline index_t samplecount() const {
+        return size;
     }
     
 protected:

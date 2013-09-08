@@ -103,7 +103,9 @@
  * correct, run-time dimension checks can be skipped, resulting in slightly faster
  * code. If incorrect, the compiler will error, catching program correctness problems
  * early. Compile-time dimension mismatches / requirement failures will generally
- * manifest as `"template argument deduction/substitution failed"` errors.
+ * manifest as `"template argument deduction/substitution failed"` errors (a more
+ * informative message would be desirable, but c++ does not provide the functionality
+ * to produce one). 
  * 
  * This code will prove its dimension-correctness at compile time:
  * 
@@ -125,8 +127,8 @@
  * Runtime dimension checks will throw either a `DimensionMismatchException` or
  * `NonsquareMatrixException` on failure. Runtime checks can be disabled
  * completely (at the hazard of introducing memory access violations and other bugs)
- * by un-defining `GEOMC_MTX_CHECK_DIMS` in `geomc_defs.h`. A runtime dimension check
- * will occurr if any checked dimension is dynamic.
+ * by un-defining `GEOMC_MTX_CHECK_DIMS` in `geomc_defs.h`. Otherwise, a runtime 
+ * dimension check will occurr if any checked dimension is dynamic.
  * 
  * Operators
  * ---------
@@ -188,7 +190,7 @@
  *     typedef SimpleMatrix<double,3,3> mat3;
  *     mat3 m;
  *     // iterate over the matrix body in row-major order:
- *     for (mat3::iterator i = mat.begin(), i != m.end(); m++) {
+ *     for (mat3::iterator i = m.begin(); i != m.end(); i++) {
  *         *i = ... ;
  *     }
  * 

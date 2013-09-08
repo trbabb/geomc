@@ -19,6 +19,11 @@
 
 namespace geom {
     
+    // fwd decl
+    namespace detail {
+        template <typename M, typename RefType> class MtxColIterator;
+    };
+    
     
 /** @ingroup linalg
  *  @{
@@ -49,7 +54,7 @@ namespace geom {
 template <typename T, index_t N, typename U> 
 inline typename boost::enable_if<boost::is_scalar<U>,Vec<T,N> >::type operator* (const Vec<T,N> &v, U d) {
     Vec<T,N> r;
-    for (index_t i = 0; i < N; i++){
+    for (index_t i = 0; i < N; i++) {
         r[i] = v[i] * d;
     }
     return r;
@@ -69,7 +74,7 @@ inline typename boost::enable_if<boost::is_scalar<U>,Vec<T,N> >::type operator* 
 template <typename T, index_t N, typename U> 
 inline typename boost::enable_if<boost::is_scalar<U>,Vec<T,N> >::type operator* (U d, const Vec<T,N> &v) {
     Vec<T,N> r;
-    for (index_t i = 0; i < N; i++){
+    for (index_t i = 0; i < N; i++) {
         r[i] = d * v[i];
     }
     return r;
@@ -97,7 +102,7 @@ const Vec<T,N> operator* (const Vec<T,N> &a, const Vec<T,N> &b) {
 template <typename T, index_t N, typename U> 
 inline Vec<T,N> operator/ (const Vec<T,N> &v, U d) {
     Vec<T,N> r;
-    for (index_t i = 0; i < N; i++){
+    for (index_t i = 0; i < N; i++) {
         r[i] = v[i] / d;
     }
     return r;
@@ -113,7 +118,7 @@ inline Vec<T,N> operator/ (const Vec<T,N> &v, U d) {
 template <typename T, index_t N, typename U> 
 inline Vec<T,N> operator/ (U d, const Vec<T,N> &v) {
     Vec<T,N> r;
-    for (index_t i = 0; i < N; i++){
+    for (index_t i = 0; i < N; i++) {
         r[i] = d / v[i];
     }
     return r;
@@ -129,7 +134,7 @@ inline Vec<T,N> operator/ (U d, const Vec<T,N> &v) {
 template <typename T, index_t N> 
 const Vec<T,N> operator/ (const Vec<T,N> &a, const Vec<T,N> &b) {
     Vec<T,N> r;
-    for (index_t i = 0; i < N; i++){
+    for (index_t i = 0; i < N; i++) {
         r[i] = a[i] / b[i];
     }
     return r;
@@ -139,7 +144,7 @@ const Vec<T,N> operator/ (const Vec<T,N> &a, const Vec<T,N> &b) {
 template <typename T, index_t N> 
 std::ostream &operator<< (std::ostream &stream, const Vec<T,N> &v) {
     stream << "(";
-    for (index_t i = 0; i < N-1; i++){
+    for (index_t i = 0; i < N-1; i++) {
         stream << v[i] << ", ";
     }
     stream << v[N-1] << ")";
@@ -173,11 +178,14 @@ std::ostream &operator<< (std::ostream &stream, const Vec<T,N> &v) {
  *     v3 = v1 + v2;
  *     v3 = v1 - v2;
  *     v3 = -v1;
- *     v3 = 2.71 * v1
+ *     v3 = 2.71 * v1;
+ *     v3 = 1.61 / v1;
+ *     v3 = v1 / 1.41;
  * 
- * Element-wise multiplication:
+ * Element-wise multiplication / division:
  * 
  *     v3 = v1 * v2;
+ *     v3 = v2 / v1;
  * 
  * Element access:
  * 
@@ -210,20 +218,20 @@ public:
     /**
      * Construct a new vector with all elements set to zero.
      */
-    Vec():detail::VecCommon<T,N>(){}
+    Vec():detail::VecCommon<T,N>() {}
 
     /**
      * Construct a new vector with all elements set to the value of `a`.
      * 
      * @param a Scalar value
      */
-    Vec(T a):detail::VecCommon<T,N>(a){}
+    Vec(T a):detail::VecCommon<T,N>(a) {}
     
     /**
      * Construct a new vector with elements copied from `a`.
      * @param a An array of length `N`. 
      */
-    Vec(T a[N]):detail::VecCommon<T,N>(a){}
+    Vec(T a[N]):detail::VecCommon<T,N>(a) {}
     
     /**
      * Construct a new vector with the elements from `v`, with `a` as the last 
@@ -231,9 +239,18 @@ public:
      * @param v A vector of dimension `N - 1`
      * @param a The value of the last element
      */
-    Vec(Vec<T,N-1> &v, T a){
+    Vec(Vec<T,N-1> &v, T a) {
         std::copy(v.begin(), v.end(), detail::VecBase<T,N>::begin());
         this->get(N-1) = a;
+    }
+    
+    template <typename Mx, typename Ref>
+    Vec(const detail::MtxColIterator<Mx,Ref> &mtx_col) {
+        T *p = this->begin();
+        const index_t n = std::min(N, mtx_col->mtx->cols());
+        for (index_t i = 0; i < n; i++, p++, mtx_col++) {
+            *p = *mtx_col;
+        }
     }
     
 }; /* class Vec */
