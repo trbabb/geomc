@@ -40,6 +40,22 @@ namespace geom {
  * The transform which "undoes" a transform can be obtained with `xf.inverse()`. 
  * Because an AffineTransform internally stores both itself and its inverse, this 
  * construction is fairly inexpensive, as are all inverse-application functions.
+ * 
+ * Construction
+ * ============
+ * 
+ * Transforms are best constructed using the methods provided by the @link linalg 
+ * linalg module@endlink:
+ * 
+ *     Vec<double,3> v = ... ;
+ *     AffineTransform<double,3> xf = rotation(axis, angle);
+ *     xf *= translation(v);
+ *     xf *= scale(v);
+ *     xf *= transformation(mat3x3);
+ * 
+ * These convenient methods will generally be most efficient and robust, especially
+ * when constructing the internal inverse transformation matrix needed by 
+ * AffineTransform objects.
  */
     
     template <typename T, index_t N> class AffineTransform {

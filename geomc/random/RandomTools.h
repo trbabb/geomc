@@ -72,7 +72,8 @@ template <typename T> void permute(std::vector<T> &objs, Random& rng=*getRandom(
 }
 
 /**
- * @brief A class for sampling a variety of regions over `R`<sup>`N`</sup> space.
+ * @brief A class for randomly sampling a variety of regions over 
+ * `R`<sup>`N`</sup> space.
  * 
  * Example
  * -------
@@ -234,8 +235,8 @@ public:
      */
     Vec<T,3> cap(T half_angle_radians) {
         // we pick a height with uniform probability
-        // because a slice through the sphere with thickness t at height h
-        // has unchanging area regardless of h. 
+        // (because a slice through the sphere with thickness t at height h
+        //  has unchanging area regardless of h). 
         T min_h = cos(half_angle_radians);
         T h = this->rng->template rand<T>(min_h, 1);
         T r = sqrt(1 - h * h);

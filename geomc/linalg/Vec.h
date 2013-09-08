@@ -159,6 +159,50 @@ std::ostream &operator<< (std::ostream &stream, const Vec<T,N> &v) {
 /**
  * @ingroup linalg
  * @brief A tuple of `N` elements of type `T`.
+ * 
+ * Vectors are lightweight and generally perform as well as a bare array of their
+ * element type. Geomc makes no type distinction between vectors, points, or normals;
+ * the distinction is to be made by the programmer based on usage.
+ * 
+ * Declaring a 3-dimensional vector of doubles:
+ * 
+ *     Vec<double,3> v;
+ * 
+ * Basic arithmetic:
+ *     
+ *     v3 = v1 + v2;
+ *     v3 = v1 - v2;
+ *     v3 = -v1;
+ *     v3 = 2.71 * v1
+ * 
+ * Element-wise multiplication:
+ * 
+ *     v3 = v1 * v2;
+ * 
+ * Element access:
+ * 
+ *     double z = v[2];
+ *     z = v.get(2);
+ * 
+ * Access to / iteration over internal array:
+ * 
+ *     for (double *p = v.begin(); p != v.end(); p++) {
+ *         double a = f(*p, ...);
+ *     }
+ * 
+ * Cross product (3D only):
+ * 
+ *     v3 = v1 ^ v2;
+ * 
+ * Compatibility with std:
+ * 
+ *     // element-wise operations
+ *     std::min(v1, v2);
+ *     std::max(v1, v2);
+ *     std::abs(v1);
+ *     std::floor(v1);
+ *     std::ceil(v1);
+ * 
  */
 template <typename T, index_t N> class Vec : public detail::VecCommon<T,N> {
 public:

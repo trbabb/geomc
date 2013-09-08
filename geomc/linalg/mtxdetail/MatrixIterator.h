@@ -312,24 +312,5 @@ struct _ImplMtxRowtype {
 }; // namespace detail
 }; // namespace geom
 
-/*
-
-this should all be fixed by the copy-assignment override on the proxyreference object
-
-namespace std {
-
-// when calling swap() on two proxy reference objects, we should swap the referenced items,
-// not the pointers themselves.
-template <typename M, typename T>
-inline void swap(geom::detail::MtxAssignmentProxy<M,T> &a, geom::detail::MtxAssignmentProxy<M,T> &b) {
-    // TODO: xxx: should we actually be overloading the copy constructor? 
-    //            yes we should. right now we have implemented pointer-- not reference-- semantics.
-    T c = a; // different meaning if we use AssignmentProxy (what std::swap does) instead of T!
-    a = b;
-    b = c;
-}
-
-};
-*/
 
 #endif /* MATRIXITERATOR_H_ */

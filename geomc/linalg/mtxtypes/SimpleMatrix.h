@@ -39,7 +39,9 @@ namespace detail {
 }; // end namespace detail
 
 /** @ingroup matrix 
- *  @brief A basic matrix with `M x N` elements.
+ *  @brief A basic matrix with `M x N` elements. 
+ * 
+ *  For more on matrices, see the @link matrix matrix module documentation@endlink.
  */
 template <typename T, index_t M, index_t N>
 class SimpleMatrix : public detail::WriteableMatrixBase<T,M,N, SimpleMatrix<T,M,N> > {

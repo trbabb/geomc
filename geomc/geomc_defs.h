@@ -14,9 +14,22 @@
 #include <algorithm>
 
 /**
- * @mainpage GEOMC template geometry / linear algebra library
+ * @mainpage GEOMC Library
  * 
- * Source available at: http://github.com/trbabb/geomc
+ * Geomc is a C++ template library for geometry and basic linear algebra. It is 
+ * built to provide building blocks for 2D and 3D applications, though generalization
+ * to `N` dimensions is a major design philosophy. 
+ * 
+ * Wherever possible, types are designed to interoperate intuitively via C++
+ * arithmetic operators. Performance, templatization over element types and 
+ * dimension, and minimization of dynamic memory allocations are all emphasized.
+ * 
+ * Source code
+ * ===========
+ * 
+ * Download the geomc headers and source from:
+ * http://github.com/trbabb/geomc
+ * 
  */
 
 // Shall a generic Vec<N> check whether an index is out-of-bounds on every access?
