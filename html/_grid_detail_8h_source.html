@@ -118,7 +118,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">// at least we get the side benefit of explicitly disabling weird enum values for this class.</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">template</span> &lt;index_t N&gt;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">struct </span>_ImplArrayOrder&lt;<a class="code" href="namespacegeom.html#a83ac62dcb1fe341318ed1bd351a8ad83aea994a6dd6bcbf9c72ae0f28f2678a7a" title="Column-major, i.e. &quot;fortran&quot; order, if using (row, col) ordered indexes.">ARRAYORDER_FIRST_DIM_CONSECUTIVE</a>,N&gt; {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">struct </span>_ImplArrayOrder&lt;<a class="code" href="group__shape.html#gga83ac62dcb1fe341318ed1bd351a8ad83aea994a6dd6bcbf9c72ae0f28f2678a7a" title="Array traversal by incrementing the first coordinate in the innermost loop.">ARRAYORDER_FIRST_DIM_CONSECUTIVE</a>,N&gt; {</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> index_t dim_first;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> index_t dim_last;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> index_t dim_end;</div>
@@ -126,7 +126,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;};</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">template</span> &lt;index_t N&gt;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">struct </span>_ImplArrayOrder&lt;<a class="code" href="namespacegeom.html#a83ac62dcb1fe341318ed1bd351a8ad83a76432727d8970b305d22b8da39e7fcf5" title="Row-major, i.e. &quot;C&quot; order, if using (row, col) ordered indexes.">ARRAYORDER_LAST_DIM_CONSECUTIVE</a>,N&gt; {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">struct </span>_ImplArrayOrder&lt;<a class="code" href="group__shape.html#gga83ac62dcb1fe341318ed1bd351a8ad83a76432727d8970b305d22b8da39e7fcf5" title="Array traversal by incrementing the last coordinate in the innermost loop.">ARRAYORDER_LAST_DIM_CONSECUTIVE</a>,N&gt; {</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> index_t dim_first;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> index_t dim_last;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> index_t dim_end;</div>
@@ -168,7 +168,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 7 2013 17:27:33 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Sep 8 2013 18:04:42 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

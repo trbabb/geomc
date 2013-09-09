@@ -339,7 +339,7 @@ class geom::PermutationMatrix&lt; N &gt;</h3>
 <p>Array containing a mapping of source columns to destination columns in a column-permuting operation.</p>
 <p>In other words, given the column-permuting multiplication: </p>
 <pre class="fragment">M * P = D
-</pre><p>return an array <code>a</code> such that column <code>D[a[i]] = M[i]</code>.</p>
+</pre><p>return an array <code>a</code> such that column <code>D</code><sub><code>a[i]</code></sub><code>= M</code><sub><code>i</code></sub>.</p>
 <p>Because of the property that a permutation matrix's inverse is its transpose, this function is equivalent to <code><a class="el" href="classgeom_1_1_permutation_matrix.html#abd3c626926a66635fecd28425c17ed04">getRowSources()</a></code>. </p>
 
 </div>
@@ -367,7 +367,7 @@ class geom::PermutationMatrix&lt; N &gt;</h3>
 <p>Array containing a mapping of destination columns to source columns in a column-permuting operation.</p>
 <p>In other words, given the column-permuting multiplicaton: </p>
 <pre class="fragment">M * P = D
-</pre><p>return an array <code>a</code> such that column <code>D[i] = M[a[i]]</code>. </p>
+</pre><p>return an array <code>a</code> such that column <code>D</code><sub><code>i</code></sub><code>= M</code><sub><code>a[i]</code></sub>. </p>
 
 </div>
 </div>
@@ -394,7 +394,7 @@ class geom::PermutationMatrix&lt; N &gt;</h3>
 <p>Array containing a mapping of source rows to destination rows in a row-permuting operation.</p>
 <p>In other words, given the row-permuting multiplication: </p>
 <pre class="fragment">P * M = D
-</pre><p>return an array <code>a</code> such that row <code>D[a[i]] = M[i]</code>.</p>
+</pre><p>return an array <code>a</code> such that row <code>D</code><sub><code>a[i]</code></sub><code>= M</code><sub><code>i</code></sub>.</p>
 <p>Because of the property that a permutation matrix's inverse is its transpose, this function is equivalent to <code><a class="el" href="classgeom_1_1_permutation_matrix.html#ab41e814f842a7422b4ed18b4181adb2e">getColSources()</a></code>. </p>
 
 </div>
@@ -422,7 +422,7 @@ class geom::PermutationMatrix&lt; N &gt;</h3>
 <p>Array containing a mapping of destination rows to source rows in a row-permuting operation.</p>
 <p>In other words, given the row-permuting multiplicaton: </p>
 <pre class="fragment">P * M = D
-</pre><p>return an array <code>a</code> such that row <code>D[i] = M[a[i]]</code>. </p>
+</pre><p>return an array <code>a</code> such that row <code>D</code><sub><code>i</code></sub><code>= M</code><sub><code>a[i]</code></sub>. </p>
 
 </div>
 </div>
@@ -665,7 +665,7 @@ class geom::PermutationMatrix&lt; N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 7 2013 17:27:33 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Sep 8 2013 18:04:42 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

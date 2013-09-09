@@ -136,6 +136,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gabda4186cdeec7b5b9e7d9c1d843f2410"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:gabda4186cdeec7b5b9e7d9c1d843f2410"><td class="memTemplItemLeft" align="right" valign="top">AffineTransform&lt; T, 2 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gabda4186cdeec7b5b9e7d9c1d843f2410">rotation</a> (T radians)</td></tr>
 <tr class="separator:gabda4186cdeec7b5b9e7d9c1d843f2410"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga820ae75503cb7b5a8650d45800c495cb"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga820ae75503cb7b5a8650d45800c495cb"><td class="memTemplItemLeft" align="right" valign="top">AffineTransform&lt; T, 3 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga820ae75503cb7b5a8650d45800c495cb">direction_align</a> (const Vec&lt; T, 3 &gt; &amp;dir, const Vec&lt; T, 3 &gt; &amp;align_with)</td></tr>
+<tr class="separator:ga820ae75503cb7b5a8650d45800c495cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3f38c29ff149d7a57b5b81f613963177"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
 <tr class="memitem:ga3f38c29ff149d7a57b5b81f613963177"><td class="memTemplItemLeft" align="right" valign="top">AffineTransform&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga3f38c29ff149d7a57b5b81f613963177">translation</a> (const Vec&lt; T, N &gt; &amp;tx)</td></tr>
 <tr class="separator:ga3f38c29ff149d7a57b5b81f613963177"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -185,6 +188,41 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Linear algebra functions and classes. </p>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ga820ae75503cb7b5a8650d45800c495cb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">AffineTransform&lt;T,3&gt; geom::direction_align </td>
+          <td>(</td>
+          <td class="paramtype">const Vec&lt; T, 3 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>dir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Vec&lt; T, 3 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>align_with</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Rotation to align one vector with another. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dir</td><td>Unit direction to be realigned. </td></tr>
+    <tr><td class="paramname">align_with</td><td>Unit direction to align with. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A rotation transform aligning <code>dir</code> with <code>align_with</code>. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ga8334139bfa0627a1ca0fe4c54363267e"></a>
 <div class="memitem">
 <div class="memproto">
@@ -813,7 +851,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 7 2013 17:27:33 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Sep 8 2013 18:04:42 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

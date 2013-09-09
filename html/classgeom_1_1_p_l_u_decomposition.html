@@ -239,10 +239,18 @@ class geom::PLUDecomposition&lt; T, M, N &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Get the lower triangular matrix. </p>
+<p>Get the lower triangular matrix.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">S</td><td>Element type of destination matrix. </td></tr>
+    <tr><td class="paramname">J</td><td>Row dimension of destination matrix. Must be 0 or equal to <code>LU.rows()</code>. </td></tr>
+    <tr><td class="paramname">K</td><td>Column dimension of destination matrix. Must be 0 or equal to <code><a class="el" href="classgeom_1_1_p_l_u_decomposition.html#a070256d0abafc7c932b2b103a4e73394">diagonal()</a></code>.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">into</td><td>A matrix of dimension <code>LU.rows() x <a class="el" href="classgeom_1_1_p_l_u_decomposition.html#a070256d0abafc7c932b2b103a4e73394">diagonal()</a></code> </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">into</td><td>A matrix of dimension <code>LU.rows() x <a class="el" href="classgeom_1_1_p_l_u_decomposition.html#a070256d0abafc7c932b2b103a4e73394">diagonal()</a></code> </td></tr>
   </table>
   </dd>
 </dl>
@@ -366,10 +374,18 @@ class geom::PLUDecomposition&lt; T, M, N &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Get the upper triangular matrix. </p>
+<p>Get the upper triangular matrix.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">S</td><td>Element type of destination matrix. </td></tr>
+    <tr><td class="paramname">J</td><td>Row dimension of destination matrix. Must be 0 or equal to <code><a class="el" href="classgeom_1_1_p_l_u_decomposition.html#a070256d0abafc7c932b2b103a4e73394">diagonal()</a></code>. </td></tr>
+    <tr><td class="paramname">K</td><td>Column dimension of destination matrix. Must be 0 or equal to <code>LU.cols()</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">into</td><td>A matrix of dimension <code><a class="el" href="classgeom_1_1_p_l_u_decomposition.html#a070256d0abafc7c932b2b103a4e73394">diagonal()</a> x LU.cols()</code> </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">into</td><td>A matrix of dimension <code><a class="el" href="classgeom_1_1_p_l_u_decomposition.html#a070256d0abafc7c932b2b103a4e73394">diagonal()</a> x LU.cols()</code> </td></tr>
   </table>
   </dd>
 </dl>
@@ -397,10 +413,18 @@ class geom::PLUDecomposition&lt; T, M, N &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Compute the matrix inverse of the decomposed matrix <code>M</code>. <code>M</code> must be square.</p>
+<p>Compute the matrix inverse of the decomposed matrix <code>M</code>, and copy it to <code>into</code>. <code>M</code> must be square.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">S</td><td>Element type of destination matrix. </td></tr>
+    <tr><td class="paramname">J</td><td>Row dimension of destination matrix. Must be 0 (dynamic) or <code>LU.rows()</code>. </td></tr>
+    <tr><td class="paramname">K</td><td>Column dimension of destination matrix. Must be 0 or <code>LU.cols()</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[out]</td><td class="paramname">into</td><td>A square matrix with dimensions equal to <code>LU</code>. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">into</td><td>Destination matrix; a square matrix with dimensions equal to <code>LU</code>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -494,7 +518,14 @@ class geom::PLUDecomposition&lt; T, M, N &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Solve the linear matrix equation <code>Mx = b</code> for <code>x</code>, where <code>M</code> is the square matrix decomposed herein. </p>
+<p>Solve the linear matrix equation <code>Mx = b</code> for <code>x</code>, where <code>M</code> is the square matrix decomposed herein.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">S</td><td>Element type of destination vector. </td></tr>
+    <tr><td class="paramname">K</td><td>Dimension of destination vector. Must be equal to <code>LU.rows()</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">b</td><td>A vector of length <code>LU.rows()</code>. </td></tr>
@@ -538,7 +569,7 @@ class geom::PLUDecomposition&lt; T, M, N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 7 2013 17:27:33 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Sep 8 2013 18:04:42 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

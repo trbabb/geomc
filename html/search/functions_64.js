@@ -2,6 +2,7 @@ var searchData=
 [
   ['det',['det',['../classgeom_1_1_p_l_u_decomposition.html#a67ccc6cfa482de0cf47a6ff7124a2b81',1,'geom::PLUDecomposition']]],
   ['diagonal',['diagonal',['../classgeom_1_1_p_l_u_decomposition.html#a070256d0abafc7c932b2b103a4e73394',1,'geom::PLUDecomposition']]],
+  ['direction_5falign',['direction_align',['../group__linalg.html#ga820ae75503cb7b5a8650d45800c495cb',1,'geom']]],
   ['directionfromaxisto',['directionFromAxisTo',['../classgeom_1_1_ray_3_01_t_00_013_01_4.html#aaf0d918ded651bb410180cb661cbfd31',1,'geom::Ray&lt; T, 3 &gt;']]],
   ['disk',['disk',['../classgeom_1_1_sampler.html#a09d8545103cce1e7e5126f99d85f0b24',1,'geom::Sampler::disk()'],['../classgeom_1_1_sampler.html#af5d4b97b2e68d18e1b17ab880f430cba',1,'geom::Sampler::disk(T radius)']]],
   ['distance',['distance',['../classgeom_1_1_plane.html#a6f7cafd224e5a68740ff38d741cb04bd',1,'geom::Plane']]],

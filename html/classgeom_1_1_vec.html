@@ -114,6 +114,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac23da312071287351ec3d55c1bc56859"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51d61cdaea7d420d4896f19321160c95"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_vec.html#a51d61cdaea7d420d4896f19321160c95">Vec</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N-1 &gt; &amp;v, T a)</td></tr>
 <tr class="separator:a51d61cdaea7d420d4896f19321160c95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a696315664382e3a7ba7792626216001d"><td class="memTemplParams" colspan="2">template&lt;typename Mx , typename Ref &gt; </td></tr>
+<tr class="memitem:a696315664382e3a7ba7792626216001d"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_vec.html#a696315664382e3a7ba7792626216001d">Vec</a> (detail::MtxColIterator&lt; Mx, Ref &gt; mtx_col)</td></tr>
+<tr class="separator:a696315664382e3a7ba7792626216001d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5d68e8560f8e056790ef95ef41b0ce0"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (index_t idx) const </td></tr>
 <tr class="separator:ad5d68e8560f8e056790ef95ef41b0ce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab3d7e89644303828e6a8be9d8ed1dbaf"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (index_t idx)</td></tr>
@@ -228,16 +231,20 @@ VecCommon&lt; T, N &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"
 class geom::Vec&lt; T, N &gt;</h3>
 
 <p>A tuple of <code>N</code> elements of type <code>T</code>. </p>
-<p>Vectors are lightweight and generally perform as well as a bare array of their element type. Geomc makes no type distinction between vectors, points, or normals; the distinction is to be made by the programmer based on usage.</p>
+<p>Vectors are lightweight and generally perform as well as a bare array of their element type.</p>
+<p>Geomc makes no type distinction between vectors, points, or normals; the distinction is to be made by the programmer based on usage.</p>
 <p>Declaring a 3-dimensional vector of doubles: </p>
 <pre class="fragment">Vec&lt;double,3&gt; v;
 </pre><p>Basic arithmetic: </p>
-<pre class="fragment">v3 = v1 + v2;
-v3 = v1 - v2;
-v3 = -v1;
-v3 = 2.71 * v1
-</pre><p>Element-wise multiplication: </p>
+<pre class="fragment">v3 = v1 + v2;   // addition
+v3 = v1 - v2;   // subtraction
+v3 = -v1;       // negation
+v3 = 2.71 * v1; // scalar mult
+v3 = 1.61 / v1; // scalar div
+v3 = v1 / 1.41; // scalar div
+</pre><p>Element-wise multiplication / division: </p>
 <pre class="fragment">v3 = v1 * v2;
+v3 = v2 / v1;
 </pre><p>Element access: </p>
 <pre class="fragment">double z = v[2];
 z = v.get(2);
@@ -376,6 +383,37 @@ std::ceil(v1);</pre> </div><h2 class="groupheader">Constructor &amp; Destructor 
   <table class="params">
     <tr><td class="paramname">v</td><td>A vector of dimension <code>N - 1</code> </td></tr>
     <tr><td class="paramname">a</td><td>The value of the last element </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a696315664382e3a7ba7792626216001d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a> </td>
+          <td>(</td>
+          <td class="paramtype">detail::MtxColIterator&lt; Mx, Ref &gt;&#160;</td>
+          <td class="paramname"><em>mtx_col</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Construct a vector from a column of a matrix. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mtx_col</td><td>A matrix column iterator (obtained via <code>mtx.col(i)</code>). </td></tr>
   </table>
   </dd>
 </dl>
@@ -539,10 +577,10 @@ std::ceil(v1);</pre> </div><h2 class="groupheader">Constructor &amp; Destructor 
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Treat <code>this</code> as a velocity vector; this function returns the velocity reflected off of a surface with normal <code>normal</code>. Equivalent to <code>-reflect(normal)</code>.</p>
+<p>Treat <code>this</code> as a velocity vector or incident ray; this function returns the velocity reflected off of a surface with normal <code>normal</code>. Equivalent to <code>-reflect(normal)</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">normal</td><td>Normal of "bounce". </td></tr>
+    <tr><td class="paramname">normal</td><td>Normal of surface to "bounce" on. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1219,10 +1257,10 @@ std::ceil(v1);</pre> </div><h2 class="groupheader">Constructor &amp; Destructor 
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Vector index.</p>
+<p>Vector element access.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">idx</td><td>Index of element in this vector. </td></tr>
+    <tr><td class="paramname">idx</td><td>Index of element to retrieve. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1251,10 +1289,10 @@ std::ceil(v1);</pre> </div><h2 class="groupheader">Constructor &amp; Destructor 
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Vector index.</p>
+<p>Vector element access.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">idx</td><td>Index of element in this vector. </td></tr>
+    <tr><td class="paramname">idx</td><td>Index of element to retrieve. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1320,7 +1358,7 @@ std::ceil(v1);</pre> </div><h2 class="groupheader">Constructor &amp; Destructor 
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>This vector reflected across the given axis. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A copy of this vector reflected across the given axis. </dd></dl>
 
 </div>
 </div>
@@ -1497,7 +1535,7 @@ std::ceil(v1);</pre> </div><h2 class="groupheader">Constructor &amp; Destructor 
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 7 2013 17:27:33 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Sep 8 2013 18:04:42 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>
