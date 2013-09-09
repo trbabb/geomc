@@ -15,17 +15,33 @@
  *  @brief Shape-relates functions and classes.
  */
 
+/** @addtogroup shape 
+ *  @{
+ */
+
 namespace geom {
 
     /** 
-     * Array dimension order.
-     * 
-     * Specified in terms of which axes to increment first.
+     * @brief Array traversal order, specified in terms of which axes to increment first.
      */
     enum ArrayOrder {
-        /// Column-major, i.e. "fortran" order, if using (row, col) ordered indexes
+        /**
+         * @brief Array traversal by incrementing the first coordinate in the 
+         * innermost loop. 
+         * 
+         * For matrices, whose coordinates are ordered `(row, col)`, this 
+         * represens column-major (i.e. "fortran") order. If coordinates
+         * are `(x, y, ...)`, then this is row-major order.
+         */
         ARRAYORDER_FIRST_DIM_CONSECUTIVE,
-        /// Row-major, i.e. "C" order, if using (row, col) ordered indexes
+        /**
+         * @brief Array traversal by incrementing the last coordinate in the
+         * innermost loop.
+         * 
+         * For matrices, whose coordinates are ordered `(row, col)`, this
+         * represents row-major (i.e. "C") order. If coordinates are `(x, y, ...)`,
+         * then this is column-major order.
+         */
         ARRAYORDER_LAST_DIM_CONSECUTIVE
     };
     
@@ -64,6 +80,7 @@ namespace geom {
     typedef Rect<float,3> Rect3f;
     typedef Rect<float,4> Rect4f;
 
+    /// @} // addtogroup shape
 };
 
 #endif /* SHAPETYPES_H_ */

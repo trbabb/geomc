@@ -120,7 +120,7 @@ template <typename M, typename RefType>
 class MtxColIterator : public boost::iterator_facade<MtxColIterator<M,RefType>, // self type
                                              typename M::elem_t,                // value (pointed to) type
                                              std::random_access_iterator_tag,   // implemented concepts (all)
-                                             RefType> {                            // reference to elem type (may be a proxy)
+                                             RefType> {                         // reference to elem type (may be a proxy)
     
 public:
     

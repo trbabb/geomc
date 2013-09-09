@@ -75,54 +75,54 @@ namespace geom {
         /**
          * Transformation of a ray.
          */
-        friend Ray<T,N> operator*(const AffineTransform<T,N> &at, Ray<T,N> r) {
-            return Ray<T,N>(at.apply(r.origin), at.applyVector(r.direction));
+        friend Ray<T,N> operator*(const AffineTransform<T,N> &xf, Ray<T,N> r) {
+            return Ray<T,N>(xf.apply(r.origin), xf.applyVector(r.direction));
         }
         
         /**
          * Inverse transformation of a ray (`xf`<sup>`-1`</sup>` * ray`)
          */
-        friend Ray<T,N> operator/(Ray<T,N> r, const AffineTransform<T,N> &at) {
-            return Ray<T,N>(at.applyInverse(r.origin), at.applyInverseVector(r.direction));
+        friend Ray<T,N> operator/(Ray<T,N> r, const AffineTransform<T,N> &xf) {
+            return Ray<T,N>(xf.applyInverse(r.origin), xf.applyInverseVector(r.direction));
         }
         
         /**
          * Transformation of a point.
          */
-        friend Vec<T,N> operator*(const AffineTransform<T,N> &at, Vec<T,N> p) {
-            return at.apply(p);
+        friend Vec<T,N> operator*(const AffineTransform<T,N> &xf, Vec<T,N> p) {
+            return xf.apply(p);
         }
         
         /**
          * Inverse transformation of a point (`xf`<sup>`-1`</sup>` * pt`)
          */
-        friend Vec<T,N> operator/(Vec<T,N> p, const AffineTransform<T,N> &at) {
-            return at.applyInverse(p);
+        friend Vec<T,N> operator/(Vec<T,N> p, const AffineTransform<T,N> &xf) {
+            return xf.applyInverse(p);
         }
         
         /**
          * Concatenation of transforms. 
-         * @return A transformation representing an application of `at2` followed by
-         * `at1`.
+         * @return A transformation representing an application of `xf2` followed by
+         * `xf1`.
          */
-        friend AffineTransform<T,N> operator*(const AffineTransform<T,N> &at1, const AffineTransform<T,N> &at2) {
-            return at2.apply(at1);
+        friend AffineTransform<T,N> operator*(const AffineTransform<T,N> &xf1, const AffineTransform<T,N> &xf2) {
+            return xf2.apply(xf1);
         }
         
         /**
          * Concatenation of transforms.
          * 
-         * Assign a transform representing an application of `this` followed by `at`.
+         * Assign a transform representing an application of `this` followed by `xf`.
          */
-        AffineTransform<T,N>& operator*=(const AffineTransform<T,N> &at) {
-            mat = at.mat * mat;
-            inv = inv * at.inv;
+        AffineTransform<T,N>& operator*=(const AffineTransform<T,N> &xf) {
+            mat = xf.mat * mat;
+            inv = inv * xf.inv;
             return (*this);
         }
         
         #ifdef GEOMC_LINALG_USE_STREAMS
-        friend std::ostream &operator<<(std::ostream &stream, const AffineTransform<T,N> at) {
-            stream << at.mat;
+        friend std::ostream &operator<<(std::ostream &stream, const AffineTransform<T,N> xf) {
+            stream << xf.mat;
             return stream;
         }
         #endif
@@ -207,23 +207,23 @@ namespace geom {
         /**
          * Concatenation of transforms. 
          * @return A transformation representing a transform by `this` followed by
-         * a transform by `at`.
+         * a transform by `xf`.
          */
-        const AffineTransform<T,N> apply(const AffineTransform<T,N> &at) const {
-            AffineTransform atnew;
-            atnew.mat = at.mat * mat;
-            atnew.inv = inv * at.inv;
-            return atnew;
+        const AffineTransform<T,N> apply(const AffineTransform<T,N> &xf) const {
+            AffineTransform xfnew;
+            xfnew.mat = xf.mat * mat;
+            xfnew.inv = inv * xf.inv;
+            return xfnew;
         }
         
         /**
          * @return The inverse transform of `this`.
          */
         const AffineTransform<T,N> inverse() const {
-            AffineTransform atnew;
-            atnew.mat = inv;
-            atnew.inv = mat;
-            return atnew;
+            AffineTransform xfnew;
+            xfnew.mat = inv;
+            xfnew.inv = mat;
+            return xfnew;
         }
         
     }; //end AffineTransform class
@@ -314,6 +314,41 @@ namespace geom {
         rotmat(into, axis.x, axis.y, axis.z, ctr.x, ctr.y, ctr.z, theta);
     }
     
+    // rotation aligning `dir` with `alignWith`.
+    // modified from http://www.iquilezles.org/www/articles/noacos/noacos.htm
+    template <typename T>
+    inline void rotmat_direction_align(SimpleMatrix<T,4,4> *into, 
+                                       const Vec<T,3> &dir, 
+                                       const Vec<T,3> &alignWith) {
+        const Vec<T,3> v = dir ^ alignWith;
+        const T c = dir.dot(alignWith);
+        const T k = (1 - c) / (1 - c * c);
+
+        T m[16] = { v.x*v.x*k + c,     v.y*v.x*k - v.z,    v.z*v.x*k + v.y, 0,
+                    v.x*v.y*k + v.z,   v.y*v.y*k + c,      v.z*v.y*k - v.x, 0, 
+                    v.x*v.z*k - v.y,   v.y*v.z*k + v.x,    v.z*v.z*k + c,   0,
+                    0,                 0,                  0,               1 };
+        
+        std::copy(m, m + 16, into->begin());
+    }
+    
+    
+    template <typename T>
+    inline void rotmat_direction_align(SimpleMatrix<T,3,3> *into, 
+                                       const Vec<T,3> &dir, 
+                                       const Vec<T,3> &alignWith) {
+        const Vec<T,3> v = dir ^ alignWith;
+        const T c = dir.dot(alignWith);
+        const T k = (1 - c) / (1 - c * c);
+
+        T m[9] = { v.x*v.x*k + c,     v.y*v.x*k - v.z,    v.z*v.x*k + v.y,
+                   v.x*v.y*k + v.z,   v.y*v.y*k + c,      v.z*v.y*k - v.x, 
+                   v.x*v.z*k - v.y,   v.y*v.z*k + v.x,    v.z*v.z*k + c};
+        
+        std::copy(m, m + 9, into->begin());
+    }
+    
+    
     // rotation about an arbitrary point (with inverse)
     template <typename T>
     void rotmat(SimpleMatrix<T,4,4> *out_mat, 
@@ -380,11 +415,11 @@ namespace geom {
      */
     template <typename T> 
     AffineTransform<T,3> rotation(Vec<T,3> axis, T radians) {
-        AffineTransform<T,3> atnew;
+        AffineTransform<T,3> xfnew;
         axis = axis.unit();
-        rotmat(&atnew.mat, axis.x, axis.y, axis.z, radians);
-        transpose(&atnew.inv, atnew.mat); //dst,src. Transpose of a rotation matrix is its inverse
-        return atnew;
+        rotmat(&xfnew.mat, axis.x, axis.y, axis.z, radians);
+        transpose(&xfnew.inv, xfnew.mat); //dst,src. Transpose of a rotation matrix is its inverse
+        return xfnew;
     }
     
     /**
@@ -401,13 +436,13 @@ namespace geom {
      */
     template <typename T> 
     AffineTransform<T,3> rotation(Vec<T,3> axis, const Vec<T,3> &center, T radians) {
-        AffineTransform<T,3> atnew;
+        AffineTransform<T,3> xfnew;
         axis = axis.unit();
         
         // this is five times faster than translate * rotate * translate
         // and barely faster (3-6%) than calling rotmat() twice with -radians.
-        rotmat(&atnew.mat, &atnew.inv, axis.x, axis.y, axis.z, center.x, center.y, center.z, radians);
-        return atnew;
+        rotmat(&xfnew.mat, &xfnew.inv, axis.x, axis.y, axis.z, center.x, center.y, center.z, radians);
+        return xfnew;
     }
     
     /**
@@ -417,11 +452,11 @@ namespace geom {
      */
     template <typename T> 
     AffineTransform<T,3> rotation(Quat<T> q) {
-        AffineTransform<T,3> atnew;
+        AffineTransform<T,3> xfnew;
         q = q.unit();
-        rotmat(&atnew.mat, q);
-        transpose(&atnew.inv, atnew.mat);
-        return atnew;
+        rotmat(&xfnew.mat, q);
+        transpose(&xfnew.inv, xfnew.mat);
+        return xfnew;
     }
     
     /**
@@ -431,21 +466,35 @@ namespace geom {
      */
     template <typename T> 
     AffineTransform<T,2> rotation(T radians) {
-        AffineTransform<T,2> atnew;
+        AffineTransform<T,2> xfnew;
         T s = sin(radians);
         T c = cos(radians);
         
-        atnew.mat.set(0,0, c);
-        atnew.mat.set(0,1,-s);
-        atnew.mat.set(1,0, s);
-        atnew.mat.set(1,1, c);
+        xfnew.mat.set(0,0, c);
+        xfnew.mat.set(0,1,-s);
+        xfnew.mat.set(1,0, s);
+        xfnew.mat.set(1,1, c);
         
-        atnew.inv.set(0,0, c);
-        atnew.inv.set(0,1, s);
-        atnew.inv.set(1,0,-s);
-        atnew.inv.set(1,1, c);
+        xfnew.inv.set(0,0, c);
+        xfnew.inv.set(0,1, s);
+        xfnew.inv.set(1,0,-s);
+        xfnew.inv.set(1,1, c);
         
-        return atnew;
+        return xfnew;
+    }
+    
+    /**
+     * Rotation to align one vector with another.
+     * @param dir Unit direction to be realigned.
+     * @param align_with Unit direction to align with.
+     * @return A rotation transform aligning `dir` with `align_with`.
+     */
+    template <typename T>
+    AffineTransform<T,3> direction_align(const Vec<T,3> &dir, const Vec<T,3> &align_with) {
+        AffineTransform<T,3> xfnew; 
+        rotmat_direction_align(&xfnew.mat, dir, align_with);
+        transpose(&xfnew.inv, xfnew.mat);
+        return xfnew;
     }
     
     /**
@@ -453,12 +502,12 @@ namespace geom {
      */
     template <typename T, index_t N> 
     AffineTransform<T,N> translation(const Vec<T,N> &tx) {
-        AffineTransform<T,N> atnew;
+        AffineTransform<T,N> xfnew;
         for (index_t i = 0; i < N; i++) {
-            atnew.mat[i][3] =  tx[i];
-            atnew.inv[i][3] = -tx[i];
+            xfnew.mat[i][3] =  tx[i];
+            xfnew.inv[i][3] = -tx[i];
         }
-        return atnew;
+        return xfnew;
     }
     
     /**
@@ -468,12 +517,12 @@ namespace geom {
      */
     template <typename T, index_t N> 
     AffineTransform<T,N> scale(const Vec<T,N> &sx) {
-        AffineTransform<T,N> atnew;
+        AffineTransform<T,N> xfnew;
         for (index_t i = 0; i < N; i++) {
-            atnew.mat[i][i] = sx[i];
-            atnew.inv[i][i] = 1 / sx[i];
+            xfnew.mat[i][i] = sx[i];
+            xfnew.inv[i][i] = 1 / sx[i];
         }
-        return atnew;
+        return xfnew;
     }
     
     /**
@@ -483,8 +532,8 @@ namespace geom {
      */
     template <typename T, index_t N> 
     AffineTransform<T,N> transformation(const SimpleMatrix<T,N,N> &mat) {
-        SimpleMatrix<T,N,N> m_inv;
-        AffineTransform<T,N> atnew;
+        SimpleMatrix<T,N,N>  m_inv;
+        AffineTransform<T,N> xfnew;
         
         if (N == DYNAMIC_DIM and mat.rows() != mat.cols()) {
             throw NonsquareMatrixException(mat.rows(), mat.cols());
@@ -492,9 +541,9 @@ namespace geom {
         
         inv(&m_inv, mat);
         MatrixRegion region(MatrixCoord::zeros, MatrixCoord(mat.rows()));
-        std::copy(  mat.begin(),   mat.end(), atnew.mat.region(region).first);
-        std::copy(m_inv.begin(), m_inv.end(), atnew.inv.region(region).first);
-        return atnew;
+        std::copy(  mat.begin(),   mat.end(), xfnew.mat.region_begin(region));
+        std::copy(m_inv.begin(), m_inv.end(), xfnew.inv.region_begin(region));
+        return xfnew;
     }
     
     //2D & 3D convenience:

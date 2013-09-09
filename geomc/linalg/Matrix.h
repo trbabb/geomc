@@ -90,6 +90,11 @@
  * choose dynamic matrices for any data much larger than a few elements along 
  * each axis.
  * 
+ * Unless otherwise noted, all operations on matrices are guaranteed to return 
+ * correct results, even if the destination matrix aliases storage of an operand 
+ * (though calling operations in this way may incur a performance and/or memory 
+ * overhead).
+ * 
  * Dimension checking
  * ------------------
  * 
@@ -100,7 +105,8 @@
  * 
  * When matrices with static dimensions are involved, the library can often prove
  * at compile time that an argument's dimensions are correct or incorrect. If proven
- * correct, run-time dimension checks can be skipped, resulting in slightly faster
+ * correct, run-time dimension checks can be skipped (by relying on compiler elimination
+ * of constructs like `if (0) {...}`), resulting in slightly faster
  * code. If incorrect, the compiler will error, catching program correctness problems
  * early. Compile-time dimension mismatches / requirement failures will generally
  * manifest as `"template argument deduction/substitution failed"` errors (a more
@@ -110,10 +116,15 @@
  * This code will prove its dimension-correctness at compile time:
  * 
  *     SimpleMatrix<double, 4, 4> mat4x4;
- *     DiagMatrix<double, 4, 4> dmat4x4;
- *     mat4x4 + dmat4x4  // statically proven; no runtime dimension checking
+ *     DiagMatrix<double, 4, 4>  dmat4x4;
+ *     SimpleMatrix<double, 3, 2> mat3x2;
+ *     mat4x4 + dmat4x4  // statically proven correct; no runtime dimension checking
+ *     mat4x4 + mat3x2   // COMPILE ERROR: "template argument deduction/substitution failed"
  * 
- * These will defer to a runtime check, since the dimensions of some arguments
+ * The last line will produce a compiler error because the matrix dimensions don't 
+ * meet the operator requirements (i.e., the dimensions don't match).
+ * 
+ * This code will defer to a runtime check, since the dimensions of some arguments
  * cannot be deduced from their type:
  * 
  *     SimpleMatrix<double, 4, 4> mat4x4;

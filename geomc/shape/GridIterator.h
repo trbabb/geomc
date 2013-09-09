@@ -19,7 +19,7 @@
 #include <geomc/shape/Rect.h>
 #include <geomc/shape/shapedetail/GridDetail.h>
 
-#define ENABLEINT_TYPE(T) boost::enable_if<boost::is_integral<T>, int>::type
+#define ENABLEINT_TYPE(T) typename boost::enable_if<boost::is_integral<T>, int>::type
 
 namespace geom {
 
@@ -30,18 +30,30 @@ namespace geom {
  * supplied region.                            *
  ***********************************************/
 
-// TODO: should this really be templated over array order? maybe that should be dynamic?
-// TODO: This shit is broken and walking off the edge of things (reverse dimension order only).
-    // edit: cannot reproduce.
 // TODO: somehow add docs for the inherited operators.
     
 /**
  * @ingroup shape
- * @brief Iterator over the points in an N-dimensional grid.
+ * @brief Iterator over the integer points in an N-dimensional grid.
  * 
- * This class accepts an N-dimension region to iterate over, and returns
- * points on the grid within than region. Row- or column-major order may be
- * selected with the ArrayOrder template parameter.
+ * @tparam T Type of coordinate (integer type recommended).
+ * @tparam N Dimension of rectangle to iterate over.
+ * @tparam Order Row- or column-major iteration.
+ * 
+ * This class accepts an N-dimensional rectangular region to iterate over, and returns
+ * points on the unit-spaced grid within than region. Row- or column-major order 
+ * may be selected with the ArrayOrder template parameter.
+ * 
+ * GridIterators support all the standard operators expected of a random-access 
+ * iterator:
+ * 
+ *     GridIterator<int,3> i = ... ;
+ *     Vec<int,3> pt = *i;
+ *     ++i; 
+ *     --i;
+ *     i += 10;
+ *     i1 - i2;
+ *     // etc. 
  */
 template <typename T, index_t N, ArrayOrder Order>
 class GridIterator : public boost::iterator_facade<GridIterator<T,N,Order>,            // self type
@@ -151,8 +163,8 @@ private:
     }
     
     inline index_t distance_to(const GridIterator<T,N,Order> &other) const {
-        // TODO: test this. handling of volume's sign is suspicious.
-        // TODO: handling of reverse case is suspicious too.
+        // TODO: xxx: test this. handling of volume's sign is suspicious.
+        // TODO: xxx: handling of reverse case is suspicious too.
         point_t dim  = region.getDimensions(); 
         point_t jump = other.pt - pt;
         index_t dist = 0;

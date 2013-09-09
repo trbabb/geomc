@@ -166,8 +166,10 @@ std::ostream &operator<< (std::ostream &stream, const Vec<T,N> &v) {
  * @brief A tuple of `N` elements of type `T`.
  * 
  * Vectors are lightweight and generally perform as well as a bare array of their
- * element type. Geomc makes no type distinction between vectors, points, or normals;
- * the distinction is to be made by the programmer based on usage.
+ * element type. 
+ * 
+ * Geomc makes no type distinction between vectors, points, or normals; the 
+ * distinction is to be made by the programmer based on usage.
  * 
  * Declaring a 3-dimensional vector of doubles:
  * 
@@ -175,12 +177,12 @@ std::ostream &operator<< (std::ostream &stream, const Vec<T,N> &v) {
  * 
  * Basic arithmetic:
  *     
- *     v3 = v1 + v2;
- *     v3 = v1 - v2;
- *     v3 = -v1;
- *     v3 = 2.71 * v1;
- *     v3 = 1.61 / v1;
- *     v3 = v1 / 1.41;
+ *     v3 = v1 + v2;   // addition
+ *     v3 = v1 - v2;   // subtraction
+ *     v3 = -v1;       // negation
+ *     v3 = 2.71 * v1; // scalar mult
+ *     v3 = 1.61 / v1; // scalar div
+ *     v3 = v1 / 1.41; // scalar div
  * 
  * Element-wise multiplication / division:
  * 
@@ -244,8 +246,12 @@ public:
         this->get(N-1) = a;
     }
     
+    /**
+     * Construct a vector from a column of a matrix.
+     * @param mtx_col A matrix column iterator (obtained via `mtx.col(i)`).
+     */
     template <typename Mx, typename Ref>
-    Vec(const detail::MtxColIterator<Mx,Ref> &mtx_col) {
+    Vec(detail::MtxColIterator<Mx,Ref> mtx_col) {
         T *p = this->begin();
         const index_t n = std::min(N, mtx_col->mtx->cols());
         for (index_t i = 0; i < n; i++, p++, mtx_col++) {

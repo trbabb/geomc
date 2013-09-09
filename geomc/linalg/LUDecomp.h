@@ -195,7 +195,12 @@ public:
     
     /**
      * Get the lower triangular matrix.
-     * @param into A matrix of dimension `LU.rows() x diagonal()`
+     * 
+     * @tparam S Element type of destination matrix.
+     * @tparam J Row dimension of destination matrix. Must be 0 or equal to `LU.rows()`.
+     * @tparam K Column dimension of destination matrix. Must be 0 or equal to `diagonal()`.
+     * 
+     * @param [out] into A matrix of dimension `LU.rows() x diagonal()`
      */
 #ifdef PARSING_DOXYGEN
     template <typename S, index_t J, index_t K>
@@ -222,7 +227,12 @@ public:
     
     /**
      * Get the upper triangular matrix.
-     * @param into A matrix of dimension `diagonal() x LU.cols()`
+     * 
+     * @tparam S Element type of destination matrix.
+     * @tparam J Row dimension of destination matrix. Must be 0 or equal to `diagonal()`.
+     * @tparam K Column dimension of destination matrix. Must be 0 or equal to `LU.cols()`.
+     * 
+     * @param [out] into A matrix of dimension `diagonal() x LU.cols()`
      */
 #ifdef PARSING_DOXYGEN
     template <typename S, index_t J, index_t K>
@@ -281,6 +291,10 @@ public:
     /**
      * Solve the linear matrix equation `Mx = b` for `x`, where `M` is the
      * square matrix decomposed herein.
+     * 
+     * @tparam S Element type of destination vector.
+     * @tparam K Dimension of destination vector. Must be equal to `LU.rows()`.
+     * 
      * @param b A vector of length `LU.rows()`.
      * @return The solution vector `x` to `Mx = b`.
      */
@@ -301,9 +315,15 @@ public:
     }
     
     /**
-     * Compute the matrix inverse of the decomposed matrix `M`. `M` must be square.
+     * Compute the matrix inverse of the decomposed matrix `M`, and copy it
+     * to `into`. `M` must be square.
+     * 
+     * @tparam S Element type of destination matrix.
+     * @tparam J Row dimension of destination matrix. Must be 0 (dynamic) or `LU.rows()`.
+     * @tparam K Column dimension of destination matrix. Must be 0 or `LU.cols()`.
      *  
-     * @param [out] into A square matrix with dimensions equal to `LU`.
+     * @param [out] into Destination matrix; a square matrix with dimensions 
+     * equal to `LU`.
      */
     template <typename S, index_t J, index_t K>
     void inverse(SimpleMatrix<S,J,K> *into) const {

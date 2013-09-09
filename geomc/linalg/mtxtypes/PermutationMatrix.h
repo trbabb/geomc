@@ -128,7 +128,7 @@ public:
      * 
      *     P * M = D
      * 
-     * return an array `a` such that row `D[i] = M[a[i]]`. 
+     * return an array `a` such that row `D`<sub>`i`</sub>` = M`<sub>`a[i]`</sub>. 
      */
     inline const index_t *getRowSources() const {
         return parent_t::getSrcData();
@@ -142,7 +142,7 @@ public:
      * 
      *     M * P = D
      * 
-     * return an array `a` such that column `D[i] = M[a[i]]`. 
+     * return an array `a` such that column `D`<sub>`i`</sub>` = M`<sub>`a[i]`</sub>. 
      */
     inline const index_t *getColSources() const {
         return parent_t::getDstData();
@@ -176,7 +176,7 @@ public:
      * 
      *     M * P = D
      * 
-     * return an array `a` such that column `D[a[i]] = M[i]`.
+     * return an array `a` such that column `D`<sub>`a[i]`</sub>` = M`<sub>`i`</sub>.
      * 
      * Because of the property that a permutation matrix's inverse is its 
      * transpose, this function is equivalent to `getRowSources()`.
@@ -193,7 +193,7 @@ public:
      * 
      *     P * M = D
      * 
-     * return an array `a` such that row `D[a[i]] = M[i]`.
+     * return an array `a` such that row `D`<sub>`a[i]`</sub>` = M`<sub>`i`</sub>.
      * 
      * Because of the property that a permutation matrix's inverse is its 
      * transpose, this function is equivalent to `getColSources()`.

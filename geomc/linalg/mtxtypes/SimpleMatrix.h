@@ -41,6 +41,9 @@ namespace detail {
 /** @ingroup matrix 
  *  @brief A basic matrix with `M x N` elements. 
  * 
+ * If `M` or `N` are 0, the matrix has runtime-chosen size, and all copy-constructed
+ * duplicates of this matrix should be treated as references to a common array.
+ * 
  *  For more on matrices, see the @link matrix matrix module documentation@endlink.
  */
 template <typename T, index_t M, index_t N>

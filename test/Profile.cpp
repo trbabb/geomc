@@ -402,6 +402,7 @@ template <typename T, index_t M, index_t N> void test_mtxArithmetic(index_t rows
 
 template <index_t N> void test_permuteMatrix() {
 	PermutationMatrix<N> p;
+    PermutationMatrix<N> p1;
 	Vec<double,N> v;
 	Random *rng = getRandom();
 	for (index_t i = 0; i < N; i++) {
@@ -409,16 +410,21 @@ template <index_t N> void test_permuteMatrix() {
 	}
 	for (index_t i = 0; i < N*2; i++) {
 		p.swap_rows(rng->rand(N), rng->rand(N));
+        p1.swap_rows(rng->rand(N), rng->rand(N));
 	}
 	SimpleMatrix<double,N,N> m;
 	SimpleMatrix<double,N,N> minv;
-	std::copy(p.begin(), p.end(), m.begin());
+    SimpleMatrix<double,N,N> m_p1;
+	std::copy(p.begin(), p.end(),  m.begin());
+    std::copy(p1.begin(), p1.end(),  m_p1.begin());
 	inv(&minv, p);
 	cout << "v: " << v << endl;
 	cout << "P: " << endl << p << endl;
 	cout << "P*v: " << (p * v) << endl;
 	cout << "M: " << endl << m << endl;
 	cout << "M*v: " << (m * v) << endl;
+    cout << "P * P1: " << (p * p1) << endl;
+    cout << "P * P1 correct? " << ((p * p1) == (m * m_p1)) << endl;
 	cout << "P^-1: " << endl << minv << endl;
 }
 

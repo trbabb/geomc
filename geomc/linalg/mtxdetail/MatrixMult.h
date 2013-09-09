@@ -19,7 +19,27 @@ namespace geom {
 namespace detail {
     
 // Mt is a type
-#define REQUIRE_MATRIX_T(Mt) typename boost::enable_if<boost::is_base_of<geom::detail::MatrixBase<typename Mt::elem_t, Mt::ROWDIM, Mt::COLDIM, Mt>, Mt> >::type
+#define REQUIRE_MATRIX_T(Mt) \
+    typename boost::enable_if< \
+        boost::is_base_of< \
+            geom::detail::MatrixBase<typename Mt::elem_t, Mt::ROWDIM, Mt::COLDIM, Mt>, \
+            Mt> \
+        >::type
+
+// This is necessary because c++ gets confused by all the different matrix mult 
+// implementations which involve permutation matrixes:
+#define REQUIRE_NONPERMUTE_MATRIX_T(Mt) \
+    typename boost::enable_if_c< \
+        boost::is_base_of< \
+            geom::detail::MatrixBase<typename Mt::elem_t, Mt::ROWDIM, Mt::COLDIM, Mt>, \
+            Mt \
+        >::value and not \
+        boost::is_base_of< \
+            geom::PermutationMatrix<Mt::ROWDIM>, \
+            Mt \
+        >::value \
+    >::type
+
 
 /************************************
  * Matrix mult implementations      *
@@ -174,7 +194,7 @@ public:
 // (row x col) * (col x col) = (row x col)
 // xxx this might fail.
 template <typename Mat, index_t N>
-class _ImplMtxMul<Mat, geom::PermutationMatrix<N>, REQUIRE_MATRIX_T(Mat)> {
+class _ImplMtxMul<Mat, geom::PermutationMatrix<N>, REQUIRE_NONPERMUTE_MATRIX_T(Mat)> {
 public:
     typedef typename Mat::elem_t T;
     static const index_t M = Mat::ROWDIM;
@@ -196,7 +216,7 @@ public:
 // permutation * mtx
 // (row x row) * (row x col) = (row x col)
 template <typename Mat, index_t M>
-class _ImplMtxMul<geom::PermutationMatrix<M>, Mat, REQUIRE_MATRIX_T(Mat)> {
+class _ImplMtxMul<geom::PermutationMatrix<M>, Mat, REQUIRE_NONPERMUTE_MATRIX_T(Mat)> {
 public:
     typedef typename Mat::elem_t T;
     
@@ -209,6 +229,44 @@ public:
         for (index_t row = 0; row < a.rows(); row++) {
             index_t src_row = p[row];
             std::copy(b.row(src_row), b.row(src_row) + cols, d->row(row));
+        }
+    }
+};
+
+template <index_t M, index_t N>
+class _ImplMtxMul<geom::PermutationMatrix<M>, geom::PermutationMatrix<N>, REQUIRE_MATRIX_T(geom::PermutationMatrix<M>)> { // require is not "neccessary", but helps disambiguate template solving
+public:
+    
+    typedef geom::PermutationMatrix<M> Ma;
+    typedef geom::PermutationMatrix<N> Mb;
+    typedef geom::PermutationMatrix<((M < N) ? M : N)> return_t;
+    
+    template <typename Md>
+    static void mul(Md *d, const Ma &a, const Ma &b) {
+        const index_t *d_a = a.getRowDestinations();
+        const index_t *d_b = b.getRowDestinations();
+        
+        d->setZero();
+        for (index_t i = 0; i < a.rows(); i++) {
+            d->set(i, d_a[d_b[i]], 1);
+        }
+    }
+    
+    template <index_t K>
+    static void mul(geom::PermutationMatrix<K> *d, const Ma &a, const Mb &b) {
+        const index_t *s_a = a.getRowSources();
+        const index_t *s_b = b.getRowSources();
+        const index_t *d_a = a.getRowDestinations();
+        const index_t *d_b = b.getRowDestinations();
+        
+        index_t *d_rd = d->getSrcData();
+        index_t *d_cd = d->getDstData();
+        
+        // the best way to understand this is to draw a picture with little 
+        // arrows and then look at it.
+        for (index_t i = 0; i < a.rows(); i++) {
+            d_rd[i] = s_b[s_a[i]];
+            d_cd[i] = d_a[d_b[i]];
         }
     }
 };
@@ -258,20 +316,6 @@ public:
         for (index_t i = 0; i < N1; i++) {
             d->set(0, i, a[p[i]]);
         }
-    }
-};
-
-// TODO: one of these may be dynamic.
-template <index_t N>
-class _ImplMtxMul<geom::PermutationMatrix<N>, geom::PermutationMatrix<N>, void> {
-public:
-    
-    typedef geom::PermutationMatrix<N> return_t;
-    typedef geom::PermutationMatrix<N> M;
-    
-    static void mul(M *d, const M &a, const M &b) {
-        //xxx: DEBUG DEBUG: DO THIS
-        //TODO: this.
     }
 };
 

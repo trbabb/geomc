@@ -39,7 +39,7 @@ namespace geom {
     
 /** @brief Ray hit testing flags
  * 
- * May be bitwise-combined (i.e. `HIT_BOTH = HIT_FRONT & HIT_BACK`)
+ * May be bitwise-combined (i.e. `HIT_BOTH = HIT_FRONT | HIT_BACK`)
  */
 enum HitSide {
     /// Ray-test front-facing surfaces
