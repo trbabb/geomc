@@ -10,6 +10,7 @@
 
 #include <boost/utility/enable_if.hpp>
 #include <geomc/linalg/mtxdetail/MatrixBase.h>
+#include <geomc/linalg/mtxdetail/MatrixCopy.h>
 
 // TODO: templatize across row/col-major layout.
 //       ...or just make a whole new class.
@@ -40,6 +41,10 @@ namespace detail {
 
 /** @ingroup matrix 
  *  @brief A basic matrix with `M x N` elements. 
+ * 
+ * @tparam T Element type.
+ * @tparam M Row dimension.
+ * @tparam N Column dimension.
  * 
  * If `M` or `N` are 0, the matrix has runtime-chosen size, and all copy-constructed
  * duplicates of this matrix should be treated as references to a common array.
@@ -85,18 +90,39 @@ public:
      * @param ncols Number of columns in the matrix
      */
 #ifdef PARSING_DOXYGEN
-    SimpleMatrix(index_t nrows, index_t ncols) {}
-#endif
+    explicit SimpleMatrix(index_t nrows, index_t ncols) {}
+#else
     // I would not expect this trickery to work, but it does!
     // this mandates row, column arguments for dynamic matrices.
     // arguments are basically ignored if matrix is static 
-    SimpleMatrix(index_t nrows=detail::DefinedIf<M != DYNAMIC_DIM, M>::value, 
+    explicit SimpleMatrix(index_t nrows=detail::DefinedIf<M != DYNAMIC_DIM, M>::value, 
                  index_t ncols=detail::DefinedIf<N != DYNAMIC_DIM, N>::value) : 
                      data(nrows * ncols) {
         detail::Dimension<M>::set(n_rows, nrows);
         detail::Dimension<N>::set(n_cols, ncols);
         setIdentity(); 
     }
+#endif
+    
+    /**
+     * Construct and initialize this matrix with the contents of another.
+     * @tparam Mx A matrix type with agreeing dimension. 
+     * @param mtx Matrix containing source elements.
+     */
+#ifdef PARSING_DOXYGEN
+    template <typename Mx>
+    SimpleMatrix(const Mx &mtx) {}
+#else
+    template <typename Mx>
+    SimpleMatrix(const Mx &mtx,
+                 typename boost::enable_if_c<
+                    (detail::LinalgDimensionMatch<SimpleMatrix<T,M,N>, Mx>::val),
+                    void*>::type dummy=0) {
+        detail::Dimension<M>::set(n_rows, mtx.rows());
+        detail::Dimension<N>::set(n_cols, mtx.cols());
+        detail::_mtxcopy(this, mtx);
+    }
+#endif
     
     /**
      * @return Number of rows in the matrix.

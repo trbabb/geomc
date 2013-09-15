@@ -268,6 +268,7 @@
 #include <geomc/linalg/mtxtypes/MatrixHandle.h>
 #include <geomc/linalg/mtxtypes/PermutationMatrix.h>
 
+#include <geomc/linalg/mtxdetail/MatrixCopy.h>
 #include <geomc/linalg/mtxdetail/MatrixFunctionImpl.h>
 #include <geomc/linalg/mtxdetail/MatrixMult.h>
 #include <geomc/linalg/mtxdetail/MatrixInv.h>
@@ -338,74 +339,6 @@ inline mtx_aliases_storage(const Ma &a, const Mb &b) {
 template <typename T, index_t N>
 inline bool mtx_aliases_storage(const Vec<T,N> &a, const Vec<T,N> &b) {
     return a.begin() == b.begin();
-}
-
-/*********************************
- * Matrix copy                   *
- *********************************/
-
-/** 
- * Copy the contents of `src` into `into`. This function may be optimized to 
- * perform better than running `std::copy()` on some matrix types' iterators. It
- * will also succeed in certain situations where `std::copy()` would fail (for
- * example when copying the contents of a diagonal matrix to another, any attempt
- * to write off the diagonal will throw an exception).
- * 
- * `Md` and `Ms` must be matrix or vector types whose dimensions match.
- * If the dimensions can be determined to mismatch at compile-time, the program
- * is considered invalid and the compilation will fail. If either object has dynamic
- * size, the check will be deferred to runtime, throwing a `DimensionMismatchException`
- * if the check fails.
- * 
- * @param [out] into A writeable matrix with dimensions matching `src`'s.
- * @param [in]  src  A matrix object.
- */
-#ifdef PARSING_DOXYGEN
-template <typename Md, typename Ms> void mtxcopy(Md *into, const Ms &src) {}
-#endif
-template <typename Md, typename Ms>
-void mtxcopy(Md *into, const Ms &src,
-                typename boost::enable_if_c<
-                     detail::LinalgDimensionMatch<Md,Ms>::val and
-                     (detail::_ImplVecOrient<Md,Ms>::orient != detail::ORIENT_VEC_UNKNOWN), 
-                     int>::type dummy=0) {
-#ifdef GEOMC_MTX_CHECK_DIMS
-    typedef detail::_ImplMtxAdaptor<Md, detail::_ImplVecOrient<Md,Ms>::orient> D;
-    typedef detail::_ImplMtxAdaptor<Ms, detail::_ImplVecOrient<Md,Ms>::orient> S;
-    
-    // runtime dimension match check
-    if ((D::ROWDIM * S::ROWDIM == DYNAMIC_DIM and D::rows(*into) != S::rows(*into)) or
-        (D::COLDIM * S::COLDIM == DYNAMIC_DIM and D::cols(*into) != S::cols(*into))) {
-        throw DimensionMismatchException(D::rows(*into), D::cols(*into), S::rows(src), S::cols(src));
-    }
-#endif
-    // todo: check mem aliasing?
-    detail::_mtxcopy(into, src);
-}
-
-
-// unknown vector orientation case (dynamic matrix <-> vector) 
-template <typename Md, typename Ms>
-void mtxcopy(Md *into, const Ms &src,
-                 typename boost::enable_if_c<
-                    detail::_ImplVecOrient<Md,Ms>::orient == detail::ORIENT_VEC_UNKNOWN, 
-                 int>::type dummy=0) {
-#ifdef GEOMC_MTX_CHECK_DIMS
-    typedef detail::_ImplMtxAdaptor<Md, detail::ORIENT_VEC_COL> Dc;
-    typedef detail::_ImplMtxAdaptor<Md, detail::ORIENT_VEC_ROW> Dr;
-    typedef detail::_ImplMtxAdaptor<Ms, detail::ORIENT_VEC_COL> Sc;
-    typedef detail::_ImplMtxAdaptor<Ms, detail::ORIENT_VEC_ROW> Sr;
-    
-    // if a dimension match can be made with either orientation, proceed with the copy
-    if ((Dc::rows(*into) == Sc::rows(src) and Dc::cols(*into) == Sc::cols(src)) or 
-        (Dr::rows(*into) == Sr::rows(src) and Dr::cols(*into) == Sr::cols(src))) {
-        detail::_mtxcopy(into, src);
-    } else {
-        throw DimensionMismatchException(Dc::rows(*into), Dc::cols(*into), Sc::rows(src), Sc::cols(src));
-    }
-#else
-    detail::_mtxcopy(into, src);
-#endif
 }
 
 

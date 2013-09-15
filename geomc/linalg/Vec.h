@@ -213,6 +213,12 @@ std::ostream &operator<< (std::ostream &stream, const Vec<T,N> &v) {
  *     std::floor(v1);
  *     std::ceil(v1);
  * 
+ * Resizing:
+ *     
+ *     Vec<double,3> v3d;
+ *     Vec<double,2> v2d = v3d.resized<2>(); // truncate the last coordinate
+ *     Vec<double,4> v4d = v3d.resized<4>(); // last coordinate is zero
+ * 
  */
 template <typename T, index_t N> class Vec : public detail::VecCommon<T,N> {
 public:

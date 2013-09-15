@@ -31,6 +31,21 @@
  * 
  *     float f = getRandom()->rand<float>();
  * 
+ * A note about random ranges
+ * --------------------------
+ * 
+ * For integer random numbers in a range, it is far preferable to use the provided
+ * methods, rather than the "standard" `rand() % rangeMax` strategy, which is not 
+ * a uniform distribution, most severely when `rangeMax` is a large fraction of 
+ * `RAND_MAX`. 
+ * 
+ * The provided methods of generating floating point numbers are also generally 
+ * superior to the (again) "standard" method of calculating `rand() / RAND_MAX`,
+ * which excludes about 93% of representable numbers between 0 and 1, particularly
+ * in the regions near 0. `geom::Random::rand(float)` addresses this by carefully
+ * choosing the bits of the generated number explicitly. The method is fast, makes
+ * efficient use of the supplied entropy, and produces a uniform distribution. (Note
+ * that C++11's `<random>` library does *not* address this issue).
  * 
  */
 

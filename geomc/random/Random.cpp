@@ -328,6 +328,9 @@ template <> double Random::rand<double>(double hi){
  * Full Range Specializations     *
  **********************************/
 
+// todo: some of these will fail for ranges crossing zero where lo - hi is
+// greater than INT_MAX.
+
 /**
  * @param lo Lower bound of random number.
  * @param hi Upper bound of random number.

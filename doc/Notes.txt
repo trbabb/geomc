@@ -11,7 +11,7 @@ MATRIX:
   - nicer constructors for matrix, particularly simplematrix.
     - diagonal from a vector
     - diagonal from a number?
-    - from another matrix.
+    x from another matrix.
   - conversion/assignment operator to SimpleMatrix
   - make a type_traits header for matrix operations
     - use this to clean up the defs of some of the operators

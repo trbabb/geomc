@@ -22,8 +22,17 @@ namespace detail {
     
 }; // end namespace detail
 
+/**
+ * @addtogroup matrix
+ * @{
+ */
+
 /** @ingroup matrix 
- * @brief A matrix with nonzero elements only along the main diagonal.
+ *  @brief A matrix with nonzero elements only along the main diagonal.
+ * 
+ * @tparam T Element type.
+ * @tparam M Row dimension.
+ * @tparam N Column dimension.
  * 
  * Storage for `DiagMatrix`es is O(n), and operations with diagonal matrices 
  * usually benefit from the O(n) algorithmic improvement associated with their 
@@ -42,7 +51,15 @@ public:
     
     using detail::WriteableMatrixBase<T,M,N, DiagMatrix<T,M,N> >::get;
     
-    DiagMatrix(index_t nrows=detail::DefinedIf<M != DYNAMIC_DIM, M>::value, 
+    /**
+     * Construct a new diagonal matrix.
+     * @param nrows Number of rows (ignored / not required if statically sized).
+     * @param ncols Number of columns (ignored / not required if statically sized).
+     */
+#ifdef PARSING_DOXYGEN
+    explicit DiagMatrix(index_t nrows, index_t ncols) {}
+#else
+    explicit DiagMatrix(index_t nrows=detail::DefinedIf<M != DYNAMIC_DIM, M>::value, 
                index_t ncols=detail::DefinedIf<N != DYNAMIC_DIM, N>::value) :
                      diag(nrows < ncols ? nrows : ncols),
                      data(diag) {
@@ -50,6 +67,25 @@ public:
         detail::Dimension<N>::set(n_cols, ncols);
         setIdentity(); 
     }
+#endif
+    
+    /**
+     * Construct a new `n` x `n` diagonal matrix, with diagonal elements copied 
+     * from `src`.
+     * @param src Array containing diagonal elements.
+     * @param n Number of elements in `src`. Ignored / not required if statically sized.
+     */
+#ifdef PARSING_DOXYGEN
+    DiagMatrix(const T src[], index_t n) {}
+#else
+    DiagMatrix(const T src[], 
+               index_t n=detail::DefinedIf<M * N != DYNAMIC_DIM, (M < N ? M : N)>::value) :
+                   diag(n) {
+        detail::Dimension<M>::set(n_rows, n);
+        detail::Dimension<N>::set(n_cols, n);
+        std::copy(src, src + n, data.get());
+    }
+#endif
     
     inline index_t rows() const {
         return detail::Dimension<M>::value(n_rows);
@@ -125,6 +161,8 @@ public:
         return 1;
     }
 };
+
+/// @} //addtogroup matrix
 
 }; // end namespace geom
 

@@ -782,7 +782,8 @@ namespace detail {
         }
         
         /**
-         * Resize a vector.
+         * Resized copy of a vector.
+         * @tparam M Dimension of new vector.
          * @return A new vector with size `M`. If `M` is largner than `N`, the
          * new elements will be set to zero.
          */

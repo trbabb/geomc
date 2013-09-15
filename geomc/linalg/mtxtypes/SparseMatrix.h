@@ -10,7 +10,7 @@
 
 #include <boost/config.hpp>
 
-#ifdef BOOST_NO_CXX11_HDR_UNORDERED_MAP 
+#if __cplusplus <= 199711L
     #include <tr1/unordered_map>
 #else
     #include <unordered_map>
@@ -44,7 +44,7 @@ namespace detail {
 template <typename T>
 class SparseMatrix : public detail::WriteableMatrixBase<T, DYNAMIC_DIM, DYNAMIC_DIM, SparseMatrix<T> > {
     
-#ifdef BOOST_NO_CXX11_HDR_UNORDERED_MAP
+#if __cplusplus <= 199711L
     typedef std::tr1::unordered_map<MatrixCoord,T> map_t;
 #else
     // use c++11 unordered_map
