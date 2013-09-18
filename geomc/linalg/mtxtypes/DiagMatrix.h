@@ -35,8 +35,12 @@ namespace detail {
  */
 template <typename T, index_t M, index_t N>
 class DiagMatrix : public detail::WriteableMatrixBase<T,M,N, DiagMatrix<T,M,N> > {
+    
     index_t diag;
+#ifndef PARSING_DOXYGEN
+    // this shit confuses doxygen because it am stoopid
     detail::Storage<T, ((M<N)?M:N) > data;
+#endif
     typename detail::Dimension<M>::storage_t n_rows;
     typename detail::Dimension<N>::storage_t n_cols;
     

@@ -149,26 +149,6 @@ public:
         return parent_t::getDstData();
     }
     
-    void setRowSources(index_t *p) {
-        index_t n = detail::PermuteMatrixBase<N>::_rows();
-        index_t *row_src = parent_t::getSrcData();
-        index_t *row_dst = parent_t::getDstData();
-        std::copy(p, p + n, row_src);
-        for (index_t i = 0; i < n; i++) {
-            row_dst[row_src[i]] = i;
-        }
-    }
-    
-    void setColSources(index_t *p) {
-        index_t n = detail::PermuteMatrixBase<N>::_cols();
-        index_t *row_src = parent_t::getSrcData();
-        index_t *row_dst = parent_t::getDstData();
-        std::copy(p, p + n, row_dst);
-        for (index_t i = 0; i < n; i++) {
-            row_src[row_dst[i]] = i;
-        }
-    }
-    
     /**
      * Array containing a mapping of source columns to destination columns in a 
      * column-permuting operation. 
@@ -203,11 +183,85 @@ public:
         return parent_t::getDstData();
     }
     
-    inline void setRowDesintations(index_t *p) {
+    /**
+     * Set the permutation described by this matrix by passing a mapping of 
+     * destination rows to source rows in a row-permuting operation.
+     * 
+     * In other words, define the row-permuting multiplicaton:
+     * 
+     *     P * M = D
+     * 
+     * with an array `a` such that row `D`<sub>`i`</sub>` = M`<sub>`a[i]`</sub>. 
+     * 
+     * @param p Array of indecies.
+     */
+    void setRowSources(const index_t *p) {
+        index_t n = detail::PermuteMatrixBase<N>::_rows();
+        index_t *row_src = parent_t::getSrcData();
+        index_t *row_dst = parent_t::getDstData();
+        std::copy(p, p + n, row_src);
+        for (index_t i = 0; i < n; i++) {
+            row_dst[row_src[i]] = i;
+        }
+    }
+    
+    /**
+     * Set the permutation described by this matrix by passing a mapping of 
+     * destination columns to source columns in a column-permuting operation. 
+     * 
+     * In other words, define the column-permuting multiplicaton:
+     * 
+     *     M * P = D
+     * 
+     * with an array `a` such that column `D`<sub>`i`</sub>` = M`<sub>`a[i]`</sub>. 
+     * 
+     * @param p Array of indecies.
+     */
+    void setColSources(const index_t *p) {
+        index_t n = detail::PermuteMatrixBase<N>::_cols();
+        index_t *row_src = parent_t::getSrcData();
+        index_t *row_dst = parent_t::getDstData();
+        std::copy(p, p + n, row_dst);
+        for (index_t i = 0; i < n; i++) {
+            row_src[row_dst[i]] = i;
+        }
+    }
+    
+    /**
+     * Set the permutation described by this matrix by passing an array mapping 
+     * source rows to destination rows in a row-permuting operation. 
+     * 
+     * In other words, define the row-permuting multiplication:
+     * 
+     *     P * M = D
+     * 
+     * with an array `a` such that row `D`<sub>`a[i]`</sub>` = M`<sub>`i`</sub>.
+     * 
+     * Because of the property that a permutation matrix's inverse is its 
+     * transpose, this function is equivalent to `setColSources()`.
+     * 
+     * @param p Array of indecies.
+     */
+    inline void setRowDestinations(const index_t *p) {
         setColSources(p);
     }
     
-    inline void setColDestinations(index_t *p) {
+    /**
+     * Set the permutation described by this matrix by passing an array mapping 
+     * source columns to destination columns in a column-permuting operation. 
+     * 
+     * In other words, define the column-permuting multiplication:
+     * 
+     *     M * P = D
+     * 
+     * with an array `a` such that column `D`<sub>`a[i]`</sub>` = M`<sub>`i`</sub>.
+     * 
+     * Because of the property that a permutation matrix's inverse is its 
+     * transpose, this function is equivalent to `setRowSources()`.
+     * 
+     * @param p Array of indecies.
+     */
+    inline void setColDestinations(const index_t *p) {
         setRowSources(p);
     }
     

@@ -79,8 +79,9 @@ namespace geom {
     typedef Rect<float,2> Rect2f;
     typedef Rect<float,3> Rect3f;
     typedef Rect<float,4> Rect4f;
-
-    /// @} // addtogroup shape
+    
 };
+
+/// @} // addtogroup shape
 
 #endif /* SHAPETYPES_H_ */

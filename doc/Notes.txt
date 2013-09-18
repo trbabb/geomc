@@ -59,6 +59,9 @@ MATRIX:
     - backwards grid iterators are definitely broken.
 
 GENERAL CLEANUP/MAJOR TODOS:
+  - fix Quaternion ops to return Quat<T>
+    > note that a branch with this exists using the curiously recurring pattern,
+      but it makes the docs ugly. stupid doxygen
   - open / closed interval logic on rect?
   - make more spatial partitions?
   - fix hash functions
