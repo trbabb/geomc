@@ -22,11 +22,6 @@ namespace detail {
     
 }; // end namespace detail
 
-/**
- * @addtogroup matrix
- * @{
- */
-
 /** @ingroup matrix 
  *  @brief A matrix with nonzero elements only along the main diagonal.
  * 
@@ -161,8 +156,6 @@ public:
         return 1;
     }
 };
-
-/// @} //addtogroup matrix
 
 }; // end namespace geom
 

@@ -181,7 +181,7 @@ bool mtxequal(const geom::PermutationMatrix<N> &a, const geom::PermutationMatrix
 //       x elem_t == bool
 //         x specialized mult for mtxes 
 //         x and vecs 
-//         - and other permute mtxes
+//         x and other permute mtxes
 //       x exposure for 
 //         x mul(), 
 //         x xpose(), 

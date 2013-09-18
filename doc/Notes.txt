@@ -16,7 +16,7 @@ MATRIX:
   - make a type_traits header for matrix operations
     - use this to clean up the defs of some of the operators
   - test matrix intercompatibility
-  - matrix generalized iterator is slower
+  x matrix generalized iterator is slower
   - end() iterator position needs clear definition
   - make a SubsetMatrix, and possibly kill AugmentedMatrix? or template over concatenation axis?
   x matrix +/-/* operators
@@ -96,6 +96,7 @@ GENERAL CLEANUP/MAJOR TODOS:
   - RadialBasisFunction? with parameterized power?
   - Image:
     - factor input type template to call sites.
+    - resample()
     - make EdgeBehavior and Intrepolation into classes?
       - Abyss edge behavior can store supplied abyss value.
       - Cubic interpolator can store sharpness parameters.
@@ -120,7 +121,7 @@ GENERAL CLEANUP/MAJOR TODOS:
     o compute by taking the ~~determinant~~ cofactor expansion with i,j,k,...
       - no, that will be slow and unstable. look up 'matrix kernel' or 'matrix null space'.
   - yarrow RNG?
-  x make a mtx base class.
+  x x make a mtx base class.
     x use curiously recurring template pattern
       x parent must know type of derived for creating iterators.
     x use it to restrict troublesome matrix templates using boost_static_assert/boost::is_base_of().

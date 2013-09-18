@@ -124,7 +124,7 @@ namespace geom {
          *===========================*/
 
         /// @brief Vector cross product
-        const Vec<T,3>  operator^(Vec<T,3> v) const {
+        Vec<T,3>  operator^(Vec<T,3> v) const {
             return cross(v);
         }
         
@@ -139,17 +139,17 @@ namespace geom {
         using detail::VecCommon<T,3>::dot;
         
         /// @return `(dx, dy, dz)` added with `this`
-        const Vec<T,3> add(T dx, T dy, T dz) const {
+        Vec<T,3> add(T dx, T dy, T dz) const {
             return Vec<T,3>(detail::VecBase<T,3>::x+dx, detail::VecBase<T,3>::y+dy, detail::VecBase<T,3>::z+dz);
         }
 
         /// @return `(dx, dy, dz)` subtracted from `this`
-        const Vec<T,3> sub(T dx, T dy, T dz) const {
+        Vec<T,3> sub(T dx, T dy, T dz) const {
             return Vec<T,3>(detail::VecBase<T,3>::x-dx, detail::VecBase<T,3>::y-dy, detail::VecBase<T,3>::z-dz);
         }
 
         /// @return Element-wise scaled copy
-        const Vec<T,3> scale(T a, T b, T c) const {
+        Vec<T,3> scale(T a, T b, T c) const {
             return Vec<T,3>(a*detail::VecBase<T,3>::x, b*detail::VecBase<T,3>::y, c*detail::VecBase<T,3>::z);
         }
         
@@ -159,17 +159,17 @@ namespace geom {
         }
 
         /// @return A copy with the X component negated
-        const Vec<T,3> reflectX() const {
+        Vec<T,3> reflectX() const {
             return Vec<T,3>(-detail::VecBase<T,3>::x, detail::VecBase<T,3>::y, detail::VecBase<T,3>::z);
         }
 
         /// @return A copy with the Y component negated
-        const Vec<T,3> reflectY() const {
+        Vec<T,3> reflectY() const {
             return Vec<T,3>(detail::VecBase<T,3>::x, -detail::VecBase<T,3>::y, detail::VecBase<T,3>::z);
         }
 
         /// @return A copy with the Z component negated
-        const Vec<T,3> reflectZ() const {
+        Vec<T,3> reflectZ() const {
             return Vec<T,3>(detail::VecBase<T,3>::x, detail::VecBase<T,3>::y, -detail::VecBase<T,3>::z);
         }
         
@@ -194,7 +194,7 @@ namespace geom {
          * 
          * @return This euclidean point converted to spherical coordinates.
          */
-        const Vec<T,3> toSpherical() const {
+        Vec<T,3> toSpherical() const {
             T r = this->mag();
             return Vec<T,3>(r, acos(detail::VecBase<T,3>::z/r), atan2(detail::VecBase<T,3>::y,detail::VecBase<T,3>::x));
         }
@@ -208,7 +208,7 @@ namespace geom {
          * @return This point described by this vector interpreted as spherical 
          * coordinates as `(x, y, z)` euclidean coordinates.
          */
-        const Vec<T,3> fromSpherical() const {
+        Vec<T,3> fromSpherical() const {
             Vec<T,3> oot;
             T rsinelev = detail::VecBase<T,3>::x * sin(detail::VecBase<T,3>::y);
             oot.x = rsinelev*cos(detail::VecBase<T,3>::z);
@@ -218,12 +218,12 @@ namespace geom {
         }
 
         /// @return A copy of this vector rotated by angle `radians` about `axis`.
-        const Vec<T,3> rotate(Vec<T,3> axis, T radians) const {
+        Vec<T,3> rotate(Vec<T,3> axis, T radians) const {
             return rotate(axis.x, axis.y, axis.z, radians);
         }
 
         /// @return A copy of this vector rotated by angle `radians` about the axis `(u, v, w)`.
-        const Vec<T,3> rotate(T u, T v, T w, T radians) const {
+        Vec<T,3> rotate(T u, T v, T w, T radians) const {
             T u2 = u*u;
             T v2 = v*v;
             T w2 = w*w;
@@ -241,7 +241,7 @@ namespace geom {
         /** @return A copy of this vector rotated by angle `radians` about 
          * rotation axis `axis` and centerpoint `center`.
          */
-        const Vec<T,3> rotate(Vec<T,3> axis, Vec<T,3> center, T radians){
+        Vec<T,3> rotate(Vec<T,3> axis, Vec<T,3> center, T radians){
             return rotate(axis.x, axis.y, axis.z, center.x, center.y, center.z, radians);
         }
         
@@ -249,7 +249,7 @@ namespace geom {
          * @return A copy of this vector rotated by angle `radians` about
          * the axis `(u, v, w)`, and centerpoint `(a, b, c)`.
          */
-        const Vec<T,3> rotate(T u, T v, T w, T a, T b, T c, T radians){
+        Vec<T,3> rotate(T u, T v, T w, T a, T b, T c, T radians){
             T x = detail::VecBase<T,3>::x;
             T y = detail::VecBase<T,3>::y;
             T z = detail::VecBase<T,3>::z;
@@ -271,7 +271,7 @@ namespace geom {
         }
         
         #ifdef GEOMC_VEC_USE_SWIZZLE
-        const Vec<T,3> swizzle(const std::string& xyz) const {
+        Vec<T,3> swizzle(const std::string& xyz) const {
             if (xyz.length() != 3){
                 throw GeomException("Invalid 3D swizzle string: " + xyz);
             }

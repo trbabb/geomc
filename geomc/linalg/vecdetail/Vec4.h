@@ -106,7 +106,7 @@ namespace geom {
         using detail::VecCommon<T,4>::dot;
 
         /// @return `(dx, dy, dz, dw)` added with `this`
-        const Vec<T,4> add(T dx, T dy, T dz, T dw) const {
+        Vec<T,4> add(T dx, T dy, T dz, T dw) const {
             return Vec<T,4>(detail::VecBase<T,4>::x+dx, 
                             detail::VecBase<T,4>::y+dy, 
                             detail::VecBase<T,4>::z+dz, 
@@ -114,7 +114,7 @@ namespace geom {
         }
         
         /// @return `(dx, dy, dz, dw)` subtracted from `this`
-        const Vec<T,4> sub(T dx, T dy, T dz, T dw) const {
+        Vec<T,4> sub(T dx, T dy, T dz, T dw) const {
             return Vec<T,4>(detail::VecBase<T,4>::x-dx, 
                             detail::VecBase<T,4>::y-dy, 
                             detail::VecBase<T,4>::z-dz, 
@@ -122,7 +122,7 @@ namespace geom {
         }
         
         /// @return Element-wise scaled copy
-        const Vec<T,4> scale(T a, T b, T c, T d) const {
+        Vec<T,4> scale(T a, T b, T c, T d) const {
             return Vec<T,4>(a*detail::VecBase<T,4>::x, 
                             b*detail::VecBase<T,4>::y, 
                             c*detail::VecBase<T,4>::z, 
@@ -142,7 +142,7 @@ namespace geom {
          *===========================*/
 
         #ifdef GEOMC_VEC_USE_SWIZZLE
-        const Vec<T,4> swizzle(const std::string& xyzw) const {
+        Vec<T,4> swizzle(const std::string& xyzw) const {
             if (xyzw.length() != 4){
                 throw GeomException("Invalid 4D swizzle string: " + xyzw);
             }
