@@ -136,7 +136,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">const</span> <span class="keyword">static</span> index_t dim_increment = detail::_ImplArrayOrder&lt;Order,N&gt;::dim_increment;</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    </div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00071"></a><span class="lineno"><a class="code" href="classgeom_1_1_grid_iterator.html#a40effeea71956a56cef974061a706194">   71</a></span>&#160;    <span class="keyword">const</span> <span class="keyword">static</span> <a class="code" href="group__shape.html#ga83ac62dcb1fe341318ed1bd351a8ad83" title="Array traversal order, specified in terms of which axes to increment first.">ArrayOrder</a> <a class="code" href="classgeom_1_1_grid_iterator.html#a40effeea71956a56cef974061a706194" title="Array order (row-major or column-major)">order</a>; <span class="comment">//for cxx11: use constexpr</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="code" href="classgeom_1_1_grid_iterator.html#a40effeea71956a56cef974061a706194">   71</a></span>&#160;    <span class="keyword">const</span> <span class="keyword">static</span> <a class="code" href="namespacegeom.html#a83ac62dcb1fe341318ed1bd351a8ad83" title="Array traversal order, specified in terms of which axes to increment first.">ArrayOrder</a> <a class="code" href="classgeom_1_1_grid_iterator.html#a40effeea71956a56cef974061a706194" title="Array order (row-major or column-major)">order</a>; <span class="comment">//for cxx11: use constexpr</span></div>
 <div class="line"><a name="l00073"></a><span class="lineno"><a class="code" href="classgeom_1_1_grid_iterator.html#a4a0e3e1855b80e670018f5318d4278bf">   73</a></span>&#160;<span class="comment"></span>    <span class="keyword">typedef</span> <span class="keyword">typename</span> <a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">PointType&lt;T,N&gt;::point_t</a> <a class="code" href="classgeom_1_1_grid_iterator.html#a4a0e3e1855b80e670018f5318d4278bf" title="Type of coordinate to be iterated over.">point_t</a>;</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    </div>
 <div class="line"><a name="l00076"></a><span class="lineno"><a class="code" href="classgeom_1_1_grid_iterator.html#ade6957c546b8892a6c3e6faa5b6dda3b">   76</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box.">Rect&lt;T,N&gt;</a> <a class="code" href="classgeom_1_1_grid_iterator.html#ade6957c546b8892a6c3e6faa5b6dda3b" title="Region over which to iterate.">region</a>;</div>
@@ -246,7 +246,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    </div>
 <div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="group__shape.html#ga83ac62dcb1fe341318ed1bd351a8ad83" title="Array traversal order, specified in terms of which axes to increment first.">ArrayOrder</a> <a class="code" href="classgeom_1_1_grid_iterator.html#a40effeea71956a56cef974061a706194" title="Array order (row-major or column-major)">order</a>;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="namespacegeom.html#a83ac62dcb1fe341318ed1bd351a8ad83" title="Array traversal order, specified in terms of which axes to increment first.">ArrayOrder</a> <a class="code" href="classgeom_1_1_grid_iterator.html#a40effeea71956a56cef974061a706194" title="Array order (row-major or column-major)">order</a>;</div>
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> PointType&lt;T,1&gt;::point_t <a class="code" href="classgeom_1_1_grid_iterator.html#a4a0e3e1855b80e670018f5318d4278bf" title="Type of coordinate to be iterated over.">point_t</a>;</div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    </div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    <span class="keyword">const</span> Rect&lt;T,1&gt; <a class="code" href="classgeom_1_1_grid_iterator.html#ade6957c546b8892a6c3e6faa5b6dda3b" title="Region over which to iterate.">region</a>;</div>
@@ -304,7 +304,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;<span class="comment">// static variable for all specializations</span></div>
 <div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;</div>
 <div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N, ArrayOrder Order&gt;</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;<span class="keyword">const</span> <a class="code" href="group__shape.html#ga83ac62dcb1fe341318ed1bd351a8ad83" title="Array traversal order, specified in terms of which axes to increment first.">ArrayOrder</a> GridIterator&lt;T,N,Order&gt;::order = Order;</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;<span class="keyword">const</span> <a class="code" href="namespacegeom.html#a83ac62dcb1fe341318ed1bd351a8ad83" title="Array traversal order, specified in terms of which axes to increment first.">ArrayOrder</a> GridIterator&lt;T,N,Order&gt;::order = Order;</div>
 <div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;</div>
 <div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;}; <span class="comment">/* namespace geom */</span></div>
 <div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;</div>
@@ -314,7 +314,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 8 2013 18:04:42 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Sep 18 2013 00:38:59 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

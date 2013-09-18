@@ -236,7 +236,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        <a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html" title="3D specialization of vector class.">Vec&lt;T,3&gt;</a> v = this-&gt;<a class="code" href="classgeom_1_1_sampler.html#a98502b00f91e9584bc1f8dffe40c8cdb">cap</a>(half_angle_radians);</div>
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;        <a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html" title="3D specialization of vector class.">Vec&lt;T,3&gt;</a> rotAxis = <a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html" title="3D specialization of vector class.">Vec&lt;T,3&gt;</a>(0,0,1).cross(dir);</div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;        <span class="keywordflow">if</span> (rotAxis.isZero()) <span class="keywordflow">return</span> v;</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;        <span class="keywordflow">return</span> v.<a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html#a6fe66d615df6ff391b317b94ac987bd2">rotate</a>(rotAxis, std::acos(dir.z/dir.mag()));</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;        <span class="keywordflow">return</span> v.<a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html#aeb6bc4ec7ff6edaab14bbb1eb11b3aba">rotate</a>(rotAxis, std::acos(dir.z/dir.mag()));</div>
 <div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    }</div>
 <div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    </div>
 <div class="line"><a name="l00270"></a><span class="lineno"><a class="code" href="classgeom_1_1_sampler.html#a8f8a50ffe6074a0e0604550a57c2e90d">  270</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html" title="3D specialization of vector class.">Vec&lt;T,3&gt;</a> <a class="code" href="classgeom_1_1_sampler.html#a8f8a50ffe6074a0e0604550a57c2e90d">solidcap</a>(<a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html" title="3D specialization of vector class.">Vec&lt;T,3&gt;</a> dir, T half_angle_radians, T minR, T maxR) {</div>
@@ -251,7 +251,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        <a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html" title="3D specialization of vector class.">Vec&lt;T,3&gt;</a> raxis = <a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html" title="3D specialization of vector class.">Vec&lt;T,3&gt;</a>(0,0,1).cross(normal);</div>
 <div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;        <a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html" title="3D specialization of vector class.">Vec&lt;T,3&gt;</a> <a class="code" href="classgeom_1_1_sampler.html#a09d8545103cce1e7e5126f99d85f0b24">disk</a> = this-&gt;<a class="code" href="classgeom_1_1_sampler.html#a09d8545103cce1e7e5126f99d85f0b24">disk</a>(r).template resized&lt;3&gt;();</div>
 <div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        <span class="keywordflow">if</span> (raxis.isZero()) <span class="keywordflow">return</span> disk;</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        <span class="keywordflow">return</span> disk.<a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html#a6fe66d615df6ff391b317b94ac987bd2">rotate</a>(raxis, std::acos(normal.z/normal.mag()));</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        <span class="keywordflow">return</span> disk.<a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html#aeb6bc4ec7ff6edaab14bbb1eb11b3aba">rotate</a>(raxis, std::acos(normal.z/normal.mag()));</div>
 <div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    }</div>
 <div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;</div>
 <div class="line"><a name="l00293"></a><span class="lineno"><a class="code" href="classgeom_1_1_sampler.html#a8fdcdd34c9079b47baeabba16b9563f4">  293</a></span>&#160;    <span class="keyword">inline</span> <a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html" title="3D specialization of vector class.">Vec&lt;T,3&gt;</a> <a class="code" href="classgeom_1_1_sampler.html#a49918fe1f6f00bad7b9d83fe32d1f60b">box</a>(T minx, T miny, T minz,</div>
@@ -301,7 +301,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 8 2013 18:04:42 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Sep 18 2013 00:38:59 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

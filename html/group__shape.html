@@ -79,8 +79,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
 <div class="title">Shape</div>  </div>
 </div><!--header-->
@@ -112,14 +111,6 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_sphere.html">Sphere&lt; T, N &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A N-dimensional circle, sphere, or hypersphere.  <a href="classgeom_1_1_sphere.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:ga83ac62dcb1fe341318ed1bd351a8ad83"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__shape.html#ga83ac62dcb1fe341318ed1bd351a8ad83">ArrayOrder</a> { <a class="el" href="group__shape.html#gga83ac62dcb1fe341318ed1bd351a8ad83aea994a6dd6bcbf9c72ae0f28f2678a7a">ARRAYORDER_FIRST_DIM_CONSECUTIVE</a>, 
-<a class="el" href="group__shape.html#gga83ac62dcb1fe341318ed1bd351a8ad83a76432727d8970b305d22b8da39e7fcf5">ARRAYORDER_LAST_DIM_CONSECUTIVE</a>
- }</td></tr>
-<tr class="memdesc:ga83ac62dcb1fe341318ed1bd351a8ad83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array traversal order, specified in terms of which axes to increment first.  <a href="group__shape.html#ga83ac62dcb1fe341318ed1bd351a8ad83">More...</a><br/></td></tr>
-<tr class="separator:ga83ac62dcb1fe341318ed1bd351a8ad83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga66505ffabe4da800c0ec653d493ea944"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> { <a class="el" href="group__shape.html#gga66505ffabe4da800c0ec653d493ea944a0cc724de9c2be8b3c506f45d4811ddec">HIT_FRONT</a> = 1, 
 <a class="el" href="group__shape.html#gga66505ffabe4da800c0ec653d493ea944a69d567fc54e1147a9879d610a90b2133">HIT_BACK</a> = 2, 
 <a class="el" href="group__shape.html#gga66505ffabe4da800c0ec653d493ea944aa12161be84ffe5b80d56277bb1f5ae66">HIT_BOTH</a> = 3
@@ -130,30 +121,6 @@ Enumerations</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Shape-relates functions and classes. </p>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
-<a class="anchor" id="ga83ac62dcb1fe341318ed1bd351a8ad83"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum ArrayOrder</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Array traversal order, specified in terms of which axes to increment first. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><em><a class="anchor" id="gga83ac62dcb1fe341318ed1bd351a8ad83aea994a6dd6bcbf9c72ae0f28f2678a7a"></a>ARRAYORDER_FIRST_DIM_CONSECUTIVE</em>&nbsp;</td><td class="fielddoc">
-<p>Array traversal by incrementing the first coordinate in the innermost loop. </p>
-<p>For matrices, whose coordinates are ordered <code>(row, col)</code>, this represens column-major (i.e. "fortran") order. If coordinates are <code>(x, y, ...)</code>, then this is row-major order. </p>
-</td></tr>
-<tr><td class="fieldname"><em><a class="anchor" id="gga83ac62dcb1fe341318ed1bd351a8ad83a76432727d8970b305d22b8da39e7fcf5"></a>ARRAYORDER_LAST_DIM_CONSECUTIVE</em>&nbsp;</td><td class="fielddoc">
-<p>Array traversal by incrementing the last coordinate in the innermost loop. </p>
-<p>For matrices, whose coordinates are ordered <code>(row, col)</code>, this represents row-major (i.e. "C") order. If coordinates are <code>(x, y, ...)</code>, then this is column-major order. </p>
-</td></tr>
-</table>
-
-</div>
-</div>
 <a class="anchor" id="ga66505ffabe4da800c0ec653d493ea944"></a>
 <div class="memitem">
 <div class="memproto">
@@ -183,7 +150,7 @@ Enumerations</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 8 2013 18:04:42 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Sep 18 2013 00:38:59 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

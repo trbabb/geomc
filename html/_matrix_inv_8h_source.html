@@ -343,8 +343,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md&gt;</div>
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="group__matrix.html#ga289fd7275b5cabfe4506146872626c29">inv</a>(Md *into, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_diag_matrix.html" title="A matrix with nonzero elements only along the main diagonal.">geom::DiagMatrix&lt;T,M,N&gt;</a>&amp; m) {</div>
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        into-&gt;setZero(); <span class="comment">// for newly allocated matrices, redundant. oh well.</span></div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        T *p = m.diagonal_begin();</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        <span class="keywordflow">for</span> (index_t i = 0; p != m.diagonal_end(); ++i, ++p) {</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        T *p = m.<a class="code" href="classgeom_1_1_diag_matrix.html#a15c7a0bee09a1b09f2a4de66b0245eb6">diagonal_begin</a>();</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        <span class="keywordflow">for</span> (index_t i = 0; p != m.<a class="code" href="classgeom_1_1_diag_matrix.html#a40fe7cfc97934b7de5ae3ddeddd4e487">diagonal_end</a>(); ++i, ++p) {</div>
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;            T elem = *p;</div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;            <span class="keywordflow">if</span> (elem == 0) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;            into-&gt;set(i,i, 1/elem);</div>
@@ -377,7 +377,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 8 2013 18:04:42 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Sep 18 2013 00:38:59 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

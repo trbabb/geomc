@@ -174,7 +174,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="comment">// (a x M) * (M x N) -&gt; (a x N)</span></div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md&gt;</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#ga1f2513740215784239349db200787eac">mul</a>(Md *d, <span class="keyword">const</span> Mat &amp;a, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_diag_matrix.html" title="A matrix with nonzero elements only along the main diagonal.">geom::DiagMatrix&lt;T,M,N&gt;</a> &amp;b) {</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keyword">const</span> T *dp = b.diagonal_begin();</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keyword">const</span> T *dp = b.<a class="code" href="classgeom_1_1_diag_matrix.html#a15c7a0bee09a1b09f2a4de66b0245eb6">diagonal_begin</a>();</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">for</span> (index_t c = 0; c &lt; b.cols(); ++c, ++dp) {</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            <span class="keywordflow">for</span> (index_t r = 0; r &lt; a.rows(); ++r) {</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                d-&gt;set(r,c, (*dp) * a.get(r,c));</div>
@@ -192,7 +192,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="comment">// (M x N) * (N x a) -&gt; (N x a)</span></div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md&gt;</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#ga1f2513740215784239349db200787eac">mul</a>(Md *d, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_diag_matrix.html" title="A matrix with nonzero elements only along the main diagonal.">geom::DiagMatrix&lt;T,M,N&gt;</a> &amp;a, <span class="keyword">const</span> Mat &amp;b) {</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keyword">const</span> T *dp = a.diagonal_begin();</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keyword">const</span> T *dp = a.<a class="code" href="classgeom_1_1_diag_matrix.html#a15c7a0bee09a1b09f2a4de66b0245eb6">diagonal_begin</a>();</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keywordflow">for</span> (index_t r = 0; r &lt; b.rows(); ++r, ++dp) {</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            <span class="keywordflow">for</span> (index_t c = 0; c &lt; a.cols(); ++c) {</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                d-&gt;set(r,c, (*dp) * a.get(r,c));</div>
@@ -209,8 +209,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    </div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md&gt;</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#ga1f2513740215784239349db200787eac">mul</a>(Md *d, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_diag_matrix.html" title="A matrix with nonzero elements only along the main diagonal.">geom::DiagMatrix&lt;T,L,M1&gt;</a> &amp;a, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_diag_matrix.html" title="A matrix with nonzero elements only along the main diagonal.">geom::DiagMatrix&lt;T,M2,N&gt;</a> &amp;b) {</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        T *pa = a.diagonal_begin();</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        T *pb = b.diagonal_begin();</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        T *pa = a.<a class="code" href="classgeom_1_1_diag_matrix.html#a15c7a0bee09a1b09f2a4de66b0245eb6">diagonal_begin</a>();</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        T *pb = b.<a class="code" href="classgeom_1_1_diag_matrix.html#a15c7a0bee09a1b09f2a4de66b0245eb6">diagonal_begin</a>();</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        d-&gt;setZero();</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="comment">//xxx I think this is right? do this on paper.</span></div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="keywordflow">for</span> (index_t i = 0; i &lt; a.rows(); ++i, ++pa, ++pb) {</div>
@@ -424,7 +424,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 8 2013 18:04:42 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Sep 18 2013 00:38:59 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

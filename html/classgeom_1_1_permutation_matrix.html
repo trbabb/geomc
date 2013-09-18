@@ -146,6 +146,14 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a37b65a04ab8506aea04cccc5a09466e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a57f44f6d069599e7f04fd0c83f222025"><td class="memItemLeft" align="right" valign="top">const index_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_permutation_matrix.html#a57f44f6d069599e7f04fd0c83f222025">getRowDestinations</a> () const </td></tr>
 <tr class="separator:a57f44f6d069599e7f04fd0c83f222025"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69a553329cf999320568cdf56adfa688"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_permutation_matrix.html#a69a553329cf999320568cdf56adfa688">setRowSources</a> (const index_t *p)</td></tr>
+<tr class="separator:a69a553329cf999320568cdf56adfa688"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8600fca4c0c0281db16dd8065a78e1c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_permutation_matrix.html#a8600fca4c0c0281db16dd8065a78e1c8">setColSources</a> (const index_t *p)</td></tr>
+<tr class="separator:a8600fca4c0c0281db16dd8065a78e1c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bbc2bf578614028a9b57f122dc7c725"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_permutation_matrix.html#a8bbc2bf578614028a9b57f122dc7c725">setRowDestinations</a> (const index_t *p)</td></tr>
+<tr class="separator:a8bbc2bf578614028a9b57f122dc7c725"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68e708a87cf62ad1fe21bebdafacf6ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_permutation_matrix.html#a68e708a87cf62ad1fe21bebdafacf6ec">setColDestinations</a> (const index_t *p)</td></tr>
+<tr class="separator:a68e708a87cf62ad1fe21bebdafacf6ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad70c3a3cc903645bd3353e718019ff84"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_permutation_matrix.html#ad70c3a3cc903645bd3353e718019ff84">swap_rows</a> (index_t a, index_t b)</td></tr>
 <tr class="separator:ad70c3a3cc903645bd3353e718019ff84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a319b436521ffef3ca422966868933d8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_permutation_matrix.html#a319b436521ffef3ca422966868933d8d">swap_cols</a> (index_t a, index_t b)</td></tr>
@@ -184,7 +192,7 @@ class geom::PermutationMatrix&lt; N &gt;</h3>
 
 <p>A matrix which, by multiplication, permutes the rows or columns of another matrix. </p>
 <p>A permutation matrix <code>P</code> permutes rows if left-multiplied (<code>P * M</code>), and permutes columns if right-multiplied (<code>M * P</code>).</p>
-<p>Permutation matrices use <em>O(n)</em> storage, and multiplication operators with them are optimized to perform the permutation directly in <em>O(n<sup>2</sup>)</em> (rather than <em>O(n<sup>3</sup>)</em>) time.</p>
+<p>Permutation matrices use <em>O(n)</em> storage, and multiplications by other matrices are optimized to perform the permutation directly in <em>O(n<sup>2</sup>)</em> (rather than <em>O(n<sup>3</sup>)</em>) time. Multiplication of two permutation matrices is <em>O(n)</em>.</p>
 <p>Permutation matrices are always (n x n) and have only elements that are zero or 1. Each row and column has exactly one <code>1</code> element. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="af6bd5099dfdc0f89049029861eb7497f"></a>
@@ -550,6 +558,144 @@ class geom::PermutationMatrix&lt; N &gt;</h3>
 
 </div>
 </div>
+<a class="anchor" id="a68e708a87cf62ad1fe21bebdafacf6ec"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setColDestinations </td>
+          <td>(</td>
+          <td class="paramtype">const index_t *&#160;</td>
+          <td class="paramname"><em>p</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Set the permutation described by this matrix by passing an array mapping source columns to destination columns in a column-permuting operation.</p>
+<p>In other words, define the column-permuting multiplication: </p>
+<pre class="fragment">M * P = D
+</pre><p>with an array <code>a</code> such that column <code>D</code><sub><code>a[i]</code></sub><code>= M</code><sub><code>i</code></sub>.</p>
+<p>Because of the property that a permutation matrix's inverse is its transpose, this function is equivalent to <code><a class="el" href="classgeom_1_1_permutation_matrix.html#a69a553329cf999320568cdf56adfa688">setRowSources()</a></code>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>Array of indecies. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a8600fca4c0c0281db16dd8065a78e1c8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setColSources </td>
+          <td>(</td>
+          <td class="paramtype">const index_t *&#160;</td>
+          <td class="paramname"><em>p</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Set the permutation described by this matrix by passing a mapping of destination columns to source columns in a column-permuting operation.</p>
+<p>In other words, define the column-permuting multiplicaton: </p>
+<pre class="fragment">M * P = D
+</pre><p>with an array <code>a</code> such that column <code>D</code><sub><code>i</code></sub><code>= M</code><sub><code>a[i]</code></sub>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>Array of indecies. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a8bbc2bf578614028a9b57f122dc7c725"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setRowDestinations </td>
+          <td>(</td>
+          <td class="paramtype">const index_t *&#160;</td>
+          <td class="paramname"><em>p</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Set the permutation described by this matrix by passing an array mapping source rows to destination rows in a row-permuting operation.</p>
+<p>In other words, define the row-permuting multiplication: </p>
+<pre class="fragment">P * M = D
+</pre><p>with an array <code>a</code> such that row <code>D</code><sub><code>a[i]</code></sub><code>= M</code><sub><code>i</code></sub>.</p>
+<p>Because of the property that a permutation matrix's inverse is its transpose, this function is equivalent to <code><a class="el" href="classgeom_1_1_permutation_matrix.html#a8600fca4c0c0281db16dd8065a78e1c8">setColSources()</a></code>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>Array of indecies. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a69a553329cf999320568cdf56adfa688"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setRowSources </td>
+          <td>(</td>
+          <td class="paramtype">const index_t *&#160;</td>
+          <td class="paramname"><em>p</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Set the permutation described by this matrix by passing a mapping of destination rows to source rows in a row-permuting operation.</p>
+<p>In other words, define the row-permuting multiplicaton: </p>
+<pre class="fragment">P * M = D
+</pre><p>with an array <code>a</code> such that row <code>D</code><sub><code>i</code></sub><code>= M</code><sub><code>a[i]</code></sub>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>Array of indecies. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a319b436521ffef3ca422966868933d8d"></a>
 <div class="memitem">
 <div class="memproto">
@@ -665,7 +811,7 @@ class geom::PermutationMatrix&lt; N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 8 2013 18:04:42 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Sep 18 2013 00:38:59 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

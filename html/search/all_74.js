@@ -1,7 +1,7 @@
 var searchData=
 [
   ['topolar',['toPolar',['../classgeom_1_1_vec_3_01_t_00_012_01_4.html#aaba820ca23178749e27309bf9da8fbbb',1,'geom::Vec&lt; T, 2 &gt;']]],
-  ['tospherical',['toSpherical',['../classgeom_1_1_vec_3_01_t_00_013_01_4.html#a9f1422fe171f4f3f846a4714db4190f3',1,'geom::Vec&lt; T, 3 &gt;']]],
+  ['tospherical',['toSpherical',['../classgeom_1_1_vec_3_01_t_00_013_01_4.html#a9b13642c9d4f57e1079989a9356e6964',1,'geom::Vec&lt; T, 3 &gt;']]],
   ['trace',['trace',['../classgeom_1_1_plane.html#a439a957075e8f6861bbcff83958d97cc',1,'geom::Plane::trace()'],['../classgeom_1_1_rect.html#a8c5176d528bb8d66e2648bd109cb8ae7',1,'geom::Rect::trace()'],['../classgeom_1_1_sphere.html#a403f6e42514bf30e76744155945f1561',1,'geom::Sphere::trace()']]],
   ['transformation',['transformation',['../group__linalg.html#gac2a7ae372cc462b9cd90880aae33baab',1,'geom']]],
   ['translate',['translate',['../classgeom_1_1_rect.html#ae1444b33bb12d63ca516e2bbc46972d0',1,'geom::Rect']]],

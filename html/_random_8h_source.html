@@ -108,41 +108,41 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">//TODO: implement rand&lt;char&gt;(), and move &#39;uint32_t reserve_bits&#39; to base class. implement getBits(char *dest, int bits)</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">//TODO: (low-pri) refactor rand&lt;float&gt; and rand&lt;double&gt; to use numerical limits for systems with half floats, etc. </span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#ifndef RANDOM_H_</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define RANDOM_H_</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">namespace </span>geom {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    </div>
-<div class="line"><a name="l00071"></a><span class="lineno"><a class="code" href="classgeom_1_1_random.html">   71</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classgeom_1_1_random.html" title="Abstraction for a source of random or pseudorandom bits.">Random</a> {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <a class="code" href="classgeom_1_1_random.html#a8260bc158e49b572e57bedb88c428cb8" title="Construct a new random number generator with an implementation-selected seed.">Random</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <a class="code" href="classgeom_1_1_random.html#a8260bc158e49b572e57bedb88c428cb8" title="Construct a new random number generator with an implementation-selected seed.">Random</a>(uint64_t seed); <span class="comment">//allow us to supply up to 64 bits of entropy</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keyword">virtual</span> ~<a class="code" href="classgeom_1_1_random.html" title="Abstraction for a source of random or pseudorandom bits.">Random</a>();</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keyword">virtual</span> uint32_t <a class="code" href="classgeom_1_1_random.html#a33293ce43cd109243fb4b6cf14120e09">rand32</a>() = 0;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classgeom_1_1_random.html#ac55e1b60bf39d9e39501ac2c496f66ed" title="Reset the generator&#39;s state with the bits of seed as its source of entropy.">rseed</a>(uint64_t seed) = 0;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; T <a class="code" href="classgeom_1_1_random.html#a264aa766211c9277407585b322882daa">rand</a>();</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; T <a class="code" href="classgeom_1_1_random.html#a264aa766211c9277407585b322882daa">rand</a>(T max);</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; T <a class="code" href="classgeom_1_1_random.html#a264aa766211c9277407585b322882daa">rand</a>(T lo, T hi);</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        uint32_t     _bitpool;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> _bitsleft;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    };</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;}</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* RANDOM_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#ifndef RANDOM_H_</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define RANDOM_H_</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keyword">namespace </span>geom {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    </div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="code" href="classgeom_1_1_random.html">   86</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classgeom_1_1_random.html" title="Abstraction for a source of random or pseudorandom bits.">Random</a> {</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <a class="code" href="classgeom_1_1_random.html#a8260bc158e49b572e57bedb88c428cb8" title="Construct a new random number generator with an implementation-selected seed.">Random</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <a class="code" href="classgeom_1_1_random.html#a8260bc158e49b572e57bedb88c428cb8" title="Construct a new random number generator with an implementation-selected seed.">Random</a>(uint64_t seed); <span class="comment">//allow us to supply up to 64 bits of entropy</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keyword">virtual</span> ~<a class="code" href="classgeom_1_1_random.html" title="Abstraction for a source of random or pseudorandom bits.">Random</a>();</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keyword">virtual</span> uint32_t <a class="code" href="classgeom_1_1_random.html#a33293ce43cd109243fb4b6cf14120e09">rand32</a>() = 0;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classgeom_1_1_random.html#ac55e1b60bf39d9e39501ac2c496f66ed" title="Reset the generator&#39;s state with the bits of seed as its source of entropy.">rseed</a>(uint64_t seed) = 0;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; T <a class="code" href="classgeom_1_1_random.html#a264aa766211c9277407585b322882daa">rand</a>();</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; T <a class="code" href="classgeom_1_1_random.html#a264aa766211c9277407585b322882daa">rand</a>(T max);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; T <a class="code" href="classgeom_1_1_random.html#a264aa766211c9277407585b322882daa">rand</a>(T lo, T hi);</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        uint32_t     _bitpool;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> _bitsleft;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    };</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;}</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* RANDOM_H_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 8 2013 18:04:42 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Sep 18 2013 00:38:59 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

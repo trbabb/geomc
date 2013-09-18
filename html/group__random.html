@@ -159,7 +159,11 @@ Functions</h2></td></tr>
 <pre class="fragment">Random *rng = new MTRand(mySeed);
 float f = rng-&gt;rand&lt;float&gt;(); // a random number between 0 and 1.0 
 </pre><p>Or use <code><a class="el" href="group__random.html#gaafd702a26c7914707002c7066da808e4">geom::getRandom()</a></code> for a quick-and-dirty (not reentrant or threadsafe!) generator instance: </p>
-<pre class="fragment">float f = getRandom()-&gt;rand&lt;float&gt;();</pre><h2 class="groupheader">Function Documentation</h2>
+<pre class="fragment">float f = getRandom()-&gt;rand&lt;float&gt;();
+</pre><h2>A note about random ranges</h2>
+<p>For integer random numbers in a range, it is far preferable to use the provided methods, rather than the "standard" <code>rand() % rangeMax</code> strategy, which is not a uniform distribution, most severely when <code>rangeMax</code> is a large fraction of <code>RAND_MAX</code>.</p>
+<p>The provided methods of generating floating point numbers are also generally superior to the (again) "standard" method of calculating <code>rand() / RAND_MAX</code>, which excludes about 93% of representable numbers between 0 and 1, particularly in the regions near 0. <code><a class="el" href="group__random.html#gabd03d526c6047ff51027b09ce710a082">geom::Random::rand(float)</a></code> addresses this by carefully choosing the bits of the generated number explicitly. The method is fast, makes efficient use of the supplied entropy, and produces a uniform distribution. (Note that C++11's <code>&lt;random&gt;</code> library does <em>not</em> address this issue). </p>
+<h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="gaafd702a26c7914707002c7066da808e4"></a>
 <div class="memitem">
 <div class="memproto">
@@ -592,7 +596,7 @@ float f = rng-&gt;rand&lt;float&gt;(); // a random number between 0 and 1.0
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 8 2013 18:04:42 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Sep 18 2013 00:38:59 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

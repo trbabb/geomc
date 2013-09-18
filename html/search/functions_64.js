@@ -1,7 +1,10 @@
 var searchData=
 [
   ['det',['det',['../classgeom_1_1_p_l_u_decomposition.html#a67ccc6cfa482de0cf47a6ff7124a2b81',1,'geom::PLUDecomposition']]],
+  ['diagmatrix',['DiagMatrix',['../classgeom_1_1_diag_matrix.html#ad4475ee6bbf662eaa1749772e9e5d712',1,'geom::DiagMatrix::DiagMatrix(index_t nrows, index_t ncols)'],['../classgeom_1_1_diag_matrix.html#a8ff9dc869cf1535d94c09d0b43d43d63',1,'geom::DiagMatrix::DiagMatrix(const T src[], index_t n)']]],
   ['diagonal',['diagonal',['../classgeom_1_1_p_l_u_decomposition.html#a070256d0abafc7c932b2b103a4e73394',1,'geom::PLUDecomposition']]],
+  ['diagonal_5fbegin',['diagonal_begin',['../classgeom_1_1_diag_matrix.html#a15c7a0bee09a1b09f2a4de66b0245eb6',1,'geom::DiagMatrix::diagonal_begin()'],['../classgeom_1_1_diag_matrix.html#ac8a133dfc45c7aaa53ec759eade3fa05',1,'geom::DiagMatrix::diagonal_begin() const ']]],
+  ['diagonal_5fend',['diagonal_end',['../classgeom_1_1_diag_matrix.html#a40fe7cfc97934b7de5ae3ddeddd4e487',1,'geom::DiagMatrix::diagonal_end()'],['../classgeom_1_1_diag_matrix.html#a1a8f94195c56ff6337e240e01a8db0af',1,'geom::DiagMatrix::diagonal_end() const ']]],
   ['direction_5falign',['direction_align',['../group__linalg.html#ga820ae75503cb7b5a8650d45800c495cb',1,'geom']]],
   ['directionfromaxisto',['directionFromAxisTo',['../classgeom_1_1_ray_3_01_t_00_013_01_4.html#aaf0d918ded651bb410180cb661cbfd31',1,'geom::Ray&lt; T, 3 &gt;']]],
   ['disk',['disk',['../classgeom_1_1_sampler.html#a09d8545103cce1e7e5126f99d85f0b24',1,'geom::Sampler::disk()'],['../classgeom_1_1_sampler.html#af5d4b97b2e68d18e1b17ab880f430cba',1,'geom::Sampler::disk(T radius)']]],

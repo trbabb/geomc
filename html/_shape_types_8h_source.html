@@ -105,9 +105,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>geom {</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="code" href="group__shape.html#ga83ac62dcb1fe341318ed1bd351a8ad83">   27</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="group__shape.html#ga83ac62dcb1fe341318ed1bd351a8ad83" title="Array traversal order, specified in terms of which axes to increment first.">ArrayOrder</a> {</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="code" href="group__shape.html#gga83ac62dcb1fe341318ed1bd351a8ad83aea994a6dd6bcbf9c72ae0f28f2678a7a">   36</a></span>&#160;        <a class="code" href="group__shape.html#gga83ac62dcb1fe341318ed1bd351a8ad83aea994a6dd6bcbf9c72ae0f28f2678a7a" title="Array traversal by incrementing the first coordinate in the innermost loop.">ARRAYORDER_FIRST_DIM_CONSECUTIVE</a>,</div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="code" href="group__shape.html#gga83ac62dcb1fe341318ed1bd351a8ad83a76432727d8970b305d22b8da39e7fcf5">   45</a></span>&#160;        <a class="code" href="group__shape.html#gga83ac62dcb1fe341318ed1bd351a8ad83a76432727d8970b305d22b8da39e7fcf5" title="Array traversal by incrementing the last coordinate in the innermost loop.">ARRAYORDER_LAST_DIM_CONSECUTIVE</a></div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="code" href="namespacegeom.html#a83ac62dcb1fe341318ed1bd351a8ad83">   27</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="namespacegeom.html#a83ac62dcb1fe341318ed1bd351a8ad83" title="Array traversal order, specified in terms of which axes to increment first.">ArrayOrder</a> {</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="code" href="namespacegeom.html#a83ac62dcb1fe341318ed1bd351a8ad83aea994a6dd6bcbf9c72ae0f28f2678a7a">   36</a></span>&#160;        <a class="code" href="namespacegeom.html#a83ac62dcb1fe341318ed1bd351a8ad83aea994a6dd6bcbf9c72ae0f28f2678a7a" title="Array traversal by incrementing the first coordinate in the innermost loop.">ARRAYORDER_FIRST_DIM_CONSECUTIVE</a>,</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="code" href="namespacegeom.html#a83ac62dcb1fe341318ed1bd351a8ad83a76432727d8970b305d22b8da39e7fcf5">   45</a></span>&#160;        <a class="code" href="namespacegeom.html#a83ac62dcb1fe341318ed1bd351a8ad83a76432727d8970b305d22b8da39e7fcf5" title="Array traversal by incrementing the last coordinate in the innermost loop.">ARRAYORDER_LAST_DIM_CONSECUTIVE</a></div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    };</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    </div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt; <span class="keyword">class </span>Plane;</div>
@@ -144,14 +144,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">typedef</span> <a class="code" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box.">Rect&lt;float,2&gt;</a> <a class="code" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box.">Rect2f</a>;</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">typedef</span> <a class="code" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box.">Rect&lt;float,3&gt;</a> <a class="code" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box.">Rect3f</a>;</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">typedef</span> <a class="code" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box.">Rect&lt;float,4&gt;</a> <a class="code" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box.">Rect4f</a>;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;};</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* SHAPETYPES_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;};</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* SHAPETYPES_H_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 8 2013 18:04:42 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Sep 18 2013 00:38:59 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

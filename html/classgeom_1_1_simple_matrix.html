@@ -156,6 +156,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac1d7026402effa87a698492603365e6f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_simple_matrix.html#ac1d7026402effa87a698492603365e6f">SimpleMatrix</a> (index_t nrows, index_t ncols)</td></tr>
 <tr class="memdesc:ac1d7026402effa87a698492603365e6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a matrix of size <code>(nrows x ncols)</code>.  <a href="#ac1d7026402effa87a698492603365e6f">More...</a><br/></td></tr>
 <tr class="separator:ac1d7026402effa87a698492603365e6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a043f7d9b13b1d3a145dac346abfac10a"><td class="memTemplParams" colspan="2">template&lt;typename Mx &gt; </td></tr>
+<tr class="memitem:a043f7d9b13b1d3a145dac346abfac10a"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_simple_matrix.html#a043f7d9b13b1d3a145dac346abfac10a">SimpleMatrix</a> (const Mx &amp;mtx)</td></tr>
+<tr class="separator:a043f7d9b13b1d3a145dac346abfac10a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1bd18ed0d2b99c1f1dcaac8a827c2ee"><td class="memItemLeft" align="right" valign="top">index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_simple_matrix.html#af1bd18ed0d2b99c1f1dcaac8a827c2ee">rows</a> () const </td></tr>
 <tr class="separator:af1bd18ed0d2b99c1f1dcaac8a827c2ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0f1796902c9ad383ba037c6216e2aff"><td class="memItemLeft" align="right" valign="top">index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_simple_matrix.html#aa0f1796902c9ad383ba037c6216e2aff">cols</a> () const </td></tr>
@@ -217,6 +220,14 @@ static const index_t&#160;</td><td class="memItemRight" valign="bottom"><b>COLDI
 class geom::SimpleMatrix&lt; T, M, N &gt;</h3>
 
 <p>A basic matrix with <code>M x N</code> elements. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Element type. </td></tr>
+    <tr><td class="paramname">M</td><td>Row dimension. </td></tr>
+    <tr><td class="paramname">N</td><td>Column dimension.</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>If <code>M</code> or <code>N</code> are 0, the matrix has runtime-chosen size, and all copy-constructed duplicates of this matrix should be treated as references to a common array.</p>
 <p>For more on matrices, see the <a class="el" href="group__matrix.html">matrix module documentation</a>. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -247,7 +258,7 @@ class geom::SimpleMatrix&lt; T, M, N &gt;</h3>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -262,6 +273,43 @@ SimpleMatrix&lt;double, 0, 0&gt; m3; // XXX: Not allowed!
   <table class="params">
     <tr><td class="paramname">nrows</td><td>Number of rows in the matrix </td></tr>
     <tr><td class="paramname">ncols</td><td>Number of columns in the matrix </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a043f7d9b13b1d3a145dac346abfac10a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a> </td>
+          <td>(</td>
+          <td class="paramtype">const Mx &amp;&#160;</td>
+          <td class="paramname"><em>mtx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Construct and initialize this matrix with the contents of another. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Mx</td><td>A matrix type with agreeing dimension. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mtx</td><td>Matrix containing source elements. </td></tr>
   </table>
   </dd>
 </dl>
@@ -938,7 +986,7 @@ SimpleMatrix&lt;double, 0, 0&gt; m3; // XXX: Not allowed!
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 8 2013 18:04:42 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Sep 18 2013 00:38:59 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>
