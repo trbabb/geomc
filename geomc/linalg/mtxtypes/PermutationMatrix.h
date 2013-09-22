@@ -113,10 +113,18 @@ public:
     
     //////////// methods ////////////
     
+    
+    /**
+     * @return Number of rows in the matrix. Always equal to the number of columns.
+     */
     inline index_t rows() const {
         return parent_t::_rows();
     }
     
+    
+    /**
+     * @return Number of columns in the matrix. Always equal to the number of rows.
+     */
     inline index_t cols() const {
         return parent_t::_cols();
     }
@@ -303,10 +311,19 @@ public:
         std::swap(dst[a], dst[b]);
     }
     
+    /**
+     * Get the element at `(row, col)`.
+     * @param row Zero-indexed row coordinate
+     * @param col Zero-indexed column coordinate
+     * @return The element at `(row, col)`; either 0 or 1.
+     */
     inline bool get(index_t row, index_t col) const {
         return parent_t::getSrcData()[row] == col;
     }
     
+    /**
+     * Reset this matrix to the identity permutation. 
+     */
     void setIdentity() {
         index_t *i0 = parent_t::getSrcData();
         index_t *i1 = parent_t::getDstData();
@@ -317,7 +334,7 @@ public:
     }
     
     /**
-     * Matrix transpose. For this type of matrix, also the inverse matrix.
+     * Transpose this matrix in-place in _O(1)_ time. For this type of matrix, also the inverse matrix.
      */
     inline void transpose() {
         detail::PermuteMatrixBase<N>::swapPointers();

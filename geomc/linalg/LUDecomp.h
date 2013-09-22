@@ -28,6 +28,7 @@ namespace detail {
 template <typename T>
 bool _ImplDecompPLU(T* m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity) {
     const index_t n = std::min(rows, cols);
+    bool singular = false;
     *swap_parity = false;
     // fill permutation array
     for (index_t i = 0; i < n; i++){
@@ -50,7 +51,8 @@ bool _ImplDecompPLU(T* m, index_t rows, index_t cols, index_t *reorder, bool *sw
             // singular matrix
             // could test against an epsilon to 
             // find ill-conditioned matrices
-            return false;
+            singular = true;
+            continue;
         } else if (pvt != i) {
             // swap row <i> with row <pvt>
             for (index_t c = 0; c < cols; c++) {
@@ -77,7 +79,7 @@ bool _ImplDecompPLU(T* m, index_t rows, index_t cols, index_t *reorder, bool *sw
         }
     }
     
-    return true;
+    return singular;
 }
 
 #undef _MxElem
@@ -95,8 +97,11 @@ bool _ImplDecompPLU(T* m, index_t rows, index_t cols, index_t *reorder, bool *sw
 template <typename T, index_t M, index_t N>
 class PLUDecomposition {
 public:
+    /// Dimension of the diagonal of `LU`. The minimum of `M` and `N`, or 0 if either dimension is dynamic.
     static const index_t DIAG = M<N?M:N;
+    /// Matrix type for holding `L`.
     typedef SimpleMatrix<T,M,DIAG> L_t;
+    /// Matrix type for holding `U`.
     typedef SimpleMatrix<T,DIAG,N> U_t;
     
 protected:
@@ -117,10 +122,7 @@ protected:
     
 public:
     /**
-     * Construct a PLU decompostion of `m`. `Mx` must be a matrix type. 
-     * 
-     * `this->isSingular()` can be used to query whether the decomposition was 
-     * successful.
+     * Construct a PLU decompostion of `m`. `Mx` must be a matrix type.
      */
 #ifdef PARSING_DOXYGEN
     template <typename Mx> explicit PLUDecompostion(const Mx &m){}
@@ -178,7 +180,7 @@ public:
         typedef detail::_ImplMtxInstance< SimpleMatrix<T,M,DIAG> > instancer;
         const index_t diag = diagonal();
         SimpleMatrix<T,M,DIAG> out = instancer::instance(LU.rows(), diag);
-        _copyL(out);
+        _copyL(&out);
         return out;
     }
     
@@ -189,7 +191,7 @@ public:
         typedef detail::_ImplMtxInstance< SimpleMatrix<T,DIAG,N> > instancer;
         const index_t diag = diagonal();
         SimpleMatrix<T,DIAG,N> out = instancer::instance(diag, LU.cols());
-        _copyU(out);
+        _copyU(&out);
         return out;
     }
     
@@ -353,8 +355,7 @@ public:
     }
     
     /**
-     * @return `true` if the decomposed matrix is singular, in which case
-     * `L`, `U`, and `P` will contain undefined data; `false` otherwise.
+     * @return `true` if the decomposed matrix is singular, `false` otherwise.
      */
     inline bool isSingular() const {
         return singular;

@@ -178,7 +178,7 @@ namespace geom {
          *===========================*/
         
         /// @return Cross product of `this` by `v`, in the order shown.
-        const Vec<T,3> cross(Vec<T,3> v) const {
+        Vec<T,3> cross(Vec<T,3> v) const {
             T newX = (detail::VecBase<T,3>::y * v.z) - (detail::VecBase<T,3>::z * v.y);
             T newY = (detail::VecBase<T,3>::z * v.x) - (detail::VecBase<T,3>::x * v.z);
             T newZ = (detail::VecBase<T,3>::x * v.y) - (detail::VecBase<T,3>::y * v.x);
