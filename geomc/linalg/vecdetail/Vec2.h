@@ -172,7 +172,7 @@ namespace geom {
          */
         inline T getAngle() const {
             T theta = (T)(atan2(detail::VecBase<T,2>::y,detail::VecBase<T,2>::x));
-            if (theta < 0) theta += M_2_PI;
+            if (theta < 0) theta += 2 * M_PI;
             return theta;
         }
         

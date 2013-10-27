@@ -73,8 +73,8 @@ public:
         }
         
         T t_0 = t - n;
-        Ray<T,N> r0 = knots[n];
-        Ray<T,N> r1 = knots[n+1];
+        Ray<T,N> &r0 = knots[n];
+        Ray<T,N> &r1 = knots[n+1];
         Vec<T,N> v0 = r0.atMultiple(t_0);
         Vec<T,N> v1 = r1.atMultiple(t_0 - 1);
         return v0.mix(v1, ease(t_0));
