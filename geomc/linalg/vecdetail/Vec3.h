@@ -82,7 +82,7 @@ namespace geom {
      * 
      * `x`, `s`, and `r` all refer to the same element.
      */
-    template <typename T> class Vec<T,3> : public detail::VecCommon<T,3> {
+    template <typename T> class Vec<T,3> : public detail::VecCommon< T, 3, Vec<T,3> > {
     public:
         
         /// @brief (1, 0, 0) constant
@@ -97,7 +97,7 @@ namespace geom {
          *===========================*/
 
         /// Construct vector with all elements set to 0.
-        Vec():detail::VecCommon<T,3>(){}
+        Vec():detail::VecCommon< T, 3, Vec<T,3> >(){}
         
         /// Construct a vector with `(x, y)` taken from the 2D vector `xy`, and `z` as the final element.
         Vec(Vec<T,2> xy, T z){
@@ -107,10 +107,10 @@ namespace geom {
         }
 
         /// Construct a vector with all elements set to `a`.
-        Vec(T a):detail::VecCommon<T,3>(a){}
+        Vec(T a):detail::VecCommon< T, 3, Vec<T,3> >(a){}
 
         /// Construct a vector with elements copied from the 3-element array `v`.
-        Vec(T v[3]):detail::VecCommon<T,3>(v){}
+        Vec(const T v[3]):detail::VecCommon< T, 3, Vec<T,3> >(v){}
         
         /// Construct a vector with elements `(x, y, z)`.
         Vec(T x, T y, T z){
@@ -133,10 +133,10 @@ namespace geom {
          *===========================*/
         
         //do not hide these; we want to overload them: 
-        using detail::VecCommon<T,3>::add;
-        using detail::VecCommon<T,3>::sub;
-        using detail::VecCommon<T,3>::scale;
-        using detail::VecCommon<T,3>::dot;
+        using detail::VecCommon< T, 3, Vec<T,3> >::add;
+        using detail::VecCommon< T, 3, Vec<T,3> >::sub;
+        using detail::VecCommon< T, 3, Vec<T,3> >::scale;
+        using detail::VecCommon< T, 3, Vec<T,3> >::dot;
         
         /// @return `(dx, dy, dz)` added with `this`
         Vec<T,3> add(T dx, T dy, T dz) const {

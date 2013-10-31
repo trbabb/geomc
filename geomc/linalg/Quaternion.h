@@ -22,7 +22,7 @@ namespace geom {
  * rest of the library.
  */
 template <typename T>
-class Quat : public Vec<T,4> {
+class Quat : public detail::VecCommon< T, 4, Quat<T> > {
 public:
     
     /*******************************
@@ -30,15 +30,29 @@ public:
      *******************************/
     
     /// Construct a quaternion with all elements 0
-    Quat():Vec<T,4>(){}
+    Quat():detail::VecCommon< T, 4, Quat<T> >() {}
+    
     /// Construct a quaternion with elements `(x, y, z, w)`
-    Quat(T x, T y, T z, T w):Vec<T,4>(x,y,z,w){}
+    Quat(T x, T y, T z, T w) {
+            detail::VecBase<T,4>::x = x;
+            detail::VecBase<T,4>::y = y;
+            detail::VecBase<T,4>::z = z;
+            detail::VecBase<T,4>::w = w;
+    }
+    
     /// Construct a quaternion from the contents of the 4-element array `v`
-    Quat(T v[4]):Vec<T,4>(v){}
+    Quat(const T v[4]):detail::VecCommon< T, 4, Quat<T> >(v) {}
+    
     /// Construct a quaternion with vector part `v` and real part `w`.
-    Quat(const Vec<T,3> &v, T w):Vec<T,4>(v,w){}
+    Quat(const Vec<T,3> &v, T w) {
+        detail::VecBase<T,4>::x = v.x;
+        detail::VecBase<T,4>::y = v.y;
+        detail::VecBase<T,4>::z = v.z;
+        detail::VecBase<T,4>::w = w;
+    }
+    
     /// Construct a quaternion from the 4D vector `v`.
-    Quat(const Vec<T,4> &v):Vec<T,4>(v){} // is this explicitly necessary?
+    Quat(const Vec<T,4> &v):detail::VecCommon< T, 4, Quat<T> >(v.begin()) {}
     
     /*******************************
      * Static constructors         *
@@ -52,7 +66,7 @@ public:
      * about `axis`.
      */
     static Quat<T> rotFromAxisAngle(const Vec<T,3> &axis, T angle) {
-        if (axis.x == 0 && axis.y == 0 && axis.z == 0){
+        if (axis.x == 0 && axis.y == 0 && axis.z == 0) {
             return Vec<T,4>(axis, 1);
         } else {
             return Vec<T,4>(axis.unit() * std::sin(angle*0.5), std::cos(angle*0.5));
@@ -129,7 +143,7 @@ public:
     Vec<T,4> rotToAxisAngle() const {
         T w_clamp = std::min(std::max(detail::VecBase<T,4>::w, -1.0), 1.0);
         double alpha = 2*std::acos(w_clamp);
-        if (detail::VecBase<T,4>::x == 0 && detail::VecBase<T,4>::y == 0 && detail::VecBase<T,4>::z == 0){
+        if (detail::VecBase<T,4>::x == 0 && detail::VecBase<T,4>::y == 0 && detail::VecBase<T,4>::z == 0) {
             return Vec<T,4>(1, 0, 0, 0);
         } else {
             return Vec<T,4>(vectorPart().unit(), alpha);
@@ -144,7 +158,7 @@ public:
         // assumes a unit quaternion.
         T w_clamp = std::min(std::max(detail::VecBase<T,4>::w, -1.0), 1.0);
         T alpha = 2 * std::acos(w_clamp);
-        if (vectorPart().isZero()){
+        if (vectorPart().isZero()) {
             return Vec<T,3>::zeros;
         } else {
             return alpha * vectorPart().unit();
@@ -175,7 +189,7 @@ public:
         // assumed unit quaternion.
         const Quat<T> &q0 = *this;
         T dot = q0.dot(q1);
-        if (dot < 0){ //angle is greater than 90. Avoid "long path" rotations.
+        if (dot < 0) { //angle is greater than 90. Avoid "long path" rotations.
             dot = -dot;
             q1 = -q1;
         }

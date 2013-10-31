@@ -36,7 +36,7 @@ namespace geom {
      * horizontal coordinate. For this reason it is **inadviseable to interchange 
      * usage** of the "matrix coordinate" and "Euclidean" naming schemes.
      */
-    template <typename T> class Vec<T,2> : public detail::VecCommon<T,2> {
+    template <typename T> class Vec<T,2> : public detail::VecCommon< T, 2, Vec<T,2> > {
 
     public:
         
@@ -50,10 +50,10 @@ namespace geom {
          *===========================*/
         
         /// Construct vector with both elements set to 0.
-        Vec():detail::VecCommon<T,2>(){}
+        Vec():detail::VecCommon< T, 2, Vec<T,2> >(){}
         
         /// Construct a vector with both elements set to `a`.
-        Vec(T a):detail::VecCommon<T,2>(a){}
+        Vec(T a):detail::VecCommon< T, 2, Vec<T,2> >(a){}
 
         /// Construct a vector with elements `(x, y)`.
         Vec(T x, T y){
@@ -62,17 +62,17 @@ namespace geom {
         }
         
         /// Construct a vector with elements copied from the 2-element array `v`.
-        Vec(T v[2]):detail::VecCommon<T,2>(v){}
+        Vec(const T v[2]):detail::VecCommon< T, 2, Vec<T,2> >(v){}
         
         /*===========================*
          * Convenience Arithmetic    *
          *===========================*/
         
         //do not hide these; we want to overload them:
-        using detail::VecCommon<T,2>::add;
-        using detail::VecCommon<T,2>::sub;
-        using detail::VecCommon<T,2>::scale;
-        using detail::VecCommon<T,2>::dot;
+        using detail::VecCommon< T, 2, Vec<T,2> >::add;
+        using detail::VecCommon< T, 2, Vec<T,2> >::sub;
+        using detail::VecCommon< T, 2, Vec<T,2> >::scale;
+        using detail::VecCommon< T, 2, Vec<T,2> >::dot;
 
         /// Addition. Convenience function with separate args for `x` and `y`.
         inline Vec<T,2> add(T dx, T dy) const {

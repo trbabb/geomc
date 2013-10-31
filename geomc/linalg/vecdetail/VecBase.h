@@ -41,15 +41,15 @@ namespace detail {
     template <typename T, index_t N> class VecBase {
     public:
 
-        VecBase(){
+        VecBase() {
             std::fill(begin(), end(), 0);
         }
 
-        VecBase(T a){
+        VecBase(T a) {
             std::fill(begin(), end(), a);
         }
 
-        VecBase(T a[N]){
+        VecBase(const T a[N]) {
             std::copy(a, a+N, begin());
         }
         
@@ -61,7 +61,7 @@ namespace detail {
         inline const T& get(index_t idx) const {
             #ifdef GEOMC_VEC_CHECK_BOUNDS
                 // this is considerably slower
-                if (idx < 0 or idx >= N){
+                if (idx < 0 or idx >= N) {
                     throw std::out_of_range("vector index");
                 }
             #endif
@@ -73,9 +73,9 @@ namespace detail {
          * @param idx Index of element.
          * @return A reference to the element at `idx`.
          */
-        inline T& get(index_t idx){
+        inline T& get(index_t idx) {
             #ifdef GEOMC_VEC_CHECK_BOUNDS
-                if (idx < 0 or idx >= N){
+                if (idx < 0 or idx >= N) {
                     throw std::out_of_range("vector index");
                 }
             #endif
@@ -109,11 +109,11 @@ namespace detail {
     template <typename T> class VecBase<T,2> {
     public:
 
-        VecBase():x(0),y(0){}
+        VecBase():x(0),y(0) {}
 
-        VecBase(T a):x(a),y(a){}
+        VecBase(T a):x(a),y(a) {}
 
-        VecBase(T a[2]):x(a[0]),y(a[1]){}
+        VecBase(const T a[2]):x(a[0]),y(a[1]) {}
         
         /**
          * Get the element at index `idx`.
@@ -122,7 +122,7 @@ namespace detail {
          */
         inline const T& get(index_t idx) const {
             #ifdef GEOMC_VEC_CHECK_BOUNDS
-            switch(idx){
+            switch(idx) {
             case 0:
                 return x;
             case 1:
@@ -142,7 +142,7 @@ namespace detail {
          */
         inline T& get(index_t idx) {
             #ifdef GEOMC_VEC_CHECK_BOUNDS
-            switch(idx){
+            switch(idx) {
             case 0:
                 return x;
             case 1:
@@ -191,11 +191,11 @@ namespace detail {
     template <typename T> class VecBase<T,3> {
     public:
 
-        VecBase():x(0),y(0),z(0){}
+        VecBase():x(0),y(0),z(0) {}
 
-        VecBase(T a):x(a),y(a),z(a){}
+        VecBase(T a):x(a),y(a),z(a) {}
 
-        VecBase(T a[3]):x(a[0]),y(a[1]),z(a[2]){}
+        VecBase(const T a[3]):x(a[0]),y(a[1]),z(a[2]) {}
 
         /**
          * Get the element at index `idx`.
@@ -204,7 +204,7 @@ namespace detail {
          */
         inline const T& get(index_t idx) const {
         #ifdef GEOMC_VEC_CHECK_BOUNDS
-            switch (idx){
+            switch (idx) {
                 case 0:
                     return x;
                 case 1:
@@ -226,7 +226,7 @@ namespace detail {
          */
         inline T& get(index_t idx) {
 #ifdef GEOMC_CHECK_BOUNDS
-            switch (idx){
+            switch (idx) {
                 case 0:
                     return x;
                 case 1:
@@ -281,11 +281,11 @@ namespace detail {
     template <typename T> class VecBase<T,4> {
     public:
 
-        VecBase():x(0),y(0),z(0),w(0){}
+        VecBase():x(0),y(0),z(0),w(0) {}
 
-        VecBase(T a):x(a),y(a),z(a),w(a){}
+        VecBase(T a):x(a),y(a),z(a),w(a) {}
 
-        VecBase(T a[4]):x(a[0]),y(a[1]),z(a[2]),w(a[3]){}
+        VecBase(const T a[4]):x(a[0]),y(a[1]),z(a[2]),w(a[3]) {}
 
         /**
          * Get the element at index `idx`.
@@ -294,7 +294,7 @@ namespace detail {
          */
         inline const T& get(index_t idx) const {
 #ifdef GEOMC_VEC_CHECK_BOUNDS
-            switch (idx){
+            switch (idx) {
                 case 0:
                     return x;
                 case 1:
@@ -318,7 +318,7 @@ namespace detail {
          */
         inline T& get(index_t idx) {
 #ifdef GEOMC_VEC_CHECK_BOUNDS
-            switch (idx){
+            switch (idx) {
                 case 0:
                     return x;
                 case 1:
@@ -378,25 +378,30 @@ namespace detail {
     };
     
     // end VecBase classes
-
-    template <typename T, index_t N> class VecCommon : public VecBase<T,N> {
+    
+    
+    template <typename T, index_t N, typename VType> class VecCommon : public VecBase<T,N> {
         public:
         
+        /// Self type. I.e., `Vec<T,N>` if a vector, `Quat<T>` if a quaternion.
+        typedef VType self_t;
+        /// Element type.
         typedef T elem_t;
+        /// Vector dimension.
         static const index_t DIM = N;
         
-        static const Vec<T,N> ones;
-        static const Vec<T,N> zeros;
+        static const self_t ones;
+        static const self_t zeros;
 
         /*******************************
          * Structors                   *
          *******************************/
 
-        VecCommon():VecBase<T,N>(){}
+        VecCommon():VecBase<T,N>() {}
 
-        VecCommon(T a):VecBase<T,N>(a){}
+        VecCommon(T a):VecBase<T,N>(a) {}
 
-        VecCommon(T a[N]):VecBase<T,N>(a){}
+        VecCommon(const T a[N]):VecBase<T,N>(a) {}
 
         /*******************************
          * Operators                   *
@@ -429,82 +434,82 @@ namespace detail {
          */
         template <typename U> operator Vec<U,N>() const {
             Vec<U,N> r;
-            for (index_t i = 0; i < N; i++){
+            for (index_t i = 0; i < N; i++) {
                 r[i] = (U)(this->get(i));
             }
             return r;
         }
 
         /// @return `true` if all corresponding elements of `this` and `vv` are equal, `false` otherwise.
-        inline bool operator==(const Vec<T,N> &vv) const {
-            for (index_t i = 0; i < N; i++){
+        inline bool operator==(const self_t &vv) const {
+            for (index_t i = 0; i < N; i++) {
                 if (vv.get(i) != this->get(i)) return false;
             }
             return true;
         }
         
         /// @return `true` if any corresponding elements of `this` and `vv` are unequal, `false` otherwise.
-        inline bool operator!=(const Vec<T,N> &vv) const {
-            for (index_t i = 0; i < N; i++){
+        inline bool operator!=(const self_t &vv) const {
+            for (index_t i = 0; i < N; i++) {
                 if (vv.get(i) != this->get(i)) return true;
             }
             return false;
         }
 
         /// Element-wise addition.
-        inline Vec<T,N> operator+(const Vec<T,N> &v) const {
+        inline self_t operator+(const self_t &v) const {
             return this->add(v);
         }
 
         /// Element-wise addition and assignment.
-        Vec<T,N>& operator+=(const Vec<T,N> &vv){
-            for (index_t i = 0; i < N; i++){
+        self_t& operator+=(const self_t &vv) {
+            for (index_t i = 0; i < N; i++) {
                 this->get(i) += vv[i];
             }
-            return *this;
+            return *(static_cast<self_t*>(this));
         }
         
         /// Element-wise subtraction.
-        inline Vec<T,N>  operator-(const Vec<T,N> &v) const {
+        inline self_t operator-(const self_t &v) const {
             return this->sub(v);
         }
         
         /// Subtraction and assignment.
-        Vec<T,N>& operator-=(const Vec<T,N> &vv){
-            for (index_t i = 0; i < N; i++){
+        self_t& operator-=(const self_t &vv) {
+            for (index_t i = 0; i < N; i++) {
                 this->get(i) -= vv[i];
             }
-            return *this;
+            return *(static_cast<self_t*>(this));
         }
 
         /// Scalar multiplication and assignment.
-        Vec<T,N>& operator*=(T s){
-            for (index_t i = 0; i < N; i++){
+        self_t& operator*=(T s) {
+            for (index_t i = 0; i < N; i++) {
                 this->get(i) *= s;
             }
-            return *this;
+            return *(static_cast<self_t*>(this));
         }
 
         /// Scalar division and assignment.
-        Vec<T,N>& operator/=(T s){
-            for (index_t i = 0; i < N; i++){
+        self_t& operator/=(T s) {
+            for (index_t i = 0; i < N; i++) {
                 this->get(i) /= s;
             }
-            return *this;
+            return *(static_cast<self_t*>(this));
         }
 
         /// Element-wise multiplication and assignment.
-        Vec<T,N>& operator*=(const Vec<T,N> &vv){
-            for (index_t i = 0; i < N; i++){
+        self_t& operator*=(const self_t &vv) {
+            for (index_t i = 0; i < N; i++) {
                 this->get(i) *= vv[i];
             }
-            return *this;
+            return *(static_cast<self_t*>(this));
         }
 
         /** @return A copy of this vector with all elements negated (i.e. a 
          * vector pointing in the opposite direction).
          */
-        inline Vec<T,N> operator-() const {
+        inline self_t operator-() const {
             return this->neg();
         }
 
@@ -516,9 +521,9 @@ namespace detail {
          * @param v Another vector.
          * @return A new vector `x` such that `x[i] = this[i] + v[i]`.
          */
-        inline Vec<T,N> add(const Vec<T,N> &v) const {
-            Vec<T,N> r;
-            for (index_t i = 0; i < N; i++){
+        inline self_t add(const self_t &v) const {
+            self_t r;
+            for (index_t i = 0; i < N; i++) {
                 r[i] = this->get(i) + v.get(i);
             }
             return r;
@@ -528,9 +533,9 @@ namespace detail {
          * @param v Another vector.
          * @return A new vector `x` such that `x[i] = this[i] - v[i]`.
          */
-        inline Vec<T,N> sub(const Vec<T,N> &v) const {
-            Vec<T,N> r;
-            for (index_t i = 0; i < N; i++){
+        inline self_t sub(const self_t &v) const {
+            self_t r;
+            for (index_t i = 0; i < N; i++) {
                 r[i] = this->get(i) - v[i];
             }
             return r;
@@ -540,9 +545,9 @@ namespace detail {
          * @param v Another vector.
          * @return A new vector `x` such that `x[i] = this[i] * v[i]`.
          */
-        inline Vec<T,N> scale(const Vec<T,N> &v) const {
-            Vec<T,N> r;
-            for (index_t i = 0; i < N; i++){
+        inline self_t scale(const self_t &v) const {
+            self_t r;
+            for (index_t i = 0; i < N; i++) {
                 r[i] = this->get(i) * v[i];
             }
             return r;
@@ -552,9 +557,9 @@ namespace detail {
          * @param a A constant scale factor.
          * @return A new vector `x` such that `x[i] = this[i] * a`.
          */
-        inline Vec<T,N> scale(T a) const {
-            Vec<T,N> r;
-            for (index_t i = 0; i < N; i++){
+        inline self_t scale(T a) const {
+            self_t r;
+            for (index_t i = 0; i < N; i++) {
                 r[i] = this->get(i) * a;
             }
             return r;
@@ -563,9 +568,9 @@ namespace detail {
         /**
          * @return A new vector `x` such that `x[i] = -this[i]`.
          */
-        inline Vec<T,N> neg() const {
-            Vec<T,N> r;
-            for (index_t i = 0; i < N; i++){
+        inline self_t neg() const {
+            self_t r;
+            for (index_t i = 0; i < N; i++) {
                 r[i] = -this->get(i);
             }
             return r;
@@ -575,10 +580,10 @@ namespace detail {
         /**
          * @return A copy of this vector with unit length.
          */
-        inline Vec<T,N> unit() const {
+        inline self_t unit() const {
             T n = mag();
-            Vec<T,N> r;
-            for (index_t i = 0; i < N; i++){
+            self_t r;
+            for (index_t i = 0; i < N; i++) {
                 r[i] = this->get(i) / n;
             }
             return r;
@@ -589,9 +594,9 @@ namespace detail {
          * @param v Another vector.
          * @return The dot product of `this` with `v`.
          */
-        inline T dot(const Vec<T,N> &v) const {
+        inline T dot(const self_t &v) const {
             T sum = 0;
-            for (index_t i = 0; i < N; i++){
+            for (index_t i = 0; i < N; i++) {
                 sum += this->get(i) * v[i];
             }
             return sum;
@@ -609,7 +614,7 @@ namespace detail {
          */
         inline T mag2() const {
             T sum = 0;
-            for (index_t i = 0; i < N; i++){
+            for (index_t i = 0; i < N; i++) {
                 T cur = this->get(i);
                 sum += cur*cur;
             }
@@ -620,7 +625,7 @@ namespace detail {
          * @param pt Another point.
          * @return The distance between `this` and `pt`.
          */
-        T dist(const Vec<T,N> &pt) const {
+        T dist(const self_t &pt) const {
             return (this->sub(pt)).mag();
         }
 
@@ -628,7 +633,7 @@ namespace detail {
          * @param pt Another point.
          * @return The square of the distance between `this` and `pt`.
          */
-        T dist2(const Vec<T,N> &pt) const {
+        T dist2(const self_t &pt) const {
             return (this->sub(pt)).mag2();
         }
 
@@ -636,7 +641,7 @@ namespace detail {
          * @param axis Axis of reflection.
          * @return A copy of this vector reflected across the given axis.
          */
-        Vec<T,N> reflect(const Vec<T,N> &axis) const {
+        self_t reflect(const self_t &axis) const {
             axis = axis.unit();
             return this->neg() + axis * 2 * this->dot(axis);
         }
@@ -649,7 +654,7 @@ namespace detail {
          * @param normal Normal of surface to "bounce" on.
          * @return The "bounced" direction vector.
          */
-        Vec<T,N> bounce(const Vec<T,N> &normal) const {
+        self_t bounce(const self_t &normal) const {
             return -reflect(normal);
         }
         
@@ -658,7 +663,7 @@ namespace detail {
          * @return A vector in direction `v` with magnitude equal to the component
          * of `this` aligned with `v`.
          */
-        Vec<T,N> projectOn(const Vec<T,N> &v) const {
+        self_t projectOn(const self_t &v) const {
             return v * this->dot(v) / v.mag2();
         }
 
@@ -669,10 +674,10 @@ namespace detail {
          * @param mix A mixing factor between 0 and 1.
          * @return A linear mixing of `this` with `v`.
          */
-        Vec<T,N> mix(const Vec<T,N> &v, T mix) const {
+        self_t mix(const self_t &v, T mix) const {
             T xim = 1 - mix;
             Vec<T,N> r;
-            for (index_t i = 0; i < N; i++){
+            for (index_t i = 0; i < N; i++) {
                 r[i] = xim*this->get(i) + mix*v[i];
             }
             return r;
@@ -682,7 +687,7 @@ namespace detail {
          * @param v Another vector.
          * @return Angle in radians between `this` and `v`, between 0 and `pi`.
          */
-        T angleTo(const Vec<T,N> &v) const {
+        T angleTo(const self_t &v) const {
             return acos(v.unit().dot(unit()));
         }
         
@@ -694,9 +699,9 @@ namespace detail {
          * Element-wise absolute value.
          * @return A new vector `x` such that `x[i] = abs(this[i])`.
          */
-        Vec<T,N> abs() const {
-            Vec<T,N> r;
-            for (index_t i = 0; i < N; i++){
+        self_t abs() const {
+            self_t r;
+            for (index_t i = 0; i < N; i++) {
                 T coord = this->get(i);
                 r[i] = coord < 0 ? -coord : coord;
             }
@@ -708,9 +713,9 @@ namespace detail {
          * Element-wise floor function.
          * @return A new vector `x` such that `x[i] = floor(this[i])`.
          */
-        Vec<T,N> floor() const {
-            Vec<T,N> r;
-            for (index_t i = 0; i < N; i++){
+        self_t floor() const {
+            self_t r;
+            for (index_t i = 0; i < N; i++) {
                 r[i] = std::floor(this->get(i));
             }
             return r;
@@ -721,9 +726,9 @@ namespace detail {
          * Element-wise ceiling function.
          * @return A new vector `x` such that `x[i] = ceil(this[i])`.
          */
-        Vec<T,N> ceil() const {
-            Vec<T,N> r;
-            for (index_t i = 0; i < N; i++){
+        self_t ceil() const {
+            self_t r;
+            for (index_t i = 0; i < N; i++) {
                 r[i] = std::ceil(this->get(i));
             }
             return r;
@@ -734,9 +739,9 @@ namespace detail {
          * @param v Another vector.
          * @return A new vector `x` such that `x[i] = min(this[i], v[i])`.
          */
-        Vec<T,N> min(const Vec<T,N> &v) const {
-            Vec<T,N> r;
-            for (index_t i = 0; i < N; i++){
+        self_t min(const self_t &v) const {
+            self_t r;
+            for (index_t i = 0; i < N; i++) {
                 r[i] = std::min(this->get(i), v[i]);
             }
             return r;
@@ -747,9 +752,9 @@ namespace detail {
          * @param v Another vector.
          * @return A new vector `x` such that `x[i] = max(this[i], v[i])`.
          */
-        Vec<T,N> max(const Vec<T,N> &v) const {
-            Vec<T,N> r;
-            for (index_t i = 0; i < N; i++){
+        self_t max(const self_t &v) const {
+            self_t r;
+            for (index_t i = 0; i < N; i++) {
                 r[i] = std::max(this->get(i), v[i]);
             }
             return r;
@@ -762,9 +767,9 @@ namespace detail {
          * @return A new vector such that each element `x[i]` is clamped
          * between `lo[i]` and `hi[i]`.
          */
-        Vec<T,N> clamp(const Vec<T,N> &lo, const Vec<T,N> &hi) const {
+         self_t clamp(const self_t &lo, const self_t &hi) const {
             Vec<T,N> r;
-            for (index_t i = 0; i < N; i++){
+            for (index_t i = 0; i < N; i++) {
                 r[i]  = std::min(std::max(this->get(i), lo[i]), hi[i]);
             }
             return r;
@@ -773,9 +778,9 @@ namespace detail {
         /**
          * @return A new vector with each element rounded to the nearest integer.
          */
-        Vec<T,N> round() const {
+        self_t round() const {
             Vec<T,N> r;
-            for (index_t i = 0; i < N; i++){
+            for (index_t i = 0; i < N; i++) {
                 r[i] = std::floor(this->get(i) + 0.5);
             }
             return r;
@@ -798,7 +803,7 @@ namespace detail {
          * @return `true` if all elements are zero, `false` otherwise.
          */
         bool isZero() const {
-            for (index_t i = 0; i < N; i++){
+            for (index_t i = 0; i < N; i++) {
                 if (this->get(i) != (T)0) return false;
             }
             return true;
@@ -821,8 +826,8 @@ namespace detail {
 
     }; /* end VecCommon class */
 
-    template <typename T, index_t N> const Vec<T,N> VecCommon<T,N>::ones  = Vec<T,N>((T)1);
-    template <typename T, index_t N> const Vec<T,N> VecCommon<T,N>::zeros = Vec<T,N>((T)0);
+    template <typename T, index_t N, typename VType> const VType VecCommon< T,N,VType >::ones  = VType((T)1);
+    template <typename T, index_t N, typename VType> const VType VecCommon< T,N,VType >::zeros = VType((T)0);
 
     // used by fromRGB()
     // for integer vectors, you don't want to divide by 255, essentially
@@ -836,6 +841,21 @@ namespace detail {
     template <typename T>
     struct _RGBChannelConversion<T, typename boost::enable_if<boost::is_integral<T>,void>::type> {
         const static int scale = 1;
+    };
+    
+    template <typename T, typename Enable=void>
+    struct IsVector {
+        const static bool value = false;
+    };
+    
+    template <typename T>
+    struct IsVector<T, typename boost::enable_if<
+                            boost::is_base_of<
+                                detail::VecCommon<typename T::elem_t, T::DIM, T>, 
+                                T>,
+                        void>::type
+                     > {
+        const static bool value = true;
     };
     
 }; /* end namespace detail */

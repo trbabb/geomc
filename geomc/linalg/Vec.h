@@ -16,6 +16,8 @@
 #include <geomc/linalg/vecdetail/Vec3.h>
 #include <geomc/linalg/vecdetail/Vec4.h>
 
+#include "mtxdetail/MatrixGlue.h"
+
 
 namespace geom {
     
@@ -24,6 +26,7 @@ namespace geom {
         template <typename M, typename RefType> class MtxColIterator;
     };
     
+    //TODO: Fix operators for Quat
     
 /** @ingroup linalg
  *  @{
@@ -51,10 +54,13 @@ namespace geom {
     inline template <typename T, index_t N, typename U>
     Vec<T,N> operator* (const Vec<T,N> &v, U d) {}
 #endif
-template <typename T, index_t N, typename U> 
-inline typename boost::enable_if<boost::is_scalar<U>,Vec<T,N> >::type operator* (const Vec<T,N> &v, U d) {
-    Vec<T,N> r;
-    for (index_t i = 0; i < N; i++) {
+template <typename V, typename U> 
+inline typename boost::enable_if_c<
+            boost::is_scalar<U>::value and detail::IsVector<V>::value,
+        V>::type 
+operator* (const V &v, U d) {
+    V r;
+    for (index_t i = 0; i < V::DIM; i++) {
         r[i] = v[i] * d;
     }
     return r;
@@ -71,10 +77,13 @@ inline typename boost::enable_if<boost::is_scalar<U>,Vec<T,N> >::type operator* 
     inline template <typename T, index_t N, typename U>
     Vec<T,N> operator* (U d, const Vec<T,N> &v) {}
 #endif
-template <typename T, index_t N, typename U> 
-inline typename boost::enable_if<boost::is_scalar<U>,Vec<T,N> >::type operator* (U d, const Vec<T,N> &v) {
-    Vec<T,N> r;
-    for (index_t i = 0; i < N; i++) {
+template <typename V, typename U> 
+inline typename boost::enable_if_c<
+        boost::is_scalar<U>::value and detail::IsVector<V>::value, 
+        V>::type 
+operator* (U d, const V &v) {
+    V r;
+    for (index_t i = 0; i < V::DIM; i++) {
         r[i] = d * v[i];
     }
     return r;
@@ -87,10 +96,17 @@ inline typename boost::enable_if<boost::is_scalar<U>,Vec<T,N> >::type operator* 
  * @param b A vector
  * @return A new vector `x` such that `x[i] = a[i] * b[i]`
  */
+#ifdef PARSING_DOXYGEN
 template <typename T, index_t N> 
-const Vec<T,N> operator* (const Vec<T,N> &a, const Vec<T,N> &b) {
+const Vec<T,N> operator* (const Vec<T,N> &a, const Vec<T,N> &b) {}
+#else
+template <typename V>
+inline
+typename boost::enable_if_c<detail::IsVector<V>::value, V>::type 
+operator*(const V &a, const V &b) {
     return a.scale(b);
 }
+#endif
 
 /**
  * Vector division by a scalar
@@ -99,14 +115,21 @@ const Vec<T,N> operator* (const Vec<T,N> &a, const Vec<T,N> &b) {
  * @param d Scalar value
  * @return A new vector `x` such that `x[i] = v[i] / d`
  */
+#ifdef PARSING_DOXYGEN
 template <typename T, index_t N, typename U> 
-inline Vec<T,N> operator/ (const Vec<T,N> &v, U d) {
-    Vec<T,N> r;
-    for (index_t i = 0; i < N; i++) {
+inline Vec<T,N> operator/ (const Vec<T,N> &v, U d) {}
+#else
+template <typename V, typename U>
+inline
+typename boost::enable_if_c<detail::IsVector<V>::value, V>::type
+operator/(const V &v, U d) {
+    V r;
+    for (index_t i = 0; i < V::DIM; i++) {
         r[i] = v[i] / d;
     }
     return r;
 }
+#endif
 
 /**
  * Scalar division by a vector
@@ -115,14 +138,21 @@ inline Vec<T,N> operator/ (const Vec<T,N> &v, U d) {
  * @param v A vector
  * @return A new vector `x` such that `x[i] = d / v[i]`
  */
+#ifdef PARSING_DOXYGEN
 template <typename T, index_t N, typename U> 
-inline Vec<T,N> operator/ (U d, const Vec<T,N> &v) {
-    Vec<T,N> r;
-    for (index_t i = 0; i < N; i++) {
+inline Vec<T,N> operator/ (const Vec<T,N> &v, U d) {}
+#else
+template <typename V, typename U>
+inline
+typename boost::enable_if_c<detail::IsVector<V>::value, V>::type
+operator/(U d, const V &v) {
+    V r;
+    for (index_t i = 0; i < V::DIM; i++) {
         r[i] = d / v[i];
     }
     return r;
 }
+#endif
 
 /**
  * Element-wise vector division
@@ -131,14 +161,20 @@ inline Vec<T,N> operator/ (U d, const Vec<T,N> &v) {
  * @param b A vector
  * @return A new vector `x` such that `x[i] = a[i] / b[i]`
  */
+#ifdef PARSING_DOXYGNE
 template <typename T, index_t N> 
-const Vec<T,N> operator/ (const Vec<T,N> &a, const Vec<T,N> &b) {
-    Vec<T,N> r;
-    for (index_t i = 0; i < N; i++) {
+const Vec<T,N> operator/ (const Vec<T,N> &a, const Vec<T,N> &b) {}
+#else
+template <typename V>
+typename boost::enable_if_c<detail::IsVector<V>::value,V>::type
+operator/(const V &a, const V &b) {
+    V r;
+    for (index_t i = 0; i < V::DIM; i++) {
         r[i] = a[i] / b[i];
     }
     return r;
 }
+#endif
 
 #ifdef GEOMC_LINALG_USE_STREAMS
 template <typename T, index_t N> 
@@ -148,6 +184,16 @@ std::ostream &operator<< (std::ostream &stream, const Vec<T,N> &v) {
         stream << v[i] << ", ";
     }
     stream << v[N-1] << ")";
+    return stream;
+}
+
+template <typename T>
+std::ostream &operator<<(std::ostream &stream, const Quat<T> &q) {
+    stream << "quat(";
+    stream << q.x << ", ";
+    stream << q.y << ", ";
+    stream << q.z << " | ";
+    stream << q.w << ")";
     return stream;
 }
 #endif
@@ -220,26 +266,26 @@ std::ostream &operator<< (std::ostream &stream, const Vec<T,N> &v) {
  *     Vec<double,4> v4d = v3d.resized<4>(); // last coordinate is zero
  * 
  */
-template <typename T, index_t N> class Vec : public detail::VecCommon<T,N> {
+template <typename T, index_t N> class Vec : public detail::VecCommon< T,N,Vec<T,N> > {
 public:
     
     /**
      * Construct a new vector with all elements set to zero.
      */
-    Vec():detail::VecCommon<T,N>() {}
+    Vec():detail::VecCommon< T,N,Vec<T,N> >() {}
 
     /**
      * Construct a new vector with all elements set to the value of `a`.
      * 
      * @param a Scalar value
      */
-    Vec(T a):detail::VecCommon<T,N>(a) {}
+    Vec(T a):detail::VecCommon< T,N,Vec<T,N> >(a) {}
     
     /**
      * Construct a new vector with elements copied from `a`.
      * @param a An array of length `N`. 
      */
-    Vec(T a[N]):detail::VecCommon<T,N>(a) {}
+    Vec(const T a[N]):detail::VecCommon< T,N,Vec<T,N> >(a) {}
     
     /**
      * Construct a new vector with the elements from `v`, with `a` as the last 

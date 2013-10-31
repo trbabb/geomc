@@ -23,7 +23,7 @@ namespace geom {
      * Global Functions          *
      *===========================*/
 
-    template <typename T> const Vec<T,4> fromARGB(int aRGB){
+    template <typename T> const Vec<T,4> fromARGB(int aRGB) {
         T a = ((aRGB & 0xff000000) >> 24) / detail::_RGBChannelConversion<T>::factor;
         T r = ((aRGB & 0x00ff0000) >> 16) / detail::_RGBChannelConversion<T>::factor;
         T g = ((aRGB & 0x0000ff00) >> 8)  / detail::_RGBChannelConversion<T>::factor;
@@ -31,7 +31,7 @@ namespace geom {
         return Vec<T,4>(r,g,b,a);
     }
 
-    template <typename T> const Vec<T,4> fromRGBA(int rgba){
+    template <typename T> const Vec<T,4> fromRGBA(int rgba) {
         T r = ((rgba & 0xff000000) >> 24) / detail::_RGBChannelConversion<T>::factor;
         T g = ((rgba & 0x00ff0000) >> 16) / detail::_RGBChannelConversion<T>::factor;
         T b = ((rgba & 0x0000ff00) >> 8)  / detail::_RGBChannelConversion<T>::factor;
@@ -54,7 +54,7 @@ namespace geom {
      * 
      * with `x`, `s`, and `r` all referring to the same element.
      */
-    template <typename T> class Vec<T,4> : public detail::VecCommon<T,4> {
+    template <typename T> class Vec<T,4> : public detail::VecCommon< T, 4, Vec<T,4> > {
     public:
         
         /// @brief (1, 0, 0, 0) constant
@@ -72,10 +72,10 @@ namespace geom {
 
         
         /// Construct vector with all elements set to 0.
-        Vec():detail::VecCommon<T,4>(){}
+        Vec():detail::VecCommon< T, 4, Vec<T,4> >() {}
         
         /// Construct a vector with elements `(x, y, z, w)`.
-        Vec(T x, T y, T z, T w){
+        Vec(T x, T y, T z, T w) {
             detail::VecBase<T,4>::x = x;
             detail::VecBase<T,4>::y = y;
             detail::VecBase<T,4>::z = z;
@@ -83,10 +83,10 @@ namespace geom {
         }
 
         /// Construct a vector with elements copied from the 4-element array `v`.
-        Vec(T v[4]):detail::VecCommon<T,4>(v){};
+        Vec(const T v[4]):detail::VecCommon< T, 4, Vec<T,4> >(v) {};
 
         /// Construct a vector with `(x, y, z)` taken from the 3D vector `xyz`, and `w` as the final element.
-        Vec(Vec<T,3> xyz, T w){
+        Vec(Vec<T,3> xyz, T w) {
             detail::VecBase<T,4>::x = xyz.x;
             detail::VecBase<T,4>::y = xyz.y;
             detail::VecBase<T,4>::z = xyz.z;
@@ -94,16 +94,16 @@ namespace geom {
         }
 
         /// Construct a vector with all elements set to `a`.
-        Vec(T a):detail::VecCommon<T,4>(a){}
+        Vec(T a):detail::VecCommon< T, 4, Vec<T,4> >(a) {}
         
         /*===========================*
          * Arithmetic                *
          *===========================*/
         
-        using detail::VecCommon<T,4>::add;
-        using detail::VecCommon<T,4>::sub;
-        using detail::VecCommon<T,4>::scale;
-        using detail::VecCommon<T,4>::dot;
+        using detail::VecCommon< T, 4, Vec<T,4> >::add;
+        using detail::VecCommon< T, 4, Vec<T,4> >::sub;
+        using detail::VecCommon< T, 4, Vec<T,4> >::scale;
+        using detail::VecCommon< T, 4, Vec<T,4> >::dot;
 
         /// @return `(dx, dy, dz, dw)` added with `this`
         Vec<T,4> add(T dx, T dy, T dz, T dw) const {
@@ -143,7 +143,7 @@ namespace geom {
 
         #ifdef GEOMC_VEC_USE_SWIZZLE
         Vec<T,4> swizzle(const std::string& xyzw) const {
-            if (xyzw.length() != 4){
+            if (xyzw.length() != 4) {
                 throw GeomException("Invalid 4D swizzle string: " + xyzw);
             }
             return Vec<T,4>(swizzlecoord(xyzw[0]),
@@ -157,7 +157,7 @@ namespace geom {
         
         #ifdef GEOMC_VEC_USE_SWIZZLE
         inline T swizzlecoord(char c) const {
-            switch (tolower(c)){
+            switch (tolower(c)) {
                 case 'x':
                 case 'r':
                     return detail::VecBase<T,4>::x;
