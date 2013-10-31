@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['l_5ft',['L_t',['../classgeom_1_1_p_l_u_decomposition.html#ad49493e5523739689d1e1b1dcf1ba045',1,'geom::PLUDecomposition']]],
   ['lcrand',['LCRand',['../classgeom_1_1_l_c_rand.html',1,'geom']]],
   ['leftperpendicular',['leftPerpendicular',['../classgeom_1_1_vec_3_01_t_00_012_01_4.html#a634dc3140925bf6d69d0536b255ddd76',1,'geom::Vec&lt; T, 2 &gt;']]],
   ['linalg',['Linalg',['../group__linalg.html',1,'']]],

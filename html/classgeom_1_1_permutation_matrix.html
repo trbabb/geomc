@@ -138,6 +138,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af6bd5099dfdc0f89049029861eb7497f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2edfbf9c4151e9245f006460512e11e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_permutation_matrix.html#ab2edfbf9c4151e9245f006460512e11e">PermutationMatrix</a> (index_t n)</td></tr>
 <tr class="separator:ab2edfbf9c4151e9245f006460512e11e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1bd18ed0d2b99c1f1dcaac8a827c2ee"><td class="memItemLeft" align="right" valign="top">index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_permutation_matrix.html#af1bd18ed0d2b99c1f1dcaac8a827c2ee">rows</a> () const </td></tr>
+<tr class="separator:af1bd18ed0d2b99c1f1dcaac8a827c2ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0f1796902c9ad383ba037c6216e2aff"><td class="memItemLeft" align="right" valign="top">index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_permutation_matrix.html#aa0f1796902c9ad383ba037c6216e2aff">cols</a> () const </td></tr>
+<tr class="separator:aa0f1796902c9ad383ba037c6216e2aff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd3c626926a66635fecd28425c17ed04"><td class="memItemLeft" align="right" valign="top">const index_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_permutation_matrix.html#abd3c626926a66635fecd28425c17ed04">getRowSources</a> () const </td></tr>
 <tr class="separator:abd3c626926a66635fecd28425c17ed04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab41e814f842a7422b4ed18b4181adb2e"><td class="memItemLeft" align="right" valign="top">const index_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_permutation_matrix.html#ab41e814f842a7422b4ed18b4181adb2e">getColSources</a> () const </td></tr>
@@ -158,6 +162,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad70c3a3cc903645bd3353e718019ff84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a319b436521ffef3ca422966868933d8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_permutation_matrix.html#a319b436521ffef3ca422966868933d8d">swap_cols</a> (index_t a, index_t b)</td></tr>
 <tr class="separator:a319b436521ffef3ca422966868933d8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99959f05e407b515ace66a1d21961313"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_permutation_matrix.html#a99959f05e407b515ace66a1d21961313">get</a> (index_t row, index_t col) const </td></tr>
+<tr class="separator:a99959f05e407b515ace66a1d21961313"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a382e6ad7e6721b121e510959e1011be3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_permutation_matrix.html#a382e6ad7e6721b121e510959e1011be3">setIdentity</a> ()</td></tr>
+<tr class="separator:a382e6ad7e6721b121e510959e1011be3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af3a99ffb20127be48232d12260e934dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_permutation_matrix.html#af3a99ffb20127be48232d12260e934dc">transpose</a> ()</td></tr>
 <tr class="separator:af3a99ffb20127be48232d12260e934dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd7b5ec725a6c8856781c4e8fcd3e0e7"><td class="memItemLeft" align="right" valign="top">derived_const_row_iterator&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (index_t i) const </td></tr>
@@ -300,6 +308,30 @@ class geom::PermutationMatrix&lt; N &gt;</h3>
 
 </div>
 </div>
+<a class="anchor" id="aa0f1796902c9ad383ba037c6216e2aff"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">index_t cols </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Number of columns in the matrix. Always equal to the number of rows. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a350132543d80a1c1e5be844e6d2878ea"></a>
 <div class="memitem">
 <div class="memproto">
@@ -321,6 +353,49 @@ class geom::PermutationMatrix&lt; N &gt;</h3>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>A read-only random-access row major-ordered iterator over the elements of this matrix, pointing to the element just beyond the last element in the lower right corner. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a99959f05e407b515ace66a1d21961313"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool get </td>
+          <td>(</td>
+          <td class="paramtype">index_t&#160;</td>
+          <td class="paramname"><em>row</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">index_t&#160;</td>
+          <td class="paramname"><em>col</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Get the element at <code>(row, col)</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">row</td><td>Zero-indexed row coordinate </td></tr>
+    <tr><td class="paramname">col</td><td>Zero-indexed column coordinate </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The element at <code>(row, col)</code>; either 0 or 1. </dd></dl>
 
 </div>
 </div>
@@ -558,6 +633,30 @@ class geom::PermutationMatrix&lt; N &gt;</h3>
 
 </div>
 </div>
+<a class="anchor" id="af1bd18ed0d2b99c1f1dcaac8a827c2ee"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">index_t rows </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Number of rows in the matrix. Always equal to the number of columns. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a68e708a87cf62ad1fe21bebdafacf6ec"></a>
 <div class="memitem">
 <div class="memproto">
@@ -624,6 +723,30 @@ class geom::PermutationMatrix&lt; N &gt;</h3>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="a382e6ad7e6721b121e510959e1011be3"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setIdentity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Reset this matrix to the identity permutation. </p>
 
 </div>
 </div>
@@ -800,7 +923,7 @@ class geom::PermutationMatrix&lt; N &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Matrix transpose. For this type of matrix, also the inverse matrix. </p>
+<p>Transpose this matrix in-place in <em>O(1)</em> time. For this type of matrix, also the inverse matrix. </p>
 
 </div>
 </div>
@@ -811,7 +934,7 @@ class geom::PermutationMatrix&lt; N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 18 2013 00:38:59 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 31 2013 01:18:19 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

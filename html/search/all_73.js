@@ -16,7 +16,7 @@ var searchData=
   ['setcolsources',['setColSources',['../classgeom_1_1_permutation_matrix.html#a8600fca4c0c0281db16dd8065a78e1c8',1,'geom::PermutationMatrix']]],
   ['setcorners',['setCorners',['../classgeom_1_1_rect.html#a0c08717516463b819b2167c56883a5cf',1,'geom::Rect']]],
   ['setdimensions',['setDimensions',['../classgeom_1_1_rect.html#a88be1e117a21bf1edd3da657bda0e0fe',1,'geom::Rect']]],
-  ['setidentity',['setIdentity',['../classgeom_1_1_simple_matrix.html#a382e6ad7e6721b121e510959e1011be3',1,'geom::SimpleMatrix']]],
+  ['setidentity',['setIdentity',['../classgeom_1_1_permutation_matrix.html#a382e6ad7e6721b121e510959e1011be3',1,'geom::PermutationMatrix::setIdentity()'],['../classgeom_1_1_simple_matrix.html#a382e6ad7e6721b121e510959e1011be3',1,'geom::SimpleMatrix::setIdentity()']]],
   ['setrowdestinations',['setRowDestinations',['../classgeom_1_1_permutation_matrix.html#a8bbc2bf578614028a9b57f122dc7c725',1,'geom::PermutationMatrix']]],
   ['setrowsources',['setRowSources',['../classgeom_1_1_permutation_matrix.html#a69a553329cf999320568cdf56adfa688',1,'geom::PermutationMatrix']]],
   ['setzero',['setZero',['../classgeom_1_1_simple_matrix.html#a47affd1a10b589811fc4828c1a2e0c6d',1,'geom::SimpleMatrix']]],

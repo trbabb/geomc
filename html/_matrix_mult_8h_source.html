@@ -297,7 +297,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#ga1f2513740215784239349db200787eac">mul</a>(Md *d, <span class="keyword">const</span> Mat &amp;a, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_permutation_matrix.html" title="A matrix which, by multiplication, permutes the rows or columns of another matrix.">geom::PermutationMatrix&lt;N&gt;</a> &amp;b) {</div>
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        index_t rows = a.rows();</div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        <span class="keyword">const</span> index_t *p = b.<a class="code" href="classgeom_1_1_permutation_matrix.html#ab41e814f842a7422b4ed18b4181adb2e">getColSources</a>();</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <span class="keywordflow">for</span> (index_t col = 0; col &lt; b.cols(); col++) {</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <span class="keywordflow">for</span> (index_t col = 0; col &lt; b.<a class="code" href="classgeom_1_1_permutation_matrix.html#aa0f1796902c9ad383ba037c6216e2aff">cols</a>(); col++) {</div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;            index_t src_col = p[col];</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;            std::copy(a.col(src_col), a.col(src_col) + rows, d-&gt;col(col));</div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        }</div>
@@ -318,7 +318,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#ga1f2513740215784239349db200787eac">mul</a>(Md *d, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_permutation_matrix.html" title="A matrix which, by multiplication, permutes the rows or columns of another matrix.">geom::PermutationMatrix&lt;N&gt;</a> &amp;a, <span class="keyword">const</span> Mat &amp;b) {</div>
 <div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        index_t cols = b.cols();</div>
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        <span class="keyword">const</span> index_t *p = a.<a class="code" href="classgeom_1_1_permutation_matrix.html#abd3c626926a66635fecd28425c17ed04">getRowSources</a>();</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        <span class="keywordflow">for</span> (index_t row = 0; row &lt; a.rows(); row++) {</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        <span class="keywordflow">for</span> (index_t row = 0; row &lt; a.<a class="code" href="classgeom_1_1_permutation_matrix.html#af1bd18ed0d2b99c1f1dcaac8a827c2ee">rows</a>(); row++) {</div>
 <div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;            index_t src_row = p[row];</div>
 <div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;            std::copy(b.row(src_row), b.row(src_row) + cols, d-&gt;row(row));</div>
 <div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        }</div>
@@ -424,7 +424,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 18 2013 00:38:59 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 31 2013 01:18:19 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

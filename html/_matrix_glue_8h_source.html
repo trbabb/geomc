@@ -320,348 +320,334 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;};</div>
 <div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;</div>
 <div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;<span class="comment">/*****************************************************</span></div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;<span class="comment"> * IsVector check                                    *</span></div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="comment"> *****************************************************/</span></div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> V&gt;</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;<span class="keyword">struct </span>isVector {</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">bool</span> val = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;};</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;<span class="keyword">struct </span>isVector&lt; Vec&lt;T,N&gt; &gt; {</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">bool</span> val = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;};</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;<span class="comment">/*****************************************************</span></div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="comment"> * Matrix dimension agreement                        *</span></div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;<span class="comment"> *                                                   *</span></div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;<span class="comment"> * Check if two matrices&#39; dimensions match           *</span></div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="comment"> *****************************************************/</span></div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb, <span class="keyword">typename</span> Enable=<span class="keywordtype">void</span>&gt;</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;<span class="keyword">struct </span>MatrixDimensionMatch {</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">bool</span> isStaticMatch = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    </div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> isMatch(<span class="keyword">const</span> Ma &amp;ma, <span class="keyword">const</span> Mb &amp;mb) {</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    }</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;<span class="comment"> * Matrix dimension agreement                        *</span></div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="comment"> *                                                   *</span></div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;<span class="comment"> * Check if two matrices&#39; dimensions match           *</span></div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;<span class="comment"> *****************************************************/</span></div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb, <span class="keyword">typename</span> Enable=<span class="keywordtype">void</span>&gt;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;<span class="keyword">struct </span>MatrixDimensionMatch {</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">bool</span> isStaticMatch = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    </div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> isMatch(<span class="keyword">const</span> Ma &amp;ma, <span class="keyword">const</span> Mb &amp;mb) {</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    }</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    </div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> check(<span class="keyword">const</span> Ma &amp;ma, <span class="keyword">const</span> Mb &amp;mb) {</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        <span class="keywordflow">throw</span> DimensionMismatchException(ma.rows(), ma.cols(), mb.rows(), mb.cols());</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    }</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;};</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb&gt;</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;<span class="keyword">struct </span>MatrixDimensionMatch &lt;Ma, Mb, </div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;        typename boost::enable_if_c&lt;</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;            ((Ma::ROWDIM == Mb::ROWDIM or Ma::ROWDIM * Mb::ROWDIM == 0) and </div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;             (Ma::COLDIM == Mb::COLDIM or Ma::COLDIM * Mb::COLDIM == 0))</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        &gt;::type&gt; {</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    </div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">bool</span> isStaticMatch = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    </div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> check(<span class="keyword">const</span> Ma &amp;ma, <span class="keyword">const</span> Mb &amp;mb) {</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;        <span class="keywordflow">throw</span> DimensionMismatchException(ma.rows(), ma.cols(), mb.rows(), mb.cols());</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    }</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;};</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb&gt;</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;<span class="keyword">struct </span>MatrixDimensionMatch &lt;Ma, Mb, </div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;        typename boost::enable_if_c&lt;</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;            ((Ma::ROWDIM == Mb::ROWDIM or Ma::ROWDIM * Mb::ROWDIM == 0) and </div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;             (Ma::COLDIM == Mb::COLDIM or Ma::COLDIM * Mb::COLDIM == 0))</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        &gt;::type&gt; {</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    </div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">bool</span> isStaticMatch = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    </div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> isMatch(<span class="keyword">const</span> Ma &amp;ma, <span class="keyword">const</span> Mb &amp;mb) {</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        <span class="keywordflow">if</span> ((Ma::ROWDIM * Mb::ROWDIM == 0 and ma.rows() != mb.rows()) or</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;            (Ma::COLDIM * Mb::COLDIM == 0 and ma.cols() != mb.cols())) {</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;        }</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    }</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    </div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> check(<span class="keyword">const</span> Ma&amp; ma, <span class="keyword">const</span> Mb &amp;mb) {</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;        <span class="keywordflow">if</span> (not isMatch(ma, mb)) {</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;            <span class="keywordflow">throw</span> DimensionMismatchException(ma.rows(), ma.cols(), mb.rows(), mb.cols());</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;        }</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    }</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;};</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;<span class="comment">/******************************************************</span></div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;<span class="comment"> * Vector-like object instantiator                    *</span></div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;<span class="comment"> *                                                    *</span></div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;<span class="comment"> * For all matrix-related functions that can produce  *</span></div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;<span class="comment"> * a Vec, we must also allow for the case where all   *</span></div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;<span class="comment"> * dimensions are dynamic. In this case, instead of a *</span></div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;<span class="comment"> * Vec we return a 1 x N dynamic SimpleMatrix.        *</span></div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;<span class="comment"> * If we ever implement dynamic-length vectors, this  *</span></div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;<span class="comment"> * will become unnecessary.                           *</span></div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;<span class="comment"> ******************************************************/</span></div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N, VecOrientation O&gt;</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;<span class="keyword">struct </span>_ImplVectorLikeMatrix {</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <span class="keyword">typedef</span> <a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">geom::Vec&lt;T,N&gt;</a> type;</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;};</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;<span class="keyword">struct </span>_ImplVectorLikeMatrix&lt;T, DYNAMIC_DIM, ORIENT_VEC_ROW&gt; {</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <span class="keyword">typedef</span> <a class="code" href="classgeom_1_1_simple_matrix.html" title="A basic matrix with M x N elements.">geom::SimpleMatrix&lt;T, 1, DYNAMIC_DIM&gt;</a> type;</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;};</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;<span class="keyword">struct </span>_ImplVectorLikeMatrix&lt;T, DYNAMIC_DIM, ORIENT_VEC_COL&gt; {</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    <span class="keyword">typedef</span> <a class="code" href="classgeom_1_1_simple_matrix.html" title="A basic matrix with M x N elements.">geom::SimpleMatrix&lt;T, DYNAMIC_DIM, 1&gt;</a> type;</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;};</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;<span class="keyword">struct </span>_ImplVectorLikeMatrix&lt;T, DYNAMIC_DIM, ORIENT_VEC_UNKNOWN&gt; {</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    <span class="keyword">typedef</span> <a class="code" href="classgeom_1_1_simple_matrix.html" title="A basic matrix with M x N elements.">geom::SimpleMatrix&lt;T, DYNAMIC_DIM, DYNAMIC_DIM&gt;</a> type;</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;};</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="comment">/******************************************************</span></div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="comment"> * Dimension checking adaptors                        *</span></div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="comment"> *                                                    *</span></div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="comment"> * Templates to query the row/column dimensions of a  *</span></div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;<span class="comment"> * matrix-or-vector. Allows matrices/vectors to be    *</span></div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;<span class="comment"> * interoperable. Since vectors do not inherently     *</span></div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;<span class="comment"> * know whether they are row or column matrices, the  *</span></div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;<span class="comment"> * choice is made by through the adaptor.             *</span></div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;<span class="comment"> *                                                    *</span></div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;<span class="comment"> * These also have the function of verifying that     *</span></div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;<span class="comment"> * some object is a linear algebra object.            *</span></div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;<span class="comment"> *                                                    *</span></div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;<span class="comment"> * Primarily used by mul(mtx,mtx).                    *</span></div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;<span class="comment"> ******************************************************/</span></div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> isMatch(<span class="keyword">const</span> Ma &amp;ma, <span class="keyword">const</span> Mb &amp;mb) {</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;        <span class="keywordflow">if</span> ((Ma::ROWDIM * Mb::ROWDIM == 0 and ma.rows() != mb.rows()) or</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;            (Ma::COLDIM * Mb::COLDIM == 0 and ma.cols() != mb.cols())) {</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        }</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    }</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    </div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> check(<span class="keyword">const</span> Ma&amp; ma, <span class="keyword">const</span> Mb &amp;mb) {</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;        <span class="keywordflow">if</span> (not isMatch(ma, mb)) {</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;            <span class="keywordflow">throw</span> DimensionMismatchException(ma.rows(), ma.cols(), mb.rows(), mb.cols());</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        }</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    }</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;};</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;<span class="comment">/******************************************************</span></div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="comment"> * Vector-like object instantiator                    *</span></div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;<span class="comment"> *                                                    *</span></div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;<span class="comment"> * For all matrix-related functions that can produce  *</span></div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;<span class="comment"> * a Vec, we must also allow for the case where all   *</span></div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;<span class="comment"> * dimensions are dynamic. In this case, instead of a *</span></div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;<span class="comment"> * Vec we return a 1 x N dynamic SimpleMatrix.        *</span></div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;<span class="comment"> * If we ever implement dynamic-length vectors, this  *</span></div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;<span class="comment"> * will become unnecessary.                           *</span></div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;<span class="comment"> ******************************************************/</span></div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N, VecOrientation O&gt;</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;<span class="keyword">struct </span>_ImplVectorLikeMatrix {</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <span class="keyword">typedef</span> <a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">geom::Vec&lt;T,N&gt;</a> type;</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;};</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;<span class="keyword">struct </span>_ImplVectorLikeMatrix&lt;T, DYNAMIC_DIM, ORIENT_VEC_ROW&gt; {</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    <span class="keyword">typedef</span> <a class="code" href="classgeom_1_1_simple_matrix.html" title="A basic matrix with M x N elements.">geom::SimpleMatrix&lt;T, 1, DYNAMIC_DIM&gt;</a> type;</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;};</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;<span class="keyword">struct </span>_ImplVectorLikeMatrix&lt;T, DYNAMIC_DIM, ORIENT_VEC_COL&gt; {</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keyword">typedef</span> <a class="code" href="classgeom_1_1_simple_matrix.html" title="A basic matrix with M x N elements.">geom::SimpleMatrix&lt;T, DYNAMIC_DIM, 1&gt;</a> type;</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;};</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;<span class="keyword">struct </span>_ImplVectorLikeMatrix&lt;T, DYNAMIC_DIM, ORIENT_VEC_UNKNOWN&gt; {</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <span class="keyword">typedef</span> <a class="code" href="classgeom_1_1_simple_matrix.html" title="A basic matrix with M x N elements.">geom::SimpleMatrix&lt;T, DYNAMIC_DIM, DYNAMIC_DIM&gt;</a> type;</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;};</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;<span class="comment">/******************************************************</span></div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;<span class="comment"> * Dimension checking adaptors                        *</span></div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;<span class="comment"> *                                                    *</span></div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;<span class="comment"> * Templates to query the row/column dimensions of a  *</span></div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;<span class="comment"> * matrix-or-vector. Allows matrices/vectors to be    *</span></div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;<span class="comment"> * interoperable. Since vectors do not inherently     *</span></div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;<span class="comment"> * know whether they are row or column matrices, the  *</span></div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;<span class="comment"> * choice is made by through the adaptor.             *</span></div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;<span class="comment"> *                                                    *</span></div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;<span class="comment"> * These also have the function of verifying that     *</span></div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;<span class="comment"> * some object is a linear algebra object.            *</span></div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;<span class="comment"> *                                                    *</span></div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;<span class="comment"> * Primarily used by mul(mtx,mtx).                    *</span></div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;<span class="comment"> ******************************************************/</span></div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, VecOrientation O, <span class="keyword">typename</span> Enable=<span class="keywordtype">void</span>&gt;</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="keyword">struct </span>_ImplMtxAdaptor {</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    <span class="comment">// pass</span></div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;};</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Mx, VecOrientation O&gt;</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;<span class="keyword">struct </span>_ImplMtxAdaptor &lt;Mx, O, typename boost::enable_if_c&lt;IsMatrix&lt;Mx&gt;::val, void&gt;::type&gt; {</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> index_t ROWDIM = Mx::ROWDIM;</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> index_t COLDIM = Mx::COLDIM;</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    </div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    <span class="keyword">static</span> index_t rows(<span class="keyword">const</span> Mx &amp;m) { <span class="keywordflow">return</span> m.<a class="code" href="classgeom_1_1_simple_matrix.html#af1bd18ed0d2b99c1f1dcaac8a827c2ee">rows</a>(); }</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    <span class="keyword">static</span> index_t cols(<span class="keyword">const</span> Mx &amp;m) { <span class="keywordflow">return</span> m.cols(); }</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;};</div>
 <div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, VecOrientation O, <span class="keyword">typename</span> Enable=<span class="keywordtype">void</span>&gt;</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;<span class="keyword">struct </span>_ImplMtxAdaptor {</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    <span class="comment">// pass</span></div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;};</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Mx, VecOrientation O&gt;</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;<span class="keyword">struct </span>_ImplMtxAdaptor &lt;Mx, O, typename boost::enable_if_c&lt;IsMatrix&lt;Mx&gt;::val, void&gt;::type&gt; {</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> index_t ROWDIM = Mx::ROWDIM;</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> index_t COLDIM = Mx::COLDIM;</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    </div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;    <span class="keyword">static</span> index_t rows(<span class="keyword">const</span> Mx &amp;m) { <span class="keywordflow">return</span> m.<a class="code" href="classgeom_1_1_simple_matrix.html#af1bd18ed0d2b99c1f1dcaac8a827c2ee">rows</a>(); }</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    <span class="keyword">static</span> index_t cols(<span class="keyword">const</span> Mx &amp;m) { <span class="keywordflow">return</span> m.cols(); }</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;};</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;<span class="keyword">struct </span>_ImplMtxAdaptor &lt;geom::Vec&lt;T,N&gt;, ORIENT_VEC_COL, void&gt; {</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> index_t ROWDIM = N;</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> index_t COLDIM = 1;</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;    </div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;    <span class="keyword">static</span> index_t rows(<span class="keyword">const</span> Vec&lt;T,N&gt;&amp; v) { <span class="keywordflow">return</span> ROWDIM; }</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;    <span class="keyword">static</span> index_t cols(<span class="keyword">const</span> Vec&lt;T,N&gt;&amp; v) { <span class="keywordflow">return</span> COLDIM; }</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;};</div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;<span class="keyword">struct </span>_ImplMtxAdaptor &lt;geom::Vec&lt;T,N&gt;, ORIENT_VEC_ROW, void&gt; {</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> index_t ROWDIM = 1;</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> index_t COLDIM = N;</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;    </div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    <span class="keyword">static</span> index_t rows(<span class="keyword">const</span> Vec&lt;T,N&gt;&amp; v) { <span class="keywordflow">return</span> ROWDIM; }</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    <span class="keyword">static</span> index_t cols(<span class="keyword">const</span> Vec&lt;T,N&gt;&amp; v) { <span class="keywordflow">return</span> COLDIM; }</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;};</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;<span class="keyword">struct </span>_ImplMtxAdaptor &lt;geom::Vec&lt;T,N&gt;, ORIENT_VEC_UNKNOWN, void&gt; {</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> index_t ROWDIM = DYNAMIC_DIM;</div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> index_t COLDIM = DYNAMIC_DIM;</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;};</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;<span class="comment">// the result of a matrix * vector or vector * matrix</span></div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;<span class="comment">// operation may be either a row or a column vector.</span></div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;<span class="comment">// this adaptor deciphers the orientation based</span></div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;<span class="comment">// on the static dimensionality of the operands.</span></div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb, <span class="keyword">typename</span> Md, <span class="keyword">typename</span> Enable=<span class="keywordtype">void</span>&gt;</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;<span class="keyword">struct </span>_ImplVecMulOrient {</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> VecOrientation orient = ORIENT_VEC_UNKNOWN;</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;};</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb, <span class="keyword">typename</span> Md&gt;</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;<span class="keyword">struct </span>_ImplVecMulOrient &lt;Ma, Mb, Md, typename boost::enable_if_c&lt;</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;            _ImplMtxAdaptor&lt;Ma, ORIENT_VEC_ROW&gt;::ROWDIM == _ImplMtxAdaptor&lt;Md, ORIENT_VEC_COL&gt;::ROWDIM and </div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;            _ImplMtxAdaptor&lt;Mb, ORIENT_VEC_COL&gt;::COLDIM == _ImplMtxAdaptor&lt;Md, ORIENT_VEC_COL&gt;::COLDIM, </div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;            void&gt;::type&gt; {</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> VecOrientation orient = ORIENT_VEC_COL;</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;};</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb, <span class="keyword">typename</span> Md&gt;</div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;<span class="keyword">struct </span>_ImplVecMulOrient &lt;Ma, Mb, Md, typename boost::enable_if_c&lt;</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;            _ImplMtxAdaptor&lt;Ma, ORIENT_VEC_ROW&gt;::ROWDIM == _ImplMtxAdaptor&lt;Md, ORIENT_VEC_ROW&gt;::ROWDIM and </div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;            _ImplMtxAdaptor&lt;Mb, ORIENT_VEC_COL&gt;::COLDIM == _ImplMtxAdaptor&lt;Md, ORIENT_VEC_ROW&gt;::COLDIM and not</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;            <span class="comment">/* avoid ambiguity with column orienation template: */</span></div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;           (_ImplMtxAdaptor&lt;Ma, ORIENT_VEC_ROW&gt;::ROWDIM == _ImplMtxAdaptor&lt;Md, ORIENT_VEC_COL&gt;::ROWDIM and </div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;            _ImplMtxAdaptor&lt;Mb, ORIENT_VEC_COL&gt;::COLDIM == _ImplMtxAdaptor&lt;Md, ORIENT_VEC_COL&gt;::COLDIM), </div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;            void&gt;::type&gt; {</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> VecOrientation orient = ORIENT_VEC_ROW;</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;};</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;</div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;<span class="comment">// how shall we orient two possible-vectors such that</span></div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;<span class="comment">// their static dimensions agree?</span></div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;<span class="comment">// if the orientation cannot be proven (and is not irrelevant,</span></div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;<span class="comment">// as in the case of two vectors, or two matrices), then</span></div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;<span class="comment">// ORIENT_VEC_UNKNOWN is resolved.</span></div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb, <span class="keyword">typename</span> Enable=<span class="keywordtype">void</span>&gt;</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;<span class="keyword">struct </span>_ImplVecOrient {</div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> VecOrientation orient = ORIENT_VEC_UNKNOWN;</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;};</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;<span class="comment">// vec(N x 1) == mtx(N x 1)</span></div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;<span class="comment">// col vector and matrix</span></div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N, <span class="keyword">typename</span> Mb&gt;</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;<span class="keyword">struct </span>_ImplVecOrient &lt;Vec&lt;T,N&gt;, Mb, typename boost::enable_if_c&lt;</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;                (N == Mb::ROWDIM or Mb::ROWDIM == DYNAMIC_DIM) and</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;                (Mb::COLDIM == 1 or Mb::COLDIM == DYNAMIC_DIM) and not</div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;                (Mb::COLDIM == DYNAMIC_DIM and Mb::ROWDIM == DYNAMIC_DIM),</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;            void&gt;::type&gt; {</div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> VecOrientation orient = ORIENT_VEC_COL;</div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;};</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;</div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;<span class="comment">// mtx(N x 1) == vec(N x 1)</span></div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;<span class="comment">// matrix and col vector</span></div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N, <span class="keyword">typename</span> Mb&gt;</div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;<span class="keyword">struct </span>_ImplVecOrient &lt;Mb, Vec&lt;T,N&gt;, typename boost::enable_if_c&lt;</div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;                (N == Mb::ROWDIM or Mb::ROWDIM == DYNAMIC_DIM) and</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;                (Mb::COLDIM == 1 or Mb::COLDIM == DYNAMIC_DIM) and not</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;                (Mb::COLDIM == DYNAMIC_DIM and Mb::ROWDIM == DYNAMIC_DIM),</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;            void&gt;::type&gt; {</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> VecOrientation orient = ORIENT_VEC_COL;</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;};</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;<span class="comment">// vec(1 x N) == mtx(1 x N)</span></div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;<span class="comment">// row vector and matrix</span></div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N, <span class="keyword">typename</span> Mb&gt;</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;<span class="keyword">struct </span>_ImplVecOrient &lt;Vec&lt;T,N&gt;, Mb, typename boost::enable_if_c&lt;</div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;                (N == Mb::COLDIM or Mb::COLDIM == DYNAMIC_DIM) and</div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;                (Mb::ROWDIM == 1 or Mb::ROWDIM == DYNAMIC_DIM) and not</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;                (Mb::COLDIM == DYNAMIC_DIM and Mb::ROWDIM == DYNAMIC_DIM),</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;            void&gt;::type&gt; {</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> VecOrientation orient = ORIENT_VEC_ROW;</div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;};</div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;<span class="comment">// mtx(1 x N) == vec(1 x N)</span></div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;<span class="comment">// matrix and row vector</span></div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N, <span class="keyword">typename</span> Mb&gt;</div>
-<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;<span class="keyword">struct </span>_ImplVecOrient &lt;Mb, Vec&lt;T,N&gt;, typename boost::enable_if_c&lt;</div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;                (N == Mb::COLDIM or Mb::COLDIM == DYNAMIC_DIM) and</div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;                (Mb::ROWDIM == 1 or Mb::ROWDIM == DYNAMIC_DIM) and not</div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;                (Mb::COLDIM == DYNAMIC_DIM and Mb::ROWDIM == DYNAMIC_DIM),</div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;            void&gt;::type&gt; {</div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> VecOrientation orient = ORIENT_VEC_ROW;</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;<span class="keyword">struct </span>_ImplMtxAdaptor &lt;geom::Vec&lt;T,N&gt;, ORIENT_VEC_COL, void&gt; {</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> index_t ROWDIM = N;</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> index_t COLDIM = 1;</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    </div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    <span class="keyword">static</span> index_t rows(<span class="keyword">const</span> Vec&lt;T,N&gt;&amp; v) { <span class="keywordflow">return</span> ROWDIM; }</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;    <span class="keyword">static</span> index_t cols(<span class="keyword">const</span> Vec&lt;T,N&gt;&amp; v) { <span class="keywordflow">return</span> COLDIM; }</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;};</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;<span class="keyword">struct </span>_ImplMtxAdaptor &lt;geom::Vec&lt;T,N&gt;, ORIENT_VEC_ROW, void&gt; {</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> index_t ROWDIM = 1;</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> index_t COLDIM = N;</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    </div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    <span class="keyword">static</span> index_t rows(<span class="keyword">const</span> Vec&lt;T,N&gt;&amp; v) { <span class="keywordflow">return</span> ROWDIM; }</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    <span class="keyword">static</span> index_t cols(<span class="keyword">const</span> Vec&lt;T,N&gt;&amp; v) { <span class="keywordflow">return</span> COLDIM; }</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;};</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<span class="keyword">struct </span>_ImplMtxAdaptor &lt;geom::Vec&lt;T,N&gt;, ORIENT_VEC_UNKNOWN, void&gt; {</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> index_t ROWDIM = DYNAMIC_DIM;</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> index_t COLDIM = DYNAMIC_DIM;</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;};</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;<span class="comment">// the result of a matrix * vector or vector * matrix</span></div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;<span class="comment">// operation may be either a row or a column vector.</span></div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;<span class="comment">// this adaptor deciphers the orientation based</span></div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;<span class="comment">// on the static dimensionality of the operands.</span></div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb, <span class="keyword">typename</span> Md, <span class="keyword">typename</span> Enable=<span class="keywordtype">void</span>&gt;</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;<span class="keyword">struct </span>_ImplVecMulOrient {</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> VecOrientation orient = ORIENT_VEC_UNKNOWN;</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;};</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb, <span class="keyword">typename</span> Md&gt;</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;<span class="keyword">struct </span>_ImplVecMulOrient &lt;Ma, Mb, Md, typename boost::enable_if_c&lt;</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;            _ImplMtxAdaptor&lt;Ma, ORIENT_VEC_ROW&gt;::ROWDIM == _ImplMtxAdaptor&lt;Md, ORIENT_VEC_COL&gt;::ROWDIM and </div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;            _ImplMtxAdaptor&lt;Mb, ORIENT_VEC_COL&gt;::COLDIM == _ImplMtxAdaptor&lt;Md, ORIENT_VEC_COL&gt;::COLDIM, </div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;            void&gt;::type&gt; {</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> VecOrientation orient = ORIENT_VEC_COL;</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;};</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb, <span class="keyword">typename</span> Md&gt;</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;<span class="keyword">struct </span>_ImplVecMulOrient &lt;Ma, Mb, Md, typename boost::enable_if_c&lt;</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;            _ImplMtxAdaptor&lt;Ma, ORIENT_VEC_ROW&gt;::ROWDIM == _ImplMtxAdaptor&lt;Md, ORIENT_VEC_ROW&gt;::ROWDIM and </div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;            _ImplMtxAdaptor&lt;Mb, ORIENT_VEC_COL&gt;::COLDIM == _ImplMtxAdaptor&lt;Md, ORIENT_VEC_ROW&gt;::COLDIM and not</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;            <span class="comment">/* avoid ambiguity with column orienation template: */</span></div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;           (_ImplMtxAdaptor&lt;Ma, ORIENT_VEC_ROW&gt;::ROWDIM == _ImplMtxAdaptor&lt;Md, ORIENT_VEC_COL&gt;::ROWDIM and </div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;            _ImplMtxAdaptor&lt;Mb, ORIENT_VEC_COL&gt;::COLDIM == _ImplMtxAdaptor&lt;Md, ORIENT_VEC_COL&gt;::COLDIM), </div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;            void&gt;::type&gt; {</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> VecOrientation orient = ORIENT_VEC_ROW;</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;};</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;<span class="comment">// how shall we orient two possible-vectors such that</span></div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="comment">// their static dimensions agree?</span></div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;<span class="comment">// if the orientation cannot be proven (and is not irrelevant,</span></div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;<span class="comment">// as in the case of two vectors, or two matrices), then</span></div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;<span class="comment">// ORIENT_VEC_UNKNOWN is resolved.</span></div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb, <span class="keyword">typename</span> Enable=<span class="keywordtype">void</span>&gt;</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;<span class="keyword">struct </span>_ImplVecOrient {</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> VecOrientation orient = ORIENT_VEC_UNKNOWN;</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;};</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;<span class="comment">// vec(N x 1) == mtx(N x 1)</span></div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;<span class="comment">// col vector and matrix</span></div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N, <span class="keyword">typename</span> Mb&gt;</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;<span class="keyword">struct </span>_ImplVecOrient &lt;Vec&lt;T,N&gt;, Mb, typename boost::enable_if_c&lt;</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;                (N == Mb::ROWDIM or Mb::ROWDIM == DYNAMIC_DIM) and</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;                (Mb::COLDIM == 1 or Mb::COLDIM == DYNAMIC_DIM) and not</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;                (Mb::COLDIM == DYNAMIC_DIM and Mb::ROWDIM == DYNAMIC_DIM),</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;            void&gt;::type&gt; {</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> VecOrientation orient = ORIENT_VEC_COL;</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;};</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;<span class="comment">// mtx(N x 1) == vec(N x 1)</span></div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;<span class="comment">// matrix and col vector</span></div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N, <span class="keyword">typename</span> Mb&gt;</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;<span class="keyword">struct </span>_ImplVecOrient &lt;Mb, Vec&lt;T,N&gt;, typename boost::enable_if_c&lt;</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;                (N == Mb::ROWDIM or Mb::ROWDIM == DYNAMIC_DIM) and</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;                (Mb::COLDIM == 1 or Mb::COLDIM == DYNAMIC_DIM) and not</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;                (Mb::COLDIM == DYNAMIC_DIM and Mb::ROWDIM == DYNAMIC_DIM),</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;            void&gt;::type&gt; {</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> VecOrientation orient = ORIENT_VEC_COL;</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;};</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;<span class="comment">// vec(1 x N) == mtx(1 x N)</span></div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;<span class="comment">// row vector and matrix</span></div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N, <span class="keyword">typename</span> Mb&gt;</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;<span class="keyword">struct </span>_ImplVecOrient &lt;Vec&lt;T,N&gt;, Mb, typename boost::enable_if_c&lt;</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;                (N == Mb::COLDIM or Mb::COLDIM == DYNAMIC_DIM) and</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;                (Mb::ROWDIM == 1 or Mb::ROWDIM == DYNAMIC_DIM) and not</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;                (Mb::COLDIM == DYNAMIC_DIM and Mb::ROWDIM == DYNAMIC_DIM),</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;            void&gt;::type&gt; {</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> VecOrientation orient = ORIENT_VEC_ROW;</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;};</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;<span class="comment">// mtx(1 x N) == vec(1 x N)</span></div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;<span class="comment">// matrix and row vector</span></div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N, <span class="keyword">typename</span> Mb&gt;</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;<span class="keyword">struct </span>_ImplVecOrient &lt;Mb, Vec&lt;T,N&gt;, typename boost::enable_if_c&lt;</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;                (N == Mb::COLDIM or Mb::COLDIM == DYNAMIC_DIM) and</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;                (Mb::ROWDIM == 1 or Mb::ROWDIM == DYNAMIC_DIM) and not</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;                (Mb::COLDIM == DYNAMIC_DIM and Mb::ROWDIM == DYNAMIC_DIM),</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;            void&gt;::type&gt; {</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> VecOrientation orient = ORIENT_VEC_ROW;</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;};</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;</div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;<span class="comment">// two vectors</span></div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> A, <span class="keyword">typename</span> B, index_t N&gt;</div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;<span class="keyword">struct </span>_ImplVecOrient &lt;Vec&lt;A,N&gt;, Vec&lt;B,N&gt;, void&gt; {</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    <span class="comment">// arbitrary</span></div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> VecOrientation orient = ORIENT_VEC_COL;</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;};</div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;<span class="comment">// two matrices</span></div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb&gt;</div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;<span class="keyword">struct </span>_ImplVecOrient &lt;Ma, Mb, typename boost::enable_if_c&lt;(IsMatrix&lt;Ma&gt;::val and IsMatrix&lt;Mb&gt;::val), void&gt;::type&gt; {</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    <span class="comment">// arbitrary</span></div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> VecOrientation orient = ORIENT_VEC_COL;</div>
 <div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;};</div>
 <div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;</div>
-<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;<span class="comment">// two vectors</span></div>
-<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> A, <span class="keyword">typename</span> B, index_t N&gt;</div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;<span class="keyword">struct </span>_ImplVecOrient &lt;Vec&lt;A,N&gt;, Vec&lt;B,N&gt;, void&gt; {</div>
-<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;    <span class="comment">// arbitrary</span></div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> VecOrientation orient = ORIENT_VEC_COL;</div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;};</div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;</div>
-<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;<span class="comment">// two matrices</span></div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb&gt;</div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;<span class="keyword">struct </span>_ImplVecOrient &lt;Ma, Mb, typename boost::enable_if_c&lt;(IsMatrix&lt;Ma&gt;::val and IsMatrix&lt;Mb&gt;::val), void&gt;::type&gt; {</div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;    <span class="comment">// arbitrary</span></div>
-<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> VecOrientation orient = ORIENT_VEC_COL;</div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;};</div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;</div>
-<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;<span class="comment">// Do two linear algebra objects       //</span></div>
-<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;<span class="comment">// (matrixes/vectors) have matching    //</span></div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;<span class="comment">// dimension?                          //</span></div>
-<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;<span class="comment"></span></div>
-<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb, <span class="keyword">typename</span> Enable=<span class="keywordtype">void</span>&gt;</div>
-<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;<span class="keyword">struct </span>LinalgDimensionMatch {</div>
-<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">bool</span> val = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;};</div>
-<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;</div>
-<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb&gt;</div>
-<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;<span class="keyword">struct </span>LinalgDimensionMatch &lt;Ma,Mb,</div>
-<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;        typename boost::enable_if_c&lt;</div>
-<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;            (((_ImplMtxAdaptor&lt;Ma, _ImplVecOrient&lt;Ma,Mb&gt;::orient&gt;::ROWDIM == _ImplMtxAdaptor&lt;Mb, _ImplVecOrient&lt;Ma,Mb&gt;::orient&gt;::ROWDIM) or </div>
-<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;              (_ImplMtxAdaptor&lt;Ma, _ImplVecOrient&lt;Ma,Mb&gt;::orient&gt;::ROWDIM  * _ImplMtxAdaptor&lt;Mb, _ImplVecOrient&lt;Ma,Mb&gt;::orient&gt;::ROWDIM == 0)) and </div>
-<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;              <span class="comment">/* col dimension match */</span></div>
-<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;             ((_ImplMtxAdaptor&lt;Ma, _ImplVecOrient&lt;Ma,Mb&gt;::orient&gt;::COLDIM == _ImplMtxAdaptor&lt;Mb, detail::_ImplVecOrient&lt;Ma,Mb&gt;::orient&gt;::COLDIM) or </div>
-<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;              (_ImplMtxAdaptor&lt;Ma, _ImplVecOrient&lt;Ma,Mb&gt;::orient&gt;::COLDIM  * _ImplMtxAdaptor&lt;Mb, detail::_ImplVecOrient&lt;Ma,Mb&gt;::orient&gt;::COLDIM == 0))),</div>
-<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;        void&gt;::type&gt; {</div>
-<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">bool</span> val = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;};</div>
-<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;</div>
-<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;<span class="comment">// Are two matrices multipliable?      //</span></div>
-<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;<span class="comment"></span></div>
-<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb, <span class="keyword">typename</span> Enable=<span class="keywordtype">void</span>&gt; </div>
-<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;<span class="keyword">struct </span>MatrixMultipliable {</div>
-<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">bool</span> val = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;<span class="comment">// Do two linear algebra objects       //</span></div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;<span class="comment">// (matrixes/vectors) have matching    //</span></div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;<span class="comment">// dimension?                          //</span></div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb, <span class="keyword">typename</span> Enable=<span class="keywordtype">void</span>&gt;</div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;<span class="keyword">struct </span>LinalgDimensionMatch {</div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">bool</span> val = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;};</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;</div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb&gt;</div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;<span class="keyword">struct </span>LinalgDimensionMatch &lt;Ma,Mb,</div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;        typename boost::enable_if_c&lt;</div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;            (((_ImplMtxAdaptor&lt;Ma, _ImplVecOrient&lt;Ma,Mb&gt;::orient&gt;::ROWDIM == _ImplMtxAdaptor&lt;Mb, _ImplVecOrient&lt;Ma,Mb&gt;::orient&gt;::ROWDIM) or </div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;              (_ImplMtxAdaptor&lt;Ma, _ImplVecOrient&lt;Ma,Mb&gt;::orient&gt;::ROWDIM  * _ImplMtxAdaptor&lt;Mb, _ImplVecOrient&lt;Ma,Mb&gt;::orient&gt;::ROWDIM == 0)) and </div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;              <span class="comment">/* col dimension match */</span></div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;             ((_ImplMtxAdaptor&lt;Ma, _ImplVecOrient&lt;Ma,Mb&gt;::orient&gt;::COLDIM == _ImplMtxAdaptor&lt;Mb, detail::_ImplVecOrient&lt;Ma,Mb&gt;::orient&gt;::COLDIM) or </div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;              (_ImplMtxAdaptor&lt;Ma, _ImplVecOrient&lt;Ma,Mb&gt;::orient&gt;::COLDIM  * _ImplMtxAdaptor&lt;Mb, detail::_ImplVecOrient&lt;Ma,Mb&gt;::orient&gt;::COLDIM == 0))),</div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;        void&gt;::type&gt; {</div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">bool</span> val = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;};</div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;</div>
+<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;<span class="comment">// Are two matrices multipliable?      //</span></div>
+<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb, <span class="keyword">typename</span> Enable=<span class="keywordtype">void</span>&gt; </div>
+<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;<span class="keyword">struct </span>MatrixMultipliable {</div>
+<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">bool</span> val = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;};</div>
+<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;</div>
+<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb&gt;</div>
+<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;<span class="keyword">struct </span>MatrixMultipliable &lt;Ma, Mb, </div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;    typename boost::enable_if_c&lt;</div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;            <span class="comment">/* at least one arg is a matrix */</span></div>
+<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;            (IsMatrix&lt;Ma&gt;::val or IsMatrix&lt;Mb&gt;::val) and</div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;            <span class="comment">/* inner dimension match */</span></div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;            (_ImplMtxAdaptor&lt;Ma, ORIENT_VEC_ROW&gt;::COLDIM == _ImplMtxAdaptor&lt;Mb, ORIENT_VEC_COL&gt;::ROWDIM or</div>
+<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;            <span class="comment">/* ...or dynamic inner dimension demands runtime check: */</span></div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;            _ImplMtxAdaptor&lt;Ma, ORIENT_VEC_ROW&gt;::COLDIM == DYNAMIC_DIM or</div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;            _ImplMtxAdaptor&lt;Mb, ORIENT_VEC_COL&gt;::ROWDIM == DYNAMIC_DIM),</div>
+<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;        void&gt;::type&gt; {</div>
+<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">bool</span> val = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;};</div>
 <div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;</div>
-<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb&gt;</div>
-<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;<span class="keyword">struct </span>MatrixMultipliable &lt;Ma, Mb, </div>
-<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;    typename boost::enable_if_c&lt;</div>
-<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;            <span class="comment">/* at least one arg is a matrix */</span></div>
-<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;            (IsMatrix&lt;Ma&gt;::val or IsMatrix&lt;Mb&gt;::val) and</div>
-<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;            <span class="comment">/* inner dimension match */</span></div>
-<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;            (_ImplMtxAdaptor&lt;Ma, ORIENT_VEC_ROW&gt;::COLDIM == _ImplMtxAdaptor&lt;Mb, ORIENT_VEC_COL&gt;::ROWDIM or</div>
-<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;            <span class="comment">/* ...or dynamic inner dimension demands runtime check: */</span></div>
-<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;            _ImplMtxAdaptor&lt;Ma, ORIENT_VEC_ROW&gt;::COLDIM == DYNAMIC_DIM or</div>
-<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;            _ImplMtxAdaptor&lt;Mb, ORIENT_VEC_COL&gt;::ROWDIM == DYNAMIC_DIM),</div>
-<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;        void&gt;::type&gt; {</div>
-<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">bool</span> val = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;};</div>
-<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;</div>
-<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;<span class="comment">// Matrix return type template                 //</span></div>
-<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;<span class="comment">//                                             //</span></div>
-<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;<span class="comment">// this needs aspecial case because of reasons //</span></div>
-<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;<span class="comment"></span></div>
-<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;<span class="comment">//fwd decl</span></div>
-<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb, <span class="keyword">typename</span> Enable&gt;</div>
-<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;<span class="keyword">class </span>_ImplMtxMul;</div>
-<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;</div>
-<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb, <span class="keyword">typename</span> Enable=<span class="keywordtype">void</span>&gt;</div>
-<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;<span class="keyword">struct </span>MatrixMultReturnType {</div>
-<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;    <span class="comment">// not multipliable; no return type; engage SFINAE</span></div>
-<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;};</div>
-<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;</div>
-<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb&gt;</div>
-<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;<span class="keyword">struct </span>MatrixMultReturnType &lt;Ma, Mb,</div>
-<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;        typename boost::enable_if_c&lt;</div>
-<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;            MatrixMultipliable&lt;Ma,Mb&gt;::val, void&gt;::type&gt; {</div>
-<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> detail::_ImplMtxMul&lt;Ma,Mb,void&gt;::return_t return_t;</div>
-<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;};</div>
-<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;</div>
-<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;<span class="comment">// Is a matrix a valid destination for //</span></div>
-<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;<span class="comment">// a matrix mult operation?            //</span></div>
-<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;<span class="comment"></span></div>
-<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;<span class="preprocessor">#define MATRIX_DEST_MATCH(Ma,Mb,Md) \</span></div>
-<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;<span class="preprocessor">    </span><span class="comment">/* result row dimension matches: */</span><span class="preprocessor"> \</span></div>
-<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;<span class="preprocessor">   ((detail::_ImplMtxAdaptor&lt;Md, detail::_ImplVecMulOrient&lt;Ma,Mb,Md&gt;::orient&gt;::ROWDIM == detail::_ImplMtxAdaptor&lt;Ma, detail::ORIENT_VEC_ROW&gt;::ROWDIM or \</span></div>
-<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;<span class="preprocessor">    </span><span class="comment">/* ...or result row dimension is dynamic: */</span><span class="preprocessor"> \</span></div>
-<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;<span class="preprocessor">     detail::_ImplMtxAdaptor&lt;Md, detail::_ImplVecMulOrient&lt;Ma,Mb,Md&gt;::orient&gt;::ROWDIM  * detail::_ImplMtxAdaptor&lt;Ma, detail::ORIENT_VEC_ROW&gt;::ROWDIM == 0) and \</span></div>
-<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160;<span class="preprocessor">    </span><span class="comment">/* column dimension matches: */</span><span class="preprocessor"> \</span></div>
-<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160;<span class="preprocessor">    (detail::_ImplMtxAdaptor&lt;Md, detail::_ImplVecMulOrient&lt;Ma,Mb,Md&gt;::orient&gt;::COLDIM == detail::_ImplMtxAdaptor&lt;Mb, detail::ORIENT_VEC_COL&gt;::COLDIM or \</span></div>
-<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;<span class="preprocessor">    </span><span class="comment">/* or result column dimension is dynamic: */</span><span class="preprocessor"> \</span></div>
-<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;<span class="preprocessor">     detail::_ImplMtxAdaptor&lt;Md, detail::_ImplVecMulOrient&lt;Ma,Mb,Md&gt;::orient&gt;::COLDIM  * detail::_ImplMtxAdaptor&lt;Mb, detail::ORIENT_VEC_COL&gt;::COLDIM == 0))</span></div>
-<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb, <span class="keyword">typename</span> Md, <span class="keyword">typename</span> Enable=<span class="keywordtype">void</span>&gt;</div>
-<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;<span class="keyword">struct </span>_ImplMtxResult {</div>
-<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> MatrixResultAgreement agreement = MTX_RESULT_MISMATCH;</div>
-<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;};</div>
-<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;</div>
-<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb, <span class="keyword">typename</span> Md&gt;</div>
-<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;<span class="keyword">struct </span>_ImplMtxResult &lt;Ma, Mb, Md,</div>
-<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;       typename boost::enable_if_c&lt;MATRIX_DEST_MATCH(Ma,Mb,Md) and detail::_ImplVecMulOrient&lt;Ma,Mb,Md&gt;::orient != ORIENT_VEC_UNKNOWN, void&gt;::type&gt; {</div>
-<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> MatrixResultAgreement agreement = MTX_RESULT_MATCH;</div>
-<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;};</div>
-<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;</div>
-<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb, <span class="keyword">typename</span> Md&gt;</div>
-<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;<span class="keyword">struct </span>_ImplMtxResult &lt;Ma, Mb, Md,</div>
-<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;       typename boost::enable_if_c&lt;MATRIX_DEST_MATCH(Ma,Mb,Md) and detail::_ImplVecMulOrient&lt;Ma,Mb,Md&gt;::orient == ORIENT_VEC_UNKNOWN, void&gt;::type&gt; {</div>
-<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;   <span class="keyword">static</span> <span class="keyword">const</span> MatrixResultAgreement agreement = MTX_RESULT_UNKNOWN;</div>
-<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;};</div>
-<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;</div>
-<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;<span class="preprocessor">#undef MATRIX_DEST_MATCH</span></div>
-<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;}; <span class="comment">/* namespace detail */</span></div>
-<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;}; <span class="comment">/* namespace geom */</span></div>
-<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;</div>
-<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;</div>
-<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;</div>
-<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* MATRIXGLUE_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;<span class="comment">// Matrix return type template                 //</span></div>
+<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;<span class="comment">//                                             //</span></div>
+<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;<span class="comment">// this needs aspecial case because of reasons //</span></div>
+<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;<span class="comment">//fwd decl</span></div>
+<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb, <span class="keyword">typename</span> Enable&gt;</div>
+<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;<span class="keyword">class </span>_ImplMtxMul;</div>
+<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;</div>
+<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb, <span class="keyword">typename</span> Enable=<span class="keywordtype">void</span>&gt;</div>
+<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;<span class="keyword">struct </span>MatrixMultReturnType {</div>
+<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;    <span class="comment">// not multipliable; no return type; engage SFINAE</span></div>
+<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;};</div>
+<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;</div>
+<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb&gt;</div>
+<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;<span class="keyword">struct </span>MatrixMultReturnType &lt;Ma, Mb,</div>
+<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;        typename boost::enable_if_c&lt;</div>
+<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;            MatrixMultipliable&lt;Ma,Mb&gt;::val, void&gt;::type&gt; {</div>
+<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> detail::_ImplMtxMul&lt;Ma,Mb,void&gt;::return_t return_t;</div>
+<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;};</div>
+<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;</div>
+<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;<span class="comment">// Is a matrix a valid destination for //</span></div>
+<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;<span class="comment">// a matrix mult operation?            //</span></div>
+<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;<span class="comment"></span></div>
+<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;<span class="preprocessor">#define MATRIX_DEST_MATCH(Ma,Mb,Md) \</span></div>
+<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;<span class="preprocessor">    </span><span class="comment">/* result row dimension matches: */</span><span class="preprocessor"> \</span></div>
+<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;<span class="preprocessor">   ((detail::_ImplMtxAdaptor&lt;Md, detail::_ImplVecMulOrient&lt;Ma,Mb,Md&gt;::orient&gt;::ROWDIM == detail::_ImplMtxAdaptor&lt;Ma, detail::ORIENT_VEC_ROW&gt;::ROWDIM or \</span></div>
+<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;<span class="preprocessor">    </span><span class="comment">/* ...or result row dimension is dynamic: */</span><span class="preprocessor"> \</span></div>
+<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;<span class="preprocessor">     detail::_ImplMtxAdaptor&lt;Md, detail::_ImplVecMulOrient&lt;Ma,Mb,Md&gt;::orient&gt;::ROWDIM  * detail::_ImplMtxAdaptor&lt;Ma, detail::ORIENT_VEC_ROW&gt;::ROWDIM == 0) and \</span></div>
+<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;<span class="preprocessor">    </span><span class="comment">/* column dimension matches: */</span><span class="preprocessor"> \</span></div>
+<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;<span class="preprocessor">    (detail::_ImplMtxAdaptor&lt;Md, detail::_ImplVecMulOrient&lt;Ma,Mb,Md&gt;::orient&gt;::COLDIM == detail::_ImplMtxAdaptor&lt;Mb, detail::ORIENT_VEC_COL&gt;::COLDIM or \</span></div>
+<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;<span class="preprocessor">    </span><span class="comment">/* or result column dimension is dynamic: */</span><span class="preprocessor"> \</span></div>
+<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;<span class="preprocessor">     detail::_ImplMtxAdaptor&lt;Md, detail::_ImplVecMulOrient&lt;Ma,Mb,Md&gt;::orient&gt;::COLDIM  * detail::_ImplMtxAdaptor&lt;Mb, detail::ORIENT_VEC_COL&gt;::COLDIM == 0))</span></div>
+<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb, <span class="keyword">typename</span> Md, <span class="keyword">typename</span> Enable=<span class="keywordtype">void</span>&gt;</div>
+<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;<span class="keyword">struct </span>_ImplMtxResult {</div>
+<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> MatrixResultAgreement agreement = MTX_RESULT_MISMATCH;</div>
+<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;};</div>
+<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;</div>
+<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb, <span class="keyword">typename</span> Md&gt;</div>
+<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;<span class="keyword">struct </span>_ImplMtxResult &lt;Ma, Mb, Md,</div>
+<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;       typename boost::enable_if_c&lt;MATRIX_DEST_MATCH(Ma,Mb,Md) and detail::_ImplVecMulOrient&lt;Ma,Mb,Md&gt;::orient != ORIENT_VEC_UNKNOWN, void&gt;::type&gt; {</div>
+<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> MatrixResultAgreement agreement = MTX_RESULT_MATCH;</div>
+<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160;};</div>
+<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160;</div>
+<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb, <span class="keyword">typename</span> Md&gt;</div>
+<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;<span class="keyword">struct </span>_ImplMtxResult &lt;Ma, Mb, Md,</div>
+<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;       typename boost::enable_if_c&lt;MATRIX_DEST_MATCH(Ma,Mb,Md) and detail::_ImplVecMulOrient&lt;Ma,Mb,Md&gt;::orient == ORIENT_VEC_UNKNOWN, void&gt;::type&gt; {</div>
+<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;   <span class="keyword">static</span> <span class="keyword">const</span> MatrixResultAgreement agreement = MTX_RESULT_UNKNOWN;</div>
+<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;};</div>
+<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;</div>
+<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;<span class="preprocessor">#undef MATRIX_DEST_MATCH</span></div>
+<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;}; <span class="comment">/* namespace detail */</span></div>
+<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;}; <span class="comment">/* namespace geom */</span></div>
+<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;</div>
+<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;</div>
+<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;</div>
+<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* MATRIXGLUE_H_ */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 18 2013 00:38:59 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 31 2013 01:18:19 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

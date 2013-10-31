@@ -1,7 +1,7 @@
 var searchData=
 [
   ['geom',['geom',['../namespacegeom.html',1,'']]],
-  ['get',['get',['../classgeom_1_1_simple_matrix.html#aa3c53d4f479316ebeae7c28adf65bfef',1,'geom::SimpleMatrix::get(index_t r, index_t c) const '],['../classgeom_1_1_simple_matrix.html#a4692adba7c7066bc37760f8dbf511e09',1,'geom::SimpleMatrix::get(index_t r, index_t c)']]],
+  ['get',['get',['../classgeom_1_1_permutation_matrix.html#a99959f05e407b515ace66a1d21961313',1,'geom::PermutationMatrix::get()'],['../classgeom_1_1_simple_matrix.html#aa3c53d4f479316ebeae7c28adf65bfef',1,'geom::SimpleMatrix::get(index_t r, index_t c) const '],['../classgeom_1_1_simple_matrix.html#a4692adba7c7066bc37760f8dbf511e09',1,'geom::SimpleMatrix::get(index_t r, index_t c)']]],
   ['getangle',['getAngle',['../classgeom_1_1_vec_3_01_t_00_012_01_4.html#af021a592547ff3f2983260ccbe501f6c',1,'geom::Vec&lt; T, 2 &gt;']]],
   ['getcenter',['getCenter',['../classgeom_1_1_rect.html#a325aa65421b81a280e89a4f59b4c971e',1,'geom::Rect']]],
   ['getcoldestinations',['getColDestinations',['../classgeom_1_1_permutation_matrix.html#a37b65a04ab8506aea04cccc5a09466e4',1,'geom::PermutationMatrix']]],

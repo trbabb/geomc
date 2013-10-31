@@ -32,6 +32,6 @@ var searchData=
   ['rottoaxisangle',['rotToAxisAngle',['../classgeom_1_1_quat.html#a903ffa3772ba60f63740bf4245a133a4',1,'geom::Quat']]],
   ['row',['row',['../classgeom_1_1_simple_matrix.html#a7d68fa524f639658402ef8e321cf0831',1,'geom::SimpleMatrix::row(index_t i) const '],['../classgeom_1_1_simple_matrix.html#aba59e7d383f9955d4648a34ea45b8380',1,'geom::SimpleMatrix::row(index_t i)']]],
   ['row_5fiterator',['row_iterator',['../classgeom_1_1_simple_matrix.html#abd8c4bb02eaa4a6e767daa085d850b78',1,'geom::SimpleMatrix']]],
-  ['rows',['rows',['../classgeom_1_1_simple_matrix.html#af1bd18ed0d2b99c1f1dcaac8a827c2ee',1,'geom::SimpleMatrix']]],
+  ['rows',['rows',['../classgeom_1_1_permutation_matrix.html#af1bd18ed0d2b99c1f1dcaac8a827c2ee',1,'geom::PermutationMatrix::rows()'],['../classgeom_1_1_simple_matrix.html#af1bd18ed0d2b99c1f1dcaac8a827c2ee',1,'geom::SimpleMatrix::rows()']]],
   ['rseed',['rseed',['../classgeom_1_1_l_c_rand.html#ac19afa114f0d3fc5d03ccaf8a8c43944',1,'geom::LCRand::rseed()'],['../classgeom_1_1_m_t_rand.html#ac19afa114f0d3fc5d03ccaf8a8c43944',1,'geom::MTRand::rseed()'],['../classgeom_1_1_random.html#ac55e1b60bf39d9e39501ac2c496f66ed',1,'geom::Random::rseed()']]]
 ];

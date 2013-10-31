@@ -110,7 +110,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">namespace </span>geom {</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html">   39</a></span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class </span><a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">Vec</a>&lt;T,2&gt; : <span class="keyword">public</span> detail::VecCommon&lt;T,2&gt; {</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html">   39</a></span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class </span><a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">Vec</a>&lt;T,2&gt; : <span class="keyword">public</span> detail::VecCommon&lt; T, 2, Vec&lt;T,2&gt; &gt; {</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        </div>
@@ -121,26 +121,26 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">         * Structors                 *</span></div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">         *===========================*/</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        </div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html#a82cf7e1c93ee9188fefb25b86fc6c5b0">   53</a></span>&#160;        <a class="code" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html#a82cf7e1c93ee9188fefb25b86fc6c5b0" title="Construct vector with both elements set to 0.">Vec</a>():detail::VecCommon&lt;T,2&gt;(){}</div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html#a82cf7e1c93ee9188fefb25b86fc6c5b0">   53</a></span>&#160;        <a class="code" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html#a82cf7e1c93ee9188fefb25b86fc6c5b0" title="Construct vector with both elements set to 0.">Vec</a>():detail::VecCommon&lt; T, 2, <a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">Vec</a>&lt;T,2&gt; &gt;(){}</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        </div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html#a17a6dad1e56778a30b7808fc2b449669">   56</a></span>&#160;        <a class="code" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html#a17a6dad1e56778a30b7808fc2b449669" title="Construct a vector with both elements set to a.">Vec</a>(T a):detail::VecCommon&lt;T,2&gt;(a){}</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html#a17a6dad1e56778a30b7808fc2b449669">   56</a></span>&#160;        <a class="code" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html#a17a6dad1e56778a30b7808fc2b449669" title="Construct a vector with both elements set to a.">Vec</a>(T a):detail::VecCommon&lt; T, 2, <a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">Vec</a>&lt;T,2&gt; &gt;(a){}</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
 <div class="line"><a name="l00059"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html#a3d6eac95741699af6d564713edd32795">   59</a></span>&#160;        <a class="code" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html#a3d6eac95741699af6d564713edd32795" title="Construct a vector with elements (x, y).">Vec</a>(T x, T y){</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            detail::VecBase&lt;T,2&gt;::x = x;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            detail::VecBase&lt;T,2&gt;::y = y;</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        }</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        </div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html#a5a923121cd1d072d776d6bb4a9e6a590">   65</a></span>&#160;        <a class="code" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html#a5a923121cd1d072d776d6bb4a9e6a590" title="Construct a vector with elements copied from the 2-element array v.">Vec</a>(T v[2]):detail::VecCommon&lt;T,2&gt;(v){}</div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html#a51da0c154f8c520b44ee031a3b7b65e9">   65</a></span>&#160;        <a class="code" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html#a51da0c154f8c520b44ee031a3b7b65e9" title="Construct a vector with elements copied from the 2-element array v.">Vec</a>(<span class="keyword">const</span> T v[2]):detail::VecCommon&lt; T, 2, <a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">Vec</a>&lt;T,2&gt; &gt;(v){}</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        </div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="comment">/*===========================*</span></div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">         * Convenience Arithmetic    *</span></div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">         *===========================*/</span></div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        </div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="comment">//do not hide these; we want to overload them:</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keyword">using</span> <a class="code" href="group__matrix.html#gaa4a33c0f1bb911ce5235ceb09dca799a">detail::VecCommon&lt;T,2&gt;::add</a>;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keyword">using</span> <a class="code" href="group__matrix.html#ga4ca8a4cc286eb011023e4c4adae9e27b">detail::VecCommon&lt;T,2&gt;::sub</a>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keyword">using</span> <a class="code" href="group__linalg.html#gab4ef5a5844e69301ae83804a9770881b">detail::VecCommon&lt;T,2&gt;::scale</a>;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keyword">using</span> detail::VecCommon&lt;T,2&gt;::dot;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keyword">using</span> detail::VecCommon&lt; T, 2, Vec&lt;T,2&gt; &gt;::add;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keyword">using</span> detail::VecCommon&lt; T, 2, Vec&lt;T,2&gt; &gt;::sub;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keyword">using</span> detail::VecCommon&lt; T, 2, Vec&lt;T,2&gt; &gt;::scale;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keyword">using</span> detail::VecCommon&lt; T, 2, Vec&lt;T,2&gt; &gt;::dot;</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
 <div class="line"><a name="l00078"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html#a3330d15b85edb80ab15d03064e9d991c">   78</a></span>&#160;        <span class="keyword">inline</span> <a class="code" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html" title="2D specialization of vector class.">Vec&lt;T,2&gt;</a> <a class="code" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html#a3330d15b85edb80ab15d03064e9d991c" title="Addition. Convenience function with separate args for x and y.">add</a>(T dx, T dy)<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html" title="2D specialization of vector class.">Vec&lt;T,2&gt;</a>(detail::VecBase&lt;T,2&gt;::x + dx, detail::VecBase&lt;T,2&gt;::y + dy);</div>
@@ -206,7 +206,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;</div>
 <div class="line"><a name="l00173"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html#af021a592547ff3f2983260ccbe501f6c">  173</a></span>&#160;        <span class="keyword">inline</span> T <a class="code" href="classgeom_1_1_vec_3_01_t_00_012_01_4.html#af021a592547ff3f2983260ccbe501f6c">getAngle</a>()<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;            T theta = (T)(atan2(detail::VecBase&lt;T,2&gt;::y,detail::VecBase&lt;T,2&gt;::x));</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;            <span class="keywordflow">if</span> (theta &lt; 0) theta += M_2_PI;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;            <span class="keywordflow">if</span> (theta &lt; 0) theta += 2 * M_PI;</div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;            <span class="keywordflow">return</span> theta;</div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        }</div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        </div>
@@ -250,7 +250,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 18 2013 00:38:59 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 31 2013 01:18:19 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

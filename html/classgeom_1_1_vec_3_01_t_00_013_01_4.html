@@ -90,6 +90,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classgeom_1_1_vec_3_01_t_00_013_01_4-members.html">List of all members</a>  </div>
@@ -103,8 +104,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p><code>#include &lt;<a class="el" href="_vec3_8h_source.html">geomc/linalg/vecdetail/Vec3.h</a>&gt;</code></p>
 
-<p>Inherits VecCommon&lt; T, N &gt;.</p>
+<p>Inherits VecCommon&lt; T, N, VType &gt;.</p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a57565b340118f6f3590c517a2442525b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a57565b340118f6f3590c517a2442525b"></a>
+typedef VType&#160;</td><td class="memItemRight" valign="bottom"><b>self_t</b></td></tr>
+<tr class="memdesc:a57565b340118f6f3590c517a2442525b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Self type. I.e., <code><a class="el" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">Vec</a>&lt;T,N&gt;</code> if a vector, <code><a class="el" href="classgeom_1_1_quat.html" title="Quaternion class.">Quat</a>&lt;T&gt;</code> if a quaternion. <br/></td></tr>
+<tr class="separator:a57565b340118f6f3590c517a2442525b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fa2115cdbb245c2f609f654a9888f14"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3fa2115cdbb245c2f609f654a9888f14"></a>
+typedef T&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
+<tr class="memdesc:a3fa2115cdbb245c2f609f654a9888f14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element type. <br/></td></tr>
+<tr class="separator:a3fa2115cdbb245c2f609f654a9888f14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a82cf7e1c93ee9188fefb25b86fc6c5b0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a82cf7e1c93ee9188fefb25b86fc6c5b0"></a>
@@ -119,10 +131,10 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html#a17a6dad1e56778a30b7808fc2b449669">Vec</a> (T a)</td></tr>
 <tr class="memdesc:a17a6dad1e56778a30b7808fc2b449669"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a vector with all elements set to <code>a</code>. <br/></td></tr>
 <tr class="separator:a17a6dad1e56778a30b7808fc2b449669"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5d05ea21872e35428f2e54819677357"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa5d05ea21872e35428f2e54819677357"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html#aa5d05ea21872e35428f2e54819677357">Vec</a> (T v[3])</td></tr>
-<tr class="memdesc:aa5d05ea21872e35428f2e54819677357"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a vector with elements copied from the 3-element array <code>v</code>. <br/></td></tr>
-<tr class="separator:aa5d05ea21872e35428f2e54819677357"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3126ca6a548ec5d5881b6f884f61fcb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa3126ca6a548ec5d5881b6f884f61fcb"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html#aa3126ca6a548ec5d5881b6f884f61fcb">Vec</a> (const T v[3])</td></tr>
+<tr class="memdesc:aa3126ca6a548ec5d5881b6f884f61fcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a vector with elements copied from the 3-element array <code>v</code>. <br/></td></tr>
+<tr class="separator:aa3126ca6a548ec5d5881b6f884f61fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a381bb12a47276f9c25877dbf3bb6396e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a381bb12a47276f9c25877dbf3bb6396e"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html#a381bb12a47276f9c25877dbf3bb6396e">Vec</a> (T x, T y, T z)</td></tr>
 <tr class="memdesc:a381bb12a47276f9c25877dbf3bb6396e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a vector with elements <code>(x, y, z)</code>. <br/></td></tr>
@@ -145,8 +157,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a4c023a59c059b49f486066c58514cb07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c2afcad17e6c4d63723e380e5a2f40b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html#a3c2afcad17e6c4d63723e380e5a2f40b">reflectZ</a> () const </td></tr>
 <tr class="separator:a3c2afcad17e6c4d63723e380e5a2f40b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef507418b3d15905f6905a13243f1d35"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html#aef507418b3d15905f6905a13243f1d35">cross</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt; v) const </td></tr>
-<tr class="separator:aef507418b3d15905f6905a13243f1d35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ae7be2792706d691970e10bd5a86c26"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html#a0ae7be2792706d691970e10bd5a86c26">cross</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt; v) const </td></tr>
+<tr class="separator:a0ae7be2792706d691970e10bd5a86c26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b13642c9d4f57e1079989a9356e6964"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html#a9b13642c9d4f57e1079989a9356e6964">toSpherical</a> () const </td></tr>
 <tr class="separator:a9b13642c9d4f57e1079989a9356e6964"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6492f5b5c3db4f36f9017e4e2cd1003"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html#ab6492f5b5c3db4f36f9017e4e2cd1003">fromSpherical</a> () const </td></tr>
@@ -168,86 +180,86 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a210b76e9e6b6bbe83370e614ac58fef5"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
 <tr class="memitem:a210b76e9e6b6bbe83370e614ac58fef5"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator Vec&lt; U, N &gt;</b> () const </td></tr>
 <tr class="separator:a210b76e9e6b6bbe83370e614ac58fef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab02a3b87d1f40e96abc1b10fade10e5b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;vv) const </td></tr>
-<tr class="separator:ab02a3b87d1f40e96abc1b10fade10e5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4834cecb9c80d76fbcb16e80d93543da"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator!=</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;vv) const </td></tr>
-<tr class="separator:a4834cecb9c80d76fbcb16e80d93543da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefbf86906b2fd11da039f929bbe56dc3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aefbf86906b2fd11da039f929bbe56dc3"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator+</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;v) const </td></tr>
-<tr class="memdesc:aefbf86906b2fd11da039f929bbe56dc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element-wise addition. <br/></td></tr>
-<tr class="separator:aefbf86906b2fd11da039f929bbe56dc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa1b817cb181021607ad020688a8a9e5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afa1b817cb181021607ad020688a8a9e5"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator+=</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;vv)</td></tr>
-<tr class="memdesc:afa1b817cb181021607ad020688a8a9e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element-wise addition and assignment. <br/></td></tr>
-<tr class="separator:afa1b817cb181021607ad020688a8a9e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90a56105ec4579674e040b76beabc573"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a90a56105ec4579674e040b76beabc573"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator-</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;v) const </td></tr>
-<tr class="memdesc:a90a56105ec4579674e040b76beabc573"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element-wise subtraction. <br/></td></tr>
-<tr class="separator:a90a56105ec4579674e040b76beabc573"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1cc50d17d7253ec92402c9b9bba06cb7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator-</b> () const </td></tr>
-<tr class="separator:a1cc50d17d7253ec92402c9b9bba06cb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95acf96e734aee76293a27813a912de2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a95acf96e734aee76293a27813a912de2"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator-=</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;vv)</td></tr>
-<tr class="memdesc:a95acf96e734aee76293a27813a912de2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subtraction and assignment. <br/></td></tr>
-<tr class="separator:a95acf96e734aee76293a27813a912de2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ce9fc36b009a2aa1bcc795c06a7936a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5ce9fc36b009a2aa1bcc795c06a7936a"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*=</b> (T s)</td></tr>
-<tr class="memdesc:a5ce9fc36b009a2aa1bcc795c06a7936a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scalar multiplication and assignment. <br/></td></tr>
-<tr class="separator:a5ce9fc36b009a2aa1bcc795c06a7936a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70b6321706a76d7b9c0f9b5e49a0d0a0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a70b6321706a76d7b9c0f9b5e49a0d0a0"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*=</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;vv)</td></tr>
-<tr class="memdesc:a70b6321706a76d7b9c0f9b5e49a0d0a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element-wise multiplication and assignment. <br/></td></tr>
-<tr class="separator:a70b6321706a76d7b9c0f9b5e49a0d0a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a627c84e5b933976c6636ce7403c6a8e9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a627c84e5b933976c6636ce7403c6a8e9"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator/=</b> (T s)</td></tr>
-<tr class="memdesc:a627c84e5b933976c6636ce7403c6a8e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scalar division and assignment. <br/></td></tr>
-<tr class="separator:a627c84e5b933976c6636ce7403c6a8e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb5f17f8df470ed7c7cb4194f0739f73"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>add</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;v) const </td></tr>
-<tr class="separator:acb5f17f8df470ed7c7cb4194f0739f73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b896be6ef6f6730257e8e89c9122bab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>sub</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;v) const </td></tr>
-<tr class="separator:a8b896be6ef6f6730257e8e89c9122bab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f360d8259e972e18560416eb67c2ed4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>scale</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;v) const </td></tr>
-<tr class="separator:a6f360d8259e972e18560416eb67c2ed4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a354222f86b852525d75464bf99d8c7b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>scale</b> (T a) const </td></tr>
-<tr class="separator:a354222f86b852525d75464bf99d8c7b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f5392e314d6aaaf1c9f7b693cb08b57"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>neg</b> () const </td></tr>
-<tr class="separator:a1f5392e314d6aaaf1c9f7b693cb08b57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82e1eedcfbf0b36e939d941eef4cdaed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>unit</b> () const </td></tr>
-<tr class="separator:a82e1eedcfbf0b36e939d941eef4cdaed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0e9483b75dbdf30e3d82fb6818afb9a"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><b>dot</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;v) const </td></tr>
-<tr class="separator:ad0e9483b75dbdf30e3d82fb6818afb9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6baf514fdd6900bc011453fbbe6d308"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const self_t &amp;vv) const </td></tr>
+<tr class="separator:ae6baf514fdd6900bc011453fbbe6d308"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dbf46477c90ae9c0e1b355d94816177"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator!=</b> (const self_t &amp;vv) const </td></tr>
+<tr class="separator:a0dbf46477c90ae9c0e1b355d94816177"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acabacc40219eb44cd8a3389eefd6202f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acabacc40219eb44cd8a3389eefd6202f"></a>
+self_t&#160;</td><td class="memItemRight" valign="bottom"><b>operator+</b> (const self_t &amp;v) const </td></tr>
+<tr class="memdesc:acabacc40219eb44cd8a3389eefd6202f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element-wise addition. <br/></td></tr>
+<tr class="separator:acabacc40219eb44cd8a3389eefd6202f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a939300a50173a3c8d079433d114decfe"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a939300a50173a3c8d079433d114decfe"></a>
+self_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator+=</b> (const self_t &amp;vv)</td></tr>
+<tr class="memdesc:a939300a50173a3c8d079433d114decfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element-wise addition and assignment. <br/></td></tr>
+<tr class="separator:a939300a50173a3c8d079433d114decfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3538fa2739662f15f33fbb845f6abeaa"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3538fa2739662f15f33fbb845f6abeaa"></a>
+self_t&#160;</td><td class="memItemRight" valign="bottom"><b>operator-</b> (const self_t &amp;v) const </td></tr>
+<tr class="memdesc:a3538fa2739662f15f33fbb845f6abeaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element-wise subtraction. <br/></td></tr>
+<tr class="separator:a3538fa2739662f15f33fbb845f6abeaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa873427503509e4245ad5659016e820b"><td class="memItemLeft" align="right" valign="top">self_t&#160;</td><td class="memItemRight" valign="bottom"><b>operator-</b> () const </td></tr>
+<tr class="separator:aa873427503509e4245ad5659016e820b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22fa5a9806b1e8358ec2dd926b1342c4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a22fa5a9806b1e8358ec2dd926b1342c4"></a>
+self_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator-=</b> (const self_t &amp;vv)</td></tr>
+<tr class="memdesc:a22fa5a9806b1e8358ec2dd926b1342c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subtraction and assignment. <br/></td></tr>
+<tr class="separator:a22fa5a9806b1e8358ec2dd926b1342c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49843f0a329b8bf9aca71d08cac02da4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a49843f0a329b8bf9aca71d08cac02da4"></a>
+self_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*=</b> (T s)</td></tr>
+<tr class="memdesc:a49843f0a329b8bf9aca71d08cac02da4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scalar multiplication and assignment. <br/></td></tr>
+<tr class="separator:a49843f0a329b8bf9aca71d08cac02da4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ada14bf9afedaeea6df467eb4f75722"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2ada14bf9afedaeea6df467eb4f75722"></a>
+self_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*=</b> (const self_t &amp;vv)</td></tr>
+<tr class="memdesc:a2ada14bf9afedaeea6df467eb4f75722"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element-wise multiplication and assignment. <br/></td></tr>
+<tr class="separator:a2ada14bf9afedaeea6df467eb4f75722"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cb05ed6e2aed72665c5766957829501"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5cb05ed6e2aed72665c5766957829501"></a>
+self_t &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator/=</b> (T s)</td></tr>
+<tr class="memdesc:a5cb05ed6e2aed72665c5766957829501"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scalar division and assignment. <br/></td></tr>
+<tr class="separator:a5cb05ed6e2aed72665c5766957829501"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4381e1e98a1ce1111ab195250f04917"><td class="memItemLeft" align="right" valign="top">self_t&#160;</td><td class="memItemRight" valign="bottom"><b>add</b> (const self_t &amp;v) const </td></tr>
+<tr class="separator:aa4381e1e98a1ce1111ab195250f04917"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47388de674ca33024f52a9102e209191"><td class="memItemLeft" align="right" valign="top">self_t&#160;</td><td class="memItemRight" valign="bottom"><b>sub</b> (const self_t &amp;v) const </td></tr>
+<tr class="separator:a47388de674ca33024f52a9102e209191"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a032ea01e05e9a3db4cfa95dc9c05ff76"><td class="memItemLeft" align="right" valign="top">self_t&#160;</td><td class="memItemRight" valign="bottom"><b>scale</b> (const self_t &amp;v) const </td></tr>
+<tr class="separator:a032ea01e05e9a3db4cfa95dc9c05ff76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a623e1166c19dd571cbe81951912f22dc"><td class="memItemLeft" align="right" valign="top">self_t&#160;</td><td class="memItemRight" valign="bottom"><b>scale</b> (T a) const </td></tr>
+<tr class="separator:a623e1166c19dd571cbe81951912f22dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3cb2649cfaeed0cef59f0b56d6a1f02"><td class="memItemLeft" align="right" valign="top">self_t&#160;</td><td class="memItemRight" valign="bottom"><b>neg</b> () const </td></tr>
+<tr class="separator:ac3cb2649cfaeed0cef59f0b56d6a1f02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad28832c3ece8fd74b3c5ac03a443d835"><td class="memItemLeft" align="right" valign="top">self_t&#160;</td><td class="memItemRight" valign="bottom"><b>unit</b> () const </td></tr>
+<tr class="separator:ad28832c3ece8fd74b3c5ac03a443d835"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaff980e23cc2c814c0c3684f2f6b2138"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><b>dot</b> (const self_t &amp;v) const </td></tr>
+<tr class="separator:aaff980e23cc2c814c0c3684f2f6b2138"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12a1f47dbe7dc6c3b69cc17e8061dcd1"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><b>mag</b> () const </td></tr>
 <tr class="separator:a12a1f47dbe7dc6c3b69cc17e8061dcd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aae09ffc619c30b06fb4339697936c23a"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><b>mag2</b> () const </td></tr>
 <tr class="separator:aae09ffc619c30b06fb4339697936c23a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2fb1daa0ae9a102c601e7bfc159bd47c"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><b>dist</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;pt) const </td></tr>
-<tr class="separator:a2fb1daa0ae9a102c601e7bfc159bd47c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63b10bcb625815929b9a45ea68ea9d80"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><b>dist2</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;pt) const </td></tr>
-<tr class="separator:a63b10bcb625815929b9a45ea68ea9d80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa575cd3362cd6d3e158406927d2a82cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>reflect</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;axis) const </td></tr>
-<tr class="separator:aa575cd3362cd6d3e158406927d2a82cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50fc530e834efa0a2d029bffd4356c02"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>bounce</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;normal) const </td></tr>
-<tr class="separator:a50fc530e834efa0a2d029bffd4356c02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76bade79dde324a2bc71d4d86f069ec0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>projectOn</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;v) const </td></tr>
-<tr class="separator:a76bade79dde324a2bc71d4d86f069ec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aacedfbfe76798220ffc3d1f08718c453"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mix</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;v, T mix) const </td></tr>
-<tr class="separator:aacedfbfe76798220ffc3d1f08718c453"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66f930c439c428a77e7effa6b9d31a1c"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><b>angleTo</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;v) const </td></tr>
-<tr class="separator:a66f930c439c428a77e7effa6b9d31a1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1932ac879bf80ed9f7a28bbfcea31699"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>abs</b> () const </td></tr>
-<tr class="separator:a1932ac879bf80ed9f7a28bbfcea31699"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa8a5e7db0ba6aa6a5b980d9e67f4d2e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>floor</b> () const </td></tr>
-<tr class="separator:aaa8a5e7db0ba6aa6a5b980d9e67f4d2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed01ac3d792f028b40d398293c905928"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ceil</b> () const </td></tr>
-<tr class="separator:aed01ac3d792f028b40d398293c905928"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c215bd4c1b8c20e774703f8e2e6eae6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>min</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;v) const </td></tr>
-<tr class="separator:a4c215bd4c1b8c20e774703f8e2e6eae6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf727161606de7a2a8954f5441a8fe65"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>max</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;v) const </td></tr>
-<tr class="separator:adf727161606de7a2a8954f5441a8fe65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d5ea2c089cfb42eca504d02e135ca73"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>clamp</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;lo, const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;hi) const </td></tr>
-<tr class="separator:a7d5ea2c089cfb42eca504d02e135ca73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a144cfcfc8ccae1de6ef189ea8fc630ca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>round</b> () const </td></tr>
-<tr class="separator:a144cfcfc8ccae1de6ef189ea8fc630ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9f60ab9a40def3776da200c4eb07de0"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><b>dist</b> (const self_t &amp;pt) const </td></tr>
+<tr class="separator:ad9f60ab9a40def3776da200c4eb07de0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb79052c1950faa47da0846a59ff2db6"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><b>dist2</b> (const self_t &amp;pt) const </td></tr>
+<tr class="separator:abb79052c1950faa47da0846a59ff2db6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9e7a14ade7bcd6e424537690fa50494"><td class="memItemLeft" align="right" valign="top">self_t&#160;</td><td class="memItemRight" valign="bottom"><b>reflect</b> (const self_t &amp;axis) const </td></tr>
+<tr class="separator:ab9e7a14ade7bcd6e424537690fa50494"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4386b79d781e492bd88fc83dc957c4f3"><td class="memItemLeft" align="right" valign="top">self_t&#160;</td><td class="memItemRight" valign="bottom"><b>bounce</b> (const self_t &amp;normal) const </td></tr>
+<tr class="separator:a4386b79d781e492bd88fc83dc957c4f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0206865169add93ca88e0fa5eeb71fc"><td class="memItemLeft" align="right" valign="top">self_t&#160;</td><td class="memItemRight" valign="bottom"><b>projectOn</b> (const self_t &amp;v) const </td></tr>
+<tr class="separator:ad0206865169add93ca88e0fa5eeb71fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75763488697d13eb018d5c7c1edbde69"><td class="memItemLeft" align="right" valign="top">self_t&#160;</td><td class="memItemRight" valign="bottom"><b>mix</b> (const self_t &amp;v, T mix) const </td></tr>
+<tr class="separator:a75763488697d13eb018d5c7c1edbde69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4afdf7ef08a4d34e295d235a9d45913"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><b>angleTo</b> (const self_t &amp;v) const </td></tr>
+<tr class="separator:ad4afdf7ef08a4d34e295d235a9d45913"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19b13f0c0c447c0454792e22ad06694f"><td class="memItemLeft" align="right" valign="top">self_t&#160;</td><td class="memItemRight" valign="bottom"><b>abs</b> () const </td></tr>
+<tr class="separator:a19b13f0c0c447c0454792e22ad06694f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d31e8aeb7ccd91c141f6e9ddd52e6d6"><td class="memItemLeft" align="right" valign="top">self_t&#160;</td><td class="memItemRight" valign="bottom"><b>floor</b> () const </td></tr>
+<tr class="separator:a0d31e8aeb7ccd91c141f6e9ddd52e6d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ba85a383e977045c497cb0fc477798b"><td class="memItemLeft" align="right" valign="top">self_t&#160;</td><td class="memItemRight" valign="bottom"><b>ceil</b> () const </td></tr>
+<tr class="separator:a2ba85a383e977045c497cb0fc477798b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b7b4e90d89531e0c6801e0a1d615f7e"><td class="memItemLeft" align="right" valign="top">self_t&#160;</td><td class="memItemRight" valign="bottom"><b>min</b> (const self_t &amp;v) const </td></tr>
+<tr class="separator:a4b7b4e90d89531e0c6801e0a1d615f7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2be7f242c783c76f21f4dc5b529c346d"><td class="memItemLeft" align="right" valign="top">self_t&#160;</td><td class="memItemRight" valign="bottom"><b>max</b> (const self_t &amp;v) const </td></tr>
+<tr class="separator:a2be7f242c783c76f21f4dc5b529c346d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4e796b5b5c9139224b8faaad6a25706"><td class="memItemLeft" align="right" valign="top">self_t&#160;</td><td class="memItemRight" valign="bottom"><b>clamp</b> (const self_t &amp;lo, const self_t &amp;hi) const </td></tr>
+<tr class="separator:ac4e796b5b5c9139224b8faaad6a25706"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0a6960cf5f11caa008541f2d7945557"><td class="memItemLeft" align="right" valign="top">self_t&#160;</td><td class="memItemRight" valign="bottom"><b>round</b> () const </td></tr>
+<tr class="separator:aa0a6960cf5f11caa008541f2d7945557"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e2137385439cd1728fc4910ca08718a"><td class="memTemplParams" colspan="2">template&lt;index_t M&gt; </td></tr>
 <tr class="memitem:a4e2137385439cd1728fc4910ca08718a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, M &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>resized</b> () const </td></tr>
 <tr class="separator:a4e2137385439cd1728fc4910ca08718a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -284,6 +296,10 @@ static const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#
 static const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html#a187e6d2633f33f497191638a15b79732">Z_AXIS</a> = <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,3&gt;(0,0,1)</td></tr>
 <tr class="memdesc:a187e6d2633f33f497191638a15b79732"><td class="mdescLeft">&#160;</td><td class="mdescRight">(0, 0, 1) constant <br/></td></tr>
 <tr class="separator:a187e6d2633f33f497191638a15b79732"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2eb9b65dfca168a26972699c7ba3e6d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae2eb9b65dfca168a26972699c7ba3e6d"></a>
+static const index_t&#160;</td><td class="memItemRight" valign="bottom"><b>DIM</b> = N</td></tr>
+<tr class="memdesc:ae2eb9b65dfca168a26972699c7ba3e6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector dimension. <br/></td></tr>
+<tr class="separator:ae2eb9b65dfca168a26972699c7ba3e6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T&gt;<br/>
@@ -296,7 +312,7 @@ v.{s,t,u} // conventional parameterization coordinate names
 v.{r,g,b} // conventional color tuple coordinate names
 </pre><p><code>x</code>, <code>s</code>, and <code>r</code> all refer to the same element. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a1932ac879bf80ed9f7a28bbfcea31699"></a>
+<a class="anchor" id="a19b13f0c0c447c0454792e22ad06694f"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -304,7 +320,7 @@ v.{r,g,b} // conventional color tuple coordinate names
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; abs </td>
+          <td class="memname">self_t abs </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -362,7 +378,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 
 </div>
 </div>
-<a class="anchor" id="acb5f17f8df470ed7c7cb4194f0739f73"></a>
+<a class="anchor" id="aa4381e1e98a1ce1111ab195250f04917"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -370,9 +386,9 @@ v.{r,g,b} // conventional color tuple coordinate names
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; add </td>
+          <td class="memname">self_t add </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramtype">const self_t &amp;&#160;</td>
           <td class="paramname"><em>v</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -393,7 +409,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 
 </div>
 </div>
-<a class="anchor" id="a66f930c439c428a77e7effa6b9d31a1c"></a>
+<a class="anchor" id="ad4afdf7ef08a4d34e295d235a9d45913"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -403,7 +419,7 @@ v.{r,g,b} // conventional color tuple coordinate names
         <tr>
           <td class="memname">T angleTo </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramtype">const self_t &amp;&#160;</td>
           <td class="paramname"><em>v</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -472,7 +488,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 
 </div>
 </div>
-<a class="anchor" id="a50fc530e834efa0a2d029bffd4356c02"></a>
+<a class="anchor" id="a4386b79d781e492bd88fc83dc957c4f3"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -480,9 +496,9 @@ v.{r,g,b} // conventional color tuple coordinate names
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; bounce </td>
+          <td class="memname">self_t bounce </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramtype">const self_t &amp;&#160;</td>
           <td class="paramname"><em>normal</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -504,7 +520,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 
 </div>
 </div>
-<a class="anchor" id="aed01ac3d792f028b40d398293c905928"></a>
+<a class="anchor" id="a2ba85a383e977045c497cb0fc477798b"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -512,7 +528,7 @@ v.{r,g,b} // conventional color tuple coordinate names
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; ceil </td>
+          <td class="memname">self_t ceil </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -529,7 +545,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 
 </div>
 </div>
-<a class="anchor" id="a7d5ea2c089cfb42eca504d02e135ca73"></a>
+<a class="anchor" id="ac4e796b5b5c9139224b8faaad6a25706"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -537,15 +553,15 @@ v.{r,g,b} // conventional color tuple coordinate names
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; clamp </td>
+          <td class="memname">self_t clamp </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramtype">const self_t &amp;&#160;</td>
           <td class="paramname"><em>lo</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramtype">const self_t &amp;&#160;</td>
           <td class="paramname"><em>hi</em>&#160;</td>
         </tr>
         <tr>
@@ -572,7 +588,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 
 </div>
 </div>
-<a class="anchor" id="aef507418b3d15905f6905a13243f1d35"></a>
+<a class="anchor" id="a0ae7be2792706d691970e10bd5a86c26"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -580,7 +596,7 @@ v.{r,g,b} // conventional color tuple coordinate names
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,3&gt; cross </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,3&gt; cross </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td>
           <td class="paramname"><em>v</em></td><td>)</td>
@@ -597,7 +613,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 
 </div>
 </div>
-<a class="anchor" id="a2fb1daa0ae9a102c601e7bfc159bd47c"></a>
+<a class="anchor" id="ad9f60ab9a40def3776da200c4eb07de0"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -607,7 +623,7 @@ v.{r,g,b} // conventional color tuple coordinate names
         <tr>
           <td class="memname">T dist </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramtype">const self_t &amp;&#160;</td>
           <td class="paramname"><em>pt</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -628,7 +644,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 
 </div>
 </div>
-<a class="anchor" id="a63b10bcb625815929b9a45ea68ea9d80"></a>
+<a class="anchor" id="abb79052c1950faa47da0846a59ff2db6"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -638,7 +654,7 @@ v.{r,g,b} // conventional color tuple coordinate names
         <tr>
           <td class="memname">T dist2 </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramtype">const self_t &amp;&#160;</td>
           <td class="paramname"><em>pt</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -700,7 +716,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 
 </div>
 </div>
-<a class="anchor" id="ad0e9483b75dbdf30e3d82fb6818afb9a"></a>
+<a class="anchor" id="aaff980e23cc2c814c0c3684f2f6b2138"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -710,7 +726,7 @@ v.{r,g,b} // conventional color tuple coordinate names
         <tr>
           <td class="memname">T dot </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramtype">const self_t &amp;&#160;</td>
           <td class="paramname"><em>v</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -779,7 +795,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 
 </div>
 </div>
-<a class="anchor" id="aaa8a5e7db0ba6aa6a5b980d9e67f4d2e"></a>
+<a class="anchor" id="a0d31e8aeb7ccd91c141f6e9ddd52e6d6"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -787,7 +803,7 @@ v.{r,g,b} // conventional color tuple coordinate names
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; floor </td>
+          <td class="memname">self_t floor </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1037,7 +1053,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 
 </div>
 </div>
-<a class="anchor" id="adf727161606de7a2a8954f5441a8fe65"></a>
+<a class="anchor" id="a2be7f242c783c76f21f4dc5b529c346d"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1045,9 +1061,9 @@ v.{r,g,b} // conventional color tuple coordinate names
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; max </td>
+          <td class="memname">self_t max </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramtype">const self_t &amp;&#160;</td>
           <td class="paramname"><em>v</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1069,7 +1085,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 
 </div>
 </div>
-<a class="anchor" id="a4c215bd4c1b8c20e774703f8e2e6eae6"></a>
+<a class="anchor" id="a4b7b4e90d89531e0c6801e0a1d615f7e"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1077,9 +1093,9 @@ v.{r,g,b} // conventional color tuple coordinate names
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; min </td>
+          <td class="memname">self_t min </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramtype">const self_t &amp;&#160;</td>
           <td class="paramname"><em>v</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1101,7 +1117,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 
 </div>
 </div>
-<a class="anchor" id="aacedfbfe76798220ffc3d1f08718c453"></a>
+<a class="anchor" id="a75763488697d13eb018d5c7c1edbde69"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1109,9 +1125,9 @@ v.{r,g,b} // conventional color tuple coordinate names
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; mix </td>
+          <td class="memname">self_t mix </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramtype">const self_t &amp;&#160;</td>
           <td class="paramname"><em>v</em>, </td>
         </tr>
         <tr>
@@ -1144,7 +1160,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 
 </div>
 </div>
-<a class="anchor" id="a1f5392e314d6aaaf1c9f7b693cb08b57"></a>
+<a class="anchor" id="ac3cb2649cfaeed0cef59f0b56d6a1f02"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1152,7 +1168,7 @@ v.{r,g,b} // conventional color tuple coordinate names
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; neg </td>
+          <td class="memname">self_t neg </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1193,7 +1209,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 
 </div>
 </div>
-<a class="anchor" id="a4834cecb9c80d76fbcb16e80d93543da"></a>
+<a class="anchor" id="a0dbf46477c90ae9c0e1b355d94816177"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1203,7 +1219,7 @@ v.{r,g,b} // conventional color tuple coordinate names
         <tr>
           <td class="memname">bool operator!= </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramtype">const self_t &amp;&#160;</td>
           <td class="paramname"><em>vv</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1218,7 +1234,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 
 </div>
 </div>
-<a class="anchor" id="a1cc50d17d7253ec92402c9b9bba06cb7"></a>
+<a class="anchor" id="aa873427503509e4245ad5659016e820b"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1226,7 +1242,7 @@ v.{r,g,b} // conventional color tuple coordinate names
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; operator- </td>
+          <td class="memname">self_t operator- </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1242,7 +1258,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 
 </div>
 </div>
-<a class="anchor" id="ab02a3b87d1f40e96abc1b10fade10e5b"></a>
+<a class="anchor" id="ae6baf514fdd6900bc011453fbbe6d308"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1252,7 +1268,7 @@ v.{r,g,b} // conventional color tuple coordinate names
         <tr>
           <td class="memname">bool operator== </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramtype">const self_t &amp;&#160;</td>
           <td class="paramname"><em>vv</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1331,7 +1347,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 
 </div>
 </div>
-<a class="anchor" id="a76bade79dde324a2bc71d4d86f069ec0"></a>
+<a class="anchor" id="ad0206865169add93ca88e0fa5eeb71fc"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1339,9 +1355,9 @@ v.{r,g,b} // conventional color tuple coordinate names
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; projectOn </td>
+          <td class="memname">self_t projectOn </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramtype">const self_t &amp;&#160;</td>
           <td class="paramname"><em>v</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1362,7 +1378,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 
 </div>
 </div>
-<a class="anchor" id="aa575cd3362cd6d3e158406927d2a82cb"></a>
+<a class="anchor" id="ab9e7a14ade7bcd6e424537690fa50494"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1370,9 +1386,9 @@ v.{r,g,b} // conventional color tuple coordinate names
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; reflect </td>
+          <td class="memname">self_t reflect </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramtype">const self_t &amp;&#160;</td>
           <td class="paramname"><em>axis</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1684,7 +1700,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 
 </div>
 </div>
-<a class="anchor" id="a144cfcfc8ccae1de6ef189ea8fc630ca"></a>
+<a class="anchor" id="aa0a6960cf5f11caa008541f2d7945557"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1692,7 +1708,7 @@ v.{r,g,b} // conventional color tuple coordinate names
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; round </td>
+          <td class="memname">self_t round </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1749,7 +1765,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 
 </div>
 </div>
-<a class="anchor" id="a6f360d8259e972e18560416eb67c2ed4"></a>
+<a class="anchor" id="a032ea01e05e9a3db4cfa95dc9c05ff76"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1757,9 +1773,9 @@ v.{r,g,b} // conventional color tuple coordinate names
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; scale </td>
+          <td class="memname">self_t scale </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramtype">const self_t &amp;&#160;</td>
           <td class="paramname"><em>v</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1780,7 +1796,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 
 </div>
 </div>
-<a class="anchor" id="a354222f86b852525d75464bf99d8c7b2"></a>
+<a class="anchor" id="a623e1166c19dd571cbe81951912f22dc"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1788,7 +1804,7 @@ v.{r,g,b} // conventional color tuple coordinate names
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; scale </td>
+          <td class="memname">self_t scale </td>
           <td>(</td>
           <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>a</em></td><td>)</td>
@@ -1852,7 +1868,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 
 </div>
 </div>
-<a class="anchor" id="a8b896be6ef6f6730257e8e89c9122bab"></a>
+<a class="anchor" id="a47388de674ca33024f52a9102e209191"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1860,9 +1876,9 @@ v.{r,g,b} // conventional color tuple coordinate names
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; sub </td>
+          <td class="memname">self_t sub </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramtype">const self_t &amp;&#160;</td>
           <td class="paramname"><em>v</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1908,7 +1924,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 
 </div>
 </div>
-<a class="anchor" id="a82e1eedcfbf0b36e939d941eef4cdaed"></a>
+<a class="anchor" id="ad28832c3ece8fd74b3c5ac03a443d835"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1916,7 +1932,7 @@ v.{r,g,b} // conventional color tuple coordinate names
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; unit </td>
+          <td class="memname">self_t unit </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -1938,7 +1954,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 18 2013 00:38:59 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 31 2013 01:18:19 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

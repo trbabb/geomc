@@ -115,7 +115,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">     * Global Functions          *</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">     *===========================*/</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">const</span> Vec&lt;T,4&gt; fromARGB(<span class="keywordtype">int</span> aRGB){</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">const</span> Vec&lt;T,4&gt; fromARGB(<span class="keywordtype">int</span> aRGB) {</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        T a = ((aRGB &amp; 0xff000000) &gt;&gt; 24) / detail::_RGBChannelConversion&lt;T&gt;::factor;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        T r = ((aRGB &amp; 0x00ff0000) &gt;&gt; 16) / detail::_RGBChannelConversion&lt;T&gt;::factor;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        T g = ((aRGB &amp; 0x0000ff00) &gt;&gt; 8)  / detail::_RGBChannelConversion&lt;T&gt;::factor;</div>
@@ -123,7 +123,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">return</span> Vec&lt;T,4&gt;(r,g,b,a);</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    }</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">const</span> Vec&lt;T,4&gt; fromRGBA(<span class="keywordtype">int</span> rgba){</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">const</span> Vec&lt;T,4&gt; fromRGBA(<span class="keywordtype">int</span> rgba) {</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        T r = ((rgba &amp; 0xff000000) &gt;&gt; 24) / detail::_RGBChannelConversion&lt;T&gt;::factor;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        T g = ((rgba &amp; 0x00ff0000) &gt;&gt; 16) / detail::_RGBChannelConversion&lt;T&gt;::factor;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        T b = ((rgba &amp; 0x0000ff00) &gt;&gt; 8)  / detail::_RGBChannelConversion&lt;T&gt;::factor;</div>
@@ -135,7 +135,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">     * Vector Class              *</span></div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">     *===========================*/</span></div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html">   57</a></span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class </span><a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">Vec</a>&lt;T,4&gt; : <span class="keyword">public</span> detail::VecCommon&lt;T,4&gt; {</div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html">   57</a></span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="keyword">class </span><a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">Vec</a>&lt;T,4&gt; : <span class="keyword">public</span> detail::VecCommon&lt; T, 4, Vec&lt;T,4&gt; &gt; {</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        </div>
 <div class="line"><a name="l00061"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#add16805539b6d8f0dc187b494e148730">   61</a></span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html" title="4D specialization of vector class.">Vec&lt;T,4&gt;</a> <a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#add16805539b6d8f0dc187b494e148730" title="(1, 0, 0, 0) constant">X_AXIS</a>;</div>
@@ -148,34 +148,34 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">         *===========================*/</span></div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        </div>
-<div class="line"><a name="l00075"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#a82cf7e1c93ee9188fefb25b86fc6c5b0">   75</a></span>&#160;        <a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#a82cf7e1c93ee9188fefb25b86fc6c5b0" title="Construct vector with all elements set to 0.">Vec</a>():detail::VecCommon&lt;T,4&gt;(){}</div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#a82cf7e1c93ee9188fefb25b86fc6c5b0">   75</a></span>&#160;        <a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#a82cf7e1c93ee9188fefb25b86fc6c5b0" title="Construct vector with all elements set to 0.">Vec</a>():detail::VecCommon&lt; T, 4, <a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">Vec</a>&lt;T,4&gt; &gt;() {}</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        </div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#adc4472b456988def19a66fddbbf576d4">   78</a></span>&#160;        <a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#adc4472b456988def19a66fddbbf576d4" title="Construct a vector with elements (x, y, z, w).">Vec</a>(T x, T y, T z, T w){</div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#adc4472b456988def19a66fddbbf576d4">   78</a></span>&#160;        <a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#adc4472b456988def19a66fddbbf576d4" title="Construct a vector with elements (x, y, z, w).">Vec</a>(T x, T y, T z, T w) {</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            detail::VecBase&lt;T,4&gt;::x = x;</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            detail::VecBase&lt;T,4&gt;::y = y;</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            detail::VecBase&lt;T,4&gt;::z = z;</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            detail::VecBase&lt;T,4&gt;::w = w;</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        }</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
-<div class="line"><a name="l00086"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#a121b64dfb7beeb84eae24c81b503df6b">   86</a></span>&#160;        <a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#a121b64dfb7beeb84eae24c81b503df6b" title="Construct a vector with elements copied from the 4-element array v.">Vec</a>(T v[4]):detail::VecCommon&lt;T,4&gt;(v){};</div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#af01431d94d3c78de51f09913d98e6d55">   86</a></span>&#160;        <a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#af01431d94d3c78de51f09913d98e6d55" title="Construct a vector with elements copied from the 4-element array v.">Vec</a>(<span class="keyword">const</span> T v[4]):detail::VecCommon&lt; T, 4, <a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">Vec</a>&lt;T,4&gt; &gt;(v) {};</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#a8ceeaaff02ee444611fdaead9319e8a8">   89</a></span>&#160;        <a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#a8ceeaaff02ee444611fdaead9319e8a8" title="Construct a vector with (x, y, z) taken from the 3D vector xyz, and w as the final element...">Vec</a>(<a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html" title="3D specialization of vector class.">Vec&lt;T,3&gt;</a> xyz, T w){</div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#a8ceeaaff02ee444611fdaead9319e8a8">   89</a></span>&#160;        <a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#a8ceeaaff02ee444611fdaead9319e8a8" title="Construct a vector with (x, y, z) taken from the 3D vector xyz, and w as the final element...">Vec</a>(<a class="code" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html" title="3D specialization of vector class.">Vec&lt;T,3&gt;</a> xyz, T w) {</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            detail::VecBase&lt;T,4&gt;::x = xyz.x;</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            detail::VecBase&lt;T,4&gt;::y = xyz.y;</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            detail::VecBase&lt;T,4&gt;::z = xyz.z;</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            detail::VecBase&lt;T,4&gt;::w = w;</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        }</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
-<div class="line"><a name="l00097"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#a17a6dad1e56778a30b7808fc2b449669">   97</a></span>&#160;        <a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#a17a6dad1e56778a30b7808fc2b449669" title="Construct a vector with all elements set to a.">Vec</a>(T a):detail::VecCommon&lt;T,4&gt;(a){}</div>
+<div class="line"><a name="l00097"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#a17a6dad1e56778a30b7808fc2b449669">   97</a></span>&#160;        <a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#a17a6dad1e56778a30b7808fc2b449669" title="Construct a vector with all elements set to a.">Vec</a>(T a):detail::VecCommon&lt; T, 4, <a class="code" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">Vec</a>&lt;T,4&gt; &gt;(a) {}</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        </div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="comment">/*===========================*</span></div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment">         * Arithmetic                *</span></div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">         *===========================*/</span></div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keyword">using</span> <a class="code" href="group__matrix.html#gaa4a33c0f1bb911ce5235ceb09dca799a">detail::VecCommon&lt;T,4&gt;::add</a>;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keyword">using</span> <a class="code" href="group__matrix.html#ga4ca8a4cc286eb011023e4c4adae9e27b">detail::VecCommon&lt;T,4&gt;::sub</a>;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keyword">using</span> <a class="code" href="group__linalg.html#gab4ef5a5844e69301ae83804a9770881b">detail::VecCommon&lt;T,4&gt;::scale</a>;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keyword">using</span> detail::VecCommon&lt;T,4&gt;::dot;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keyword">using</span> detail::VecCommon&lt; T, 4, Vec&lt;T,4&gt; &gt;::add;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keyword">using</span> detail::VecCommon&lt; T, 4, Vec&lt;T,4&gt; &gt;::sub;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keyword">using</span> detail::VecCommon&lt; T, 4, Vec&lt;T,4&gt; &gt;::scale;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keyword">using</span> detail::VecCommon&lt; T, 4, Vec&lt;T,4&gt; &gt;::dot;</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
 <div class="line"><a name="l00109"></a><span class="lineno"><a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#a70221afe55570aa861b6d5ee6303f963">  109</a></span>&#160;        <a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html" title="4D specialization of vector class.">Vec&lt;T,4&gt;</a> <a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#a70221afe55570aa861b6d5ee6303f963">add</a>(T dx, T dy, T dz, T dw)<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html" title="4D specialization of vector class.">Vec&lt;T,4&gt;</a>(detail::VecBase&lt;T,4&gt;::x+dx, </div>
@@ -211,7 +211,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;</div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="preprocessor">        #ifdef GEOMC_VEC_USE_SWIZZLE</span></div>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="preprocessor"></span>        <a class="code" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html" title="4D specialization of vector class.">Vec&lt;T,4&gt;</a> swizzle(<span class="keyword">const</span> std::string&amp; xyzw)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;            <span class="keywordflow">if</span> (xyzw.length() != 4){</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;            <span class="keywordflow">if</span> (xyzw.length() != 4) {</div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                <span class="keywordflow">throw</span> GeomException(<span class="stringliteral">&quot;Invalid 4D swizzle string: &quot;</span> + xyzw);</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;            }</div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            <span class="keywordflow">return</span> Vec&lt;T,4&gt;(swizzlecoord(xyzw[0]),</div>
@@ -225,7 +225,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        </div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="preprocessor">        #ifdef GEOMC_VEC_USE_SWIZZLE</span></div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="preprocessor"></span>        <span class="keyword">inline</span> T swizzlecoord(<span class="keywordtype">char</span> c)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;            <span class="keywordflow">switch</span> (tolower(c)){</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;            <span class="keywordflow">switch</span> (tolower(c)) {</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                <span class="keywordflow">case</span> <span class="charliteral">&#39;x&#39;</span>:</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                <span class="keywordflow">case</span> <span class="charliteral">&#39;r&#39;</span>:</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                    <span class="keywordflow">return</span> detail::VecBase&lt;T,4&gt;::x;</div>
@@ -261,7 +261,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 18 2013 00:38:59 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 31 2013 01:18:19 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

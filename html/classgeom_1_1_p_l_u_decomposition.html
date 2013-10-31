@@ -90,7 +90,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classgeom_1_1_p_l_u_decomposition-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">PLUDecomposition&lt; T, M, N &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__matrix.html">Matrix</a></div></div>  </div>
@@ -102,6 +104,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p><code>#include &lt;<a class="el" href="_l_u_decomp_8h_source.html">geomc/linalg/LUDecomp.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ad49493e5523739689d1e1b1dcf1ba045"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad49493e5523739689d1e1b1dcf1ba045"></a>
+typedef <a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; T, M, <a class="el" href="classgeom_1_1_p_l_u_decomposition.html#af94d0c73aee8eb1a6468c14a39e1716f">DIAG</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_p_l_u_decomposition.html#ad49493e5523739689d1e1b1dcf1ba045">L_t</a></td></tr>
+<tr class="memdesc:ad49493e5523739689d1e1b1dcf1ba045"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix type for holding <code>L</code>. <br/></td></tr>
+<tr class="separator:ad49493e5523739689d1e1b1dcf1ba045"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a281e9bd58828ef932908ca8449b9c6ea"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a281e9bd58828ef932908ca8449b9c6ea"></a>
+typedef <a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; T, <a class="el" href="classgeom_1_1_p_l_u_decomposition.html#af94d0c73aee8eb1a6468c14a39e1716f">DIAG</a>, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_p_l_u_decomposition.html#a281e9bd58828ef932908ca8449b9c6ea">U_t</a></td></tr>
+<tr class="memdesc:a281e9bd58828ef932908ca8449b9c6ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix type for holding <code>U</code>. <br/></td></tr>
+<tr class="separator:a281e9bd58828ef932908ca8449b9c6ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a484c03d55be181a0a696985c830face8"><td class="memTemplParams" colspan="2">template&lt;typename Mx &gt; </td></tr>
@@ -113,9 +126,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a5b7a2fcbb2b9372a06af8cdfc2ce7dde"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a577cf9e7782147eb58eb0da95aab994e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; T, M, N &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_p_l_u_decomposition.html#a577cf9e7782147eb58eb0da95aab994e">getLU</a> () const </td></tr>
 <tr class="separator:a577cf9e7782147eb58eb0da95aab994e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0cbe278d7e803664f1fd67b125b546bb"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; T, M, DIAG &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_p_l_u_decomposition.html#a0cbe278d7e803664f1fd67b125b546bb">getL</a> () const </td></tr>
+<tr class="memitem:a0cbe278d7e803664f1fd67b125b546bb"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; T, M, <a class="el" href="classgeom_1_1_p_l_u_decomposition.html#af94d0c73aee8eb1a6468c14a39e1716f">DIAG</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_p_l_u_decomposition.html#a0cbe278d7e803664f1fd67b125b546bb">getL</a> () const </td></tr>
 <tr class="separator:a0cbe278d7e803664f1fd67b125b546bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52ff4b276b1e8105cd90adc537e2333b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; T, DIAG, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_p_l_u_decomposition.html#a52ff4b276b1e8105cd90adc537e2333b">getU</a> () const </td></tr>
+<tr class="memitem:a52ff4b276b1e8105cd90adc537e2333b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; T, <a class="el" href="classgeom_1_1_p_l_u_decomposition.html#af94d0c73aee8eb1a6468c14a39e1716f">DIAG</a>, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_p_l_u_decomposition.html#a52ff4b276b1e8105cd90adc537e2333b">getU</a> () const </td></tr>
 <tr class="separator:a52ff4b276b1e8105cd90adc537e2333b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6ded734c386628f8ce691c2e04ddc81"><td class="memTemplParams" colspan="2">template&lt;typename S , index_t J, index_t K&gt; </td></tr>
 <tr class="memitem:ae6ded734c386628f8ce691c2e04ddc81"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_p_l_u_decomposition.html#ae6ded734c386628f8ce691c2e04ddc81">getL</a> (<a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; S, J, K &gt; *into) const </td></tr>
@@ -138,6 +151,13 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aedd501e43bebd30ab342fff2d36387ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb87c4cf66142adbd16115a91a7859ea"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_p_l_u_decomposition.html#acb87c4cf66142adbd16115a91a7859ea">getParity</a> () const </td></tr>
 <tr class="separator:acb87c4cf66142adbd16115a91a7859ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:af94d0c73aee8eb1a6468c14a39e1716f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af94d0c73aee8eb1a6468c14a39e1716f"></a>
+static const index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_p_l_u_decomposition.html#af94d0c73aee8eb1a6468c14a39e1716f">DIAG</a> = M&lt;N?M:N</td></tr>
+<tr class="memdesc:af94d0c73aee8eb1a6468c14a39e1716f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dimension of the diagonal of <code>LU</code>. The minimum of <code>M</code> and <code>N</code>, or 0 if either dimension is dynamic. <br/></td></tr>
+<tr class="separator:af94d0c73aee8eb1a6468c14a39e1716f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T, index_t M, index_t N&gt;<br/>
@@ -202,7 +222,7 @@ class geom::PLUDecomposition&lt; T, M, N &gt;</h3>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt;T,M,DIAG&gt; getL </td>
+          <td class="memname">const <a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt;T,M,<a class="el" href="classgeom_1_1_p_l_u_decomposition.html#af94d0c73aee8eb1a6468c14a39e1716f">DIAG</a>&gt; getL </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -337,7 +357,7 @@ class geom::PLUDecomposition&lt; T, M, N &gt;</h3>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt;T,DIAG,N&gt; getU </td>
+          <td class="memname">const <a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt;T,<a class="el" href="classgeom_1_1_p_l_u_decomposition.html#af94d0c73aee8eb1a6468c14a39e1716f">DIAG</a>,N&gt; getU </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -451,7 +471,7 @@ class geom::PLUDecomposition&lt; T, M, N &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the decomposed matrix is singular, in which case <code>L</code>, <code>U</code>, and <code>P</code> will contain undefined data; <code>false</code> otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the decomposed matrix is singular, <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -557,8 +577,7 @@ class geom::PLUDecomposition&lt; T, M, N &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Construct a PLU decompostion of <code>m</code>. <code>Mx</code> must be a matrix type.</p>
-<p><code>this-&gt;<a class="el" href="classgeom_1_1_p_l_u_decomposition.html#aedd501e43bebd30ab342fff2d36387ec">isSingular()</a></code> can be used to query whether the decomposition was successful. </p>
+<p>Construct a PLU decompostion of <code>m</code>. <code>Mx</code> must be a matrix type. </p>
 
 </div>
 </div>
@@ -569,7 +588,7 @@ class geom::PLUDecomposition&lt; T, M, N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Sep 18 2013 00:38:59 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Oct 31 2013 01:18:19 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>
