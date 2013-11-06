@@ -13,8 +13,8 @@
 #include <geomc/linalg/vecdetail/VecBase.h>
 
 #ifdef GEOMC_VEC_USE_SWIZZLE
-    #include <string>
-    #include <geomc/GeomException.h>
+#include <string>
+#include <geomc/GeomException.h>
 #endif
 
 namespace geom {
@@ -141,7 +141,7 @@ namespace geom {
          * 4D Geometry               *
          *===========================*/
 
-        #ifdef GEOMC_VEC_USE_SWIZZLE
+#ifdef GEOMC_VEC_USE_SWIZZLE
         Vec<T,4> swizzle(const std::string& xyzw) const {
             if (xyzw.length() != 4) {
                 throw GeomException("Invalid 4D swizzle string: " + xyzw);
@@ -151,11 +151,11 @@ namespace geom {
                             swizzlecoord(xyzw[2]),
                             swizzlecoord(xyzw[3]));
         }
-        #endif
+#endif
 
     private:
         
-        #ifdef GEOMC_VEC_USE_SWIZZLE
+#ifdef GEOMC_VEC_USE_SWIZZLE
         inline T swizzlecoord(char c) const {
             switch (tolower(c)) {
                 case 'x':
@@ -178,7 +178,7 @@ namespace geom {
                     throw GeomException("Invalid swizzle character: " + c);
             }
         }
-        #endif
+#endif
         
     }; //end Vec4 definition
     

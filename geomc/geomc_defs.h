@@ -43,19 +43,19 @@
 
 // Shall matrices verify correct dimensions before performing inter-matrix operations? (recommended)
 
-  #define GEOMC_MTX_CHECK_DIMS
+#define GEOMC_MTX_CHECK_DIMS
 
 // Shall matrices check and handle storage aliasing among matrices in inter-matrix operations?
 
-  #define GEOMC_MTX_CHECK_ALIASING
+#define GEOMC_MTX_CHECK_ALIASING
 
 // Shall vectors include functions for outputting to streams?
 
-  #define GEOMC_LINALG_USE_STREAMS
+#define GEOMC_LINALG_USE_STREAMS
 
 // Shall vectors include swizzle functions? pulls in <string> and GeomException
 
-  #define GEOMC_VEC_USE_SWIZZLE
+#define GEOMC_VEC_USE_SWIZZLE
 
 
 #define PI  (3.141592653589793238462643383)

@@ -11,9 +11,9 @@
 #include <boost/config.hpp>
 
 #if __cplusplus <= 199711L
-    #include <tr1/unordered_map>
+#include <tr1/unordered_map>
 #else
-    #include <unordered_map>
+#include <unordered_map>
 #endif
 
 #include <geomc/linalg/mtxdetail/MatrixBase.h>
@@ -74,11 +74,11 @@ public:
     using detail::WriteableMatrixBase<T,DYNAMIC_DIM, DYNAMIC_DIM, SparseMatrix<T> >::get;
     
     inline T get(index_t r, index_t c) const {
-        #ifdef GEOMC_MTX_CHECK_BOUNDS
+#ifdef GEOMC_MTX_CHECK_BOUNDS
             if (r < 0 || r >= rows() || c < 0 || c >= cols()) {
                 throw std::out_of_range();
             }
-        #endif
+#endif
         typename map_t::const_iterator i = elements.find(MatrixCoord(r,c));
         if (i == elements.end()) {
             return 0;
@@ -88,11 +88,11 @@ public:
     }
     
     inline reference set(index_t r, index_t c, T val) {
-        #ifdef GEOMC_MTX_CHECK_BOUNDS
+#ifdef GEOMC_MTX_CHECK_BOUNDS
             if (row >= nrows or col >= ncols) {
                 throw std::out_of_range("matrix coordinates");
             }
-        #endif
+#endif
         MatrixCoord i = MatrixCoord(r, c);
         if (val == 0) {
             elements.erase(i);

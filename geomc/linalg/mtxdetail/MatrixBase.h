@@ -17,7 +17,7 @@
 #include <geomc/linalg/mtxdetail/MatrixIterator.h>
 
 #if GEOMC_MTX_CHECK_BOUNDS
-    #include <geomc/GeomException.h>
+#include <geomc/GeomException.h>
 #endif
 
 /*
@@ -130,11 +130,11 @@ public:
      * @return The element at `(row, col)`
      */
     inline elem_t get(index_t row, index_t col) const {
-        #ifdef GEOMC_MTX_CHECK_BOUNDS
+#ifdef GEOMC_MTX_CHECK_BOUNDS
             if (row >= rows() || col >= cols() || row < 0 || col < 0) {
                 throw std::out_of_range();
             }
-        #endif
+#endif
         return derived()->get(row,col);
     }
     
@@ -252,11 +252,11 @@ public:
      * @return A reference to the element at `(row, col)`
      */
     inline derived_reference get(index_t row, index_t col) {
-        #ifdef GEOMC_MTX_CHECK_BOUNDS
+#ifdef GEOMC_MTX_CHECK_BOUNDS
             if (row >= derived()->rows() || col >= derived()->cols() || row < 0 || col < 0) {
                 throw std::out_of_range();
             }
-        #endif
+#endif
         return derived_reference(derived(), row, col);
     }
     
@@ -268,11 +268,11 @@ public:
      * @return A reference to the element at `(row, col)`, for convenience.
      */
     inline derived_reference set(index_t row, index_t col, T val) {
-        #ifdef GEOMC_MTX_CHECK_BOUNDS
+#ifdef GEOMC_MTX_CHECK_BOUNDS
             if (row >= derived()->rows() || col >= derived()->cols() || row < 0 || col < 0) {
                 throw std::out_of_range();
             }
-        #endif
+#endif
         return derived()->set(row,col, val);
     }
     

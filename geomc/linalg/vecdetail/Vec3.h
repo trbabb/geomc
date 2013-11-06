@@ -12,8 +12,8 @@
 #include <geomc/linalg/vecdetail/VecBase.h>
 
 #ifdef GEOMC_VEC_USE_SWIZZLE
-    #include <string>
-    #include <geomc/GeomException.h>
+#include <string>
+#include <geomc/GeomException.h>
 #endif
 
 
@@ -270,7 +270,7 @@ namespace geom {
                     (c*(u2 + v2) - w*(a*u + b*v - uxvywz))*oneMcos + z*cc + (-b*u + a*v - v*x + u*y)*ss);
         }
         
-        #ifdef GEOMC_VEC_USE_SWIZZLE
+#ifdef GEOMC_VEC_USE_SWIZZLE
         Vec<T,3> swizzle(const std::string& xyz) const {
             if (xyz.length() != 3){
                 throw GeomException("Invalid 3D swizzle string: " + xyz);
@@ -279,7 +279,7 @@ namespace geom {
                             swizzlecoord(xyz[1]),
                             swizzlecoord(xyz[2]));
         }
-        #endif
+#endif
 
         /// @return `true` if no elements are an infinity or `NaN`.
         bool isFiniteReal() const {
@@ -288,7 +288,7 @@ namespace geom {
 
     private:
         
-        #ifdef GEOMC_VEC_USE_SWIZZLE
+#ifdef GEOMC_VEC_USE_SWIZZLE
         T swizzlecoord(char c) const {
             switch (tolower(c)){
                 case 'x':
@@ -308,7 +308,7 @@ namespace geom {
                     throw GeomException("Invalid swizzle character: " + c);
             }
         }
-        #endif
+#endif
         
     }; //end Vec3 definition
 

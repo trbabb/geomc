@@ -95,11 +95,11 @@ public:
     }
     
     inline T get(index_t r, index_t c) const {
-        #ifdef GEOMC_MTX_CHECK_BOUNDS
+#ifdef GEOMC_MTX_CHECK_BOUNDS
             if (r < 0 or r >= rows() or c < 0 or c >= cols()) {
                 throw std::out_of_range("matrix coordinates");
             }
-        #endif
+#endif
         return (r == c) ? data.get()[r] : (T(0));
     }
     

@@ -274,11 +274,14 @@
 #include <geomc/linalg/mtxdetail/MatrixInv.h>
 #include <geomc/linalg/mtxdetail/MatrixArithmetic.h>
 
+
 #ifdef GEOMC_LINALG_USE_STREAMS
-  #include <iostream>
-  #include <iomanip>
+
+#include <iostream>
+#include <iomanip>
 
 #include "mtxdetail/MatrixGlue.h"
+
 #endif
 
 
@@ -400,7 +403,7 @@ mul(Md *into, const Ma &a, const Mb &b) {
     typedef detail::_ImplMtxMul<Ma,Mb> mult_t;
     typedef typename mult_t::return_t buffer_t;
     
-    #ifdef GEOMC_MTX_CHECK_DIMS
+#ifdef GEOMC_MTX_CHECK_DIMS
     // do the source matrix dimensions agree?
     // any compiler worth its salt should eliminate this test for template instantiations with static-dimensioned operands
     if ((A::COLDIM == DYNAMIC_DIM or B::ROWDIM == DYNAMIC_DIM) and A::cols(a) != B::rows(b)) {
@@ -412,9 +415,9 @@ mul(Md *into, const Ma &a, const Mb &b) {
         ((D::COLDIM == DYNAMIC_DIM or B::COLDIM == DYNAMIC_DIM) and B::cols(b) != D::cols(*into))) {
         throw DimensionMismatchException(D::rows(*into), D::cols(*into), A::rows(a), B::cols(b));
     }
-    #endif
+#endif
     
-    #ifdef GEOMC_MTX_CHECK_ALIASING
+#ifdef GEOMC_MTX_CHECK_ALIASING
     // allocate a temp destination matrix, in case of storage aliasing
     if (mtx_aliases_storage(*into, a) or mtx_aliases_storage(*into, b)) {
         buffer_t tmp = detail::_ImplMtxInstance<buffer_t>::instance(A::rows(a), B::cols(b));
@@ -423,9 +426,9 @@ mul(Md *into, const Ma &a, const Mb &b) {
     } else {
         mult_t::mul(into, a, b);
     }
-    #else
+#else
     mult_t::mul(into, a, b);
-    #endif
+#endif
     
     return *into;
 }
@@ -447,7 +450,7 @@ mul(Md *into, const Ma &a, const Mb &b) {
     typedef detail::_ImplMtxMul<Ma,Mb> mult_t;
     typedef typename mult_t::return_t buffer_t;
     
-    #ifdef GEOMC_MTX_CHECK_DIMS
+#ifdef GEOMC_MTX_CHECK_DIMS
     // trial orientation adaptors:
     typedef detail::_ImplMtxAdaptor<Md, detail::ORIENT_VEC_ROW> Dr;
     typedef detail::_ImplMtxAdaptor<Md, detail::ORIENT_VEC_COL> Dc;
@@ -457,9 +460,9 @@ mul(Md *into, const Ma &a, const Mb &b) {
              (Dc::rows(*into) == A::rows(a) and Dc::cols(*into) == B::cols(b))) ) {
         throw DimensionMismatchException(Dr::rows(*into), Dr::cols(*into), A::rows(a), B::cols(b));
     }
-    #endif
+#endif
     
-    #ifdef GEOMC_MTX_CHECK_ALIASING
+#ifdef GEOMC_MTX_CHECK_ALIASING
     if (mtx_aliases_storage(*into, a) or mtx_aliases_storage(*into, b)) {
         buffer_t tmp = detail::_ImplMtxInstance<buffer_t>::instance(A::rows(a), B::cols(b));
         mult_t::mul(&tmp, a, b);
@@ -467,9 +470,9 @@ mul(Md *into, const Ma &a, const Mb &b) {
     } else {
         mult_t::mul(into, a, b);
     }
-    #else
+#else
     mult_t::mul(into, a, b);
-    #endif
+#endif
     
     return *into;
 }
@@ -506,12 +509,12 @@ mul(const Ma &a, const Mb &b) {
     typedef detail::_ImplMtxMul<Ma,Mb> mult_t;
     typedef typename mult_t::return_t return_t;
     
-    #ifdef GEOMC_MTX_CHECK_DIMS
+#ifdef GEOMC_MTX_CHECK_DIMS
     // dynamic dimensions match?
     if ((A::COLDIM == DYNAMIC_DIM or B::ROWDIM == DYNAMIC_DIM) and A::cols(a) != B::rows(b)) {
         throw DimensionMismatchException(A::rows(a), A::cols(a), B::rows(b), B::cols(b));
     }
-    #endif
+#endif
     
     return_t dest = detail::_ImplMtxInstance<return_t>::instance(A::rows(a), B::cols(b));
     mult_t::mul(&dest, a, b);
@@ -545,22 +548,22 @@ transpose(Md *into, const Mx &m) {
     typedef detail::_ImplMtxTxpose<Mx> txpose_t;
     typedef typename txpose_t::return_t return_t;
     
-    #ifdef GEOMC_MTX_CHECK_DIMS
+#ifdef GEOMC_MTX_CHECK_DIMS
     // dimension mismatch?
     if ((Md::ROWDIM * Mx::COLDIM == 0 and into->rows() != m.cols()) or 
         (Md::COLDIM * Mx::ROWDIM == 0 and into->cols() != m.rows())) {
         throw DimensionMismatchException(into->rows(), into->cols(), m.cols(), m.rows());
     }
-    #endif
+#endif
     
-    #ifdef GEOMC_MTX_CHECK_ALIASING
+#ifdef GEOMC_MTX_CHECK_ALIASING
     // memory aliasing?
     if (mtx_aliases_storage(*into, m)) {
         return_t buf = detail::_ImplMtxInstance<return_t>::instance(m.cols(), m.rows());
         txpose_t::transpose(&buf, m);
         detail::_mtxcopy(into, buf);
     }
-    #endif
+#endif
     txpose_t::transpose(into, m);
 }
 

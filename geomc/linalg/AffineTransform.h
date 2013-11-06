@@ -19,7 +19,7 @@
 #include <geomc/linalg/Matrix.h>
 
 #ifdef GEOMC_LINALG_USE_STREAMS
-    #include <iostream>
+#include <iostream>
 #endif
 
 namespace geom {
@@ -120,12 +120,12 @@ namespace geom {
             return (*this);
         }
         
-        #ifdef GEOMC_LINALG_USE_STREAMS
+#ifdef GEOMC_LINALG_USE_STREAMS
         friend std::ostream &operator<<(std::ostream &stream, const AffineTransform<T,N> xf) {
             stream << xf.mat;
             return stream;
         }
-        #endif
+#endif
         
         /*******************************
          * Methods                     *

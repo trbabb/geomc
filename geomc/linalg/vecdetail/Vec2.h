@@ -12,8 +12,8 @@
 #include <geomc/linalg/vecdetail/VecBase.h>
 
 #ifdef GEOMC_VEC_USE_SWIZZLE
-    #include <string>
-    #include <geomc/GeomException.h>
+#include <string>
+#include <geomc/GeomException.h>
 #endif
 
 namespace geom {
@@ -176,7 +176,7 @@ namespace geom {
             return theta;
         }
         
-        #ifdef GEOMC_VEC_USE_SWIZZLE
+#ifdef GEOMC_VEC_USE_SWIZZLE
         const Vec<T,2> swizzle(const std::string& xyz) const {
             if (xyz.length() != 2){
                 throw GeomException("Invalid 2D swizzle string: " + xyz);
@@ -184,11 +184,11 @@ namespace geom {
             return Vec<T,2>(swizzlecoord(xyz[0]),
                             swizzlecoord(xyz[1]));
         }
-        #endif
+#endif
 
     private:
         
-        #ifdef GEOMC_VEC_USE_SWIZZLE
+#ifdef GEOMC_VEC_USE_SWIZZLE
         T swizzlecoord(char c) const  {
             switch (tolower(c)){
                 case 'x':
@@ -203,7 +203,7 @@ namespace geom {
                     throw GeomException("Invalid swizzle character: " + c);
             }
         }
-        #endif
+#endif
 
     }; //end Vec2 definition
     

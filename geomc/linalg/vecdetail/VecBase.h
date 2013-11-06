@@ -19,11 +19,11 @@
 #include <geomc/linalg/LinalgTypes.h>
 
 #ifdef GEOMC_VEC_CHECK_BOUNDS
-    #include <stdexcept>
+#include <stdexcept>
 #endif
 
 #ifdef GEOMC_LINALG_USE_STREAMS
-    #include <iostream>
+#include <iostream>
 #endif
 
 //TODO: specialize for a special dimension Vec<t,DYNAMIC=-1>
@@ -59,12 +59,12 @@ namespace detail {
          * @return A const reference to the element at `idx`.
          */
         inline const T& get(index_t idx) const {
-            #ifdef GEOMC_VEC_CHECK_BOUNDS
+#ifdef GEOMC_VEC_CHECK_BOUNDS
                 // this is considerably slower
                 if (idx < 0 or idx >= N) {
                     throw std::out_of_range("vector index");
                 }
-            #endif
+#endif
             return v[idx];
         }
         
@@ -74,11 +74,11 @@ namespace detail {
          * @return A reference to the element at `idx`.
          */
         inline T& get(index_t idx) {
-            #ifdef GEOMC_VEC_CHECK_BOUNDS
+#ifdef GEOMC_VEC_CHECK_BOUNDS
                 if (idx < 0 or idx >= N) {
                     throw std::out_of_range("vector index");
                 }
-            #endif
+#endif
             return v[idx];
         }
         
@@ -121,7 +121,7 @@ namespace detail {
          * @return A const reference to the element at `idx`.
          */
         inline const T& get(index_t idx) const {
-            #ifdef GEOMC_VEC_CHECK_BOUNDS
+#ifdef GEOMC_VEC_CHECK_BOUNDS
             switch(idx) {
             case 0:
                 return x;
@@ -130,9 +130,9 @@ namespace detail {
             default:
                 throw std::out_of_range("vector index");
             }
-            #else
+#else
             return idx ? y : x;
-            #endif
+#endif
         }
         
         /**
@@ -141,7 +141,7 @@ namespace detail {
          * @return A reference to the element at `idx`.
          */
         inline T& get(index_t idx) {
-            #ifdef GEOMC_VEC_CHECK_BOUNDS
+#ifdef GEOMC_VEC_CHECK_BOUNDS
             switch(idx) {
             case 0:
                 return x;
@@ -150,9 +150,9 @@ namespace detail {
             default:
                 throw std::out_of_range("vector index");
             }
-            #else
+#else
                 return idx ? y : x;
-            #endif
+#endif
         }
         
         /// @return A read-only iterator pointing at the first element.
@@ -203,7 +203,7 @@ namespace detail {
          * @return A const reference to the element at `idx`.
          */
         inline const T& get(index_t idx) const {
-        #ifdef GEOMC_VEC_CHECK_BOUNDS
+#ifdef GEOMC_VEC_CHECK_BOUNDS
             switch (idx) {
                 case 0:
                     return x;
@@ -214,9 +214,9 @@ namespace detail {
                 default:
                     throw std::out_of_range("vector index"); //throw is very expensive, even if we don't use it. consider avoiding this.
             }
-        #else
+#else
             return (&x)[idx]; //faster than a 4-branch case, whether the case has a throw or not (gcc)
-        #endif
+#endif
         }
         
         /**

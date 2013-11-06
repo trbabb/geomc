@@ -213,7 +213,7 @@ public:
             detail::MatrixDimensionMatch<L_t, SimpleMatrix<S,J,K> >::isStaticMatch,
         void>::type 
     getL(SimpleMatrix<S,J,K> *into) const {
-        #ifdef GEOMC_MTX_CHECK_DIMS
+#ifdef GEOMC_MTX_CHECK_DIMS
         const index_t diag = diagonal();
         if ((J * L_t::ROWDIM == 0 or J != L_t::ROWDIM or
              K * L_t::COLDIM == 0 or K != L_t::COLDIM) and 
@@ -223,7 +223,7 @@ public:
         if ((J * K == 0 or J != K) and into->rows() != into->cols()) {
             throw NonsquareMatrixException(into->rows(), into->cols());
         }
-        #endif
+#endif
         _copyL(into);
     }
     
@@ -245,14 +245,14 @@ public:
             detail::MatrixDimensionMatch<U_t, SimpleMatrix<S,J,K> >::isStaticMatch,
         void>::type
     getU(SimpleMatrix<S,J,K> *into) const {
-        #ifdef GEOMC_MTX_CHECK_DIMS
+#ifdef GEOMC_MTX_CHECK_DIMS
         const index_t diag = diagonal();
         if ((J * U_t::ROWDIM == 0 or J != U_t::ROWDIM or 
              K * U_t::COLDIM == 0 or K != U_t::COLDIM) and
              (into->rows() != diag or into->cols() != LU.cols())) {
             throw DimensionMismatchException(into->rows(), into->cols(), diag, LU.cols());
         }
-        #endif
+#endif
         _copyU(into);
     }
     
@@ -270,11 +270,11 @@ public:
     template <typename S>
     inline void linearSolve(S *dest, const S *b) const {
         
-        #ifdef GEOMC_MTX_CHECK_DIMS
+#ifdef GEOMC_MTX_CHECK_DIMS
         _checkIsSquare();
-        #endif
+#endif
         
-        #ifdef GEOMC_MTX_CHECK_ALIASING
+#ifdef GEOMC_MTX_CHECK_ALIASING
         if (dest == b) {
             // because of the permutation, <b> will be destructively
             // updated as it is read.
@@ -284,7 +284,7 @@ public:
             _linearSolve(dest, buf.get());
             return;
         }
-        #endif
+#endif
         
         _linearSolve(dest, b);
      }
@@ -305,12 +305,12 @@ public:
         Vec<S,K> dest;
 
         // vectors get a dimension check, because we can:
-        #ifdef GEOMC_MTX_CHECK_DIMS
+#ifdef GEOMC_MTX_CHECK_DIMS
         if ((M == DYNAMIC_DIM or M != K) && LU.rows() != K) {
             throw DimensionMismatchException(LU.rows(), 1, K, 1);
         }
         _checkIsSquare();
-        #endif
+#endif
         
         _linearSolve(dest.begin(), b.begin());
         return dest;
@@ -330,14 +330,14 @@ public:
     template <typename S, index_t J, index_t K>
     void inverse(SimpleMatrix<S,J,K> *into) const {
         
-        #ifdef GEOMC_MTX_CHECK_DIMS
+#ifdef GEOMC_MTX_CHECK_DIMS
         _checkIsSquare();
         // destination is valid?
         if ((J*K == 0 or J != M or K != N) and 
             (into->rows() != LU.rows() or into->cols() != LU.cols())) {
             throw DimensionMismatchException(into->rows(), into->cols(), LU.rows(), LU.cols());
         }
-        #endif
+#endif
         _inverseTranspose(into->begin());
         into->transpose();
     }

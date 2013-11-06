@@ -18,7 +18,7 @@
 
 namespace geom {
 
-    #define MT_LEN  624
+#define MT_LEN  624
 
     /**
      * @ingroup random

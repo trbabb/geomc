@@ -82,10 +82,25 @@ public:
         return q1.mult(q2);
     }
     
-    /// Quaternion-vector multiplication (`v`'s real part is zero)
+    /**
+     * @brief Quaternion conjugation, `q * v * q'`. 
+     * 
+     * If `q` is a unit quaternion, then `q * v` is a rotation of `v` by `q`.
+     */
     friend inline Quat<T> operator*(const Quat<T> &q, const Vec<T,3> &v) {
-        return q.mult(Quat<T>(v, 0));
+        Quat<T> qv(v,0);
+        return (q * qv * q.conj()).vectorPart();
     }
+    
+    /**
+     * @brief Quaternion inverse conjugation, q' * v * q. 
+     * 
+     * If `q` is a unit quaternion, then `v * q` is a rotation of `v` by `q`<sup>`-1`</sup>.
+     */
+    friend inline Quat<T> operator*(const Vec<T,3> &v, const Quat<T> &q) {
+        Quat<T> qv(v,0);
+        return (q.conj() * qv * q).vectorPart();
+    } 
     
     /*******************************
      * Methods                     *
@@ -127,14 +142,6 @@ public:
         result.w = w*q.w - x*q.x - y*q.y - z*q.z;
         
         return result;
-    }
-    
-    /// Apply this unit quaternion as a rotation to `v`
-    Vec<T,3> applyRotation(const Vec<T,3> &v) const {
-        const Quat<T> &q = *this;
-        Quat<T> qv(v,0);
-        Quat<T> result = q * qv * q.conj();
-        return result.vectorPart();
     }
     
     /** Convert this unit quaternion to an axis-angle rotation representation
