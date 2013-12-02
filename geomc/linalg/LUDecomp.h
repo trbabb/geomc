@@ -143,9 +143,8 @@ public:
 
         if (not ok) {
             singular = true;
-        } else {
-            P.setRowSources(reorder.get());
         }
+        P.setRowSources(reorder.get());
     }
     
 public:

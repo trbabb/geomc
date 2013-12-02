@@ -68,6 +68,10 @@ typedef Path<float,2> Path2f;
 typedef Path<float,2> Path3f;
 typedef Path<float,2> Path4f;
 
+// 1D functions
+typedef Raster<float,float,1,1>   Curve1f;
+typedef Raster<double,double,1,1> Curve1d;
+
 // 2D images (float, float) -> (float, ...)
 typedef Raster<float,float,2,1>   Imagef1f;
 typedef Raster<float,float,2,2>   Imagef2f;

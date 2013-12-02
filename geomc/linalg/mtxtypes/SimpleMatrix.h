@@ -66,11 +66,11 @@ public:
     typedef const T* const_row_iterator;
     
     // WriteableMatrixBase types
-    /// @brief Reference to element type
+    /// @brief Reference to element type.
     typedef T& reference;
-    /// @brief Writeable row-major iterator over matrix elements
+    /// @brief Writeable row-major iterator over matrix elements.
     typedef T* iterator;
-    /// @brief Writeable iterator over elements of a row
+    /// @brief Writeable iterator over elements of a row.
     typedef T* row_iterator;
     
     /**
@@ -84,10 +84,10 @@ public:
      *     
      *     SimpleMatrix<double, 3, 3> m1;
      *     SimpleMatrix<double, 0, 0> m2(3, 3);
-     *     SimpleMatrix<double, 0, 0> m3; // XXX: Not allowed!
+     *     SimpleMatrix<double, 0, 0> m3; // XXX: Compiler error!
      * 
-     * @param nrows Number of rows in the matrix
-     * @param ncols Number of columns in the matrix
+     * @param nrows Number of rows in the matrix.
+     * @param ncols Number of columns in the matrix.
      */
 #ifdef PARSING_DOXYGEN
     explicit SimpleMatrix(index_t nrows, index_t ncols) {}
@@ -101,6 +101,32 @@ public:
         detail::Dimension<M>::set(n_rows, nrows);
         detail::Dimension<N>::set(n_cols, ncols);
         setIdentity(); 
+    }
+#endif
+
+    /**
+     * @brief Construct a matrix of size `(nrows x ncols)`, initialized with `src_data`. 
+     * 
+     * For matrices with dynamic dimension, a size argument is **required** for 
+     * that dimension. Size arguments will be ignored for dimensions that are 
+     * statically-sized.
+     * 
+     * @param src_data Array of `nrows * ncols` elements, in row-major order, to
+     * be copied.
+     * @param nrows Number of rows in the matrix.
+     * @param ncols Number of columns in the matrix.
+     */
+#ifdef PARSING_DOXYGEN
+    explicit SimpleMatrix(const T* src_data, index_t nrows, index_t ncols) {}
+#else
+    explicit SimpleMatrix(
+                 const T* src_data,
+                 index_t nrows=detail::DefinedIf<M != DYNAMIC_DIM, M>::value, 
+                 index_t ncols=detail::DefinedIf<N != DYNAMIC_DIM, N>::value) : 
+                     data(nrows * ncols) {
+        detail::Dimension<M>::set(n_rows, nrows);
+        detail::Dimension<N>::set(n_cols, ncols);
+        std::copy(src_data, src_data + nrows * ncols, data.get());
     }
 #endif
     
@@ -123,6 +149,34 @@ public:
         detail::_mtxcopy(this, mtx);
     }
 #endif
+    
+    /**************************
+     * Operators              *
+     **************************/
+    
+    /**
+     * Scalar in-place multiplication.
+     * @tparam U  A type satisfying `boost::is_scalar<>`.
+     * @param  k  Scalar value.
+     * @return    A reference to `this`. 
+     */
+#ifdef PARSING_DOXYGEN
+    template <typename U> SimpleMatrix<T,M,N>& operator*=(U k) {}
+#else
+    template <typename U>
+    typename boost::enable_if<boost::is_scalar<U>, SimpleMatrix<T,M,N>&>::type
+    operator*=(U k) {
+        T *p = data.get();
+        for (index_t i = 0; i < rows() * cols(); i++) {
+            p[i] *= k;
+        }
+        return *this;
+    }
+#endif
+    
+    /**************************
+     * Functions              *
+     **************************/
     
     /**
      * @return Number of rows in the matrix.

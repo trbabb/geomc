@@ -19,6 +19,7 @@
 
 namespace geom {
 
+//TODO: have a raster which can wrap an array owned by someone else.
 //TODO: remove cluttering templated sample functions? (15% speed difference, though)
 //TODO: "lobe-yness" of interp is subject to parameterization
 //TODO: really, interpolation and edge behavior should be objects.
@@ -91,6 +92,19 @@ public:
             size(detail::array_product<M>(PointType<index_t,M>::iterator(dims)) * N),
             data(new O[size]) {
         std::fill(data.get(), data.get()+size, 0);
+    }
+    
+    /** 
+     * Construct a Raster with `dims` elements along each axis.
+     * Fill the raster with the data in `src_data`. `src_data` must have enough 
+     * elements to fill the raster completely; in other words, the length of `src_data`
+     * must be the product of the elements of `dims`. 
+     */
+    Raster(const grid_t &dims, const O* src_data):
+            extent(dims),
+            size(detail::array_product<M>(PointType<index_t,M>::iterator(dims)) * N),
+            data(new O[size]) {
+        std::copy(src_data, src_data + size, data.get());
     }
     
     ////////// Methods //////////

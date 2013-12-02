@@ -67,9 +67,9 @@ public:
      */
     static Quat<T> rotFromAxisAngle(const Vec<T,3> &axis, T angle) {
         if (axis.x == 0 && axis.y == 0 && axis.z == 0) {
-            return Vec<T,4>(axis, 1);
+            return Quat<T>(axis, 1);
         } else {
-            return Vec<T,4>(axis.unit() * std::sin(angle*0.5), std::cos(angle*0.5));
+            return Quat<T>(axis.unit() * std::sin(angle*0.5), std::cos(angle*0.5));
         }
     }
 
