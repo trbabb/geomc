@@ -123,5 +123,42 @@ namespace geom {
         
     }; /* Sphere<T,N> */
     
+    
+    /**
+     * Intersect a ray and sphere, returning the ray multiples where the two shapes
+     * intersect in `s0` and `s1`, or return `false` if there is no intersection.
+     * @param ray Ray to intersect. `s0` or `s1` may be negative, and are ordered 
+     * lowest to highest.
+     * 
+     * @param [out] s0 Lowest ray multiple generating a hit.
+     * @param [out] s1 Highest ray multiple generating a hit.
+     * @param center Center of sphere to trace.
+     * @param r Radius of sphere to trace.
+     * @return `true` if the ray intersects the sphere, `false` otherwise.
+     */
+    template <typename T, index_t N>
+    bool trace_sphere(const Ray<T,N> &ray, T *s0, T *s1, const Vec<T,N> &center, T r) {
+        T r2 = r*r;
+        const Vec<T,N> &dir = ray.direction; //for shorthand
+        Vec<T,N> x0 = center - ray.origin;
+        // solve for s such that ||s*ray - ctr|| == radius 
+        T a = dir.dot(dir);
+        T b = -2 * dir.dot(x0);
+        T c = x0.dot(x0) - r2;
+        T roots[2];
+        if (quadratic_solve(roots,a,b,c)){
+            // order the roots along the ray, from -inf; s0 first.
+            if (roots[0] < roots[1]){
+                *s0 = roots[0];
+                *s1 = roots[1];
+            } else {
+                *s0 = roots[1];
+                *s1 = roots[0];
+            }
+            return true;
+        }
+        return false;
+    }
+    
 }; /* namespace geom */
 #endif /* SPHERE_H_ */

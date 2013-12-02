@@ -34,7 +34,7 @@ namespace detail {
         RayBase():origin((T)0),direction((T)0) {
             direction[0] = 1; //x axis
         }
-
+        
         RayBase(Vec<T,N> o, Vec<T,N> v):origin(o),direction(v) {
             //do nothing else
         }
@@ -82,10 +82,11 @@ namespace detail {
     template <typename T, index_t N> 
     class Ray : virtual public detail::RayBase<T,N> {
     public:
+        
         /// Construct at the origin, directed down the x+ axis.
         Ray():detail::RayBase<T,N>() {}
 
-        // Construct a ray with origin `o` and direction `v`.
+        /// Construct a ray with origin `o` and direction `v`.
         Ray(Vec<T,N> o, Vec<T,N> v):detail::RayBase<T,N>(o,v) {}
     };
 
@@ -97,7 +98,7 @@ namespace detail {
         /// Construct at the origin, directed down the x+ axis.
         Ray():detail::RayBase<T,3>() {}
 
-        // Construct a ray with origin `o` and direction `v`.
+        /// Construct a ray with origin `o` and direction `v`.
         Ray(Vec<T,3> o, Vec<T,3> v):detail::RayBase<T,3>(o,v) {}
 
         /** Return the shortest distance from point `p` to the line

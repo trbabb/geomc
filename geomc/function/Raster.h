@@ -60,6 +60,23 @@ namespace geom {
  * 
  * In other words, a function of I<sup>M</sup> &rarr; O<sup>N</sup>.
  * 
+ * Coordinates
+ * ===========
+ * 
+ * Rasters have two coordinate systems: Indexing space and sampling space. 
+ * In indexing space, the stored sample values may be accessed and changed 
+ * using integer grid coordinates, analogous to a multi-dimensional array. 
+ * 
+ * Rasters may also be sampled continuously, and intermediate values between sample
+ * points will be generated via interpolation. The domain of sampling space may be 
+ * specified by the user, and sampling coordinates will be renormalized to this region.
+ * If no domain is specified, sampling space is equal to indexing space (with the
+ * addition that intermediate values may be sampled). The user-specified domain
+ * has no effect on indexing space.
+ * 
+ * Sampling functions
+ * ================== 
+ * 
  * Some functions are overloaded to have some arguments as template parameters.
  * This allows some low-level sampling code to be inlined which can improve
  * speed by as much as 15%. The traditional function-argument versions are available
@@ -77,21 +94,64 @@ public:
     typedef typename PointType<O,N>::point_t sample_t;
     
 protected:
-    grid_t  extent;
-    index_t size;
-    boost::shared_array<O> data;
-    sample_t abyss;
+    grid_t    m_extent;
+    index_t   m_size;
+    boost::shared_array<O> m_data;
+    sample_t  m_abyss;
+    Rect<I,M> m_domain;
     
 public:
     
     ////////// Structors //////////
     
-    /// Construct a Raster with `dims` elements along each axis.
+    /**
+     * Construct a raster with `dims` elements along each axis. The sampling 
+     * domain will be constructed such that the lower extreme is at the origin and
+     * sample points are placed at integer coordinates.
+     * 
+     * @param dims Number of samples along each axis.
+     */
     Raster(const grid_t &dims):
-            extent(dims),
-            size(detail::array_product<M>(PointType<index_t,M>::iterator(dims)) * N),
-            data(new O[size]) {
-        std::fill(data.get(), data.get()+size, 0);
+            m_extent(dims),
+            m_size(detail::array_product<M>(PointType<index_t,M>::iterator(dims)) * N),
+            m_data(new O[m_size]),
+            m_domain((I)0, (coord_t)dims - (coord_t)1) {
+        std::fill(m_data.get(), m_data.get()+m_size, 0);
+    }
+    
+    /**
+     * Construct a raster with `dims` elements along each axis.
+     * 
+     * @param dims Number of samples along each axis.
+     * @param domain Desired boundary of the data region. The lower and upper 
+     * coordinates correspond to the exact coordinates of the most extreme data 
+     * points along each axis.
+     */
+    Raster(const grid_t &dims, const Rect<I,M> &domain):
+            m_extent(dims),
+            m_size(detail::array_product<M>(PointType<index_t,M>::iterator(dims)) * N),
+            m_data(new O[m_size]),
+            m_domain(domain) {
+        std::fill(m_data.get(), m_data.get()+m_size, 0);
+    }
+    
+    /** 
+     * Construct a Raster with `dims` elements along each axis.
+     * Fill the raster with the data in `src_data`. `src_data` must have enough 
+     * elements to fill the raster completely; in other words, the length of `src_data`
+     * must be the product of the elements of `dims`. The domain will be constructed
+     * to align with the sample grid coordinates; in other words, the lowest 
+     * extreme is at the origin and sample points are placed at integer coordinates.
+     * 
+     * @param dims Number of samples along each axis.
+     * @param src_data Data to copy into this raster.
+     */
+    Raster(const grid_t &dims, const O* src_data):
+            m_extent(dims),
+            m_size(detail::array_product<M>(PointType<index_t,M>::iterator(dims)) * N),
+            m_data(new O[m_size]),
+            m_domain((I)0, (coord_t)dims - (coord_t)1) {
+        std::copy(src_data, src_data + m_size, m_data.get());
     }
     
     /** 
@@ -99,12 +159,19 @@ public:
      * Fill the raster with the data in `src_data`. `src_data` must have enough 
      * elements to fill the raster completely; in other words, the length of `src_data`
      * must be the product of the elements of `dims`. 
+     * 
+     * @param dims Number of samples along each axis.
+     * @param src_data Data to copy into this raster.
+     * @param domain Desired boundary of the data region. The lower and upper 
+     * coordinates correspond to the exact coordinates of the most extreme data 
+     * points along each axis.
      */
-    Raster(const grid_t &dims, const O* src_data):
-            extent(dims),
-            size(detail::array_product<M>(PointType<index_t,M>::iterator(dims)) * N),
-            data(new O[size]) {
-        std::copy(src_data, src_data + size, data.get());
+    Raster(const grid_t &dims, const O* src_data, const Rect<I,M> &domain):
+            m_extent(dims),
+            m_size(detail::array_product<M>(PointType<index_t,M>::iterator(dims)) * N),
+            m_data(new O[m_size]),
+            m_domain(domain) {
+        std::copy(src_data, src_data + m_size, m_data.get());
     }
     
     ////////// Methods //////////
@@ -114,17 +181,17 @@ public:
      * `EDGE_CONSTANT` behavior is used.
      */
     void setAbyss(sample_t val) {
-        abyss = val;
+        m_abyss = val;
     }
     
     /**
-     * Set the value of the raster at the point `pt`. 
-     * @param pt Coordinate of datapoint to set.
+     * Set the value of the raster at the grid coordinate `idx`. 
+     * @param idx Coordinate of datapoint to set.
      * @param val New value of datapoint.
      */
-    void set(const grid_t &pt, const sample_t &val) {
-        if (contains(pt)) {
-            O *p = data.get() + this->template index<EDGE_CONSTANT>(pt);
+    void set(const grid_t &idx, const sample_t &val) {
+        if (contains_gridpt(idx)) {
+            O *p = m_data.get() + this->template index<EDGE_CONSTANT>(idx);
             //xxx no worky with dynamic
             *(sample_t*)p = val;
         }
@@ -135,9 +202,9 @@ public:
      * (first dimension consecutive) order. Templated over edge sampling
      * behavior.
      * 
-     * @tparam Edge Edge sampling behavior.
-     * @param dest Destination array.
-     * @param region Region of this Raster to copy from.
+     * @tparam Edge  Edge sampling behavior.
+     * @param dest   Destination array.
+     * @param region Grid region of this Raster to copy from.
      */
     template <EdgeBehavior Edge>
     void copy(sample_t *dest, const Rect<index_t,M> &region) const {
@@ -152,9 +219,9 @@ public:
      * Copy the data in `region` into the array `dest`, in row-major
      * (first dimension consecutive) order. Dynamic edge sampling behavior.
      * 
-     * @param dest Destination array.
-     * @param region Region of this raster to copy from.
-     * @param edge Edge sampling behavior.
+     * @param dest   Destination array.
+     * @param region Grid region of this raster to copy from.
+     * @param edge   Edge sampling behavior.
      */
     void copy(sample_t *dest, const Rect<index_t,M> &region, EdgeBehavior edge) const {
         GridIterator<index_t,M> i = GridIterator<index_t,M>(region);
@@ -167,14 +234,14 @@ public:
     /**
      * Sample this Raster at `pt`.
      * 
-     * @tparam Edge Edge sampling behavior.
+     * @tparam Edge   Edge sampling behavior.
      * @tparam Interp Sample interpolation strategy.
-     * @param pt Point to sample.
+     * @param pt      Point to sample.
      * @return Sampled data.
      */
     template <EdgeBehavior Edge, Interpolation Interp>
     inline sample_t sample(const coord_t &pt) const {
-        return detail::_ImplRasterSample<I,O,M,N,Edge,Interp>::sample(this, pt);
+        return detail::_ImplRasterSample<I,O,M,N,Edge,Interp>::sample(this, toGridSpace(pt));
     }
     
     /**
@@ -187,6 +254,7 @@ public:
      */
     sample_t sample(const coord_t &pt, EdgeBehavior edge=EDGE_CLAMP, Interpolation interp=INTERP_LINEAR) const {
         grid_t gridPt;
+        pt = toGridSpace(pt);
         
         switch (interp) {
         case INTERP_NEAREST:
@@ -215,7 +283,7 @@ public:
             return interp_cubic(s.begin(), buf_c, M);
         }
         default:
-            return abyss;
+            return m_abyss;
         }
     }
     
@@ -231,17 +299,17 @@ public:
         index_t offs;
         switch (Edge) {
             case EDGE_CONSTANT:
-                if (contains(pt)) {
+                if (contains_gridpt(pt)) {
                     offs = this->template index<EDGE_CONSTANT>(pt);
                 } else {
-                    return abyss;
+                    return m_abyss;
                 }
                 break;
             default:
                 offs = this->template index<Edge>(pt);
                 break;
         }
-        return PointType<O,N>::from_ptr(data.get() + offs);
+        return PointType<O,N>::from_ptr(m_data.get() + offs);
     }
     
     /**
@@ -256,7 +324,7 @@ public:
         
         switch (edge) {
         case EDGE_CONSTANT:
-            if (!contains(pt)) return abyss;
+            if (!contains_gridpt(pt)) return m_abyss;
             offs = this->template index<EDGE_CONSTANT>(pt);
             break;
         case EDGE_CLAMP:
@@ -269,21 +337,21 @@ public:
             offs = this->template index<EDGE_MIRROR>(pt);
             break;
         default:
-            return abyss;
+            return m_abyss;
         }
         
-        return sample_t(data.get() + offs);
+        return sample_t(m_data.get() + offs);
     }
     
     /**
-     * @return `true` if the grid location `pt` is within the bounds of this
+     * @return `true` if the grid location `idx` is within the bounds of this
      * raster and has data, `false` otherwise.
      */
-    bool contains(const grid_t &pt) const {
+    bool contains_gridpt(const grid_t &idx) const {
         typedef PointType<index_t,M> grid_info;
         
-        const index_t *p_i = grid_info::iterator(pt);
-        const index_t *e_i = grid_info::iterator(extent);
+        const index_t *p_i = grid_info::iterator(idx);
+        const index_t *e_i = grid_info::iterator(m_extent);
         for (index_t i = 0; i < M; i++) {
             index_t c = p_i[i];
             if (c < 0 or c >= e_i[i]) {
@@ -294,10 +362,18 @@ public:
     }
     
     /**
-     * Size of this raster along each axis.
+     * Number of samples along each axis.
      */
-    inline grid_t extents() const {
-        return extent;
+    inline grid_t dataExtents() const {
+        return m_extent;
+    }
+    
+    /**
+     * Boundary of the data region; upper and lower coordinates correspond exactly
+     * to the coordinates of the most extreme sample positions along each axis.
+     */
+    inline Rect<I,M> domain() const {
+        return m_domain;
     }
     
     /**
@@ -318,14 +394,19 @@ public:
      * Number of grid sample points in this raster.
      */
     inline index_t samplecount() const {
-        return size;
+        return m_size;
     }
     
 protected:
+    
+    inline coord_t toGridSpace(const coord_t &pt) const {
+        return (coord_t)m_extent * (pt - m_domain.min()) / m_domain.getDimensions();
+    }
+    
     template <EdgeBehavior Edge>
     inline index_t index(const grid_t &c) const {
         // specialized where M=1
-        return detail::_ImplRasterIndex<grid_t,M,Edge>::index(this->extent, c) * outputDimension();
+        return detail::_ImplRasterIndex<grid_t,M,Edge>::index(this->m_extent, c) * outputDimension();
     }
 };
 
