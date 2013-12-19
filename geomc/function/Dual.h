@@ -162,7 +162,7 @@ namespace std {
     // general form:
     //   f(x), x` * f`(x)
     // or in other words:
-    //   f(a), b * f`(a)
+    //   f(x), dx * f`(x)
     
     // TODO: atan2
     
@@ -261,44 +261,44 @@ namespace std {
 #else
         bool pos = d.x >= 0;
 #endif
-        T a = pos ? d.x : -d.x;
-        T b;
+        T x = pos ? d.x : -d.x;
+        T dx;
 #if !(DUAL_DISCONTINUITY_LEFT || DUAL_DISCONTINUITY_RIGHT)
-        if (a == 0) {
+        if (x == 0) {
 #if DUAL_DISCONTINUITY_NAN
-            a = numeric_limits<T>::quiet_NaN();
+            x = numeric_limits<T>::quiet_NaN();
 #elif DUAL_DISCONTINUITY_AVERAGE
-            a = 0;
+            x = 0;
 #endif
         } else
 #endif
-        b = pos ? d.dx : -d.dx;
+        dx = pos ? d.dx : -d.dx;
         
-        return geom::Dual<T>(a,b);
+        return geom::Dual<T>(x,dx);
     }
     
     
     template <typename T>
     inline geom::Dual<T> ceil(const geom::Dual<T> &d) {
-        T a = ceil(d.x);
+        T x = ceil(d.x);
 #if DUAL_DISCONTINUITY_NAN
-        T b = (a == d.x) ? numeric_limits<T>::quiet_NaN() : 0;
+        T dx = (x == d.x) ? numeric_limits<T>::quiet_NaN() : 0;
 #else
-        T b = 0;
+        T dx = 0;
 #endif
-        return geom::Dual<T>(a,b);
+        return geom::Dual<T>(x,dx);
     }
     
     
     template <typename T>
     inline geom::Dual<T> floor(const geom::Dual<T> &d) {
-        T a = floor(d.x);
+        T x = floor(d.x);
 #if DUAL_DISCONTINUITY_NAN
-        T b = (a == d.x) ? numeric_limits<T>::quiet_NaN() : 0;
+        T dx = (x == d.x) ? numeric_limits<T>::quiet_NaN() : 0;
 #else
-        T b = 0;
+        T dx = 0;
 #endif
-        return geom::Dual<T>(a,b);
+        return geom::Dual<T>(x,dx);
     }
     
     
@@ -309,19 +309,19 @@ namespace std {
 #else
         bool lt = d1.x < d2.x;
 #endif
-        T a = lt ? d1.x : d2.x;
-        T b;
+        T x = lt ? d1.x : d2.x;
+        T dx;
 #if DUAL_DISCONTINUITY_NAN || DUAL_DISCONTINUITY_AVERAGE
         if (d1.x == d2.x) {
 #if DUAL_DISCONTINUITY_NAN
-            b = numeric_limits<T>::quiet_NaN();
+            dx = numeric_limits<T>::quiet_NaN();
 #else
-            b = (d1.dx + d2.dx) / 2
+            dx = (d1.dx + d2.dx) / 2
 #endif
         } else 
 #endif
-        b = lt ? d1.dx : d2.dx;
-        return geom::Dual<T>(a,b);
+        dx = lt ? d1.dx : d2.dx;
+        return geom::Dual<T>(x,dx);
     }
     
         
@@ -332,19 +332,19 @@ namespace std {
 #else
         bool gt = d1.x > d2.x;
 #endif
-        T a = gt ? d1.x : d2.x;
-        T b;
+        T x = gt ? d1.x : d2.x;
+        T dx;
 #if DUAL_DISCONTINUITY_NAN || DUAL_DISCONTINUITY_AVERAGE
         if (d1.x == d2.x) {
 #if DUAL_DISCONTINUITY_NAN
-            b = numeric_limits<T>::quiet_NaN();
+            dx = numeric_limits<T>::quiet_NaN();
 #else
-            b = (d1.dx + d2.dx) / 2
+            dx = (d1.dx + d2.dx) / 2
 #endif
         } else 
 #endif
-        b = gt ? d1.dx : d2.dx;
-        return geom::Dual<T>(a,b);
+        dx = gt ? d1.dx : d2.dx;
+        return geom::Dual<T>(x,dx);
     }
     
 };
