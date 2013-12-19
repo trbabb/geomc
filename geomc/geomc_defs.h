@@ -57,6 +57,10 @@
 
 #define GEOMC_VEC_USE_SWIZZLE
 
+// Shall the <function> module include functions for outputting to streams?
+
+#define GEOMC_FUNCTION_USE_STREAMS
+
 
 #define PI  (3.141592653589793238462643383)
 #define TAU (6.283185307179586476925286767)

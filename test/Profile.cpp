@@ -21,6 +21,7 @@
 #include <geomc/function/Raster.h>
 #include <geomc/shape/BinLatticePartition.h>
 #include <geomc/shape/Trace.h>
+#include <geomc/function/Dual.h>
 
 
 #include "RandomBattery.h"
@@ -31,35 +32,35 @@ using namespace geom;
 using namespace std;
 
 template <index_t N> 
-void fill_unit_vec_array(typename PointType<double,N>::point_t *dst, index_t n){
+void fill_unit_vec_array(typename PointType<double,N>::point_t *dst, index_t n) {
     Sampler<double> rntools = Sampler<double>();
     
-    for (index_t i = 0; i < n; i++){
+    for (index_t i = 0; i < n; i++) {
         dst[i] = rntools.template unit<N>();
     }
 }
 
-template <index_t N> void fill_unit_raw_vec_array(double dst[][N], index_t n){
+template <index_t N> void fill_unit_raw_vec_array(double dst[][N], index_t n) {
     Sampler<double> rntools = Sampler<double>();
     Vec<double,N> v;
     
-    for (index_t i = 0; i < n; i++){
+    for (index_t i = 0; i < n; i++) {
         v = rntools.template unit<N>();
-        for (index_t axis = 0; axis < N; axis++){
+        for (index_t axis = 0; axis < N; axis++) {
             dst[i][axis] = v[axis];
         }
     }
 }
 
-template <index_t N> void fill_range_vec_array(Vec<double, N> *dst, index_t n, Vec<double,N> lo, Vec<double,N> hi){
+template <index_t N> void fill_range_vec_array(Vec<double, N> *dst, index_t n, Vec<double,N> lo, Vec<double,N> hi) {
     Sampler<double> rntools = Sampler<double>();
     
-    for (index_t i = 0; i < n; i++){
+    for (index_t i = 0; i < n; i++) {
         dst[i] = rntools.box(lo, hi);
     }
 }
 
-double profile_vec_cross(index_t iters){
+double profile_vec_cross(index_t iters) {
     const index_t n = NUM_PROFILE_CASES;
     Vec3d v;
     Vec3d vecs_src[n];
@@ -69,7 +70,7 @@ double profile_vec_cross(index_t iters){
     
     index_t idx = 0;
     clock_t start = clock();
-    for (index_t i = 0; i < iters; i++){
+    for (index_t i = 0; i < iters; i++) {
         vecs_dst[idx % n] = vecs_src[idx % n].cross(vecs_src[(idx+1) % n]);
         idx += 1;
     }
@@ -77,7 +78,7 @@ double profile_vec_cross(index_t iters){
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
-template <index_t N> double profile_vec_add(index_t iters){
+template <index_t N> double profile_vec_add(index_t iters) {
     index_t n = NUM_PROFILE_CASES;
     Vec<double, N> vecs_src_1[n];
     Vec<double, N> vecs_src_2[n];
@@ -88,7 +89,7 @@ template <index_t N> double profile_vec_add(index_t iters){
     
     index_t idx = 0;
     clock_t start = clock();
-    for (index_t i = 0; i < iters; i++){
+    for (index_t i = 0; i < iters; i++) {
         vecs_dst[idx] = vecs_src_1[idx] + (vecs_src_2[idx]);
         idx = (idx + 1) % n;
     }
@@ -96,7 +97,7 @@ template <index_t N> double profile_vec_add(index_t iters){
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
-template <index_t N> double profile_vec_dot(index_t iters){
+template <index_t N> double profile_vec_dot(index_t iters) {
     index_t n = NUM_PROFILE_CASES;
     Vec<double, N> vecs_src_1[n];
     Vec<double, N> vecs_src_2[n];
@@ -107,7 +108,7 @@ template <index_t N> double profile_vec_dot(index_t iters){
     
     index_t idx = 0;
     clock_t start = clock();
-    for (index_t i = 0; i < iters; i++){
+    for (index_t i = 0; i < iters; i++) {
         vecs_dst[idx] = vecs_src_1[idx].dot(vecs_src_2[idx]);
         idx = (idx + 1) % n;
     }
@@ -115,7 +116,7 @@ template <index_t N> double profile_vec_dot(index_t iters){
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
-template <index_t N> double profile_vec_norm(index_t iters){
+template <index_t N> double profile_vec_norm(index_t iters) {
     index_t n = NUM_PROFILE_CASES;
     Vec<double, N> vecs_src[n];
     double vecs_dst[n];
@@ -124,7 +125,7 @@ template <index_t N> double profile_vec_norm(index_t iters){
     
     index_t idx = 0;
     clock_t start = clock();
-    for (index_t i = 0; i < iters; i++){
+    for (index_t i = 0; i < iters; i++) {
         vecs_dst[idx % n] = vecs_src[idx % n].mag();
         idx += 1;
     }
@@ -132,7 +133,7 @@ template <index_t N> double profile_vec_norm(index_t iters){
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
-template <index_t N> double profile_vec_norm2(index_t iters){
+template <index_t N> double profile_vec_norm2(index_t iters) {
     index_t n = NUM_PROFILE_CASES;
     Vec<double, N> vecs_src[n];
     double vecs_dst[n];
@@ -141,7 +142,7 @@ template <index_t N> double profile_vec_norm2(index_t iters){
     
     index_t idx = 0;
     clock_t start = clock();
-    for (index_t i = 0; i < iters; i++){
+    for (index_t i = 0; i < iters; i++) {
         vecs_dst[idx % n] = vecs_src[idx % n].mag2();
         idx += 1;
     }
@@ -149,7 +150,7 @@ template <index_t N> double profile_vec_norm2(index_t iters){
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
-template <index_t N> double profile_vec_hash(index_t iters){
+template <index_t N> double profile_vec_hash(index_t iters) {
     index_t n = NUM_PROFILE_CASES;
     Vec<double, N> vecs_src[n];
     index_t vecs_dst[n];
@@ -158,7 +159,7 @@ template <index_t N> double profile_vec_hash(index_t iters){
     
     index_t idx = 0;
     clock_t start = clock();
-    for (index_t i = 0; i < iters; i++){
+    for (index_t i = 0; i < iters; i++) {
         vecs_dst[idx % n] = vecs_src[idx % n].hashcode();
         idx += 1;
     }
@@ -166,7 +167,7 @@ template <index_t N> double profile_vec_hash(index_t iters){
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
-template <index_t N> double profile_raw_vec_add(index_t iters){
+template <index_t N> double profile_raw_vec_add(index_t iters) {
     index_t n = NUM_PROFILE_CASES;
     double vecs_src1[n][N];
     double vecs_src2[n][N];
@@ -177,8 +178,8 @@ template <index_t N> double profile_raw_vec_add(index_t iters){
     
     index_t idx = 0;
     clock_t start = clock();
-    for (index_t i = 0; i < iters; i++){
-        for (index_t axis = 0; axis < N; axis++){
+    for (index_t i = 0; i < iters; i++) {
+        for (index_t axis = 0; axis < N; axis++) {
             vecs_dst[idx][axis] = vecs_src1[idx][axis] + vecs_src2[idx][axis];
         }
         idx = (idx + 1) % n;
@@ -187,7 +188,7 @@ template <index_t N> double profile_raw_vec_add(index_t iters){
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
-template <index_t N> double profile_perlin(index_t iters){
+template <index_t N> double profile_perlin(index_t iters) {
 	typedef typename PointType<double,N>::point_t point_t;
     index_t n = NUM_PROFILE_CASES;
     point_t range = point_t(100000);
@@ -199,7 +200,7 @@ template <index_t N> double profile_perlin(index_t iters){
     
     index_t idx = 0;
     clock_t start = clock();
-    for (index_t i = 0; i < iters; i++){
+    for (index_t i = 0; i < iters; i++) {
         dest_vals[idx] = perlin.eval(vecs_src[n]);
         idx = (idx + 1) % n;
     }
@@ -208,11 +209,11 @@ template <index_t N> double profile_perlin(index_t iters){
 }
 
 // careful with this. allocates lots o memory.
-template <typename T> double profile_rayTriangleTest(index_t iters){
+template <typename T> double profile_rayTriangleTest(index_t iters) {
     Sampler<T> rvs;
 	Ray<T,3> *rays = new Ray<T,3>[iters];
 	// generate N random rays. 
-	for (index_t i = 0; i < iters; i++){
+	for (index_t i = 0; i < iters; i++) {
 		rays[i].origin    = rvs.template unit<3>(2.0);
 		rays[i].direction = rvs.template unit<3>();
 	}
@@ -222,7 +223,7 @@ template <typename T> double profile_rayTriangleTest(index_t iters){
 	Vec<T,3> p2(0,0,0.75);
 
 	clock_t start = clock();
-	for (index_t i = 0; i < iters; i++){
+	for (index_t i = 0; i < iters; i++) {
 		trace_tri(p0, p1, p2, rays[i], HIT_FRONT);
 	}
 	clock_t end = clock();
@@ -232,15 +233,15 @@ template <typename T> double profile_rayTriangleTest(index_t iters){
 	return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
-template <typename T, index_t N> double profile_path(index_t iters){
+template <typename T, index_t N> double profile_path(index_t iters) {
     Path<T,N> p;
     Sampler<T> rvs;
     int n_knots = 50;
-    for (index_t i = 0; i < n_knots; i++){
+    for (index_t i = 0; i < n_knots; i++) {
         p.knots.push_back(Ray<T,N>(rvs.template box<N>(), rvs.template solidball<N>()));
     }
     clock_t start = clock();
-    for (index_t i = 0; i < iters; i++){
+    for (index_t i = 0; i < iters; i++) {
         p.eval(getRandom()->rand(0,n_knots));
     }
     clock_t end = clock();
@@ -248,33 +249,33 @@ template <typename T, index_t N> double profile_path(index_t iters){
 }
 
 template <typename T, index_t N, index_t Channels, Interpolation Interp> 
-double profile_raster(index_t iters){
+double profile_raster(index_t iters) {
 	index_t n = 128;
 	Vec<index_t,N> dim(n);
     Raster<T,T,N,Channels> image(dim);
     Vec<T,N> coords[n];
     Sampler<T> rvs;
     
-    for (index_t i = 0; i < n; i++){
+    for (index_t i = 0; i < n; i++) {
     	coords[i] = rvs.box(Vec<T,N>::zeros, (Vec<T,N>)dim);
-    	for (index_t j = 0; j < n; j++){
+    	for (index_t j = 0; j < n; j++) {
     		image.set(Vec<index_t,N>(i,j), rvs.template unit<Channels>());
     	}
     }
     
     clock_t start = clock();
-    for (index_t i = 0; i < iters; i++){
+    for (index_t i = 0; i < iters; i++) {
         image.template sample<EDGE_CLAMP,Interp>(coords[i & (n-1)]);
     }
     clock_t end = clock();
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
-template <typename T> double profile_rotCtr(index_t iters){
+template <typename T> double profile_rotCtr(index_t iters) {
     Sampler<T> rvs;
     AffineTransform<T,3> xf;
     clock_t start = clock();
-    for (index_t i = 0; i < iters; i++){
+    for (index_t i = 0; i < iters; i++) {
         T angle = rvs.rng->template rand<T>(0, 2*M_PI);
         Vec<T,3> axis = rvs.template unit<3>();
         Vec<T,3> ctr  = rvs.box(Vec<T,3>(-10,-10,-10), Vec<T,3>(10,10,10));
@@ -291,11 +292,11 @@ template <typename M> double profile_mtxCopy(index_t iters) {
 	Random *rng = getRandom();
 	typedef typename M::elem_t T;
 	T *ary = new T[rows*cols+1];
-	for (index_t i = 0; i < rows*cols+1; i++){
+	for (index_t i = 0; i < rows*cols+1; i++) {
 		ary[i] = rng->rand(1.0);
 	}
 	clock_t start = clock();
-	for (index_t i = 0; i < iters; i++){
+	for (index_t i = 0; i < iters; i++) {
 		std::copy(m.begin(), m.end(), ary);	
 	}
 	clock_t end = clock();
@@ -311,11 +312,11 @@ template <typename M> double profile_mtxRegionCopy(index_t iters) {
 	Random *rng = getRandom();
 	typedef typename M::elem_t T;
 	T *ary = new T[rows*cols+1];
-	for (index_t i = 0; i < rows*cols+1; i++){
+	for (index_t i = 0; i < rows*cols+1; i++) {
 		ary[i] = rng->rand(1.0);
 	}
 	clock_t start = clock();
-	for (index_t i = 0; i < iters; i++){
+	for (index_t i = 0; i < iters; i++) {
 		MatrixRegion region(MatrixCoord(1,1), MatrixCoord(rows-1, cols-1));
 		std::copy(m.region_begin(region), m.region_end(region), ary);
 	}
@@ -328,12 +329,12 @@ template <typename M> double profile_mtxRegionCopy(index_t iters) {
 template <typename T, index_t N> double profile_mtxInverse(index_t iters) {
 	SimpleMatrix<T,N,N> mtx[2];
 	Random *rng = getRandom();
-	for (T *p = mtx[0].begin(); p != mtx[0].end(); p++){
+	for (T *p = mtx[0].begin(); p != mtx[0].end(); p++) {
 		*p = rng->rand(1.0);
 	}
 	index_t x = 0;
 	clock_t start = clock();
-	for (index_t i = 0; i < iters; i++, x = !x){
+	for (index_t i = 0; i < iters; i++, x = !x) {
 		inv(&mtx[!x], mtx[x]);	
 	}
 	clock_t end = clock();
@@ -344,12 +345,12 @@ template <typename T, index_t N> double profile_mtxInverse(index_t iters) {
 template <typename T, index_t N> double profile_mtxInverseLU(index_t iters) {
 	SimpleMatrix<T,N,N> mtx[2];
 	Random *rng = getRandom();
-	for (T *p = mtx[0].begin(); p != mtx[0].end(); p++){
+	for (T *p = mtx[0].begin(); p != mtx[0].end(); p++) {
 		*p = rng->rand(1.0);
 	}
 	index_t x = 0;
 	clock_t start = clock();
-	for (index_t i = 0; i < iters; i++, x = !x){
+	for (index_t i = 0; i < iters; i++, x = !x) {
 		PLUDecomposition<T,N,N> plu = plu_decompose(mtx[x]);
 		plu.inverse(&mtx[!x]);	
 	}
@@ -361,12 +362,12 @@ template <typename T, index_t N> double profile_mtxInverseLU(index_t iters) {
 template <typename T, index_t N> void test_mtxInverse(index_t iters) {
 	SimpleMatrix<T,N,N> mtx[2];
 	Random *rng = getRandom();
-	for (T *p = mtx[0].begin(); p != mtx[0].end(); p++){
+	for (T *p = mtx[0].begin(); p != mtx[0].end(); p++) {
 		*p = rng->rand(1.0);
 	}
 	std::cout << mtx[0];
 	index_t x = 0;
-	for (index_t i = 0; i < iters; i++, x = !x){
+	for (index_t i = 0; i < iters; i++, x = !x) {
 		inv(&mtx[!x], mtx[x]);
 		std::cout << mtx[!x];
 	}
@@ -378,7 +379,7 @@ template <typename M> void test_mtxRegionCopy(index_t rows, index_t cols) {
 	const index_t subn = (rows-2)*(cols-2);
 	T *v = new T[subn];
 	
-	for (index_t i = 0; i < subn; i++){
+	for (index_t i = 0; i < subn; i++) {
 		v[i] = 11*i;
 	}
 	
@@ -457,21 +458,33 @@ void test_matrixOrder() {
 	std::cout << "]" << std::endl;
 }
 
-void profile(std::string name, double (*fnc)(index_t), index_t iterations){
+void profile(std::string name, double (*fnc)(index_t), index_t iterations) {
     double t = fnc(iterations);
     std::cout << "profile " << name << " (" << iterations << " iters): " << t << " secs; " << iterations/t << " ops/sec"  << std::endl;
 }
 
-void test_matrix_asplode(){
+void test_matrix_asplode() {
     SimpleMatrix<double,4,4> mtx;
     SimpleMatrix<double,2,5> other;
     // correctly, won't compile:
     // mtx * other;
 }
 
+void test_dual() {
+    typedef Dual<double> duald;
+    cout << "sin(pi): " << sin(duald(PI,1)) << endl;
+    cout << "cos(pi): " << cos(duald(PI,1)) << endl;
+    cout << "tan(pi): " << tan(duald(PI,1)) << endl;
+    cout << "2x + 1, @x=3: " << (duald(3,1) * 2 + 1) << endl;
+    cout << "exp(1): " << exp(duald(1,1)) << endl;
+    cout << "pow(x,x) @x=2: " << pow(duald(2,1), duald(2,1)) << endl;
+    cout << "pow(x=2,2): " << pow(duald(2,1), 2) << endl;
+    cout << endl;
+}
+
 using geom::operator<<;
 
-//int main_profile(int arc, char **argv){
+//int main_profile(int arc, char **argv) {
 int main(int argc, char** argv) {
     Vec2d a2d;
     Vec3d a3d;
@@ -488,6 +501,7 @@ int main(int argc, char** argv) {
     test_permuteMatrix<5>();
     test_simpleMatrix<4,3>();
     test_mtxArithmetic<double,4,3>(4,3);
+    test_dual();
     
     profile("3d cross product", profile_vec_cross, iters);
     std::cout << std::endl;
@@ -588,7 +602,7 @@ int main(int argc, char** argv) {
     
     try {
         test_matrix_asplode();
-    } catch (GeomException &ex){
+    } catch (GeomException &ex) {
         std::cout << ex.what() << std::endl << std::endl;
     }
     
