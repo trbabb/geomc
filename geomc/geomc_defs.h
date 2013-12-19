@@ -77,6 +77,15 @@ template <typename T> inline T positive_mod(T a, T b){
     return r<0?r+b:r;
 }
 
+// How shall derivative discontinuities be handled by dual numbers?
+// e.g., what value shall the derivative have at abs(0)?
+// Define exactly one of these to 1.
+
+#define DUAL_DISCONTINUITY_LEFT    0
+#define DUAL_DISCONTINUITY_RIGHT   1
+#define DUAL_DISCONTINUITY_NAN     0
+#define DUAL_DISCONTINUITY_AVERAGE 0
+
 #ifdef PARSING_DOXYGEN
 
 /** @brief Namepsace of all `geomc` functions and classes. */
