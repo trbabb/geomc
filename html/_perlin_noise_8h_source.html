@@ -145,7 +145,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">     **********************************/</span></div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    </div>
 <div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="classgeom_1_1_perlin_noise.html#a73c789bfc85de4632c0dac13e6f4c144">   71</a></span>&#160;    T <a class="code" href="classgeom_1_1_perlin_noise.html#a73c789bfc85de4632c0dac13e6f4c144">eval</a>(<a class="code" href="classgeom_1_1_vec.html">point_t</a> pt) {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <a class="code" href="classgeom_1_1_vec.html">point_t</a> p0f = <a class="code" href="namespacestd.html#aec98ef7d00508b932139c05b10672a02">std::floor</a>(pt);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <a class="code" href="classgeom_1_1_vec.html">point_t</a> p0f = std::floor(pt);</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <a class="code" href="classgeom_1_1_vec.html">grid_t</a> p0 = (<a class="code" href="classgeom_1_1_vec.html">grid_t</a>)p0f; <span class="comment">//grid pt</span></div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <a class="code" href="classgeom_1_1_vec.html">point_t</a> p_modulus = pt - p0f; <span class="comment">//pos. within grid</span></div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keyword">const</span> index_t corners = 1 &lt;&lt; N;</div>
@@ -220,7 +220,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="classgeom_1_1_perlin_noise_html_a73c789bfc85de4632c0dac13e6f4c144"><div class="ttname"><a href="classgeom_1_1_perlin_noise.html#a73c789bfc85de4632c0dac13e6f4c144">geom::PerlinNoise::eval</a></div><div class="ttdeci">T eval(point_t pt)</div><div class="ttdef"><b>Definition:</b> PerlinNoise.h:71</div></div>
 <div class="ttc" id="group__random_html_gaafd702a26c7914707002c7066da808e4"><div class="ttname"><a href="group__random.html#gaafd702a26c7914707002c7066da808e4">geom::getRandom</a></div><div class="ttdeci">Random * getRandom()</div><div class="ttdef"><b>Definition:</b> RandomTools.cpp:17</div></div>
 <div class="ttc" id="classgeom_1_1_random_html"><div class="ttname"><a href="classgeom_1_1_random.html">geom::Random</a></div><div class="ttdoc">Abstraction for a source of random or pseudorandom bits. </div><div class="ttdef"><b>Definition:</b> Random.h:86</div></div>
-<div class="ttc" id="namespacestd_html_aec98ef7d00508b932139c05b10672a02"><div class="ttname"><a href="namespacestd.html#aec98ef7d00508b932139c05b10672a02">std::floor</a></div><div class="ttdeci">geom::Vec&lt; T, N &gt; floor(const geom::Vec&lt; T, N &gt; &amp;v)</div><div class="ttdef"><b>Definition:</b> Vec.h:350</div></div>
 <div class="ttc" id="classgeom_1_1_perlin_noise_html_aed6846f95e00953c2823fe0ad92c27a6"><div class="ttname"><a href="classgeom_1_1_perlin_noise.html#aed6846f95e00953c2823fe0ad92c27a6">geom::PerlinNoise::PerlinNoise</a></div><div class="ttdeci">PerlinNoise()</div><div class="ttdef"><b>Definition:</b> PerlinNoise.h:48</div></div>
 <div class="ttc" id="classgeom_1_1_perlin_noise_html_a4358acb23c7b9acfb713a77f7a5a104c"><div class="ttname"><a href="classgeom_1_1_perlin_noise.html#a4358acb23c7b9acfb713a77f7a5a104c">geom::PerlinNoise::gradient</a></div><div class="ttdeci">point_t gradient(point_t pt)</div><div class="ttdef"><b>Definition:</b> PerlinNoise.h:107</div></div>
 <div class="ttc" id="group__function_html_ga544e92cb874abbcc6d0636db7150eced"><div class="ttname"><a href="group__function.html#ga544e92cb874abbcc6d0636db7150eced">geom::mix</a></div><div class="ttdeci">T mix(S t, T a, T b)</div><div class="ttdef"><b>Definition:</b> Utils.h:40</div></div>
@@ -229,7 +228,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 1 2013 23:14:18 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 20 2013 01:45:46 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

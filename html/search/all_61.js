@@ -1,6 +1,7 @@
 var searchData=
 [
   ['abs',['abs',['../namespacestd.html#a1c9486d7173f6c910e1f995c6fa13e8c',1,'std']]],
+  ['acos',['acos',['../group__function.html#ga93c494d2f264e2897e1b7a6d2da6297f',1,'std']]],
   ['add',['add',['../classgeom_1_1_vec_3_01_t_00_012_01_4.html#a3330d15b85edb80ab15d03064e9d991c',1,'geom::Vec&lt; T, 2 &gt;::add()'],['../classgeom_1_1_vec_3_01_t_00_013_01_4.html#ab7a4060068c3bc3d835cea6b031d4a09',1,'geom::Vec&lt; T, 3 &gt;::add()'],['../classgeom_1_1_vec_3_01_t_00_014_01_4.html#a70221afe55570aa861b6d5ee6303f963',1,'geom::Vec&lt; T, 4 &gt;::add()'],['../group__matrix.html#gaa4a33c0f1bb911ce5235ceb09dca799a',1,'geom::add(Md *d, const Ma &amp;a, const Mb &amp;b)'],['../group__matrix.html#ga15d4fd8bba9f23ca2fb70cd0d4770f63',1,'geom::add(const Ma &amp;a, const Mb &amp;b)']]],
   ['affinetransform',['AffineTransform',['../classgeom_1_1_affine_transform.html#a4b04b30f496f678d29c350d13cc01385',1,'geom::AffineTransform']]],
   ['affinetransform',['AffineTransform',['../classgeom_1_1_affine_transform.html',1,'geom']]],
@@ -14,5 +15,7 @@ var searchData=
   ['arrayorder',['ArrayOrder',['../namespacegeom.html#a83ac62dcb1fe341318ed1bd351a8ad83',1,'geom']]],
   ['arrayorder_5ffirst_5fdim_5fconsecutive',['ARRAYORDER_FIRST_DIM_CONSECUTIVE',['../namespacegeom.html#a83ac62dcb1fe341318ed1bd351a8ad83aea994a6dd6bcbf9c72ae0f28f2678a7a',1,'geom']]],
   ['arrayorder_5flast_5fdim_5fconsecutive',['ARRAYORDER_LAST_DIM_CONSECUTIVE',['../namespacegeom.html#a83ac62dcb1fe341318ed1bd351a8ad83a76432727d8970b305d22b8da39e7fcf5',1,'geom']]],
+  ['asin',['asin',['../group__function.html#ga2df7a7b8e6aac48f4d469ca28918fefb',1,'std']]],
+  ['atan',['atan',['../group__function.html#ga26f48ccbb854f59fd8989a9cc87ac12b',1,'std']]],
   ['augmentedmatrix',['AugmentedMatrix',['../classgeom_1_1_augmented_matrix.html',1,'geom']]]
 ];

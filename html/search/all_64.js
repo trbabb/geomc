@@ -15,5 +15,8 @@ var searchData=
   ['distance',['distance',['../classgeom_1_1_plane.html#a6f7cafd224e5a68740ff38d741cb04bd',1,'geom::Plane']]],
   ['distfromaxisto',['distFromAxisTo',['../classgeom_1_1_ray_3_01_t_00_013_01_4.html#ad8527befaa08a044281899a4f333ee91',1,'geom::Ray&lt; T, 3 &gt;']]],
   ['domain',['domain',['../classgeom_1_1_raster.html#aa957af0509310fc2e6307ecb093f4cfd',1,'geom::Raster']]],
-  ['dot',['dot',['../classgeom_1_1_vec_3_01_t_00_012_01_4.html#a3294b44f8ee402a1ce5a6980cd26251c',1,'geom::Vec&lt; T, 2 &gt;::dot()'],['../classgeom_1_1_vec_3_01_t_00_013_01_4.html#a318aebab00f1f08930a51482d092e625',1,'geom::Vec&lt; T, 3 &gt;::dot()'],['../classgeom_1_1_vec_3_01_t_00_014_01_4.html#ae31aa3740992a116937ab6ef5880a449',1,'geom::Vec&lt; T, 4 &gt;::dot()']]]
+  ['dot',['dot',['../classgeom_1_1_vec_3_01_t_00_012_01_4.html#a3294b44f8ee402a1ce5a6980cd26251c',1,'geom::Vec&lt; T, 2 &gt;::dot()'],['../classgeom_1_1_vec_3_01_t_00_013_01_4.html#a318aebab00f1f08930a51482d092e625',1,'geom::Vec&lt; T, 3 &gt;::dot()'],['../classgeom_1_1_vec_3_01_t_00_014_01_4.html#ae31aa3740992a116937ab6ef5880a449',1,'geom::Vec&lt; T, 4 &gt;::dot()']]],
+  ['dual',['Dual',['../classgeom_1_1_dual.html#aad8cf48ca2384ff06d1f119031846167',1,'geom::Dual::Dual()'],['../classgeom_1_1_dual.html#a271a639e532aecefee1555c1e04338e9',1,'geom::Dual::Dual(T x)'],['../classgeom_1_1_dual.html#a372a1e299a4401c7e6796df8c8c90f09',1,'geom::Dual::Dual(T x, T dx)']]],
+  ['dual',['Dual',['../classgeom_1_1_dual.html',1,'geom']]],
+  ['dx',['dx',['../classgeom_1_1_dual.html#a4bfbe33655359649373afaf3f9558094',1,'geom::Dual']]]
 ];

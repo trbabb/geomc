@@ -240,8 +240,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;</div>
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; </div>
 <div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <span class="keywordtype">void</span> rotmat(SimpleMatrix&lt;T,4,4&gt; *into, T x, T y, T z, T theta) {</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        T c = cos(theta);</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        T s = sin(theta);</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        T c = <a class="code" href="group__function.html#gabbc06c7f6c39cde83b065da510efd958">cos</a>(theta);</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        T s = <a class="code" href="group__function.html#gaa3074d725debeb2c1d35e9915a411ff1">sin</a>(theta);</div>
 <div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;        T oneMcos = 1 - c;</div>
 <div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;        T m[4][4] = {</div>
 <div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;                {c + oneMcos*x*x,           oneMcos*x*y - s*z,      oneMcos*x*z + s*y, 0},</div>
@@ -295,8 +295,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;                T x,  T y,  T z, </div>
 <div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;                T px, T py, T pz, </div>
 <div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;                T theta) {</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        T c = cos(theta);</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;        T s = sin(theta);</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        T c = <a class="code" href="group__function.html#gabbc06c7f6c39cde83b065da510efd958">cos</a>(theta);</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;        T s = <a class="code" href="group__function.html#gaa3074d725debeb2c1d35e9915a411ff1">sin</a>(theta);</div>
 <div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        T oneMcos = 1 - c;</div>
 <div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;        T x2 = x*x;</div>
 <div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;        T y2 = y*y;</div>
@@ -362,8 +362,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;                T x,  T y,  T z, </div>
 <div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;                T px, T py, T pz, </div>
 <div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;                T theta) {</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;        T c = cos(theta);</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;        T s = sin(theta);</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;        T c = <a class="code" href="group__function.html#gabbc06c7f6c39cde83b065da510efd958">cos</a>(theta);</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;        T s = <a class="code" href="group__function.html#gaa3074d725debeb2c1d35e9915a411ff1">sin</a>(theta);</div>
 <div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;        T oneMcos = 1 - c;</div>
 <div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;        T x2 = x*x;</div>
 <div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        T y2 = y*y;</div>
@@ -441,8 +441,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; </div>
 <div class="line"><a name="l00468"></a><span class="lineno"><a class="line" href="group__linalg.html#gabda4186cdeec7b5b9e7d9c1d843f2410">  468</a></span>&#160;    <a class="code" href="classgeom_1_1_affine_transform.html">AffineTransform&lt;T,2&gt;</a> <a class="code" href="group__linalg.html#ga081a590185005e8809a6d9995681ee3e">rotation</a>(T radians) {</div>
 <div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;        <a class="code" href="classgeom_1_1_affine_transform.html">AffineTransform&lt;T,2&gt;</a> xfnew;</div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;        T s = sin(radians);</div>
-<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;        T c = cos(radians);</div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;        T s = <a class="code" href="group__function.html#gaa3074d725debeb2c1d35e9915a411ff1">sin</a>(radians);</div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;        T c = <a class="code" href="group__function.html#gabbc06c7f6c39cde83b065da510efd958">cos</a>(radians);</div>
 <div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;        </div>
 <div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;        xfnew.<a class="code" href="classgeom_1_1_affine_transform.html#a787773472ebe58ae9d5c43b6589386aa">mat</a>.<a class="code" href="classgeom_1_1_simple_matrix.html#a64379566fbc4fb303e35d27d9f73b160">set</a>(0,0, c);</div>
 <div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;        xfnew.<a class="code" href="classgeom_1_1_affine_transform.html#a787773472ebe58ae9d5c43b6589386aa">mat</a>.<a class="code" href="classgeom_1_1_simple_matrix.html#a64379566fbc4fb303e35d27d9f73b160">set</a>(0,1,-s);</div>
@@ -540,11 +540,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="group__linalg_html_ga081a590185005e8809a6d9995681ee3e"><div class="ttname"><a href="group__linalg.html#ga081a590185005e8809a6d9995681ee3e">geom::rotation</a></div><div class="ttdeci">AffineTransform&lt; T, 3 &gt; rotation(Vec&lt; T, 3 &gt; axis, T radians)</div><div class="ttdef"><b>Definition:</b> AffineTransform.h:417</div></div>
 <div class="ttc" id="group__matrix_html_ga293381c8fe7ffa4ed9889db1f4ca7787"><div class="ttname"><a href="group__matrix.html#ga293381c8fe7ffa4ed9889db1f4ca7787">geom::transpose</a></div><div class="ttdeci">void transpose(Md *into, const Mx &amp;m)</div><div class="ttdef"><b>Definition:</b> Matrix.h:535</div></div>
 <div class="ttc" id="classgeom_1_1_affine_transform_html_afe5b177c3adab6489a0bdfb064352544"><div class="ttname"><a href="classgeom_1_1_affine_transform.html#afe5b177c3adab6489a0bdfb064352544">geom::AffineTransform::applyVector</a></div><div class="ttdeci">const Vec&lt; T, N &gt; applyVector(const Vec&lt; T, N &gt; &amp;v) const </div><div class="ttdef"><b>Definition:</b> AffineTransform.h:146</div></div>
+<div class="ttc" id="group__function_html_gabbc06c7f6c39cde83b065da510efd958"><div class="ttname"><a href="group__function.html#gabbc06c7f6c39cde83b065da510efd958">std::cos</a></div><div class="ttdeci">geom::Dual&lt; T &gt; cos(const geom::Dual&lt; T &gt; &amp;d)</div><div class="ttdoc">Cosine function. </div><div class="ttdef"><b>Definition:</b> Dual.h:265</div></div>
 <div class="ttc" id="classgeom_1_1_affine_transform_html_aa6e485ce7b6b2ceb0d2e35a37dd9dcd9"><div class="ttname"><a href="classgeom_1_1_affine_transform.html#aa6e485ce7b6b2ceb0d2e35a37dd9dcd9">geom::AffineTransform::operator*</a></div><div class="ttdeci">friend Vec&lt; T, N &gt; operator*(const AffineTransform&lt; T, N &gt; &amp;xf, Vec&lt; T, N &gt; p)</div><div class="ttdef"><b>Definition:</b> AffineTransform.h:92</div></div>
 <div class="ttc" id="classgeom_1_1_simple_matrix_html_aa3c53d4f479316ebeae7c28adf65bfef"><div class="ttname"><a href="classgeom_1_1_simple_matrix.html#aa3c53d4f479316ebeae7c28adf65bfef">geom::SimpleMatrix::get</a></div><div class="ttdeci">T get(index_t r, index_t c) const </div><div class="ttdef"><b>Definition:</b> SimpleMatrix.h:249</div></div>
 <div class="ttc" id="classgeom_1_1_affine_transform_html_ac6f1283935dbaab30dfb8fe5dc61782e"><div class="ttname"><a href="classgeom_1_1_affine_transform.html#ac6f1283935dbaab30dfb8fe5dc61782e">geom::AffineTransform::inverse</a></div><div class="ttdeci">const AffineTransform&lt; T, N &gt; inverse() const </div><div class="ttdef"><b>Definition:</b> AffineTransform.h:222</div></div>
 <div class="ttc" id="group__linalg_html_gab4ef5a5844e69301ae83804a9770881b"><div class="ttname"><a href="group__linalg.html#gab4ef5a5844e69301ae83804a9770881b">geom::scale</a></div><div class="ttdeci">AffineTransform&lt; T, N &gt; scale(const Vec&lt; T, N &gt; &amp;sx)</div><div class="ttdef"><b>Definition:</b> AffineTransform.h:519</div></div>
 <div class="ttc" id="classgeom_1_1_affine_transform_html_a8610f9724deb4145ebc6d051d8bed979"><div class="ttname"><a href="classgeom_1_1_affine_transform.html#a8610f9724deb4145ebc6d051d8bed979">geom::AffineTransform::operator/</a></div><div class="ttdeci">friend Ray&lt; T, N &gt; operator/(Ray&lt; T, N &gt; r, const AffineTransform&lt; T, N &gt; &amp;xf)</div><div class="ttdef"><b>Definition:</b> AffineTransform.h:85</div></div>
+<div class="ttc" id="group__function_html_gaa3074d725debeb2c1d35e9915a411ff1"><div class="ttname"><a href="group__function.html#gaa3074d725debeb2c1d35e9915a411ff1">std::sin</a></div><div class="ttdeci">geom::Dual&lt; T &gt; sin(const geom::Dual&lt; T &gt; &amp;d)</div><div class="ttdoc">Sine function. </div><div class="ttdef"><b>Definition:</b> Dual.h:258</div></div>
 <div class="ttc" id="classgeom_1_1_vec_3_01_t_00_012_01_4_html"><div class="ttname"><a href="classgeom_1_1_vec_3_01_t_00_012_01_4.html">geom::Vec&lt; T, 2 &gt;</a></div><div class="ttdoc">2D specialization of vector class. </div><div class="ttdef"><b>Definition:</b> Vec2.h:39</div></div>
 <div class="ttc" id="classgeom_1_1_affine_transform_html_a9f3730fac464f455130752332baaa0f0"><div class="ttname"><a href="classgeom_1_1_affine_transform.html#a9f3730fac464f455130752332baaa0f0">geom::AffineTransform::operator*</a></div><div class="ttdeci">friend Ray&lt; T, N &gt; operator*(const AffineTransform&lt; T, N &gt; &amp;xf, Ray&lt; T, N &gt; r)</div><div class="ttdef"><b>Definition:</b> AffineTransform.h:78</div></div>
 <div class="ttc" id="classgeom_1_1_vec_3_01_t_00_013_01_4_html"><div class="ttname"><a href="classgeom_1_1_vec_3_01_t_00_013_01_4.html">geom::Vec&lt; T, 3 &gt;</a></div><div class="ttdoc">3D specialization of vector class. </div><div class="ttdef"><b>Definition:</b> Vec3.h:85</div></div>
@@ -568,7 +570,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 1 2013 23:14:18 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 20 2013 01:45:46 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

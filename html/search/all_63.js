@@ -13,5 +13,6 @@ var searchData=
   ['contains_5fgridpt',['contains_gridpt',['../classgeom_1_1_raster.html#ad379041cccd281e6013424641dc77a3d',1,'geom::Raster']]],
   ['coord_5ft',['coord_t',['../classgeom_1_1_raster.html#a0df6fa3b2a731bf3743e2c8b57687a1a',1,'geom::Raster']]],
   ['copy',['copy',['../classgeom_1_1_raster.html#af9710418559b602623228f6b9f74c60c',1,'geom::Raster::copy(sample_t *dest, const Rect&lt; index_t, M &gt; &amp;region) const '],['../classgeom_1_1_raster.html#a932f93cfcf012ed1913fc12303c80e94',1,'geom::Raster::copy(sample_t *dest, const Rect&lt; index_t, M &gt; &amp;region, EdgeBehavior edge) const ']]],
+  ['cos',['cos',['../group__function.html#gabbc06c7f6c39cde83b065da510efd958',1,'std']]],
   ['cross',['cross',['../classgeom_1_1_vec_3_01_t_00_013_01_4.html#a0ae7be2792706d691970e10bd5a86c26',1,'geom::Vec&lt; T, 3 &gt;']]]
 ];

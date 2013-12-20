@@ -5,5 +5,6 @@ var searchData=
   ['permute',['permute',['../group__random.html#ga4854838b50087ac7e261ff9b05f8aba9',1,'geom::permute(T objs[], size_t len, Random &amp;rng=*getRandom())'],['../group__random.html#gaa74a4ab39a947c769e8f19ed082d5597',1,'geom::permute(std::vector&lt; T &gt; &amp;objs, Random &amp;rng=*getRandom())']]],
   ['plane',['Plane',['../classgeom_1_1_plane.html#ae2159c976aa9b03f37f1f8854346d9aa',1,'geom::Plane::Plane()'],['../classgeom_1_1_plane.html#a83975fe69bbfcf5ce31b89ce1699d1a6',1,'geom::Plane::Plane(Vec&lt; T, N &gt; n)'],['../classgeom_1_1_plane.html#a503b9874669c93878043a21deeb5be2a',1,'geom::Plane::Plane(Vec&lt; T, N &gt; n, Vec&lt; T, N &gt; pt)']]],
   ['pludecompostion',['PLUDecompostion',['../classgeom_1_1_p_l_u_decomposition.html#a484c03d55be181a0a696985c830face8',1,'geom::PLUDecomposition']]],
+  ['pow',['pow',['../group__function.html#gac2ea85df61e74d556fec121edf3a0eb3',1,'std::pow(const geom::Dual&lt; T &gt; &amp;base, const geom::Dual&lt; T &gt; &amp;xp)'],['../group__function.html#ga439ceabef71d6cbdb93b2edc3f398aa0',1,'std::pow(const geom::Dual&lt; T &gt; &amp;base, U xp)'],['../group__function.html#gab3a0951e2eb783dda5ded893dd36918d',1,'std::pow(U base, const geom::Dual&lt; T &gt; &amp;xp)']]],
   ['project',['project',['../classgeom_1_1_plane.html#a93adb213032dae93f279dc650424f752',1,'geom::Plane']]]
 ];

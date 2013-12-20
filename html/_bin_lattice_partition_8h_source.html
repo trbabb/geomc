@@ -377,7 +377,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    }</div>
 <div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;</div>
 <div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    bin_t binOf(point_t location){</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        <span class="keywordflow">return</span> (bin_t)((location / _cellsize).<a class="code" href="namespacestd.html#aec98ef7d00508b932139c05b10672a02">floor</a>());</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        <span class="keywordflow">return</span> (bin_t)((location / _cellsize).floor());</div>
 <div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    }</div>
 <div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;</div>
 <div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <span class="keyword">protected</span>:</div>
@@ -385,8 +385,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    <span class="keyword">inline</span> Rect&lt;index_t,N&gt; binRegion(Rect&lt;T,N&gt; r){</div>
 <div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        <span class="comment">//high coordinate is, as always, one beyond the maximum cell to check</span></div>
 <div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;        <span class="keywordflow">return</span> Rect&lt;index_t,N&gt;(</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;                (bin_t)((r.min() / _cellsize).<a class="code" href="namespacestd.html#aec98ef7d00508b932139c05b10672a02">floor</a>()),</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;                (bin_t)((r.max() / _cellsize).<a class="code" href="namespacestd.html#a940d79ad42b88fd9843ba51a629d40e1">ceil</a>())</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;                (bin_t)((r.min() / _cellsize).floor()),</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;                (bin_t)((r.max() / _cellsize).ceil())</div>
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;        );</div>
 <div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    }</div>
 <div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;</div>
@@ -398,12 +398,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;</div>
 <div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* BINLATTICEPARTITION_H_ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="classgeom_1_1_rect_html_a1cb6b750c9af01a4f8cefeec08aa4ec8"><div class="ttname"><a href="classgeom_1_1_rect.html#a1cb6b750c9af01a4f8cefeec08aa4ec8">geom::Rect&lt; index_t, N &gt;::point_t</a></div><div class="ttdeci">ptype::point_t point_t</div><div class="ttdoc">Type of object confined by this Rect. </div><div class="ttdef"><b>Definition:</b> Rect.h:51</div></div>
-<div class="ttc" id="namespacestd_html_a940d79ad42b88fd9843ba51a629d40e1"><div class="ttname"><a href="namespacestd.html#a940d79ad42b88fd9843ba51a629d40e1">std::ceil</a></div><div class="ttdeci">geom::Vec&lt; T, N &gt; ceil(const geom::Vec&lt; T, N &gt; &amp;v)</div><div class="ttdef"><b>Definition:</b> Vec.h:358</div></div>
-<div class="ttc" id="namespacestd_html_aec98ef7d00508b932139c05b10672a02"><div class="ttname"><a href="namespacestd.html#aec98ef7d00508b932139c05b10672a02">std::floor</a></div><div class="ttdeci">geom::Vec&lt; T, N &gt; floor(const geom::Vec&lt; T, N &gt; &amp;v)</div><div class="ttdef"><b>Definition:</b> Vec.h:350</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 1 2013 23:14:19 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 20 2013 01:45:46 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>
