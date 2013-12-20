@@ -61,6 +61,20 @@
 
 #define GEOMC_FUNCTION_USE_STREAMS
 
+// How shall derivative discontinuities be handled by dual numbers?
+// Important for defining the behavior of functions like max(), min(), floor(),
+// ceil(), abs(), etc.
+// Define exactly one of these to 1.
+
+// Derivative to the left of the discontinuity used
+#define DUAL_DISCONTINUITY_LEFT    0
+// Derivative to the right of the discontinuity used
+#define DUAL_DISCONTINUITY_RIGHT   1
+// Derivatives evaluate to NaN at discontinuities
+#define DUAL_DISCONTINUITY_NAN     0
+// Derivatives evaluate to the average of the left and right derivatives.
+#define DUAL_DISCONTINUITY_AVERAGE 0
+
 
 #define PI  (3.141592653589793238462643383)
 #define TAU (6.283185307179586476925286767)
@@ -81,18 +95,9 @@ template <typename T> inline T positive_mod(T a, T b){
     return r<0?r+b:r;
 }
 
-// How shall derivative discontinuities be handled by dual numbers?
-// e.g., what value shall the derivative have at abs(0)?
-// Define exactly one of these to 1.
-
-#define DUAL_DISCONTINUITY_LEFT    0
-#define DUAL_DISCONTINUITY_RIGHT   1
-#define DUAL_DISCONTINUITY_NAN     0
-#define DUAL_DISCONTINUITY_AVERAGE 0
-
 #ifdef PARSING_DOXYGEN
 
-/** @brief Namepsace of all `geomc` functions and classes. */
+/** @brief Namespace of all `geomc` functions and classes. */
 namespace geom { };
 
 /** @brief Functions to extend support of stdlib to geomc classes. */
