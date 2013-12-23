@@ -18,17 +18,6 @@
 
 //todo: what if you have a vector of duals? Does that work, or would the mult operators be hidden?
 
-/* why the comparison operators should NOT be overloaded
- *   should inequality be implemented?
- *     - if so, should epsilon count?
- *     - if so, then < and > and == and != must be in agreement. See below.
- *   should (5, 1) and (5, 0) compare equally?
- *     - if not, then these are not a drop-in replacement for the reals, and errors
- *       are likely to show up because you think they are but aren't forced to think about it.
- *     - if so, then (5,1) == (5,0) is very unexpected. the two have different meaning
- *       and should not be equal.
- */ 
-
 namespace geom {
     
     
@@ -38,7 +27,7 @@ namespace geom {
  */
 
 /**
- * @brief Class implementing the dual numbers, whose arithmetic operations produce a 
+ * @brief Class implementing the dual numbers, whose arithmetic operations perform a 
  * simultaneous calculation of the first derivative.
  * 
  * Overview
@@ -50,22 +39,26 @@ namespace geom {
  * may be thought of as the function value, and `b` its first derivative at `a`. 
  * This technique is commonly known as Automatic Differentiation, or AD.
  * 
- * All fundamental operations on duals (including addition, multiplication, division, 
+ * Fundamental operations on duals (including addition, multiplication, division, 
  * and any number of other primitive mathematical functions) implicitly compute and 
  * keep track of the derivative by performing the chain and product rules in-place.
  * Efficiency and accuracy is very good (easily better than either symbolic or 
- * numerical differentiation), adding only a small constant factor to arithmetic
- * operators.
+ * numerical differentiation), adding only a constant factor to arithmetic
+ * operations.
  * 
- * For more on fundamental operations extended to support Duals, see the @ref std
+ * For more on primitive functions extended to support Duals, see the @ref std
  * "std namespace documentation". 
  * 
  * Use
  * ===
  * 
  * functions: duals to the bottom
+ * 
  * functions: directional derivatives.
+ * 
  * creating new fundamental operators.
+ * 
+ * equality
  * 
  * Discontinuity behavior
  * ======================
@@ -74,7 +67,7 @@ template <typename T>
 class Dual {
     public:
     
-    /// Real component
+    /// Real (primal) component
     T x;
     /// Dual (epsilon) component
     T dx;
@@ -116,14 +109,14 @@ class Dual {
         return Dual<T>(s * d1.x, s * d1.dx);
     }
     
-    /// Multiply and store.
+    /// Multiply and assign.
     Dual<T>& operator*=(const Dual<T> &d) {
         x  = x * d.x;
         dx = x * d.dx + dx * d.x;
         return *this;
     }
     
-    /// Multiply and store.
+    /// Multiply and assign.
     template <typename U>
     Dual<T>& operator*=(U s) {
         x  =  x * s;
@@ -150,14 +143,14 @@ class Dual {
         return Dual<T>(s / d.x, -s*d.dx / (d.x * d.x) );
     }
     
-    /// Divide and store.
+    /// Divide and assign.
     Dual<T>& operator/=(const Dual<T> &d) {
         x  = x / d.x;
         dx = (dx * d.x - x * d.dx) / (d.x * d.x);
         return *this;
     }
     
-    /// Divide and store.
+    /// Divide and assign.
     template <typename U>
     Dual<T>& operator/=(U s) {
         x  =  x / s;
@@ -177,14 +170,14 @@ class Dual {
         return Dual<T>(d1.x - d2.x, d1.dx - d2.dx);
     }
     
-    /// Add and store.
+    /// Add and assign.
     Dual<T>& operator+=(const Dual<T> &d) {
         x  += d.x;
         dx += d.dx;
         return *this;
     }
     
-    /// Subtract and store.
+    /// Subtract and assign.
     Dual<T>& operator-=(const Dual<T> &d) {
         x  -= d.x;
         dx -= d.dx;
@@ -218,6 +211,21 @@ class Dual {
     inline T operator[](index_t idx) const {
         return (&x)[idx];
     }
+    
+    // comparison
+    
+    /// Equality of primal component
+    inline bool operator==(const Dual<T> &d) { return x == d.x; }
+    /// Inequality of primal component
+    inline bool operator!=(const Dual<T> &d) { return x != d.x; }
+    /// Greater-or-equal-to comparison of primal component
+    inline bool operator>=(const Dual<T> &d) { return x >= d.x; }
+    /// Less-or-equal-to comparison of primal component
+    inline bool operator<=(const Dual<T> &d) { return x <= d.x; }
+    /// Greater-than comparison of primal component
+    inline bool operator> (const Dual<T> &d) { return x >  d.x; }
+    /// Less-than comparison of primal component
+    inline bool operator< (const Dual<T> &d) { return x <  d.x; }
     
     // stream
     
@@ -372,7 +380,7 @@ namespace std {
             dx = neg ? -d.dx: d.dx;
         }
         
-        return geom::Dual<T>(x,dx);
+        return geom::Dual<T>(neg ? -d.x : d.x, dx);
     }
     
     
