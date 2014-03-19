@@ -69,7 +69,7 @@ const index_t _ImplArrayOrder<ARRAYORDER_LAST_DIM_CONSECUTIVE, N>::dim_end = -1;
 template <index_t N>
 const index_t _ImplArrayOrder<ARRAYORDER_LAST_DIM_CONSECUTIVE, N>::dim_increment = -1;
 
-}; // namespace detail
-}; // namespace geom
+} // namespace detail
+} // namespace geom
 
 #endif /* GRIDDETAIL_H_ */

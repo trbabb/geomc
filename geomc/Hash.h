@@ -60,12 +60,12 @@ namespace detail {
         static const size_t multiplier = 97;  // another buttsourced prime
         static const size_t increment  = 136; // this seems like a nice number.
     };
-}; // namespace detail
+} // namespace detail
 
 
 size_t general_hash(const void *data, size_t bytes);
 
-}; // namespace geom
+} // namespace geom
 
 #endif	/* HASH_H */
 

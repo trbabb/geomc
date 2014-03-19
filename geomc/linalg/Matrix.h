@@ -1001,7 +1001,7 @@ operator<<(std::ostream &s, const Mx &mtx) {
 
 #endif
 
-}; // namespace geom
+} // namespace geom
 
 /// @} //ingroup linalg
 

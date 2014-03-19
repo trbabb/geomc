@@ -266,6 +266,6 @@ public:
     
 }; /* Plane<T,N> */
 
-};
+} // namespace geom
 
 #endif /* PLANE_H_ */

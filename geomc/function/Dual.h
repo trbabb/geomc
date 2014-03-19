@@ -5,8 +5,11 @@
  * Created on December 18, 2013, 12:50 AM
  */
 
-#ifndef DUAL_H
-#define	DUAL_H
+// Notice: This #define is referred to in other places, namely Random.h.
+//         This is part of a mechanism to bring in code which is common
+//         to both `random` and `function` iff both libraries are in use.
+#ifndef GEOMC_DUAL_H
+#define	GEOMC_DUAL_H
 
 #include <geomc/geomc_defs.h>
 #include <cmath>
@@ -16,7 +19,15 @@
 #include <iostream>
 #endif
 
+#ifdef GEOMC_RANDOM_H_
+#include <geomc/function/functiondetail/RandomDual.h>
+#endif
+
 //todo: what if you have a vector of duals? Does that work, or would the mult operators be hidden?
+//todo: extend numeric limits?
+//todo: extend random for Duals? how to avoid intertwining deps for random/func?
+//todo: c++11 needed for conversions to Vec<index_t,N> from Vec<Dual,N>
+//todo: c++11 needed for vectors of non-POD classes. 
 
 namespace geom {
     
@@ -188,7 +199,7 @@ class Dual {
     
     
     /// Negation.
-    inline Dual<T> operator-() {
+    inline Dual<T> operator-() const {
         return Dual<T>(-x, -dx);
     }
     
@@ -199,18 +210,14 @@ class Dual {
      * 
      * Real value is element 0, epsilon value is element 1.
      */
-    inline T& operator[](index_t idx) {
-        return (&x)[idx];
-    }
+    inline T& operator[](index_t idx) { return (&x)[idx]; }
     
     /**
      * @brief Indexing.
      * 
      * Real value is element 0, epsilon value is element 1.
      */
-    inline T operator[](index_t idx) const {
-        return (&x)[idx];
-    }
+    inline T operator[](index_t idx) const { return (&x)[idx]; }
     
     // comparison
     
@@ -227,13 +234,36 @@ class Dual {
     /// Less-than comparison of primal component
     inline bool operator< (const Dual<T> &d) { return x <  d.x; }
     
+    // conversion
+    
+    template <typename U>
+    inline operator Dual<U>() const {
+        return Dual<U>((U)x, (U)dx);
+    }
+    
+#if __cplusplus >= 201103L
+    
+    // older versions of c++ do not support explicit conversion operators.
+    // we don't want this to be implicit because the compiler could readily kill 
+    // the epsilon component without us knowing.
+    template <typename U>
+    explicit inline operator U() const { return (U)x; }
+    
+#endif
+    
     // stream
     
 #ifdef GEOMC_FUNCTION_USE_STREAMS
     
     /// Stream output.
     friend std::ostream &operator<< (std::ostream &stream, const Dual<T> &d) {
-        stream << "(" << d.x << " + " << d.dx << " dx)";
+        stream << "(" << d.x;
+        if (d.dx < 0) {
+            stream << " - " << std::abs(d.dx);
+        } else {
+            stream << " + " << d.dx;
+        }
+        stream << " dx)";
         return stream;
     }
     
@@ -243,7 +273,7 @@ class Dual {
 
 /// @} //ingroup function
 
-}; // namespace geom
+} // namespace geom
 
 
 
@@ -453,7 +483,7 @@ namespace std {
 
     /// @} // ingroup function
     
-};
+} // namespace std
 
-#endif	/* DUAL_H */
+#endif	/* GEOMC_DUAL_H */
 

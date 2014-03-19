@@ -29,6 +29,6 @@ inline bool intersects(const Plane<T,N> &p, const Rect<T,N> &b) const {
     return false;
 }
 
-};
+} // namespace geom
 
 #endif /* INTERSECTION_H_ */

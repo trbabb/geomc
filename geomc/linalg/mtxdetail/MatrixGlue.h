@@ -556,8 +556,8 @@ struct _ImplMtxResult <Ma, Mb, Md,
 
 #undef MATRIX_DEST_MATCH
 
-}; /* namespace detail */
-}; /* namespace geom */
+} /* namespace detail */
+} /* namespace geom */
 
 
 

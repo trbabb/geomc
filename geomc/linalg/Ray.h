@@ -74,7 +74,7 @@ namespace detail {
         }
     }; //end of RayBase class
     
-}; // namespace detail
+} // namespace detail
 
     /** @ingroup linalg
      *  @brief Ray class
@@ -159,5 +159,5 @@ namespace detail {
     }
     
 #endif
-};
+} // namespace geom
 #endif /* GEOM_RAY_H_ */

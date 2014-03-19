@@ -127,6 +127,6 @@ Hit<T,3> trace_planar_quad(const Vec<T,3> &dPdu, const Vec<T,3> &dPdv, const Vec
 }
 
 
-};
+} // namespace geom
 
 #endif /* TRACE_H_ */

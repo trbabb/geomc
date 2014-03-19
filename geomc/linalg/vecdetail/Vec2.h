@@ -210,6 +210,6 @@ namespace geom {
     template <typename T> const Vec<T,2> Vec<T,2>::X_AXIS = Vec<T,2>(1,0);
     template <typename T> const Vec<T,2> Vec<T,2>::Y_AXIS = Vec<T,2>(0,1);
 
-}; //end namespace geom
+} //end namespace geom
 
 #endif /* Vec2_H_ */

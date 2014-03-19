@@ -35,7 +35,8 @@ public:
     
     // define the grid type to be at least large enough to represent all
     // the integral values that can be represented by point_t.
-    typedef typename PointType<typename boost::int_t<std::numeric_limits<T>::digits>::fast,N>::point_t grid_t;
+    // typedef typename PointType<typename boost::int_t<std::numeric_limits<T>::digits>::fast,N>::point_t grid_t;
+    typedef typename PointType<index_t,N>::point_t grid_t;
     typedef typename PointType<T,N>::point_t point_t;
     
     /**********************************
@@ -70,7 +71,7 @@ public:
      */
     T eval(point_t pt) {
         point_t p0f = std::floor(pt);
-        grid_t p0 = (grid_t)p0f; //grid pt
+        grid_t  p0  = (grid_t)p0f;    //grid pt
         point_t p_modulus = pt - p0f; //pos. within grid
         const index_t corners = 1 << N;
         T planeVals[corners];

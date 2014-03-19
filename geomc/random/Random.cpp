@@ -371,4 +371,4 @@ template <> double Random::rand<double>(double lo, double hi){
 
 /// @} //ingroup random
 
-}; //end namespace geom
+} //end namespace geom

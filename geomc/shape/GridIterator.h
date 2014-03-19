@@ -262,7 +262,7 @@ private:
 template <typename T, index_t N, ArrayOrder Order>
 const ArrayOrder GridIterator<T,N,Order>::order = Order;
 
-}; /* namespace geom */
+} /* namespace geom */
 
 #undef ENABLEINT_TYPE
 

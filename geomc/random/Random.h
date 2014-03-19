@@ -16,6 +16,114 @@
 //TODO: implement rand<char>(), and move 'uint32_t reserve_bits' to base class. implement getBits(char *dest, int bits)
 //TODO: (low-pri) refactor rand<float> and rand<double> to use numerical limits for systems with half floats, etc. 
 
+/*
+ * random has some design problems:
+ *   1) Templated types (Complex<T>, e.g.) cannot have rand() specializations,
+ *      because c++ (for no good reason) does not allow partially-specialized 
+ *      template functions.
+ *   2) There wouldn't be a way to make a drop-in Random class which, e.g., implements
+ *      a low discrepancy sequence, because rand() isn't virtual.
+ *   3) Picking from distributions is mostly unaddressed.
+ *      Note that Sampler is, in a way, a tool for picking from distributions over
+ *      vectors, though it might also be a sensible thing to pass other 
+ *      distributions to the sampler for radial density, angular density, etc. etc.
+ 
+ *      I should probably lookup std::rand and see if maybe that's actually better.
+ *      > note that std::rand is c++11 only.
+ * 
+ * requirements for new design: 
+  - picking from uniform distributions is easy.
+  - adding new types of objects to pick is easy.
+  - it is possible to partially specialize picking of templated objects.
+  - objects can be picked from a source of entropy in a predictable sequence.
+  - low discrepancy sequences have a natural representation.
+  ~ would be nice if swapping out other distributions for uniforms were 
+    possible.
+ * 
+ * proposal:
+ *  rand<type,distribution=UNIT_INTERVAL>() calls RandomHelper<type>::rand()
+ *  rand<type>(hi)    // half-interval
+ *  rand<type>(lo,hi) // full-interval
+ * 
+ * (would functors help us?)
+ * 
+ * other distributions such as: normal<params> or statified<params> or hammersley<dimensions>
+ * So what you need is:
+ *   a way to slip something in between the unit-interval picker and the final result
+ *   which:
+ *      - doesn't make basic picking slower
+ *      - doesn't make uniform interval choices slower
+ *      - doesn't make unit and interval choices more difficult or cumbersome to use.
+ * 
+ * The one thing I forbid is constructing a new object specifically to pick from a 
+ * uniform distribution.
+ * 
+ * what we have is
+ *   entropy -> PRNG -> (random bits) -> uniform real^n -> distribution
+ *    kb?       MT?                      statified?        uniform?
+ *    time?     LC?                      Downey?           normal?
+ *    network?  yarrow?                  Hammersley?       poisson?
+ *    device?   etc.                                       etc.
+ *    hard seed?
+ *    etc.
+ * 
+ * where each of those parts could be interchanged.
+ * 
+ * entropy:
+ *    PRNG has a method, seed(), which takes a char* and a count, for entropy
+ *    input. maybe this is different for each PRNG (e.g. for Yarrow, which
+ *    requires an estimate of entropy bits. at the very least,
+ *    each PRNG should take a single 32 or 64 bit seed. beyond that, modularity
+ *    is not important.
+ * PRNG:
+ *    this is pretty straightforward, a PRNG's only job is to output random bits.
+ *    so having a method to fill an array with bits is maybe a useful thing,
+ *    rather than mandating 32 or 64 bits at a time. But providing these methods
+ *    shall be provided for bare minimum interoperability. the rand<32> and rand(ct)
+ *    methods may be implemented one-in-terms-of-the-other in whichever direction
+ *    is convenient for the implementation.
+ * Uniform real:
+ *    perhaps this is a template param of rand<T>()? a class to transform random
+ *    bits to (0,1)^n. 
+ *    - may need more than a class name-- instances might be necessary.
+ *      e.g. a stratified sampler with parameterized strata counts.
+ *    - if not bundled with PRNG, hard to make modular/swappable.
+ *    - if bundled with PRNG, stateful. 
+ *    - Some algorithms are not parameterized (Downey) and some are (stratified).
+ *    - some care about how many samples are to be drawn, and some don't.
+ *      This makes encapsulation harder.
+ *    This is the object that we should pass around and call Random.
+ *    Each Random is templated over a single type of object.
+ *    Distributions over the reals^N are handled by a specialization of 
+ *    Random over vectors. 
+ *    > i.e., we make a Hammersley<T,N> which is an instance of Random<Vec<T,N>>?
+ *    - yes, I think this is right. but the last question is the virtual indirection 
+ *      we'll be adding. can we remove that without adding too much complexity?
+ * Distribution:
+ *    Drawing from the uniform distribution should not be hard or require 
+ *    constructing objects. This should probably be its own class,
+ *    and does not need to be "drop-in", in that the client of the random
+ *    numbers should be in control of the distribution, and will likely need to 
+ *    know if it is changing. if modularity is desired, the client should explicitly
+ *    provide/expose it.
+ *    
+ *    basically, code is likely to make the assumption that the chosen numbers are
+ *    from a uniform distribution, and we can't allow that to be easily broken by
+ *    passing a magically-wrapped Random with some j. random distribution swapped in.
+ * 
+ *    As such we don't need to implement distributions just yet; they're pretty 
+ *    orthogonal to the rest of the number generation problem.
+ * 
+ * note that really, distributions (gaussian, e.g.) may not pick their numbers 
+ * by transforming a uniform real. they might pick based on the pseudorandom 
+ * bits directly. This is especially true if we model LD sequences as distributions.
+ * 
+ * There is nothing prohibiting us from nesting distributions, e.g. passing a 
+ * uniform real distribution to a gaussian distribution. So maybe we should
+ * make 'uniform real' a special type of distribution which is virtual, and that's 
+ * what we normally pass around.
+ */
+
 /**
  * @defgroup random
  * @brief Random number and object generation.
@@ -49,10 +157,19 @@
  * 
  */
 
-#ifndef RANDOM_H_
-#define RANDOM_H_
+// Notice: This #define is referred to in other places, namely Dual.h.
+//         This is part of a mechanism to bring in code which is common
+//         to both `random` and `function` iff both libraries are in use.
 
-#include <stdint.h>
+#ifndef GEOMC_RANDOM_H_
+#define GEOMC_RANDOM_H_
+
+
+#ifdef GEOMC_DUAL_H
+#include <geomc/function/functiondetail/RandomDual.h>
+#endif
+
+#include <geomc/geomc_defs.h>
 
 namespace geom {
     
@@ -131,4 +248,4 @@ namespace geom {
         unsigned int _bitsleft;
     };
 }
-#endif /* RANDOM_H_ */
+#endif /* GEOMC_RANDOM_H_ */

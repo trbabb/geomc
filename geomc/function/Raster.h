@@ -410,6 +410,6 @@ protected:
     }
 };
 
-}; // namespace geom
+} // namespace geom
 
 #endif /* RASTER_H_ */

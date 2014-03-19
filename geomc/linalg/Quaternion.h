@@ -87,7 +87,7 @@ public:
      * 
      * If `q` is a unit quaternion, then `q * v` is a rotation of `v` by `q`.
      */
-    friend inline Quat<T> operator*(const Quat<T> &q, const Vec<T,3> &v) {
+    friend inline Vec<T,3> operator*(const Quat<T> &q, const Vec<T,3> &v) {
         Quat<T> qv(v,0);
         return (q * qv * q.conj()).vectorPart();
     }
@@ -97,7 +97,7 @@ public:
      * 
      * If `q` is a unit quaternion, then `v * q` is a rotation of `v` by `q`<sup>`-1`</sup>.
      */
-    friend inline Quat<T> operator*(const Vec<T,3> &v, const Quat<T> &q) {
+    friend inline Vec<T,3> operator*(const Vec<T,3> &v, const Quat<T> &q) {
         Quat<T> qv(v,0);
         return (q.conj() * qv * q).vectorPart();
     } 
@@ -226,9 +226,16 @@ public:
 };
 
 
-}; //namespace geom
+} //namespace geom
 
 namespace std {
+    
+    //TODO
+    /*
+    template <typename T, typename U>
+    geom::Quat<T> pow(const geom::Quat<T> &q, const U &a) {
+        
+    }*/
     
     /**
      * Quaternion exponential. Represents a rotation about `q.vectorPart()` by
@@ -253,7 +260,7 @@ namespace std {
         T k   = acos(q.w / q_m);
         return geom::Quat<T>(k * q.vectorPart() / q_m, log(q_m));
     }
-};
+}
 
 
 #endif /* QUATERNION_H_ */

@@ -84,7 +84,7 @@ bool _ImplDecompPLU(T* m, index_t rows, index_t cols, index_t *reorder, bool *sw
 
 #undef _MxElem
 
-}; // namespace detail
+} // namespace detail
 
 //////////// PLU class ////////////
 
@@ -455,7 +455,7 @@ protected:
     }
 };
 
-};
+}
 
 
 #endif /* LUDECOMP_H_ */

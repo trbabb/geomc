@@ -11,6 +11,7 @@
 
 #include <boost/iterator/counting_iterator.hpp>
 
+#include <geomc/function/Dual.h>
 #include <geomc/linalg/Vec.h>
 #include <geomc/linalg/Matrix.h>
 #include <geomc/function/Path.h>
@@ -21,7 +22,6 @@
 #include <geomc/function/Raster.h>
 #include <geomc/shape/BinLatticePartition.h>
 #include <geomc/shape/Trace.h>
-#include <geomc/function/Dual.h>
 
 
 #include "RandomBattery.h"
@@ -54,6 +54,14 @@ template <index_t N> void fill_unit_raw_vec_array(double dst[][N], index_t n) {
 
 template <index_t N> void fill_range_vec_array(Vec<double, N> *dst, index_t n, Vec<double,N> lo, Vec<double,N> hi) {
     Sampler<double> rntools = Sampler<double>();
+    
+    for (index_t i = 0; i < n; i++) {
+        dst[i] = rntools.box(lo, hi);
+    }
+}
+
+template <index_t N> void fill_range_vec_array(Vec<Dual<double>, N> *dst, index_t n, Vec<Dual<double>,N> lo, Vec<Dual<double>,N> hi) {
+    Sampler< Dual<double> > rntools = Sampler< Dual<double> >();
     
     for (index_t i = 0; i < n; i++) {
         dst[i] = rntools.box(lo, hi);
@@ -195,6 +203,28 @@ template <index_t N> double profile_perlin(index_t iters) {
     point_t vecs_src[n];
     PerlinNoise<double,N> perlin;
     double dest_vals[n];
+    
+    fill_range_vec_array<N>(vecs_src, n, -range, range);
+    
+    index_t idx = 0;
+    clock_t start = clock();
+    for (index_t i = 0; i < iters; i++) {
+        dest_vals[idx] = perlin.eval(vecs_src[n]);
+        idx = (idx + 1) % n;
+    }
+    clock_t end = clock();
+    return (end-start) / (double)CLOCKS_PER_SEC;
+}
+
+template <index_t N> double profile_perlin_grad(index_t iters) {
+    typedef Dual<double> dual;
+	typedef typename PointType<dual,N>::point_t point_t;
+    
+    index_t n = NUM_PROFILE_CASES;
+    point_t range = point_t(10000);
+    point_t vecs_src[n];
+    PerlinNoise<dual,N> perlin;
+    dual dest_vals[n];
     
     fill_range_vec_array<N>(vecs_src, n, -range, range);
     
@@ -537,6 +567,9 @@ int main(int argc, char** argv) {
     profile("5d perlin", profile_perlin<5>, iters/100);
     std::cout << std::endl;
     
+    profile("3d perlin dual", profile_perlin_grad<3>, iters/100);
+    std::cout << std::endl;
+    
     profile("2d hash", profile_vec_hash<2>, iters);
     profile("3d hash", profile_vec_hash<3>, iters);
     profile("4d hash", profile_vec_hash<4>, iters);
@@ -566,18 +599,18 @@ int main(int argc, char** argv) {
     profile("3f->3f cubic img sample",  profile_raster<float, 3, 3, INTERP_CUBIC>,  iters/100);
     std::cout << std::endl;
     
-    profile("5x5 mtxf region copy", profile_mtxRegionCopy<SimpleMatrix<float,0,0> >,    iters);
-    profile("5x5 mtxd region copy", profile_mtxRegionCopy<SimpleMatrix<double,0,0> >,   iters);
+    profile("5x5 mtxf region copy",    profile_mtxRegionCopy<SimpleMatrix<float,0,0> >,    iters);
+    profile("5x5 mtxd region copy",    profile_mtxRegionCopy<SimpleMatrix<double,0,0> >,   iters);
     profile("5x5 sparsef region copy", profile_mtxRegionCopy<SparseMatrix<float> >,  iters);
     profile("5x5 sparsed region copy", profile_mtxRegionCopy<SparseMatrix<double> >, iters);
-    profile("5x5 diagf region copy", profile_mtxRegionCopy<DiagMatrix<float,5,5> >, iters);
+    profile("5x5 diagf region copy",   profile_mtxRegionCopy<DiagMatrix<float,5,5> >, iters);
     std::cout << std::endl;
 
-    profile("5x5 mtxf copy", profile_mtxCopy<SimpleMatrix<float,0,0> >, iters/100);
-    profile("5x5 mtxd copy", profile_mtxCopy<SimpleMatrix<double,0,0> >, iters/100);
+    profile("5x5 mtxf copy",    profile_mtxCopy<SimpleMatrix<float,0,0> >, iters/100);
+    profile("5x5 mtxd copy",    profile_mtxCopy<SimpleMatrix<double,0,0> >, iters/100);
     profile("5x5 sparsef copy", profile_mtxCopy<SparseMatrix<float> >, iters/100);
     profile("5x5 sparsed copy", profile_mtxCopy<SparseMatrix<double> >, iters/100);
-    profile("5x5 diagf copy", profile_mtxCopy<DiagMatrix<float,5,5> >, iters/100);
+    profile("5x5 diagf copy",   profile_mtxCopy<DiagMatrix<float,5,5> >, iters/100);
     std::cout << std::endl;
     
     profile("2x2 mtxf inv", profile_mtxInverse<float,2>,  iters/10);

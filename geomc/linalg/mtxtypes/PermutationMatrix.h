@@ -78,13 +78,13 @@ template <typename Ma, typename Mb, typename Enable> class _ImplMtxMul;
  * A permutation matrix `P` permutes rows if left-multiplied (`P * M`), and permutes
  * columns if right-multiplied (`M * P`).
  * 
- * Permutation matrices use _O(n)_ storage, and multiplications by other matrices
- * are optimized to perform the permutation directly in _O(n<sup>2</sup>)_
- * (rather than _O(n<sup>3</sup>)_) time. Multiplication of two permutation matrices
- * is _O(n)_.
- * 
  * Permutation matrices are always (n x n) and have only elements that are zero 
  * or 1. Each row and column has exactly one `1` element.
+ * 
+ * An (*n x n*) permutation matrix uses _O(n)_ storage, and multiplications by 
+ * other matrices are optimized to perform the permutation directly in 
+ * _O(n<sup>2</sup>)_ (rather than _O(n<sup>3</sup>)_) time. Multiplication of 
+ * two permutation matrices is _O(n)_.
  */
 template <index_t N>
 class PermutationMatrix : public detail::MatrixBase<bool,N,N, PermutationMatrix<N> >, public detail::PermuteMatrixBase<N> {

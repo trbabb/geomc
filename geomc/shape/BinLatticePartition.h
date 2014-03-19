@@ -305,7 +305,6 @@ public:
 };
 //end class BinLatticePartition
 
-};
-//end namespace geom
+} //end namespace geom
 
 #endif /* BINLATTICEPARTITION_H_ */

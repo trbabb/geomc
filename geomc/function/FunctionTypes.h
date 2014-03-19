@@ -96,6 +96,6 @@ typedef Raster<double,double,3,4> Volumed4d;
 
 /// @} // addtogroup function
 
-}; // namespace geom
+} // namespace geom
 
 #endif /* FUNCTIONTYPES_H_ */

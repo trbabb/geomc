@@ -83,7 +83,7 @@ namespace detail {
        MTX_RESULT_MISMATCH,
        MTX_RESULT_UNKNOWN
     };
-};
+}
 
    typedef const void* storage_id_t;
 
@@ -97,7 +97,7 @@ namespace detail {
     // mtx fwd decls
 namespace detail {
     template <typename T, index_t M, index_t N, typename Derived> class MatrixBase;
-};
+}
     template <typename T, index_t M, index_t N> class SimpleMatrix;
     template <typename T, index_t M, index_t N> class DiagMatrix;
     template <typename T>                       class SparseMatrix;
@@ -203,6 +203,6 @@ namespace detail {
             return p;
         }
     };
-};
+} // namespace geom
 
 #endif /* LINALGTYPES_H_ */

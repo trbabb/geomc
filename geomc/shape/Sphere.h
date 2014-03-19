@@ -160,5 +160,5 @@ namespace geom {
         return false;
     }
     
-}; /* namespace geom */
+} /* namespace geom */
 #endif /* SPHERE_H_ */

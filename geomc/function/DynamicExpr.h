@@ -499,6 +499,6 @@ void intrusive_ptr_release(DynamicExpr *pExpr){
 }
 */
 
-}; //end namespace geom
+} //end namespace geom
 
 #endif /* DYNAMICEXPR_H_ */

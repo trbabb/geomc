@@ -26,7 +26,13 @@
 #include <iostream>
 #endif
 
-//TODO: specialize for a special dimension Vec<t,DYNAMIC=-1>
+//TODO: specialize for dynamic dimension Vec<T,0>
+
+//TODO: pare out neg(), add(), etc. which are holdovers from
+//      javaland; also abs(), floor(), ceil(), etc. operators and
+//      std:: functions are the preferred method. 
+//      - make the std functions friends if possible, so that they show up 
+//        with Vec in the docs?
 
 //TODO: use c++11's decltype() and <auto> functionality to do proper widening/narrowing conversion
 //      automatically, per http://stackoverflow.com/questions/9368432/c-arithmetic-operator-overloadingautomatic-widening
@@ -606,7 +612,7 @@ namespace detail {
          * @return The magnitude (geometric length) of this vector.
          */
         inline T mag() const {
-            return sqrt(this->mag2());
+            return std::sqrt(this->mag2());
         }
         
         /**
@@ -616,7 +622,7 @@ namespace detail {
             T sum = 0;
             for (index_t i = 0; i < N; i++) {
                 T cur = this->get(i);
-                sum += cur*cur;
+                sum += cur * cur;
             }
             return sum;
         }
@@ -688,7 +694,7 @@ namespace detail {
          * @return Angle in radians between `this` and `v`, between 0 and `pi`.
          */
         T angleTo(const self_t &v) const {
-            return acos(v.unit().dot(unit()));
+            return std::acos(v.unit().dot(unit()));
         }
         
         ///////////////////////
@@ -702,8 +708,7 @@ namespace detail {
         self_t abs() const {
             self_t r;
             for (index_t i = 0; i < N; i++) {
-                T coord = this->get(i);
-                r[i] = coord < 0 ? -coord : coord;
+                r[i] = std::abs(this->get(i));
             }
             return r;
         }
@@ -835,17 +840,23 @@ namespace detail {
     
     template <typename T, typename Enable=void>
     struct _RGBChannelConversion {
-        const static double scale = 1 / 255.0;
+        static const double scale;
     };
+    
+    // technically c++ forbids use of floats in constant expressions, for some weird reason.
+    // gcc does not complain unless compiling under c++11, ironically enough where
+    // the requirements for constant expressions are *supposed* to be relaxed.
+    template <typename T, typename Enable>
+    const double _RGBChannelConversion<T,Enable>::scale = 1.0 / 255.0;
     
     template <typename T>
     struct _RGBChannelConversion<T, typename boost::enable_if<boost::is_integral<T>,void>::type> {
-        const static int scale = 1;
+        static const int scale = 1;
     };
     
     template <typename T, typename Enable=void>
     struct IsVector {
-        const static bool value = false;
+        static const bool value = false;
     };
     
     template <typename T>
@@ -858,7 +869,7 @@ namespace detail {
         const static bool value = true;
     };
     
-}; /* end namespace detail */
+} /* end namespace detail */
 
 } /* end namepsace geom */
 
@@ -868,14 +879,22 @@ namespace detail {
  *********************************/
 
 //allows Vec<T,N>s to work with std::tr1 hash containers
-namespace std { namespace tr1 {
+namespace std { 
 
+#if __cplusplus < 201103L
+namespace tr1 {
+#endif
+    
    template <typename T, index_t N> struct hash< geom::Vec<T,N> > : public unary_function<geom::Vec<T,N>, size_t> {
        size_t operator()(const geom::Vec<T,N>& v) const {
            return v.hashcode();
        }
    };
-   
-}}
+
+#if __cplusplus < 201103L
+}
+#endif
+
+}
 
 #endif /* VECBASE_H_ */

@@ -80,7 +80,7 @@ namespace geom {
     typedef Rect<float,3> Rect3f;
     typedef Rect<float,4> Rect4f;
     
-};
+} // namespace geom
 
 /// @} // addtogroup shape
 

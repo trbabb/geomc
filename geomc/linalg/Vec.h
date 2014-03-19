@@ -24,7 +24,7 @@ namespace geom {
     // fwd decl
     namespace detail {
         template <typename M, typename RefType> class MtxColIterator;
-    };
+    }
     
     //TODO: Fix operators for Quat
     
@@ -313,7 +313,7 @@ public:
     
 }; /* class Vec */
 
-}; // namespace geom
+} // namespace geom
 
 
 namespace std {
@@ -359,7 +359,7 @@ inline geom::Vec<T,N> ceil(const geom::Vec<T,N> &v) {
     return v.ceil();
 }
 
-}; // namespace std
+} // namespace std
 
 /// @} //ingroup linalg
 

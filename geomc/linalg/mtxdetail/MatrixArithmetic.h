@@ -126,10 +126,10 @@ struct _ImplMatrixAddReturnType {
 };
 
 // when using enable_if<bool, _implmtxadd<a,b>::return_t> elsewhere,
-// compilation will fail because even if <bool> is false, c++ will
-// try to expand the argument type. if a or b are non-matrices,
-// then the expansion will fail. This is not SFINAE because by the 
-// time we are evaluating what ::return_t is, we are no longer substituting,
+// compilation will fail because even if <bool> is false and "protects" 
+// against instantiation, c++ will try to expand the argument type. if a or b 
+// are non-matrices, then the expansion will fail. This is not SFINAE because by 
+// the time we are evaluating what ::return_t is, we are no longer substituting,
 // we are type-expanding. I believe this is a flaw in the c++ language design.
 
 template <typename Ma, typename Mb>

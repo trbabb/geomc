@@ -83,6 +83,6 @@ struct Hit {
 
 /// @} // ingroup linalg
 
-}; // namespace geom
+} // namespace geom
 
 #endif /* HIT_H_ */

@@ -38,8 +38,8 @@ bool _ImplTracePlane(T* s, const Plane<T,N> &p, const Ray<T,N> &r, HitSide *side
     return true;
 }
 
-}; // namespace detail
-}; // namespace geom
+} // namespace detail
+} // namespace geom
 
 
 #endif /* SHAPEIMPL_H_ */

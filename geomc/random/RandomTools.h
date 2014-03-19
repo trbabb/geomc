@@ -9,6 +9,16 @@
 //      unit ball/sphere random vec generation
 //TODO: namespace?
 
+/** 
+ *   - Rejection sampling method of choosing a unit vecotr a) is poor for 
+ *     low-discrepancy sequences, and b) performs poorly in higher dimensions.
+ * 
+ * better for performance in high N: Gaussian blob about zero, normalize result 
+ * to project to unit sphere.
+ *   less clear: a) how compares to performance at low dimensions
+ *               b) how performs with LD sequences.
+ */
+
 #ifndef RANDOMTOOLS_H_
 #define RANDOMTOOLS_H_
 
@@ -374,6 +384,6 @@ public:
 
 /// @} ingroup random
 
-}; //end namespace geom
+} //end namespace geom
 
 #endif /* RANDOMTOOLS_H_ */
