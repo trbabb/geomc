@@ -321,6 +321,12 @@ namespace geom {
                                        const Vec<T,3> &dir, 
                                        const Vec<T,3> &alignWith) {
         const Vec<T,3> v = dir ^ alignWith;
+        
+        if (v == Vec<T,3>::zeros) {
+            into->setIdentity();
+            return;
+        }
+        
         const T c = dir.dot(alignWith);
         const T k = (1 - c) / (1 - c * c);
 
