@@ -19,7 +19,7 @@ namespace detail {
 // retarded, roundabout way of providing the functionality of a
 // templated conditionally-compiled code block. If those were 
 // just implemented directly, then this code wouldn't look so fucking 
-// ugly. Fuck bjarne stroustrup for cursing humanity with his hideous 
+// ugly. A pox on bjarne stroustrup for cursing humanity with his hideous 
 // troll language.
 
 template <typename T, int N>
