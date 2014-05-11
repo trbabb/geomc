@@ -9,7 +9,7 @@
 #define	MATRIXARITHMETIC_H
 
 #include <boost/utility/enable_if.hpp>
-#include <geomc/linalg/linalgTypes.h>
+#include <geomc/linalg/LinalgTypes.h>
 #include <geomc/linalg/mtxdetail/MatrixGlue.h>
 
 namespace geom {

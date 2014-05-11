@@ -12,6 +12,7 @@
 #include <boost/utility/enable_if.hpp>
 #include <limits>
 #include <algorithm>
+#include <stdint.h>
 
 /**
  * @mainpage GEOMC Library

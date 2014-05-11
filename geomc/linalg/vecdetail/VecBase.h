@@ -647,7 +647,7 @@ namespace detail {
          * @param axis Axis of reflection.
          * @return A copy of this vector reflected across the given axis.
          */
-        self_t reflect(const self_t &axis) const {
+        self_t reflect(self_t axis) const {
             axis = axis.unit();
             return this->neg() + axis * 2 * this->dot(axis);
         }
