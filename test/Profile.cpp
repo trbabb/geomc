@@ -215,7 +215,7 @@ template <index_t N> double profile_perlin(index_t iters) {
     clock_t end = clock();
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
-
+/*
 template <index_t N> double profile_perlin_grad(index_t iters) {
     typedef Dual<double> dual;
 	typedef typename PointType<dual,N>::point_t point_t;
@@ -237,6 +237,7 @@ template <index_t N> double profile_perlin_grad(index_t iters) {
     clock_t end = clock();
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
+ */
 
 // careful with this. allocates lots o memory.
 template <typename T> double profile_rayTriangleTest(index_t iters) {
@@ -567,7 +568,7 @@ int main(int argc, char** argv) {
     profile("5d perlin", profile_perlin<5>, iters/100);
     std::cout << std::endl;
     
-    profile("3d perlin dual", profile_perlin_grad<3>, iters/100);
+    //profile("3d perlin dual", profile_perlin_grad<3>, iters/100);
     std::cout << std::endl;
     
     profile("2d hash", profile_vec_hash<2>, iters);

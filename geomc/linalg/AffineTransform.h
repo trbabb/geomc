@@ -322,6 +322,14 @@ namespace geom {
                                        const Vec<T,3> &alignWith) {
         const Vec<T,3> v = dir ^ alignWith;
         const T c = dir.dot(alignWith);
+        
+        // handle poles
+        if (std::abs(c) == 1) {
+            into->setIdentity();
+            if (c < 0) { into->set(0,0,-1); into->set(2,2,-1); }
+            return;
+        }
+        
         const T k = (1 - c) / (1 - c * c);
 
         T m[16] = { v.x*v.x*k + c,     v.y*v.x*k - v.z,    v.z*v.x*k + v.y, 0,
@@ -339,6 +347,14 @@ namespace geom {
                                        const Vec<T,3> &alignWith) {
         const Vec<T,3> v = dir ^ alignWith;
         const T c = dir.dot(alignWith);
+        
+        // handle poles
+        if (std::abs(c) == 1) {
+            into->setIdentity();
+            if (c < 0) { into->set(0,0,-1); into->set(2,2,-1); }
+            return;
+        }
+        
         const T k = (1 - c) / (1 - c * c);
 
         T m[9] = { v.x*v.x*k + c,     v.y*v.x*k - v.z,    v.z*v.x*k + v.y,

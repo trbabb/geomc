@@ -85,7 +85,7 @@ public:
      * @return A new Rect with its center at `center`.
      */
     inline static Rect<T,N> fromCenter(typename Rect<T,N>::point_t center,
-                                typename Rect<T,N>::point_t dims) {
+                                       typename Rect<T,N>::point_t dims) {
         return Rect<T,N>::spanningCorners(center-dims/2, center+dims/2);
     }
 
@@ -96,7 +96,7 @@ public:
      * @return A new Rect with one corner at `corner`.
      */
     inline static Rect<T,N> fromCorner(typename Rect<T,N>::point_t corner,
-                                typename Rect<T,N>::point_t dims) {
+                                       typename Rect<T,N>::point_t dims) {
         return Rect<T,N>::spanningCorners(corner, corner+dims);
     }
     
@@ -106,9 +106,22 @@ public:
      * @param c2 The corner opposite `c1`
      * @return A new Rect with corners at `c1` and `c2`.
      */
-    static Rect<T,N> spanningCorners(typename Rect<T,N>::point_t c1,
-                                     typename Rect<T,N>::point_t c2) {
-        return Rect<T,N>(std::min(c1,c2), std::max(c1,c2));
+    inline static Rect<T,N> spanningCorners(point_t c1,
+                                            point_t c2) {
+        // Below fails to find the Vec<T,N> specialization of min/max.
+        // TODO: Isolate this bug and build a test case. smells a little like
+        // either a template compiler bug or include order issues. both make me sad.
+        
+        //typename Rect<T,N>::point_t lo = std::min(c1, c2);
+        //typename Rect<T,N>::point_t hi = std::max(c1, c2);
+        point_t lo, hi;
+        T* ptr1 = ptype::iterator(c1);
+        T* ptr2 = ptype::iterator(c2);
+        for (int i = 0; i < N; i++, ptr1++, ptr2++) {
+            lo[i] = std::min(*ptr1, *ptr2);
+            hi[i] = std::max(*ptr1, *ptr2);
+        }
+        return Rect<T,N>(lo, hi);
     }
 
     /**
@@ -118,14 +131,14 @@ public:
      * @param pt Test point
      * @return `true` if `pt` is inside the exremes
      */
-    static bool contains(typename Rect<T,N>::point_t min,
-                         typename Rect<T,N>::point_t max,
+    static bool contains(typename Rect<T,N>::point_t lo,
+                         typename Rect<T,N>::point_t hi,
                          typename Rect<T,N>::point_t pt) {
-        min = std::min(min,max);
-        max = std::max(min,max);
+        lo = std::min(lo, hi);
+        hi = std::max(lo, hi);
         for (index_t axis = 0; axis < N; axis++) {
             T v = ptype::iterator(pt)[axis];
-            if (v < ptype::iterator(min)[axis] or v >= ptype::iterator(max)[axis]) {
+            if (v < ptype::iterator(lo)[axis] or v >= ptype::iterator(hi)[axis]) {
                 return false;
             }
         }
@@ -286,10 +299,10 @@ public:
      * @return `true` if and only if `pt` is inside this rectangle.
      * Lower extremes are inclusive, while upper are exclusive.
      */
-    bool contains(T pt) const {
+    bool contains(point_t pt) const {
         for (index_t axis = 0; axis < N; axis++) {
             T v = ptype::iterator(pt)[axis];
-            if (v < ptype::iterator(min)[axis] or v >= ptype::iterator(max)[axis]) {
+            if (v < ptype::iterator(mins)[axis] or v >= ptype::iterator(maxs)[axis]) {
                 return false;
             }
         }

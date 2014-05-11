@@ -320,7 +320,7 @@ namespace std {
 
 // these make vectors more interchangeable with bare types:
 /**
- * Elemnt-wise maximum.
+ * Element-wise maximum.
  */
 template <typename T, index_t N>
 inline geom::Vec<T,N> max(const geom::Vec<T,N> &a, const geom::Vec<T,N> &b) {

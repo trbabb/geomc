@@ -100,7 +100,7 @@ public:
     friend inline Vec<T,3> operator*(const Vec<T,3> &v, const Quat<T> &q) {
         Quat<T> qv(v,0);
         return (q.conj() * qv * q).vectorPart();
-    } 
+    }
     
     /*******************************
      * Methods                     *
@@ -230,13 +230,6 @@ public:
 
 namespace std {
     
-    //TODO
-    /*
-    template <typename T, typename U>
-    geom::Quat<T> pow(const geom::Quat<T> &q, const U &a) {
-        
-    }*/
-    
     /**
      * Quaternion exponential. Represents a rotation about `q.vectorPart()` by
      * angle `|q|` and a scaling by `e`<sup>`q.realPart()`</sup>.
@@ -245,6 +238,7 @@ namespace std {
     geom::Quat<T> exp(const geom::Quat<T>& q) {
         T k = exp(q.w);
         T m = q.vectorPart().mag();
+        if (m == 0) return geom::Quat<T>(geom::Vec<T,3>::zeros, exp(q.w));
         T c = cos(m);
         T s = sin(m);
         return geom::Quat<T>(k * s * q.vectorPart() / m, k * c);
@@ -258,7 +252,19 @@ namespace std {
         T q_m = q.mag();
         T v_m = q.vectorPart().mag();
         T k   = acos(q.w / q_m);
-        return geom::Quat<T>(k * q.vectorPart() / q_m, log(q_m));
+        return geom::Quat<T>(k * q.vectorPart() / v_m, log(q_m));
+    }
+    
+    /**
+     * Quaternion power. Raise `q` to the (real) power of `a`. 
+     */
+    template <typename T, typename U>
+    geom::Quat<T> pow(const geom::Quat<T> &q, U a) {
+        T mag = q.mag();
+        if (mag == 0) return geom::Quat<T>(0,0,0,1);
+        U theta = std::acos(q.scalarPart() / mag); // :(
+        geom::Vec<T,3> nhat = q.vectorPart().unit();
+        return std::pow(mag, a) * geom::Quat<T>(nhat * std::sin(a * theta), std::cos(a * theta));
     }
 }
 
