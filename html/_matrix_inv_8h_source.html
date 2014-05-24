@@ -133,7 +133,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">struct </span>_ImplMtxInvRaw {</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    </div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> S, index_t J, index_t K, <span class="keyword">typename</span> Mx&gt;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="group__matrix.html#ga289fd7275b5cabfe4506146872626c29">inv</a>(SimpleMatrix&lt;S,J,K&gt; *into, <span class="keyword">const</span> Mx &amp;m) {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="group__matrix.html#gaae7a0b519bdbfd166ab4d93bece17f2e">inv</a>(SimpleMatrix&lt;S,J,K&gt; *into, <span class="keyword">const</span> Mx &amp;m) {</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        PLUDecomposition&lt;typename Mx::elem_t, Mx::ROWDIM, Mx::COLDIM&gt; plu(m);</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">if</span> (plu.isSingular()) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        plu.inverse(into);</div>
@@ -147,14 +147,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">struct </span>_ImplMtxInvRaw&lt;T,DYNAMIC_DIM&gt; {</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    </div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md, <span class="keyword">typename</span> Mx&gt;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="group__matrix.html#ga289fd7275b5cabfe4506146872626c29">inv</a>(Md *into, <span class="keyword">const</span> Mx &amp;m) {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="group__matrix.html#gaae7a0b519bdbfd166ab4d93bece17f2e">inv</a>(Md *into, <span class="keyword">const</span> Mx &amp;m) {</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">switch</span>(m.rows()) {</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="keywordflow">case</span> 2:</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="group__matrix.html#ga289fd7275b5cabfe4506146872626c29">geom::detail::_ImplMtxInvRaw&lt;T,2&gt;::inv</a>(into, m);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="group__matrix.html#gaae7a0b519bdbfd166ab4d93bece17f2e">geom::detail::_ImplMtxInvRaw&lt;T,2&gt;::inv</a>(into, m);</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="keywordflow">case</span> 3:</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="group__matrix.html#ga289fd7275b5cabfe4506146872626c29">geom::detail::_ImplMtxInvRaw&lt;T,3&gt;::inv</a>(into, m);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="group__matrix.html#gaae7a0b519bdbfd166ab4d93bece17f2e">geom::detail::_ImplMtxInvRaw&lt;T,3&gt;::inv</a>(into, m);</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <span class="keywordflow">case</span> 4:</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="group__matrix.html#ga289fd7275b5cabfe4506146872626c29">geom::detail::_ImplMtxInvRaw&lt;T,4&gt;::inv</a>(into, m);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="group__matrix.html#gaae7a0b519bdbfd166ab4d93bece17f2e">geom::detail::_ImplMtxInvRaw&lt;T,4&gt;::inv</a>(into, m);</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            <span class="keywordflow">default</span>:</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                PLUDecomposition&lt;typename Mx::elem_t, Mx::ROWDIM, Mx::COLDIM&gt; plu(m);</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                <span class="keywordflow">if</span> (plu.isSingular()) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
@@ -179,7 +179,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    };</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    </div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md, <span class="keyword">typename</span> Mx&gt;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="group__matrix.html#ga289fd7275b5cabfe4506146872626c29">inv</a>(Md *into, <span class="keyword">const</span> Mx &amp;m) {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="group__matrix.html#gaae7a0b519bdbfd166ab4d93bece17f2e">inv</a>(Md *into, <span class="keyword">const</span> Mx &amp;m) {</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        _buf b;</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        std::copy(m.begin(), m.end(), &amp;b.a00);</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordflow">if</span> (_inv(into-&gt;begin(), b)) {</div>
@@ -216,7 +216,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        </div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <span class="keywordflow">if</span> (det == 0) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        T <a class="code" href="group__matrix.html#ga289fd7275b5cabfe4506146872626c29">inv</a>[4][4] = {</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        T <a class="code" href="group__matrix.html#gaae7a0b519bdbfd166ab4d93bece17f2e">inv</a>[4][4] = {</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                {( s.a11*c5 - s.a12*c4 + s.a13*c3) / det,</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                 (-s.a01*c5 + s.a02*c4 - s.a03*c3) / det,</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                 ( s.a31*s5 - s.a32*s4 + s.a33*s3) / det,</div>
@@ -256,7 +256,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    };</div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    </div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md, <span class="keyword">typename</span> Mx&gt;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="group__matrix.html#ga289fd7275b5cabfe4506146872626c29">inv</a>(Md *into, <span class="keyword">const</span> Mx &amp;m) {</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="group__matrix.html#gaae7a0b519bdbfd166ab4d93bece17f2e">inv</a>(Md *into, <span class="keyword">const</span> Mx &amp;m) {</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        _buf b;</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        std::copy(m.begin(), m.end(), &amp;b.a);</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        <span class="keywordflow">return</span> _inv(into-&gt;begin(), b);</div>
@@ -282,7 +282,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="keyword">struct </span>_ImplMtxInvRaw&lt;T,2&gt;{</div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    </div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md, <span class="keyword">typename</span> Mx&gt;</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="group__matrix.html#ga289fd7275b5cabfe4506146872626c29">inv</a>(Md *into, <span class="keyword">const</span> Mx &amp;m) {</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="group__matrix.html#gaae7a0b519bdbfd166ab4d93bece17f2e">inv</a>(Md *into, <span class="keyword">const</span> Mx &amp;m) {</div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <span class="comment">// inverse 2x2 matrix by cramer&#39;s rule</span></div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        T a = m.get(0,0);</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        T b = m.get(0,1);</div>
@@ -329,8 +329,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;                              (Mx::ROWDIM != DYNAMIC_DIM ? Mx::ROWDIM : Mx::COLDIM)&gt; return_t;</div>
 <div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    </div>
 <div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md&gt;</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="group__matrix.html#ga289fd7275b5cabfe4506146872626c29">inv</a>(Md *into, <span class="keyword">const</span> Mx&amp; m) {</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="group__matrix.html#ga289fd7275b5cabfe4506146872626c29">geom::detail::_ImplMtxInvRaw&lt;typename Md::elem_t, (Mx::ROWDIM != DYNAMIC_DIM ? Mx::ROWDIM : Mx::COLDIM)&gt;::inv</a>(into, m);</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="group__matrix.html#gaae7a0b519bdbfd166ab4d93bece17f2e">inv</a>(Md *into, <span class="keyword">const</span> Mx&amp; m) {</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="group__matrix.html#gaae7a0b519bdbfd166ab4d93bece17f2e">geom::detail::_ImplMtxInvRaw&lt;typename Md::elem_t, (Mx::ROWDIM != DYNAMIC_DIM ? Mx::ROWDIM : Mx::COLDIM)&gt;::inv</a>(into, m);</div>
 <div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    }</div>
 <div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;};</div>
 <div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;</div>
@@ -341,7 +341,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keyword">typedef</span> <a class="code" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix&lt;T, (M != 0 ? M : N), (M != 0 ? M : N)&gt;</a> return_t;</div>
 <div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    </div>
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md&gt;</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="group__matrix.html#ga289fd7275b5cabfe4506146872626c29">inv</a>(Md *into, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix&lt;T,M,N&gt;</a>&amp; m) {</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code" href="group__matrix.html#gaae7a0b519bdbfd166ab4d93bece17f2e">inv</a>(Md *into, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix&lt;T,M,N&gt;</a>&amp; m) {</div>
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        into-&gt;setZero(); <span class="comment">// for newly allocated matrices, redundant. oh well.</span></div>
 <div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        T *p = m.<a class="code" href="classgeom_1_1_diag_matrix.html#a15c7a0bee09a1b09f2a4de66b0245eb6">diagonal_begin</a>();</div>
 <div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        <span class="keywordflow">for</span> (index_t i = 0; p != m.<a class="code" href="classgeom_1_1_diag_matrix.html#a40fe7cfc97934b7de5ae3ddeddd4e487">diagonal_end</a>(); ++i, ++p) {</div>
@@ -362,8 +362,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    <span class="keyword">typedef</span> <a class="code" href="classgeom_1_1_permutation_matrix.html">geom::PermutationMatrix&lt;N&gt;</a> return_t;</div>
 <div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    </div>
 <div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md&gt;</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="group__matrix.html#ga289fd7275b5cabfe4506146872626c29">inv</a>(Md *into, <span class="keyword">const</span> M&amp; m) {</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        <a class="code" href="group__matrix.html#ga293381c8fe7ffa4ed9889db1f4ca7787">_ImplMtxTxpose&lt;M&gt;::transpose</a>(into, m);</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="group__matrix.html#gaae7a0b519bdbfd166ab4d93bece17f2e">inv</a>(Md *into, <span class="keyword">const</span> M&amp; m) {</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        <a class="code" href="group__matrix.html#gafd2d064d06760e230385ca5fcc0a29fd">_ImplMtxTxpose&lt;M&gt;::transpose</a>(into, m);</div>
 <div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    }</div>
 <div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;};</div>
@@ -376,15 +376,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* MATRIXINV_H_ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="classgeom_1_1_diag_matrix_html"><div class="ttname"><a href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a></div><div class="ttdoc">A matrix with nonzero elements only along the main diagonal. </div><div class="ttdef"><b>Definition:</b> LinalgTypes.h:102</div></div>
 <div class="ttc" id="classgeom_1_1_diag_matrix_html_a15c7a0bee09a1b09f2a4de66b0245eb6"><div class="ttname"><a href="classgeom_1_1_diag_matrix.html#a15c7a0bee09a1b09f2a4de66b0245eb6">geom::DiagMatrix::diagonal_begin</a></div><div class="ttdeci">T * diagonal_begin()</div><div class="ttdef"><b>Definition:</b> DiagMatrix.h:127</div></div>
-<div class="ttc" id="group__matrix_html_ga289fd7275b5cabfe4506146872626c29"><div class="ttname"><a href="group__matrix.html#ga289fd7275b5cabfe4506146872626c29">geom::inv</a></div><div class="ttdeci">bool inv(Md *into, const Mx &amp;src)</div><div class="ttdef"><b>Definition:</b> Matrix.h:608</div></div>
-<div class="ttc" id="group__matrix_html_ga293381c8fe7ffa4ed9889db1f4ca7787"><div class="ttname"><a href="group__matrix.html#ga293381c8fe7ffa4ed9889db1f4ca7787">geom::transpose</a></div><div class="ttdeci">void transpose(Md *into, const Mx &amp;m)</div><div class="ttdef"><b>Definition:</b> Matrix.h:535</div></div>
 <div class="ttc" id="classgeom_1_1_permutation_matrix_html"><div class="ttname"><a href="classgeom_1_1_permutation_matrix.html">geom::PermutationMatrix</a></div><div class="ttdoc">A matrix which, by multiplication, permutes the rows or columns of another matrix. </div><div class="ttdef"><b>Definition:</b> LinalgTypes.h:105</div></div>
+<div class="ttc" id="group__matrix_html_gafd2d064d06760e230385ca5fcc0a29fd"><div class="ttname"><a href="group__matrix.html#gafd2d064d06760e230385ca5fcc0a29fd">geom::transpose</a></div><div class="ttdeci">void transpose(Matrix1 *into, const Matrix2 &amp;m)</div><div class="ttdef"><b>Definition:</b> Matrix.h:535</div></div>
+<div class="ttc" id="group__matrix_html_gaae7a0b519bdbfd166ab4d93bece17f2e"><div class="ttname"><a href="group__matrix.html#gaae7a0b519bdbfd166ab4d93bece17f2e">geom::inv</a></div><div class="ttdeci">bool inv(Matrix1 *into, const Matrix2 &amp;src)</div><div class="ttdef"><b>Definition:</b> Matrix.h:608</div></div>
 <div class="ttc" id="classgeom_1_1_diag_matrix_html_a40fe7cfc97934b7de5ae3ddeddd4e487"><div class="ttname"><a href="classgeom_1_1_diag_matrix.html#a40fe7cfc97934b7de5ae3ddeddd4e487">geom::DiagMatrix::diagonal_end</a></div><div class="ttdeci">T * diagonal_end()</div><div class="ttdef"><b>Definition:</b> DiagMatrix.h:143</div></div>
 <div class="ttc" id="classgeom_1_1_simple_matrix_html"><div class="ttname"><a href="classgeom_1_1_simple_matrix.html">geom::SimpleMatrix</a></div><div class="ttdoc">A basic matrix with M x N elements. </div><div class="ttdef"><b>Definition:</b> LinalgTypes.h:101</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat May 24 2014 12:51:01 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat May 24 2014 13:12:43 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

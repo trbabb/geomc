@@ -462,14 +462,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;            <span class="keywordflow">return</span> r;</div>
 <div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;        }</div>
 <div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;</div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;        <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="group__matrix.html#ga5acc85c8aa5280f24693d04b24855589">operator==</a>(<span class="keyword">const</span> self_t &amp;vv)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;        <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="group__matrix.html#ga9bc066c784d93944802791afbb4d8bde">operator==</a>(<span class="keyword">const</span> self_t &amp;vv)<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;            <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++) {</div>
 <div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;                <span class="keywordflow">if</span> (vv.get(i) != this-&gt;<span class="keyword">get</span>(i)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;            }</div>
 <div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;        }</div>
 <div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;        </div>
-<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;        <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="group__matrix.html#gae40b28b9ab295b246f08a49e6b3d99fb">operator!=</a>(<span class="keyword">const</span> self_t &amp;vv)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;        <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code" href="group__matrix.html#gaedf95ce414e21e18e3da3f526b52dad7">operator!=</a>(<span class="keyword">const</span> self_t &amp;vv)<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;            <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++) {</div>
 <div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;                <span class="keywordflow">if</span> (vv.get(i) != this-&gt;<span class="keyword">get</span>(i)) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;            }</div>
@@ -477,7 +477,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;        }</div>
 <div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;</div>
 <div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;        <span class="keyword">inline</span> self_t operator+(<span class="keyword">const</span> self_t &amp;v)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;            <span class="keywordflow">return</span> this-&gt;<a class="code" href="group__matrix.html#gaa4a33c0f1bb911ce5235ceb09dca799a">add</a>(v);</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;            <span class="keywordflow">return</span> this-&gt;<a class="code" href="group__matrix.html#gad29282e95cba76934ebf5ebff8dabf1d">add</a>(v);</div>
 <div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;        }</div>
 <div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;</div>
 <div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;        self_t&amp; operator+=(<span class="keyword">const</span> self_t &amp;vv) {</div>
@@ -487,8 +487,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;            <span class="keywordflow">return</span> *(<span class="keyword">static_cast&lt;</span>self_t*<span class="keyword">&gt;</span>(<span class="keyword">this</span>));</div>
 <div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;        }</div>
 <div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;        </div>
-<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;        <span class="keyword">inline</span> self_t <a class="code" href="group__matrix.html#gada3c858a1219dc51e34e8c6eff00d155">operator-</a>(<span class="keyword">const</span> self_t &amp;v)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;            <span class="keywordflow">return</span> this-&gt;<a class="code" href="group__matrix.html#ga4ca8a4cc286eb011023e4c4adae9e27b">sub</a>(v);</div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;        <span class="keyword">inline</span> self_t <a class="code" href="group__matrix.html#ga204dfbeacaf70f1712bde20a2b3806b3">operator-</a>(<span class="keyword">const</span> self_t &amp;v)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;            <span class="keywordflow">return</span> this-&gt;<a class="code" href="group__matrix.html#gaedd89060fc778b8fdccc689754607925">sub</a>(v);</div>
 <div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;        }</div>
 <div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;        </div>
 <div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;        self_t&amp; operator-=(<span class="keyword">const</span> self_t &amp;vv) {</div>
@@ -519,7 +519,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;            <span class="keywordflow">return</span> *(<span class="keyword">static_cast&lt;</span>self_t*<span class="keyword">&gt;</span>(<span class="keyword">this</span>));</div>
 <div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;        }</div>
 <div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;</div>
-<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;        <span class="keyword">inline</span> self_t <a class="code" href="group__matrix.html#gada3c858a1219dc51e34e8c6eff00d155">operator-</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;        <span class="keyword">inline</span> self_t <a class="code" href="group__matrix.html#ga204dfbeacaf70f1712bde20a2b3806b3">operator-</a>()<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;            <span class="keywordflow">return</span> this-&gt;neg();</div>
 <div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;        }</div>
 <div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;</div>
@@ -527,7 +527,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;<span class="comment">         * Methods                     *</span></div>
 <div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;<span class="comment">         *******************************/</span></div>
 <div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;        </div>
-<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;        <span class="keyword">inline</span> self_t <a class="code" href="group__matrix.html#gaa4a33c0f1bb911ce5235ceb09dca799a">add</a>(<span class="keyword">const</span> self_t &amp;v)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;        <span class="keyword">inline</span> self_t <a class="code" href="group__matrix.html#gad29282e95cba76934ebf5ebff8dabf1d">add</a>(<span class="keyword">const</span> self_t &amp;v)<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;            self_t r;</div>
 <div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;            <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++) {</div>
 <div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;                r[i] = this-&gt;<span class="keyword">get</span>(i) + v.get(i);</div>
@@ -535,7 +535,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;            <span class="keywordflow">return</span> r;</div>
 <div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;        }</div>
 <div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;        </div>
-<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;        <span class="keyword">inline</span> self_t <a class="code" href="group__matrix.html#ga4ca8a4cc286eb011023e4c4adae9e27b">sub</a>(<span class="keyword">const</span> self_t &amp;v)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;        <span class="keyword">inline</span> self_t <a class="code" href="group__matrix.html#gaedd89060fc778b8fdccc689754607925">sub</a>(<span class="keyword">const</span> self_t &amp;v)<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;            self_t r;</div>
 <div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;            <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++) {</div>
 <div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;                r[i] = this-&gt;<span class="keyword">get</span>(i) - v[i];</div>
@@ -600,11 +600,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;        }</div>
 <div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;</div>
 <div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;        T dist(<span class="keyword">const</span> self_t &amp;pt)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;            <span class="keywordflow">return</span> (this-&gt;<a class="code" href="group__matrix.html#ga4ca8a4cc286eb011023e4c4adae9e27b">sub</a>(pt)).mag();</div>
+<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;            <span class="keywordflow">return</span> (this-&gt;<a class="code" href="group__matrix.html#gaedd89060fc778b8fdccc689754607925">sub</a>(pt)).mag();</div>
 <div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;        }</div>
 <div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;</div>
 <div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;        T dist2(<span class="keyword">const</span> self_t &amp;pt)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;            <span class="keywordflow">return</span> (this-&gt;<a class="code" href="group__matrix.html#ga4ca8a4cc286eb011023e4c4adae9e27b">sub</a>(pt)).mag2();</div>
+<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;            <span class="keywordflow">return</span> (this-&gt;<a class="code" href="group__matrix.html#gaedd89060fc778b8fdccc689754607925">sub</a>(pt)).mag2();</div>
 <div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;        }</div>
 <div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;</div>
 <div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;        self_t reflect(self_t axis)<span class="keyword"> const </span>{</div>
@@ -784,26 +784,26 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00898"></a><span class="lineno">  898</span>&#160;}</div>
 <div class="line"><a name="l00899"></a><span class="lineno">  899</span>&#160;</div>
 <div class="line"><a name="l00900"></a><span class="lineno">  900</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* VECBASE_H_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="group__matrix_html_ga9bc066c784d93944802791afbb4d8bde"><div class="ttname"><a href="group__matrix.html#ga9bc066c784d93944802791afbb4d8bde">geom::operator==</a></div><div class="ttdeci">bool operator==(const Matrix1 &amp;a, const Matrix2 &amp;b)</div><div class="ttdef"><b>Definition:</b> Matrix.h:930</div></div>
 <div class="ttc" id="group__function_html_gafbda519a671cae9db99fef6c4c305eff"><div class="ttname"><a href="group__function.html#gafbda519a671cae9db99fef6c4c305eff">geom::clamp</a></div><div class="ttdeci">T clamp(const T &amp;v, const T &amp;lo, const T &amp;hi)</div><div class="ttdef"><b>Definition:</b> Utils.h:28</div></div>
 <div class="ttc" id="group__linalg_html_gab4ef5a5844e69301ae83804a9770881b"><div class="ttname"><a href="group__linalg.html#gab4ef5a5844e69301ae83804a9770881b">geom::scale</a></div><div class="ttdeci">AffineTransform&lt; T, N &gt; scale(const Vec&lt; T, N &gt; &amp;sx)</div><div class="ttdef"><b>Definition:</b> AffineTransform.h:535</div></div>
 <div class="ttc" id="group__function_html_ga7985ceba157f09c80c5128059cfe13c9"><div class="ttname"><a href="group__function.html#ga7985ceba157f09c80c5128059cfe13c9">std::sqrt</a></div><div class="ttdeci">geom::Dual&lt; T &gt; sqrt(const geom::Dual&lt; T &gt; &amp;d)</div><div class="ttdoc">Square root. </div><div class="ttdef"><b>Definition:</b> Dual.h:383</div></div>
-<div class="ttc" id="group__matrix_html_gae40b28b9ab295b246f08a49e6b3d99fb"><div class="ttname"><a href="group__matrix.html#gae40b28b9ab295b246f08a49e6b3d99fb">geom::operator!=</a></div><div class="ttdeci">bool operator!=(const Ma &amp;a, const Mb &amp;b)</div><div class="ttdef"><b>Definition:</b> Matrix.h:964</div></div>
+<div class="ttc" id="group__matrix_html_ga204dfbeacaf70f1712bde20a2b3806b3"><div class="ttname"><a href="group__matrix.html#ga204dfbeacaf70f1712bde20a2b3806b3">geom::operator-</a></div><div class="ttdeci">Matrix operator-(const Matrix1 &amp;a, const Matrix2 &amp;b)</div><div class="ttdef"><b>Definition:</b> Matrix.h:890</div></div>
+<div class="ttc" id="group__matrix_html_gaedd89060fc778b8fdccc689754607925"><div class="ttname"><a href="group__matrix.html#gaedd89060fc778b8fdccc689754607925">geom::sub</a></div><div class="ttdeci">void sub(Matrix *d, const Matrix1 &amp;a, const Matrix2 &amp;b)</div><div class="ttdef"><b>Definition:</b> Matrix.h:700</div></div>
 <div class="ttc" id="namespacestd_html_a0ec62350e795e225863d4d372a677df2"><div class="ttname"><a href="namespacestd.html#a0ec62350e795e225863d4d372a677df2">std::max</a></div><div class="ttdeci">geom::Vec&lt; T, N &gt; max(const geom::Vec&lt; T, N &gt; &amp;a, const geom::Vec&lt; T, N &gt; &amp;b)</div><div class="ttdef"><b>Definition:</b> Vec.h:326</div></div>
 <div class="ttc" id="namespacestd_html_a940d79ad42b88fd9843ba51a629d40e1"><div class="ttname"><a href="namespacestd.html#a940d79ad42b88fd9843ba51a629d40e1">std::ceil</a></div><div class="ttdeci">geom::Vec&lt; T, N &gt; ceil(const geom::Vec&lt; T, N &gt; &amp;v)</div><div class="ttdef"><b>Definition:</b> Vec.h:358</div></div>
 <div class="ttc" id="group__function_html_ga93c494d2f264e2897e1b7a6d2da6297f"><div class="ttname"><a href="group__function.html#ga93c494d2f264e2897e1b7a6d2da6297f">std::acos</a></div><div class="ttdeci">geom::Dual&lt; T &gt; acos(const geom::Dual&lt; T &gt; &amp;d)</div><div class="ttdoc">Arccos (inverse cosine) function. </div><div class="ttdef"><b>Definition:</b> Dual.h:327</div></div>
 <div class="ttc" id="namespacestd_html_a1c9486d7173f6c910e1f995c6fa13e8c"><div class="ttname"><a href="namespacestd.html#a1c9486d7173f6c910e1f995c6fa13e8c">std::abs</a></div><div class="ttdeci">geom::Vec&lt; T, N &gt; abs(const geom::Vec&lt; T, N &gt; &amp;v)</div><div class="ttdef"><b>Definition:</b> Vec.h:342</div></div>
 <div class="ttc" id="namespacestd_html_aec98ef7d00508b932139c05b10672a02"><div class="ttname"><a href="namespacestd.html#aec98ef7d00508b932139c05b10672a02">std::floor</a></div><div class="ttdeci">geom::Vec&lt; T, N &gt; floor(const geom::Vec&lt; T, N &gt; &amp;v)</div><div class="ttdef"><b>Definition:</b> Vec.h:350</div></div>
-<div class="ttc" id="group__matrix_html_ga4ca8a4cc286eb011023e4c4adae9e27b"><div class="ttname"><a href="group__matrix.html#ga4ca8a4cc286eb011023e4c4adae9e27b">geom::sub</a></div><div class="ttdeci">void sub(Md *d, const Ma &amp;a, const Mb &amp;b)</div><div class="ttdef"><b>Definition:</b> Matrix.h:700</div></div>
-<div class="ttc" id="group__matrix_html_gada3c858a1219dc51e34e8c6eff00d155"><div class="ttname"><a href="group__matrix.html#gada3c858a1219dc51e34e8c6eff00d155">geom::operator-</a></div><div class="ttdeci">Mx operator-(const Ma &amp;a, const Mb &amp;b)</div><div class="ttdef"><b>Definition:</b> Matrix.h:890</div></div>
+<div class="ttc" id="group__matrix_html_gad29282e95cba76934ebf5ebff8dabf1d"><div class="ttname"><a href="group__matrix.html#gad29282e95cba76934ebf5ebff8dabf1d">geom::add</a></div><div class="ttdeci">void add(Matrix *d, const Matrix1 &amp;a, const Matrix2 &amp;b)</div><div class="ttdef"><b>Definition:</b> Matrix.h:674</div></div>
+<div class="ttc" id="group__matrix_html_gaedf95ce414e21e18e3da3f526b52dad7"><div class="ttname"><a href="group__matrix.html#gaedf95ce414e21e18e3da3f526b52dad7">geom::operator!=</a></div><div class="ttdeci">bool operator!=(const Matrix1 &amp;a, const Matrix2 &amp;b)</div><div class="ttdef"><b>Definition:</b> Matrix.h:964</div></div>
 <div class="ttc" id="namespacestd_html_ab72c97cbf1524c7ccd3263d793823616"><div class="ttname"><a href="namespacestd.html#ab72c97cbf1524c7ccd3263d793823616">std::min</a></div><div class="ttdeci">geom::Vec&lt; T, N &gt; min(const geom::Vec&lt; T, N &gt; &amp;a, const geom::Vec&lt; T, N &gt; &amp;b)</div><div class="ttdef"><b>Definition:</b> Vec.h:334</div></div>
 <div class="ttc" id="group__function_html_ga544e92cb874abbcc6d0636db7150eced"><div class="ttname"><a href="group__function.html#ga544e92cb874abbcc6d0636db7150eced">geom::mix</a></div><div class="ttdeci">T mix(S t, T a, T b)</div><div class="ttdef"><b>Definition:</b> Utils.h:40</div></div>
-<div class="ttc" id="group__matrix_html_ga5acc85c8aa5280f24693d04b24855589"><div class="ttname"><a href="group__matrix.html#ga5acc85c8aa5280f24693d04b24855589">geom::operator==</a></div><div class="ttdeci">bool operator==(const Ma &amp;a, const Mb &amp;b)</div><div class="ttdef"><b>Definition:</b> Matrix.h:930</div></div>
 <div class="ttc" id="classgeom_1_1_vec_html"><div class="ttname"><a href="classgeom_1_1_vec.html">geom::Vec</a></div><div class="ttdoc">A tuple of N elements of type T. </div><div class="ttdef"><b>Definition:</b> LinalgTypes.h:91</div></div>
-<div class="ttc" id="group__matrix_html_gaa4a33c0f1bb911ce5235ceb09dca799a"><div class="ttname"><a href="group__matrix.html#gaa4a33c0f1bb911ce5235ceb09dca799a">geom::add</a></div><div class="ttdeci">void add(Md *d, const Ma &amp;a, const Mb &amp;b)</div><div class="ttdef"><b>Definition:</b> Matrix.h:674</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat May 24 2014 12:51:01 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat May 24 2014 13:12:44 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

@@ -121,7 +121,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            return_t;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    </div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md&gt;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#gaa4a33c0f1bb911ce5235ceb09dca799a">add</a>(Md *d, <span class="keyword">const</span> Ma &amp;a, <span class="keyword">const</span> Mb &amp;b) {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#gad29282e95cba76934ebf5ebff8dabf1d">add</a>(Md *d, <span class="keyword">const</span> Ma &amp;a, <span class="keyword">const</span> Mb &amp;b) {</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keyword">typename</span> Md::iterator d_i = d-&gt;begin();</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keyword">typename</span> Ma::const_iterator a_i = a.begin();</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keyword">typename</span> Mb::const_iterator b_i = b.begin();</div>
@@ -131,7 +131,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    }</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    </div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md&gt;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#ga4ca8a4cc286eb011023e4c4adae9e27b">sub</a>(Md *d, <span class="keyword">const</span> Ma &amp;a, <span class="keyword">const</span> Mb &amp;b) {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#gaedd89060fc778b8fdccc689754607925">sub</a>(Md *d, <span class="keyword">const</span> Ma &amp;a, <span class="keyword">const</span> Mb &amp;b) {</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keyword">typename</span> Md::iterator d_i = d-&gt;begin();</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keyword">typename</span> Ma::const_iterator a_i = a.begin();</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keyword">typename</span> Mb::const_iterator b_i = b.begin();</div>
@@ -159,7 +159,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="comment">// arbitrary destination</span></div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    </div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md&gt;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#gaa4a33c0f1bb911ce5235ceb09dca799a">add</a>(Md *dest, <span class="keyword">const</span> Ma &amp;a, <span class="keyword">const</span> Mb &amp;b) {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#gad29282e95cba76934ebf5ebff8dabf1d">add</a>(Md *dest, <span class="keyword">const</span> Ma &amp;a, <span class="keyword">const</span> Mb &amp;b) {</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        dest-&gt;setZero();</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keyword">const</span> index_t diag = <a class="code" href="namespacestd.html#ab72c97cbf1524c7ccd3263d793823616">std::min</a>(a.rows(), a.cols());</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        </div>
@@ -171,7 +171,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    }</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    </div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md&gt;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#ga4ca8a4cc286eb011023e4c4adae9e27b">sub</a>(Md *dest, <span class="keyword">const</span> Ma &amp;a, <span class="keyword">const</span> Mb &amp;b) {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#gaedd89060fc778b8fdccc689754607925">sub</a>(Md *dest, <span class="keyword">const</span> Ma &amp;a, <span class="keyword">const</span> Mb &amp;b) {</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        dest-&gt;setZero();</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keyword">const</span> index_t diag = <a class="code" href="namespacestd.html#ab72c97cbf1524c7ccd3263d793823616">std::min</a>(a.rows(), a.cols());</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        </div>
@@ -186,7 +186,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="comment">// (save a setZero, and use bare pointers).</span></div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    </div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U, index_t P, index_t Q&gt;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#gaa4a33c0f1bb911ce5235ceb09dca799a">add</a>(DiagMatrix&lt;U,P,Q&gt; *dest, <span class="keyword">const</span> Ma &amp;a, <span class="keyword">const</span> Mb &amp;b) {</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#gad29282e95cba76934ebf5ebff8dabf1d">add</a>(DiagMatrix&lt;U,P,Q&gt; *dest, <span class="keyword">const</span> Ma &amp;a, <span class="keyword">const</span> Mb &amp;b) {</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keyword">const</span> T *a_i = a.diagonal_begin();</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keyword">const</span> S *b_i = b.diagonal_begin();</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        U *d_i = dest-&gt;diagonal_begin();</div>
@@ -197,7 +197,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    }</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    </div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U, index_t P, index_t Q&gt;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#ga4ca8a4cc286eb011023e4c4adae9e27b">sub</a>(DiagMatrix&lt;U,P,Q&gt; *dest, <span class="keyword">const</span> Ma &amp;a, <span class="keyword">const</span> Mb &amp;b) {</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#gaedd89060fc778b8fdccc689754607925">sub</a>(DiagMatrix&lt;U,P,Q&gt; *dest, <span class="keyword">const</span> Ma &amp;a, <span class="keyword">const</span> Mb &amp;b) {</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keyword">const</span> T *a_i = a.diagonal_begin();</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keyword">const</span> S *b_i = b.diagonal_begin();</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        U *d_i = dest-&gt;diagonal_begin();</div>
@@ -300,13 +300,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">/* MATRIXARITHMETIC_H */</span><span class="preprocessor"></span></div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;<span class="preprocessor"></span></div>
 <div class="ttc" id="group__linalg_html_gab4ef5a5844e69301ae83804a9770881b"><div class="ttname"><a href="group__linalg.html#gab4ef5a5844e69301ae83804a9770881b">geom::scale</a></div><div class="ttdeci">AffineTransform&lt; T, N &gt; scale(const Vec&lt; T, N &gt; &amp;sx)</div><div class="ttdef"><b>Definition:</b> AffineTransform.h:535</div></div>
-<div class="ttc" id="group__matrix_html_ga4ca8a4cc286eb011023e4c4adae9e27b"><div class="ttname"><a href="group__matrix.html#ga4ca8a4cc286eb011023e4c4adae9e27b">geom::sub</a></div><div class="ttdeci">void sub(Md *d, const Ma &amp;a, const Mb &amp;b)</div><div class="ttdef"><b>Definition:</b> Matrix.h:700</div></div>
+<div class="ttc" id="group__matrix_html_gaedd89060fc778b8fdccc689754607925"><div class="ttname"><a href="group__matrix.html#gaedd89060fc778b8fdccc689754607925">geom::sub</a></div><div class="ttdeci">void sub(Matrix *d, const Matrix1 &amp;a, const Matrix2 &amp;b)</div><div class="ttdef"><b>Definition:</b> Matrix.h:700</div></div>
+<div class="ttc" id="group__matrix_html_gad29282e95cba76934ebf5ebff8dabf1d"><div class="ttname"><a href="group__matrix.html#gad29282e95cba76934ebf5ebff8dabf1d">geom::add</a></div><div class="ttdeci">void add(Matrix *d, const Matrix1 &amp;a, const Matrix2 &amp;b)</div><div class="ttdef"><b>Definition:</b> Matrix.h:674</div></div>
 <div class="ttc" id="namespacestd_html_ab72c97cbf1524c7ccd3263d793823616"><div class="ttname"><a href="namespacestd.html#ab72c97cbf1524c7ccd3263d793823616">std::min</a></div><div class="ttdeci">geom::Vec&lt; T, N &gt; min(const geom::Vec&lt; T, N &gt; &amp;a, const geom::Vec&lt; T, N &gt; &amp;b)</div><div class="ttdef"><b>Definition:</b> Vec.h:334</div></div>
-<div class="ttc" id="group__matrix_html_gaa4a33c0f1bb911ce5235ceb09dca799a"><div class="ttname"><a href="group__matrix.html#gaa4a33c0f1bb911ce5235ceb09dca799a">geom::add</a></div><div class="ttdeci">void add(Md *d, const Ma &amp;a, const Mb &amp;b)</div><div class="ttdef"><b>Definition:</b> Matrix.h:674</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat May 24 2014 12:51:01 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat May 24 2014 13:12:43 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>
