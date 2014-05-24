@@ -96,10 +96,11 @@ namespace geom {
              * @param ray A ray.
              * @param side Whether to hit-test the front (outside) or back 
              * (inside) of the cylinder.
+             * @param endcaps Whether to trace the end caps.
              * @return A ray Hit describing whether and where the ray intersects 
              * this cylinder, as well as the normal, side hit, and ray parameter.
              */
-            Hit<T,N> trace(const Ray<T,N> &ray, HitSide side) const {
+            Hit<T,N> trace(const Ray<T,N> &ray, HitSide side, bool endcaps=true) const {
                 Hit<T,N> h;
                 
                 /* The general principle is as follows:
@@ -133,8 +134,6 @@ namespace geom {
                         // miss
                         return h;
                     }
-                    
-                    // decide if we must hit-test the caps
                     T hdotaxis = l + m * s;
                     Vec<T,N> n;
                     Vec<T,N> px;
@@ -156,16 +155,18 @@ namespace geom {
                         px = p1;
                     }
                     
-                    Plane<T,N> plane(n, px); // normalizes `n`
-                    if (detail::_ImplTracePlane(&s, plane, ray, &side)) {
-                        Vec<T,N> p = ray.atMultiple(s);
-                        if (p.dist2(px) <= radius * radius) {
-                            // within cap radius; hit
-                            h.p = p;
-                            h.n = plane.normal;
-                            h.s = s;
-                            h.side = side;
-                            h.hit  = true;
+                    if (endcaps) {
+                        Plane<T,N> plane(n, px); // normalizes `n`
+                        if (detail::_ImplTracePlane(&s, plane, ray, &side)) {
+                            Vec<T,N> p = ray.atMultiple(s);
+                            if (p.dist2(px) <= radius * radius) {
+                                // within cap radius; hit
+                                h.p = p;
+                                h.n = plane.normal;
+                                h.s = s;
+                                h.side = side;
+                                h.hit  = true;
+                            }
                         }
                     }
                 }
