@@ -72,6 +72,18 @@ public:
             return Quat<T>(axis.unit() * std::sin(angle*0.5), std::cos(angle*0.5));
         }
     }
+     
+    /**
+     * Rotation to align one vector with another.
+     * @param v Unit vector to align.
+     * @param alignWith Unit direction to align with.
+     * @return A quaternion rotating `v` into alignment with `alignWith`.
+     */
+    static inline Quat<T> rotDirectionAlign(const Vec<T,3> &v, const Vec<T,3> &alignWith) {
+        Vec<T,3> rotax = v ^ alignWith;
+        T d = v.dot(alignWith);
+        return Quat<T>(rotax, d);
+    }
 
     /*******************************
      * Operators                   *

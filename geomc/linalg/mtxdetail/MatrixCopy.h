@@ -91,7 +91,7 @@ namespace detail {
  * example when copying the contents of a diagonal matrix to another, any attempt
  * to write off the diagonal will throw an exception).
  * 
- * `Md` and `Ms` must be matrix or vector types whose dimensions match.
+ * `Matrix` and `Matrix1` must be matrix or vector types whose dimensions match.
  * If the dimensions can be determined to mismatch at compile-time, the program
  * is considered invalid and the compilation will fail. If either object has dynamic
  * size, the check will be deferred to runtime, throwing a `DimensionMismatchException`
@@ -101,7 +101,7 @@ namespace detail {
  * @param [in]  src  A matrix object.
  */
 #ifdef PARSING_DOXYGEN
-template <typename Md, typename Ms> void mtxcopy(Md *into, const Ms &src) {}
+template <typename Matrix, typename Matrix1> void mtxcopy(Matrix *into, const Matrix1 &src) {}
 #endif
 template <typename Md, typename Ms>
 void mtxcopy(Md *into, const Ms &src,

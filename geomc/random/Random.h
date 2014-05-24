@@ -55,15 +55,19 @@
  *      - doesn't make uniform interval choices slower
  *      - doesn't make unit and interval choices more difficult or cumbersome to use.
  * 
+ * There is something to be said for simply transforming floats-- assumed to 
+ * be uniform-- to shapes with simple functions that are agnostic of the generator.
+ * This is certainly better for stratified/LD sampling.
+ * 
  * The one thing I forbid is constructing a new object specifically to pick from a 
- * uniform distribution.
+ * uniform distribution. That's too verbose.
  * 
  * what we have is
  *   entropy -> PRNG -> (random bits) -> uniform real^n -> distribution
  *    kb?       MT?                      statified?        uniform?
  *    time?     LC?                      Downey?           normal?
  *    network?  yarrow?                  Hammersley?       poisson?
- *    device?   etc.                                       etc.
+ *    device?   etc.                     random?           etc.
  *    hard seed?
  *    etc.
  * 
@@ -75,6 +79,8 @@
  *    requires an estimate of entropy bits. at the very least,
  *    each PRNG should take a single 32 or 64 bit seed. beyond that, modularity
  *    is not important.
+ *       note that Hammersley (?) is completely deterministic and doesn't take a 
+ *       seed.
  * PRNG:
  *    this is pretty straightforward, a PRNG's only job is to output random bits.
  *    so having a method to fill an array with bits is maybe a useful thing,

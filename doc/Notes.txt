@@ -59,11 +59,20 @@ MATRIX:
     - backwards grid iterators are definitely broken.
 
 GENERAL CLEANUP/MAJOR TODOS:
-  - fix Quaternion ops to return Quat<T>
+  - decide and enforce a consistent naming style 
+    (under_score(), camelCase(), or CapitalCase()?)
+  - fix Random 
+    - to partially specialize rand<T>()
+    - implement Ziggurat; use gaussian blob strategy for picking high
+      dimensional spheres.
+  x fix Quaternion ops to return Quat<T>
     > note that a branch with this exists using the curiously recurring pattern,
       but it makes the docs ugly. stupid doxygen
   - open / closed interval logic on rect?
   - make more spatial partitions?
+  - more basic shapes
+    (cone, cylinder, torus e.g.)
+  - oriented box
   - fix hash functions
   - put sources back in with headers; remove redundant /include dir
     and fix up makefile to work with it.
@@ -161,8 +170,15 @@ GENERAL CLEANUP/MAJOR TODOS:
     - define Region<T,N> which simply has contains(Vec<T,N>)
       can be used for planar shapes, or volumes, etc.
       Rects and Spheres are regions, as are planes, arguably.
+    - refactor trace() to be bool trace(Hit *h, Ray, ...)
+      - this way we can forgo some calculations if h is null, and we only
+        need a yes/no test.
+      - we might also conditionally compute things based on the subclass of Hit
+        that is passed in-- or its flags (u,v,w; normal, surface derivatives, ...)
     x implement planes
     x implement triangles(/quads?)
+    x implement cylinders
+    - implement cones/circular frustums (vec p0, vec p1, T r0, T r1)
     - implement oriented bounding boxes
     - implement orientedShape?
       - OBB isxn test: separating axis theorem (6 axes for 3d OBBs).

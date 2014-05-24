@@ -19,7 +19,7 @@ namespace geom {
     
     /** 
      * @ingroup shape
-     * @brief A N-dimensional cylinder.
+     * @brief An N-dimensional cylinder.
      * 
      * Represents all the points that lie within a certain distance `r` of a 
      * line segment; capped by two `(N-2)`-spheres (i.e. line segments if N=2; 

@@ -299,7 +299,7 @@ namespace geom {
  * Do two matrices / vectors share storage?
  * 
  * In other words, might writing to one object change the contents of the other?
- * `Ma` and `Mb` must be matrix or vector types.
+ * `Matrix1` and `Matrix2` must be matrix or vector types.
  * 
  * @param [in] a A matrix or vector object.
  * @param [in] b A matrix or vector object.
@@ -307,7 +307,7 @@ namespace geom {
  * @return `true` if writing to `a` may alter `b` or vice versa; `false` otherwise.
  */
 #ifdef PARSING_DOXYGEN
-template <typename Ma, typename Mb> bool mtx_aliases_storage(const Ma &a, const Mb &b) {}
+template <typename Matrix1, typename Matrix2> bool mtx_aliases_storage(const Matrix1 &a, const Matrix2 &b) {}
 #endif
 // do two matrices share any storage?
 template <typename Ma, typename Mb>
@@ -370,7 +370,7 @@ inline bool mtx_aliases_storage(const Vec<T,N> &a, const Vec<T,N> &b) {
  * @param [in]  b    A matrix object or vector with dimension `(a.cols() x N)`
  **/
 #ifdef PARSING_DOXYGEN
-template <typename Md, typename Ma, typename Mb> Md& mul(Md *into, const Ma &a, const Mb &b) {}
+template <typename Matrix, typename Matrix1, typename Matrix2> Matrix& mul(Matrix *into, const Matrix1 &a, const Matrix2 &b) {}
 #endif
 
 // (a x b) * (b x c) -> (a x c)
@@ -480,7 +480,7 @@ mul(Md *into, const Ma &a, const Mb &b) {
 /**
  * Matrix multiplication.
  * 
- * `Ma` and `Mb` may either be matrices or vectors. Left operands are, if 
+ * `Matrix1` and `Matrix2` may either be matrices or vectors. Left operands are, if 
  * vectors, assumed to be rows, while right operands will be treated as columns.
  * The dimensions of `a` and `b` must satisfy `(a x b) * (b x c)`. If the dimensions
  * can be determined to mismatch at compile time, the program is considered invalid and 
@@ -495,7 +495,7 @@ mul(Md *into, const Ma &a, const Mb &b) {
  * @return A new matrix or vector object containing the result of `a * b`. 
 */
 #ifdef PARSING_DOXYGEN
-template <typename Ma, typename Mb> Md mul(const Ma &a, const Mb &b) {}
+template <typename Matrix1, typename Matrix2> Matrix mul(const Matrix1 &a, const Matrix2 &b) {}
 #endif
 template <typename Ma, typename Mb>
 typename boost::enable_if_c<
@@ -532,7 +532,7 @@ mul(const Ma &a, const Mb &b) {
  * @param [in] m A matrix object
  */
 #ifdef PARSING_DOXYGEN
-template <typename Md, typename Mx> void transpose(Md *into, const Mx &m) {}
+template <typename Matrix1, typename Matrix2> void transpose(Matrix1 *into, const Matrix2 &m) {}
 #endif
 template <typename Md, typename Mx>
 typename boost::enable_if_c<
@@ -575,7 +575,7 @@ transpose(Md *into, const Mx &m) {
  * a `SimpleMatrix`.
  */
 #ifdef PARSING_DOXYGEN
-template <typename Mx> Md transpose(const Mx &m) {}
+template <typename Matrix1> Matrix transpose(const Matrix1 &m) {}
 #endif
 template <typename Mx>
 typename boost::enable_if_c<
@@ -605,7 +605,7 @@ transpose(const Mx &m) {
  * @return `false` if the matrix is singular and could not be inverted, `true` otherwise.
  */
 #ifdef PARSING_DOXYGEN
-template <typename Md, typename Mx> bool inv(Md *into, const Mx &src) {}
+template <typename Matrix1, typename Matrix2> bool inv(Matrix1 *into, const Matrix2 &src) {}
 #endif
 template <typename Md, typename Mx>
 bool inv(Md *into, const Mx &src,
@@ -638,7 +638,7 @@ bool inv(Md *into, const Mx &src,
  * `m` could not be inverted.
  */
 #ifdef PARSING_DOXYGEN
-template <typename Mx> Md inv(const Mx &m, bool *success) {}
+template <typename Matrix1> Matrix inv(const Matrix1 &m, bool *success) {}
 #endif
 template <typename Mx>
 typename detail::_ImplMtxInv<Mx>::return_t inv(const Mx &m, bool *success, 
@@ -671,7 +671,7 @@ typename detail::_ImplMtxInv<Mx>::return_t inv(const Mx &m, bool *success,
  * @param [in] b A matrix object
  */
 #ifdef PARSING_DOXYGEN
-template <typename Md, typename Ma, typename Mb> void add(Md *d, const Ma &a, const Mb &b) {}
+template <typename Matrix, typename Matrix1, typename Matrix2> void add(Matrix *d, const Matrix1 &a, const Matrix2 &b) {}
 #endif
 template <typename Md, typename Ma, typename Mb>
 typename boost::enable_if_c<
@@ -697,7 +697,7 @@ add(Md *d, const Ma &a, const Mb &b) {
  * @param [in] b A matrix object
  */
 #ifdef PARSING_DOXYGEN
-template <typename Md, typename Ma, typename Mb> void sub(Md *d, const Ma &a, const Mb &b) {}
+template <typename Matrix, typename Matrix1, typename Matrix2> void sub(Matrix *d, const Matrix1 &a, const Matrix2 &b) {}
 #endif
 template <typename Md, typename Ma, typename Mb>
 typename boost::enable_if_c<
@@ -723,7 +723,7 @@ sub(Md *d, const Ma &a, const Mb &b) {
  * @return A new matrix containing `a + b`, usually a `SimpleMatrix`.
  */
 #ifdef PARSING_DOXYGEN
-template <typename Ma, typename Mb> Md add(const Ma &a, const Mb &b) {}
+template <typename Matrix1, typename Matrix2> Matrix add(const Matrix1 &a, const Matrix2 &b) {}
 #endif
 template <typename Ma, typename Mb>
 typename boost::enable_if_c<
@@ -750,7 +750,7 @@ add(const Ma &a, const Mb &b) {
  * @return A new matrix containing `a - b`, usually a `SimpleMatrix`.
  */
 #ifdef PARSING_DOXYGEN
-template <typename Ma, typename Mb> Md sub(const Ma &a, const Mb &b) {}
+template <typename Matrix1, typename Matrix2> Matrix sub(const Matrix1 &a, const Matrix2 &b) {}
 #endif
 template <typename Ma, typename Mb>
 typename boost::enable_if_c<
@@ -782,7 +782,7 @@ sub(const Ma &a, const Mb &b) {
  * @param [in]  m Matrix object to be scaled.
  */
 #ifdef PARSING_DOXYGEN
-template <typename U typename Mx, typename Md> void scale(Md *d, U k, const Mx &m) {}
+template <typename U typename Matrix, typename Matrix> void scale(Matrix1 *d, U k, const Matrix &m) {}
 #endif
 template <typename U, typename Mx, typename Md>
 typename boost::enable_if_c<
@@ -809,7 +809,7 @@ scale(Md *d, U k, const Mx &m) {
  * @return A scaled copy of `m`.
  */
 #ifdef PARSING_DOXYGEN
-template <typename U typename Mx> Mx scale(U k, const Mx &m) {}
+template <typename U, typename Matrix> Matrix scale(U k, const Matrix &m) {}
 #endif
 template <typename U, typename Mx>
 typename boost::enable_if_c<
@@ -832,11 +832,11 @@ scale(U k, const Mx &m) {
 /**
  * scalar * matrix
  * 
- * All elements of `m` are multiplied by `k`. `Mx` must be a matrix type, and
+ * All elements of `m` are multiplied by `k`. `Matrix` must be a matrix type, and
  * `U` must satisfy `boost::is_scalar<U>`.
  */
 #ifdef PARSING_DOXYGEN
-template <typename U, typename Mx> Mx operator*(U k, const Mx &m) {}
+template <typename U, typename Matrix> Matrix operator*(U k, const Matrix &m) {}
 #endif
 template <typename U, typename Mx>
 inline typename boost::enable_if_c<
@@ -849,11 +849,11 @@ inline typename boost::enable_if_c<
 /**
  * matrix * scalar
  * 
- * All elements of `m` are multiplied by `k`. `Mx` must be a matrix type, and
+ * All elements of `m` are multiplied by `k`. `Matrix` must be a matrix type, and
  * `U` must satisfy `boost::is_scalar<U>`.
  */
 #ifdef PARSING_DOXYGEN
- template <typename U, typename Mx> Mx operator*(const Mx &m, U k) {}
+ template <typename U, typename Matrix> Matrix operator*(const Matrix &m, U k) {}
 #endif
 template <typename U, typename Mx>
 inline typename boost::enable_if_c<
@@ -867,11 +867,11 @@ inline typename boost::enable_if_c<
  * matrix + matrix
  * 
  * Add the elements of `a` and `b`. The return type will be chosen appropriately
- * based on the arguments (usually a `SimpleMatrix`). `Ma` and `Mb` must both be 
+ * based on the arguments (usually a `SimpleMatrix`). `Matrix1` and `Matrix2` must both be 
  * matrix types.
  */
 #ifdef PARSING_DOXYGEN
-template <typename Ma, typename Mb> Mx operator+(const Ma &a, const Mb &b) {}
+template <typename Matrix1, typename Matrix2> Matrix operator+(const Matrix1 &a, const Matrix2 &b) {}
 #endif
 template <typename Ma, typename Mb>
 inline typename detail::_ImplMatrixAddReturnType<Ma,Mb>::return_t
@@ -883,11 +883,11 @@ operator+(const Ma &a, const Mb &b) {
  * matrix - matrix. 
  * 
  * Subtract the elements of `b` from `a`. The return type will be chosen appropriately
- * based on the arguments (usually a `SimpleMatrix`). `Ma` and `Mb` must both be
+ * based on the arguments (usually a `SimpleMatrix`). `Matrix1` and `Matrix2` must both be
  * matrix types.
  */
 #ifdef PARSING_DOXYGEN
-template <typename Ma, typename Mb> Mx operator-(const Ma &a, const Mb &b) {}
+template <typename Matrix1, typename Matrix2> Matrix operator-(const Matrix1 &a, const Matrix2 &b) {}
 #endif
 template <typename Ma, typename Mb>
 inline typename detail::_ImplMatrixAddReturnType<Ma,Mb>::return_t
@@ -900,7 +900,7 @@ operator-(const Ma &a, const Mb &b) {
  * 
  * Matrix multiplication is performed on `a` and `b`.
  * 
- * `Ma` and `Mb` may either be matrices or vectors (but may not _both_ be vectors;
+ * `Matrix1` and `Matrix2` may either be matrices or vectors (but may not _both_ be vectors;
  * this is handled by a different multiplication operator). Left operands are, if 
  * vectors, assumed to be rows, while right operands will be treated as columns.
  * The dimensions of `a` and `b` must satisfy `(a x b) * (b x c)`. If the dimensions
@@ -912,7 +912,7 @@ operator-(const Ma &a, const Mb &b) {
  * will have dimension `(a x c)`.
  */
 #ifdef PARSING_DOXYGEN
-template <typename Ma, typename Mb> Mx operator*(const Ma &a, const Mb &b) {}
+template <typename Matrix1, typename Matrix2> Matrix operator*(const Matrix1 &a, const Matrix2 &b) {}
 #endif
 template <typename Ma, typename Mb>
 inline typename detail::MatrixMultReturnType<Ma,Mb>::return_t
@@ -924,10 +924,10 @@ operator*(const Ma &a, const Mb &b) {
  * matrix == matrix. 
  * 
  * Matrices `a` and `b` are equal if and only if `a` and `b` have the same dimension 
- * and all corresponding elements are equal. `Ma` and `Mb` must both be matrix types. 
+ * and all corresponding elements are equal. `Matrix1` and `Matrix2` must both be matrix types. 
  */
 #ifdef PARSING_DOXYGEN
-template <typename Ma, typename Mb> bool operator==(const Ma &a, const Mb &b) {}
+template <typename Matrix1, typename Matrix2> bool operator==(const Matrix1 &a, const Matrix2 &b) {}
 #endif
 template <typename Ma, typename Mb>
 typename boost::enable_if_c<
@@ -961,7 +961,7 @@ operator==(const Ma &a, const Mb &b) {
  * and all corresponding elements are equal.
  */
 #ifdef PARSING_DOXYGEN
-template <typename Ma, typename Mb> bool operator!=(const Ma &a, const Mb &b) {}
+template <typename Matrix1, typename Matrix2> bool operator!=(const Matrix1 &a, const Matrix2 &b) {}
 #endif
 template <typename Ma, typename Mb>
 inline typename boost::enable_if_c<detail::IsMatrix<Ma>::val and detail::IsMatrix<Mb>::val, bool>::type
@@ -978,7 +978,7 @@ operator!=(const Ma &a, const Mb &b) {
  * separated by spaces and rows are separated by newlines.
  */
 #ifdef PARSING_DOXYGEN
-template <typename Mx> std::ostream& operator<< (std::ostream &s, const Mx &m) {}
+template <typename Matrix> std::ostream& operator<< (std::ostream &s, const Matrix &m) {}
 #endif
 template <typename Mx>
 typename boost::enable_if_c<detail::IsMatrix<Mx>::val, std::ostream &>::type

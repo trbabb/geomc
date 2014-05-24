@@ -13,6 +13,8 @@
 #include <geomc/shape/Bounded.h>
 #include <geomc/function/Utils.h>
 
+#include "shapedetail/TraceImpl.h"
+
 namespace geom {
 
     /** 
@@ -30,27 +32,27 @@ namespace geom {
         /**
          * Construct a sphere at the origin with radius 1.
          */
-        Sphere():center(Vec<T,N>::zeros),r(1){}
+        Sphere():center(Vec<T,N>::zeros),r(1) {}
         
         /**
          * Construct a sphere with center at the point `c`, having radius `r`.
          * @param c Center of sphere.
          * @param r Radius of spehre.
          */
-        Sphere(Vec<T,N> c, T r):center(c),r(r){}
+        Sphere(Vec<T,N> c, T r):center(c),r(r) {}
         
         /**
          * @return An axis-aligned bounding box completely containing this
          * sphere.
          */
-        Rect<T,N> bounds(){
+        Rect<T,N> bounds() {
             Vec<T,N> rvec = Vec<T,N>(r);
             return Rect<T,N>(center-rvec, center+rvec);
         }
 
         /**
          * Sphere-point intersection test.
-         * @param p A point
+         * @param p A point.
          * @return `true` if `p` is inside or on the surface of the sphere, `false`
          * otherwise.
          */
@@ -87,34 +89,17 @@ namespace geom {
             T b = -2*dir.dot(x0);
             T c = x0.dot(x0) - r2;
             T roots[2];
-            if (quadratic_solve(roots,a,b,c)){
-                T s, s0, s1;
-                // order the roots along the ray, from -inf; s0 first.
-                if (roots[0] < roots[1]){
-                    s0 = roots[0];
-                    s1 = roots[1];
-                } else {
-                    s0 = roots[1];
-                    s1 = roots[0];
+            if (quadratic_solve(roots,a,b,c)) {
+                T s;
+                if (detail::chooseRayHit(&s, roots, &side)) {
+                    // successful hit
+                    h.p = ray.atMultiple(s);
+                    h.n = (h.p - center).unit();
+                    h.s = s;
+                    h.side = side;
+                    h.hit  = true;
+                    return h;
                 }
-                // lesser root will always be the frontside, greater will be the back.
-                // if tracing both front and back and both hit, return the nearer (front).
-                if (s0 > 0 && (side & HIT_FRONT)){
-                    s = s0;
-                    h.side = HIT_FRONT;
-                } else if (s1 > 0 && (side & HIT_BACK)){
-                    s = s1;
-                    h.side = HIT_BACK;
-                } else {
-                    return h; // hit behind origin; return miss.
-                }
-                
-                // successful hit
-                h.p = ray.atMultiple(s);
-                h.n = (h.p - center).unit();
-                h.s = s;
-                h.hit = true;
-                return h;
             } else {
                 // no intersection; return miss.
                 return h;
@@ -146,9 +131,9 @@ namespace geom {
         T b = -2 * dir.dot(x0);
         T c = x0.dot(x0) - r2;
         T roots[2];
-        if (quadratic_solve(roots,a,b,c)){
+        if (quadratic_solve(roots,a,b,c)) {
             // order the roots along the ray, from -inf; s0 first.
-            if (roots[0] < roots[1]){
+            if (roots[0] < roots[1]) {
                 *s0 = roots[0];
                 *s1 = roots[1];
             } else {

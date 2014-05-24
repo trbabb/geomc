@@ -72,6 +72,35 @@ namespace detail {
         inline Ray<T,N> neg() const {
             return Ray<T,N>(origin, -direction);
         }
+        
+        /** @return The shortest distance from point `p` to the line
+         * described by this ray.
+         */
+        inline T distFromAxisTo(const Vec<T,3> &p) const {
+            return std::sqrt(dist2FromAxisTo(p));
+        }
+        
+        /**
+         * @return The square of the shortest distance from point `p` to
+         * the line described by this ray.
+         */
+        T dist2FromAxisTo(const Vec<T,3> &p) const {
+            Vec<T,N> b = p - origin;
+            T b2 = b.mag2();
+            T d  = direction.dot(b);
+            return b2 - (d * d / b2);
+        }
+
+        /**
+         * Return the direction normal to `v` which intersects both this ray
+         * and the point `p`.
+         */
+        Vec<T,N> directionFromAxisTo(const Vec<T,N> &p) const {
+            Vec<T,N> b = p - origin;
+            T d = b.dot(direction);
+            return p - (d / direction.mag2()) * direction;
+        }
+        
     }; //end of RayBase class
     
 } // namespace detail
@@ -101,22 +130,9 @@ namespace detail {
         /// Construct a ray with origin `o` and direction `v`.
         Ray(Vec<T,3> o, Vec<T,3> v):detail::RayBase<T,3>(o,v) {}
 
-        /** Return the shortest distance from point `p` to the line
-         * described by this ray.
-         */
-        T distFromAxisTo(Vec<T,3> p) const {
-            return std::sqrt((this->direction^(this->origin - p)).mag2() / this->direction.mag2());
-        }
-
-        /**
-         * Return the direction normal to `v` which intersects both this ray
-         * and the point `p`.
-         */
-        Vec<T,3> directionFromAxisTo(Vec<T,3> p) const {
-            Vec<T,3> perp = this->direction^(p^this->direction);
-            return perp * (p.dot(perp)/perp.mag());
-        }
-
+        // TODO: If we could get a cross product-free implementation of,
+        // the below, the entire Ray<3> specialization could be done away with.
+        
         /**
          * Return a ray connecting `this` with `r` at their closest approach.
          */
