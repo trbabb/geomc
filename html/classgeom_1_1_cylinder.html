@@ -91,6 +91,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classgeom_1_1_cylinder-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Cylinder&lt; T, N &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__shape.html">Shape</a></div></div>  </div>
@@ -114,7 +115,7 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_cylinder.html#a83fa30d10b20fcb9b6885183465c312b">Cylinder</a> (T r)</td></tr>
 <tr class="memdesc:a83fa30d10b20fcb9b6885183465c312b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a cylinder of radius <code>r</code> and length 1, with axis along X+. <br/></td></tr>
 <tr class="separator:a83fa30d10b20fcb9b6885183465c312b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98d2e4c9cffec71e9b31de87c109b960"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_cylinder.html#a98d2e4c9cffec71e9b31de87c109b960">Cylinder</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;p0, const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;p1, T radius)</td></tr>
+<tr class="memitem:a98d2e4c9cffec71e9b31de87c109b960"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_cylinder.html#a98d2e4c9cffec71e9b31de87c109b960">Cylinder</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;<a class="el" href="classgeom_1_1_cylinder.html#a668d099de6e768fde498a47b85adf5c4">p0</a>, const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;<a class="el" href="classgeom_1_1_cylinder.html#a2eff8b7bbf0f3b8986b4289dffce5b3d">p1</a>, T <a class="el" href="classgeom_1_1_cylinder.html#a0714908df4564adf9afd99c11624b337">radius</a>)</td></tr>
 <tr class="memdesc:a98d2e4c9cffec71e9b31de87c109b960"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a cylinder with arbitrary radius and endpoints.  <a href="#a98d2e4c9cffec71e9b31de87c109b960">More...</a><br/></td></tr>
 <tr class="separator:a98d2e4c9cffec71e9b31de87c109b960"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a612990008e174137acfd522ad179db26"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_cylinder.html#a612990008e174137acfd522ad179db26">contains</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;p) const </td></tr>
@@ -123,6 +124,21 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af58b0be9725006cf318033ee17af2774"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a403f6e42514bf30e76744155945f1561"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_hit.html">Hit</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_cylinder.html#a403f6e42514bf30e76744155945f1561">trace</a> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; &amp;ray, <a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> side) const </td></tr>
 <tr class="separator:a403f6e42514bf30e76744155945f1561"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a668d099de6e768fde498a47b85adf5c4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a668d099de6e768fde498a47b85adf5c4"></a>
+<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_cylinder.html#a668d099de6e768fde498a47b85adf5c4">p0</a></td></tr>
+<tr class="memdesc:a668d099de6e768fde498a47b85adf5c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Axis endpoint. <br/></td></tr>
+<tr class="separator:a668d099de6e768fde498a47b85adf5c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2eff8b7bbf0f3b8986b4289dffce5b3d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2eff8b7bbf0f3b8986b4289dffce5b3d"></a>
+<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_cylinder.html#a2eff8b7bbf0f3b8986b4289dffce5b3d">p1</a></td></tr>
+<tr class="memdesc:a2eff8b7bbf0f3b8986b4289dffce5b3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Axis endpoint. <br/></td></tr>
+<tr class="separator:a2eff8b7bbf0f3b8986b4289dffce5b3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0714908df4564adf9afd99c11624b337"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0714908df4564adf9afd99c11624b337"></a>
+T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_cylinder.html#a0714908df4564adf9afd99c11624b337">radius</a></td></tr>
+<tr class="memdesc:a0714908df4564adf9afd99c11624b337"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classgeom_1_1_cylinder.html" title="An N-dimensional cylinder. ">Cylinder</a> radius. <br/></td></tr>
+<tr class="separator:a0714908df4564adf9afd99c11624b337"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T, index_t N&gt;<br/>
@@ -172,8 +188,8 @@ class geom::Cylinder&lt; T, N &gt;</h3>
 <p>Construct a cylinder with arbitrary radius and endpoints. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">p0</td><td>First endpoint. </td></tr>
-    <tr><td class="paramname">p1</td><td>Second endpoint. </td></tr>
+    <tr><td class="paramname">p0</td><td>An endpoint of the cylinder axis. </td></tr>
+    <tr><td class="paramname">p1</td><td>An endpoint of the cylinder axis. </td></tr>
     <tr><td class="paramname">radius</td><td>Radius of cylinder. </td></tr>
   </table>
   </dd>
@@ -287,7 +303,7 @@ class geom::Cylinder&lt; T, N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat May 24 2014 13:17:22 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat May 24 2014 13:25:06 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>
