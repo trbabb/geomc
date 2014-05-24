@@ -21,14 +21,18 @@ namespace geom {
      * @ingroup shape
      * @brief An N-dimensional cylinder.
      * 
-     * Represents all the points that lie within a certain distance `r` of a 
-     * line segment; capped by two `(N-2)`-spheres (i.e. line segments if N=2; 
-     * disks if N=3; spheres if N=4).
+     * Represents an extrusion of an N-2 sphere. In other words, an extrusion of 
+     * a disk in 3D; an extrusion of a sphere in 4D; and an extrusion of a line 
+     * segment in 2D.
      */
     template <typename T, index_t N>
     class Cylinder : virtual public Bounded<T,N> {
         public:
-            Vec<T,N> p0, p1;
+            /// Axis endpoint.
+            Vec<T,N> p0;
+            /// Axis endpoint.
+            Vec<T,N> p1;
+            /// Cylinder radius.
             T radius;
         
             /// Construct a cylinder of radius and length 1, with axis along X+.
@@ -39,8 +43,8 @@ namespace geom {
             
             /**
              * @brief Construct a cylinder with arbitrary radius and endpoints.
-             * @param p0 First endpoint.
-             * @param p1 Second endpoint.
+             * @param p0 An endpoint of the cylinder axis.
+             * @param p1 An endpoint of the cylinder axis.
              * @param radius Radius of cylinder.
              */
             Cylinder(const Vec<T,N> &p0, const Vec<T,N> &p1, T radius) :
