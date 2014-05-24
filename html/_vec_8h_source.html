@@ -116,7 +116,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="comment">// fwd decl</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">namespace </span>detail {</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> M, <span class="keyword">typename</span> RefType&gt; <span class="keyword">class </span>MtxColIterator;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    };</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    }</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    </div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="comment">//TODO: Fix operators for Quat</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    </div>
@@ -278,7 +278,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    </div>
 <div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;}; <span class="comment">/* class Vec */</span></div>
 <div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;}; <span class="comment">// namespace geom</span></div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;} <span class="comment">// namespace geom</span></div>
 <div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;</div>
 <div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;</div>
 <div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="keyword">namespace </span>std {</div>
@@ -309,23 +309,83 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    <span class="keywordflow">return</span> v.ceil();</div>
 <div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;}</div>
 <div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;}; <span class="comment">// namespace std</span></div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* VEC_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
+<div class="line"><a name="l00366"></a><span class="lineno"><a class="line" href="namespacestd.html#ae6912e6307fd917b2bf3e8128729ade6">  366</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> <a class="code" href="group__function.html#ga7985ceba157f09c80c5128059cfe13c9">sqrt</a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> &amp;v) {</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> o;</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++) { </div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;        o[i] = <a class="code" href="group__function.html#ga7985ceba157f09c80c5128059cfe13c9">std::sqrt</a>(v[i]); </div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;    }</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;    <span class="keywordflow">return</span> o;</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;}</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
+<div class="line"><a name="l00378"></a><span class="lineno"><a class="line" href="namespacestd.html#a6c6278dc0dd614fbd2e4011958ef2fa8">  378</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> <a class="code" href="group__function.html#gaa3074d725debeb2c1d35e9915a411ff1">sin</a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> &amp;v) {</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> o;</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++) { </div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;        o[i] = <a class="code" href="group__function.html#gaa3074d725debeb2c1d35e9915a411ff1">std::sin</a>(v[i]); </div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    }</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;    <span class="keywordflow">return</span> o;</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;}</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
+<div class="line"><a name="l00390"></a><span class="lineno"><a class="line" href="namespacestd.html#a5baa88e6bc7f9d4177841ffcfb1679a9">  390</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> <a class="code" href="group__function.html#gabbc06c7f6c39cde83b065da510efd958">cos</a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> &amp;v) {</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> o;</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++) { </div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;        o[i] = <a class="code" href="group__function.html#gabbc06c7f6c39cde83b065da510efd958">std::cos</a>(v[i]); </div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    }</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    <span class="keywordflow">return</span> o;</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;}</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
+<div class="line"><a name="l00402"></a><span class="lineno"><a class="line" href="namespacestd.html#af40026b78ece7975da9dc200d536ef69">  402</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> <a class="code" href="group__function.html#gafab45ff35eeb6f514548b0a29048068d">tan</a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> &amp;v) {</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> o;</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++) { </div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;        o[i] = <a class="code" href="group__function.html#gafab45ff35eeb6f514548b0a29048068d">std::tan</a>(v[i]); </div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;    }</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    <span class="keywordflow">return</span> o;</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;}</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
+<div class="line"><a name="l00414"></a><span class="lineno"><a class="line" href="namespacestd.html#af636e27335de5b4691d285321b6afaf8">  414</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> <a class="code" href="group__function.html#ga26411f392a19e7fbf2b3a919b9e57edd">exp</a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> &amp;v) {</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> o;</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++) { </div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;        o[i] = <a class="code" href="group__function.html#ga26411f392a19e7fbf2b3a919b9e57edd">std::exp</a>(v[i]); </div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;    }</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    <span class="keywordflow">return</span> o;</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;}</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
+<div class="line"><a name="l00426"></a><span class="lineno"><a class="line" href="namespacestd.html#acbd7e77f0fbd4fe6400424990118337a">  426</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> <a class="code" href="namespacestd.html#a33a9556aaf94463ba9fe13865f8c8f2c">log</a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> &amp;v) {</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;    <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> o;</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++) { </div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;        o[i] = <a class="code" href="namespacestd.html#a33a9556aaf94463ba9fe13865f8c8f2c">std::log</a>(v[i]); </div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;    }</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;    <span class="keywordflow">return</span> o;</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;}</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;} <span class="comment">// namespace std</span></div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* VEC_H_ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="group__linalg_html_ga56f91a560895fe81c1ac4744bc5ee80e"><div class="ttname"><a href="group__linalg.html#ga56f91a560895fe81c1ac4744bc5ee80e">geom::operator/</a></div><div class="ttdeci">Vec&lt; T, N &gt; operator/(const Vec&lt; T, N &gt; &amp;v, U d)</div><div class="ttdef"><b>Definition:</b> Vec.h:120</div></div>
+<div class="ttc" id="group__function_html_gafab45ff35eeb6f514548b0a29048068d"><div class="ttname"><a href="group__function.html#gafab45ff35eeb6f514548b0a29048068d">std::tan</a></div><div class="ttdeci">geom::Dual&lt; T &gt; tan(const geom::Dual&lt; T &gt; &amp;d)</div><div class="ttdoc">Tangent function. </div><div class="ttdef"><b>Definition:</b> Dual.h:310</div></div>
 <div class="ttc" id="group__matrix_html_ga0002aa703c848adc96acb4714785baaa"><div class="ttname"><a href="group__matrix.html#ga0002aa703c848adc96acb4714785baaa">geom::operator*</a></div><div class="ttdeci">Mx operator*(U k, const Mx &amp;m)</div><div class="ttdef"><b>Definition:</b> Matrix.h:839</div></div>
 <div class="ttc" id="classgeom_1_1_vec_html_a696315664382e3a7ba7792626216001d"><div class="ttname"><a href="classgeom_1_1_vec.html#a696315664382e3a7ba7792626216001d">geom::Vec::Vec</a></div><div class="ttdeci">Vec(detail::MtxColIterator&lt; Mx, Ref &gt; mtx_col)</div><div class="ttdef"><b>Definition:</b> Vec.h:306</div></div>
+<div class="ttc" id="group__function_html_gabbc06c7f6c39cde83b065da510efd958"><div class="ttname"><a href="group__function.html#gabbc06c7f6c39cde83b065da510efd958">std::cos</a></div><div class="ttdeci">geom::Dual&lt; T &gt; cos(const geom::Dual&lt; T &gt; &amp;d)</div><div class="ttdoc">Cosine function. </div><div class="ttdef"><b>Definition:</b> Dual.h:303</div></div>
+<div class="ttc" id="group__function_html_ga7985ceba157f09c80c5128059cfe13c9"><div class="ttname"><a href="group__function.html#ga7985ceba157f09c80c5128059cfe13c9">std::sqrt</a></div><div class="ttdeci">geom::Dual&lt; T &gt; sqrt(const geom::Dual&lt; T &gt; &amp;d)</div><div class="ttdoc">Square root. </div><div class="ttdef"><b>Definition:</b> Dual.h:383</div></div>
 <div class="ttc" id="classgeom_1_1_vec_html_a51d61cdaea7d420d4896f19321160c95"><div class="ttname"><a href="classgeom_1_1_vec.html#a51d61cdaea7d420d4896f19321160c95">geom::Vec::Vec</a></div><div class="ttdeci">Vec(Vec&lt; T, N-1 &gt; &amp;v, T a)</div><div class="ttdef"><b>Definition:</b> Vec.h:296</div></div>
+<div class="ttc" id="group__function_html_gaa3074d725debeb2c1d35e9915a411ff1"><div class="ttname"><a href="group__function.html#gaa3074d725debeb2c1d35e9915a411ff1">std::sin</a></div><div class="ttdeci">geom::Dual&lt; T &gt; sin(const geom::Dual&lt; T &gt; &amp;d)</div><div class="ttdoc">Sine function. </div><div class="ttdef"><b>Definition:</b> Dual.h:296</div></div>
 <div class="ttc" id="classgeom_1_1_vec_html_a17a6dad1e56778a30b7808fc2b449669"><div class="ttname"><a href="classgeom_1_1_vec.html#a17a6dad1e56778a30b7808fc2b449669">geom::Vec::Vec</a></div><div class="ttdeci">Vec(T a)</div><div class="ttdef"><b>Definition:</b> Vec.h:282</div></div>
+<div class="ttc" id="namespacestd_html_a33a9556aaf94463ba9fe13865f8c8f2c"><div class="ttname"><a href="namespacestd.html#a33a9556aaf94463ba9fe13865f8c8f2c">std::log</a></div><div class="ttdeci">geom::Quat&lt; T &gt; log(const geom::Quat&lt; T &gt; &amp;q)</div><div class="ttdef"><b>Definition:</b> Quaternion.h:263</div></div>
 <div class="ttc" id="classgeom_1_1_vec_html_a82cf7e1c93ee9188fefb25b86fc6c5b0"><div class="ttname"><a href="classgeom_1_1_vec.html#a82cf7e1c93ee9188fefb25b86fc6c5b0">geom::Vec::Vec</a></div><div class="ttdeci">Vec()</div><div class="ttdef"><b>Definition:</b> Vec.h:275</div></div>
 <div class="ttc" id="classgeom_1_1_vec_html_a80add6fe6dbdb8e67f7e150426326b53"><div class="ttname"><a href="classgeom_1_1_vec.html#a80add6fe6dbdb8e67f7e150426326b53">geom::Vec::Vec</a></div><div class="ttdeci">Vec(const T a[N])</div><div class="ttdef"><b>Definition:</b> Vec.h:288</div></div>
+<div class="ttc" id="group__function_html_ga26411f392a19e7fbf2b3a919b9e57edd"><div class="ttname"><a href="group__function.html#ga26411f392a19e7fbf2b3a919b9e57edd">std::exp</a></div><div class="ttdeci">geom::Dual&lt; T &gt; exp(const geom::Dual&lt; T &gt; &amp;d)</div><div class="ttdoc">Exponential (ex) function. </div><div class="ttdef"><b>Definition:</b> Dual.h:345</div></div>
 <div class="ttc" id="classgeom_1_1_vec_html"><div class="ttname"><a href="classgeom_1_1_vec.html">geom::Vec</a></div><div class="ttdoc">A tuple of N elements of type T. </div><div class="ttdef"><b>Definition:</b> LinalgTypes.h:91</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 20 2013 01:45:46 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat May 24 2014 12:51:01 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

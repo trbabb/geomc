@@ -101,7 +101,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define MATRIXARITHMETIC_H</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;boost/utility/enable_if.hpp&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;geomc/linalg/linalgTypes.h&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;geomc/linalg/LinalgTypes.h&gt;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;geomc/linalg/mtxdetail/MatrixGlue.h&gt;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>geom {</div>
@@ -217,10 +217,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;};</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="comment">// when using enable_if&lt;bool, _implmtxadd&lt;a,b&gt;::return_t&gt; elsewhere,</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="comment">// compilation will fail because even if &lt;bool&gt; is false, c++ will</span></div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment">// try to expand the argument type. if a or b are non-matrices,</span></div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="comment">// then the expansion will fail. This is not SFINAE because by the </span></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="comment">// time we are evaluating what ::return_t is, we are no longer substituting,</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="comment">// compilation will fail because even if &lt;bool&gt; is false and &quot;protects&quot; </span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment">// against instantiation, c++ will try to expand the argument type. if a or b </span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="comment">// are non-matrices, then the expansion will fail. This is not SFINAE because by </span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="comment">// the time we are evaluating what ::return_t is, we are no longer substituting,</span></div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="comment">// we are type-expanding. I believe this is a flaw in the c++ language design.</span></div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Ma, <span class="keyword">typename</span> Mb&gt;</div>
@@ -299,14 +299,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;</div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">/* MATRIXARITHMETIC_H */</span><span class="preprocessor"></span></div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;<span class="preprocessor"></span></div>
-<div class="ttc" id="group__linalg_html_gab4ef5a5844e69301ae83804a9770881b"><div class="ttname"><a href="group__linalg.html#gab4ef5a5844e69301ae83804a9770881b">geom::scale</a></div><div class="ttdeci">AffineTransform&lt; T, N &gt; scale(const Vec&lt; T, N &gt; &amp;sx)</div><div class="ttdef"><b>Definition:</b> AffineTransform.h:519</div></div>
+<div class="ttc" id="group__linalg_html_gab4ef5a5844e69301ae83804a9770881b"><div class="ttname"><a href="group__linalg.html#gab4ef5a5844e69301ae83804a9770881b">geom::scale</a></div><div class="ttdeci">AffineTransform&lt; T, N &gt; scale(const Vec&lt; T, N &gt; &amp;sx)</div><div class="ttdef"><b>Definition:</b> AffineTransform.h:535</div></div>
 <div class="ttc" id="group__matrix_html_ga4ca8a4cc286eb011023e4c4adae9e27b"><div class="ttname"><a href="group__matrix.html#ga4ca8a4cc286eb011023e4c4adae9e27b">geom::sub</a></div><div class="ttdeci">void sub(Md *d, const Ma &amp;a, const Mb &amp;b)</div><div class="ttdef"><b>Definition:</b> Matrix.h:700</div></div>
 <div class="ttc" id="namespacestd_html_ab72c97cbf1524c7ccd3263d793823616"><div class="ttname"><a href="namespacestd.html#ab72c97cbf1524c7ccd3263d793823616">std::min</a></div><div class="ttdeci">geom::Vec&lt; T, N &gt; min(const geom::Vec&lt; T, N &gt; &amp;a, const geom::Vec&lt; T, N &gt; &amp;b)</div><div class="ttdef"><b>Definition:</b> Vec.h:334</div></div>
 <div class="ttc" id="group__matrix_html_gaa4a33c0f1bb911ce5235ceb09dca799a"><div class="ttname"><a href="group__matrix.html#gaa4a33c0f1bb911ce5235ceb09dca799a">geom::add</a></div><div class="ttdeci">void add(Md *d, const Ma &amp;a, const Mb &amp;b)</div><div class="ttdef"><b>Definition:</b> Matrix.h:674</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Dec 20 2013 01:45:46 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat May 24 2014 12:51:01 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>
