@@ -79,7 +79,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">Shape</div>  </div>
 </div><!--header-->
@@ -117,6 +118,29 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_sphere.html">Sphere&lt; T, N &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A N-dimensional circle, sphere, or hypersphere.  <a href="classgeom_1_1_sphere.html#details">More...</a><br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga46f1f9e98cb44b304dd5c1e8a75e0fb4"><td class="memTemplParams" colspan="2"><a class="anchor" id="ga46f1f9e98cb44b304dd5c1e8a75e0fb4"></a>
+template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:ga46f1f9e98cb44b304dd5c1e8a75e0fb4"><td class="memTemplItemLeft" align="right" valign="top">OrientedRect&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#ga46f1f9e98cb44b304dd5c1e8a75e0fb4">operator*</a> (const AffineTransform&lt; T, N &gt; &amp;xf, OrientedRect&lt; T, N &gt; box)</td></tr>
+<tr class="memdesc:ga46f1f9e98cb44b304dd5c1e8a75e0fb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a copy of <code>box</code> transformed by <code>xf</code>. <br/></td></tr>
+<tr class="separator:ga46f1f9e98cb44b304dd5c1e8a75e0fb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac22f5fc9b66a04f9543df735721c7365"><td class="memTemplParams" colspan="2"><a class="anchor" id="gac22f5fc9b66a04f9543df735721c7365"></a>
+template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:gac22f5fc9b66a04f9543df735721c7365"><td class="memTemplItemLeft" align="right" valign="top">OrientedRect&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#gac22f5fc9b66a04f9543df735721c7365">operator/</a> (OrientedRect&lt; T, N &gt; box, const AffineTransform&lt; T, N &gt; &amp;xf)</td></tr>
+<tr class="memdesc:gac22f5fc9b66a04f9543df735721c7365"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a copy of <code>box</code> transformed by the inverse of <code>xf</code>. <br/></td></tr>
+<tr class="separator:gac22f5fc9b66a04f9543df735721c7365"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga05754b61b1d0d91a9c35d9ecc574adc0"><td class="memTemplParams" colspan="2"><a class="anchor" id="ga05754b61b1d0d91a9c35d9ecc574adc0"></a>
+template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:ga05754b61b1d0d91a9c35d9ecc574adc0"><td class="memTemplItemLeft" align="right" valign="top">OrientedRect&lt; T, N &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#ga05754b61b1d0d91a9c35d9ecc574adc0">operator*=</a> (OrientedRect&lt; T, N &gt; &amp;b, const AffineTransform&lt; T, N &gt; &amp;xf)</td></tr>
+<tr class="memdesc:ga05754b61b1d0d91a9c35d9ecc574adc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply <code>xf</code> to <code>b</code>. <br/></td></tr>
+<tr class="separator:ga05754b61b1d0d91a9c35d9ecc574adc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0c80db0b5289447993f980bcdafbc1ca"><td class="memTemplParams" colspan="2"><a class="anchor" id="ga0c80db0b5289447993f980bcdafbc1ca"></a>
+template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:ga0c80db0b5289447993f980bcdafbc1ca"><td class="memTemplItemLeft" align="right" valign="top">OrientedRect&lt; T, N &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#ga0c80db0b5289447993f980bcdafbc1ca">operator/=</a> (OrientedRect&lt; T, N &gt; &amp;b, const AffineTransform&lt; T, N &gt; &amp;xf)</td></tr>
+<tr class="memdesc:ga0c80db0b5289447993f980bcdafbc1ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply the inverse of <code>xf</code> to <code>b</code>. <br/></td></tr>
+<tr class="separator:ga0c80db0b5289447993f980bcdafbc1ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga66505ffabe4da800c0ec653d493ea944"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> { <a class="el" href="group__shape.html#gga66505ffabe4da800c0ec653d493ea944a0cc724de9c2be8b3c506f45d4811ddec">HIT_FRONT</a> = 1, 
 <a class="el" href="group__shape.html#gga66505ffabe4da800c0ec653d493ea944a69d567fc54e1147a9879d610a90b2133">HIT_BACK</a> = 2, 
 <a class="el" href="group__shape.html#gga66505ffabe4da800c0ec653d493ea944aa12161be84ffe5b80d56277bb1f5ae66">HIT_BOTH</a> = 3
@@ -156,7 +180,7 @@ Classes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 27 2014 00:58:52 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue May 27 2014 01:07:18 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>
