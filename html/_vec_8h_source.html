@@ -262,7 +262,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    </div>
 <div class="line"><a name="l00288"></a><span class="lineno"><a class="line" href="classgeom_1_1_vec.html#a80add6fe6dbdb8e67f7e150426326b53">  288</a></span>&#160;    <a class="code" href="classgeom_1_1_vec.html#a80add6fe6dbdb8e67f7e150426326b53">Vec</a>(<span class="keyword">const</span> T a[N]):detail::VecCommon&lt; T,N,<a class="code" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; &gt;(a) {}</div>
 <div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    </div>
-<div class="line"><a name="l00296"></a><span class="lineno"><a class="line" href="classgeom_1_1_vec.html#a51d61cdaea7d420d4896f19321160c95">  296</a></span>&#160;    <a class="code" href="classgeom_1_1_vec.html#a51d61cdaea7d420d4896f19321160c95">Vec</a>(<a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N-1&gt;</a> &amp;v, T a) {</div>
+<div class="line"><a name="l00296"></a><span class="lineno"><a class="line" href="classgeom_1_1_vec.html#a5779dcaf976714c74a77dcd9b2f71bd9">  296</a></span>&#160;    <a class="code" href="classgeom_1_1_vec.html#a5779dcaf976714c74a77dcd9b2f71bd9">Vec</a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N-1&gt;</a> &amp;v, T a) {</div>
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;        std::copy(v.begin(), v.end(), detail::VecBase&lt;T,N&gt;::begin());</div>
 <div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        this-&gt;<span class="keyword">get</span>(N-1) = a;</div>
 <div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    }</div>
@@ -371,9 +371,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="group__linalg_html_ga56f91a560895fe81c1ac4744bc5ee80e"><div class="ttname"><a href="group__linalg.html#ga56f91a560895fe81c1ac4744bc5ee80e">geom::operator/</a></div><div class="ttdeci">Vec&lt; T, N &gt; operator/(const Vec&lt; T, N &gt; &amp;v, U d)</div><div class="ttdef"><b>Definition:</b> Vec.h:120</div></div>
 <div class="ttc" id="group__function_html_gafab45ff35eeb6f514548b0a29048068d"><div class="ttname"><a href="group__function.html#gafab45ff35eeb6f514548b0a29048068d">std::tan</a></div><div class="ttdeci">geom::Dual&lt; T &gt; tan(const geom::Dual&lt; T &gt; &amp;d)</div><div class="ttdoc">Tangent function. </div><div class="ttdef"><b>Definition:</b> Dual.h:310</div></div>
 <div class="ttc" id="classgeom_1_1_vec_html_a696315664382e3a7ba7792626216001d"><div class="ttname"><a href="classgeom_1_1_vec.html#a696315664382e3a7ba7792626216001d">geom::Vec::Vec</a></div><div class="ttdeci">Vec(detail::MtxColIterator&lt; Mx, Ref &gt; mtx_col)</div><div class="ttdef"><b>Definition:</b> Vec.h:306</div></div>
+<div class="ttc" id="classgeom_1_1_vec_html_a5779dcaf976714c74a77dcd9b2f71bd9"><div class="ttname"><a href="classgeom_1_1_vec.html#a5779dcaf976714c74a77dcd9b2f71bd9">geom::Vec::Vec</a></div><div class="ttdeci">Vec(const Vec&lt; T, N-1 &gt; &amp;v, T a)</div><div class="ttdef"><b>Definition:</b> Vec.h:296</div></div>
 <div class="ttc" id="group__function_html_gabbc06c7f6c39cde83b065da510efd958"><div class="ttname"><a href="group__function.html#gabbc06c7f6c39cde83b065da510efd958">std::cos</a></div><div class="ttdeci">geom::Dual&lt; T &gt; cos(const geom::Dual&lt; T &gt; &amp;d)</div><div class="ttdoc">Cosine function. </div><div class="ttdef"><b>Definition:</b> Dual.h:303</div></div>
 <div class="ttc" id="group__function_html_ga7985ceba157f09c80c5128059cfe13c9"><div class="ttname"><a href="group__function.html#ga7985ceba157f09c80c5128059cfe13c9">std::sqrt</a></div><div class="ttdeci">geom::Dual&lt; T &gt; sqrt(const geom::Dual&lt; T &gt; &amp;d)</div><div class="ttdoc">Square root. </div><div class="ttdef"><b>Definition:</b> Dual.h:383</div></div>
-<div class="ttc" id="classgeom_1_1_vec_html_a51d61cdaea7d420d4896f19321160c95"><div class="ttname"><a href="classgeom_1_1_vec.html#a51d61cdaea7d420d4896f19321160c95">geom::Vec::Vec</a></div><div class="ttdeci">Vec(Vec&lt; T, N-1 &gt; &amp;v, T a)</div><div class="ttdef"><b>Definition:</b> Vec.h:296</div></div>
 <div class="ttc" id="group__function_html_gaa3074d725debeb2c1d35e9915a411ff1"><div class="ttname"><a href="group__function.html#gaa3074d725debeb2c1d35e9915a411ff1">std::sin</a></div><div class="ttdeci">geom::Dual&lt; T &gt; sin(const geom::Dual&lt; T &gt; &amp;d)</div><div class="ttdoc">Sine function. </div><div class="ttdef"><b>Definition:</b> Dual.h:296</div></div>
 <div class="ttc" id="classgeom_1_1_vec_html_a17a6dad1e56778a30b7808fc2b449669"><div class="ttname"><a href="classgeom_1_1_vec.html#a17a6dad1e56778a30b7808fc2b449669">geom::Vec::Vec</a></div><div class="ttdeci">Vec(T a)</div><div class="ttdef"><b>Definition:</b> Vec.h:282</div></div>
 <div class="ttc" id="namespacestd_html_a33a9556aaf94463ba9fe13865f8c8f2c"><div class="ttname"><a href="namespacestd.html#a33a9556aaf94463ba9fe13865f8c8f2c">std::log</a></div><div class="ttdeci">geom::Quat&lt; T &gt; log(const geom::Quat&lt; T &gt; &amp;q)</div><div class="ttdef"><b>Definition:</b> Quaternion.h:263</div></div>
@@ -385,7 +385,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat May 24 2014 13:25:06 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue May 27 2014 00:58:52 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

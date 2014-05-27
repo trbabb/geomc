@@ -122,8 +122,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a612990008e174137acfd522ad179db26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af58b0be9725006cf318033ee17af2774"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_cylinder.html#af58b0be9725006cf318033ee17af2774">bounds</a> ()</td></tr>
 <tr class="separator:af58b0be9725006cf318033ee17af2774"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a403f6e42514bf30e76744155945f1561"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_hit.html">Hit</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_cylinder.html#a403f6e42514bf30e76744155945f1561">trace</a> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; &amp;ray, <a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> side) const </td></tr>
-<tr class="separator:a403f6e42514bf30e76744155945f1561"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a598f9fde21bfa337a03103be50b5aa28"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_hit.html">Hit</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_cylinder.html#a598f9fde21bfa337a03103be50b5aa28">trace</a> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; &amp;ray, <a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> side, bool endcaps=true) const </td></tr>
+<tr class="separator:a598f9fde21bfa337a03103be50b5aa28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -254,7 +254,7 @@ class geom::Cylinder&lt; T, N &gt;</h3>
 
 </div>
 </div>
-<a class="anchor" id="a403f6e42514bf30e76744155945f1561"></a>
+<a class="anchor" id="a598f9fde21bfa337a03103be50b5aa28"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -271,7 +271,13 @@ class geom::Cylinder&lt; T, N &gt;</h3>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a>&#160;</td>
-          <td class="paramname"><em>side</em>&#160;</td>
+          <td class="paramname"><em>side</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>endcaps</em> = <code>true</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -290,6 +296,7 @@ class geom::Cylinder&lt; T, N &gt;</h3>
   <table class="params">
     <tr><td class="paramname">ray</td><td>A ray. </td></tr>
     <tr><td class="paramname">side</td><td>Whether to hit-test the front (outside) or back (inside) of the cylinder. </td></tr>
+    <tr><td class="paramname">endcaps</td><td>Whether to trace the end caps. </td></tr>
   </table>
   </dd>
 </dl>
@@ -303,7 +310,7 @@ class geom::Cylinder&lt; T, N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat May 24 2014 13:25:06 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue May 27 2014 00:58:53 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>
