@@ -42,9 +42,6 @@
  *     the matrix type to their templates.
  */
 
-// TODO: conversion operator for simplematrix for all other matrix types
-//       so that `SimpleMtx m = mtx * mtx` will always work.
-
 namespace geom {
 namespace detail {
 

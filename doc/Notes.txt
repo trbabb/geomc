@@ -71,7 +71,8 @@ GENERAL CLEANUP/MAJOR TODOS:
   - open / closed interval logic on rect?
   - make more spatial partitions?
   - more basic shapes
-    (cone, cylinder, torus e.g.)
+    (cone, frustum, cylinder, torus e.g.)
+  - Fix swizzle code to not construct strings.
   - oriented box
   - fix hash functions
   - put sources back in with headers; remove redundant /include dir

@@ -293,7 +293,7 @@ public:
      * @param v A vector of dimension `N - 1`
      * @param a The value of the last element
      */
-    Vec(Vec<T,N-1> &v, T a) {
+    Vec(const Vec<T,N-1> &v, T a) {
         std::copy(v.begin(), v.end(), detail::VecBase<T,N>::begin());
         this->get(N-1) = a;
     }

@@ -120,6 +120,18 @@ namespace geom {
             return (*this);
         }
         
+        /**
+         * Apply inverse transform.
+         * 
+         * Assign a transform representing an application of `this` followed by
+         * the inverse of `xf`.
+         */
+        AffineTransform<T,N>& operator/=(const AffineTransform<T,N> &xf) {
+            mat = xf.inv * mat;
+            inv = inv * xf.mat;
+            return *this;
+        }
+        
 #ifdef GEOMC_LINALG_USE_STREAMS
         friend std::ostream &operator<<(std::ostream &stream, const AffineTransform<T,N> xf) {
             stream << xf.mat;

@@ -22,7 +22,7 @@
 #include <geomc/function/Raster.h>
 #include <geomc/shape/BinLatticePartition.h>
 #include <geomc/shape/Trace.h>
-
+#include <geomc/shape/OrientedRect.h>
 
 #include "RandomBattery.h"
 
@@ -419,6 +419,12 @@ template <typename M> void test_mtxRegionCopy(index_t rows, index_t cols) {
 	cout << m;
 }
 
+template <typename T, index_t N> void test_OOBB() {
+    OrientedRect<T,N> r1;
+    OrientedRect<T,N> r2;
+    cout << "box1 intersects box2: " << r1.intersects(r2) << endl;
+}
+
 template <typename T, index_t M, index_t N> void test_mtxArithmetic(index_t rows, index_t cols) {
 	SimpleMatrix<T,M,N> a(rows,cols);
     SimpleMatrix<T,M,N> b(rows,cols);
@@ -533,6 +539,7 @@ int main(int argc, char** argv) {
     test_simpleMatrix<4,3>();
     test_mtxArithmetic<double,4,3>(4,3);
     test_dual();
+    test_OOBB<double,3>();
     
     profile("3d cross product", profile_vec_cross, iters);
     std::cout << std::endl;
