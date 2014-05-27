@@ -72,6 +72,23 @@ class OrientedRectBase : virtual public Bounded<T,N> {
             return Sphere<T,N>(diag + p0, diag.mag());
         }
         
+        /**
+         * @brief Fill an array with the vertecies of this OrientedBox.
+         * 
+         * @param out Array to receive 2<sup>N</sup> corner vertecies.
+         */
+        void getCorners(Vec<T,N> out[1 << N]) {
+            const static index_t n_corners = 1 << N;
+            Vec<T,N> extreme[2] = { box.min(), box.max() };
+            for (index_t c = 0; c < n_corners; c++) {
+                Vec<T,N> pt;
+                for (index_t i = 0; i < N; i++) {
+                    pt[i] = extreme[(c & (1 << i)) != 0][i];
+                }
+                out[c] = xf * pt;
+            }
+        }
+        
         
         /// Returns true if and only if `p` is inside or on the surface of this OrientedRect.
         inline bool contains(Vec<T,N> p) {
@@ -98,19 +115,6 @@ class OrientedRectBase : virtual public Bounded<T,N> {
             return h;
         }
         
-        
-        /// Return a copy of this OrientedRect transformed by `xf`. 
-        friend inline OrientedRect<T,N> operator*(const AffineTransform<T,N> &xf, OrientedRect<T,N> box) {
-            box.xf *= xf;
-            return box;
-        }
-        
-        
-        /// Return a copy of this OrientedRect transformed by the inverse of `xf`. 
-        friend inline OrientedRect<T,N> operator/(OrientedRect<T,N> box, const AffineTransform<T,N> &xf) {
-            box.xf /= xf;
-            return box;
-        }
 };
 
 /**
@@ -163,12 +167,12 @@ class OrientedRect : public OrientedRectBase<T,N> {
             
             // compute world-space points
             // we put the lower corner of b1 at the origin for simplicity/speed
-            for (index_t i = 0; i < n_corners; i++) {
-                for (index_t j = 0; j < N; j++) {
-                    b0_pts[i][j] = b0_body_extreme[(i & (1 << j)) != 0][j];
-                    b1_pts[i][j] = b1_body_extreme[(i & (1 << j)) != 0][j];
+            for (index_t c = 0; c < n_corners; c++) {
+                for (index_t i = 0; i < N; i++) {
+                    b0_pts[c][i] = b0_body_extreme[(c & (1 << i)) != 0][i];
+                    b1_pts[c][i] = b1_body_extreme[(c & (1 << i)) != 0][i];
                 }
-                b0_pts[i] = base_t::xf * b0_pts[i] - b1.min();
+                b0_pts[c] = base_t::xf * b0_pts[c] - b1.min();
             }
             
             // compare along world (i.e. b1's) axes
@@ -256,12 +260,23 @@ class OrientedRect<T,N, typename boost::enable_if_c<
  * Operators                                  *
  **********************************************/
 
+/** @addtogroup shape 
+ *  @{
+ */
 
-/// Apply the inverse of `xf` to `b`.
+/// Return a copy of `box` transformed by `xf`.
 template <typename T, index_t N>
-inline OrientedRect<T,N>& operator/=(OrientedRect<T,N> &b, const AffineTransform<T,N> &xf) {
-    b.xf /= xf;
-    return b;
+inline OrientedRect<T,N> operator*(const AffineTransform<T,N> &xf, OrientedRect<T,N> box) {
+    box.xf *= xf;
+    return box;
+}
+
+
+/// Return a copy of `box` transformed by the inverse of `xf`.
+template <typename T, index_t N>
+inline OrientedRect<T,N> operator/(OrientedRect<T,N> box, const AffineTransform<T,N> &xf) {
+    box.xf /= xf;
+    return box;
 }
  
 
@@ -272,6 +287,14 @@ inline OrientedRect<T,N>& operator*=(OrientedRect<T,N> &b, const AffineTransform
     return b;
 }
 
+/// Apply the inverse of `xf` to `b`.
+template <typename T, index_t N>
+inline OrientedRect<T,N>& operator/=(OrientedRect<T,N> &b, const AffineTransform<T,N> &xf) {
+    b.xf /= xf;
+    return b;
+}
+
+/// @} // addtogroup linalg
 
 } // namespace geom
 
