@@ -16,6 +16,9 @@
 #include "shapedetail/SeparatingAxis.h"
 
 namespace geom {
+    
+    // TODO: Would be better if boxes had no translation?
+    //       makes representation more unique. might cheapen certain ops.
  
 // base class for OrientedRect. Not for direct use.
 // We specialize the derived class because some dimensions don't support
@@ -163,36 +166,37 @@ class OrientedRect : public OrientedRectBase<T,N> {
             Vec<T,N> b0_pts[n_corners];
             Vec<T,N> b1_pts[n_corners];
             Vec<T,N> b0_body_extreme[2] = { base_t::box.min(), base_t::box.max() };
-            Vec<T,N> b1_body_extreme[2] = { Vec<T,N>::zeros, b1.max() - b1.min() };
+            Vec<T,N> b1_body_extreme[2] = { b1.min(), b1.max()};
             
             // compute world-space points
-            // we put the lower corner of b1 at the origin for simplicity/speed
             for (index_t c = 0; c < n_corners; c++) {
                 for (index_t i = 0; i < N; i++) {
-                    b0_pts[c][i] = b0_body_extreme[(c & (1 << i)) != 0][i];
-                    b1_pts[c][i] = b1_body_extreme[(c & (1 << i)) != 0][i];
+                    int min_or_max = (c & (1 << i)) != 0;
+                    b0_pts[c][i] = b0_body_extreme[min_or_max][i];
+                    b1_pts[c][i] = b1_body_extreme[min_or_max][i];
                 }
-                b0_pts[c] = base_t::xf * b0_pts[c] - b1.min();
+                b0_pts[c] = base_t::xf * b0_pts[c];
             }
             
             // compare along world (i.e. b1's) axes
             // special case because no projection needed.
-            T lo = std::numeric_limits<T>::max();
-            T hi = std::numeric_limits<T>::lowest();
             for (index_t i = 0; i < N; i++) {
+                T lo = std::numeric_limits<T>::max();
+                T hi = std::numeric_limits<T>::lowest();
                 for (index_t j = 0; j < n_corners; j++) {
                     lo = std::min(lo, b0_pts[j][i]);
                     hi = std::max(hi, b0_pts[j][i]);
                 }
                 // if no overlap on this axis, we've found a separating axis.
-                if (lo > b1.max()[i] or hi < b1.min()[i]) return false;
+                if (lo >= b1.max()[i] or hi < b1.min()[i]) return false;
             }
-            
+            int m = 0;
             // now test all the remaining axes. For N=2, this is simply
             // the two principal axes of the oriented box. For N=3, we must also
             // test each axis which is the cross product of two principal axes,
             // for up to 12 additional axis tests (we have covered N already).
             for (detail::RectAxisHelper<T,N> helper(base_t::xf); not helper.done(); helper.next()) {
+                m += 1;
                 Vec<T,N> axis = helper.axis();
                 if (axis == Vec<T,N>::zeros) continue; // redundant axis
                 Rect<T,1> b0_range, b1_range;
@@ -207,6 +211,7 @@ class OrientedRect : public OrientedRectBase<T,N> {
                 if (not b0_range.intersects(b1_range)) return false;
             }
             
+            // overlap on all candidate axes.
             return true;
         }
         

@@ -8,17 +8,21 @@
 #ifndef SEPARATINGAXIS_H
 #define	SEPARATINGAXIS_H
 
-/************************************************
- * Classes for iterating over axes to test for  *
- * separation when applying the separating axis *
- * theorem to test OrientedBox intersection.    *
- * The cases get far more complicated as N      *
- * increases. Only N=2 and N=3 are implemented. *
- ************************************************/
+
+/***********************************************************
+ * We use the separating axis theorem to perform box-box   *
+ * intersection tests. The number of axes we must test and *
+ * the strategy for choosing them changes based on the     *
+ * dimension; these classes are specialized for those      *
+ * dimensions. The cases get far more complicated as N     *
+ * increases; only N=2 and N=3 are implemented.            *
+ ***********************************************************/
+
 
 namespace geom {
     
 namespace detail {
+    
     
     /***************************************
      * Iterator base class                 *
@@ -43,12 +47,13 @@ namespace detail {
             Vec<T,N> _getXfAxis(index_t j) {
                 Vec<T,N> a;
                 for (index_t k = 0; k < N; k++) {
-                    a[k] = xf.mat[j][k];
+                    a[k] = xf.mat[k][j];
                 }
                 return a;
             }
         
     };
+    
     
     /***************************************
      * General N-dimensional axis tester.  *
@@ -67,6 +72,7 @@ namespace detail {
         // to hide intersection test functions from higher dimensions.
         
     };
+    
     
     /********** N=3 Axis Iterator **********/
     
@@ -96,15 +102,16 @@ namespace detail {
                 // the two boxes. We assume one is axis-aligned.
                 Vec<T,3> b0_axis;
                 Vec<T,3> b1_axis = this->_getXfAxis(i % 3);
-                b0_axis[i / 3] = 1;
+                b0_axis[i / 3 - 1] = 1;
                 return b0_axis ^ b1_axis;
             }
         }
         
         inline bool done() {
-            return base_t::i < 12; // 3 Xf axes, plus 3 * 3 axis combinations.
+            return base_t::i >= 12; // 3 Xf axes, plus 3 * 3 axis combinations.
         }
     };
+    
     
     /********** N=2 Axis Iterator **********/
     
@@ -125,9 +132,10 @@ namespace detail {
         }
         
         inline bool done() {
-            return base_t::i < 2;
+            return base_t::i >= 2;
         }
     };
+    
     
 } // namespace detail
     
