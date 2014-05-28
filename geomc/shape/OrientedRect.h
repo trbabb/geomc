@@ -190,13 +190,12 @@ class OrientedRect : public OrientedRectBase<T,N> {
                 // if no overlap on this axis, we've found a separating axis.
                 if (lo >= b1.max()[i] or hi < b1.min()[i]) return false;
             }
-            int m = 0;
+            
             // now test all the remaining axes. For N=2, this is simply
             // the two principal axes of the oriented box. For N=3, we must also
             // test each axis which is the cross product of two principal axes,
             // for up to 12 additional axis tests (we have covered N already).
             for (detail::RectAxisHelper<T,N> helper(base_t::xf); not helper.done(); helper.next()) {
-                m += 1;
                 Vec<T,N> axis = helper.axis();
                 if (axis == Vec<T,N>::zeros) continue; // redundant axis
                 Rect<T,1> b0_range, b1_range;
