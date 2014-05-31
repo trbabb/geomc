@@ -16,10 +16,8 @@
 #include "shapedetail/SeparatingAxis.h"
 
 namespace geom {
-    
-    // TODO: Would be better if boxes had no translation?
-    //       makes representation more unique. might cheapen certain ops.
  
+
 // base class for OrientedRect. Not for direct use.
 // We specialize the derived class because some dimensions don't support
 // box-box intersection tests, and should not have methods for them.
@@ -74,6 +72,7 @@ class OrientedRectBase : virtual public Bounded<T,N> {
             Vec<T,N> diag = (p1 - p0) / 2;
             return Sphere<T,N>(diag + p0, diag.mag());
         }
+        
         
         /**
          * @brief Fill an array with the vertecies of this OrientedBox.

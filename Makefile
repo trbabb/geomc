@@ -1,6 +1,7 @@
 CC = g++
 AR = ar
-INCLUDES = /usr/local/boost .
+PREFIX   = /opt/local
+INCLUDES = .
 CFLAGS   = -std=c++11 -O3 -Wall -c -fmessage-length=0 -Wno-unused -Wno-unused-local-typedefs
 IFLAGS   = $(addprefix -I, $(INCLUDES))
 MODULES  = function linalg random shape
@@ -10,8 +11,8 @@ SOURCES  = $(wildcard geomc/*.cpp) \
 OBJECTS  = $(addprefix build/, $(notdir $(SOURCES:.cpp=.o)))
 LIBNAME  = libgeomc.a
 LIB      = lib/$(LIBNAME)
-INCDIR   = /opt/local/include
-LIBDIR   = /opt/local/lib
+INCDIR   = $(PREFIX)/include
+LIBDIR   = $(PREFIX)/lib
 
 all : lib
 

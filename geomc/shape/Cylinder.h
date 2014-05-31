@@ -159,6 +159,10 @@ namespace geom {
                         Plane<T,N> plane(n, px); // normalizes `n`
                         if (detail::_ImplTracePlane(&s, plane, ray, &side)) {
                             Vec<T,N> p = ray.atMultiple(s);
+                            // TODO: can we be sure the cap doesn't "leak" due to precision?
+                            // i.e. if the entry/exit points cross the endcap axis projection,
+                            // assuming the facing matches, the ray *must* hit. beware of 'start
+                            // inside' case, however
                             if (p.dist2(px) <= radius * radius) {
                                 // within cap radius; hit
                                 h.p = p;
