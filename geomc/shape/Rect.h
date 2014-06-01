@@ -11,7 +11,12 @@
 
 #include <algorithm>
 #include <cmath>
+
+#if __cplusplus < 201103L
+#include <tr1/functional>
+#else
 #include <functional>
+#endif
 
 #include <geomc/Hash.h>
 #include <geomc/shape/Bounded.h>
@@ -542,10 +547,14 @@ public:
 
 }; // end Rect class
 
-} //end namespace geom
+} // end namespace geom
 
-//allows RectBound<T,N>s to work with std::tr1 hash containers
-namespace std { namespace tr1 {
+// allows RectBound<T,N>s to work with std::tr1 hash containers
+namespace std {
+
+#if __cplusplus < 201103L
+namespace tr1 {
+#endif
 
    template <typename T, index_t N>
    struct hash< geom::Rect<T,N> > : public unary_function<geom::Rect<T,N>, size_t> {
@@ -554,6 +563,10 @@ namespace std { namespace tr1 {
        }
    };
 
-}}
+#if __cplusplus < 201103L
+} // namespace tr1
+#endif
+
+} // namespace std
 
 #endif /* Rect_H_ */

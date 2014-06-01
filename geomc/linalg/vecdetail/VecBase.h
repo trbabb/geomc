@@ -10,7 +10,13 @@
 
 #include <cmath>
 #include <algorithm>
+
+#if __cplusplus < 201103L
 #include <tr1/functional>
+#else
+#include <functional>
+#endif
+
 #include <boost/integer.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_integral.hpp>

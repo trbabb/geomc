@@ -273,7 +273,7 @@ namespace geom {
 #ifdef GEOMC_VEC_USE_SWIZZLE
         Vec<T,3> swizzle(const std::string& xyz) const {
             if (xyz.length() != 3){
-                throw GeomException("Invalid 3D swizzle string: " + xyz);
+                throw std::length_error(xyz);
             }
             return Vec<T,3>(swizzlecoord(xyz[0]),
                             swizzlecoord(xyz[1]),
@@ -305,7 +305,7 @@ namespace geom {
                 case '0':
                     return 0;
                 default:
-                    throw GeomException("Invalid swizzle character: " + c);
+                    throw SwizzleCharException(c);
             }
         }
 #endif

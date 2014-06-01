@@ -170,12 +170,8 @@
 #ifndef GEOMC_RANDOM_H_
 #define GEOMC_RANDOM_H_
 
-
-#ifdef GEOMC_DUAL_H
-#include <geomc/function/functiondetail/RandomDual.h>
-#endif
-
 #include <geomc/geomc_defs.h>
+#include <geomc/random/randomdetail/RandomImpl.h>
 
 namespace geom {
     
@@ -254,4 +250,13 @@ namespace geom {
         unsigned int _bitsleft;
     };
 }
+
+
+// oddly enough, this goes at the bottom, because RandomDual needs to see the complete 
+// definition of Random to call it.
+
+#ifdef GEOMC_DUAL_H
+#include <geomc/function/functiondetail/RandomDual.h>
+#endif
+
 #endif /* GEOMC_RANDOM_H_ */

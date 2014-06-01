@@ -37,3 +37,14 @@ NonsquareMatrixException::NonsquareMatrixException(index_t rows, index_t cols) t
         rows(rows), cols(cols) { /* do nothing */ }
 
 NonsquareMatrixException::~NonsquareMatrixException() throw() { /* do nothing */ }
+
+/////////////// Swizzle ///////////////
+
+#ifdef GEOMC_VEC_USE_SWIZZLE
+
+SwizzleCharException::SwizzleCharException(char c) throw () :
+    std::runtime_error("invalid swizzle char"), c(c) {}
+
+SwizzleCharException::~SwizzleCharException() throw () {}
+
+#endif
