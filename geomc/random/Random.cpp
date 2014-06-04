@@ -41,10 +41,7 @@ Random::~Random() {}
 
 namespace geom {
 
-///@ingroup random 
-///@{
-
-/// @return A random boolean value.
+    
 template <> bool Random::rand<bool>() {
     if (_bitsleft == 0) {
         _bitpool = this->rand32();
@@ -56,9 +53,7 @@ template <> bool Random::rand<bool>() {
     return bit;
 }
 
-/**
- * @return An `unsigned int` between 0 and `UINT_MAX`.
- */
+
 template <> unsigned int Random::rand<unsigned int>() {
     unsigned int bits = 0;
     const int chunks = (std::numeric_limits<unsigned int>::digits + 32 - 1) / 32; //ceiling(x/y) = (x + y - 1) / y
@@ -72,16 +67,12 @@ template <> unsigned int Random::rand<unsigned int>() {
     return bits;
 }
 
-/**
- * @return An `int` between `INT_MIN` and `INT_MAX`.
- */
+
 template <> int Random::rand<int>() {
     return rand<unsigned int>(); //MSB is now a sign bit; covers the entire range of <int> type. might we want to change this? 
 }
 
-/**
- * @return An `unsigned long` between 0 and `ULONG_MAX`.
- */
+
 template <> unsigned long Random::rand<unsigned long>() {
     unsigned long bits = 0;
     const int chunks = (std::numeric_limits<unsigned long>::digits + 32 - 1) / 32; //ceiling(x/y) = (x + y - 1) / y
@@ -95,16 +86,12 @@ template <> unsigned long Random::rand<unsigned long>() {
     return bits;
 }
 
-/**
- * @return A `long` between `LONG_MIN` and `LONG_MAX`.
- */
+
 template <> long Random::rand<long>() {
     return rand<unsigned long>();
 }
 
-/**
- * @return An `unsigned long long` betwen 0 and `ULLONG_MAX`.
- */
+
 template <> unsigned long long Random::rand<unsigned long long>() {
     unsigned long long bits = 0;
     const int chunks = (std::numeric_limits<unsigned long long>::digits + 32 - 1) / 32; //ceiling(x/y) = (x + y - 1) / y
@@ -114,9 +101,7 @@ template <> unsigned long long Random::rand<unsigned long long>() {
     return bits;
 }
 
-/**
- * @return A `long long` between `LLONG_MIN` and `LLONG_MAX`.
- */
+
 template <> long long Random::rand<long long>() {
     return rand<unsigned long long>();
 }
@@ -138,17 +123,6 @@ template <> long long Random::rand<long long>() {
 //TODO: use numeric_limits instead of hard-coded masks
 //see: boost::integer's int_t<bits>
 
-/**
- * Generate a floating-point value with uniform distribution between 0 and 1.0.
- * 
- * This method is preferable to use over the common practice of 
- * `rand<int>() / (float)INT_MAX`, as the latter excludes a large fraction of 
- * the representable floating point numbers between 0.0 and 1.0 (particularly those
- * near zero), resulting in reduced entropy. 
- * 
- * This method produces a number by carefully picking the bits of the exponent 
- * and mantissa explicitly, in such a way that the distibution remains uniform.
- */
 template <> float Random::rand<float>() {
     // without IEEE754, our bit twiddling will not work.
     // generally this will only fail for "exotic" systems:
@@ -177,17 +151,7 @@ template <> float Random::rand<float>() {
     return ans.f;
 }
 
-/**
- * Generate a floating-point value with uniform distribution between 0 and 1.0.
- * 
- * This method is preferable to use over the common practice of 
- * `rand<int>() / (float)INT_MAX`, as the latter excludes a large fraction of 
- * the representable floating point numbers between 0.0 and 1.0 (particularly those
- * near zero), resulting in reduced entropy. 
- * 
- * This method produces a number by carefully picking the bits of the exponent 
- * and mantissa explicitly, in such a way that the distibution remains uniform.
- */
+
 template <> double Random::rand<double>() {
     // without IEEE754, our bit twiddling will not work.
     // generally this will only fail for "exotic" systems:
@@ -221,10 +185,7 @@ template <> double Random::rand<double>() {
  * Positive Range Specializations *
  **********************************/
 
-/**
- * @param hi Upper bound of random number.
- * @return An `unsigned int` between 0 and `hi`.
- */
+
 template <> unsigned int Random::rand<unsigned int>(unsigned int hi) {
     unsigned int bits, val, lo;
 
@@ -238,10 +199,7 @@ template <> unsigned int Random::rand<unsigned int>(unsigned int hi) {
     return val;
 }
 
-/**
- * @param hi Upper or lower bound of random number.
- * @return A number between 0 and `hi` (regardless of the sign of `hi`).
- */
+
 template <> int Random::rand<int>(int hi) {
     if (hi < 0) {
         return -rand<unsigned int>(-hi);
@@ -250,10 +208,7 @@ template <> int Random::rand<int>(int hi) {
     }
 }
 
-/**
- * @param hi Upper bound of random number.
- * @return An `unsigned long` between 0 and `hi`.
- */
+
 template <> unsigned long Random::rand<unsigned long>(unsigned long hi) {
     unsigned long bits, val, lo;
 
@@ -267,10 +222,7 @@ template <> unsigned long Random::rand<unsigned long>(unsigned long hi) {
     return val;
 }
 
-/**
- * @param hi Upper or lower bound of random number.
- * @return A `long` between 0 and `hi`, regardless of the sign of `hi`.
- */
+
 template <> long Random::rand<long>(long hi) {
     if (hi < 0) {
         return -rand<unsigned long>(-hi);
@@ -279,10 +231,7 @@ template <> long Random::rand<long>(long hi) {
     }
 }
 
-/**
- * @param hi Upper bound of random number.
- * @return An `unsigned long long` between 0 and `hi`.
- */
+
 template <> unsigned long long Random::rand<unsigned long long>(unsigned long long hi) {
     unsigned long long bits, val, lo;
 
@@ -296,10 +245,7 @@ template <> unsigned long long Random::rand<unsigned long long>(unsigned long lo
     return val;
 }
 
-/**
- * @param hi Upper or lower bound of random number.
- * @return A `long long` between 0 and `hi`, regardless of the sign of `hi`.
- */
+
 template <> long long Random::rand<long long>(long long hi) {
     if (hi < 0) {
         return -rand<unsigned long long>(-hi);
@@ -308,18 +254,12 @@ template <> long long Random::rand<long long>(long long hi) {
     }
 }
 
-/**
- * @param hi Upper or lower bound of random number.
- * @return A `float` between 0 and `hi`, regardless of the sign of `hi`.
- */
+
 template <> float Random::rand<float>(float hi) {
     return hi * rand<float>();
 }
 
-/**
- * @param hi Upper or lower bound of random number.
- * @return A `double` between 0 and `hi`, regardless of the sign of `hi`.
- */
+
 template <> double Random::rand<double>(double hi) {
     return hi * rand<double>();
 }
@@ -331,40 +271,24 @@ template <> double Random::rand<double>(double hi) {
 // todo: some of these will fail for ranges crossing zero where lo - hi is
 // greater than INT_MAX.
 
-/**
- * @param lo Lower bound of random number.
- * @param hi Upper bound of random number.
- * @return An `int` between `lo` and `hi`.
- */
+
 template <> int Random::rand<int>(int lo, int hi) {
     int lo1 = min(hi,lo);
     return rand<int>(max(hi,lo) - lo1) + lo1;
 }
 
-/**
- * @param lo Lower bound of random number.
- * @param hi Upper bound of random number.
- * @return A `long long` between `lo` and `hi`.
- */
+
 template <> long long Random::rand<long long>(long long lo, long long hi) {
     long long lo1 = min(hi,lo);
     return rand<long long>(max(hi,lo) - lo1) + lo1;
 }
 
-/**
- * @param lo Lower bound of random number.
- * @param hi Upper bound of random number.
- * @return An `float` between `lo` and `hi`.
- */
+
 template <> float Random::rand<float>(float lo, float hi) {
     return (hi-lo)*rand<float>() + lo;
 }
 
-/**
- * @param lo Lower bound of random number.
- * @param hi Upper bound of random number.
- * @return An `double` between `lo` and `hi`.
- */
+
 template <> double Random::rand<double>(double lo, double hi) {
     return (hi-lo)*rand<double>() + lo;
 }
