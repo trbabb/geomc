@@ -52,7 +52,7 @@ template <index_t N> void fill_unit_raw_vec_array(double dst[][N], index_t n) {
     }
 }
 
-template <index_t N> void fill_range_vec_array(Vec<double, N> *dst, index_t n, Vec<double,N> lo, Vec<double,N> hi) {
+template <typename T, index_t N> void fill_range_vec_array(Vec<T, N> *dst, index_t n, Vec<T,N> lo, Vec<T,N> hi) {
     Sampler<double> rntools = Sampler<double>();
     
     for (index_t i = 0; i < n; i++) {
@@ -60,8 +60,8 @@ template <index_t N> void fill_range_vec_array(Vec<double, N> *dst, index_t n, V
     }
 }
 
-template <index_t N> void fill_range_vec_array(Vec<Dual<double>, N> *dst, index_t n, Vec<Dual<double>,N> lo, Vec<Dual<double>,N> hi) {
-    Sampler< Dual<double> > rntools = Sampler< Dual<double> >();
+template <typename T, index_t N> void fill_range_vec_array(Vec<Dual<T>, N> *dst, index_t n, Vec<Dual<T>,N> lo, Vec<Dual<T>,N> hi) {
+    Sampler< Dual<T> > rntools = Sampler< Dual<T> >();
     
     for (index_t i = 0; i < n; i++) {
         dst[i] = rntools.box(lo, hi);
@@ -204,7 +204,7 @@ template <index_t N> double profile_perlin(index_t iters) {
     PerlinNoise<double,N> perlin;
     double dest_vals[n];
     
-    fill_range_vec_array<N>(vecs_src, n, -range, range);
+    fill_range_vec_array<double,N>(vecs_src, n, -range, range);
     
     index_t idx = 0;
     clock_t start = clock();
@@ -215,9 +215,9 @@ template <index_t N> double profile_perlin(index_t iters) {
     clock_t end = clock();
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
-/*
-template <index_t N> double profile_perlin_grad(index_t iters) {
-    typedef Dual<double> dual;
+
+template <typename T, index_t N> double profile_perlin_grad(index_t iters) {
+    typedef Dual<T> dual;
 	typedef typename PointType<dual,N>::point_t point_t;
     
     index_t n = NUM_PROFILE_CASES;
@@ -226,7 +226,7 @@ template <index_t N> double profile_perlin_grad(index_t iters) {
     PerlinNoise<dual,N> perlin;
     dual dest_vals[n];
     
-    fill_range_vec_array<N>(vecs_src, n, -range, range);
+    fill_range_vec_array<T,N>(vecs_src, n, -range, range);
     
     index_t idx = 0;
     clock_t start = clock();
@@ -237,7 +237,27 @@ template <index_t N> double profile_perlin_grad(index_t iters) {
     clock_t end = clock();
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
- */
+
+template <typename T, index_t N> double profile_perlin_hard_grad(index_t iters) {
+	typedef typename PointType<T,N>::point_t point_t;
+    
+    index_t n = NUM_PROFILE_CASES;
+    point_t range = point_t(10000);
+    point_t vecs_src[n];
+    PerlinNoise<T,N> perlin;
+    point_t dest_vals[n];
+    
+    fill_range_vec_array<T,N>(vecs_src, n, -range, range);
+    
+    index_t idx = 0;
+    clock_t start = clock();
+    for (index_t i = 0; i < iters; i++) {
+        dest_vals[idx] = perlin.gradient(vecs_src[n]);
+        idx = (idx + 1) % n;
+    }
+    clock_t end = clock();
+    return (end-start) / (double)CLOCKS_PER_SEC;
+}
 
 // careful with this. allocates lots o memory.
 template <typename T> double profile_rayTriangleTest(index_t iters) {
@@ -575,7 +595,16 @@ int main(int argc, char** argv) {
     profile("5d perlin", profile_perlin<5>, iters/100);
     std::cout << std::endl;
     
-    //profile("3d perlin dual", profile_perlin_grad<3>, iters/100);
+    //profile("1d perlin dual", profile_perlin_grad<double,1>, iters/100);
+    profile("2d perlin dual", profile_perlin_grad<double,2>, iters/100);
+    profile("3d perlin dual", profile_perlin_grad<double,3>, iters/100);
+    profile("4d perlin dual", profile_perlin_grad<double,4>, iters/100);
+    std::cout << std::endl;
+    
+    //profile("1d perlin grad", profile_perlin_hard_grad<double,1>, iters/100);
+    profile("2d perlin grad", profile_perlin_hard_grad<double,2>, iters/100);
+    profile("3d perlin grad", profile_perlin_hard_grad<double,3>, iters/100);
+    profile("4d perlin grad", profile_perlin_hard_grad<double,4>, iters/100);
     std::cout << std::endl;
     
     profile("2d hash", profile_vec_hash<2>, iters);

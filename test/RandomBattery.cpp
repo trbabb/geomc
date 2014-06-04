@@ -1,5 +1,7 @@
 /*
  * RandomBattery.cpp
+ * 
+ * A suite of tests to catch the most obvious mistakes in a PRNG implementation.
  *
  *  Created on: Nov 11, 2012
  *      Author: tbabb

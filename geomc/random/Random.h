@@ -173,6 +173,7 @@
 #include <geomc/geomc_defs.h>
 #include <geomc/random/randomdetail/RandomImpl.h>
 
+
 namespace geom {
     
     /**
@@ -227,7 +228,15 @@ namespace geom {
          * For example, `rand<float>()` returns a random float between 0 and
          * 1.0, while `rand<unsigned int>()` returns a random `uint` between 0 and `UINT_MAX`. 
          */
-        template <typename T> T rand();
+        
+        // todo: make the base template of rand<>() call randomimpl<T>
+        // user specializations must go in randomimpl.
+        // add specialization declarations to the random class here, in the
+        // header. this will prevent the base template from masking the
+        // specializations, and might also prevent doxygen from getting confused.
+        template <typename T> T rand() {
+            return detail::RandomImpl<T>::rand(this);
+        }
         
         /**
          * Produces a (pseudo-) random `T` with uniform distribution between
@@ -235,7 +244,9 @@ namespace geom {
          * 
          * @param max Upper bound of possible `T` samples.
          */
-        template <typename T> T rand(T max);
+        template <typename T> T rand(T max) {
+            return detail::RandomImpl<T>::rand(this, max);
+        }
         
         /**
          * Produces a (pseudo-) random `T` with uniform distribution between
@@ -243,7 +254,10 @@ namespace geom {
          * @param lo Lower bound for possible `T` samples.
          * @param hi Upper bound for possible `T` samples.
          */
-        template <typename T> T rand(T lo, T hi);
+        template <typename T> T rand(T lo, T hi) {
+            return detail::RandomImpl<T>::rand(this, lo, hi);
+        }
+
         
     protected:
         uint32_t     _bitpool;
@@ -252,11 +266,17 @@ namespace geom {
 }
 
 
-// oddly enough, this goes at the bottom, because RandomDual needs to see the complete 
-// definition of Random to call it.
+// oddly enough, this goes at the bottom, because the inner template function
+// needs to be visible before it can be fully specialized. god, c++ is dumb
+
+#include <geomc/random/randomdetail/RandomSpecialize.h>
+
+// same here. RandomDual needs to see the rand<>() specialization defs so it can
+// call them. So fragile. Ick.
 
 #ifdef GEOMC_DUAL_H
 #include <geomc/function/functiondetail/RandomDual.h>
 #endif
+
 
 #endif /* GEOMC_RANDOM_H_ */

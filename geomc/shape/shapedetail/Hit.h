@@ -60,7 +60,8 @@ enum HitSide {
  * @brief Ray hit class.
  */
 template <typename T, index_t N>
-struct Hit {
+class Hit {
+    public:
     /// Point of hit
     Vec<T,N> p;
     /// Normal of surface at hit point
