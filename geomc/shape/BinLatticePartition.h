@@ -54,7 +54,12 @@
 #ifndef BINLATTICEPARTITION_H_
 #define BINLATTICEPARTITION_H_
 
+#if __cplusplus <= 199711L
 #include <tr1/unordered_map>
+#else
+#include <unordered_map>
+#endif
+
 #include <limits>
 #include <boost/iterator/transform_iterator.hpp>
 #include <boost/iterator/iterator_facade.hpp>
@@ -73,8 +78,12 @@ public:
     typedef std::pair< Vec<T,N>, O >           item_t;
 
 protected:
+#if __cplusplus <= 199711L
     typedef std::tr1::unordered_multimap<bin_t, item_t> cellmap_t;
-
+#else
+    typedef std::unordered_multimap<bin_t, item_t> cellmap_t;
+#endif
+    
     // members
     cellmap_t _cells;
     T         _cellsize;
