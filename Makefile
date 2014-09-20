@@ -21,6 +21,7 @@ docs :
 	doxygen
 
 lib : $(OBJECTS)
+	mkdir -p lib
 	$(AR) rs $(LIB) $(OBJECTS)
 	@echo
 	@echo Done building library.

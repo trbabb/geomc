@@ -71,8 +71,8 @@ template <typename T, index_t N> void fill_range_vec_array(Vec<Dual<T>, N> *dst,
 double profile_vec_cross(index_t iters) {
     const index_t n = NUM_PROFILE_CASES;
     Vec3d v;
-    Vec3d vecs_src[n];
-    Vec3d vecs_dst[n];
+    Vec3d *vecs_src = new Vec3d[n];
+    Vec3d *vecs_dst = new Vec3d[n];
     
     fill_unit_vec_array<3>(vecs_src, n);
     
@@ -83,14 +83,17 @@ double profile_vec_cross(index_t iters) {
         idx += 1;
     }
     clock_t end = clock();
+    
+    delete [] vecs_src;
+    delete [] vecs_dst;
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
 template <index_t N> double profile_vec_add(index_t iters) {
     index_t n = NUM_PROFILE_CASES;
-    Vec<double, N> vecs_src_1[n];
-    Vec<double, N> vecs_src_2[n];
-    Vec<double, N> vecs_dst[n];
+    Vec<double, N> *vecs_src_1 = new Vec<double,N>[n];
+    Vec<double, N> *vecs_src_2 = new Vec<double,N>[n];
+    Vec<double, N> *vecs_dst   = new Vec<double,N>[n];
     
     fill_unit_vec_array<N>(vecs_src_1, n);
     fill_unit_vec_array<N>(vecs_src_2, n);
@@ -102,14 +105,19 @@ template <index_t N> double profile_vec_add(index_t iters) {
         idx = (idx + 1) % n;
     }
     clock_t end = clock();
+    
+    delete [] vecs_src_1;
+    delete [] vecs_src_2;
+    delete [] vecs_dst;
+    
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
 template <index_t N> double profile_vec_dot(index_t iters) {
     index_t n = NUM_PROFILE_CASES;
-    Vec<double, N> vecs_src_1[n];
-    Vec<double, N> vecs_src_2[n];
-    double vecs_dst[n];
+    Vec<double, N> *vecs_src_1 = new Vec<double,N>[n];
+    Vec<double, N> *vecs_src_2 = new Vec<double,N>[n];
+    double *vecs_dst = new double[n];
     
     fill_unit_vec_array<N>(vecs_src_1, n);
     fill_unit_vec_array<N>(vecs_src_2, n);
@@ -121,13 +129,18 @@ template <index_t N> double profile_vec_dot(index_t iters) {
         idx = (idx + 1) % n;
     }
     clock_t end = clock();
+    
+    delete [] vecs_src_1;
+    delete [] vecs_src_2;
+    delete [] vecs_dst;
+    
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
 template <index_t N> double profile_vec_norm(index_t iters) {
     index_t n = NUM_PROFILE_CASES;
-    Vec<double, N> vecs_src[n];
-    double vecs_dst[n];
+    Vec<double, N> *vecs_src = new Vec<double,N>[n];
+    double *vecs_dst = new double[n];
     
     fill_unit_vec_array<N>(vecs_src, n);
     
@@ -138,13 +151,17 @@ template <index_t N> double profile_vec_norm(index_t iters) {
         idx += 1;
     }
     clock_t end = clock();
+    
+    delete [] vecs_src;
+    delete [] vecs_dst;
+    
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
 template <index_t N> double profile_vec_norm2(index_t iters) {
     index_t n = NUM_PROFILE_CASES;
-    Vec<double, N> vecs_src[n];
-    double vecs_dst[n];
+    Vec<double, N> *vecs_src = new Vec<double,N>[n];
+    double *vecs_dst = new double[n];
     
     fill_unit_vec_array<N>(vecs_src, n);
     
@@ -155,13 +172,17 @@ template <index_t N> double profile_vec_norm2(index_t iters) {
         idx += 1;
     }
     clock_t end = clock();
+    
+    delete [] vecs_src;
+    delete [] vecs_dst;
+    
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
 template <index_t N> double profile_vec_hash(index_t iters) {
     index_t n = NUM_PROFILE_CASES;
-    Vec<double, N> vecs_src[n];
-    index_t vecs_dst[n];
+    Vec<double, N> *vecs_src = new Vec<double,N>[n];
+    index_t *vecs_dst= new index_t[n];
     
     fill_unit_vec_array<N>(vecs_src, n);
     
@@ -172,8 +193,14 @@ template <index_t N> double profile_vec_hash(index_t iters) {
         idx += 1;
     }
     clock_t end = clock();
+    
+    delete [] vecs_src;
+    delete [] vecs_dst;
+    
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
+
+// XXX: TODO: HANDLE THIS
 
 template <index_t N> double profile_raw_vec_add(index_t iters) {
     index_t n = NUM_PROFILE_CASES;
@@ -200,9 +227,9 @@ template <index_t N> double profile_perlin(index_t iters) {
 	typedef typename PointType<double,N>::point_t point_t;
     index_t n = NUM_PROFILE_CASES;
     point_t range = point_t(100000);
-    point_t vecs_src[n];
+    point_t *vecs_src = new point_t[n];
     PerlinNoise<double,N> perlin;
-    double dest_vals[n];
+    double *dest_vals = new double[n];
     
     fill_range_vec_array<double,N>(vecs_src, n, -range, range);
     
@@ -213,6 +240,10 @@ template <index_t N> double profile_perlin(index_t iters) {
         idx = (idx + 1) % n;
     }
     clock_t end = clock();
+    
+    delete [] vecs_src;
+    delete [] dest_vals;
+    
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
@@ -222,9 +253,9 @@ template <typename T, index_t N> double profile_perlin_grad(index_t iters) {
     
     index_t n = NUM_PROFILE_CASES;
     point_t range = point_t(10000);
-    point_t vecs_src[n];
+    point_t *vecs_src = new point_t[n];
     PerlinNoise<dual,N> perlin;
-    dual dest_vals[n];
+    dual *dest_vals = new dual[n];
     
     fill_range_vec_array<T,N>(vecs_src, n, -range, range);
     
@@ -235,6 +266,10 @@ template <typename T, index_t N> double profile_perlin_grad(index_t iters) {
         idx = (idx + 1) % n;
     }
     clock_t end = clock();
+    
+    delete [] vecs_src;
+    delete [] dest_vals;
+    
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
@@ -243,9 +278,9 @@ template <typename T, index_t N> double profile_perlin_hard_grad(index_t iters) 
     
     index_t n = NUM_PROFILE_CASES;
     point_t range = point_t(10000);
-    point_t vecs_src[n];
+    point_t *vecs_src = new point_t[n];
     PerlinNoise<T,N> perlin;
-    point_t dest_vals[n];
+    point_t *dest_vals = new point_t[n];
     
     fill_range_vec_array<T,N>(vecs_src, n, -range, range);
     
@@ -256,6 +291,10 @@ template <typename T, index_t N> double profile_perlin_hard_grad(index_t iters) 
         idx = (idx + 1) % n;
     }
     clock_t end = clock();
+    
+    delete [] vecs_src;
+    delete [] dest_vals;
+    
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
@@ -304,7 +343,7 @@ double profile_raster(index_t iters) {
 	index_t n = 128;
 	Vec<index_t,N> dim(n);
     Raster<T,T,N,Channels> image(dim);
-    Vec<T,N> coords[n];
+    Vec<T,N> *coords = new Vec<T,N>[n];
     Sampler<T> rvs;
     
     for (index_t i = 0; i < n; i++) {
@@ -319,6 +358,9 @@ double profile_raster(index_t iters) {
         image.template sample<EDGE_CLAMP,Interp>(coords[i & (n-1)]);
     }
     clock_t end = clock();
+    
+    delete [] coords;
+    
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
 

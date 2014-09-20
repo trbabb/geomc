@@ -276,6 +276,14 @@ public:
     }
 };
 
+// workaround likely clang bug.
+// clang tries to make a bogus template substitution (Matrix for bool)
+// and chokes.
+template <typename T>
+class _ImplMtxInv<T*> {
+    
+};
+
 #undef DET2x2
 
 }; // namespace detail
