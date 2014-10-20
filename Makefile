@@ -27,6 +27,7 @@ lib : $(OBJECTS)
 	@echo Done building library.
 
 profile : lib build/Profile.o
+	mkdir -p bin
 	$(CC) $(LIB) build/Profile.o -o bin/profile
 
 build/Profile.o : test/Profile.cpp

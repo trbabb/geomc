@@ -13,6 +13,7 @@
 
 #include <geomc/linalg/AffineTransform.h>
 #include <geomc/shape/Trace.h>
+#include <geomc/linalg/Orthogonal.h>
 
 namespace geom {
 
@@ -62,45 +63,38 @@ public:
     Plane(Vec<T,N> n, Vec<T,N> pt):normal(n.unit()),d(-pt.dot(normal)) {}
     
     /**
-     * Construct a plane spanning the two given basis vectors, passing through
-     * the origin. 
-     * @param a A direction along the plane.
-     * @param b A direction along the plane.
+     * Construct a plane spanning the given basis vectors. 
+     * @param bases An array of `N-1` bases.
+     * @return A plane whose normal is orthogonal to all the given bases.
      */
-    static inline Plane from_basis(Vec<T,N> a, Vec<T,N> b) {
-        // xxx TODO: this fails for N != 3
-        return Plane(a.cross(b));
+    static inline Plane from_basis(const Vec<T,N> bases[N-1]) {
+        return Plane(orthogonal(bases));
     }
     
     /**
-     * Construct a plane spanning the two given basis vectors, passing through
-     * the point `pt`.
-     * @param a A direction along the plane.
-     * @param b A direction along the plane.
-     * @param pt A point on the plane.
+     * Construct a plane spanning the given basis vectors through the given point.
+     * @param bases An array of `N-1` bases.
+     * @param p Point through which to construct the plane.
+     * @return A plane whose normal is orthogonal to all the given bases.
      */
-    static inline Plane from_basis(Vec<T,N> a, Vec<T,N> b, Vec<T,N> pt) {
-        // xxx TODO: this fails for N != 3
-        return Plane(a.cross(b), pt);
+    static inline Plane from_basis(const Vec<T,N> bases[N-1], Vec<T,N> p) {
+        return Plane(orthogonal(bases), p);
     }
     
     /**
-     * Construct a plane spanning the counterclockwise-wound points in the supplied triangle. 
-     * @param p0 A point on the plane.
-     * @param p1 A point on the plane.
-     * @param p2 A point on the plane.
+     * Construct a plane spanning the points on the given simplex (i.e. line 
+     * segment, triangle, tetrahedron, etc; as appropriate for the dimension). 
+     * @param points The `N` vertecies of a simplex.
+     * @return A plane on which the given simplex lies.
      */
-    static inline Plane from_triangle(Vec<T,N> p0, Vec<T,N> p1, Vec<T,N> p2) {
-        // xxx TODO: this fails for N != 3
-        return Plane((p1-p0).cross(p2-p0), p0);
-    }
-    
-    /**
-     * Construct a plane spanning the counterclockwise-wound points in the supplied triangle.
-     * @param p The list of points.
-     */
-    static inline Plane from_triangle(Vec<T,N> p[N]) {
-        return from_triangle(p[0], p[1], p[2]);
+    static inline Plane from_simplex(const Vec<T,N> points[N]) {
+        Vec<T,N> bases[N-1];
+        for (index_t i = 1; i < N; i++) {
+            // todo: can we choose the "pivot" more intelligently? 
+            // i.e. avoid "sliver" simplexes.
+            bases[i] = points[i] - points[0];
+        }
+        return Plane(bases, points[0]);
     }
     
     /*****************************

@@ -12,8 +12,6 @@
 
 namespace geom {
 
-namespace detail {
-
 /************************************************
  * Matrix LU decomposition                      *
  *                                              *
@@ -21,17 +19,96 @@ namespace detail {
  ************************************************/
 
 #define _MxElem(r,c) m[cols*r + c]
+    
+/**
+ * @ingroup matrix
+ * LU decomposition, pivoting columns.
+ * 
+ * @param m Row-major array of elements to decompose.
+ * @param rows Number of rows in `m`.
+ * @param cols Number of columns in `m`.
+ * @param reorder Array with space for `cols` elements to be filled with the column source indexes.
+ * @param swap_parity Whether an odd number of column-swaps was performed.
+ * @return The number of degenerate columns discovered.
+ */
+template <typename T>
+index_t decompLUP(T* m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity) {
+    const index_t n = std::min(rows, cols);
+    index_t degenerate_ct = 0;
+    *swap_parity = false;
+    // fill permutation array
+    for (index_t i = 0; i < cols; i++){
+        reorder[i] = i;
+    }
+    
+    for (index_t i = 0; i < n - 1; i++) {
+        // find pivot
+        T biggest = std::abs(_MxElem(i,i));
+        index_t pvt = i;
+        for (index_t p = i + 1; p < cols; p++) {
+            T pvt_val = std::abs(_MxElem(i,p));
+            if (pvt_val > biggest) {
+                pvt = p;
+                biggest = pvt_val;
+            }
+        }
+        
+        if (biggest == 0) {
+            // singular matrix
+            // could test against an epsilon to 
+            // find ill-conditioned matrices
+            degenerate_ct += 1;
+            continue;
+        } else if (pvt != i) {
+            // swap col <i> with col <pvt>
+            for (index_t r = 0; r < rows; r++) {
+                std::swap(_MxElem(r, i),
+                          _MxElem(r, pvt));
+            }
+            // make a note of the permutation in <P>
+            std::swap(reorder[i], reorder[pvt]);
+            *swap_parity = !*swap_parity;
+        }
+        
+        // eliminate lower elements
+        T a = _MxElem(i,i);
+        for (index_t r = i + 1; r < rows; r++) {
+            T b = _MxElem(r,i) / a;
+            for (index_t c = i + 1; c < cols; c++) {
+                // R_r = R_r - b * R_i
+                T src_elem = _MxElem(i,c);
+                T dst_elem = _MxElem(r,c);
+                _MxElem(r,c) = dst_elem - b * src_elem;
+            }
+            // set the lower matrix
+            _MxElem(r,i) = b;
+        }
+    }
+    
+    return degenerate_ct;
+}
 
 // we operate on a bare data array (in row-contiguous order).
 // this saves on multiple instantiations of this method for
 // different static sizes of SimpleMatrix. It's 7% faster too!
+/**
+ * @ingroup matrix
+ * LU decomposition, pivoting rows.
+ * 
+ * @param m Row-major array of elements to decompose.
+ * @param rows Number of rows in `m`.
+ * @param cols Number of columns in `m`.
+ * @param reorder Array with space for `rows` elements to be filled with the row source indexes.
+ * @param swap_parity Whether an odd number of row-swaps was performed.
+ * @return The number of degenerate rows discovered.
+ */
 template <typename T>
-bool _ImplDecompPLU(T* m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity) {
+bool decompPLU(T* m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity) {
     const index_t n = std::min(rows, cols);
-    bool singular = false;
+    index_t degenerate_ct = 0;
     *swap_parity = false;
     // fill permutation array
-    for (index_t i = 0; i < n; i++){
+    for (index_t i = 0; i < rows; i++){
         reorder[i] = i;
     }
     
@@ -51,7 +128,7 @@ bool _ImplDecompPLU(T* m, index_t rows, index_t cols, index_t *reorder, bool *sw
             // singular matrix
             // could test against an epsilon to 
             // find ill-conditioned matrices
-            singular = true;
+            degenerate_ct += 1;
             continue;
         } else if (pvt != i) {
             // swap row <i> with row <pvt>
@@ -79,12 +156,10 @@ bool _ImplDecompPLU(T* m, index_t rows, index_t cols, index_t *reorder, bool *sw
         }
     }
     
-    return singular;
+    return degenerate_ct;
 }
 
 #undef _MxElem
-
-} // namespace detail
 
 //////////// PLU class ////////////
 
@@ -139,7 +214,7 @@ public:
         mtxcopy(&LU, m);
         // TODO: this alloc isn't necessary if we become a friend of PermutationMatrix
         detail::TemporaryStorage<index_t, Mx::ROWDIM> reorder(m.rows());
-        bool ok = detail::_ImplDecompPLU(LU.begin(), m.rows(), m.cols(), reorder.get(), &swap_parity);
+        bool ok = decompPLU(LU.begin(), m.rows(), m.cols(), reorder.get(), &swap_parity);
 
         if (not ok) {
             singular = true;
@@ -255,6 +330,7 @@ public:
         _copyU(into);
     }
     
+    //EDIT: shouldn't it be U.cols()?
     // only vectors of dimension <U.rows()> are permitted.
     // we'll assume (perhaps unfairly?) that the client
     // is passing the right thing, since there is no
@@ -453,9 +529,9 @@ protected:
             _linearSolve(dest, dest, false);
         }
     }
-};
+    
+};  // plu class
 
-}
-
+}  // namespace geom
 
 #endif /* LUDECOMP_H_ */

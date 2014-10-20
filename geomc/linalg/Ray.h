@@ -98,7 +98,7 @@ namespace detail {
         Vec<T,N> directionFromAxisTo(const Vec<T,N> &p) const {
             Vec<T,N> b = p - origin;
             T d = b.dot(direction);
-            return p - (d / direction.mag2()) * direction;
+            return b - (d / direction.mag2()) * direction;
         }
         
     }; //end of RayBase class

@@ -113,19 +113,8 @@ public:
      */
     inline static Rect<T,N> spanningCorners(point_t c1,
                                             point_t c2) {
-        // Below fails to find the Vec<T,N> specialization of min/max.
-        // TODO: Isolate this bug and build a test case. smells a little like
-        // either a template compiler bug or include order issues. both make me sad.
-        
-        //typename Rect<T,N>::point_t lo = std::min(c1, c2);
-        //typename Rect<T,N>::point_t hi = std::max(c1, c2);
-        point_t lo, hi;
-        T* ptr1 = ptype::iterator(c1);
-        T* ptr2 = ptype::iterator(c2);
-        for (int i = 0; i < N; i++, ptr1++, ptr2++) {
-            lo[i] = std::min(*ptr1, *ptr2);
-            hi[i] = std::max(*ptr1, *ptr2);
-        }
+        typename Rect<T,N>::point_t lo = std::min(c1, c2);
+        typename Rect<T,N>::point_t hi = std::max(c1, c2);
         return Rect<T,N>(lo, hi);
     }
 
@@ -451,6 +440,13 @@ public:
         mins = std::min(mins, p);
         maxs = std::max(maxs, p);
         return *this;
+    }
+    
+    /**
+     * Clamp the coordinates of `p` to lie within this Rect.
+     */
+    inline point_t clamp(point_t p) const {
+        return std::min(maxs, std::max(mins, p));
     }
 
     /**

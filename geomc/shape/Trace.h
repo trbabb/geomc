@@ -38,6 +38,7 @@ inline Hit<T,3> trace_tri(Vec<T,3> p[3], const Ray<T,3> &r, HitSide sides=HIT_FR
     return trace_tri(p[0], p[1], p[2], r, sides);
 }
 
+// todo: this is now generalizable to higher dims pretty easily.
 template <typename T>
 Hit<T,3> trace_tri(const Vec<T,3> &p0, 
                    const Vec<T,3> &p1, 
@@ -46,9 +47,8 @@ Hit<T,3> trace_tri(const Vec<T,3> &p0,
                    HitSide sides=HIT_FRONT){
     Hit<T,3> hit(r,sides);
     
-    Vec<T,3> dPdu = p1 - p0;
-    Vec<T,3> dPdv = p2 - p0;
-    Plane<T,3> plane = Plane<T,3>::from_basis(dPdu, dPdv, p0);
+    Vec<T,3> dP[2] = {p1 - p0, p2 - p0};
+    Plane<T,3> plane = Plane<T,3>::from_basis(dP, p0);
     T s;
     
     if (!detail::_ImplTracePlane(&s, plane, r, &sides)) {
@@ -60,13 +60,13 @@ Hit<T,3> trace_tri(const Vec<T,3> &p0,
     // dPdu, dPdv, and N form a 3d basis.
     // thus we can solve:
     //    u*dPdu + v*dPdv + t*N = P
-    // t should be very close to zero; we can ignore it.
+    // t should essentially be zero; we can ignore it.
     
     // 3d matrix inversion is faster than you think. 
     // also, gcc tends to unroll those copy ops.
     SimpleMatrix<T,3,3> mtx;
-    std::copy(dPdu.begin(), dPdu.end(), mtx.col(0));
-    std::copy(dPdv.begin(), dPdv.end(), mtx.col(1));
+    std::copy(dP[0].begin(), dP[0].end(), mtx.col(0));
+    std::copy(dP[1].begin(), dP[1].end(), mtx.col(1));
     std::copy(plane.normal.begin(), plane.normal.end(), mtx.col(2));
     inv(&mtx, mtx);
     Vec<T,3> uvn = mtx * (p-p0);
@@ -91,7 +91,8 @@ Hit<T,3> trace_tri(const Vec<T,3> &p0,
 template <typename T>
 Hit<T,3> trace_planar_quad(const Vec<T,3> &dPdu, const Vec<T,3> &dPdv, const Vec<T,3> &origin, const Ray<T,3> &ray, HitSide sides){
     Hit<T,3> hit(ray,sides);
-    Plane<T,3> pl = Plane<T,3>::from_basis(dPdu, dPdv, origin);
+    Vec<T,3> dP[2] = {dPdu, dPdv};
+    Plane<T,3> pl = Plane<T,3>::from_basis(dP, origin);
     T s;
     
     if (!detail::_ImplTracePlane(&s, pl, ray, &sides)){
