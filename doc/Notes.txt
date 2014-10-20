@@ -4,6 +4,7 @@ what if:
  
 MATRIX:
   - fix mtx multiplication for SimpleMtx to operate on T* rather than the matrix, to prevent code bloat
+  - remove writeable iterator from diagmatrix
   x in-place LU solving (collapse L and U storage to one matrix). 
       inverse still requires double-alloc for dynamic mtxs;
       not great for many repeated inversions.
