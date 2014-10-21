@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['abs',['abs',['../namespacestd.html#a1c9486d7173f6c910e1f995c6fa13e8c',1,'std']]],
+  ['abs',['abs',['../group__linalg.html#ga1c9486d7173f6c910e1f995c6fa13e8c',1,'std']]],
   ['acos',['acos',['../group__function.html#ga93c494d2f264e2897e1b7a6d2da6297f',1,'std']]],
   ['add',['add',['../classgeom_1_1_vec_3_01_t_00_012_01_4.html#a3330d15b85edb80ab15d03064e9d991c',1,'geom::Vec&lt; T, 2 &gt;::add()'],['../classgeom_1_1_vec_3_01_t_00_013_01_4.html#ab7a4060068c3bc3d835cea6b031d4a09',1,'geom::Vec&lt; T, 3 &gt;::add()'],['../classgeom_1_1_vec_3_01_t_00_014_01_4.html#a70221afe55570aa861b6d5ee6303f963',1,'geom::Vec&lt; T, 4 &gt;::add()'],['../group__matrix.html#gad29282e95cba76934ebf5ebff8dabf1d',1,'geom::add(Matrix *d, const Matrix1 &amp;a, const Matrix2 &amp;b)'],['../group__matrix.html#gaebd7d99bad76113a8697036b8fe9a5ad',1,'geom::add(const Matrix1 &amp;a, const Matrix2 &amp;b)']]],
   ['affinetransform',['AffineTransform',['../classgeom_1_1_affine_transform.html#a4b04b30f496f678d29c350d13cc01385',1,'geom::AffineTransform']]],

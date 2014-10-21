@@ -1,6 +1,8 @@
 var searchData=
 [
   ['dataextents',['dataExtents',['../classgeom_1_1_raster.html#a57c567559c16f501900105c3fe168179',1,'geom::Raster']]],
+  ['decomplup',['decompLUP',['../group__matrix.html#gae26bc667b31e38699f4b483ed34d43c9',1,'geom']]],
+  ['decompplu',['decompPLU',['../group__matrix.html#gaf5031927fdc7ee1cb75925e8bcf08f09',1,'geom']]],
   ['det',['det',['../classgeom_1_1_p_l_u_decomposition.html#a67ccc6cfa482de0cf47a6ff7124a2b81',1,'geom::PLUDecomposition']]],
   ['diagmatrix',['DiagMatrix',['../classgeom_1_1_diag_matrix.html#ad4475ee6bbf662eaa1749772e9e5d712',1,'geom::DiagMatrix::DiagMatrix(index_t nrows, index_t ncols)'],['../classgeom_1_1_diag_matrix.html#a8ff9dc869cf1535d94c09d0b43d43d63',1,'geom::DiagMatrix::DiagMatrix(const T src[], index_t n)']]],
   ['diagonal',['diagonal',['../classgeom_1_1_p_l_u_decomposition.html#a070256d0abafc7c932b2b103a4e73394',1,'geom::PLUDecomposition']]],

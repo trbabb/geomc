@@ -107,285 +107,196 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;geomc/linalg/vecdetail/Vec2.h&gt;</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;geomc/linalg/vecdetail/Vec3.h&gt;</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;geomc/linalg/vecdetail/Vec4.h&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;mtxdetail/MatrixGlue.h&quot;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;geomc/linalg/vecdetail/VecStd.h&gt;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;mtxdetail/MatrixGlue.h&quot;</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>geom {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="comment">// fwd decl</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">namespace </span>detail {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> M, <span class="keyword">typename</span> RefType&gt; <span class="keyword">class </span>MtxColIterator;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    }</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="comment">//TODO: Fix operators for Quat</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">/*******************************</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> * Vector Operators            *</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment"> *******************************/</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">//TODO: convert to &lt;auto&gt;</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">//TODO: use boost::operator?</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">// why enable_if is necessary to prevent masking of</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">// more explicit matrix mult operators is beyond me.</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">// c++ is a dumb, awful language.</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#ifdef PARSING_DOXYGEN</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">inline</span> <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N, <span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="group__linalg.html#ga8334139bfa0627a1ca0fe4c54363267e">   55</a></span>&#160;    <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> <a class="code" href="group__linalg.html#ga0b950abe269f1fac1b1389d9469f9df5">operator* </a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> &amp;v, U d) {}</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> V, <span class="keyword">typename</span> U&gt; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> boost::enable_if_c&lt;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            boost::is_scalar&lt;U&gt;::value and detail::IsVector&lt;V&gt;::value,</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        V&gt;::type </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<a class="code" href="group__linalg.html#ga0b950abe269f1fac1b1389d9469f9df5">operator* </a>(<span class="keyword">const</span> V &amp;v, U d) {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    V r;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; V::DIM; i++) {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        r[i] = v[i] * d;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">return</span> r;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">#ifdef PARSING_DOXYGEN</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">inline</span> <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N, <span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="group__linalg.html#ga40888d8c388bbbaa2c7fa27c3d2a4334">   78</a></span>&#160;    <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> <a class="code" href="group__linalg.html#ga0b950abe269f1fac1b1389d9469f9df5">operator* </a>(U d, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> &amp;v) {}</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> V, <span class="keyword">typename</span> U&gt; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> boost::enable_if_c&lt;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        boost::is_scalar&lt;U&gt;::value and detail::IsVector&lt;V&gt;::value, </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        V&gt;::type </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<a class="code" href="group__linalg.html#ga0b950abe269f1fac1b1389d9469f9df5">operator* </a>(U d, <span class="keyword">const</span> V &amp;v) {</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    V r;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; V::DIM; i++) {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        r[i] = d * v[i];</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    }</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">return</span> r;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;}</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor">#ifdef PARSING_DOXYGEN</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt; </div>
-<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="group__linalg.html#ga0b950abe269f1fac1b1389d9469f9df5">  101</a></span>&#160;<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> <a class="code" href="group__linalg.html#ga0b950abe269f1fac1b1389d9469f9df5">operator* </a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> &amp;a, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> &amp;b) {}</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> V&gt;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="keyword">typename</span> boost::enable_if_c&lt;detail::IsVector&lt;V&gt;::value, V&gt;::type </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<a class="code" href="group__linalg.html#ga0b950abe269f1fac1b1389d9469f9df5">operator*</a>(<span class="keyword">const</span> V &amp;a, <span class="keyword">const</span> V &amp;b) {</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">return</span> a.scale(b);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;}</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="preprocessor">#ifdef PARSING_DOXYGEN</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N, <span class="keyword">typename</span> U&gt; </div>
-<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="group__linalg.html#ga56f91a560895fe81c1ac4744bc5ee80e">  120</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> <a class="code" href="group__linalg.html#ga56f91a560895fe81c1ac4744bc5ee80e">operator/ </a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> &amp;v, U d) {}</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> V, <span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="keyword">typename</span> boost::enable_if_c&lt;detail::IsVector&lt;V&gt;::value, V&gt;::type</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<a class="code" href="group__linalg.html#ga56f91a560895fe81c1ac4744bc5ee80e">operator/</a>(<span class="keyword">const</span> V &amp;v, U d) {</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    V r;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; V::DIM; i++) {</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        r[i] = v[i] / d;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    }</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">return</span> r;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;}</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;<span class="preprocessor">#ifdef PARSING_DOXYGEN</span></div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N, <span class="keyword">typename</span> U&gt; </div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="keyword">inline</span> Vec&lt;T,N&gt; <a class="code" href="group__linalg.html#ga56f91a560895fe81c1ac4744bc5ee80e">operator/ </a>(<span class="keyword">const</span> Vec&lt;T,N&gt; &amp;v, U d) {}</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> V, <span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="keyword">inline</span></div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="keyword">typename</span> boost::enable_if_c&lt;detail::IsVector&lt;V&gt;::value, V&gt;::type</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<a class="code" href="group__linalg.html#ga56f91a560895fe81c1ac4744bc5ee80e">operator/</a>(U d, <span class="keyword">const</span> V &amp;v) {</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    V r;</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; V::DIM; i++) {</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        r[i] = d / v[i];</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    }</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordflow">return</span> r;</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;}</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="preprocessor">#ifdef PARSING_DOXYGNE</span></div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt; </div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="keyword">const</span> Vec&lt;T,N&gt; <a class="code" href="group__linalg.html#ga56f91a560895fe81c1ac4744bc5ee80e">operator/ </a>(<span class="keyword">const</span> Vec&lt;T,N&gt; &amp;a, <span class="keyword">const</span> Vec&lt;T,N&gt; &amp;b) {}</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> V&gt;</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="keyword">typename</span> boost::enable_if_c&lt;detail::IsVector&lt;V&gt;::value,V&gt;::type</div>
-<div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="group__linalg.html#ga7ea6cf8ec5a826332d6f043b163d6d3d">  170</a></span>&#160;<a class="code" href="group__linalg.html#ga56f91a560895fe81c1ac4744bc5ee80e">operator/</a>(<span class="keyword">const</span> V &amp;a, <span class="keyword">const</span> V &amp;b) {</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    V r;</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; V::DIM; i++) {</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        r[i] = a[i] / b[i];</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    }</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keywordflow">return</span> r;</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;}</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="preprocessor">#ifdef GEOMC_LINALG_USE_STREAMS</span></div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt; </div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;std::ostream &amp;operator&lt;&lt; (std::ostream &amp;stream, const Vec&lt;T,N&gt; &amp;v) {</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    stream &lt;&lt; <span class="stringliteral">&quot;(&quot;</span>;</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; N-1; i++) {</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        stream &lt;&lt; v[i] &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    }</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    stream &lt;&lt; v[N-1] &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <span class="keywordflow">return</span> stream;</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;}</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;std::ostream &amp;operator&lt;&lt;(std::ostream &amp;stream, const Quat&lt;T&gt; &amp;q) {</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    stream &lt;&lt; <span class="stringliteral">&quot;quat(&quot;</span>;</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    stream &lt;&lt; q.x &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    stream &lt;&lt; q.y &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    stream &lt;&lt; q.z &lt;&lt; <span class="stringliteral">&quot; | &quot;</span>;</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    stream &lt;&lt; q.w &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="keywordflow">return</span> stream;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;}</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">namespace </span>geom {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="comment">// fwd decl</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">namespace </span>detail {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> M, <span class="keyword">typename</span> RefType&gt; <span class="keyword">class </span>MtxColIterator;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    }</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="comment">//TODO: Fix operators for Quat</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">/*******************************</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment"> * Vector Operators            *</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment"> *******************************/</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">//TODO: convert to &lt;auto&gt;</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">//TODO: use boost::operator?</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">// why enable_if is necessary to prevent masking of</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">// more explicit matrix mult operators is beyond me.</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">// c++ is a dumb, awful language.</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#ifdef PARSING_DOXYGEN</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">inline</span> <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N, <span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="group__linalg.html#ga8334139bfa0627a1ca0fe4c54363267e">   56</a></span>&#160;    <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> <a class="code" href="group__linalg.html#ga0b950abe269f1fac1b1389d9469f9df5">operator* </a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> &amp;v, U d) {}</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> V, <span class="keyword">typename</span> U&gt; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> boost::enable_if_c&lt;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            boost::is_scalar&lt;U&gt;::value and detail::IsVector&lt;V&gt;::value,</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        V&gt;::type </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<a class="code" href="group__linalg.html#ga0b950abe269f1fac1b1389d9469f9df5">operator* </a>(<span class="keyword">const</span> V &amp;v, U d) {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    V r;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; V::DIM; i++) {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        r[i] = v[i] * d;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">return</span> r;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#ifdef PARSING_DOXYGEN</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">inline</span> <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N, <span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="group__linalg.html#ga40888d8c388bbbaa2c7fa27c3d2a4334">   79</a></span>&#160;    <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> <a class="code" href="group__linalg.html#ga0b950abe269f1fac1b1389d9469f9df5">operator* </a>(U d, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> &amp;v) {}</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> V, <span class="keyword">typename</span> U&gt; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">inline</span> <span class="keyword">typename</span> boost::enable_if_c&lt;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        boost::is_scalar&lt;U&gt;::value and detail::IsVector&lt;V&gt;::value, </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        V&gt;::type </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<a class="code" href="group__linalg.html#ga0b950abe269f1fac1b1389d9469f9df5">operator* </a>(U d, <span class="keyword">const</span> V &amp;v) {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    V r;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; V::DIM; i++) {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        r[i] = d * v[i];</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    }</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordflow">return</span> r;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;}</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="preprocessor">#ifdef PARSING_DOXYGEN</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt; </div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="group__linalg.html#ga0b950abe269f1fac1b1389d9469f9df5">  102</a></span>&#160;<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> <a class="code" href="group__linalg.html#ga0b950abe269f1fac1b1389d9469f9df5">operator* </a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> &amp;a, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> &amp;b) {}</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> V&gt;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">typename</span> boost::enable_if_c&lt;detail::IsVector&lt;V&gt;::value, V&gt;::type </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<a class="code" href="group__linalg.html#ga0b950abe269f1fac1b1389d9469f9df5">operator*</a>(<span class="keyword">const</span> V &amp;a, <span class="keyword">const</span> V &amp;b) {</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">return</span> a.scale(b);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;}</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="preprocessor">#ifdef PARSING_DOXYGEN</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N, <span class="keyword">typename</span> U&gt; </div>
+<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="group__linalg.html#ga56f91a560895fe81c1ac4744bc5ee80e">  121</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> <a class="code" href="group__linalg.html#ga56f91a560895fe81c1ac4744bc5ee80e">operator/ </a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> &amp;v, U d) {}</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> V, <span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="keyword">typename</span> boost::enable_if_c&lt;detail::IsVector&lt;V&gt;::value, V&gt;::type</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<a class="code" href="group__linalg.html#ga56f91a560895fe81c1ac4744bc5ee80e">operator/</a>(<span class="keyword">const</span> V &amp;v, U d) {</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    V r;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; V::DIM; i++) {</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        r[i] = v[i] / d;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    }</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordflow">return</span> r;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;}</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="preprocessor">#ifdef PARSING_DOXYGEN</span></div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N, <span class="keyword">typename</span> U&gt; </div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="keyword">inline</span> Vec&lt;T,N&gt; <a class="code" href="group__linalg.html#ga56f91a560895fe81c1ac4744bc5ee80e">operator/ </a>(<span class="keyword">const</span> Vec&lt;T,N&gt; &amp;v, U d) {}</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> V, <span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="keyword">inline</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="keyword">typename</span> boost::enable_if_c&lt;detail::IsVector&lt;V&gt;::value, V&gt;::type</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<a class="code" href="group__linalg.html#ga56f91a560895fe81c1ac4744bc5ee80e">operator/</a>(U d, <span class="keyword">const</span> V &amp;v) {</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    V r;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; V::DIM; i++) {</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        r[i] = d / v[i];</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    }</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordflow">return</span> r;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;}</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="preprocessor">#ifdef PARSING_DOXYGNE</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt; </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="keyword">const</span> Vec&lt;T,N&gt; <a class="code" href="group__linalg.html#ga56f91a560895fe81c1ac4744bc5ee80e">operator/ </a>(<span class="keyword">const</span> Vec&lt;T,N&gt; &amp;a, <span class="keyword">const</span> Vec&lt;T,N&gt; &amp;b) {}</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> V&gt;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="keyword">typename</span> boost::enable_if_c&lt;detail::IsVector&lt;V&gt;::value,V&gt;::type</div>
+<div class="line"><a name="l00171"></a><span class="lineno"><a class="line" href="group__linalg.html#ga7ea6cf8ec5a826332d6f043b163d6d3d">  171</a></span>&#160;<a class="code" href="group__linalg.html#ga56f91a560895fe81c1ac4744bc5ee80e">operator/</a>(<span class="keyword">const</span> V &amp;a, <span class="keyword">const</span> V &amp;b) {</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    V r;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; V::DIM; i++) {</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        r[i] = a[i] / b[i];</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    }</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="keywordflow">return</span> r;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;}</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="preprocessor">#ifdef GEOMC_LINALG_USE_STREAMS</span></div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt; </div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;std::ostream &amp;operator&lt;&lt; (std::ostream &amp;stream, const Vec&lt;T,N&gt; &amp;v) {</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    stream &lt;&lt; <span class="stringliteral">&quot;(&quot;</span>;</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; N-1; i++) {</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        stream &lt;&lt; v[i] &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    }</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    stream &lt;&lt; v[N-1] &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="keywordflow">return</span> stream;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;}</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;std::ostream &amp;operator&lt;&lt;(std::ostream &amp;stream, const Quat&lt;T&gt; &amp;q) {</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    stream &lt;&lt; <span class="stringliteral">&quot;quat(&quot;</span>;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    stream &lt;&lt; q.x &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    stream &lt;&lt; q.y &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    stream &lt;&lt; q.z &lt;&lt; <span class="stringliteral">&quot; | &quot;</span>;</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    stream &lt;&lt; q.w &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keywordflow">return</span> stream;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;}</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="comment">/* Declare the Vec type that we&#39;ll actually use, as a subclass of the hidden base template class.</span></div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="comment"> * We do this so that all sizes of vector can share common code, since a template that is merely specialized</span></div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="comment"> * does not implicitly inherit functionality from the base template. With this method, Vec&lt;T,2&gt; can be a specialization</span></div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="comment"> * of Vec&lt;T,N&gt;, but still keep the functionality of VecBase&lt;T,N&gt;.</span></div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="comment"> * </span></div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;<span class="comment"> * All vectors are sizeof(T)*N and can be packed.</span></div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt; <span class="keyword">class </span>Vec : <span class="keyword">public</span> detail::VecCommon&lt; T,N,Vec&lt;T,N&gt; &gt; {</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    </div>
-<div class="line"><a name="l00275"></a><span class="lineno"><a class="line" href="classgeom_1_1_vec.html#a82cf7e1c93ee9188fefb25b86fc6c5b0">  275</a></span>&#160;    <a class="code" href="classgeom_1_1_vec.html#a82cf7e1c93ee9188fefb25b86fc6c5b0">Vec</a>():detail::VecCommon&lt; T,N,<a class="code" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; &gt;() {}</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;</div>
-<div class="line"><a name="l00282"></a><span class="lineno"><a class="line" href="classgeom_1_1_vec.html#a17a6dad1e56778a30b7808fc2b449669">  282</a></span>&#160;    <a class="code" href="classgeom_1_1_vec.html#a17a6dad1e56778a30b7808fc2b449669">Vec</a>(T a):detail::VecCommon&lt; T,N,<a class="code" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; &gt;(a) {}</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    </div>
-<div class="line"><a name="l00288"></a><span class="lineno"><a class="line" href="classgeom_1_1_vec.html#a80add6fe6dbdb8e67f7e150426326b53">  288</a></span>&#160;    <a class="code" href="classgeom_1_1_vec.html#a80add6fe6dbdb8e67f7e150426326b53">Vec</a>(<span class="keyword">const</span> T a[N]):detail::VecCommon&lt; T,N,<a class="code" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; &gt;(a) {}</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    </div>
-<div class="line"><a name="l00296"></a><span class="lineno"><a class="line" href="classgeom_1_1_vec.html#a5779dcaf976714c74a77dcd9b2f71bd9">  296</a></span>&#160;    <a class="code" href="classgeom_1_1_vec.html#a5779dcaf976714c74a77dcd9b2f71bd9">Vec</a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N-1&gt;</a> &amp;v, T a) {</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;        std::copy(v.begin(), v.end(), detail::VecBase&lt;T,N&gt;::begin());</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        this-&gt;<span class="keyword">get</span>(N-1) = a;</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    }</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    </div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Mx, <span class="keyword">typename</span> Ref&gt;</div>
-<div class="line"><a name="l00306"></a><span class="lineno"><a class="line" href="classgeom_1_1_vec.html#a696315664382e3a7ba7792626216001d">  306</a></span>&#160;    <a class="code" href="classgeom_1_1_vec.html#a696315664382e3a7ba7792626216001d">Vec</a>(detail::MtxColIterator&lt;Mx,Ref&gt; mtx_col) {</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        T *p = this-&gt;begin();</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;        <span class="keyword">const</span> index_t n = std::min(N, mtx_col-&gt;mtx-&gt;cols());</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        <span class="keywordflow">for</span> (index_t i = 0; i &lt; n; i++, p++, mtx_col++) {</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;            *p = *mtx_col;</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        }</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    }</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    </div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;}; <span class="comment">/* class Vec */</span></div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;} <span class="comment">// namespace geom</span></div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="comment">/* Declare the Vec type that we&#39;ll actually use, as a subclass of the hidden base template class.</span></div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="comment"> * We do this so that all sizes of vector can share common code, since a template that is merely specialized</span></div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="comment"> * does not implicitly inherit functionality from the base template. With this method, Vec&lt;T,2&gt; can be a specialization</span></div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="comment"> * of Vec&lt;T,N&gt;, but still keep the functionality of VecBase&lt;T,N&gt;.</span></div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;<span class="comment"> * </span></div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="comment"> * All vectors are sizeof(T)*N and can be packed.</span></div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt; <span class="keyword">class </span>Vec : <span class="keyword">public</span> detail::VecCommon&lt; T,N,Vec&lt;T,N&gt; &gt; {</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    </div>
+<div class="line"><a name="l00276"></a><span class="lineno"><a class="line" href="classgeom_1_1_vec.html#a82cf7e1c93ee9188fefb25b86fc6c5b0">  276</a></span>&#160;    <a class="code" href="classgeom_1_1_vec.html#a82cf7e1c93ee9188fefb25b86fc6c5b0">Vec</a>():detail::VecCommon&lt; T,N,<a class="code" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; &gt;() {}</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;</div>
+<div class="line"><a name="l00283"></a><span class="lineno"><a class="line" href="classgeom_1_1_vec.html#a17a6dad1e56778a30b7808fc2b449669">  283</a></span>&#160;    <a class="code" href="classgeom_1_1_vec.html#a17a6dad1e56778a30b7808fc2b449669">Vec</a>(T a):detail::VecCommon&lt; T,N,<a class="code" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; &gt;(a) {}</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    </div>
+<div class="line"><a name="l00289"></a><span class="lineno"><a class="line" href="classgeom_1_1_vec.html#a80add6fe6dbdb8e67f7e150426326b53">  289</a></span>&#160;    <a class="code" href="classgeom_1_1_vec.html#a80add6fe6dbdb8e67f7e150426326b53">Vec</a>(<span class="keyword">const</span> T a[N]):detail::VecCommon&lt; T,N,<a class="code" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; &gt;(a) {}</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    </div>
+<div class="line"><a name="l00297"></a><span class="lineno"><a class="line" href="classgeom_1_1_vec.html#a5779dcaf976714c74a77dcd9b2f71bd9">  297</a></span>&#160;    <a class="code" href="classgeom_1_1_vec.html#a5779dcaf976714c74a77dcd9b2f71bd9">Vec</a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N-1&gt;</a> &amp;v, T a) {</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        std::copy(v.begin(), v.end(), detail::VecBase&lt;T,N&gt;::begin());</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;        this-&gt;<span class="keyword">get</span>(N-1) = a;</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    }</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    </div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Mx, <span class="keyword">typename</span> Ref&gt;</div>
+<div class="line"><a name="l00307"></a><span class="lineno"><a class="line" href="classgeom_1_1_vec.html#a696315664382e3a7ba7792626216001d">  307</a></span>&#160;    <a class="code" href="classgeom_1_1_vec.html#a696315664382e3a7ba7792626216001d">Vec</a>(detail::MtxColIterator&lt;Mx,Ref&gt; mtx_col) {</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;        T *p = this-&gt;begin();</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        <span class="keyword">const</span> index_t n = std::min(N, mtx_col-&gt;mtx-&gt;cols());</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;        <span class="keywordflow">for</span> (index_t i = 0; i &lt; n; i++, p++, mtx_col++) {</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;            *p = *mtx_col;</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;        }</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    }</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    </div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;}; <span class="comment">/* class Vec */</span></div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;} <span class="comment">// namespace geom</span></div>
 <div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="keyword">namespace </span>std {</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="comment">// these make vectors more interchangeable with bare types:</span></div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;<span class="comment"></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="line"><a name="l00326"></a><span class="lineno"><a class="line" href="namespacestd.html#a0ec62350e795e225863d4d372a677df2">  326</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> max(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> &amp;a, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> &amp;b) {</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    <span class="keywordflow">return</span> a.max(b);</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;}</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="line"><a name="l00334"></a><span class="lineno"><a class="line" href="namespacestd.html#ab72c97cbf1524c7ccd3263d793823616">  334</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> min(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> &amp;a, <span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> &amp;b) {</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    <span class="keywordflow">return</span> a.min(b);</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;}</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="line"><a name="l00342"></a><span class="lineno"><a class="line" href="namespacestd.html#a1c9486d7173f6c910e1f995c6fa13e8c">  342</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> abs(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> &amp;v) {</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;    <span class="keywordflow">return</span> v.abs();</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;}</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="line"><a name="l00350"></a><span class="lineno"><a class="line" href="namespacestd.html#aec98ef7d00508b932139c05b10672a02">  350</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> floor(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> &amp;v) {</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;    <span class="keywordflow">return</span> v.floor();</div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;}</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="line"><a name="l00358"></a><span class="lineno"><a class="line" href="namespacestd.html#a940d79ad42b88fd9843ba51a629d40e1">  358</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> ceil(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> &amp;v) {</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    <span class="keywordflow">return</span> v.ceil();</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;}</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="line"><a name="l00366"></a><span class="lineno"><a class="line" href="namespacestd.html#ae6912e6307fd917b2bf3e8128729ade6">  366</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> <a class="code" href="group__function.html#ga7985ceba157f09c80c5128059cfe13c9">sqrt</a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> &amp;v) {</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> o;</div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++) { </div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;        o[i] = <a class="code" href="group__function.html#ga7985ceba157f09c80c5128059cfe13c9">std::sqrt</a>(v[i]); </div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;    }</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;    <span class="keywordflow">return</span> o;</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;}</div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="line"><a name="l00378"></a><span class="lineno"><a class="line" href="namespacestd.html#a6c6278dc0dd614fbd2e4011958ef2fa8">  378</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> <a class="code" href="group__function.html#gaa3074d725debeb2c1d35e9915a411ff1">sin</a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> &amp;v) {</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> o;</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++) { </div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;        o[i] = <a class="code" href="group__function.html#gaa3074d725debeb2c1d35e9915a411ff1">std::sin</a>(v[i]); </div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    }</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;    <span class="keywordflow">return</span> o;</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;}</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="line"><a name="l00390"></a><span class="lineno"><a class="line" href="namespacestd.html#a5baa88e6bc7f9d4177841ffcfb1679a9">  390</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> <a class="code" href="group__function.html#gabbc06c7f6c39cde83b065da510efd958">cos</a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> &amp;v) {</div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> o;</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++) { </div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;        o[i] = <a class="code" href="group__function.html#gabbc06c7f6c39cde83b065da510efd958">std::cos</a>(v[i]); </div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    }</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    <span class="keywordflow">return</span> o;</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;}</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="line"><a name="l00402"></a><span class="lineno"><a class="line" href="namespacestd.html#af40026b78ece7975da9dc200d536ef69">  402</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> <a class="code" href="group__function.html#gafab45ff35eeb6f514548b0a29048068d">tan</a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> &amp;v) {</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> o;</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++) { </div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;        o[i] = <a class="code" href="group__function.html#gafab45ff35eeb6f514548b0a29048068d">std::tan</a>(v[i]); </div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;    }</div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    <span class="keywordflow">return</span> o;</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;}</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="line"><a name="l00414"></a><span class="lineno"><a class="line" href="namespacestd.html#af636e27335de5b4691d285321b6afaf8">  414</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> <a class="code" href="group__function.html#ga26411f392a19e7fbf2b3a919b9e57edd">exp</a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> &amp;v) {</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> o;</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++) { </div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;        o[i] = <a class="code" href="group__function.html#ga26411f392a19e7fbf2b3a919b9e57edd">std::exp</a>(v[i]); </div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;    }</div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    <span class="keywordflow">return</span> o;</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;}</div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="line"><a name="l00426"></a><span class="lineno"><a class="line" href="namespacestd.html#acbd7e77f0fbd4fe6400424990118337a">  426</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> <a class="code" href="namespacestd.html#a33a9556aaf94463ba9fe13865f8c8f2c">log</a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> &amp;v) {</div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;    <a class="code" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> o;</div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;    <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++) { </div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;        o[i] = <a class="code" href="namespacestd.html#a33a9556aaf94463ba9fe13865f8c8f2c">std::log</a>(v[i]); </div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;    }</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;    <span class="keywordflow">return</span> o;</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;}</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;} <span class="comment">// namespace std</span></div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;</div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* VEC_H_ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="group__linalg_html_ga56f91a560895fe81c1ac4744bc5ee80e"><div class="ttname"><a href="group__linalg.html#ga56f91a560895fe81c1ac4744bc5ee80e">geom::operator/</a></div><div class="ttdeci">Vec&lt; T, N &gt; operator/(const Vec&lt; T, N &gt; &amp;v, U d)</div><div class="ttdef"><b>Definition:</b> Vec.h:120</div></div>
-<div class="ttc" id="group__function_html_gafab45ff35eeb6f514548b0a29048068d"><div class="ttname"><a href="group__function.html#gafab45ff35eeb6f514548b0a29048068d">std::tan</a></div><div class="ttdeci">geom::Dual&lt; T &gt; tan(const geom::Dual&lt; T &gt; &amp;d)</div><div class="ttdoc">Tangent function. </div><div class="ttdef"><b>Definition:</b> Dual.h:310</div></div>
-<div class="ttc" id="classgeom_1_1_vec_html_a696315664382e3a7ba7792626216001d"><div class="ttname"><a href="classgeom_1_1_vec.html#a696315664382e3a7ba7792626216001d">geom::Vec::Vec</a></div><div class="ttdeci">Vec(detail::MtxColIterator&lt; Mx, Ref &gt; mtx_col)</div><div class="ttdef"><b>Definition:</b> Vec.h:306</div></div>
-<div class="ttc" id="classgeom_1_1_vec_html_a5779dcaf976714c74a77dcd9b2f71bd9"><div class="ttname"><a href="classgeom_1_1_vec.html#a5779dcaf976714c74a77dcd9b2f71bd9">geom::Vec::Vec</a></div><div class="ttdeci">Vec(const Vec&lt; T, N-1 &gt; &amp;v, T a)</div><div class="ttdef"><b>Definition:</b> Vec.h:296</div></div>
-<div class="ttc" id="group__linalg_html_ga0b950abe269f1fac1b1389d9469f9df5"><div class="ttname"><a href="group__linalg.html#ga0b950abe269f1fac1b1389d9469f9df5">geom::operator*</a></div><div class="ttdeci">const Vec&lt; T, N &gt; operator*(const Vec&lt; T, N &gt; &amp;a, const Vec&lt; T, N &gt; &amp;b)</div><div class="ttdef"><b>Definition:</b> Vec.h:101</div></div>
-<div class="ttc" id="group__function_html_gabbc06c7f6c39cde83b065da510efd958"><div class="ttname"><a href="group__function.html#gabbc06c7f6c39cde83b065da510efd958">std::cos</a></div><div class="ttdeci">geom::Dual&lt; T &gt; cos(const geom::Dual&lt; T &gt; &amp;d)</div><div class="ttdoc">Cosine function. </div><div class="ttdef"><b>Definition:</b> Dual.h:303</div></div>
-<div class="ttc" id="group__function_html_ga7985ceba157f09c80c5128059cfe13c9"><div class="ttname"><a href="group__function.html#ga7985ceba157f09c80c5128059cfe13c9">std::sqrt</a></div><div class="ttdeci">geom::Dual&lt; T &gt; sqrt(const geom::Dual&lt; T &gt; &amp;d)</div><div class="ttdoc">Square root. </div><div class="ttdef"><b>Definition:</b> Dual.h:383</div></div>
-<div class="ttc" id="group__function_html_gaa3074d725debeb2c1d35e9915a411ff1"><div class="ttname"><a href="group__function.html#gaa3074d725debeb2c1d35e9915a411ff1">std::sin</a></div><div class="ttdeci">geom::Dual&lt; T &gt; sin(const geom::Dual&lt; T &gt; &amp;d)</div><div class="ttdoc">Sine function. </div><div class="ttdef"><b>Definition:</b> Dual.h:296</div></div>
-<div class="ttc" id="classgeom_1_1_vec_html_a17a6dad1e56778a30b7808fc2b449669"><div class="ttname"><a href="classgeom_1_1_vec.html#a17a6dad1e56778a30b7808fc2b449669">geom::Vec::Vec</a></div><div class="ttdeci">Vec(T a)</div><div class="ttdef"><b>Definition:</b> Vec.h:282</div></div>
-<div class="ttc" id="namespacestd_html_a33a9556aaf94463ba9fe13865f8c8f2c"><div class="ttname"><a href="namespacestd.html#a33a9556aaf94463ba9fe13865f8c8f2c">std::log</a></div><div class="ttdeci">geom::Quat&lt; T &gt; log(const geom::Quat&lt; T &gt; &amp;q)</div><div class="ttdef"><b>Definition:</b> Quaternion.h:263</div></div>
-<div class="ttc" id="classgeom_1_1_vec_html_a82cf7e1c93ee9188fefb25b86fc6c5b0"><div class="ttname"><a href="classgeom_1_1_vec.html#a82cf7e1c93ee9188fefb25b86fc6c5b0">geom::Vec::Vec</a></div><div class="ttdeci">Vec()</div><div class="ttdef"><b>Definition:</b> Vec.h:275</div></div>
-<div class="ttc" id="classgeom_1_1_vec_html_a80add6fe6dbdb8e67f7e150426326b53"><div class="ttname"><a href="classgeom_1_1_vec.html#a80add6fe6dbdb8e67f7e150426326b53">geom::Vec::Vec</a></div><div class="ttdeci">Vec(const T a[N])</div><div class="ttdef"><b>Definition:</b> Vec.h:288</div></div>
-<div class="ttc" id="group__function_html_ga26411f392a19e7fbf2b3a919b9e57edd"><div class="ttname"><a href="group__function.html#ga26411f392a19e7fbf2b3a919b9e57edd">std::exp</a></div><div class="ttdeci">geom::Dual&lt; T &gt; exp(const geom::Dual&lt; T &gt; &amp;d)</div><div class="ttdoc">Exponential (ex) function. </div><div class="ttdef"><b>Definition:</b> Dual.h:345</div></div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* VEC_H_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="group__linalg_html_ga56f91a560895fe81c1ac4744bc5ee80e"><div class="ttname"><a href="group__linalg.html#ga56f91a560895fe81c1ac4744bc5ee80e">geom::operator/</a></div><div class="ttdeci">Vec&lt; T, N &gt; operator/(const Vec&lt; T, N &gt; &amp;v, U d)</div><div class="ttdef"><b>Definition:</b> Vec.h:121</div></div>
+<div class="ttc" id="classgeom_1_1_vec_html_a696315664382e3a7ba7792626216001d"><div class="ttname"><a href="classgeom_1_1_vec.html#a696315664382e3a7ba7792626216001d">geom::Vec::Vec</a></div><div class="ttdeci">Vec(detail::MtxColIterator&lt; Mx, Ref &gt; mtx_col)</div><div class="ttdef"><b>Definition:</b> Vec.h:307</div></div>
+<div class="ttc" id="classgeom_1_1_vec_html_a5779dcaf976714c74a77dcd9b2f71bd9"><div class="ttname"><a href="classgeom_1_1_vec.html#a5779dcaf976714c74a77dcd9b2f71bd9">geom::Vec::Vec</a></div><div class="ttdeci">Vec(const Vec&lt; T, N-1 &gt; &amp;v, T a)</div><div class="ttdef"><b>Definition:</b> Vec.h:297</div></div>
+<div class="ttc" id="group__linalg_html_ga0b950abe269f1fac1b1389d9469f9df5"><div class="ttname"><a href="group__linalg.html#ga0b950abe269f1fac1b1389d9469f9df5">geom::operator*</a></div><div class="ttdeci">const Vec&lt; T, N &gt; operator*(const Vec&lt; T, N &gt; &amp;a, const Vec&lt; T, N &gt; &amp;b)</div><div class="ttdef"><b>Definition:</b> Vec.h:102</div></div>
+<div class="ttc" id="classgeom_1_1_vec_html_a17a6dad1e56778a30b7808fc2b449669"><div class="ttname"><a href="classgeom_1_1_vec.html#a17a6dad1e56778a30b7808fc2b449669">geom::Vec::Vec</a></div><div class="ttdeci">Vec(T a)</div><div class="ttdef"><b>Definition:</b> Vec.h:283</div></div>
+<div class="ttc" id="classgeom_1_1_vec_html_a82cf7e1c93ee9188fefb25b86fc6c5b0"><div class="ttname"><a href="classgeom_1_1_vec.html#a82cf7e1c93ee9188fefb25b86fc6c5b0">geom::Vec::Vec</a></div><div class="ttdeci">Vec()</div><div class="ttdef"><b>Definition:</b> Vec.h:276</div></div>
+<div class="ttc" id="classgeom_1_1_vec_html_a80add6fe6dbdb8e67f7e150426326b53"><div class="ttname"><a href="classgeom_1_1_vec.html#a80add6fe6dbdb8e67f7e150426326b53">geom::Vec::Vec</a></div><div class="ttdeci">Vec(const T a[N])</div><div class="ttdef"><b>Definition:</b> Vec.h:289</div></div>
 <div class="ttc" id="classgeom_1_1_vec_html"><div class="ttname"><a href="classgeom_1_1_vec.html">geom::Vec</a></div><div class="ttdoc">A tuple of N elements of type T. </div><div class="ttdef"><b>Definition:</b> LinalgTypes.h:91</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 3 2014 23:56:55 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Oct 21 2014 00:57:53 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

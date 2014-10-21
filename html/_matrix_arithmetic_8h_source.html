@@ -161,7 +161,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md&gt;</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#gad29282e95cba76934ebf5ebff8dabf1d">add</a>(Md *dest, <span class="keyword">const</span> Ma &amp;a, <span class="keyword">const</span> Mb &amp;b) {</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        dest-&gt;setZero();</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keyword">const</span> index_t diag = <a class="code" href="namespacestd.html#ab72c97cbf1524c7ccd3263d793823616">std::min</a>(a.rows(), a.cols());</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keyword">const</span> index_t diag = <a class="code" href="group__linalg.html#gab72c97cbf1524c7ccd3263d793823616">std::min</a>(a.rows(), a.cols());</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        </div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keyword">const</span> T *a_i = a.diagonal_begin();</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keyword">const</span> S *b_i = b.diagonal_begin();</div>
@@ -173,7 +173,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md&gt;</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#gaedd89060fc778b8fdccc689754607925">sub</a>(Md *dest, <span class="keyword">const</span> Ma &amp;a, <span class="keyword">const</span> Mb &amp;b) {</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        dest-&gt;setZero();</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keyword">const</span> index_t diag = <a class="code" href="namespacestd.html#ab72c97cbf1524c7ccd3263d793823616">std::min</a>(a.rows(), a.cols());</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keyword">const</span> index_t diag = <a class="code" href="group__linalg.html#gab72c97cbf1524c7ccd3263d793823616">std::min</a>(a.rows(), a.cols());</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        </div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keyword">const</span> T *a_i = a.diagonal_begin();</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keyword">const</span> S *b_i = b.diagonal_begin();</div>
@@ -260,7 +260,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Md, <span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__linalg.html#gab4ef5a5844e69301ae83804a9770881b">scale</a>(Md *d, U k, <span class="keyword">const</span> DiagMatrix&lt;T,M,N&gt; &amp;m) {</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        d-&gt;setZero();</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        <span class="keyword">const</span> index_t diag = <a class="code" href="namespacestd.html#ab72c97cbf1524c7ccd3263d793823616">std::min</a>(m.rows(), m.cols());</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        <span class="keyword">const</span> index_t diag = <a class="code" href="group__linalg.html#gab72c97cbf1524c7ccd3263d793823616">std::min</a>(m.rows(), m.cols());</div>
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        <span class="keyword">const</span> T *m_i = m.diagonal_begin();</div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <span class="keywordflow">for</span> (index_t i = 0; i &lt; diag; ++i, ++m_i) {</div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;            d-&gt;set(i,i, k * (*m_i));</div>
@@ -301,12 +301,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;</div>
 <div class="ttc" id="group__linalg_html_gab4ef5a5844e69301ae83804a9770881b"><div class="ttname"><a href="group__linalg.html#gab4ef5a5844e69301ae83804a9770881b">geom::scale</a></div><div class="ttdeci">AffineTransform&lt; T, N &gt; scale(const Vec&lt; T, N &gt; &amp;sx)</div><div class="ttdef"><b>Definition:</b> AffineTransform.h:547</div></div>
 <div class="ttc" id="group__matrix_html_gaedd89060fc778b8fdccc689754607925"><div class="ttname"><a href="group__matrix.html#gaedd89060fc778b8fdccc689754607925">geom::sub</a></div><div class="ttdeci">void sub(Matrix *d, const Matrix1 &amp;a, const Matrix2 &amp;b)</div><div class="ttdef"><b>Definition:</b> Matrix.h:700</div></div>
+<div class="ttc" id="group__linalg_html_gab72c97cbf1524c7ccd3263d793823616"><div class="ttname"><a href="group__linalg.html#gab72c97cbf1524c7ccd3263d793823616">std::min</a></div><div class="ttdeci">geom::Vec&lt; T, N &gt; min(const geom::Vec&lt; T, N &gt; &amp;a, const geom::Vec&lt; T, N &gt; &amp;b)</div><div class="ttdef"><b>Definition:</b> VecStd.h:32</div></div>
 <div class="ttc" id="group__matrix_html_gad29282e95cba76934ebf5ebff8dabf1d"><div class="ttname"><a href="group__matrix.html#gad29282e95cba76934ebf5ebff8dabf1d">geom::add</a></div><div class="ttdeci">void add(Matrix *d, const Matrix1 &amp;a, const Matrix2 &amp;b)</div><div class="ttdef"><b>Definition:</b> Matrix.h:674</div></div>
-<div class="ttc" id="namespacestd_html_ab72c97cbf1524c7ccd3263d793823616"><div class="ttname"><a href="namespacestd.html#ab72c97cbf1524c7ccd3263d793823616">std::min</a></div><div class="ttdeci">geom::Vec&lt; T, N &gt; min(const geom::Vec&lt; T, N &gt; &amp;a, const geom::Vec&lt; T, N &gt; &amp;b)</div><div class="ttdef"><b>Definition:</b> Vec.h:334</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 3 2014 23:56:55 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Oct 21 2014 00:57:53 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

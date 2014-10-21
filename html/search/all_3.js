@@ -2,6 +2,8 @@ var searchData=
 [
   ['d',['d',['../classgeom_1_1_plane.html#a6b27b78b9d187dd926ec53a122ad2772',1,'geom::Plane']]],
   ['dataextents',['dataExtents',['../classgeom_1_1_raster.html#a57c567559c16f501900105c3fe168179',1,'geom::Raster']]],
+  ['decomplup',['decompLUP',['../group__matrix.html#gae26bc667b31e38699f4b483ed34d43c9',1,'geom']]],
+  ['decompplu',['decompPLU',['../group__matrix.html#gaf5031927fdc7ee1cb75925e8bcf08f09',1,'geom']]],
   ['det',['det',['../classgeom_1_1_p_l_u_decomposition.html#a67ccc6cfa482de0cf47a6ff7124a2b81',1,'geom::PLUDecomposition']]],
   ['diag',['DIAG',['../classgeom_1_1_p_l_u_decomposition.html#af94d0c73aee8eb1a6468c14a39e1716f',1,'geom::PLUDecomposition']]],
   ['diagmatrix',['DiagMatrix',['../classgeom_1_1_diag_matrix.html',1,'geom']]],

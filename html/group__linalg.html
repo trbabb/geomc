@@ -160,6 +160,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga59ed824baffef843e8f1acb74dfb33cf"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga59ed824baffef843e8f1acb74dfb33cf"><td class="memTemplItemLeft" align="right" valign="top">AffineTransform&lt; T, 2 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga59ed824baffef843e8f1acb74dfb33cf">translation</a> (T tx, T ty)</td></tr>
 <tr class="separator:ga59ed824baffef843e8f1acb74dfb33cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1a08b60461059eecc146451e65370606"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:ga1a08b60461059eecc146451e65370606"><td class="memTemplItemLeft" align="right" valign="top">Vec&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga1a08b60461059eecc146451e65370606">orthogonal</a> (const Vec&lt; T, N &gt; v[N-1])</td></tr>
+<tr class="separator:ga1a08b60461059eecc146451e65370606"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga30df286717929ce22deabe6b52ae9d24"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:ga30df286717929ce22deabe6b52ae9d24"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga30df286717929ce22deabe6b52ae9d24">nullspace</a> (const Vec&lt; T, N &gt; bases[], index_t n, Vec&lt; T, N &gt; null_basis[])</td></tr>
+<tr class="separator:ga30df286717929ce22deabe6b52ae9d24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga77c2f623486d39daacbea76e399a50cb"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
 <tr class="memitem:ga77c2f623486d39daacbea76e399a50cb"><td class="memTemplItemLeft" align="right" valign="top">Vec&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga77c2f623486d39daacbea76e399a50cb">operator*</a> (const Ray&lt; T, N &gt; r, T s)</td></tr>
 <tr class="separator:ga77c2f623486d39daacbea76e399a50cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -183,10 +189,118 @@ Functions</h2></td></tr>
 &lt; detail::IsVector&lt; V &gt;::value, <br class="typebreak" />
 V &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga7ea6cf8ec5a826332d6f043b163d6d3d">operator/</a> (const V &amp;a, const V &amp;b)</td></tr>
 <tr class="separator:ga7ea6cf8ec5a826332d6f043b163d6d3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0ec62350e795e225863d4d372a677df2"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:ga0ec62350e795e225863d4d372a677df2"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga0ec62350e795e225863d4d372a677df2">max</a> (const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;a, const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;b)</td></tr>
+<tr class="separator:ga0ec62350e795e225863d4d372a677df2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab72c97cbf1524c7ccd3263d793823616"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:gab72c97cbf1524c7ccd3263d793823616"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gab72c97cbf1524c7ccd3263d793823616">min</a> (const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;a, const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;b)</td></tr>
+<tr class="separator:gab72c97cbf1524c7ccd3263d793823616"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1c9486d7173f6c910e1f995c6fa13e8c"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:ga1c9486d7173f6c910e1f995c6fa13e8c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga1c9486d7173f6c910e1f995c6fa13e8c">abs</a> (const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;v)</td></tr>
+<tr class="separator:ga1c9486d7173f6c910e1f995c6fa13e8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaec98ef7d00508b932139c05b10672a02"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:gaec98ef7d00508b932139c05b10672a02"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gaec98ef7d00508b932139c05b10672a02">floor</a> (const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;v)</td></tr>
+<tr class="separator:gaec98ef7d00508b932139c05b10672a02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga940d79ad42b88fd9843ba51a629d40e1"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:ga940d79ad42b88fd9843ba51a629d40e1"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga940d79ad42b88fd9843ba51a629d40e1">ceil</a> (const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;v)</td></tr>
+<tr class="separator:ga940d79ad42b88fd9843ba51a629d40e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae6912e6307fd917b2bf3e8128729ade6"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:gae6912e6307fd917b2bf3e8128729ade6"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gae6912e6307fd917b2bf3e8128729ade6">sqrt</a> (const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;v)</td></tr>
+<tr class="separator:gae6912e6307fd917b2bf3e8128729ade6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6c6278dc0dd614fbd2e4011958ef2fa8"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:ga6c6278dc0dd614fbd2e4011958ef2fa8"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga6c6278dc0dd614fbd2e4011958ef2fa8">sin</a> (const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;v)</td></tr>
+<tr class="separator:ga6c6278dc0dd614fbd2e4011958ef2fa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5baa88e6bc7f9d4177841ffcfb1679a9"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:ga5baa88e6bc7f9d4177841ffcfb1679a9"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga5baa88e6bc7f9d4177841ffcfb1679a9">cos</a> (const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;v)</td></tr>
+<tr class="separator:ga5baa88e6bc7f9d4177841ffcfb1679a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf40026b78ece7975da9dc200d536ef69"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:gaf40026b78ece7975da9dc200d536ef69"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gaf40026b78ece7975da9dc200d536ef69">tan</a> (const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;v)</td></tr>
+<tr class="separator:gaf40026b78ece7975da9dc200d536ef69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf636e27335de5b4691d285321b6afaf8"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:gaf636e27335de5b4691d285321b6afaf8"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gaf636e27335de5b4691d285321b6afaf8">exp</a> (const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;v)</td></tr>
+<tr class="separator:gaf636e27335de5b4691d285321b6afaf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacbd7e77f0fbd4fe6400424990118337a"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:gacbd7e77f0fbd4fe6400424990118337a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gacbd7e77f0fbd4fe6400424990118337a">log</a> (const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;v)</td></tr>
+<tr class="separator:gacbd7e77f0fbd4fe6400424990118337a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Linear algebra functions and classes. </p>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ga1c9486d7173f6c910e1f995c6fa13e8c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt;T,N&gt; std::abs </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Element-wise absolute value. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga940d79ad42b88fd9843ba51a629d40e1"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt;T,N&gt; std::ceil </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Element-wise ceiling. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga5baa88e6bc7f9d4177841ffcfb1679a9"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt;T,N&gt; std::cos </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Element-wise cosine. </p>
+
+</div>
+</div>
 <a class="anchor" id="ga820ae75503cb7b5a8650d45800c495cb"></a>
 <div class="memitem">
 <div class="memproto">
@@ -218,6 +332,192 @@ V &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="e
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A rotation transform aligning <code>dir</code> with <code>align_with</code>. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gaf636e27335de5b4691d285321b6afaf8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt;T,N&gt; std::exp </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Element-wise exponentiation (e<sup>v<sub>i</sub></sup>). </p>
+
+</div>
+</div>
+<a class="anchor" id="gaec98ef7d00508b932139c05b10672a02"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt;T,N&gt; std::floor </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Element-wise floor. </p>
+
+</div>
+</div>
+<a class="anchor" id="gacbd7e77f0fbd4fe6400424990118337a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt;T,N&gt; std::log </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Element-wise natural log. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga0ec62350e795e225863d4d372a677df2"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt;T,N&gt; std::max </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Element-wise maximum. </p>
+
+</div>
+</div>
+<a class="anchor" id="gab72c97cbf1524c7ccd3263d793823616"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt;T,N&gt; std::min </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Element-wise minimum. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga30df286717929ce22deabe6b52ae9d24"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void geom::nullspace </td>
+          <td>(</td>
+          <td class="paramtype">const Vec&lt; T, N &gt;&#160;</td>
+          <td class="paramname"><em>bases</em>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">index_t&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Vec&lt; T, N &gt;&#160;</td>
+          <td class="paramname"><em>null_basis</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Compute the null space of a vector basis.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bases</td><td>Array of <code>n</code> linearly independent basis vectors. </td></tr>
+    <tr><td class="paramname">n</td><td>Number of basis vectors in the array. </td></tr>
+    <tr><td class="paramname">null_basis</td><td>Array with space for <code>N - n</code> output bases, whose dot products with the inputs are all zero. The elements of this array will not necessarily be orthogonal to each other. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -499,6 +799,29 @@ V &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
+<a class="anchor" id="ga1a08b60461059eecc146451e65370606"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Vec&lt;T,N&gt; geom::orthogonal </td>
+          <td>(</td>
+          <td class="paramtype">const Vec&lt; T, N &gt;&#160;</td>
+          <td class="paramname"><em>v</em>[N-1]</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Return a vector orthogonal to the given <code>N-1</code> vectors. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>Array of <code>N-1</code> basis vectors. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A vector normal to all the members of <code>v</code>. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ga081a590185005e8809a6d9995681ee3e"></a>
 <div class="memitem">
 <div class="memproto">
@@ -705,6 +1028,81 @@ V &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="e
 
 </div>
 </div>
+<a class="anchor" id="ga6c6278dc0dd614fbd2e4011958ef2fa8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt;T,N&gt; std::sin </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Element-wise sine. </p>
+
+</div>
+</div>
+<a class="anchor" id="gae6912e6307fd917b2bf3e8128729ade6"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt;T,N&gt; std::sqrt </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Element-wise square root. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaf40026b78ece7975da9dc200d536ef69"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt;T,N&gt; std::tan </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Element-wise tangent. </p>
+
+</div>
+</div>
 <a class="anchor" id="gac2a7ae372cc462b9cd90880aae33baab"></a>
 <div class="memitem">
 <div class="memproto">
@@ -808,7 +1206,7 @@ V &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="e
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 3 2014 23:56:55 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Oct 21 2014 00:57:54 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

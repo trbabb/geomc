@@ -251,6 +251,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga59ed824baffef843e8f1acb74dfb33cf"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga59ed824baffef843e8f1acb74dfb33cf"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, 2 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga59ed824baffef843e8f1acb74dfb33cf">translation</a> (T tx, T ty)</td></tr>
 <tr class="separator:ga59ed824baffef843e8f1acb74dfb33cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae26bc667b31e38699f4b483ed34d43c9"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gae26bc667b31e38699f4b483ed34d43c9"><td class="memTemplItemLeft" align="right" valign="top">index_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__matrix.html#gae26bc667b31e38699f4b483ed34d43c9">decompLUP</a> (T *m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity)</td></tr>
+<tr class="separator:gae26bc667b31e38699f4b483ed34d43c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf5031927fdc7ee1cb75925e8bcf08f09"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaf5031927fdc7ee1cb75925e8bcf08f09"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__matrix.html#gaf5031927fdc7ee1cb75925e8bcf08f09">decompPLU</a> (T *m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity)</td></tr>
+<tr class="separator:gaf5031927fdc7ee1cb75925e8bcf08f09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaece56584613790b7e364cf00b93ee36a"><td class="memTemplParams" colspan="2">template&lt;typename Matrix1 , typename Matrix2 &gt; </td></tr>
 <tr class="memitem:gaece56584613790b7e364cf00b93ee36a"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__matrix.html#gaece56584613790b7e364cf00b93ee36a">mtx_aliases_storage</a> (const Matrix1 &amp;a, const Matrix2 &amp;b)</td></tr>
 <tr class="separator:gaece56584613790b7e364cf00b93ee36a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -314,6 +320,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga18aa4cc96039ea7bf54d7d9fb25defe4"><td class="memTemplParams" colspan="2">template&lt;typename Matrix , typename Matrix1 &gt; </td></tr>
 <tr class="memitem:ga18aa4cc96039ea7bf54d7d9fb25defe4"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__matrix.html#ga18aa4cc96039ea7bf54d7d9fb25defe4">mtxcopy</a> (Matrix *into, const Matrix1 &amp;src)</td></tr>
 <tr class="separator:ga18aa4cc96039ea7bf54d7d9fb25defe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1a08b60461059eecc146451e65370606"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:ga1a08b60461059eecc146451e65370606"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga1a08b60461059eecc146451e65370606">orthogonal</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; v[N-1])</td></tr>
+<tr class="separator:ga1a08b60461059eecc146451e65370606"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga30df286717929ce22deabe6b52ae9d24"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:ga30df286717929ce22deabe6b52ae9d24"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga30df286717929ce22deabe6b52ae9d24">nullspace</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; bases[], index_t n, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; null_basis[])</td></tr>
+<tr class="separator:ga30df286717929ce22deabe6b52ae9d24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga77c2f623486d39daacbea76e399a50cb"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
 <tr class="memitem:ga77c2f623486d39daacbea76e399a50cb"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga77c2f623486d39daacbea76e399a50cb">operator*</a> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; r, T s)</td></tr>
 <tr class="separator:ga77c2f623486d39daacbea76e399a50cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -568,7 +580,7 @@ V &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="e
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 3 2014 23:56:55 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Oct 21 2014 00:57:54 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

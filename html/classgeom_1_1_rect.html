@@ -193,6 +193,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a702d5a491ea404edcfa24934a94e70b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a35312a8fc983330cf4da64a56a116ef2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, N &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_rect.html#a35312a8fc983330cf4da64a56a116ef2">extendTo</a> (<a class="el" href="classgeom_1_1_rect.html#a1cb6b750c9af01a4f8cefeec08aa4ec8">point_t</a> p)</td></tr>
 <tr class="separator:a35312a8fc983330cf4da64a56a116ef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25f108f0c64086e6ab888b5775f5c185"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html#a1cb6b750c9af01a4f8cefeec08aa4ec8">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_rect.html#a25f108f0c64086e6ab888b5775f5c185">clamp</a> (<a class="el" href="classgeom_1_1_rect.html#a1cb6b750c9af01a4f8cefeec08aa4ec8">point_t</a> p) const </td></tr>
+<tr class="separator:a25f108f0c64086e6ab888b5775f5c185"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a732ee9d4e9cccfbb36a2a510ca8776"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html#a1cb6b750c9af01a4f8cefeec08aa4ec8">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_rect.html#a6a732ee9d4e9cccfbb36a2a510ca8776">boxFraction</a> (<a class="el" href="classgeom_1_1_rect.html#a1cb6b750c9af01a4f8cefeec08aa4ec8">point_t</a> p) const </td></tr>
 <tr class="separator:a6a732ee9d4e9cccfbb36a2a510ca8776"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c5176d528bb8d66e2648bd109cb8ae7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_hit.html">Hit</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_rect.html#a8c5176d528bb8d66e2648bd109cb8ae7">trace</a> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; &amp;r, <a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> sides) const </td></tr>
@@ -299,6 +301,31 @@ class geom::Rect&lt; T, N &gt;</h3>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd><code>p</code>'s fractional position within this <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box. ">Rect</a>. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a25f108f0c64086e6ab888b5775f5c185"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html#a1cb6b750c9af01a4f8cefeec08aa4ec8">point_t</a> clamp </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classgeom_1_1_rect.html#a1cb6b750c9af01a4f8cefeec08aa4ec8">point_t</a>&#160;</td>
+          <td class="paramname"><em>p</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Clamp the coordinates of <code>p</code> to lie within this <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box. ">Rect</a>. </p>
 
 </div>
 </div>
@@ -1314,7 +1341,7 @@ class geom::Rect&lt; T, N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 3 2014 23:56:55 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Oct 21 2014 00:57:54 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

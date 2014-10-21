@@ -138,14 +138,12 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ae0572d837419319e0aa4f9c57322fdc5"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classgeom_1_1_plane.html">Plane</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_plane.html#ae0572d837419319e0aa4f9c57322fdc5">from_basis</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; a, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; b)</td></tr>
-<tr class="separator:ae0572d837419319e0aa4f9c57322fdc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a674937c7f329fb4a8894d5058b76fadb"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classgeom_1_1_plane.html">Plane</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_plane.html#a674937c7f329fb4a8894d5058b76fadb">from_basis</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; a, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; b, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; pt)</td></tr>
-<tr class="separator:a674937c7f329fb4a8894d5058b76fadb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28d542176718191b81a6b67b0664ccce"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classgeom_1_1_plane.html">Plane</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_plane.html#a28d542176718191b81a6b67b0664ccce">from_triangle</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; p0, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; p1, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; p2)</td></tr>
-<tr class="separator:a28d542176718191b81a6b67b0664ccce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77b33149a1801415200b2fbdb491e6a8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classgeom_1_1_plane.html">Plane</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_plane.html#a77b33149a1801415200b2fbdb491e6a8">from_triangle</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; p[N])</td></tr>
-<tr class="separator:a77b33149a1801415200b2fbdb491e6a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc7f4de9282d9490cd185b302fe0f193"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classgeom_1_1_plane.html">Plane</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_plane.html#afc7f4de9282d9490cd185b302fe0f193">from_basis</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; bases[N-1])</td></tr>
+<tr class="separator:afc7f4de9282d9490cd185b302fe0f193"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f71bc16568dd958596543c5ad4dc444"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classgeom_1_1_plane.html">Plane</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_plane.html#a3f71bc16568dd958596543c5ad4dc444">from_basis</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; bases[N-1], <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; p)</td></tr>
+<tr class="separator:a3f71bc16568dd958596543c5ad4dc444"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae26ad47ba0530b185a0b562927f493a8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classgeom_1_1_plane.html">Plane</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_plane.html#ae26ad47ba0530b185a0b562927f493a8">from_simplex</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; points[N])</td></tr>
+<tr class="separator:ae26ad47ba0530b185a0b562927f493a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -378,7 +376,7 @@ class geom::Plane&lt; T, N &gt;</h3>
 
 </div>
 </div>
-<a class="anchor" id="ae0572d837419319e0aa4f9c57322fdc5"></a>
+<a class="anchor" id="afc7f4de9282d9490cd185b302fe0f193"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -388,19 +386,9 @@ class geom::Plane&lt; T, N &gt;</h3>
         <tr>
           <td class="memname">static <a class="el" href="classgeom_1_1_plane.html">Plane</a> from_basis </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td>
+          <td class="paramname"><em>bases</em>[N-1]</td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -409,17 +397,17 @@ class geom::Plane&lt; T, N &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Construct a plane spanning the two given basis vectors, passing through the origin. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Construct a plane spanning the given basis vectors. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">a</td><td>A direction along the plane. </td></tr>
-    <tr><td class="paramname">b</td><td>A direction along the plane. </td></tr>
+    <tr><td class="paramname">bases</td><td>An array of <code>N-1</code> bases. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>A plane whose normal is orthogonal to all the given bases. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a674937c7f329fb4a8894d5058b76fadb"></a>
+<a class="anchor" id="a3f71bc16568dd958596543c5ad4dc444"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -429,20 +417,14 @@ class geom::Plane&lt; T, N &gt;</h3>
         <tr>
           <td class="memname">static <a class="el" href="classgeom_1_1_plane.html">Plane</a> from_basis </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td>
+          <td class="paramname"><em>bases</em>[N-1], </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td>
-          <td class="paramname"><em>b</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td>
-          <td class="paramname"><em>pt</em>&#160;</td>
+          <td class="paramname"><em>p</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -456,18 +438,18 @@ class geom::Plane&lt; T, N &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Construct a plane spanning the two given basis vectors, passing through the point <code>pt</code>. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Construct a plane spanning the given basis vectors through the given point. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">a</td><td>A direction along the plane. </td></tr>
-    <tr><td class="paramname">b</td><td>A direction along the plane. </td></tr>
-    <tr><td class="paramname">pt</td><td>A point on the plane. </td></tr>
+    <tr><td class="paramname">bases</td><td>An array of <code>N-1</code> bases. </td></tr>
+    <tr><td class="paramname">p</td><td>Point through which to construct the plane. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>A plane whose normal is orthogonal to all the given bases. </dd></dl>
 
 </div>
 </div>
-<a class="anchor" id="a28d542176718191b81a6b67b0664ccce"></a>
+<a class="anchor" id="ae26ad47ba0530b185a0b562927f493a8"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -475,58 +457,10 @@ class geom::Plane&lt; T, N &gt;</h3>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="classgeom_1_1_plane.html">Plane</a> from_triangle </td>
+          <td class="memname">static <a class="el" href="classgeom_1_1_plane.html">Plane</a> from_simplex </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td>
-          <td class="paramname"><em>p0</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td>
-          <td class="paramname"><em>p1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td>
-          <td class="paramname"><em>p2</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Construct a plane spanning the counterclockwise-wound points in the supplied triangle. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">p0</td><td>A point on the plane. </td></tr>
-    <tr><td class="paramname">p1</td><td>A point on the plane. </td></tr>
-    <tr><td class="paramname">p2</td><td>A point on the plane. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a77b33149a1801415200b2fbdb491e6a8"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="classgeom_1_1_plane.html">Plane</a> from_triangle </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td>
-          <td class="paramname"><em>p</em>[N]</td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td>
+          <td class="paramname"><em>points</em>[N]</td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -536,12 +470,13 @@ class geom::Plane&lt; T, N &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Construct a plane spanning the counterclockwise-wound points in the supplied triangle. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Construct a plane spanning the points on the given simplex (i.e. line segment, triangle, tetrahedron, etc; as appropriate for the dimension). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">p</td><td>The list of points. </td></tr>
+    <tr><td class="paramname">points</td><td>The <code>N</code> vertecies of a simplex. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>A plane on which the given simplex lies. </dd></dl>
 
 </div>
 </div>
@@ -862,7 +797,7 @@ class geom::Plane&lt; T, N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 3 2014 23:56:55 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Oct 21 2014 00:57:54 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

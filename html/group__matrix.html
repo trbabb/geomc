@@ -114,6 +114,12 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:gae26bc667b31e38699f4b483ed34d43c9"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gae26bc667b31e38699f4b483ed34d43c9"><td class="memTemplItemLeft" align="right" valign="top">index_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__matrix.html#gae26bc667b31e38699f4b483ed34d43c9">decompLUP</a> (T *m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity)</td></tr>
+<tr class="separator:gae26bc667b31e38699f4b483ed34d43c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf5031927fdc7ee1cb75925e8bcf08f09"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gaf5031927fdc7ee1cb75925e8bcf08f09"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__matrix.html#gaf5031927fdc7ee1cb75925e8bcf08f09">decompPLU</a> (T *m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity)</td></tr>
+<tr class="separator:gaf5031927fdc7ee1cb75925e8bcf08f09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaece56584613790b7e364cf00b93ee36a"><td class="memTemplParams" colspan="2">template&lt;typename Matrix1 , typename Matrix2 &gt; </td></tr>
 <tr class="memitem:gaece56584613790b7e364cf00b93ee36a"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__matrix.html#gaece56584613790b7e364cf00b93ee36a">mtx_aliases_storage</a> (const Matrix1 &amp;a, const Matrix2 &amp;b)</td></tr>
 <tr class="separator:gaece56584613790b7e364cf00b93ee36a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -339,6 +345,118 @@ for (mat3::region_iterator i = m.region_begin(r); i != m.region_end(r); i++) {
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A new matrix containing <code>a + b</code>, usually a <code><a class="el" href="classgeom_1_1_simple_matrix.html" title="A basic matrix with M x N elements. ">SimpleMatrix</a></code>. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gae26bc667b31e38699f4b483ed34d43c9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">index_t geom::decompLUP </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>m</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">index_t&#160;</td>
+          <td class="paramname"><em>rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">index_t&#160;</td>
+          <td class="paramname"><em>cols</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">index_t *&#160;</td>
+          <td class="paramname"><em>reorder</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool *&#160;</td>
+          <td class="paramname"><em>swap_parity</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>LU decomposition, pivoting columns.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">m</td><td>Row-major array of elements to decompose. </td></tr>
+    <tr><td class="paramname">rows</td><td>Number of rows in <code>m</code>. </td></tr>
+    <tr><td class="paramname">cols</td><td>Number of columns in <code>m</code>. </td></tr>
+    <tr><td class="paramname">reorder</td><td>Array with space for <code>cols</code> elements to be filled with the column source indexes. </td></tr>
+    <tr><td class="paramname">swap_parity</td><td>Whether an odd number of column-swaps was performed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of degenerate columns discovered. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gaf5031927fdc7ee1cb75925e8bcf08f09"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool geom::decompPLU </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>m</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">index_t&#160;</td>
+          <td class="paramname"><em>rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">index_t&#160;</td>
+          <td class="paramname"><em>cols</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">index_t *&#160;</td>
+          <td class="paramname"><em>reorder</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool *&#160;</td>
+          <td class="paramname"><em>swap_parity</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>LU decomposition, pivoting rows.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">m</td><td>Row-major array of elements to decompose. </td></tr>
+    <tr><td class="paramname">rows</td><td>Number of rows in <code>m</code>. </td></tr>
+    <tr><td class="paramname">cols</td><td>Number of columns in <code>m</code>. </td></tr>
+    <tr><td class="paramname">reorder</td><td>Array with space for <code>rows</code> elements to be filled with the row source indexes. </td></tr>
+    <tr><td class="paramname">swap_parity</td><td>Whether an odd number of row-swaps was performed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of degenerate rows discovered. </dd></dl>
 
 </div>
 </div>
@@ -973,7 +1091,7 @@ for (mat3::region_iterator i = m.region_begin(r); i != m.region_end(r); i++) {
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 3 2014 23:56:55 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Oct 21 2014 00:57:54 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>
