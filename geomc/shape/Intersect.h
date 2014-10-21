@@ -175,13 +175,15 @@ bool gjk_intersect(const Vec<T,N> *pts_a, index_t n_a,
     else 
         initial[0] = 1;
     
-    Vec<T,N> d = detail::gjk_support<T,N>(pts_a, n_a,  initial) - 
+    Vec<T,N> a = detail::gjk_support<T,N>(pts_a, n_a,  initial) - 
                  detail::gjk_support<T,N>(pts_b, n_b, -initial);
+    Vec<T,N> d = -a;
     detail::Simplex<T,N> s;
+    s.insert(a);
     
     while (true) {
-        Vec<T,N> a = detail::gjk_support<T,N>(pts_a, n_a,  d) - 
-                     detail::gjk_support<T,N>(pts_b, n_b, -d);
+        a = detail::gjk_support<T,N>(pts_a, n_a,  d) - 
+            detail::gjk_support<T,N>(pts_b, n_b, -d);
         if (a.dot(d) < 0) return false;
         s.insert(a);
         if (detail::gjk_simplex_near_origin(&s, &d)) {
