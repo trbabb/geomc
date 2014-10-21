@@ -108,7 +108,7 @@ namespace detail {
             }
         }
         
-        index_t null_dim = s->n - 1;
+        index_t null_dim = N - (s->n - 1);
         
         // find the direction to the origin
         // i.e. project the direction to the origin onto the null space of our simplex.
