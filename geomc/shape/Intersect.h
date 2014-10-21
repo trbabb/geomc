@@ -25,7 +25,6 @@ namespace detail {
         
         inline void insert(const Vec<T,N> &p) {
             if (n < N) pts[n++] = p;
-            return *this;
         }
         
         inline void remove(index_t i) {
@@ -38,6 +37,7 @@ namespace detail {
     
     // todo: can we cache partial evaluations of LUP()?
     // todo: can we pass in/save the null space?
+    // xxx: I am broken somewhere. :(
     
     // return true if `s` contains origin
     // otherwise, put the direction toward the origin in `d`.
@@ -170,14 +170,14 @@ bool gjk_intersect(const Vec<T,N> *pts_a, index_t n_a,
                    Vec<T,N> *overlap_axis) {
     // choose an arbitrary initial direction.
     Vec<T,N> initial;
-    if (overlap_axis and overlap_axis != Vec<T,N>::zeros) 
+    if (overlap_axis and *overlap_axis != Vec<T,N>::zeros) 
         initial = *overlap_axis;
     else 
         initial[0] = 1;
     
     Vec<T,N> d = detail::gjk_support<T,N>(pts_a, n_a,  initial) - 
                  detail::gjk_support<T,N>(pts_b, n_b, -initial);
-    detail::Simplex s;
+    detail::Simplex<T,N> s;
     
     while (true) {
         Vec<T,N> a = detail::gjk_support<T,N>(pts_a, n_a,  d) - 
