@@ -59,6 +59,7 @@ void nullsp() {
 }
 
 int main(int argc, char **argv) {
+    cout << "\n====== orthogonal ======\n";
     ortho();
     cout << "\n\n====== nullspace ======\n";
     nullsp();

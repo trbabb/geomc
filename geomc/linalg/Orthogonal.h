@@ -91,11 +91,13 @@ namespace geom {
      * @param bases Array of `n` linearly independent basis vectors.
      * @param n Number of basis vectors in the array.
      * @param null_basis Array with space for `N - n` output bases, whose dot 
-     * products with the inputs are all zero.
+     * products with the inputs are all zero. The elements of this array will not
+     * necessarily be orthogonal to each other.
      */
     template <typename T, index_t N>
     void nullspace(const Vec<T,N> bases[], index_t n, Vec<T,N> null_basis[])
     {
+        if (n >= N) return;
         if (N - n == 1) {
             null_basis[0] = orthogonal(bases);
             return;
