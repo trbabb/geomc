@@ -12,6 +12,8 @@
 #include <geomc/linalg/Vec.h>
 #include <geomc/linalg/Orthogonal.h>
 
+#include "Plane.h"
+
 namespace geom {
     
 namespace detail {
@@ -24,7 +26,7 @@ namespace detail {
         index_t  n;
         
         inline void insert(const Vec<T,N> &p) {
-            if (n < N) pts[n++] = p;
+            if (n <= N) pts[n++] = p;
         }
         
         inline void remove(index_t i) {
@@ -37,7 +39,9 @@ namespace detail {
     
     // todo: can we cache partial evaluations of LUP()?
     // todo: can we pass in/save the null space?
-    // xxx: I am broken somewhere. :(
+    
+    // todo: profile this. compare to separating axis.
+    //       verify whether final projection space swap actually helps or not.
     
     // return true if `s` contains origin
     // otherwise, put the direction toward the origin in `d`.
@@ -53,12 +57,11 @@ namespace detail {
         // be orthogonal to it). the high part of this array holds the basis of 
         // the simplex we're testing:
         Vec<T,N>  simplex_null_basis[N]; 
-        Vec<T,N> *simplex_basis = simplex_null_basis + (N - s->n + 1);
-        if (s->n > 2 and s->n < N + 1) {
+        Vec<T,N> *simplex_basis = simplex_null_basis + (N - (s->n - 1));
+        if (s->n > 1 and s->n < N + 1) {
             for (int i = 0; i < s->n - 1; i++) {
-                simplex_basis[N] = s->pts[i] - A;
+                simplex_basis[i] = s->pts[i] - A;
             }
-            // in 3D, this can only ever be a cross product
             nullspace(simplex_basis, s->n - 1, simplex_null_basis);
         }
         
@@ -112,12 +115,13 @@ namespace detail {
         
         // find the direction to the origin
         // i.e. project the direction to the origin onto the null space of our simplex.
+        // the final `else` would be sufficient by itself, but in some cases
+        // we can be clever and save some redundant calculations.
         if (null_dim == N) {
-            // single point case; no projection needed.
+            // single point case; projection is trivial.
             *d = -A;
         } else if (null_dim == 1) {
-            // the simplex spans a hyperplane, which we have either just computed,
-            // or was our sole null basis to begin with.
+            // the simplex spans a hyperplane; we already have the normal.
             *d = simplex_null_basis[0];
             // if we created the plane by removing a vertex, we already know the 
             // normal is facing toward the origin. otherwise, we need to check 
@@ -131,12 +135,33 @@ namespace detail {
         } else {
             // explicitly project the direction to the origin onto the null space
             // of the boundary simplex.
-            *d = Vec<T,N>();
-            for (index_t b = 0; b < N - s->n + 1; b++) {
-                Vec<T,N> v_b = simplex_null_basis[b];
-                //todo: can we avoid the divide?
-                *d += v_b.dot(-A) * v_b[b] / v_b.mag2();
+            *d = Vec<T,N>::zeros;
+            
+            // either project onto the null basis directly, or subtract a vector
+            // orthogonal to the null basis from -A, according to whichever 
+            // projection is simpler.
+            bool swap_proj = false;
+            index_t proj_n = null_dim;
+            Vec<T,N> *proj_basis = simplex_null_basis;
+            
+            if ( null_dim > s->n - 1 ) {
+                proj_basis = simplex_basis;
+                proj_n = s->n - 1;
+                swap_proj = true;
+                for (index_t i = 0; i < s->n - 1; i++) {
+                    proj_basis[i] = s->pts[i] - A;
+                }
             }
+            
+            // gram-schmidt orthonormalization.
+            for (index_t b = 0; b < proj_n; b++) {
+                for (index_t i = 0; i < b; i++) {
+                    proj_basis[b] -= proj_basis[b].projectOn(proj_basis[i]);
+                }
+                *d += -A.projectOn(proj_basis[b]);
+            }
+            
+            if (swap_proj) *d = -A - *d;
         }
         return false;
     }

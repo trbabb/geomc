@@ -34,6 +34,7 @@ void nullsp() {
     }
     
     nullspace(basis, n, basis + n);
+    //orthonormalize(basis+n, N-n);
     
     cout << "\nnullspace basis:\n";
     for(int i = 0; i < N-n; i++) {
@@ -58,10 +59,33 @@ void nullsp() {
     }
 }
 
+
+void orthonormal() {
+    Sampler<double> smp;
+    Vec<double,N> basis[N];
+    cout << "given basis:\n";
+    for (int i = 0; i < N; i++) {
+        basis[i] = smp.unit<N>();
+        cout << basis[i] << "\n";
+    }
+    orthonormalize(basis,N);
+    for (int i = 0; i < N; i++) {
+        cout << "basis " << i << "\n";
+        for (int j = 0; j < N; j++) {
+           if (j == i) continue;
+           cout << "  " << basis[i].dot(basis[j]) << "\n";
+        }
+    }
+    
+}
+
+
 int main(int argc, char **argv) {
     cout << "\n====== orthogonal ======\n";
     ortho();
     cout << "\n\n====== nullspace ======\n";
     nullsp();
+    cout << "\n\n====== orthonormal =======\n";
+    orthonormal();
     return 0;
 }

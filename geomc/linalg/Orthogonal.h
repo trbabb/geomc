@@ -141,6 +141,27 @@ namespace geom {
         }
     }
     
+    /**
+     * Use the Gram-Schmidt process to orthonormalize a set of basis vectors. 
+     * The first basis vector will not change direction. 
+     * 
+     * @param basis Set of `n` bases vectors. 
+     * @param n Number of basis vectors between 0 and `N` inclusive.
+     */
+    template <typename T, index_t N>
+    void orthonormalize(Vec<T,N> basis[], index_t n) {
+        for (index_t i = 1; i < n; i++) {
+            for (index_t j = 0; j < i; j++) {
+                // modified gram-schmidt uses the intermediate basis
+                // for better numerical stability.
+                basis[i] -= basis[i].projectOn(basis[j]);
+            }
+        }
+        for (index_t i = 0; i < n; i++) {
+            basis[i] /= basis[i].mag();
+        }
+    }
+    
     /// @} //addtogroup linalg
     
 } // namespace geom
