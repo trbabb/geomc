@@ -92,8 +92,9 @@
 typedef boost::int_t<std::numeric_limits<size_t>::digits>::fast index_t;
 
 template <typename T> inline T positive_mod(T a, T b){
-    T r = a % b;
-    return r<0?r+b:r;
+    return (a % b + b) % b;
+    //T r = a % b;
+    //return r<0?r+b:r;
 }
 
 #ifdef PARSING_DOXYGEN
