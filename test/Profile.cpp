@@ -23,6 +23,7 @@
 #include <geomc/shape/BinLatticePartition.h>
 #include <geomc/shape/Trace.h>
 #include <geomc/shape/OrientedRect.h>
+#include <geomc/shape/Intersect.h>
 
 #include "RandomBattery.h"
 
@@ -452,6 +453,139 @@ template <typename T, index_t N> double profile_mtxInverseLU(index_t iters) {
 	return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
+template <typename T>
+void randomBox(OrientedRect<T,2> *r) {
+    Sampler<T> smp;
+    T angle = M_PI * getRandom()->rand<T>(-1,1);
+    r->xf *= rotation(angle);
+    r->xf *= scale(Vec<T,2>(getRandom()->rand<T>(2,8)));
+    r->xf *= translation(smp.template unit<2>());
+    Vec<T,2> b0 = smp.box(Vec<T,2>(-1), Vec<T,2>(1));
+    Vec<T,2> b1 = smp.box(Vec<T,2>(-1), Vec<T,2>(1));
+    r->box = Rect<T,2>::spanningCorners(b0,b1);
+}
+
+template <typename T>
+void randomBox(OrientedRect<T,3> *r) {
+    Sampler<T> smp;
+    Quat<T> q = smp.template unit<4>();
+    r->xf *= rotation(q);
+    r->xf *= scale(Vec<T,3>(getRandom()->rand<T>(2,8)));
+    r->xf *= translation(smp.template unit<3>());
+    Vec<T,3> b0 = smp.box(Vec<T,3>(-1), Vec<T,3>(1));
+    Vec<T,3> b1 = smp.box(Vec<T,3>(-1), Vec<T,3>(1));
+    r->box = Rect<T,3>::spanningCorners(b0,b1);
+}
+
+template <typename T, index_t N>
+void randomBox(OrientedRect<T,N> *r) {
+    Sampler<T> smp;
+    
+    // come up with a random orientation
+    Vec<T,N> basis[N];
+    for (index_t i = 0; i < N; i++) {
+        basis[i] = smp.template unit<N>();
+    }
+    orthonormalize(basis, N);
+    SimpleMatrix<T,N,N> rot(basis[0].begin());
+    
+    r->xf *= transformation(rot);
+    r->xf *= scale(Vec<T,N>(getRandom()->rand<T>(2,8)));
+    r->xf *= translation(smp.template unit<N>());
+    Vec<T,N> b0 = smp.box(Vec<T,N>(-1), Vec<T,N>(1));
+    Vec<T,N> b1 = smp.box(Vec<T,N>(-1), Vec<T,N>(1));
+    r->box = Rect<T,N>::spanningCorners(b0,b1);
+}
+
+template <typename T, index_t N> double profile_gjkIntersect(index_t iters) {
+    const index_t n = (index_t)std::ceil(std::sqrt(iters));
+    const index_t n_corners = 1 << N;
+    Vec<T,N> *rects = new Vec<T,N>[n*n_corners];
+    bool b = true;
+    for (index_t i = 0; i < n; i++) {
+        OrientedRect<T,N> r;
+        randomBox(&r);
+        r.getCorners(rects + n_corners*i);
+    }
+    
+    Vec<T,N> d;
+    index_t i0 = 0;
+    index_t i1 = 0;
+    clock_t start = clock();
+    for (index_t j = 0; j < iters; j++) {
+        i0 = (i0 + 1) % n;
+        if (i0 == 0) i1 = (i1 + 1) % n;
+        b = b ^ gjk_intersect(rects + n_corners*i0, n_corners, rects + n_corners*i1, n_corners, &d);
+    }
+    clock_t end = clock();
+    delete [] rects;
+    
+    return (end-start) / (double)CLOCKS_PER_SEC;
+}
+
+template <typename T> double profile_OBB_intersect(index_t iters) {
+    const index_t n = (index_t)std::ceil(std::sqrt(iters));
+    OrientedRect<T,3> *boxes = new OrientedRect<T,3>[n];
+    bool b = true;
+    for (index_t i = 0; i < n; i++) {
+        randomBox(boxes + i);
+    }
+    
+    Vec<T,3> d;
+    index_t i0 = 0;
+    index_t i1 = 0;
+    clock_t start = clock();
+    bool SAT = false;
+    for (index_t j = 0; j < iters; j++) {
+        i0 = (i0 + 1) % n;
+        if (i0 == 0) i1 = (i1 + 1) % n;
+        SAT = SAT ^ boxes[i0].intersects(boxes[i1]);
+    }
+    clock_t end = clock();
+    
+    delete [] boxes;
+    
+    return (end-start) / (double)CLOCKS_PER_SEC;
+}
+
+// this is tautological for N > 3. OBBs use GJK directly!
+template <typename T, index_t N> index_t test_gjkIntersect(index_t iters) {
+    const index_t n = (index_t)std::ceil(std::sqrt(iters));
+    OrientedRect<T,N> *boxes = new OrientedRect<T,N>[n];
+    bool b = true;
+    for (index_t i = 0; i < n; i++) {
+        randomBox(boxes + i);
+    }
+    const index_t n_corners = 1 << N;
+    
+    Vec<T,N> d;
+    index_t i0 = 0;
+    index_t i1 = 0;
+    index_t failures = 0;
+    index_t positive = 0;
+    index_t negative = 0;
+    for (index_t j = 0; j < iters; j++) {
+        i0 = (i0 + 1) % n;
+        if (i0 == 0) i1 = (i1 + 1) % n;
+        Vec<T,N> b0[n_corners];
+        Vec<T,N> b1[n_corners];
+        boxes[i0].getCorners(b0);
+        boxes[i1].getCorners(b1);
+        bool gjk = gjk_intersect(b0, n_corners, b1, n_corners, &d);
+        bool SAT = boxes[i0].intersects(boxes[i1]);
+        if (gjk != SAT) failures++;
+        if (SAT) positive++;
+        else negative++;
+    }
+    
+    delete [] boxes;
+    
+    std::cout << "gjk " << N << "D failures: " << failures;
+    std::cout << " (" << positive << " overlapped " << negative << " disjoint)\n";
+    
+    return failures;
+}
+
 template <typename T, index_t N> void test_mtxInverse(index_t iters) {
 	SimpleMatrix<T,N,N> mtx[2];
 	Random *rng = getRandom();
@@ -583,7 +717,6 @@ void test_dual() {
 
 using geom::operator<<;
 
-//int main_profile(int arc, char **argv) {
 int main(int argc, char** argv) {
     Vec2d a2d;
     Vec3d a3d;
@@ -602,6 +735,8 @@ int main(int argc, char** argv) {
     test_mtxArithmetic<double,4,3>(4,3);
     test_dual();
     test_OOBB<double,3>();
+    test_gjkIntersect<double,2>(1000000);
+    test_gjkIntersect<double,3>(1000000);
     
     profile("3d cross product", profile_vec_cross, iters);
     std::cout << std::endl;
@@ -703,6 +838,18 @@ int main(int argc, char** argv) {
     
     profile("rotationd matrix", profile_rotCtr<double>, iters/10);
     profile("rotationf matrix", profile_rotCtr<float>, iters/10);
+    std::cout << std::endl;
+    
+    profile("gjk float 2d",  profile_gjkIntersect<float,2>,  1000000);
+    profile("gjk double 2d", profile_gjkIntersect<double,2>, 1000000);
+    profile("gjk float 3d",  profile_gjkIntersect<float,3>,  1000000);
+    profile("gjk double 3d", profile_gjkIntersect<double,3>, 1000000);
+    profile("gjk float 4d",  profile_gjkIntersect<float,4>,  100000);
+    profile("gjk double 4d", profile_gjkIntersect<double,4>, 100000);
+    profile("gjk double 5d", profile_gjkIntersect<double,5>, 10000);
+    std::cout << std::endl;
+    
+    profile("SAT 3D OBB double", profile_OBB_intersect<double>, 1000000);
     std::cout << std::endl;
 
     std::cout << "sizeof vec2f: " << sizeof(Vec<float,2>) << std::endl;

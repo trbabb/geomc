@@ -8,14 +8,13 @@
 #ifndef INTERSECT_H
 #define	INTERSECT_H
 
-// xxx debug
-#include <assert.h>
-
 #include <limits.h>
 #include <geomc/linalg/Vec.h>
 #include <geomc/linalg/Orthogonal.h>
 
 #include "Plane.h"
+
+// todo: can we get faster/more stable/simpler results by solving for barycentric coords?
 
 namespace geom {
     
@@ -56,10 +55,12 @@ namespace detail {
         
         SubSimplex():n(0) {}
         
-        const Vec<T,N> *pts[N+1]; // array of N+1 pointers to const vec
+        const Vec<T,N> *pts[N+1]; // array of <= N pointers to const vec
         Vec<T,N> null_basis[N];   // basis for orthogonal complement of spanned space
-        index_t n;
+        index_t n; // number of stored points (i.e., excludes "A"). equal to the dimension spanned by `this`.
         
+        // create a new, complete simplex from `s`. The final vertex is of `s`
+        // is "A", and is not stored. 
         SubSimplex& createFrom(const Simplex<T,N> &s) {
             // the last vertex is assumed to be `A`
             n = s.n - 1;
@@ -79,6 +80,9 @@ namespace detail {
             return *this;
         }
         
+        // create a new sub-simplex of lower dimension by excluding the vertex with
+        // index `excluded`. The point `A` is taken to be the final vertex of this
+        // sub simplex, and is used in calculating the null space and normal.
         SubSimplex& createFrom(const SubSimplex &s, index_t excluded, const Vec<T,N> &A) {
             n = s.n - 1;
             index_t j = 0;
@@ -112,14 +116,14 @@ namespace detail {
             return *(pts[i]);
         }
         
-        inline Vec<T,N> getNormal() {
+        inline Vec<T,N> getNormal() const {
             return null_basis[N-n-1];
         }
         
     };
     
     // statically-sized/allocated queue
-    // behavior undefined if size grows > N
+    // (behavior undefined if size grows > N)
     template <typename T, index_t N>
     class StaticQueue {
         T q[N];
@@ -136,7 +140,6 @@ namespace detail {
             T *ret = q + back;
             back = (back + 1) % N;
             size++;
-            assert(size <= N);
             return ret;
         }
         
@@ -147,13 +150,11 @@ namespace detail {
         inline void destroy_front() {
             front = (front + 1) % N;
             size--;
-            assert(size >= 0);
         }
         
         inline void destroy_back() {
             back = positive_mod(back - 1, N);
             size--;
-            assert(size >= 0); // xxx todo remove me et al
         }
     };
     
@@ -162,6 +163,77 @@ namespace detail {
     }
     
     
+    template <typename T, index_t N>
+    bool gjk_direction_to_origin(detail::SubSimplex<T,N> &boundary, const Vec<T,N> &A, Vec<T,N> *d) {
+        // find the direction to the origin. 
+        // assumes a simplex which has already passed containment tests.
+        // i.e. project the direction to the origin onto the null space of our simplex.
+        // the final `else` would be sufficient by itself, but in some cases
+        // we can be clever and save some redundant calculations.
+        index_t null_dim = N - boundary.n;
+        if (null_dim == N) {
+            // single point case; projection is trivial.
+            *d = -A;
+        } else if (null_dim == 1) {
+            // the simplex spans a hyperplane; we already have the normal.
+            *d = boundary.getNormal();
+            // if we created the plane by removing a vertex, we already know the 
+            // normal is facing toward the origin. otherwise, we need to check 
+            // and flip it if necessary.
+            if (d->dot(A) > 0) *d *= -1;
+        } else if (null_dim == 0) {
+            // simplex forms a complete basis; no vertexes were eliminated.
+            // in other words, no plane test failed. The origin is inside
+            // this simplex!
+            return true;
+        } else {
+            // explicitly project the direction to the origin onto the null space
+            // of the boundary simplex.
+            if (N != 3) {
+                *d = Vec<T,N>::zeros;
+                
+                // either project onto the null basis directly, or subtract a vector
+                // orthogonal to the null basis from -A, according to whichever 
+                // projection is simpler.
+                bool swap_proj = false;
+                index_t proj_n = null_dim;
+                Vec<T,N> *proj_basis = boundary.null_basis;
+
+                if ( null_dim > boundary.n ) {
+                    proj_basis = boundary.null_basis + N - boundary.n;
+                    proj_n = boundary.n;
+                    swap_proj = true;
+                    for (index_t i = 0; i < boundary.n; i++) {
+                        proj_basis[i] = boundary[i] - A;
+                    }
+                }
+
+                // gram-schmidt orthonormalization.
+                for (index_t b = 0; b < proj_n; b++) {
+                    for (index_t i = 0; i < b; i++) {
+                        proj_basis[b] -= proj_basis[b].projectOn(proj_basis[i]);
+                    }
+                    *d += -A.projectOn(proj_basis[b]);
+                }
+
+                if (swap_proj) *d = -A - *d;
+            } else {
+                // cross product is faster/more numerically stable in 3D, but
+                // results are in principle identical. 
+                
+                // Vec<T,N> b = A - boundary[0];
+                // Vec<T,N> c = b ^ -A;
+                // *d = c ^ b; 
+                
+                // We use orthogonal() instead of ^ because this is a 
+                // dimension-agnostic function. orthogonal inlines to ^ anyway.
+                Vec<T,N> vs[3] = {(T)0, A - boundary[0], -A};
+                vs[0] = orthogonal(vs+1);
+                *d = orthogonal(vs);
+            }
+        }
+        return false;
+    }
 
     /* todo:
      * The only vertex that might be a boundary vertex is A. before we know A is the 
@@ -172,13 +244,12 @@ namespace detail {
      * for edges only) is not dependent on the parent, since there is only one degree 
      * of freedom. However, it is not clear to me how to avoid redundant checks in a way
      * that is not O(num children of triangles) anyway. Since a plane test is so damn
-     * cheap, it may not be a big deal. (Also note that each edge needs a null basis,
+     * cheap, it may not be a big deal. (Also note that each edge needs a complete null basis,
      * which would have to be constructed for each edge). At best, this might save
      * us some storage.
      */
     
-    //xxx todo: edge case (literally). when the origin lies exactly on a simplex edge,
-    //          iteration never terminates. how to robustly fix?
+    // todo: check for degenerate simplexes and ignore them.
     
     template <typename T, index_t N>
     bool gjk_simplex_nearest_origin(detail::Simplex<T,N> *simplex, Vec<T,N> *d) {
@@ -217,63 +288,8 @@ namespace detail {
                 q.destroy_front();
             }
         }
-        // find the direction to the origin
-        // i.e. project the direction to the origin onto the null space of our simplex.
-        // the final `else` would be sufficient by itself, but in some cases
-        // we can be clever and save some redundant calculations.
-        index_t null_dim = N - boundary.n;
-        if (null_dim == N) {
-            // single point case; projection is trivial.
-            *d = -A;
-        } else if (null_dim == 1) {
-            // the simplex spans a hyperplane; we already have the normal.
-            *d = boundary.getNormal();
-            // if we created the plane by removing a vertex, we already know the 
-            // normal is facing toward the origin. otherwise, we need to check 
-            // and flip it if necessary.
-            if (d->dot(A) > 0) *d *= -1;
-        } else if (null_dim == 0) {
-            // simplex forms a complete basis; no vertexes were eliminated.
-            // in other words, no plane test failed. The origin is inside
-            // this simplex!
-            return true;
-        } else {
-            //if (N != 3) {
-                // explicitly project the direction to the origin onto the null space
-                // of the boundary simplex.
-                *d = Vec<T,N>::zeros;
-
-                // either project onto the null basis directly, or subtract a vector
-                // orthogonal to the null basis from -A, according to whichever 
-                // projection is simpler.
-                bool swap_proj = false;
-                index_t proj_n = null_dim;
-                Vec<T,N> *proj_basis = boundary.null_basis;
-
-                if ( null_dim > boundary.n ) {
-                    proj_basis = boundary.null_basis + N - boundary.n;
-                    proj_n = boundary.n;
-                    swap_proj = true;
-                    for (index_t i = 0; i < boundary.n; i++) {
-                        proj_basis[i] = boundary[i] - A;
-                    }
-                }
-
-                // gram-schmidt orthonormalization.
-                for (index_t b = 0; b < proj_n; b++) {
-                    for (index_t i = 0; i < b; i++) {
-                        proj_basis[b] -= proj_basis[b].projectOn(proj_basis[i]);
-                    }
-                    *d += -A.projectOn(proj_basis[b]);
-                }
-
-                if (swap_proj) *d = -A - *d;
-            //} else {
-            //    Vec<T,N> b = A - s->pts[0];
-            //    Vec<T,N> c = b ^ -A;
-            //    *d = c ^ b; 
-            //}
-        }
+        
+        bool containment = gjk_direction_to_origin(boundary, A, d);
         
         // put the new simplex back into the return variable.
         // we use a temp because the boundary actually points into `simplex`.
@@ -285,7 +301,7 @@ namespace detail {
         }
         *simplex = tmp;
         
-        return false;
+        return containment;
     }
     
     // find the point having the largest dot product with direction `d`.
@@ -307,19 +323,33 @@ namespace detail {
 
 
 // todo: problem:
-//       approximately one every 10k instances of gjk will fail to converge;
-//       it'll get into a cycle. always occurs when bouncing between
-//       simplexes with 3 and 2 vertexes. this is about 0.01% failure.
-//       (but without an iteration cutoff the cost is catastrophe).
-//       todo: display all the bogus boxes and look at whether they tend to overlap or not.]
+//       rarely, the origin will land exactly on an edge. This causes instability
+//       and a failure to converge.
+//       x todo: display all the bogus boxes and look at whether they tend to overlap or not.
 //             ...or even use SAT to figure it out.
+//             > usually, the origin is squarely inside. but if not, it's at least on the surface
+//               of the minkowski diff, so return intersection.
+//             > you could use the history check.
 //       todo: empirically find the distribution of iterations, so we can arrive at a robust cutoff.
 //             - after how many iters is infinite looping guaranteed?
 //             - after how many iters is the intersection test known?
-//       - does this case happen when the origin lies "exactly" on a sub-simplex?
-//         > yes, sometimes.
-//         graph the origin on the iterative cases.
-//       - how do you get a triangle that only shares one point with a line segment?
+//             > A: for 3d, I have yet to see > 11 iterations among 100,000,000 tests.
+//               A cutoff of 20 is probably plenty safe.
+//               (however, it is unclear how this number changes with shape or
+//                dimension or degree of separation). 5 * (N+1) for cutoff?
+//       x todo: check histogram for N=2 and N=4.
+//             > histograms follow a nice approximate inverse exponential until
+//               N = 5, where things start to get rocky near the higher iteration counts.
+//       todo: check histogram for arbitrary polytopes?
+//             this will also help you narrow the cost down to GJK alone and not the
+//             linear basis check (which will go as 2^N for bboxes).
+//       x todo: profile the optimizations/shortcuts you've made and find out
+//             whether they matter.
+//             > The cross product helps a little bit with speed, but also improves numerical stability.
+//       x todo: run a massive regression ensuring gjk matches SAT for OBBs
+//             > 0 failures in 10,000,000 checks. Woohoo!
+//       x todo: compare GJK to SAT for speed
+//             > SAT works better for OBBs, but only by a factor of about 1.3x
 //         
 // todo: template GJK entirely over the input shape type.
 
@@ -342,19 +372,20 @@ bool gjk_intersect(const Vec<T,N> *pts_a, index_t n_a,
     detail::Simplex<T,N> s;
     s.insert(a);
     
-    detail::Simplex<T,N> history;
-    
     index_t i = 0;
+    
     while (true) {
         a = detail::gjk_support<T,N>(pts_a, n_a,  d) - 
             detail::gjk_support<T,N>(pts_b, n_b, -d);
         if (a.dot(d) < 0) return false;
         s.insert(a);
-        detail::Simplex<T,N> s_old = s;
+        
         if (detail::gjk_simplex_nearest_origin(&s, &d)) {
             if (overlap_axis) *overlap_axis = d;
             return true;
         }
+        // xxx come up with a better cutoff.
+        if (++i > 100) { return true; }
     }
 }
 

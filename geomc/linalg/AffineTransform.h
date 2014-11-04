@@ -532,8 +532,8 @@ namespace geom {
     AffineTransform<T,N> translation(const Vec<T,N> &tx) {
         AffineTransform<T,N> xfnew;
         for (index_t i = 0; i < N; i++) {
-            xfnew.mat[i][3] =  tx[i];
-            xfnew.inv[i][3] = -tx[i];
+            xfnew.mat[i][N] =  tx[i];
+            xfnew.inv[i][N] = -tx[i];
         }
         return xfnew;
     }
