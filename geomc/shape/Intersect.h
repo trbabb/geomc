@@ -11,8 +11,7 @@
 #include <limits.h>
 #include <geomc/linalg/Vec.h>
 #include <geomc/linalg/Orthogonal.h>
-
-#include "Plane.h"
+#include <geomc/shape/Bounded.h>
 
 // todo: can we get faster/more stable/simpler results by solving for barycentric coords?
 
@@ -167,12 +166,12 @@ namespace detail {
     bool gjk_direction_to_origin(detail::SubSimplex<T,N> &boundary, const Vec<T,N> &A, Vec<T,N> *d) {
         // find the direction to the origin. 
         // assumes a simplex which has already passed containment tests.
-        // i.e. project the direction to the origin onto the null space of our simplex.
+        // project the direction to the origin onto the null space of our simplex.
         // the final `else` would be sufficient by itself, but in some cases
         // we can be clever and save some redundant calculations.
         index_t null_dim = N - boundary.n;
         if (null_dim == N) {
-            // single point case; projection is trivial.
+            // single point case; "projection" is trivial.
             *d = -A;
         } else if (null_dim == 1) {
             // the simplex spans a hyperplane; we already have the normal.
@@ -304,61 +303,43 @@ namespace detail {
         return containment;
     }
     
-    // find the point having the largest dot product with direction `d`.
     template <typename T, index_t N>
-    Vec<T,N> gjk_support(const Vec<T,N> *pts, index_t n, Vec<T,N> d) {
-        T largest_dot = std::numeric_limits<T>::lowest();
-        Vec<T,N> pt;
-        for (index_t i = 0; i < n; i++) {
-            T a = d.dot(pts[i]);
-            if (a > largest_dot) {
-                largest_dot = a;
-                pt = pts[i];
+    struct UnstructuredPointcloud : virtual public Convex<T,N> {
+        const Vec<T,N> *pts;
+        index_t n;
+        
+        UnstructuredPointcloud(const Vec<T,N> *pts, index_t n):pts(pts),n(n) {}
+        
+        Vec<T,N> convexSupport(Vec<T,N> d) const {
+            T largest_dot = std::numeric_limits<T>::lowest();
+            Vec<T,N> pt;
+            for (index_t i = 0; i < n; i++) {
+                T a = d.dot(pts[i]);
+                if (a > largest_dot) {
+                    largest_dot = a;
+                    pt = pts[i];
+                }
             }
+            return pt;
         }
-        return pt;
-    }
+    };
 
 } // namespace detail
-
-
-// todo: problem:
-//       rarely, the origin will land exactly on an edge. This causes instability
-//       and a failure to converge.
-//       x todo: display all the bogus boxes and look at whether they tend to overlap or not.
-//             ...or even use SAT to figure it out.
-//             > usually, the origin is squarely inside. but if not, it's at least on the surface
-//               of the minkowski diff, so return intersection.
-//             > you could use the history check.
-//       todo: empirically find the distribution of iterations, so we can arrive at a robust cutoff.
-//             - after how many iters is infinite looping guaranteed?
-//             - after how many iters is the intersection test known?
-//             > A: for 3d, I have yet to see > 11 iterations among 100,000,000 tests.
-//               A cutoff of 20 is probably plenty safe.
-//               (however, it is unclear how this number changes with shape or
-//                dimension or degree of separation). 5 * (N+1) for cutoff?
-//       x todo: check histogram for N=2 and N=4.
-//             > histograms follow a nice approximate inverse exponential until
-//               N = 5, where things start to get rocky near the higher iteration counts.
-//       todo: check histogram for arbitrary polytopes?
-//             this will also help you narrow the cost down to GJK alone and not the
-//             linear basis check (which will go as 2^N for bboxes).
-//       x todo: profile the optimizations/shortcuts you've made and find out
-//             whether they matter.
-//             > The cross product helps a little bit with speed, but also improves numerical stability.
-//       x todo: run a massive regression ensuring gjk matches SAT for OBBs
-//             > 0 failures in 10,000,000 checks. Woohoo!
-//       x todo: compare GJK to SAT for speed
-//             > SAT works better for OBBs, but only by a factor of about 1.3x
-//         
+ 
 // todo: template GJK entirely over the input shape type.
+// todo: what if I want to do stuff like dilate or erode the minkowski difference?
+//       what if I want to do stuff to only one of the shapes?
+// todo: create intersect() function suite which defaults to GJK, but uses
+//       cleverer things if they exist.
+//       i.e. Intersector<A,B> uses GJK, but specializations may be written
+//       for particular combinations of A and B.
+
 
 // Use the Gilbert-Johnson-Keerthi algorithm to test for overlap between
 // two convex shapes, and return the axis of overlap.
 template <typename T, index_t N>
-bool gjk_intersect(const Vec<T,N> *pts_a, index_t n_a, 
-                   const Vec<T,N> *pts_b, index_t n_b, 
-                   Vec<T,N> *overlap_axis) {
+bool gjk_intersect(const Convex<T,N> &shape_a, const Convex<T,N> &shape_b,
+                   Vec<T,N> *overlap_axis=NULL) {
     // choose an arbitrary initial direction.
     Vec<T,N> initial;
     if (overlap_axis and *overlap_axis != Vec<T,N>::zeros) 
@@ -366,17 +347,19 @@ bool gjk_intersect(const Vec<T,N> *pts_a, index_t n_a,
     else 
         initial[0] = 1;
     
-    Vec<T,N> a = detail::gjk_support<T,N>(pts_a, n_a,  initial) - 
-                 detail::gjk_support<T,N>(pts_b, n_b, -initial);
+    Vec<T,N> a = shape_a.convexSupport(initial) - 
+                 shape_b.convexSupport(-initial);
     Vec<T,N> d = -a;
     detail::Simplex<T,N> s;
     s.insert(a);
     
+    // supported by empirical measurement, plus a safe margin:
+    const index_t cutoff = 10 * (1 << (N - 2)); 
     index_t i = 0;
     
     while (true) {
-        a = detail::gjk_support<T,N>(pts_a, n_a,  d) - 
-            detail::gjk_support<T,N>(pts_b, n_b, -d);
+        a = shape_a.convexSupport( d) - 
+            shape_b.convexSupport(-d);
         if (a.dot(d) < 0) return false;
         s.insert(a);
         
@@ -384,10 +367,20 @@ bool gjk_intersect(const Vec<T,N> *pts_a, index_t n_a,
             if (overlap_axis) *overlap_axis = d;
             return true;
         }
-        // xxx come up with a better cutoff.
-        if (++i > 100) { return true; }
+        if (++i > cutoff) { return true; }
     }
 }
+
+
+template <typename T, index_t N>
+inline bool gjk_intersect(const Vec<T,N> *pts_a, index_t n_a,
+                          const Vec<T,N> *pts_b, index_t n_b,
+                          Vec<T,N> *overlap_axis=NULL) {
+    detail::UnstructuredPointcloud<T,N> a(pts_a, n_a);
+    detail::UnstructuredPointcloud<T,N> b(pts_b, n_b);
+    return gjk_intersect(a, b, overlap_axis);
+}
+
 
 } // end namespace geom
 

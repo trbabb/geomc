@@ -13,8 +13,6 @@
 #include <geomc/shape/Rect.h>
 #include <geomc/shape/shapedetail/SeparatingAxis.h>
 
-#include "shapedetail/SeparatingAxis.h"
-
 namespace geom {
  
 
@@ -22,7 +20,7 @@ namespace geom {
 // We specialize the derived class because some dimensions don't support
 // box-box intersection tests, and should not have methods for them.
 template <typename T, int N>
-class OrientedRectBase : virtual public Bounded<T,N> {
+class OrientedRectBase : virtual public Bounded<T,N>, virtual public Convex<T,N> {
     
     public:
         
@@ -71,6 +69,16 @@ class OrientedRectBase : virtual public Bounded<T,N> {
             Vec<T,N> p1 = xf * box.max();
             Vec<T,N> diag = (p1 - p0) / 2;
             return Sphere<T,N>(diag + p0, diag.mag());
+        }
+        
+        
+        Vec<T,N> convexSupport(Vec<T,N> d) const {
+            Vec<T,N> d_body = d / xf;
+            Vec<T,N> o;
+            for (index_t i = 0; i < N; i++) {
+                o[i] = ((d_body[i] < 0) ? box.min() : box.max())[i];
+            }
+            return xf * o;
         }
         
         

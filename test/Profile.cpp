@@ -500,12 +500,13 @@ void randomBox(OrientedRect<T,N> *r) {
 template <typename T, index_t N> double profile_gjkIntersect(index_t iters) {
     const index_t n = (index_t)std::ceil(std::sqrt(iters));
     const index_t n_corners = 1 << N;
-    Vec<T,N> *rects = new Vec<T,N>[n*n_corners];
+    //Vec<T,N> *rects = new Vec<T,N>[n*n_corners];
+    OrientedRect<T,N> *rects = new OrientedRect<T,N>[n];
     bool b = true;
     for (index_t i = 0; i < n; i++) {
-        OrientedRect<T,N> r;
-        randomBox(&r);
-        r.getCorners(rects + n_corners*i);
+        //OrientedRect<T,N> r;
+        randomBox(rects+i);
+        //r.getCorners(rects + n_corners*i);
     }
     
     Vec<T,N> d;
@@ -515,7 +516,8 @@ template <typename T, index_t N> double profile_gjkIntersect(index_t iters) {
     for (index_t j = 0; j < iters; j++) {
         i0 = (i0 + 1) % n;
         if (i0 == 0) i1 = (i1 + 1) % n;
-        b = b ^ gjk_intersect(rects + n_corners*i0, n_corners, rects + n_corners*i1, n_corners, &d);
+        //b = b ^ gjk_intersect(rects + n_corners*i0, n_corners, rects + n_corners*i1, n_corners, &d);
+        b = b ^ gjk_intersect(rects[i0], rects[i1], &d);
     }
     clock_t end = clock();
     delete [] rects;
@@ -523,15 +525,15 @@ template <typename T, index_t N> double profile_gjkIntersect(index_t iters) {
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
-template <typename T> double profile_OBB_intersect(index_t iters) {
+template <typename T, index_t N> double profile_OBB_intersect(index_t iters) {
     const index_t n = (index_t)std::ceil(std::sqrt(iters));
-    OrientedRect<T,3> *boxes = new OrientedRect<T,3>[n];
+    OrientedRect<T,N> *boxes = new OrientedRect<T,N>[n];
     bool b = true;
     for (index_t i = 0; i < n; i++) {
         randomBox(boxes + i);
     }
     
-    Vec<T,3> d;
+    Vec<T,N> d;
     index_t i0 = 0;
     index_t i1 = 0;
     clock_t start = clock();
@@ -846,10 +848,12 @@ int main(int argc, char** argv) {
     profile("gjk double 3d", profile_gjkIntersect<double,3>, 1000000);
     profile("gjk float 4d",  profile_gjkIntersect<float,4>,  100000);
     profile("gjk double 4d", profile_gjkIntersect<double,4>, 100000);
-    profile("gjk double 5d", profile_gjkIntersect<double,5>, 10000);
+    profile("gjk double 5d", profile_gjkIntersect<double,5>, 100000);
     std::cout << std::endl;
     
-    profile("SAT 3D OBB double", profile_OBB_intersect<double>, 1000000);
+    
+    profile("SAT 2D OBB double", profile_OBB_intersect<double,2>, 1000000);
+    profile("SAT 3D OBB double", profile_OBB_intersect<double,3>, 1000000);
     std::cout << std::endl;
 
     std::cout << "sizeof vec2f: " << sizeof(Vec<float,2>) << std::endl;

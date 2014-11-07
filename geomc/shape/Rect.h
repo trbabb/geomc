@@ -47,7 +47,8 @@ namespace geom {
  * Rects obey the standard interval conventions, in that lower extremes are inclusive
  * and upper extemes are exclusive.
  */
-template <typename T, index_t N> class Rect : virtual public Bounded<T,N> {
+template <typename T, index_t N> 
+class Rect : virtual public Bounded<T,N>, virtual public Convex<T,N> {
 protected:
     typedef PointType<T,N> ptype;
 
@@ -454,6 +455,15 @@ public:
      */
     point_t boxFraction(point_t p) const {
         return (point_t(1)-p) * mins + p * maxs ;
+    }
+    
+    point_t convexSupport(point_t d) const {
+        point_t o;
+        for (index_t i = 0; i < N; i++) {
+            T a = ptype::iterator(d)[i];
+            ptype::iterator(o)[i] = ptype::iterator(a < 0 ? mins : maxs)[i];
+        }
+        return o;
     }
     
     /**

@@ -26,7 +26,7 @@ namespace geom {
      * segment in 2D.
      */
     template <typename T, index_t N>
-    class Cylinder : virtual public Bounded<T,N> {
+    class Cylinder : virtual public Bounded<T,N>, virtual public Convex<T,N> {
         public:
             /// Axis endpoint.
             Vec<T,N> p0;
@@ -89,6 +89,12 @@ namespace geom {
                 Rect<T,N> b1(p1 - c0, p1 + c0);
                 // box union
                 return b0 | b1;
+            }
+            
+            Vec<T,N> convexSupport(Vec<T,N> d) const {
+                Vec<T,N> v = p1 - p0;
+                Vec<T,N> perp = (d - d.projectOn(v)).unit() * radius;
+                return (d.dot(v) > 0 ? p1 : p0) + perp;
             }
             
             /**

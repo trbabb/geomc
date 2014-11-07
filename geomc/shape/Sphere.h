@@ -22,7 +22,7 @@ namespace geom {
      * @brief A N-dimensional circle, sphere, or hypersphere
      */
     template <typename T, index_t N>
-    class Sphere : virtual public Bounded<T,N> {
+    class Sphere : virtual public Bounded<T,N>, virtual public Convex<T,N> {
     public:
         /// Center of the sphere.
         Vec<T,N> center;
@@ -67,6 +67,10 @@ namespace geom {
          */
         bool intersects(Sphere s) const {
             return s.center.dist2(center) <= r*r;
+        }
+        
+        Vec<T,N> convexSupport(Vec<T,N> d) const {
+            return center + d.unit() * r;
         }
         
         /**
