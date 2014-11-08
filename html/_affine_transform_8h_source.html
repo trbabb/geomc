@@ -491,8 +491,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00532"></a><span class="lineno"><a class="line" href="group__linalg.html#ga3f38c29ff149d7a57b5b81f613963177">  532</a></span>&#160;    <a class="code" href="classgeom_1_1_affine_transform.html">AffineTransform&lt;T,N&gt;</a> <a class="code" href="group__linalg.html#ga3f38c29ff149d7a57b5b81f613963177">translation</a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> &amp;tx) {</div>
 <div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;        <a class="code" href="classgeom_1_1_affine_transform.html">AffineTransform&lt;T,N&gt;</a> xfnew;</div>
 <div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;        <span class="keywordflow">for</span> (index_t i = 0; i &lt; N; i++) {</div>
-<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;            xfnew.<a class="code" href="classgeom_1_1_affine_transform.html#a787773472ebe58ae9d5c43b6589386aa">mat</a>[i][3] =  tx[i];</div>
-<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;            xfnew.<a class="code" href="classgeom_1_1_affine_transform.html#ae619bd6ea27d842746837177297ccba7">inv</a>[i][3] = -tx[i];</div>
+<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;            xfnew.<a class="code" href="classgeom_1_1_affine_transform.html#a787773472ebe58ae9d5c43b6589386aa">mat</a>[i][N] =  tx[i];</div>
+<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;            xfnew.<a class="code" href="classgeom_1_1_affine_transform.html#ae619bd6ea27d842746837177297ccba7">inv</a>[i][N] = -tx[i];</div>
 <div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;        }</div>
 <div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;        <span class="keywordflow">return</span> xfnew;</div>
 <div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;    }</div>
@@ -585,7 +585,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="classgeom_1_1_affine_transform_html_a535ae59ac4023fd5a30c7605b50d3143"><div class="ttname"><a href="classgeom_1_1_affine_transform.html#a535ae59ac4023fd5a30c7605b50d3143">geom::AffineTransform::applyNormal</a></div><div class="ttdeci">const Vec&lt; T, N &gt; applyNormal(const Vec&lt; T, N &gt; &amp;n) const </div><div class="ttdef"><b>Definition:</b> AffineTransform.h:172</div></div>
 <div class="ttc" id="classgeom_1_1_simple_matrix_html_aa0f1796902c9ad383ba037c6216e2aff"><div class="ttname"><a href="classgeom_1_1_simple_matrix.html#aa0f1796902c9ad383ba037c6216e2aff">geom::SimpleMatrix::cols</a></div><div class="ttdeci">index_t cols() const </div><div class="ttdef"><b>Definition:</b> SimpleMatrix.h:191</div></div>
 <div class="ttc" id="classgeom_1_1_affine_transform_html"><div class="ttname"><a href="classgeom_1_1_affine_transform.html">geom::AffineTransform</a></div><div class="ttdoc">Affine transformation class. </div><div class="ttdef"><b>Definition:</b> AffineTransform.h:61</div></div>
-<div class="ttc" id="classgeom_1_1_rect_html"><div class="ttname"><a href="classgeom_1_1_rect.html">geom::Rect</a></div><div class="ttdoc">An N-dimensional axis-aligned box. </div><div class="ttdef"><b>Definition:</b> Rect.h:50</div></div>
+<div class="ttc" id="classgeom_1_1_rect_html"><div class="ttname"><a href="classgeom_1_1_rect.html">geom::Rect</a></div><div class="ttdoc">An N-dimensional axis-aligned box. </div><div class="ttdef"><b>Definition:</b> Rect.h:51</div></div>
 <div class="ttc" id="classgeom_1_1_simple_matrix_html_a64379566fbc4fb303e35d27d9f73b160"><div class="ttname"><a href="classgeom_1_1_simple_matrix.html#a64379566fbc4fb303e35d27d9f73b160">geom::SimpleMatrix::set</a></div><div class="ttdeci">reference set(index_t r, index_t c, T val)</div><div class="ttdef"><b>Definition:</b> SimpleMatrix.h:270</div></div>
 <div class="ttc" id="classgeom_1_1_vec_html"><div class="ttname"><a href="classgeom_1_1_vec.html">geom::Vec</a></div><div class="ttdoc">A tuple of N elements of type T. </div><div class="ttdef"><b>Definition:</b> LinalgTypes.h:91</div></div>
 <div class="ttc" id="classgeom_1_1_affine_transform_html_a4b04b30f496f678d29c350d13cc01385"><div class="ttname"><a href="classgeom_1_1_affine_transform.html#a4b04b30f496f678d29c350d13cc01385">geom::AffineTransform::AffineTransform</a></div><div class="ttdeci">AffineTransform()</div><div class="ttdoc">Construct a new identity transform. </div><div class="ttdef"><b>Definition:</b> AffineTransform.h:69</div></div>
@@ -593,7 +593,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 21 2014 00:57:53 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 8 2014 00:31:43 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

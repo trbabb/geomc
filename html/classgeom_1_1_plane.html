@@ -117,6 +117,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6f7cafd224e5a68740ff38d741cb04bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a612990008e174137acfd522ad179db26"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_plane.html#a612990008e174137acfd522ad179db26">contains</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;p) const </td></tr>
 <tr class="separator:a612990008e174137acfd522ad179db26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab403fffa1768e8d00c7f6fa2ff329206"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_plane.html#ab403fffa1768e8d00c7f6fa2ff329206">contains</a> (const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;shape) const </td></tr>
+<tr class="separator:ab403fffa1768e8d00c7f6fa2ff329206"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93adb213032dae93f279dc650424f752"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_plane.html#a93adb213032dae93f279dc650424f752">project</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;p) const </td></tr>
 <tr class="separator:a93adb213032dae93f279dc650424f752"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe8df26c679c8b4794a9f1a1d2445612"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_plane.html#abe8df26c679c8b4794a9f1a1d2445612">origin</a> () const </td></tr>
@@ -125,10 +127,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a39625c5ee13a2e7ec08b0261b7353d1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa03e6f932a530340e3daa54ff8f66399"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_plane.html#aa03e6f932a530340e3daa54ff8f66399">applyInverse</a> (const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;xf)</td></tr>
 <tr class="separator:aa03e6f932a530340e3daa54ff8f66399"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb3d37645faaf485b64cde157f5bb2eb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_plane.html#adb3d37645faaf485b64cde157f5bb2eb">intersects</a> (const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;shape) const </td></tr>
+<tr class="separator:adb3d37645faaf485b64cde157f5bb2eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a5b502d4e778ee77738810727db2787"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_plane.html#a1a5b502d4e778ee77738810727db2787">intersects</a> (const <a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; T, N &gt; &amp;s) const </td></tr>
+<tr class="separator:a1a5b502d4e778ee77738810727db2787"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d7cac9d4fd2a9ba19e3f6b1f1f83242"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_plane.html#a6d7cac9d4fd2a9ba19e3f6b1f1f83242">intersects</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *hull, index_t npts) const </td></tr>
 <tr class="separator:a6d7cac9d4fd2a9ba19e3f6b1f1f83242"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a950a098e1f02fcb4782e73b31da45e73"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_plane.html#a950a098e1f02fcb4782e73b31da45e73">intersects</a> (const <a class="el" href="classgeom_1_1_plane.html">Plane</a>&lt; T, N &gt; &amp;p) const </td></tr>
-<tr class="separator:a950a098e1f02fcb4782e73b31da45e73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a439a957075e8f6861bbcff83958d97cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_hit.html">Hit</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_plane.html#a439a957075e8f6861bbcff83958d97cc">trace</a> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; &amp;ray, <a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> sides) const </td></tr>
 <tr class="separator:a439a957075e8f6861bbcff83958d97cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:accd5e723f6feb173c6118c6ab491e292"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_plane.html">Plane</a>&lt; T, N &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_plane.html#accd5e723f6feb173c6118c6ab491e292">operator*=</a> (const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;tx)</td></tr>
@@ -347,7 +351,32 @@ class geom::Plane&lt; T, N &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Half-space test. </p><dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>p</code> is on or below the surface of the plane (i.e. on the non-normal facing side); <code>false</code> otherwise. </dd></dl>
+<p>Half-space test. </p><dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>p</code> is on or below the surface of the plane (i.e. on the side opposite the normal); <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab403fffa1768e8d00c7f6fa2ff329206"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool contains </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>shape</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Half-space test. </p><dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>shape</code> is completely on or below the surface of the plane (i.e. on the side opposite the normal); false otherwise. </dd></dl>
 
 </div>
 </div>
@@ -480,6 +509,56 @@ class geom::Plane&lt; T, N &gt;</h3>
 
 </div>
 </div>
+<a class="anchor" id="adb3d37645faaf485b64cde157f5bb2eb"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool intersects </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>shape</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p><a class="el" href="classgeom_1_1_convex.html" title="Virtual class describing convex shapes in N-dimensional space. ">Convex</a> shape intersection test. </p><dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if this plane passes through <code>shape</code>. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a1a5b502d4e778ee77738810727db2787"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool intersects </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p><a class="el" href="classgeom_1_1_sphere.html" title="A N-dimensional circle, sphere, or hypersphere. ">Sphere</a> interesection test. </p><dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if this plane passes through <code>s</code>. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a6d7cac9d4fd2a9ba19e3f6b1f1f83242"></a>
 <div class="memitem">
 <div class="memproto">
@@ -511,7 +590,7 @@ class geom::Plane&lt; T, N &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Convex hull intersection test. </p><dl class="params"><dt>Parameters</dt><dd>
+<p><a class="el" href="classgeom_1_1_convex.html" title="Virtual class describing convex shapes in N-dimensional space. ">Convex</a> hull intersection test. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">hull</td><td>A list of points whose convex hull is to be tested. </td></tr>
     <tr><td class="paramname">npts</td><td>Number of points in the list. </td></tr>
@@ -519,37 +598,6 @@ class geom::Plane&lt; T, N &gt;</h3>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if this plane intersects the convex hull of <code>hull</code>, <code>false</code> otherwise, </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a950a098e1f02fcb4782e73b31da45e73"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool intersects </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_plane.html">Plane</a>&lt; T, N &gt; &amp;&#160;</td>
-          <td class="paramname"><em>p</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Plane-plane intersection test </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">p</td><td>Another plane. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><code>false</code> unless this plane and <code>p</code> are parallel. </dd></dl>
 
 </div>
 </div>
@@ -797,7 +845,7 @@ class geom::Plane&lt; T, N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 21 2014 00:57:54 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 8 2014 00:31:43 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

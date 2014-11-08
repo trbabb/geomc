@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['n',['n',['../classgeom_1_1_hit.html#a43a5e21b964dcefa59974d28597f4d50',1,'geom::Hit']]],
-  ['normal',['normal',['../classgeom_1_1_plane.html#a97a283c4b6e5c00898477c179ff36c9d',1,'geom::Plane']]]
+  ['mat',['mat',['../classgeom_1_1_affine_transform.html#a787773472ebe58ae9d5c43b6589386aa',1,'geom::AffineTransform']]],
+  ['maxs',['maxs',['../classgeom_1_1_rect.html#a027343b74320c3528c3a881aa5399512',1,'geom::Rect']]],
+  ['mins',['mins',['../classgeom_1_1_rect.html#a32caf6df617c835be8920f40874363c9',1,'geom::Rect']]]
 ];

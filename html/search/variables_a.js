@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['w_5faxis',['W_AXIS',['../classgeom_1_1_vec_3_01_t_00_014_01_4.html#a76a366c2649eea0bc3c4212040cfe28e',1,'geom::Vec&lt; T, 4 &gt;']]]
+  ['s',['s',['../classgeom_1_1_hit.html#abd307b4686d3cabec491ff8ba54bf302',1,'geom::Hit']]],
+  ['side',['side',['../classgeom_1_1_hit.html#a8ea75572cc715a357bacad8863b209ad',1,'geom::Hit']]]
 ];

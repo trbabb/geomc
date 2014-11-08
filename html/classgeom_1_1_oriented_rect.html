@@ -102,8 +102,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <a href="classgeom_1_1_oriented_rect.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_oriented_rect_8h_source.html">geomc/shape/OrientedRect.h</a>&gt;</code></p>
-
-<p>Inherits OrientedRectBase&lt; T, N &gt;.</p>
+<div class="dynheader">
+Inheritance diagram for OrientedRect&lt; T, N &gt;:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classgeom_1_1_oriented_rect.png" usemap="#OrientedRect&lt; T, N &gt;_map" alt=""/>
+  <map id="OrientedRect&lt; T, N &gt;_map" name="OrientedRect&lt; T, N &gt;_map">
+<area href="classgeom_1_1_bounded.html" title="Virtual class describing shapes with finite extents in N dimensions. " alt="Bounded&lt; T, N &gt;" shape="rect" coords="0,0,135,24"/>
+<area href="classgeom_1_1_convex.html" title="Virtual class describing convex shapes in N-dimensional space. " alt="Convex&lt; T, N &gt;" shape="rect" coords="145,0,280,24"/>
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -112,43 +120,43 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a8497b09d5f165122db3fa7766c879ed1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an axis-aligned box of size 1, with one corner at the origin. <br /></td></tr>
 <tr class="separator:a8497b09d5f165122db3fa7766c879ed1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16d2259de3cfcc45617d4733e13b0a9f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a16d2259de3cfcc45617d4733e13b0a9f"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_oriented_rect.html#a16d2259de3cfcc45617d4733e13b0a9f">OrientedRect</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, N &gt; &amp;box)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_oriented_rect.html#a16d2259de3cfcc45617d4733e13b0a9f">OrientedRect</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, N &gt; &amp;<a class="el" href="classgeom_1_1_oriented_rect.html#a3d9b4a63ec3483d3748cced29ee0c9fb">box</a>)</td></tr>
 <tr class="memdesc:a16d2259de3cfcc45617d4733e13b0a9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an axis-aligned box from the given <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box. ">Rect</a>. <br /></td></tr>
 <tr class="separator:a16d2259de3cfcc45617d4733e13b0a9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ecfd168841bcc4ea3c4e5367782af2c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7ecfd168841bcc4ea3c4e5367782af2c"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_oriented_rect.html#a7ecfd168841bcc4ea3c4e5367782af2c">OrientedRect</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, N &gt; &amp;box, const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;xf)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_oriented_rect.html#a7ecfd168841bcc4ea3c4e5367782af2c">OrientedRect</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, N &gt; &amp;<a class="el" href="classgeom_1_1_oriented_rect.html#a3d9b4a63ec3483d3748cced29ee0c9fb">box</a>, const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;<a class="el" href="classgeom_1_1_oriented_rect.html#a1656de6a9e00b1bd5387a9317be4b608">xf</a>)</td></tr>
 <tr class="memdesc:a7ecfd168841bcc4ea3c4e5367782af2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an oriented box from the given <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box. ">Rect</a> and object-to-world transformation. <br /></td></tr>
 <tr class="separator:a7ecfd168841bcc4ea3c4e5367782af2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31dd162abf1cdb4b87998628af84bd34"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_oriented_rect.html#a31dd162abf1cdb4b87998628af84bd34">intersects</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, N &gt; &amp;b1)</td></tr>
-<tr class="separator:a31dd162abf1cdb4b87998628af84bd34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8bfc46a4da1b89dcb0546f2862bfd7e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_oriented_rect.html#ae8bfc46a4da1b89dcb0546f2862bfd7e">intersects</a> (const <a class="el" href="classgeom_1_1_oriented_rect.html">OrientedRect</a>&lt; T, N &gt; &amp;b1)</td></tr>
-<tr class="separator:ae8bfc46a4da1b89dcb0546f2862bfd7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af58b0be9725006cf318033ee17af2774"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af58b0be9725006cf318033ee17af2774"></a>
-<a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>bounds</b> ()</td></tr>
+<a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_oriented_rect.html#af58b0be9725006cf318033ee17af2774">bounds</a> ()</td></tr>
 <tr class="memdesc:af58b0be9725006cf318033ee17af2774"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtain an axis-aligned bounding box for this region. <br /></td></tr>
 <tr class="separator:af58b0be9725006cf318033ee17af2774"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59dc995713f5925e33cafd900370efeb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a59dc995713f5925e33cafd900370efeb"></a>
-<a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>sphereBounds</b> () const </td></tr>
-<tr class="memdesc:a59dc995713f5925e33cafd900370efeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the sphere circumscribing this <a class="el" href="classgeom_1_1_oriented_rect.html" title="A Rect with arbitrary position and orientation. ">OrientedRect</a>. <br /></td></tr>
-<tr class="separator:a59dc995713f5925e33cafd900370efeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42a77aeec33b78e04b62b48b4c4c05ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><b>getCorners</b> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; out[1&lt;&lt; N])</td></tr>
+<tr class="memitem:a98e342fd1bd993906855214b258ba672"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_oriented_rect.html#a98e342fd1bd993906855214b258ba672">convexSupport</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; d) const </td></tr>
+<tr class="separator:a98e342fd1bd993906855214b258ba672"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42a77aeec33b78e04b62b48b4c4c05ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_oriented_rect.html#a42a77aeec33b78e04b62b48b4c4c05ad">getCorners</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; out[1&lt;&lt; N])</td></tr>
 <tr class="memdesc:a42a77aeec33b78e04b62b48b4c4c05ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill an array with the vertecies of this OrientedBox.  <a href="#a42a77aeec33b78e04b62b48b4c4c05ad">More...</a><br /></td></tr>
 <tr class="separator:a42a77aeec33b78e04b62b48b4c4c05ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf0901bbeafb8e4ccba40ca4d44df98e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adf0901bbeafb8e4ccba40ca4d44df98e"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>contains</b> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; p)</td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_oriented_rect.html#adf0901bbeafb8e4ccba40ca4d44df98e">contains</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; p)</td></tr>
 <tr class="memdesc:adf0901bbeafb8e4ccba40ca4d44df98e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if and only if <code>p</code> is inside or on the surface of this <a class="el" href="classgeom_1_1_oriented_rect.html" title="A Rect with arbitrary position and orientation. ">OrientedRect</a>. <br /></td></tr>
 <tr class="separator:adf0901bbeafb8e4ccba40ca4d44df98e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac70bf405a1663c61ac7d8e9dbecc624e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_hit.html">Hit</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>trace</b> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; &amp;r, <a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> side)</td></tr>
+<tr class="memitem:aed5d9553e0430e5b0733ba78cf0907f6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_oriented_rect.html#aed5d9553e0430e5b0733ba78cf0907f6">intersects</a> (<a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, N &gt; r)</td></tr>
+<tr class="separator:aed5d9553e0430e5b0733ba78cf0907f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8bfc46a4da1b89dcb0546f2862bfd7e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_oriented_rect.html#ae8bfc46a4da1b89dcb0546f2862bfd7e">intersects</a> (const <a class="el" href="classgeom_1_1_oriented_rect.html">OrientedRect</a>&lt; T, N &gt; &amp;b1)</td></tr>
+<tr class="separator:ae8bfc46a4da1b89dcb0546f2862bfd7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac70bf405a1663c61ac7d8e9dbecc624e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_hit.html">Hit</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_oriented_rect.html#ac70bf405a1663c61ac7d8e9dbecc624e">trace</a> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; &amp;r, <a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> side)</td></tr>
 <tr class="separator:ac70bf405a1663c61ac7d8e9dbecc624e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76cf428177c32e46202c584537c84924"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_convex.html#a76cf428177c32e46202c584537c84924">intersects</a> (const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;other) const </td></tr>
+<tr class="separator:a76cf428177c32e46202c584537c84924"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a3d9b4a63ec3483d3748cced29ee0c9fb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3d9b4a63ec3483d3748cced29ee0c9fb"></a>
-<a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>box</b></td></tr>
+<a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_oriented_rect.html#a3d9b4a63ec3483d3748cced29ee0c9fb">box</a></td></tr>
 <tr class="memdesc:a3d9b4a63ec3483d3748cced29ee0c9fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un-transformed extents. <br /></td></tr>
 <tr class="separator:a3d9b4a63ec3483d3748cced29ee0c9fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1656de6a9e00b1bd5387a9317be4b608"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1656de6a9e00b1bd5387a9317be4b608"></a>
-<a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>xf</b></td></tr>
+<a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_oriented_rect.html#a1656de6a9e00b1bd5387a9317be4b608">xf</a></td></tr>
 <tr class="memdesc:a1656de6a9e00b1bd5387a9317be4b608"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transformation orienting <code>box</code>. <br /></td></tr>
 <tr class="separator:a1656de6a9e00b1bd5387a9317be4b608"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -158,6 +166,41 @@ class geom::OrientedRect&lt; T, N &gt;</h3>
 
 <p>A <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box. ">Rect</a> with arbitrary position and orientation. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a98e342fd1bd993906855214b258ba672"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; convexSupport </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td>
+          <td class="paramname"><em>d</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Returns the point on the surface of this convex shape that is furthest along direction <code>d</code> (i.e., has the highest dot product with <code>d</code>).</p>
+<p>All shapes which implement this function automatically support geometrical intersection tests with any other <a class="el" href="classgeom_1_1_convex.html" title="Virtual class describing convex shapes in N-dimensional space. ">Convex</a> object.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">d</td><td>Direction along which to find a support plane. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A point on the surface of this convex shape. </dd></dl>
+
+<p>Implements <a class="el" href="classgeom_1_1_convex.html#a9b4c78a287cbd6a3d7a6a0ec498f668a">Convex&lt; T, N &gt;</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a42a77aeec33b78e04b62b48b4c4c05ad"></a>
 <div class="memitem">
 <div class="memproto">
@@ -175,7 +218,7 @@ class geom::OrientedRect&lt; T, N &gt;</h3>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -190,7 +233,7 @@ class geom::OrientedRect&lt; T, N &gt;</h3>
 
 </div>
 </div>
-<a class="anchor" id="a31dd162abf1cdb4b87998628af84bd34"></a>
+<a class="anchor" id="a76cf428177c32e46202c584537c84924"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -200,8 +243,40 @@ class geom::OrientedRect&lt; T, N &gt;</h3>
         <tr>
           <td class="memname">bool intersects </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, N &gt; &amp;&#160;</td>
-          <td class="paramname"><em>b1</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>True if and only if this convex shape overlaps <code>other</code>; false otherwise.</dd></dl>
+<p>Note that some subclasses have overloaded versions of this function for specific shapes which may offer better performance. When handling pointers to <a class="el" href="classgeom_1_1_convex.html" title="Virtual class describing convex shapes in N-dimensional space. ">Convex</a> objects, it may be adviseable to cast to the derived classes.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>Any other convex shape. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="aed5d9553e0430e5b0733ba78cf0907f6"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool intersects </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, N &gt;&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -211,15 +286,14 @@ class geom::OrientedRect&lt; T, N &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Test whether this <a class="el" href="classgeom_1_1_oriented_rect.html" title="A Rect with arbitrary position and orientation. ">OrientedRect</a> overlaps an axis-aligned box.</p>
-<p>Not available for <code>N</code> &gt; 3.</p>
+<p>Test whether this <a class="el" href="classgeom_1_1_oriented_rect.html" title="A Rect with arbitrary position and orientation. ">OrientedRect</a> overlaps an axis-aligned <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned box. ">Rect</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">b1</td><td>Axis-aligned box to test. </td></tr>
+    <tr><td class="paramname">b1</td><td>OritentedRect to test against. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if <code>this</code> overlaps with <code>b</code>; <code>false</code> otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if <code>this</code> overlaps with <code>b1</code>; <code>false</code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -245,7 +319,7 @@ class geom::OrientedRect&lt; T, N &gt;</h3>
 </table>
 </div><div class="memdoc">
 <p>Test whether this <a class="el" href="classgeom_1_1_oriented_rect.html" title="A Rect with arbitrary position and orientation. ">OrientedRect</a> overlaps another.</p>
-<p>Not available for <code>N</code> &gt; 3. </p><dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">b1</td><td>OritentedRect to test against. </td></tr>
   </table>
@@ -282,7 +356,7 @@ class geom::OrientedRect&lt; T, N &gt;</h3>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -304,7 +378,7 @@ class geom::OrientedRect&lt; T, N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 21 2014 00:57:54 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 8 2014 00:31:43 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

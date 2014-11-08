@@ -102,8 +102,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <a href="classgeom_1_1_sphere.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_sphere_8h_source.html">geomc/shape/Sphere.h</a>&gt;</code></p>
-
-<p>Inherits Bounded&lt; T, N &gt;.</p>
+<div class="dynheader">
+Inheritance diagram for Sphere&lt; T, N &gt;:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classgeom_1_1_sphere.png" usemap="#Sphere&lt; T, N &gt;_map" alt=""/>
+  <map id="Sphere&lt; T, N &gt;_map" name="Sphere&lt; T, N &gt;_map">
+<area href="classgeom_1_1_bounded.html" title="Virtual class describing shapes with finite extents in N dimensions. " alt="Bounded&lt; T, N &gt;" shape="rect" coords="0,0,111,24"/>
+<area href="classgeom_1_1_convex.html" title="Virtual class describing convex shapes in N-dimensional space. " alt="Convex&lt; T, N &gt;" shape="rect" coords="121,0,232,24"/>
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -117,8 +125,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a4d83b72301e0dd180511bf8e3ce18695"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9561543f87ebf94307883fc9da1568e4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_sphere.html#a9561543f87ebf94307883fc9da1568e4">intersects</a> (<a class="el" href="classgeom_1_1_sphere.html">Sphere</a> s) const </td></tr>
 <tr class="separator:a9561543f87ebf94307883fc9da1568e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98e342fd1bd993906855214b258ba672"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_sphere.html#a98e342fd1bd993906855214b258ba672">convexSupport</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; d) const </td></tr>
+<tr class="separator:a98e342fd1bd993906855214b258ba672"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a403f6e42514bf30e76744155945f1561"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_hit.html">Hit</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_sphere.html#a403f6e42514bf30e76744155945f1561">trace</a> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; &amp;ray, <a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> side) const </td></tr>
 <tr class="separator:a403f6e42514bf30e76744155945f1561"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76cf428177c32e46202c584537c84924"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_convex.html#a76cf428177c32e46202c584537c84924">intersects</a> (const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;other) const </td></tr>
+<tr class="separator:a76cf428177c32e46202c584537c84924"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -219,11 +231,13 @@ class geom::Sphere&lt; T, N &gt;</h3>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>An axis-aligned bounding box completely containing this sphere. </dd></dl>
+
+<p>Implements <a class="el" href="classgeom_1_1_bounded.html#aa8a7dd7168cff2d780b137c686e9f8ae">Bounded&lt; T, N &gt;</a>.</p>
 
 </div>
 </div>
@@ -255,6 +269,73 @@ class geom::Sphere&lt; T, N &gt;</h3>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> if <code>p</code> is inside or on the surface of the sphere, <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a98e342fd1bd993906855214b258ba672"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt; convexSupport </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td>
+          <td class="paramname"><em>d</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Returns the point on the surface of this convex shape that is furthest along direction <code>d</code> (i.e., has the highest dot product with <code>d</code>).</p>
+<p>All shapes which implement this function automatically support geometrical intersection tests with any other <a class="el" href="classgeom_1_1_convex.html" title="Virtual class describing convex shapes in N-dimensional space. ">Convex</a> object.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">d</td><td>Direction along which to find a support plane. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A point on the surface of this convex shape. </dd></dl>
+
+<p>Implements <a class="el" href="classgeom_1_1_convex.html#a9b4c78a287cbd6a3d7a6a0ec498f668a">Convex&lt; T, N &gt;</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a76cf428177c32e46202c584537c84924"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool intersects </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>True if and only if this convex shape overlaps <code>other</code>; false otherwise.</dd></dl>
+<p>Note that some subclasses have overloaded versions of this function for specific shapes which may offer better performance. When handling pointers to <a class="el" href="classgeom_1_1_convex.html" title="Virtual class describing convex shapes in N-dimensional space. ">Convex</a> objects, it may be adviseable to cast to the derived classes.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>Any other convex shape. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -338,7 +419,7 @@ class geom::Sphere&lt; T, N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 21 2014 00:57:54 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 8 2014 00:31:43 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

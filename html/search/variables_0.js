@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['center',['center',['../classgeom_1_1_sphere.html#af7758d07cb343a93ef77c390e47eac99',1,'geom::Sphere']]]
+  ['box',['box',['../classgeom_1_1_oriented_rect.html#a3d9b4a63ec3483d3748cced29ee0c9fb',1,'geom::OrientedRect']]]
 ];

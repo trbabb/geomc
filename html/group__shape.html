@@ -78,8 +78,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">Shape</div>  </div>
@@ -89,14 +89,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>Shape-related functions and classes.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:namespacegeom"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegeom.html">geom</a></td></tr>
-<tr class="memdesc:namespacegeom"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace of all <code>geomc</code> functions and classes. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_bounded.html">Bounded&lt; T, N &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual class describing shapes with finite extents in N dimensions.  <a href="classgeom_1_1_bounded.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_convex.html">Convex&lt; T, N &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual class describing convex shapes in N-dimensional space.  <a href="classgeom_1_1_convex.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_cylinder.html">Cylinder&lt; T, N &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An N-dimensional cylinder.  <a href="classgeom_1_1_cylinder.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -119,8 +119,19 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A N-dimensional circle, sphere, or hypersphere.  <a href="classgeom_1_1_sphere.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga83ac62dcb1fe341318ed1bd351a8ad83"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__shape.html#ga83ac62dcb1fe341318ed1bd351a8ad83">ArrayOrder</a> { <a class="el" href="group__shape.html#gga83ac62dcb1fe341318ed1bd351a8ad83aea994a6dd6bcbf9c72ae0f28f2678a7a">ARRAYORDER_FIRST_DIM_CONSECUTIVE</a>, 
+<a class="el" href="group__shape.html#gga83ac62dcb1fe341318ed1bd351a8ad83a76432727d8970b305d22b8da39e7fcf5">ARRAYORDER_LAST_DIM_CONSECUTIVE</a>
+ }</td></tr>
+<tr class="memdesc:ga83ac62dcb1fe341318ed1bd351a8ad83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array traversal order, specified in terms of which axes to increment first.  <a href="group__shape.html#ga83ac62dcb1fe341318ed1bd351a8ad83">More...</a><br /></td></tr>
+<tr class="separator:ga83ac62dcb1fe341318ed1bd351a8ad83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga1a9c3639e7998d9ea93d79a494439c4b"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:ga1a9c3639e7998d9ea93d79a494439c4b"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#ga1a9c3639e7998d9ea93d79a494439c4b">gjk_intersect</a> (const Convex&lt; T, N &gt; &amp;shape_a, const Convex&lt; T, N &gt; &amp;shape_b, Vec&lt; T, N &gt; *overlap_axis=NULL)</td></tr>
+<tr class="separator:ga1a9c3639e7998d9ea93d79a494439c4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga46f1f9e98cb44b304dd5c1e8a75e0fb4"><td class="memTemplParams" colspan="2"><a class="anchor" id="ga46f1f9e98cb44b304dd5c1e8a75e0fb4"></a>
 template&lt;typename T , index_t N&gt; </td></tr>
 <tr class="memitem:ga46f1f9e98cb44b304dd5c1e8a75e0fb4"><td class="memTemplItemLeft" align="right" valign="top">OrientedRect&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#ga46f1f9e98cb44b304dd5c1e8a75e0fb4">operator*</a> (const AffineTransform&lt; T, N &gt; &amp;xf, OrientedRect&lt; T, N &gt; box)</td></tr>
@@ -151,6 +162,30 @@ template&lt;typename T , index_t N&gt; </td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Shape-related functions and classes. </p>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
+<a class="anchor" id="ga83ac62dcb1fe341318ed1bd351a8ad83"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum ArrayOrder</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Array traversal order, specified in terms of which axes to increment first. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="gga83ac62dcb1fe341318ed1bd351a8ad83aea994a6dd6bcbf9c72ae0f28f2678a7a"></a>ARRAYORDER_FIRST_DIM_CONSECUTIVE&#160;</td><td class="fielddoc">
+<p>Array traversal by incrementing the first coordinate in the innermost loop. </p>
+<p>For matrices, whose coordinates are ordered <code>(row, col)</code>, this represens column-major (i.e. "fortran") order. If coordinates are <code>(x, y, ...)</code>, then this is row-major order. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga83ac62dcb1fe341318ed1bd351a8ad83a76432727d8970b305d22b8da39e7fcf5"></a>ARRAYORDER_LAST_DIM_CONSECUTIVE&#160;</td><td class="fielddoc">
+<p>Array traversal by incrementing the last coordinate in the innermost loop. </p>
+<p>For matrices, whose coordinates are ordered <code>(row, col)</code>, this represents row-major (i.e. "C") order. If coordinates are <code>(x, y, ...)</code>, then this is column-major order. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a class="anchor" id="ga66505ffabe4da800c0ec653d493ea944"></a>
 <div class="memitem">
 <div class="memproto">
@@ -177,10 +212,52 @@ template&lt;typename T , index_t N&gt; </td></tr>
 
 </div>
 </div>
+<h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ga1a9c3639e7998d9ea93d79a494439c4b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool geom::gjk_intersect </td>
+          <td>(</td>
+          <td class="paramtype">const Convex&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>shape_a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Convex&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>shape_b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Vec&lt; T, N &gt; *&#160;</td>
+          <td class="paramname"><em>overlap_axis</em> = <code>NULL</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Use the Gilbert-Johnson-Keerthi algorithm to determine if two convex shapes overlap, and return an axis of overlap. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">shape_a</td><td>A convex shape. </td></tr>
+    <tr><td class="paramname">shape_b</td><td>A convex shape. </td></tr>
+    <tr><td class="paramname">overlap_axis</td><td>An initial axis along which to test for overlap; upon completion this will be populated with an overlap axis. Pass null to choose an arbitrary axis. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if <code>shape_a</code> and <code>shape_b</code> overlap. </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 21 2014 00:57:54 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Nov 8 2014 00:31:43 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

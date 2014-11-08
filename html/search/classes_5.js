@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['lcrand',['LCRand',['../classgeom_1_1_l_c_rand.html',1,'geom']]]
+  ['hit',['Hit',['../classgeom_1_1_hit.html',1,'geom']]]
 ];

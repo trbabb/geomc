@@ -12,9 +12,9 @@ var searchData=
   ['applynormal',['applyNormal',['../classgeom_1_1_affine_transform.html#a535ae59ac4023fd5a30c7605b50d3143',1,'geom::AffineTransform']]],
   ['applyvector',['applyVector',['../classgeom_1_1_affine_transform.html#afe5b177c3adab6489a0bdfb064352544',1,'geom::AffineTransform']]],
   ['arc',['arc',['../classgeom_1_1_sampler.html#a9ab0f796c427f76cc036cb452453bf4d',1,'geom::Sampler']]],
-  ['arrayorder',['ArrayOrder',['../namespacegeom.html#a83ac62dcb1fe341318ed1bd351a8ad83',1,'geom']]],
-  ['arrayorder_5ffirst_5fdim_5fconsecutive',['ARRAYORDER_FIRST_DIM_CONSECUTIVE',['../namespacegeom.html#a83ac62dcb1fe341318ed1bd351a8ad83aea994a6dd6bcbf9c72ae0f28f2678a7a',1,'geom']]],
-  ['arrayorder_5flast_5fdim_5fconsecutive',['ARRAYORDER_LAST_DIM_CONSECUTIVE',['../namespacegeom.html#a83ac62dcb1fe341318ed1bd351a8ad83a76432727d8970b305d22b8da39e7fcf5',1,'geom']]],
+  ['arrayorder',['ArrayOrder',['../group__shape.html#ga83ac62dcb1fe341318ed1bd351a8ad83',1,'geom']]],
+  ['arrayorder_5ffirst_5fdim_5fconsecutive',['ARRAYORDER_FIRST_DIM_CONSECUTIVE',['../group__shape.html#gga83ac62dcb1fe341318ed1bd351a8ad83aea994a6dd6bcbf9c72ae0f28f2678a7a',1,'geom']]],
+  ['arrayorder_5flast_5fdim_5fconsecutive',['ARRAYORDER_LAST_DIM_CONSECUTIVE',['../group__shape.html#gga83ac62dcb1fe341318ed1bd351a8ad83a76432727d8970b305d22b8da39e7fcf5',1,'geom']]],
   ['asin',['asin',['../group__function.html#ga2df7a7b8e6aac48f4d469ca28918fefb',1,'std']]],
   ['atan',['atan',['../group__function.html#ga26f48ccbb854f59fd8989a9cc87ac12b',1,'std']]],
   ['augmentedmatrix',['AugmentedMatrix',['../classgeom_1_1_augmented_matrix.html',1,'geom']]]

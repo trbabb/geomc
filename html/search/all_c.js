@@ -28,5 +28,6 @@ var searchData=
   ['orientedrect',['OrientedRect',['../classgeom_1_1_oriented_rect.html#a8497b09d5f165122db3fa7766c879ed1',1,'geom::OrientedRect::OrientedRect()'],['../classgeom_1_1_oriented_rect.html#a16d2259de3cfcc45617d4733e13b0a9f',1,'geom::OrientedRect::OrientedRect(const Rect&lt; T, N &gt; &amp;box)'],['../classgeom_1_1_oriented_rect.html#a7ecfd168841bcc4ea3c4e5367782af2c',1,'geom::OrientedRect::OrientedRect(const Rect&lt; T, N &gt; &amp;box, const AffineTransform&lt; T, N &gt; &amp;xf)']]],
   ['origin',['origin',['../classgeom_1_1_plane.html#abe8df26c679c8b4794a9f1a1d2445612',1,'geom::Plane']]],
   ['orthogonal',['orthogonal',['../group__linalg.html#ga1a08b60461059eecc146451e65370606',1,'geom']]],
+  ['orthonormalize',['orthonormalize',['../group__linalg.html#ga15114a19ef15055cf894fd8e5bf3d962',1,'geom']]],
   ['outputdimension',['outputDimension',['../classgeom_1_1_raster.html#a745f7a1212df99ad8c59fa95abb4eac2',1,'geom::Raster']]]
 ];

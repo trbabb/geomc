@@ -5,6 +5,7 @@ var searchData=
   ['getcenter',['getCenter',['../classgeom_1_1_rect.html#a325aa65421b81a280e89a4f59b4c971e',1,'geom::Rect']]],
   ['getcoldestinations',['getColDestinations',['../classgeom_1_1_permutation_matrix.html#a37b65a04ab8506aea04cccc5a09466e4',1,'geom::PermutationMatrix']]],
   ['getcolsources',['getColSources',['../classgeom_1_1_permutation_matrix.html#ab41e814f842a7422b4ed18b4181adb2e',1,'geom::PermutationMatrix']]],
+  ['getcorners',['getCorners',['../classgeom_1_1_oriented_rect.html#a42a77aeec33b78e04b62b48b4c4c05ad',1,'geom::OrientedRect']]],
   ['getdimensions',['getDimensions',['../classgeom_1_1_rect.html#a63fe2e59cc9fdcfec6213f3a3b56c377',1,'geom::Rect']]],
   ['getl',['getL',['../classgeom_1_1_p_l_u_decomposition.html#a0cbe278d7e803664f1fd67b125b546bb',1,'geom::PLUDecomposition::getL() const '],['../classgeom_1_1_p_l_u_decomposition.html#ae6ded734c386628f8ce691c2e04ddc81',1,'geom::PLUDecomposition::getL(SimpleMatrix&lt; S, J, K &gt; *into) const ']]],
   ['getlu',['getLU',['../classgeom_1_1_p_l_u_decomposition.html#a577cf9e7782147eb58eb0da95aab994e',1,'geom::PLUDecomposition']]],
@@ -14,6 +15,7 @@ var searchData=
   ['getrowdestinations',['getRowDestinations',['../classgeom_1_1_permutation_matrix.html#a57f44f6d069599e7f04fd0c83f222025',1,'geom::PermutationMatrix']]],
   ['getrowsources',['getRowSources',['../classgeom_1_1_permutation_matrix.html#abd3c626926a66635fecd28425c17ed04',1,'geom::PermutationMatrix']]],
   ['getu',['getU',['../classgeom_1_1_p_l_u_decomposition.html#a52ff4b276b1e8105cd90adc537e2333b',1,'geom::PLUDecomposition::getU() const '],['../classgeom_1_1_p_l_u_decomposition.html#a42267c3db22c89087709e31dae5fd104',1,'geom::PLUDecomposition::getU(SimpleMatrix&lt; S, J, K &gt; *into) const ']]],
+  ['gjk_5fintersect',['gjk_intersect',['../group__shape.html#ga1a9c3639e7998d9ea93d79a494439c4b',1,'geom']]],
   ['gradient',['gradient',['../classgeom_1_1_perlin_noise.html#a4358acb23c7b9acfb713a77f7a5a104c',1,'geom::PerlinNoise']]],
   ['griditerator',['GridIterator',['../classgeom_1_1_grid_iterator.html#a1c7e17865ceff33f7b1c6e3a46323aa4',1,'geom::GridIterator::GridIterator(const Rect&lt; T, N &gt; &amp;r)'],['../classgeom_1_1_grid_iterator.html#a0686435f0a912cc73750977a2d640625',1,'geom::GridIterator::GridIterator(const Rect&lt; T, N &gt; &amp;r, const point_t &amp;p)'],['../classgeom_1_1_grid_iterator.html#ab250abd8a7e2208e674ec8243ed62363',1,'geom::GridIterator::GridIterator(const point_t &amp;lo, const point_t &amp;hi)']]]
 ];
