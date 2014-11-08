@@ -19,6 +19,22 @@
 
 namespace geom {
 
+//TODO: I question the design of this class.
+//      all this edge behavior bullshit should be handled simply by creating
+//      different instances with different behavior. They can share their memory
+//      underneath; constructing one from the other should be cheap/easy.
+//      > Use CRTP to preserve inline-ability?
+//      > functions like integrate and resample will also be able to 
+//        bypass the need for interp/edge params because it's internal state.
+//      > but... need to pass around rasters without these stupid template params.
+/*
+ * new class design
+ *   - base class which handles base data, extents, domain, and the exposure thereof
+ *   - derived needs to be either static or dynamic for each of (edge, interp)
+ *   - edge behavior (like abyss) invites class variants with possible members
+ *   - edge behaviors know something about integration
+ *   - interp_nearest has phase parameters (samples are centered or what?)
+ */
 //TODO: have a raster which can wrap an array owned by someone else.
 //TODO: remove cluttering templated sample functions? (15% speed difference, though)
 //TODO: "lobe-yness" of interp is subject to parameterization
@@ -33,7 +49,12 @@ namespace geom {
 //      - resample<MAG_FILTER,MIN_FILTER>(grid)
 //      - resample<...>(affineTransform)
 //      - resample<...>(raster<grid_t->in_t> pts)
+//      - integrate(coord_t min, coord_t max)
+//      - arithmetic operators.
+//        x domain issues. what if domain mismatches?
+//          could make an absurdly huge new domain if using 'union' behavior
 //      see http://entropymine.com/imageworsener/resample/
+//TODO: reshaping dimensions should be easy.
 
 
 /*************************
@@ -91,7 +112,7 @@ public:
     /// Type for indexing data, i.e. a grid coordinate. `index_t` if `M` is 1, `Vec<index_t,M>` otherwise.
     typedef typename PointType<index_t,M>::point_t  grid_t;
     /// Type of resultant data. `O` if `N` is 1, otherwise `Vec<O,N>`.
-    typedef typename PointType<O,N>::point_t sample_t;
+    typedef typename PointType<O,N>::point_t        sample_t;
     
 protected:
     grid_t    m_extent;

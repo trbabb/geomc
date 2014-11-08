@@ -15,11 +15,12 @@
  *  @brief Shape-related functions and classes.
  */
 
-/** @addtogroup shape 
- *  @{
- */
-
 namespace geom {
+    
+    /** @addtogroup shape 
+     *  @{
+     */
+
 
     /** 
      * @brief Array traversal order, specified in terms of which axes to increment first.
@@ -82,9 +83,9 @@ namespace geom {
     typedef Rect<float,2> Rect2f;
     typedef Rect<float,3> Rect3f;
     typedef Rect<float,4> Rect4f;
-    
-} // namespace geom
 
 /// @} // addtogroup shape
+    
+} // namespace geom
 
 #endif /* SHAPETYPES_H_ */

@@ -203,15 +203,6 @@ public:
         }
         return false;
     }
-    
-    /**
-     * Plane-plane intersection test
-     * @param p Another plane.
-     * @return `false` unless this plane and `p` are parallel.
-     */
-    inline bool intersects(const Plane<T,N> &p) const {
-        return (p.normal.cross(normal) != 0);
-    }
      
     /**
      * Ray-plane intersection test.

@@ -58,7 +58,7 @@ public:
      * @return True if and only if this convex shape overlaps `other`; false otherwise.
      * 
      * Note that some subclasses have overloaded versions of this function for specific
-     * shapes which may offer better performance. When handling points to Convex objects,
+     * shapes which may offer better performance. When handling pointers to Convex objects,
      * it may be adviseable to cast to the derived classes.
      * 
      * @param other Any other convex shape.

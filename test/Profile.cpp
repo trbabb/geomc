@@ -817,8 +817,8 @@ int main(int argc, char** argv) {
     
     profile("5x5 mtxf region copy",    profile_mtxRegionCopy<SimpleMatrix<float,0,0> >,    iters);
     profile("5x5 mtxd region copy",    profile_mtxRegionCopy<SimpleMatrix<double,0,0> >,   iters);
-    profile("5x5 sparsef region copy", profile_mtxRegionCopy<SparseMatrix<float> >,  iters);
-    profile("5x5 sparsed region copy", profile_mtxRegionCopy<SparseMatrix<double> >, iters);
+    profile("5x5 sparsef region copy", profile_mtxRegionCopy<SparseMatrix<float> >,  iters/100);
+    profile("5x5 sparsed region copy", profile_mtxRegionCopy<SparseMatrix<double> >, iters/100);
     profile("5x5 diagf region copy",   profile_mtxRegionCopy<DiagMatrix<float,5,5> >, iters);
     std::cout << std::endl;
 
@@ -829,13 +829,13 @@ int main(int argc, char** argv) {
     profile("5x5 diagf copy",   profile_mtxCopy<DiagMatrix<float,5,5> >, iters/100);
     std::cout << std::endl;
     
-    profile("2x2 mtxf inv", profile_mtxInverse<float,2>,  iters/10);
-    profile("3x3 mtxf inv", profile_mtxInverse<float,3>,  iters/10);
-    profile("4x4 mtxf inv", profile_mtxInverse<float,4>,  iters/10);
-    profile("2x2 mtxd inv", profile_mtxInverse<double,2>, iters/10);
-    profile("3x3 mtxd inv", profile_mtxInverse<double,3>, iters/10);
-    profile("4x4 mtxd inv", profile_mtxInverse<double,4>, iters/10);
-    profile("8x8 mtxd inv", profile_mtxInverse<double,8>, iters/100);
+    profile("2x2 mtxf inv", profile_mtxInverse<float,2>,  iters);
+    profile("3x3 mtxf inv", profile_mtxInverse<float,3>,  iters);
+    profile("4x4 mtxf inv", profile_mtxInverse<float,4>,  iters);
+    profile("2x2 mtxd inv", profile_mtxInverse<double,2>, iters);
+    profile("3x3 mtxd inv", profile_mtxInverse<double,3>, iters);
+    profile("4x4 mtxd inv", profile_mtxInverse<double,4>, iters);
+    profile("8x8 mtxd inv", profile_mtxInverse<double,8>, iters/10);
     std::cout << std::endl;
     
     profile("rotationd matrix", profile_rotCtr<double>, iters/10);

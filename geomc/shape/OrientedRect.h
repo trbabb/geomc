@@ -13,6 +13,8 @@
 #include <geomc/shape/Rect.h>
 #include <geomc/shape/shapedetail/SeparatingAxis.h>
 
+#include "Sphere.h"
+
 namespace geom {
   
 /**
@@ -60,15 +62,6 @@ class OrientedRect : virtual public Bounded<T,N>, virtual public Convex<T,N> {
             }
             
             return Rect<T,N>(lo,hi);
-        }
-        
-        
-        /// Return the sphere circumscribing this OrientedRect.
-        Sphere<T,N> sphereBounds() const {
-            Vec<T,N> p0 = xf * box.min();
-            Vec<T,N> p1 = xf * box.max();
-            Vec<T,N> diag = (p1 - p0) / 2;
-            return Sphere<T,N>(diag + p0, diag.mag());
         }
         
         
@@ -128,6 +121,7 @@ class OrientedRect : virtual public Bounded<T,N>, virtual public Convex<T,N> {
             // to preserve the relationhip between the us. From this, we
             // fallback to an ORect <-> Rect test.
             OrientedRect<T,N> b1_in_b0 = b1 / xf;
+            
             return b1_in_b0.intersects(box);
         }
         

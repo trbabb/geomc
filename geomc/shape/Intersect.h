@@ -326,17 +326,20 @@ namespace detail {
 
 } // namespace detail
  
-// todo: template GJK entirely over the input shape type.
+
 // todo: what if I want to do stuff like dilate or erode the minkowski difference?
 //       what if I want to do stuff to only one of the shapes?
-// todo: create intersect() function suite which defaults to GJK, but uses
-//       cleverer things if they exist.
-//       i.e. Intersector<A,B> uses GJK, but specializations may be written
-//       for particular combinations of A and B.
 
-
-// Use the Gilbert-Johnson-Keerthi algorithm to test for overlap between
-// two convex shapes, and return the axis of overlap.
+/**
+ * @ingroup shape
+ * Use the Gilbert-Johnson-Keerthi algorithm to determine if two convex shapes
+ * overlap, and return an axis of overlap.
+ * @param shape_a A convex shape.
+ * @param shape_b A convex shape.
+ * @param overlap_axis An initial axis along which to test for overlap; upon completion
+ * this will be populated with an overlap axis. Pass null to choose an arbitrary axis.
+ * @return `true` if and only if `shape_a` and `shape_b` overlap.
+ */
 template <typename T, index_t N>
 bool gjk_intersect(const Convex<T,N> &shape_a, 
                    const Convex<T,N> &shape_b,
