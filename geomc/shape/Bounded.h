@@ -15,6 +15,11 @@
 #include <geomc/shape/Rect.h>
 
 namespace geom {
+    
+/** @addtogroup shape
+ *  @{
+ */
+
 
 /// Virtual class describing shapes with finite extents in N dimensions.
 template <typename T, index_t N> class Bounded {
@@ -39,7 +44,7 @@ public:
     
     /**
      * Returns the point on the surface of this convex shape that is furthest 
-     * along direction `d` (i.e., has the highest dot product with it). 
+     * along direction `d` (i.e., has the highest dot product with `d`). 
      * 
      * All shapes which implement this function automatically support geometrical
      * intersection tests with any other Convex object.
@@ -49,7 +54,22 @@ public:
      */
     virtual point_t convexSupport(point_t d) const = 0;
     
+    /**
+     * @return True if and only if this convex shape overlaps `other`; false otherwise.
+     * 
+     * Note that some subclasses have overloaded versions of this function for specific
+     * shapes which may offer better performance. When handling points to Convex objects,
+     * it may be adviseable to cast to the derived classes.
+     * 
+     * @param other Any other convex shape.
+     */
+    bool intersects(const Convex<T,N> &other) const {
+        return gjk_intersect(*this, other);
+    }
+    
 };
+
+/// @} // addtogroup shape
 
 }
 #endif /* BOUNDED_H_ */

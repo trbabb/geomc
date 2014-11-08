@@ -338,7 +338,8 @@ namespace detail {
 // Use the Gilbert-Johnson-Keerthi algorithm to test for overlap between
 // two convex shapes, and return the axis of overlap.
 template <typename T, index_t N>
-bool gjk_intersect(const Convex<T,N> &shape_a, const Convex<T,N> &shape_b,
+bool gjk_intersect(const Convex<T,N> &shape_a, 
+                   const Convex<T,N> &shape_b,
                    Vec<T,N> *overlap_axis=NULL) {
     // choose an arbitrary initial direction.
     Vec<T,N> initial;

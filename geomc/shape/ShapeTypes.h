@@ -48,9 +48,10 @@ namespace geom {
     template <typename T, index_t N> class Plane;
     template <typename T, index_t N> class Sphere;
     template <typename T, index_t N> class Bounded;
+    template <typename T, index_t N> class Convex;
     template <typename T, index_t N> class Rect;
     template <typename T, index_t N> class Hit;
-    template <typename T, index_t N, typename Enable=void> class OrientedRect;
+    template <typename T, index_t N> class OrientedRect;
     template <typename T, index_t N> class Cylinder;
     
     template <typename T, index_t N, ArrayOrder Order=ARRAYORDER_FIRST_DIM_CONSECUTIVE> class GridIterator;

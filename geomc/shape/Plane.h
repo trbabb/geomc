@@ -111,11 +111,20 @@ public:
 
     /**
      * Half-space test.
-     * @return `true` if `p` is on or below the surface of the plane (i.e. on the non-normal
-     * facing side); `false` otherwise.
+     * @return `true` if `p` is on or below the surface of the plane (i.e. on
+     * the side opposite the normal); `false` otherwise.
      */
     inline bool contains(const Vec<T,N> &p) const {
         return distance(p) <= 0;
+    }
+    
+    /**
+     * Half-space test.
+     * @return `true` if `shape` is completely on or below the surface of the plane 
+     * (i.e. on the side opposite the normal); false otherwise.
+     */
+    inline bool contains(const Convex<T,N> &shape) const {
+        return shape.convexSupport(normal).dot(normal) <= -d;
     }
     
     /**
@@ -155,13 +164,30 @@ public:
     }
     
     /**
+     * Convex shape intersection test.
+     * @return `true` if and only if this plane passes through `shape`.
+     */
+    inline bool intersects(const Convex<T,N> &shape) const {
+        return shape.convexSupport( normal).dot(normal) + d  > 0 and
+               shape.convexSupport(-normal).dot(normal) + d <= 0;
+    }
+    
+    /**
+     * Sphere interesection test.
+     * @return `true` if and only if this plane passes through `s`.
+     */
+    inline bool intersects(const Sphere<T,N> &s) const {
+        return distance(s.center) >= s.r;
+    }
+    
+    /**
      * Convex hull intersection test.
      * @param hull A list of points whose convex hull is to be tested.
      * @param npts Number of points in the list.
      * @return `true` if this plane intersects the convex hull of `hull`, `false`
      * otherwise,
      */
-    inline bool intersects(const Vec<T,N> *hull, index_t npts) const {
+    bool intersects(const Vec<T,N> *hull, index_t npts) const {
         bool negative;
         for (index_t i = 0; i < npts; i++){
             T dist = distance(hull[i]);

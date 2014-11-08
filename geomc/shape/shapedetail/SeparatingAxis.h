@@ -9,14 +9,15 @@
 #define	SEPARATINGAXIS_H
 
 
-/***********************************************************
- * We use the separating axis theorem to perform box-box   *
- * intersection tests. The number of axes we must test and *
- * the strategy for choosing them changes based on the     *
- * dimension; these classes are specialized for those      *
- * dimensions. The cases get far more complicated as N     *
- * increases; only N=2 and N=3 are implemented.            *
- ***********************************************************/
+/************************************************************
+ * For small dimensions, we use the separating axis theorem *
+ * to perform box-box intersection tests. The number of     *
+ * axes we must test and the strategy for choosing them     *
+ * changes based on the dimension; these classes are        *
+ * specialized for those dimensions. The cases get far more *
+ * complicated as N increases; only N=2 and N=3 are         *
+ * implemented.                                             *
+ ************************************************************/
 
 
 namespace geom {
@@ -66,10 +67,7 @@ namespace detail {
         static const bool SAT_SUPPORTED = false;
         
         // add support for arbitrary dimensions here.
-        
-        // if arbitrary N are allowed, OrientedRect may become
-        // a flat class, instead of the ugly enable_if<> business intended
-        // to hide intersection test functions from higher dimensions.
+        // (GJK may be best for the general case, however)
         
     };
     
@@ -134,6 +132,86 @@ namespace detail {
         inline bool done() {
             return base_t::i >= 2;
         }
+    };
+    
+    
+    /***********************************************************
+     * Intersector class. Use separating axis theorem if       *
+     * supported; else gjk.                                    *
+     ***********************************************************/
+    
+    template <typename T, index_t N, typename Enable=void>
+    class RectIntersector {
+        
+        static inline bool intersect(const OrientedRect<T,N> &b0, const Rect<T,N> &b1) {
+            return gjk_intersect(b0, b1);
+        }
+    };
+    
+    template <typename T, index_t N>
+    class RectIntersector<T, N, typename boost::enable_if_c<RectAxisHelper<T,N>::SAT_SUPPORTED>::type> {
+        public: 
+            
+        static bool intersect(const OrientedRect<T,N> &b0, const Rect<T,N> &b1) {
+            // here we apply the separating axis theorem.
+            // all edge axes, face normals, and edge-edge normals must be tested.
+            // the first two cases are one and the same; they are the principal
+            // axes of each rect; amounting to 2N tests. The third case is
+            // 9 axes for N=3 and 0 axes for N=2. Other dimensions may be
+            // supported by extending detail::RectAxisHelper to higher N.
+            const static index_t n_corners = 1 << N;
+            Vec<T,N> b0_pts[n_corners];
+            Vec<T,N> b1_pts[n_corners];
+            Vec<T,N> b0_body_extreme[2] = { b0.box.min(), b0.box.max() };
+            Vec<T,N> b1_body_extreme[2] = {     b1.min(),     b1.max() };
+            
+            // compute world-space points
+            for (index_t c = 0; c < n_corners; c++) {
+                for (index_t i = 0; i < N; i++) {
+                    int min_or_max = (c & (1 << i)) != 0;
+                    b0_pts[c][i] = b0_body_extreme[min_or_max][i];
+                    b1_pts[c][i] = b1_body_extreme[min_or_max][i];
+                }
+                b0_pts[c] = b0.xf * b0_pts[c];
+            }
+            
+            // compare along world (i.e. b1's) axes
+            // special case because no projection needed.
+            for (index_t i = 0; i < N; i++) {
+                T lo = std::numeric_limits<T>::max();
+                T hi = std::numeric_limits<T>::lowest();
+                for (index_t j = 0; j < n_corners; j++) {
+                    lo = std::min(lo, b0_pts[j][i]);
+                    hi = std::max(hi, b0_pts[j][i]);
+                }
+                // if no overlap on this axis, we've found a separating axis.
+                if (lo >= b1.max()[i] or hi < b1.min()[i]) return false;
+            }
+            
+            // now test all the remaining axes. For N=2, this is simply
+            // the two principal axes of the oriented box. For N=3, we must also
+            // test each axis which is the cross product of two principal axes,
+            // for up to 12 additional axis tests (we have covered N already).
+            for (detail::RectAxisHelper<T,N> helper(b0.xf); not helper.done(); helper.next()) {
+                Vec<T,N> axis = helper.axis();
+                if (axis == Vec<T,N>::zeros) continue; // redundant axis
+                Rect<T,1> b0_range, b1_range;
+                b0_range = b1_range = Rect<T,1>(std::numeric_limits<T>::max(), 
+                                                std::numeric_limits<T>::lowest());
+                for (index_t corner = 0; corner < n_corners; corner++) {
+                    T b0_proj = axis.dot(b0_pts[corner]);
+                    T b1_proj = axis.dot(b1_pts[corner]);
+                    b0_range.extendTo(b0_proj);
+                    b1_range.extendTo(b1_proj);
+                }
+                // no overlap on this axis; separating axis found.
+                if (not b0_range.intersects(b1_range)) return false;
+            }
+            
+            // overlap on all candidate axes.
+            return true;
+        }
+        
     };
     
     
