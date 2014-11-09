@@ -53,6 +53,13 @@ namespace detail {
                 return a;
             }
         
+            
+            Vec<T,N> _getNormal(index_t j) {
+                Vec<T,N> n;
+                n[j] = 1;
+                return xf.applyNormal(n);
+            }
+        
     };
     
     
@@ -94,7 +101,7 @@ namespace detail {
             index_t i = base_t::i;
             if (i < 3) {
                 // test each of the principal axes in the oriented box
-                return this->_getXfAxis(i);
+                return this->_getNormal(i);
             } else { // we are assuming `not done()`
                 // test all combinations of principal axes between
                 // the two boxes. We assume one is axis-aligned.
@@ -126,7 +133,7 @@ namespace detail {
         // canonical axes already handled.
         
         Vec<T,2> axis() {
-            return this->_getXfAxis(base_t::i);
+            return this->_getNormal(base_t::i);
         }
         
         inline bool done() {
