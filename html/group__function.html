@@ -79,7 +79,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">Function</div>  </div>
 </div><!--header-->
@@ -99,6 +100,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_raster.html">Raster&lt; I, O, M, N &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An M-dimensional grid of interpolated data which can be continuously sampled.  <a href="classgeom_1_1_raster.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_spherical_harmonics.html">SphericalHarmonics&lt; T, Bands &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class and methods for representing band-limited functions on the surface of a 3D sphere.  <a href="classgeom_1_1_spherical_harmonics.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -115,6 +119,21 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:ga817402314dfc91b23b3642e5b6bb4549"><td class="mdescLeft">&#160;</td><td class="mdescRight">Behavior for sampling between data points.  <a href="group__function.html#ga817402314dfc91b23b3642e5b6bb4549">More...</a><br /></td></tr>
 <tr class="separator:ga817402314dfc91b23b3642e5b6bb4549"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:gacd52d5fc246f3c14cf79eb8d14ac4a30"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:gacd52d5fc246f3c14cf79eb8d14ac4a30"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__function.html#gacd52d5fc246f3c14cf79eb8d14ac4a30">legendre</a> (index_t l, index_t m, T x)</td></tr>
+<tr class="separator:gacd52d5fc246f3c14cf79eb8d14ac4a30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga87c5526808ff9654e1d90fe051ce7aea"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga87c5526808ff9654e1d90fe051ce7aea"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__function.html#ga87c5526808ff9654e1d90fe051ce7aea">legendre</a> (index_t n, T x)</td></tr>
+<tr class="separator:ga87c5526808ff9654e1d90fe051ce7aea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga66cd37aceed871f4fe0a09ce240c472c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga66cd37aceed871f4fe0a09ce240c472c"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__function.html#ga66cd37aceed871f4fe0a09ce240c472c">chebyshev</a> (index_t kind, index_t n, T x)</td></tr>
+<tr class="separator:ga66cd37aceed871f4fe0a09ce240c472c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga90fb9cc4df73b617838a5c11c3e028ec"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga90fb9cc4df73b617838a5c11c3e028ec"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__function.html#ga90fb9cc4df73b617838a5c11c3e028ec">spherical_harmonic_coeff</a> (index_t l, index_t m, T cos_alt, T azi)</td></tr>
+<tr class="separator:ga90fb9cc4df73b617838a5c11c3e028ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa3074d725debeb2c1d35e9915a411ff1"><td class="memTemplParams" colspan="2"><a class="anchor" id="gaa3074d725debeb2c1d35e9915a411ff1"></a>
 template&lt;typename T &gt; </td></tr>
 <tr class="memitem:gaa3074d725debeb2c1d35e9915a411ff1"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_dual.html">geom::Dual</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__function.html#gaa3074d725debeb2c1d35e9915a411ff1">sin</a> (const <a class="el" href="classgeom_1_1_dual.html">geom::Dual</a>&lt; T &gt; &amp;d)</td></tr>
@@ -246,6 +265,48 @@ template&lt;typename T &gt; </td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="ga66cd37aceed871f4fe0a09ce240c472c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">T geom::chebyshev </td>
+          <td>(</td>
+          <td class="paramtype">index_t&#160;</td>
+          <td class="paramname"><em>kind</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">index_t&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Evaluate a Chebyshev polynomial of order <code>n</code> at <code>x</code>.</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;geomc/function/Basis.h&gt;</span></div>
+</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">kind</td><td>1 or 2 for the Chebyshev polynomial of the first or second kind, respectively. </td></tr>
+    <tr><td class="paramname">n</td><td>Order of the polynomial. </td></tr>
+    <tr><td class="paramname">x</td><td>Value of <code>x</code> at which to evaluate. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="gafbda519a671cae9db99fef6c4c305eff"></a>
 <div class="memitem">
 <div class="memproto">
@@ -410,6 +471,83 @@ template&lt;typename T &gt; </td></tr>
 
 </div>
 </div>
+<a class="anchor" id="gacd52d5fc246f3c14cf79eb8d14ac4a30"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">T geom::legendre </td>
+          <td>(</td>
+          <td class="paramtype">index_t&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">index_t&#160;</td>
+          <td class="paramname"><em>m</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Evaluate an associated Legendre polynomial.</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;geomc/function/Basis.h&gt;</span></div>
+</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">l</td><td>Band index. </td></tr>
+    <tr><td class="paramname">m</td><td>Sub-band. </td></tr>
+    <tr><td class="paramname">x</td><td>Value of <code>x</code> at which to evaluate the polynomial. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ga87c5526808ff9654e1d90fe051ce7aea"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">T geom::legendre </td>
+          <td>(</td>
+          <td class="paramtype">index_t&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>x</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Evaluate a Legendre polynomal of order <code>n</code> at <code>x</code>. Equivalent to the associated legendre polynomial with m = 0.</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;geomc/function/Basis.h&gt;</span></div>
+</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td>Order of polynomial. </td></tr>
+    <tr><td class="paramname">x</td><td>Value of <code>x</code> at which to evaluate the polynomial. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="ga544e92cb874abbcc6d0636db7150eced"></a>
 <div class="memitem">
 <div class="memproto">
@@ -508,10 +646,59 @@ template&lt;typename T &gt; </td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ga90fb9cc4df73b617838a5c11c3e028ec"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">T geom::spherical_harmonic_coeff </td>
+          <td>(</td>
+          <td class="paramtype">index_t&#160;</td>
+          <td class="paramname"><em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">index_t&#160;</td>
+          <td class="paramname"><em>m</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>cos_alt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>azi</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Evaluate a spherical harmonic coefficient.</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;geomc/function/SphericalHarmonics.h&gt;</span></div>
+</div><!-- fragment --> <dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">l</td><td>Band index. </td></tr>
+    <tr><td class="paramname">m</td><td>Sub-band. </td></tr>
+    <tr><td class="paramname">cos_alt</td><td>Cosine of angle from polar axis. </td></tr>
+    <tr><td class="paramname">azi</td><td>Azimuthal (longitude) angle. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 8 2014 00:31:43 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 31 2014 15:54:49 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

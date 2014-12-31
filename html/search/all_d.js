@@ -15,6 +15,6 @@ var searchData=
   ['pludecompostion',['PLUDecompostion',['../classgeom_1_1_p_l_u_decomposition.html#a484c03d55be181a0a696985c830face8',1,'geom::PLUDecomposition']]],
   ['point_5ft',['point_t',['../classgeom_1_1_grid_iterator.html#a4a0e3e1855b80e670018f5318d4278bf',1,'geom::GridIterator::point_t()'],['../classgeom_1_1_rect.html#a1cb6b750c9af01a4f8cefeec08aa4ec8',1,'geom::Rect::point_t()']]],
   ['pow',['pow',['../group__function.html#gac2ea85df61e74d556fec121edf3a0eb3',1,'std::pow(const geom::Dual&lt; T &gt; &amp;base, const geom::Dual&lt; T &gt; &amp;xp)'],['../group__function.html#ga439ceabef71d6cbdb93b2edc3f398aa0',1,'std::pow(const geom::Dual&lt; T &gt; &amp;base, U xp)'],['../group__function.html#gab3a0951e2eb783dda5ded893dd36918d',1,'std::pow(U base, const geom::Dual&lt; T &gt; &amp;xp)'],['../namespacestd.html#a6ce2ddd6d03b811bebe2ea82212abc0d',1,'std::pow(const geom::Quat&lt; T &gt; &amp;q, U a)']]],
-  ['project',['project',['../classgeom_1_1_plane.html#a93adb213032dae93f279dc650424f752',1,'geom::Plane']]],
+  ['project',['project',['../classgeom_1_1_spherical_harmonics.html#a82a2d3edfa0ccc9477d8009b2dbde446',1,'geom::SphericalHarmonics::project(Vec&lt; T, 3 &gt; d, T val)'],['../classgeom_1_1_spherical_harmonics.html#a7bbc327bd559170d0da0668e6b215159',1,'geom::SphericalHarmonics::project(T alt, T azi, T val)'],['../classgeom_1_1_plane.html#a93adb213032dae93f279dc650424f752',1,'geom::Plane::project()']]],
   ['pt',['pt',['../classgeom_1_1_grid_iterator.html#a6557d66a1f4b24281a12de0d4e5d9ecd',1,'geom::GridIterator']]]
 ];

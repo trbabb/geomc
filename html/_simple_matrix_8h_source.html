@@ -133,9 +133,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t M, index_t N&gt;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">class </span>SimpleMatrix : <span class="keyword">public</span> detail::WriteableMatrixBase&lt;T,M,N, SimpleMatrix&lt;T,M,N&gt; &gt; {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    detail::Storage&lt;T,M*N&gt; data;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">typename</span> detail::Dimension&lt;M&gt;::storage_t n_rows; <span class="comment">// this contortion prevents allocating storage </span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">typename</span> detail::Dimension&lt;N&gt;::storage_t n_cols; <span class="comment">// for a dimension size when it is not dynamic.</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    Storage&lt;T,M*N&gt; data;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">typename</span> Dimension&lt;M&gt;::storage_t n_rows; <span class="comment">// this contortion prevents allocating storage </span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">typename</span> Dimension&lt;N&gt;::storage_t n_cols; <span class="comment">// for a dimension size when it is not dynamic.</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    </div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    </div>
@@ -157,8 +157,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classgeom_1_1_simple_matrix.html#ac1d7026402effa87a698492603365e6f">SimpleMatrix</a>(index_t nrows=detail::DefinedIf&lt;M != DYNAMIC_DIM, M&gt;::value, </div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                 index_t ncols=detail::DefinedIf&lt;N != DYNAMIC_DIM, N&gt;::value) : </div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                     data(nrows * ncols) {</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        detail::Dimension&lt;M&gt;::set(n_rows, nrows);</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        detail::Dimension&lt;N&gt;::set(n_cols, ncols);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <a class="code" href="structgeom_1_1_dimension.html#a11fddec38a10e2109c1aee1589ffc3ce">Dimension&lt;M&gt;::set</a>(n_rows, nrows);</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <a class="code" href="structgeom_1_1_dimension.html#a11fddec38a10e2109c1aee1589ffc3ce">Dimension&lt;N&gt;::set</a>(n_cols, ncols);</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <a class="code" href="classgeom_1_1_simple_matrix.html#a382e6ad7e6721b121e510959e1011be3">setIdentity</a>(); </div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    }</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">#endif</span></div>
@@ -171,9 +171,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                 index_t nrows=detail::DefinedIf&lt;M != DYNAMIC_DIM, M&gt;::value, </div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                 index_t ncols=detail::DefinedIf&lt;N != DYNAMIC_DIM, N&gt;::value) : </div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                     data(nrows * ncols) {</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        detail::Dimension&lt;M&gt;::set(n_rows, nrows);</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        detail::Dimension&lt;N&gt;::set(n_cols, ncols);</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        std::copy(src_data, src_data + nrows * ncols, data.get());</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <a class="code" href="structgeom_1_1_dimension.html#a11fddec38a10e2109c1aee1589ffc3ce">Dimension&lt;M&gt;::set</a>(n_rows, nrows);</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <a class="code" href="structgeom_1_1_dimension.html#a11fddec38a10e2109c1aee1589ffc3ce">Dimension&lt;N&gt;::set</a>(n_cols, ncols);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        std::copy(src_data, src_data + nrows * ncols, data.<a class="code" href="structgeom_1_1_storage.html#ac051b2568208e363ae2dffb23c0ad9ba">get</a>());</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    }</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    </div>
@@ -186,8 +186,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                 <span class="keyword">typename</span> boost::enable_if_c&lt;</div>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                    (detail::LinalgDimensionMatch&lt;<a class="code" href="classgeom_1_1_simple_matrix.html">SimpleMatrix&lt;T,M,N&gt;</a>, Mx&gt;::val),</div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                    <span class="keywordtype">void</span>*&gt;::type dummy=0) {</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        detail::Dimension&lt;M&gt;::set(n_rows, mtx.rows());</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        detail::Dimension&lt;N&gt;::set(n_cols, mtx.cols());</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <a class="code" href="structgeom_1_1_dimension.html#a11fddec38a10e2109c1aee1589ffc3ce">Dimension&lt;M&gt;::set</a>(n_rows, mtx.rows());</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <a class="code" href="structgeom_1_1_dimension.html#a11fddec38a10e2109c1aee1589ffc3ce">Dimension&lt;N&gt;::set</a>(n_cols, mtx.cols());</div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        detail::_mtxcopy(<span class="keyword">this</span>, mtx);</div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    }</div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="preprocessor">#endif</span></div>
@@ -202,7 +202,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keyword">typename</span> boost::enable_if&lt;boost::is_scalar&lt;U&gt;, <a class="code" href="classgeom_1_1_simple_matrix.html">SimpleMatrix&lt;T,M,N&gt;</a>&amp;&gt;::type</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <a class="code" href="classgeom_1_1_simple_matrix.html#a0b38a5475b53f0ee77eccb7f7f600049">operator*=</a>(U k) {</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        T *p = data.get();</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        T *p = data.<a class="code" href="structgeom_1_1_storage.html#ac051b2568208e363ae2dffb23c0ad9ba">get</a>();</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        <span class="keywordflow">for</span> (index_t i = 0; i &lt; <a class="code" href="classgeom_1_1_simple_matrix.html#af1bd18ed0d2b99c1f1dcaac8a827c2ee">rows</a>() * <a class="code" href="classgeom_1_1_simple_matrix.html#aa0f1796902c9ad383ba037c6216e2aff">cols</a>(); i++) {</div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;            p[i] *= k;</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        }</div>
@@ -215,47 +215,47 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="comment">     **************************/</span></div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    </div>
 <div class="line"><a name="l00184"></a><span class="lineno"><a class="line" href="classgeom_1_1_simple_matrix.html#af1bd18ed0d2b99c1f1dcaac8a827c2ee">  184</a></span>&#160;    <span class="keyword">inline</span> index_t <a class="code" href="classgeom_1_1_simple_matrix.html#af1bd18ed0d2b99c1f1dcaac8a827c2ee">rows</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        <span class="keywordflow">return</span> detail::Dimension&lt;M&gt;::value(n_rows);</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="structgeom_1_1_dimension.html#aeaa154c4040f884382f4f91fca4cb2ea">Dimension&lt;M&gt;::get</a>(n_rows);</div>
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    }</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    </div>
 <div class="line"><a name="l00191"></a><span class="lineno"><a class="line" href="classgeom_1_1_simple_matrix.html#aa0f1796902c9ad383ba037c6216e2aff">  191</a></span>&#160;    <span class="keyword">inline</span> index_t <a class="code" href="classgeom_1_1_simple_matrix.html#aa0f1796902c9ad383ba037c6216e2aff">cols</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        <span class="keywordflow">return</span> detail::Dimension&lt;N&gt;::value(n_cols);</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="structgeom_1_1_dimension.html#aeaa154c4040f884382f4f91fca4cb2ea">Dimension&lt;N&gt;::get</a>(n_cols);</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    }</div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    </div>
 <div class="line"><a name="l00199"></a><span class="lineno"><a class="line" href="classgeom_1_1_simple_matrix.html#a7d68fa524f639658402ef8e321cf0831">  199</a></span>&#160;    <span class="keyword">inline</span> const_row_iterator <a class="code" href="classgeom_1_1_simple_matrix.html#a7d68fa524f639658402ef8e321cf0831">row</a>(index_t i)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        <span class="keywordflow">return</span> data.get() + (<a class="code" href="classgeom_1_1_simple_matrix.html#aa0f1796902c9ad383ba037c6216e2aff">cols</a>() * i);</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        <span class="keywordflow">return</span> data.<a class="code" href="structgeom_1_1_storage.html#ac051b2568208e363ae2dffb23c0ad9ba">get</a>() + (<a class="code" href="classgeom_1_1_simple_matrix.html#aa0f1796902c9ad383ba037c6216e2aff">cols</a>() * i);</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    }</div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    </div>
 <div class="line"><a name="l00207"></a><span class="lineno"><a class="line" href="classgeom_1_1_simple_matrix.html#aba59e7d383f9955d4648a34ea45b8380">  207</a></span>&#160;    <span class="keyword">inline</span> row_iterator <a class="code" href="classgeom_1_1_simple_matrix.html#aba59e7d383f9955d4648a34ea45b8380">row</a>(index_t i) {</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <span class="keywordflow">return</span> data.get() + (<a class="code" href="classgeom_1_1_simple_matrix.html#aa0f1796902c9ad383ba037c6216e2aff">cols</a>() * i);</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <span class="keywordflow">return</span> data.<a class="code" href="structgeom_1_1_storage.html#ac051b2568208e363ae2dffb23c0ad9ba">get</a>() + (<a class="code" href="classgeom_1_1_simple_matrix.html#aa0f1796902c9ad383ba037c6216e2aff">cols</a>() * i);</div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    }</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    </div>
 <div class="line"><a name="l00215"></a><span class="lineno"><a class="line" href="classgeom_1_1_simple_matrix.html#aa4b02d4f1a8500fb07a551069060709f">  215</a></span>&#160;    <span class="keyword">inline</span> const_iterator <a class="code" href="classgeom_1_1_simple_matrix.html#aa4b02d4f1a8500fb07a551069060709f">begin</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;        <span class="keywordflow">return</span> data.get();</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;        <span class="keywordflow">return</span> data.<a class="code" href="structgeom_1_1_storage.html#ac051b2568208e363ae2dffb23c0ad9ba">get</a>();</div>
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    }</div>
 <div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    </div>
 <div class="line"><a name="l00223"></a><span class="lineno"><a class="line" href="classgeom_1_1_simple_matrix.html#a350132543d80a1c1e5be844e6d2878ea">  223</a></span>&#160;    <span class="keyword">inline</span> const_iterator <a class="code" href="classgeom_1_1_simple_matrix.html#a350132543d80a1c1e5be844e6d2878ea">end</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        <span class="keywordflow">return</span> data.get() + (<a class="code" href="classgeom_1_1_simple_matrix.html#af1bd18ed0d2b99c1f1dcaac8a827c2ee">rows</a>() * <a class="code" href="classgeom_1_1_simple_matrix.html#aa0f1796902c9ad383ba037c6216e2aff">cols</a>());</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        <span class="keywordflow">return</span> data.<a class="code" href="structgeom_1_1_storage.html#ac051b2568208e363ae2dffb23c0ad9ba">get</a>() + (<a class="code" href="classgeom_1_1_simple_matrix.html#af1bd18ed0d2b99c1f1dcaac8a827c2ee">rows</a>() * <a class="code" href="classgeom_1_1_simple_matrix.html#aa0f1796902c9ad383ba037c6216e2aff">cols</a>());</div>
 <div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    }</div>
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    </div>
 <div class="line"><a name="l00231"></a><span class="lineno"><a class="line" href="classgeom_1_1_simple_matrix.html#ad69bd11391be1a1dba5c8202259664f8">  231</a></span>&#160;    <span class="keyword">inline</span> iterator <a class="code" href="classgeom_1_1_simple_matrix.html#ad69bd11391be1a1dba5c8202259664f8">begin</a>() {</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        <span class="keywordflow">return</span> data.get();</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        <span class="keywordflow">return</span> data.<a class="code" href="structgeom_1_1_storage.html#ac051b2568208e363ae2dffb23c0ad9ba">get</a>();</div>
 <div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    }</div>
 <div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    </div>
 <div class="line"><a name="l00239"></a><span class="lineno"><a class="line" href="classgeom_1_1_simple_matrix.html#acad38d52497a975bfb6f2f6acd76631f">  239</a></span>&#160;    <span class="keyword">inline</span> iterator <a class="code" href="classgeom_1_1_simple_matrix.html#acad38d52497a975bfb6f2f6acd76631f">end</a>() {</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;        <span class="keywordflow">return</span> data.get() + (<a class="code" href="classgeom_1_1_simple_matrix.html#af1bd18ed0d2b99c1f1dcaac8a827c2ee">rows</a>() * <a class="code" href="classgeom_1_1_simple_matrix.html#aa0f1796902c9ad383ba037c6216e2aff">cols</a>());</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;        <span class="keywordflow">return</span> data.<a class="code" href="structgeom_1_1_storage.html#ac051b2568208e363ae2dffb23c0ad9ba">get</a>() + (<a class="code" href="classgeom_1_1_simple_matrix.html#af1bd18ed0d2b99c1f1dcaac8a827c2ee">rows</a>() * <a class="code" href="classgeom_1_1_simple_matrix.html#aa0f1796902c9ad383ba037c6216e2aff">cols</a>());</div>
 <div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    }</div>
 <div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    </div>
 <div class="line"><a name="l00249"></a><span class="lineno"><a class="line" href="classgeom_1_1_simple_matrix.html#aa3c53d4f479316ebeae7c28adf65bfef">  249</a></span>&#160;    <span class="keyword">inline</span> T <span class="keyword">get</span>(index_t r, index_t c) <span class="keyword">const</span> {</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        <span class="keywordflow">return</span> data.get()[r * <a class="code" href="classgeom_1_1_simple_matrix.html#aa0f1796902c9ad383ba037c6216e2aff">cols</a>() + c];</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        <span class="keywordflow">return</span> data.<a class="code" href="structgeom_1_1_storage.html#ac051b2568208e363ae2dffb23c0ad9ba">get</a>()[r * <a class="code" href="classgeom_1_1_simple_matrix.html#aa0f1796902c9ad383ba037c6216e2aff">cols</a>() + c];</div>
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    }</div>
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    </div>
 <div class="line"><a name="l00259"></a><span class="lineno"><a class="line" href="classgeom_1_1_simple_matrix.html#a4692adba7c7066bc37760f8dbf511e09">  259</a></span>&#160;    <span class="keyword">inline</span> reference <span class="keyword">get</span>(index_t r, index_t c) {</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        <span class="keywordflow">return</span> data.get()[r * <a class="code" href="classgeom_1_1_simple_matrix.html#aa0f1796902c9ad383ba037c6216e2aff">cols</a>() + c];</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        <span class="keywordflow">return</span> data.<a class="code" href="structgeom_1_1_storage.html#ac051b2568208e363ae2dffb23c0ad9ba">get</a>()[r * <a class="code" href="classgeom_1_1_simple_matrix.html#aa0f1796902c9ad383ba037c6216e2aff">cols</a>() + c];</div>
 <div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    }</div>
 <div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    </div>
 <div class="line"><a name="l00270"></a><span class="lineno"><a class="line" href="classgeom_1_1_simple_matrix.html#a64379566fbc4fb303e35d27d9f73b160">  270</a></span>&#160;    <span class="keyword">inline</span> reference <a class="code" href="classgeom_1_1_simple_matrix.html#a64379566fbc4fb303e35d27d9f73b160">set</a>(index_t r, index_t c, T val) {</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        <span class="keywordflow">return</span> (data.get()[r * <a class="code" href="classgeom_1_1_simple_matrix.html#aa0f1796902c9ad383ba037c6216e2aff">cols</a>() + c] = val);</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        <span class="keywordflow">return</span> (data.<a class="code" href="structgeom_1_1_storage.html#ac051b2568208e363ae2dffb23c0ad9ba">get</a>()[r * <a class="code" href="classgeom_1_1_simple_matrix.html#aa0f1796902c9ad383ba037c6216e2aff">cols</a>() + c] = val);</div>
 <div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    }</div>
 <div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    </div>
 <div class="line"><a name="l00277"></a><span class="lineno"><a class="line" href="classgeom_1_1_simple_matrix.html#af3a99ffb20127be48232d12260e934dc">  277</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classgeom_1_1_simple_matrix.html#af3a99ffb20127be48232d12260e934dc">transpose</a>() {</div>
@@ -279,7 +279,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    }</div>
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    </div>
 <div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> getStorageIDs(storage_id_t *buf)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        *buf = data.get();</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        *buf = data.<a class="code" href="structgeom_1_1_storage.html#ac051b2568208e363ae2dffb23c0ad9ba">get</a>();</div>
 <div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    }</div>
 <div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    </div>
 <div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    <span class="keyword">inline</span> index_t getStorageIDCount()<span class="keyword"> const </span>{</div>
@@ -296,6 +296,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="classgeom_1_1_simple_matrix_html_acad38d52497a975bfb6f2f6acd76631f"><div class="ttname"><a href="classgeom_1_1_simple_matrix.html#acad38d52497a975bfb6f2f6acd76631f">geom::SimpleMatrix::end</a></div><div class="ttdeci">iterator end()</div><div class="ttdef"><b>Definition:</b> SimpleMatrix.h:239</div></div>
 <div class="ttc" id="classgeom_1_1_simple_matrix_html_ac1d7026402effa87a698492603365e6f"><div class="ttname"><a href="classgeom_1_1_simple_matrix.html#ac1d7026402effa87a698492603365e6f">geom::SimpleMatrix::SimpleMatrix</a></div><div class="ttdeci">SimpleMatrix(index_t nrows, index_t ncols)</div><div class="ttdoc">Construct a matrix of size (nrows x ncols). </div><div class="ttdef"><b>Definition:</b> SimpleMatrix.h:93</div></div>
 <div class="ttc" id="classgeom_1_1_simple_matrix_html_abd8c4bb02eaa4a6e767daa085d850b78"><div class="ttname"><a href="classgeom_1_1_simple_matrix.html#abd8c4bb02eaa4a6e767daa085d850b78">geom::SimpleMatrix::row_iterator</a></div><div class="ttdeci">T * row_iterator</div><div class="ttdoc">Writeable iterator over elements of a row. </div><div class="ttdef"><b>Definition:</b> SimpleMatrix.h:74</div></div>
+<div class="ttc" id="structgeom_1_1_dimension_html_a11fddec38a10e2109c1aee1589ffc3ce"><div class="ttname"><a href="structgeom_1_1_dimension.html#a11fddec38a10e2109c1aee1589ffc3ce">geom::Dimension::set</a></div><div class="ttdeci">static void set(storage_t s, index_t v)</div><div class="ttdoc">Set the count (if stored in s) to v. </div><div class="ttdef"><b>Definition:</b> Storage.h:67</div></div>
+<div class="ttc" id="structgeom_1_1_dimension_html_aeaa154c4040f884382f4f91fca4cb2ea"><div class="ttname"><a href="structgeom_1_1_dimension.html#aeaa154c4040f884382f4f91fca4cb2ea">geom::Dimension::get</a></div><div class="ttdeci">static index_t get(const storage_t s)</div><div class="ttdoc">Retrieve the count from s. </div><div class="ttdef"><b>Definition:</b> Storage.h:69</div></div>
+<div class="ttc" id="structgeom_1_1_storage_html_ac051b2568208e363ae2dffb23c0ad9ba"><div class="ttname"><a href="structgeom_1_1_storage.html#ac051b2568208e363ae2dffb23c0ad9ba">geom::Storage::get</a></div><div class="ttdeci">T * get()</div><div class="ttdoc">Return a pointer to the first element in the storage array. </div><div class="ttdef"><b>Definition:</b> Storage.h:106</div></div>
 <div class="ttc" id="classgeom_1_1_simple_matrix_html_af3a99ffb20127be48232d12260e934dc"><div class="ttname"><a href="classgeom_1_1_simple_matrix.html#af3a99ffb20127be48232d12260e934dc">geom::SimpleMatrix::transpose</a></div><div class="ttdeci">void transpose()</div><div class="ttdef"><b>Definition:</b> SimpleMatrix.h:277</div></div>
 <div class="ttc" id="classgeom_1_1_simple_matrix_html_a350132543d80a1c1e5be844e6d2878ea"><div class="ttname"><a href="classgeom_1_1_simple_matrix.html#a350132543d80a1c1e5be844e6d2878ea">geom::SimpleMatrix::end</a></div><div class="ttdeci">const_iterator end() const </div><div class="ttdef"><b>Definition:</b> SimpleMatrix.h:223</div></div>
 <div class="ttc" id="classgeom_1_1_simple_matrix_html_a043f7d9b13b1d3a145dac346abfac10a"><div class="ttname"><a href="classgeom_1_1_simple_matrix.html#a043f7d9b13b1d3a145dac346abfac10a">geom::SimpleMatrix::SimpleMatrix</a></div><div class="ttdeci">SimpleMatrix(const Mx &amp;mtx)</div><div class="ttdef"><b>Definition:</b> SimpleMatrix.h:140</div></div>
@@ -311,11 +314,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="classgeom_1_1_simple_matrix_html_aa0f1796902c9ad383ba037c6216e2aff"><div class="ttname"><a href="classgeom_1_1_simple_matrix.html#aa0f1796902c9ad383ba037c6216e2aff">geom::SimpleMatrix::cols</a></div><div class="ttdeci">index_t cols() const </div><div class="ttdef"><b>Definition:</b> SimpleMatrix.h:191</div></div>
 <div class="ttc" id="classgeom_1_1_simple_matrix_html_ad69bd11391be1a1dba5c8202259664f8"><div class="ttname"><a href="classgeom_1_1_simple_matrix.html#ad69bd11391be1a1dba5c8202259664f8">geom::SimpleMatrix::begin</a></div><div class="ttdeci">iterator begin()</div><div class="ttdef"><b>Definition:</b> SimpleMatrix.h:231</div></div>
 <div class="ttc" id="classgeom_1_1_simple_matrix_html_a64379566fbc4fb303e35d27d9f73b160"><div class="ttname"><a href="classgeom_1_1_simple_matrix.html#a64379566fbc4fb303e35d27d9f73b160">geom::SimpleMatrix::set</a></div><div class="ttdeci">reference set(index_t r, index_t c, T val)</div><div class="ttdef"><b>Definition:</b> SimpleMatrix.h:270</div></div>
-<div class="ttc" id="classgeom_1_1_simple_matrix_html"><div class="ttname"><a href="classgeom_1_1_simple_matrix.html">geom::SimpleMatrix</a></div><div class="ttdoc">A basic matrix with M x N elements. </div><div class="ttdef"><b>Definition:</b> LinalgTypes.h:101</div></div>
+<div class="ttc" id="classgeom_1_1_simple_matrix_html"><div class="ttname"><a href="classgeom_1_1_simple_matrix.html">geom::SimpleMatrix</a></div><div class="ttdoc">A basic matrix with M x N elements. </div><div class="ttdef"><b>Definition:</b> LinalgTypes.h:99</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Nov 8 2014 00:31:43 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 31 2014 15:54:49 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

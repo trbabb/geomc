@@ -7,5 +7,6 @@ var searchData=
   ['rect',['Rect',['../classgeom_1_1_rect.html',1,'geom']]],
   ['rect_3c_20i_2c_20m_20_3e',['Rect&lt; I, M &gt;',['../classgeom_1_1_rect.html',1,'geom']]],
   ['rect_3c_20index_5ft_2c_20n_20_3e',['Rect&lt; index_t, N &gt;',['../classgeom_1_1_rect.html',1,'geom']]],
-  ['rect_3c_20t_2c_201_20_3e',['Rect&lt; T, 1 &gt;',['../classgeom_1_1_rect.html',1,'geom']]]
+  ['rect_3c_20t_2c_201_20_3e',['Rect&lt; T, 1 &gt;',['../classgeom_1_1_rect.html',1,'geom']]],
+  ['rect_3c_20t_2c_20n_2d1_20_3e',['Rect&lt; T, N-1 &gt;',['../classgeom_1_1_rect.html',1,'geom']]]
 ];
