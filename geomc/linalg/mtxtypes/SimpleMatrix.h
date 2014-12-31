@@ -53,9 +53,9 @@ namespace detail {
  */
 template <typename T, index_t M, index_t N>
 class SimpleMatrix : public detail::WriteableMatrixBase<T,M,N, SimpleMatrix<T,M,N> > {
-    detail::Storage<T,M*N> data;
-    typename detail::Dimension<M>::storage_t n_rows; // this contortion prevents allocating storage 
-    typename detail::Dimension<N>::storage_t n_cols; // for a dimension size when it is not dynamic.
+    Storage<T,M*N> data;
+    typename Dimension<M>::storage_t n_rows; // this contortion prevents allocating storage 
+    typename Dimension<N>::storage_t n_cols; // for a dimension size when it is not dynamic.
     
 public:
     
@@ -98,8 +98,8 @@ public:
     explicit SimpleMatrix(index_t nrows=detail::DefinedIf<M != DYNAMIC_DIM, M>::value, 
                  index_t ncols=detail::DefinedIf<N != DYNAMIC_DIM, N>::value) : 
                      data(nrows * ncols) {
-        detail::Dimension<M>::set(n_rows, nrows);
-        detail::Dimension<N>::set(n_cols, ncols);
+        Dimension<M>::set(n_rows, nrows);
+        Dimension<N>::set(n_cols, ncols);
         setIdentity(); 
     }
 #endif
@@ -124,8 +124,8 @@ public:
                  index_t nrows=detail::DefinedIf<M != DYNAMIC_DIM, M>::value, 
                  index_t ncols=detail::DefinedIf<N != DYNAMIC_DIM, N>::value) : 
                      data(nrows * ncols) {
-        detail::Dimension<M>::set(n_rows, nrows);
-        detail::Dimension<N>::set(n_cols, ncols);
+        Dimension<M>::set(n_rows, nrows);
+        Dimension<N>::set(n_cols, ncols);
         std::copy(src_data, src_data + nrows * ncols, data.get());
     }
 #endif
@@ -144,8 +144,8 @@ public:
                  typename boost::enable_if_c<
                     (detail::LinalgDimensionMatch<SimpleMatrix<T,M,N>, Mx>::val),
                     void*>::type dummy=0) {
-        detail::Dimension<M>::set(n_rows, mtx.rows());
-        detail::Dimension<N>::set(n_cols, mtx.cols());
+        Dimension<M>::set(n_rows, mtx.rows());
+        Dimension<N>::set(n_cols, mtx.cols());
         detail::_mtxcopy(this, mtx);
     }
 #endif
@@ -182,14 +182,14 @@ public:
      * @return Number of rows in the matrix.
      */
     inline index_t rows() const {
-        return detail::Dimension<M>::value(n_rows);
+        return Dimension<M>::get(n_rows);
     }
     
     /**
      * @return number of columns in the matrix.
      */
     inline index_t cols() const {
-        return detail::Dimension<N>::value(n_cols);
+        return Dimension<N>::get(n_cols);
     }
     
     /**

@@ -80,14 +80,16 @@
 #define PI  (3.141592653589793238462643383)
 #define TAU (6.283185307179586476925286767)
 
+#define DYNAMIC_DIM (0)
+
 #define M_CLAMP(v,lo,hi) std::min(std::max((v),(lo)),(hi))
 
-#define M_ENABLE_IF(cond)   typename boost::enable_if<(cond), int>::type DUMMY=0
+#define M_ENABLE_IF(cond)   typename boost::enable_if  <(cond), int>::type DUMMY=0
 #define M_ENABLE_IF_C(cond) typename boost::enable_if_c<(cond), int>::type DUMMY=0
 
-#define DERIVED_TYPE(base,derived)      typename boost::enable_if<boost::is_base_of< (base), (derived) >, (derived)>::type
-#define REQUIRE_INHERIT(base,derived)   typename boost::enable_if<boost::is_base_of< (base), (derived) >, int>::type dummy=0
-#define REQUIRE_INHERIT_T(base,derived) typename boost::enable_if<boost::is_base_of< base, derived >, int>::type
+#define DERIVED_TYPE(base,derived)      typename boost::enable_if< boost::is_base_of< (base), (derived) >, (derived)>::type
+#define REQUIRE_INHERIT(base,derived)   typename boost::enable_if< boost::is_base_of< (base), (derived) >, int>::type dummy=0
+#define REQUIRE_INHERIT_T(base,derived) typename boost::enable_if< boost::is_base_of<  base,   derived  >, int>::type
 
 typedef boost::int_t<std::numeric_limits<size_t>::digits>::fast index_t;
 
@@ -97,10 +99,18 @@ template <typename T> inline T positive_mod(T a, T b){
     //return r<0?r+b:r;
 }
 
-#ifdef PARSING_DOXYGEN
 
 /** @brief Namespace of all `geomc` functions and classes. */
-namespace geom { };
+namespace geom {
+    
+    // storage fwd decls
+    template <typename T, index_t N> struct Storage;
+    template <typename T, index_t N> struct SizedStorage;
+    template <typename T, index_t N> struct UnmanagedStorage;
+
+};
+
+#ifdef PARSING_DOXYGEN
 
 /** @brief Functions to extend support of stdlib to geomc classes. */
 namespace std { };

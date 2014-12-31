@@ -222,7 +222,7 @@ public:
     /**
      * Quaternion exponential `e`<sup>`q`</sup>.
      * @return A quaternion representing a rotation about `q.vectorPart()` by
-     * angle `|q|` and a scaling by `e`<sup>`q.realPart()`</sup>.
+     * angle `2 * |q|` and a scaling by `e`<sup>`q.realPart()`</sup>.
      */
     inline Quat<T> exp() const {
         return std::exp(*this);
@@ -277,6 +277,14 @@ namespace std {
         U theta = std::acos(q.scalarPart() / mag); // :(
         geom::Vec<T,3> nhat = q.vectorPart().unit();
         return std::pow(mag, a) * geom::Quat<T>(nhat * std::sin(a * theta), std::cos(a * theta));
+    }
+    
+    /**
+     * Quaternion complex conjugate. Negate the vector part of `q`. 
+     */
+    template <typename T>
+    inline geom::Quat<T> conj(const geom::Quat<T> &q) {
+        return q.conj();
     }
 }
 

@@ -18,8 +18,6 @@
 
 #include <boost/iterator/counting_iterator.hpp>
 
-#define DYNAMIC_DIM (0)
-
 //vector convenience macros
 
 /** @ingroup linalg 
@@ -87,9 +85,9 @@ namespace detail {
 
    typedef const void* storage_id_t;
 
-    // fwd decls
+    // data fwd decls
     template <typename T, index_t N> class Vec;
-    template <typename T> class Quat;
+    template <typename T>            class Quat;
     template <typename T, index_t N> class Ray;
     template <typename T, index_t N> class AffineTransform;
     template <typename T, index_t M, index_t N> class PLUDecomposition;
@@ -175,6 +173,10 @@ namespace detail {
         static inline point_t from_ptr(T* p) {
             return point_t(p);
         }
+        
+        static inline point_t from_larger_vector(const Vec<T,N+1> &v) {
+            return v.template resized<N>();
+        }
     };
 
     template <typename T>
@@ -191,6 +193,10 @@ namespace detail {
         
         static inline point_t from_ptr(T* p) {
             return *p;
+        }
+        
+        static inline point_t from_larger_vector(const Vec<T,2> &v) {
+            return v[0];
         }
     };
 

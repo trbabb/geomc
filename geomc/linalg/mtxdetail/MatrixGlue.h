@@ -8,9 +8,9 @@
 #ifndef MATRIXGLUE_H_
 #define MATRIXGLUE_H_
 
-#include <boost/smart_ptr/shared_array.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_traits.hpp>
+#include <geomc/Storage.h>
 #include <geomc/shape/GridIterator.h>
 
 namespace geom {
@@ -19,146 +19,6 @@ typedef Rect<index_t,2> MatrixRegion;
 typedef Vec<index_t,2>  MatrixCoord;
 
 namespace detail {
-
-/****************************************************
- * Storage class                                    *
- *                                                  *
- * Matrices may be of either static or dynamic      *
- * dimensions. Statically-sized matrices may use    *
- * statically-allocated storage and avoid expensive *
- * mallocs() upon creation and duplication. This    *
- * class allows matrix templates to choose between  *
- * the two methods of storage based on <N>.         *
- ****************************************************/
-
-template <typename T, index_t N>
-struct Storage {
-    T data[N];
-    
-    Storage() {}
-    explicit Storage(index_t n) {}
-    
-    inline       T* get()       { return data; }
-    inline const T* get() const { return data; }
-    inline index_t size() const { return N; }
-};
-
-template <typename T>
-struct Storage<T,DYNAMIC_DIM> {
-    boost::shared_array<T> data;
-    
-    explicit Storage(index_t n):
-                    data(new T[n]) {}
-    
-    inline       T* get()       { return data.get(); }
-    inline const T* get() const { return data.get(); }
-};
-
-/****************************************************
- * Temporary storage class                          *
- *                                                  *
- * Like Storage, except uses bare array pointers    *
- * internally with no reference counting. Data will *
- * be deallocated automatically on destruction. For *
- * use when ownership never changes hands.          *
- ****************************************************/
-
-template <typename T, index_t N>
-struct TemporaryStorage {
-    T data[N];
-    
-    explicit TemporaryStorage(index_t n) {}
-    
-    inline       T* get()       { return data; }
-    inline const T* get() const { return data; }
-    inline index_t size() const { return N; }
-    
-    inline T& operator[](index_t idx)       { return data[idx]; }
-    inline T  operator[](index_t idx) const { return data[idx]; }
-};
-
-template <typename T>
-struct TemporaryStorage<T,DYNAMIC_DIM> {
-    T *data;
-    index_t sz;
-    
-    explicit TemporaryStorage(index_t n):
-        data(new T[n]),
-        sz(n) {}
-    
-    ~TemporaryStorage() {
-        delete [] data;
-    }
-    
-    inline       T* get()       { return data; }
-    inline const T* get() const { return data; }
-    inline index_t size() const { return sz; }
-    
-    inline T& operator[](index_t idx)       { return data[idx]; }
-    inline T  operator[](index_t idx) const { return data[idx]; }
-}; 
-
-/****************************************************
- * Dimension classes                                *
- *                                                  *
- * Let's say we have a Storage object, which may    *
- * wrap either a static or a dynamic array. If the  *
- * array is dynamic, we must store the length. We   *
- * don't want to pay for that length counter if the *
- * wrapped memory is a static array, however, since *
- * the length is known at compile time. This class  *
- * allocates storage for one size counter if <N> is *
- * DYNAMIC_DIMENSION, otherwise no storage is       *
- * allocated and <N> is the reported array length.  *
- ****************************************************/
-
-template <index_t N>
-struct Dimension {
-    typedef index_t storage_t[0];
-    static inline void set(storage_t s, index_t v) {}
-    static inline index_t value(const storage_t v) { return N; }
-    
-};
-
-template <>
-struct Dimension<DYNAMIC_DIM> {
-    typedef index_t storage_t[1];
-    static inline void set(storage_t s, index_t v) { s[0] = v; }
-    static inline index_t value(const storage_t v) { return *v; }
-    
-};
-
-/****************************************************
- * SizedStorage                                     *
- *                                                  *
- * Storage which also carries a count of its        *
- * capacity. We don't do this everywhere because    *
- * some classes have parallel arrays, so there      *
- * would be duplicate counts which waste space.     *
- ****************************************************/
-
-template <typename T, index_t N>
-class SizedStorage : public Storage<T,N> {
-    public:
-    
-             SizedStorage():Storage<T,N>() {}
-    explicit SizedStorage(index_t n):Storage<T,N>(n) {}
-    
-    index_t size() const { return N; }
-};
-
-template <typename T>
-class SizedStorage<T,DYNAMIC_DIM> : public Storage<T,DYNAMIC_DIM> {
-    private:
-    index_t sz;
-    
-    public:
-    SizedStorage(index_t n):
-        Storage<T,DYNAMIC_DIM>(n),
-        sz(n) {}
-    
-    index_t size() const { return sz; };
-};
 
 /****************************************************
  * Conditional template helper                      *

@@ -39,10 +39,10 @@ class DiagMatrix : public detail::WriteableMatrixBase<T,M,N, DiagMatrix<T,M,N> >
     index_t diag;
 #ifndef PARSING_DOXYGEN
     // this shit confuses doxygen because it am stoopid
-    detail::Storage<T, ((M<N)?M:N) > data;
+    Storage<T, ((M<N)?M:N) > data;
 #endif
-    typename detail::Dimension<M>::storage_t n_rows;
-    typename detail::Dimension<N>::storage_t n_cols;
+    typename Dimension<M>::storage_t n_rows;
+    typename Dimension<N>::storage_t n_cols;
     
 public:
     
@@ -62,8 +62,8 @@ public:
                index_t ncols=detail::DefinedIf<N != DYNAMIC_DIM, N>::value) :
                      diag(nrows < ncols ? nrows : ncols),
                      data(diag) {
-        detail::Dimension<M>::set(n_rows, nrows);
-        detail::Dimension<N>::set(n_cols, ncols);
+        Dimension<M>::set(n_rows, nrows);
+        Dimension<N>::set(n_cols, ncols);
         setIdentity(); 
     }
 #endif
@@ -80,18 +80,18 @@ public:
     DiagMatrix(const T src[], 
                index_t n=detail::DefinedIf<M * N != DYNAMIC_DIM, (M < N ? M : N)>::value) :
                    diag(n) {
-        detail::Dimension<M>::set(n_rows, n);
-        detail::Dimension<N>::set(n_cols, n);
+        Dimension<M>::set(n_rows, n);
+        Dimension<N>::set(n_cols, n);
         std::copy(src, src + n, data.get());
     }
 #endif
     
     inline index_t rows() const {
-        return detail::Dimension<M>::value(n_rows);
+        return Dimension<M>::get(n_rows);
     }
     
     inline index_t cols() const {
-        return detail::Dimension<N>::value(n_cols);
+        return Dimension<N>::get(n_cols);
     }
     
     inline T get(index_t r, index_t c) const {

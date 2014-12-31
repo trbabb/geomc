@@ -131,7 +131,7 @@
  */
 
 /**
- * @defgroup random
+ * @defgroup random Random
  * @brief Random number and object generation.
  * 
  * To obtain random numbers, choose and construct a random number generator,

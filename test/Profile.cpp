@@ -14,16 +14,21 @@
 #include <geomc/function/Dual.h>
 #include <geomc/linalg/Vec.h>
 #include <geomc/linalg/Matrix.h>
-#include <geomc/function/Path.h>
 #include <geomc/random/RandomTools.h>
 #include <geomc/random/MTRand.h>
 #include <geomc/random/LCRand.h>
+#include <geomc/function/Path.h>
 #include <geomc/function/PerlinNoise.h>
 #include <geomc/function/Raster.h>
+#include <geomc/function/SphericalHarmonics.h>
 #include <geomc/shape/BinLatticePartition.h>
 #include <geomc/shape/Trace.h>
 #include <geomc/shape/OrientedRect.h>
 #include <geomc/shape/Intersect.h>
+
+#ifdef ENABLE_FRUSTUM
+#include <geomc/shape/Frustum.h>
+#endif
 
 #include "RandomBattery.h"
 
@@ -32,9 +37,9 @@
 using namespace geom;
 using namespace std;
 
-template <index_t N> 
-void fill_unit_vec_array(typename PointType<double,N>::point_t *dst, index_t n) {
-    Sampler<double> rntools = Sampler<double>();
+template <typename T, index_t N> 
+void fill_unit_vec_array(typename PointType<T,N>::point_t *dst, index_t n) {
+    Sampler<T> rntools = Sampler<T>();
     
     for (index_t i = 0; i < n; i++) {
         dst[i] = rntools.template unit<N>();
@@ -75,7 +80,7 @@ double profile_vec_cross(index_t iters) {
     Vec3d *vecs_src = new Vec3d[n];
     Vec3d *vecs_dst = new Vec3d[n];
     
-    fill_unit_vec_array<3>(vecs_src, n);
+    fill_unit_vec_array<double,3>(vecs_src, n);
     
     index_t idx = 0;
     clock_t start = clock();
@@ -96,8 +101,8 @@ template <index_t N> double profile_vec_add(index_t iters) {
     Vec<double, N> *vecs_src_2 = new Vec<double,N>[n];
     Vec<double, N> *vecs_dst   = new Vec<double,N>[n];
     
-    fill_unit_vec_array<N>(vecs_src_1, n);
-    fill_unit_vec_array<N>(vecs_src_2, n);
+    fill_unit_vec_array<double,N>(vecs_src_1, n);
+    fill_unit_vec_array<double,N>(vecs_src_2, n);
     
     index_t idx = 0;
     clock_t start = clock();
@@ -120,8 +125,8 @@ template <index_t N> double profile_vec_dot(index_t iters) {
     Vec<double, N> *vecs_src_2 = new Vec<double,N>[n];
     double *vecs_dst = new double[n];
     
-    fill_unit_vec_array<N>(vecs_src_1, n);
-    fill_unit_vec_array<N>(vecs_src_2, n);
+    fill_unit_vec_array<double,N>(vecs_src_1, n);
+    fill_unit_vec_array<double,N>(vecs_src_2, n);
     
     index_t idx = 0;
     clock_t start = clock();
@@ -130,6 +135,7 @@ template <index_t N> double profile_vec_dot(index_t iters) {
         idx = (idx + 1) % n;
     }
     clock_t end = clock();
+    vecs_dst[0] += 1;
     
     delete [] vecs_src_1;
     delete [] vecs_src_2;
@@ -143,7 +149,7 @@ template <index_t N> double profile_vec_norm(index_t iters) {
     Vec<double, N> *vecs_src = new Vec<double,N>[n];
     double *vecs_dst = new double[n];
     
-    fill_unit_vec_array<N>(vecs_src, n);
+    fill_unit_vec_array<double,N>(vecs_src, n);
     
     index_t idx = 0;
     clock_t start = clock();
@@ -152,6 +158,7 @@ template <index_t N> double profile_vec_norm(index_t iters) {
         idx += 1;
     }
     clock_t end = clock();
+    vecs_dst[0] += 1;
     
     delete [] vecs_src;
     delete [] vecs_dst;
@@ -164,7 +171,7 @@ template <index_t N> double profile_vec_norm2(index_t iters) {
     Vec<double, N> *vecs_src = new Vec<double,N>[n];
     double *vecs_dst = new double[n];
     
-    fill_unit_vec_array<N>(vecs_src, n);
+    fill_unit_vec_array<double,N>(vecs_src, n);
     
     index_t idx = 0;
     clock_t start = clock();
@@ -173,6 +180,7 @@ template <index_t N> double profile_vec_norm2(index_t iters) {
         idx += 1;
     }
     clock_t end = clock();
+    vecs_dst[0] += 1; //shenanigans to prevent compiler from optimizing to a null loop.
     
     delete [] vecs_src;
     delete [] vecs_dst;
@@ -185,7 +193,7 @@ template <index_t N> double profile_vec_hash(index_t iters) {
     Vec<double, N> *vecs_src = new Vec<double,N>[n];
     index_t *vecs_dst= new index_t[n];
     
-    fill_unit_vec_array<N>(vecs_src, n);
+    fill_unit_vec_array<double,N>(vecs_src, n);
     
     index_t idx = 0;
     clock_t start = clock();
@@ -194,6 +202,7 @@ template <index_t N> double profile_vec_hash(index_t iters) {
         idx += 1;
     }
     clock_t end = clock();
+    vecs_dst[0] += 1;
     
     delete [] vecs_src;
     delete [] vecs_dst;
@@ -221,6 +230,8 @@ template <index_t N> double profile_raw_vec_add(index_t iters) {
         idx = (idx + 1) % n;
     }
     clock_t end = clock();
+    vecs_dst[0][0] += 1;
+    
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
@@ -237,10 +248,11 @@ template <index_t N> double profile_perlin(index_t iters) {
     index_t idx = 0;
     clock_t start = clock();
     for (index_t i = 0; i < iters; i++) {
-        dest_vals[idx] = perlin.eval(vecs_src[n]);
+        dest_vals[idx] = perlin.eval(vecs_src[i % n]);
         idx = (idx + 1) % n;
     }
     clock_t end = clock();
+    dest_vals[0] += 1;
     
     delete [] vecs_src;
     delete [] dest_vals;
@@ -263,7 +275,7 @@ template <typename T, index_t N> double profile_perlin_grad(index_t iters) {
     index_t idx = 0;
     clock_t start = clock();
     for (index_t i = 0; i < iters; i++) {
-        dest_vals[idx] = perlin.eval(vecs_src[n]);
+        dest_vals[idx] = perlin.eval(vecs_src[i%n]);
         idx = (idx + 1) % n;
     }
     clock_t end = clock();
@@ -322,6 +334,75 @@ template <typename T> double profile_rayTriangleTest(index_t iters) {
 	delete [] rays;
 
 	return (end-start) / (double)CLOCKS_PER_SEC;
+}
+
+template <typename T, index_t Bands> double profile_sh(index_t iters) {
+    SphericalHarmonics<T,Bands> sh;
+    index_t n = std::min(iters, (index_t)1000000);
+    Vec<T,3> *vs = new Vec<T,3>[n];
+    fill_unit_vec_array<T,3>(vs, n);
+    
+	clock_t start = clock();
+    for (index_t i = 0; i < iters; i++) {
+        Vec<T,3> v = vs[i % n];
+        sh.eval(v);
+    }
+	clock_t end = clock();
+    
+    delete [] vs;
+    
+    return (end-start) / (double)CLOCKS_PER_SEC;
+}
+
+template <typename T, index_t Bands> double profile_sh_buffer(index_t iters) {
+    SphericalHarmonics<T,Bands> sh;
+    SphericalHarmonics<T,Bands> buf;
+    index_t n = std::min(iters, (index_t)1000000);
+    Vec<T,3> *vs = new Vec<T,3>[n];
+    fill_unit_vec_array<T,3>(vs, n);
+    T k = 0;
+    
+	clock_t start = clock();
+    for (index_t i = 0; i < iters; i++) {
+        Vec<T,3> v = vs[i % n];
+        spherical_harmonic_coeff(&buf, v.z, std::atan2(v.y, v.x));
+        k = sh.dot(buf);
+    }
+	clock_t end = clock();
+    
+    delete [] vs;
+    
+    return (end-start) / (double)CLOCKS_PER_SEC;
+}
+
+template <typename T, index_t Bands> 
+void test_sh_methods(index_t iters) {
+    SphericalHarmonics<T,Bands> sh;
+    SphericalHarmonics<T,Bands> buf;
+    index_t n = std::min(iters, (index_t)1000000);
+    Vec<T,3> *vs = new Vec<T,3>[n];
+    fill_unit_vec_array<T,3>(vs, n);
+    
+    std::fill(sh.coeffs.get(), sh.coeffs.get() + sh.size(), 1);
+    
+    T diff = 0;
+    T a_avg = 0;
+    T b_avg = 0;
+    
+    for (index_t i = 0; i < iters; i++) {
+        Vec<T,3> v = vs[i % n];
+        spherical_harmonic_coeff(&buf, v.z, std::atan2(v.y, v.x));
+        T a = sh.dot(buf);
+        T b = sh.eval(v);
+        a_avg += a;
+        b_avg += b;
+        diff  += std::abs(a-b);
+    }
+    
+    std::cout << "avg sh diff: " << diff / iters << std::endl;
+    std::cout << "avg buf,std: " << a_avg << "," << b_avg << std::endl;
+    
+    delete [] vs;
 }
 
 template <typename T, index_t N> double profile_path(index_t iters) {
@@ -453,49 +534,74 @@ template <typename T, index_t N> double profile_mtxInverseLU(index_t iters) {
 	return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
-template <typename T>
-void randomBox(OrientedRect<T,2> *r) {
+template <typename T, index_t N>
+void randomOrient(AffineTransform<T,N> *xf) {
     Sampler<T> smp;
-    T angle = M_PI * getRandom()->rand<T>(-1,1);
-    r->xf *= rotation(angle);
-    r->xf *= scale(Vec<T,2>(getRandom()->rand<T>(2,8)));
-    r->xf *= translation(smp.template unit<2>());
-    Vec<T,2> b0 = smp.box(Vec<T,2>(-1), Vec<T,2>(1));
-    Vec<T,2> b1 = smp.box(Vec<T,2>(-1), Vec<T,2>(1));
-    r->box = Rect<T,2>::spanningCorners(b0,b1);
+    Vec<T,N> basis[N];
+    for (index_t i = 0; i < N; i++) {
+        basis[i] = smp.template unit<N>();
+    }
+    orthonormalize(basis,N);
+    SimpleMatrix<T,N,N> rot(basis[0].begin());
+    *xf = transformation(rot);
 }
 
 template <typename T>
-void randomBox(OrientedRect<T,3> *r) {
+void randomOrient(AffineTransform<T,3> *xf) {
     Sampler<T> smp;
     Quat<T> q = smp.template unit<4>();
-    r->xf *= rotation(q);
-    r->xf *= scale(Vec<T,3>(getRandom()->rand<T>(2,8)));
-    r->xf *= translation(smp.template unit<3>());
-    Vec<T,3> b0 = smp.box(Vec<T,3>(-1), Vec<T,3>(1));
-    Vec<T,3> b1 = smp.box(Vec<T,3>(-1), Vec<T,3>(1));
-    r->box = Rect<T,3>::spanningCorners(b0,b1);
+    *xf = rotation(q);
+}
+
+template <typename T>
+void randomOrient(AffineTransform<T,2> *xf) {
+    T angle =  M_PI * getRandom()->rand<T>(-1,1);
+    *xf = rotation(angle);
 }
 
 template <typename T, index_t N>
 void randomBox(OrientedRect<T,N> *r) {
     Sampler<T> smp;
     
-    // come up with a random orientation
-    Vec<T,N> basis[N];
-    for (index_t i = 0; i < N; i++) {
-        basis[i] = smp.template unit<N>();
-    }
-    orthonormalize(basis, N);
-    SimpleMatrix<T,N,N> rot(basis[0].begin());
-    
-    r->xf *= transformation(rot);
+    randomOrient(&r->xf);
     r->xf *= scale(Vec<T,N>(getRandom()->rand<T>(2,8)));
     r->xf *= translation(smp.template unit<N>());
     Vec<T,N> b0 = smp.box(Vec<T,N>(-1), Vec<T,N>(1));
     Vec<T,N> b1 = smp.box(Vec<T,N>(-1), Vec<T,N>(1));
     r->box = Rect<T,N>::spanningCorners(b0,b1);
 }
+
+#ifdef ENABLE_FRUSTUM
+
+template <typename T>
+void randomFrustum(Frustum<T,2> *f) {
+    Sampler<T> smp;
+    f->height = Rect<T,1>::spanningCorners(
+                            getRandom()->rand<T>(-5), 
+                            getRandom()->rand<T>( 5));
+    f->base = Rect<T,1>::spanningCorners(
+                            getRandom()->rand<T>(-5), 
+                            getRandom()->rand<T>( 5));
+    randomOrient(&f->xf);
+    f->xf *= scale(Vec<T,2>(getRandom()->rand(2,8)));
+    f->xf *= translation(smp.template unit<2>());
+}
+
+template <typename T, index_t N>
+void randomFrustum(Frustum<T,N> *f) {
+    Sampler<T> smp;
+    f->height = Rect<T,1>::spanningCorners(
+                            getRandom()->rand<T>(-5), 
+                            getRandom()->rand<T>( 5));
+    Vec<T,N-1> b0 = smp.box(Vec<T,N-1>(-5), Vec<T,N-1>(5));
+    Vec<T,N-1> b1 = smp.box(Vec<T,N-1>(-5), Vec<T,N-1>(5));
+    f->base = Rect<T,N-1>::spanningCorners(b0, b1);
+    randomOrient(&f->xf);
+    f->xf *= scale(Vec<T,N>(getRandom()->rand(2,8)));
+    f->xf *= translation(smp.template unit<N>());
+}
+
+#endif
 
 template <typename T, index_t N> double profile_gjkIntersect(index_t iters) {
     const index_t n = (index_t)std::ceil(std::sqrt(iters));
@@ -583,10 +689,55 @@ template <typename T, index_t N> index_t test_gjkIntersect(index_t iters) {
     delete [] boxes;
     
     std::cout << "gjk " << N << "D failures: " << failures;
-    std::cout << " (" << positive << " overlapped " << negative << " disjoint)\n";
+    std::cout << " (" << positive << " overlapped " << negative << " disjoint)" << std::endl;
     
     return failures;
 }
+
+
+#ifdef ENABLE_FRUSTUM
+
+template <typename T, index_t N> index_t test_frustumSupport(index_t iters) {
+    const index_t n = (index_t)std::ceil(std::sqrt(iters));
+    const index_t n_corners = 1 << N;
+    
+    Sampler<T> smp;
+    T err = 0;
+    
+    index_t failures = 0;
+    for (index_t j = 0; j < iters/100; j++) {
+        Frustum<T,N> f;
+        randomFrustum(&f);
+        Vec<T,N> pts[n_corners];
+        f.getCorners(pts);
+        for (index_t k = 0; k < 100; k++) {
+            Vec<T,N> d = smp.template unit<N>();
+            Vec<T,N> p0 = f.convexSupport(d);
+            Vec<T,N> p1 = pts[0];
+            T dot0 = p1.dot(d);
+            // brute force find support point
+            for (index_t c = 1; c < n_corners; c++) {
+                T dot1 = pts[c].dot(d);
+                if (dot1 > dot0) {
+                    dot0 = dot1;
+                    p1 = pts[c];
+                }
+            }
+            if (p0 != p1) {
+                err += p1.dist(p0);
+                failures++;
+            }
+        }
+    }
+    
+    std::cout << "frustum support " << N << "D failures: " << failures;
+    std::cout << " (" << (100 * failures / (double)iters) << "%)";
+    std::cout << " average mismatch: " << (err / (double)iters) << std::endl;
+    
+    return failures;
+}
+
+#endif
 
 template <typename T, index_t N> void test_mtxInverse(index_t iters) {
 	SimpleMatrix<T,N,N> mtx[2];
@@ -695,7 +846,7 @@ void test_matrixOrder() {
 
 void profile(std::string name, double (*fnc)(index_t), index_t iterations) {
     double t = fnc(iterations);
-    std::cout << "profile " << name << " (" << iterations << " iters): " << t << " secs; " << iterations/t << " ops/sec"  << std::endl;
+    std::cout << name << " (" << iterations << " iters): " << t << " secs; " << iterations/t << " ops/sec"  << std::endl;
 }
 
 void test_matrix_asplode() {
@@ -719,6 +870,7 @@ void test_dual() {
 
 using geom::operator<<;
 
+
 int main(int argc, char** argv) {
     Vec2d a2d;
     Vec3d a3d;
@@ -739,6 +891,13 @@ int main(int argc, char** argv) {
     test_OOBB<double,3>();
     test_gjkIntersect<double,2>(1000000);
     test_gjkIntersect<double,3>(1000000);
+    
+#ifdef ENABLE_FRUSTUM
+    test_frustumSupport<double,2>(1000000);
+    test_frustumSupport<double,3>(1000000);
+    test_frustumSupport<double,4>(1000000);
+    std::cout << std::endl;
+#endif
     
     profile("3d cross product", profile_vec_cross, iters);
     std::cout << std::endl;
@@ -809,6 +968,14 @@ int main(int argc, char** argv) {
     profile("4f path", profile_path<float, 4>, iters);
     std::cout << std::endl;
     
+    profile("sh  3f band", profile_sh<float, 3>,  iters/10);
+    profile("sh  8f band", profile_sh<float, 8>,  iters/50);
+    profile("sh 16f band", profile_sh<float, 16>, iters/100);
+    profile("sh  3d band", profile_sh<double, 3>,  iters/10);
+    profile("sh  8d band", profile_sh<double, 8>,  iters/50);
+    profile("sh 16d band", profile_sh<double, 16>, iters/100);
+    std::cout << std::endl;
+    
     profile("2f->3f linear img sample", profile_raster<float, 2, 3, INTERP_LINEAR>, iters/100);
     profile("3f->3f linear img sample", profile_raster<float, 3, 3, INTERP_LINEAR>, iters/100);
     profile("2f->3f cubic img sample",  profile_raster<float, 2, 3, INTERP_CUBIC>,  iters/100);
@@ -829,12 +996,12 @@ int main(int argc, char** argv) {
     profile("5x5 diagf copy",   profile_mtxCopy<DiagMatrix<float,5,5> >, iters/100);
     std::cout << std::endl;
     
-    profile("2x2 mtxf inv", profile_mtxInverse<float,2>,  iters);
-    profile("3x3 mtxf inv", profile_mtxInverse<float,3>,  iters);
-    profile("4x4 mtxf inv", profile_mtxInverse<float,4>,  iters);
-    profile("2x2 mtxd inv", profile_mtxInverse<double,2>, iters);
-    profile("3x3 mtxd inv", profile_mtxInverse<double,3>, iters);
-    profile("4x4 mtxd inv", profile_mtxInverse<double,4>, iters);
+    profile("2x2 mtxf inv", profile_mtxInverse<float,2>,  iters/10);
+    profile("3x3 mtxf inv", profile_mtxInverse<float,3>,  iters/10);
+    profile("4x4 mtxf inv", profile_mtxInverse<float,4>,  iters/10);
+    profile("2x2 mtxd inv", profile_mtxInverse<double,2>, iters/10);
+    profile("3x3 mtxd inv", profile_mtxInverse<double,3>, iters/10);
+    profile("4x4 mtxd inv", profile_mtxInverse<double,4>, iters/10);
     profile("8x8 mtxd inv", profile_mtxInverse<double,8>, iters/10);
     std::cout << std::endl;
     
@@ -850,7 +1017,6 @@ int main(int argc, char** argv) {
     profile("gjk double 4d", profile_gjkIntersect<double,4>, 100000);
     profile("gjk double 5d", profile_gjkIntersect<double,5>, 100000);
     std::cout << std::endl;
-    
     
     profile("SAT 2D OBB double", profile_OBB_intersect<double,2>, 1000000);
     profile("SAT 3D OBB double", profile_OBB_intersect<double,3>, 1000000);

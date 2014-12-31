@@ -213,7 +213,7 @@ public:
         
         mtxcopy(&LU, m);
         // TODO: this alloc isn't necessary if we become a friend of PermutationMatrix
-        detail::TemporaryStorage<index_t, Mx::ROWDIM> reorder(m.rows());
+        UnmanagedStorage<index_t, Mx::ROWDIM> reorder(m.rows());
         bool ok = decompPLU(LU.begin(), m.rows(), m.cols(), reorder.get(), &swap_parity);
 
         if (not ok) {
@@ -354,7 +354,7 @@ public:
             // because of the permutation, <b> will be destructively
             // updated as it is read.
             index_t n = LU.rows();
-            detail::TemporaryStorage<S,M> buf(n);
+            UnmanagedStorage<S,M> buf(n);
             std::copy(b, b+n, buf.get());
             _linearSolve(dest, buf.get());
             return;

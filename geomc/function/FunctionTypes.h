@@ -13,15 +13,16 @@
 namespace geom {
     
 /**
- * @defgroup function
+ * @defgroup function Function
  * @brief Tools for constructing and sampling continuous-valued objects.
  */
 
 // classes
 template <typename I, typename O, index_t M, index_t N> class Raster;
-template <typename I, typename O> class Expr;
-template <typename T, index_t N>  class PerlinNoise;
-template <typename T, index_t N>  class Path;
+template <typename I, typename O>    class Expr;
+template <typename T, index_t N>     class PerlinNoise;
+template <typename T, index_t N>     class Path;
+template <typename T, index_t Bands> class SphericalHarmonics;
 
 /**
  * @addtogroup function
