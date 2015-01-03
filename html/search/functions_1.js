@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['bands',['bands',['../classgeom_1_1_spherical_harmonics.html#ae2fc3884657b2013685faea52d153c74',1,'geom::SphericalHarmonics']]],
+  ['bands',['bands',['../classgeom_1_1_spherical_harmonics.html#ae2fc3884657b2013685faea52d153c74',1,'geom::SphericalHarmonics::bands()'],['../classgeom_1_1_zonal_harmonics.html#ae2fc3884657b2013685faea52d153c74',1,'geom::ZonalHarmonics::bands()']]],
   ['basis',['basis',['../classgeom_1_1_spherical_harmonics.html#a5b01ed59dea4c6c007adbd03420a34cf',1,'geom::SphericalHarmonics']]],
   ['begin',['begin',['../classgeom_1_1_simple_matrix.html#aa4b02d4f1a8500fb07a551069060709f',1,'geom::SimpleMatrix::begin() const '],['../classgeom_1_1_simple_matrix.html#ad69bd11391be1a1dba5c8202259664f8',1,'geom::SimpleMatrix::begin()'],['../classgeom_1_1_grid_iterator.html#a0d646c618502ff2d8f42306cd7769cba',1,'geom::GridIterator::begin()']]],
   ['bounds',['bounds',['../classgeom_1_1_bounded.html#aa8a7dd7168cff2d780b137c686e9f8ae',1,'geom::Bounded::bounds()'],['../classgeom_1_1_cylinder.html#af58b0be9725006cf318033ee17af2774',1,'geom::Cylinder::bounds()'],['../classgeom_1_1_oriented_rect.html#af58b0be9725006cf318033ee17af2774',1,'geom::OrientedRect::bounds()'],['../classgeom_1_1_rect.html#af58b0be9725006cf318033ee17af2774',1,'geom::Rect::bounds()'],['../classgeom_1_1_sphere.html#af58b0be9725006cf318033ee17af2774',1,'geom::Sphere::bounds()']]],

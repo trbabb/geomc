@@ -110,84 +110,86 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classgeom_1_1_perlin_noise.html">   23</a></span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;     <span class="keyword">class </span><a class="code" href="classgeom_1_1_perlin_noise.html">PerlinNoise</a>;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;     <span class="keyword">class </span>Path;</div>
 <div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classgeom_1_1_spherical_harmonics.html">   25</a></span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t Bands&gt; <span class="keyword">class </span><a class="code" href="classgeom_1_1_spherical_harmonics.html">SphericalHarmonics</a>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">enum</span> <a class="code" href="group__function.html#ga8c170080a988c99ae4546b1f8e44b4cf">EdgeBehavior</a> {</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfad8f992c52a02c2f9f321fc06a7d8a858">   35</a></span>&#160;    <a class="code" href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfad8f992c52a02c2f9f321fc06a7d8a858">EDGE_CLAMP</a>,</div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfa436fe09ed86bed65446d3b674c601316">   37</a></span>&#160;    <a class="code" href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfa436fe09ed86bed65446d3b674c601316">EDGE_PERIODIC</a>,</div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfa3014a9f4a7f12c3e7d77da27b69804f5">   39</a></span>&#160;    <a class="code" href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfa3014a9f4a7f12c3e7d77da27b69804f5">EDGE_MIRROR</a>,</div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfab82d8eb16416831f279033bed8d7f416">   41</a></span>&#160;    <a class="code" href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfab82d8eb16416831f279033bed8d7f416">EDGE_CONSTANT</a></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;};</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="group__function.html#ga817402314dfc91b23b3642e5b6bb4549">   45</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="group__function.html#ga817402314dfc91b23b3642e5b6bb4549">Interpolation</a> {</div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="group__function.html#gga817402314dfc91b23b3642e5b6bb4549a5dc1c99b5e803daf350345d519b58b67">   47</a></span>&#160;    <a class="code" href="group__function.html#gga817402314dfc91b23b3642e5b6bb4549a5dc1c99b5e803daf350345d519b58b67">INTERP_NEAREST</a>,</div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="group__function.html#gga817402314dfc91b23b3642e5b6bb4549a17abedd2e487446bf814c9da0b7791de">   49</a></span>&#160;    <a class="code" href="group__function.html#gga817402314dfc91b23b3642e5b6bb4549a17abedd2e487446bf814c9da0b7791de">INTERP_LINEAR</a>,</div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="group__function.html#gga817402314dfc91b23b3642e5b6bb4549acc459868280daf43da1548ef8d8a43f8">   51</a></span>&#160;    <a class="code" href="group__function.html#gga817402314dfc91b23b3642e5b6bb4549acc459868280daf43da1548ef8d8a43f8">INTERP_CUBIC</a></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">// perlin</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">typedef</span> PerlinNoise&lt;double,2&gt; PerlinNoise2d;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">typedef</span> PerlinNoise&lt;double,3&gt; PerlinNoise3d;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keyword">typedef</span> PerlinNoise&lt;double,4&gt; PerlinNoise4d;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">typedef</span> PerlinNoise&lt;float,2&gt; PerlinNoise2f;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">typedef</span> PerlinNoise&lt;float,3&gt; PerlinNoise3f;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">typedef</span> PerlinNoise&lt;float,4&gt; PerlinNoise4f;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">// paths</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">typedef</span> Path&lt;double,2&gt; Path2d;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">typedef</span> Path&lt;double,3&gt; Path3d;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">typedef</span> Path&lt;double,4&gt; Path4d;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">typedef</span> Path&lt;float,2&gt; Path2f;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">typedef</span> Path&lt;float,2&gt; Path3f;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">typedef</span> Path&lt;float,2&gt; Path4f;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">// 1D functions</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">typedef</span> Raster&lt;float,float,1,1&gt;   Curve1f;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">typedef</span> Raster&lt;double,double,1,1&gt; Curve1d;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">// 2D images (float, float) -&gt; (float, ...)</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">typedef</span> Raster&lt;float,float,2,1&gt;   Imagef1f;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keyword">typedef</span> Raster&lt;float,float,2,2&gt;   Imagef2f;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="keyword">typedef</span> Raster&lt;float,float,2,3&gt;   Imagef3f;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">typedef</span> Raster&lt;float,float,2,4&gt;   Imagef4f;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">typedef</span> Raster&lt;double,double,2,1&gt; Imaged1d;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">typedef</span> Raster&lt;double,double,2,2&gt; Imaged2d;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword">typedef</span> Raster&lt;double,double,2,3&gt; Imaged3d;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keyword">typedef</span> Raster&lt;double,double,2,4&gt; Imaged4d;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">// 3D volumes (float, float, float) -&gt; (float, ...)</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keyword">typedef</span> Raster&lt;float,float,3,1&gt;   Volumef1f;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keyword">typedef</span> Raster&lt;float,float,3,2&gt;   Volumef2f;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keyword">typedef</span> Raster&lt;float,float,3,3&gt;   Volumef3f;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keyword">typedef</span> Raster&lt;float,float,3,4&gt;   Volumef4f;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="keyword">typedef</span> Raster&lt;double,double,3,1&gt; Volumed1d;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="keyword">typedef</span> Raster&lt;double,double,3,2&gt; Volumed2d;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="keyword">typedef</span> Raster&lt;double,double,3,3&gt; Volumed3d;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="keyword">typedef</span> Raster&lt;double,double,3,4&gt; Volumed4d;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;} <span class="comment">// namespace geom</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* FUNCTIONTYPES_H_ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="group__function_html_gga8c170080a988c99ae4546b1f8e44b4cfab82d8eb16416831f279033bed8d7f416"><div class="ttname"><a href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfab82d8eb16416831f279033bed8d7f416">geom::EDGE_CONSTANT</a></div><div class="ttdoc">Regions outside the sampleable area have a uniform, defined value (zero by default). </div><div class="ttdef"><b>Definition:</b> FunctionTypes.h:41</div></div>
-<div class="ttc" id="group__function_html_gga817402314dfc91b23b3642e5b6bb4549a17abedd2e487446bf814c9da0b7791de"><div class="ttname"><a href="group__function.html#gga817402314dfc91b23b3642e5b6bb4549a17abedd2e487446bf814c9da0b7791de">geom::INTERP_LINEAR</a></div><div class="ttdoc">Linearly interpolate the nearest 2n data points. </div><div class="ttdef"><b>Definition:</b> FunctionTypes.h:49</div></div>
-<div class="ttc" id="group__function_html_ga8c170080a988c99ae4546b1f8e44b4cf"><div class="ttname"><a href="group__function.html#ga8c170080a988c99ae4546b1f8e44b4cf">geom::EdgeBehavior</a></div><div class="ttdeci">EdgeBehavior</div><div class="ttdoc">Raster edge-sampling behavior. </div><div class="ttdef"><b>Definition:</b> FunctionTypes.h:33</div></div>
-<div class="ttc" id="group__function_html_ga817402314dfc91b23b3642e5b6bb4549"><div class="ttname"><a href="group__function.html#ga817402314dfc91b23b3642e5b6bb4549">geom::Interpolation</a></div><div class="ttdeci">Interpolation</div><div class="ttdoc">Behavior for sampling between data points. </div><div class="ttdef"><b>Definition:</b> FunctionTypes.h:45</div></div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classgeom_1_1_zonal_harmonics.html">   26</a></span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t Bands&gt; <span class="keyword">class </span><a class="code" href="classgeom_1_1_zonal_harmonics.html">ZonalHarmonics</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">enum</span> <a class="code" href="group__function.html#ga8c170080a988c99ae4546b1f8e44b4cf">EdgeBehavior</a> {</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfad8f992c52a02c2f9f321fc06a7d8a858">   36</a></span>&#160;    <a class="code" href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfad8f992c52a02c2f9f321fc06a7d8a858">EDGE_CLAMP</a>,</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfa436fe09ed86bed65446d3b674c601316">   38</a></span>&#160;    <a class="code" href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfa436fe09ed86bed65446d3b674c601316">EDGE_PERIODIC</a>,</div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfa3014a9f4a7f12c3e7d77da27b69804f5">   40</a></span>&#160;    <a class="code" href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfa3014a9f4a7f12c3e7d77da27b69804f5">EDGE_MIRROR</a>,</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfab82d8eb16416831f279033bed8d7f416">   42</a></span>&#160;    <a class="code" href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfab82d8eb16416831f279033bed8d7f416">EDGE_CONSTANT</a></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;};</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="group__function.html#ga817402314dfc91b23b3642e5b6bb4549">   46</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="group__function.html#ga817402314dfc91b23b3642e5b6bb4549">Interpolation</a> {</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="group__function.html#gga817402314dfc91b23b3642e5b6bb4549a5dc1c99b5e803daf350345d519b58b67">   48</a></span>&#160;    <a class="code" href="group__function.html#gga817402314dfc91b23b3642e5b6bb4549a5dc1c99b5e803daf350345d519b58b67">INTERP_NEAREST</a>,</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="group__function.html#gga817402314dfc91b23b3642e5b6bb4549a17abedd2e487446bf814c9da0b7791de">   50</a></span>&#160;    <a class="code" href="group__function.html#gga817402314dfc91b23b3642e5b6bb4549a17abedd2e487446bf814c9da0b7791de">INTERP_LINEAR</a>,</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="group__function.html#gga817402314dfc91b23b3642e5b6bb4549acc459868280daf43da1548ef8d8a43f8">   52</a></span>&#160;    <a class="code" href="group__function.html#gga817402314dfc91b23b3642e5b6bb4549acc459868280daf43da1548ef8d8a43f8">INTERP_CUBIC</a></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;};</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">// perlin</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">typedef</span> PerlinNoise&lt;double,2&gt; PerlinNoise2d;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keyword">typedef</span> PerlinNoise&lt;double,3&gt; PerlinNoise3d;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">typedef</span> PerlinNoise&lt;double,4&gt; PerlinNoise4d;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">typedef</span> PerlinNoise&lt;float,2&gt; PerlinNoise2f;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">typedef</span> PerlinNoise&lt;float,3&gt; PerlinNoise3f;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">typedef</span> PerlinNoise&lt;float,4&gt; PerlinNoise4f;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">// paths</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keyword">typedef</span> Path&lt;double,2&gt; Path2d;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">typedef</span> Path&lt;double,3&gt; Path3d;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">typedef</span> Path&lt;double,4&gt; Path4d;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">typedef</span> Path&lt;float,2&gt; Path2f;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">typedef</span> Path&lt;float,2&gt; Path3f;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">typedef</span> Path&lt;float,2&gt; Path4f;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">// 1D functions</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">typedef</span> Raster&lt;float,float,1,1&gt;   Curve1f;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword">typedef</span> Raster&lt;double,double,1,1&gt; Curve1d;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">// 2D images (float, float) -&gt; (float, ...)</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keyword">typedef</span> Raster&lt;float,float,2,1&gt;   Imagef1f;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="keyword">typedef</span> Raster&lt;float,float,2,2&gt;   Imagef2f;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">typedef</span> Raster&lt;float,float,2,3&gt;   Imagef3f;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">typedef</span> Raster&lt;float,float,2,4&gt;   Imagef4f;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">typedef</span> Raster&lt;double,double,2,1&gt; Imaged1d;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword">typedef</span> Raster&lt;double,double,2,2&gt; Imaged2d;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keyword">typedef</span> Raster&lt;double,double,2,3&gt; Imaged3d;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="keyword">typedef</span> Raster&lt;double,double,2,4&gt; Imaged4d;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">// 3D volumes (float, float, float) -&gt; (float, ...)</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keyword">typedef</span> Raster&lt;float,float,3,1&gt;   Volumef1f;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keyword">typedef</span> Raster&lt;float,float,3,2&gt;   Volumef2f;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keyword">typedef</span> Raster&lt;float,float,3,3&gt;   Volumef3f;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="keyword">typedef</span> Raster&lt;float,float,3,4&gt;   Volumef4f;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="keyword">typedef</span> Raster&lt;double,double,3,1&gt; Volumed1d;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="keyword">typedef</span> Raster&lt;double,double,3,2&gt; Volumed2d;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="keyword">typedef</span> Raster&lt;double,double,3,3&gt; Volumed3d;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keyword">typedef</span> Raster&lt;double,double,3,4&gt; Volumed4d;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;} <span class="comment">// namespace geom</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* FUNCTIONTYPES_H_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="group__function_html_gga8c170080a988c99ae4546b1f8e44b4cfab82d8eb16416831f279033bed8d7f416"><div class="ttname"><a href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfab82d8eb16416831f279033bed8d7f416">geom::EDGE_CONSTANT</a></div><div class="ttdoc">Regions outside the sampleable area have a uniform, defined value (zero by default). </div><div class="ttdef"><b>Definition:</b> FunctionTypes.h:42</div></div>
+<div class="ttc" id="group__function_html_gga817402314dfc91b23b3642e5b6bb4549a17abedd2e487446bf814c9da0b7791de"><div class="ttname"><a href="group__function.html#gga817402314dfc91b23b3642e5b6bb4549a17abedd2e487446bf814c9da0b7791de">geom::INTERP_LINEAR</a></div><div class="ttdoc">Linearly interpolate the nearest 2n data points. </div><div class="ttdef"><b>Definition:</b> FunctionTypes.h:50</div></div>
+<div class="ttc" id="group__function_html_ga8c170080a988c99ae4546b1f8e44b4cf"><div class="ttname"><a href="group__function.html#ga8c170080a988c99ae4546b1f8e44b4cf">geom::EdgeBehavior</a></div><div class="ttdeci">EdgeBehavior</div><div class="ttdoc">Raster edge-sampling behavior. </div><div class="ttdef"><b>Definition:</b> FunctionTypes.h:34</div></div>
+<div class="ttc" id="group__function_html_ga817402314dfc91b23b3642e5b6bb4549"><div class="ttname"><a href="group__function.html#ga817402314dfc91b23b3642e5b6bb4549">geom::Interpolation</a></div><div class="ttdeci">Interpolation</div><div class="ttdoc">Behavior for sampling between data points. </div><div class="ttdef"><b>Definition:</b> FunctionTypes.h:46</div></div>
 <div class="ttc" id="classgeom_1_1_perlin_noise_html"><div class="ttname"><a href="classgeom_1_1_perlin_noise.html">geom::PerlinNoise</a></div><div class="ttdoc">Real-valued smooth noise over N dimensions. </div><div class="ttdef"><b>Definition:</b> FunctionTypes.h:23</div></div>
-<div class="ttc" id="group__function_html_gga8c170080a988c99ae4546b1f8e44b4cfad8f992c52a02c2f9f321fc06a7d8a858"><div class="ttname"><a href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfad8f992c52a02c2f9f321fc06a7d8a858">geom::EDGE_CLAMP</a></div><div class="ttdoc">Clip sample coordinates to the sampleable area, thus repeating edge values beyond the boundary...</div><div class="ttdef"><b>Definition:</b> FunctionTypes.h:35</div></div>
+<div class="ttc" id="classgeom_1_1_zonal_harmonics_html"><div class="ttname"><a href="classgeom_1_1_zonal_harmonics.html">geom::ZonalHarmonics</a></div><div class="ttdoc">Represents a function on the N-sphere with axial symmetry. </div><div class="ttdef"><b>Definition:</b> FunctionTypes.h:26</div></div>
+<div class="ttc" id="group__function_html_gga8c170080a988c99ae4546b1f8e44b4cfad8f992c52a02c2f9f321fc06a7d8a858"><div class="ttname"><a href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfad8f992c52a02c2f9f321fc06a7d8a858">geom::EDGE_CLAMP</a></div><div class="ttdoc">Clip sample coordinates to the sampleable area, thus repeating edge values beyond the boundary...</div><div class="ttdef"><b>Definition:</b> FunctionTypes.h:36</div></div>
 <div class="ttc" id="classgeom_1_1_spherical_harmonics_html"><div class="ttname"><a href="classgeom_1_1_spherical_harmonics.html">geom::SphericalHarmonics</a></div><div class="ttdoc">Class and methods for representing band-limited functions on the surface of a 3D sphere. </div><div class="ttdef"><b>Definition:</b> FunctionTypes.h:25</div></div>
 <div class="ttc" id="classgeom_1_1_raster_html"><div class="ttname"><a href="classgeom_1_1_raster.html">geom::Raster</a></div><div class="ttdoc">An M-dimensional grid of interpolated data which can be continuously sampled. </div><div class="ttdef"><b>Definition:</b> FunctionTypes.h:21</div></div>
-<div class="ttc" id="group__function_html_gga817402314dfc91b23b3642e5b6bb4549acc459868280daf43da1548ef8d8a43f8"><div class="ttname"><a href="group__function.html#gga817402314dfc91b23b3642e5b6bb4549acc459868280daf43da1548ef8d8a43f8">geom::INTERP_CUBIC</a></div><div class="ttdoc">Cubically interpolate the nearest 4n data points. </div><div class="ttdef"><b>Definition:</b> FunctionTypes.h:51</div></div>
-<div class="ttc" id="group__function_html_gga8c170080a988c99ae4546b1f8e44b4cfa436fe09ed86bed65446d3b674c601316"><div class="ttname"><a href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfa436fe09ed86bed65446d3b674c601316">geom::EDGE_PERIODIC</a></div><div class="ttdoc">Wrap around sample coordinates to the opposite edge, thus tiling the sampled data beyond the boundary...</div><div class="ttdef"><b>Definition:</b> FunctionTypes.h:37</div></div>
-<div class="ttc" id="group__function_html_gga8c170080a988c99ae4546b1f8e44b4cfa3014a9f4a7f12c3e7d77da27b69804f5"><div class="ttname"><a href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfa3014a9f4a7f12c3e7d77da27b69804f5">geom::EDGE_MIRROR</a></div><div class="ttdoc">Mirror the sample coordinates across edges. </div><div class="ttdef"><b>Definition:</b> FunctionTypes.h:39</div></div>
-<div class="ttc" id="group__function_html_gga817402314dfc91b23b3642e5b6bb4549a5dc1c99b5e803daf350345d519b58b67"><div class="ttname"><a href="group__function.html#gga817402314dfc91b23b3642e5b6bb4549a5dc1c99b5e803daf350345d519b58b67">geom::INTERP_NEAREST</a></div><div class="ttdoc">Return the data nearest to the sample point. </div><div class="ttdef"><b>Definition:</b> FunctionTypes.h:47</div></div>
+<div class="ttc" id="group__function_html_gga817402314dfc91b23b3642e5b6bb4549acc459868280daf43da1548ef8d8a43f8"><div class="ttname"><a href="group__function.html#gga817402314dfc91b23b3642e5b6bb4549acc459868280daf43da1548ef8d8a43f8">geom::INTERP_CUBIC</a></div><div class="ttdoc">Cubically interpolate the nearest 4n data points. </div><div class="ttdef"><b>Definition:</b> FunctionTypes.h:52</div></div>
+<div class="ttc" id="group__function_html_gga8c170080a988c99ae4546b1f8e44b4cfa436fe09ed86bed65446d3b674c601316"><div class="ttname"><a href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfa436fe09ed86bed65446d3b674c601316">geom::EDGE_PERIODIC</a></div><div class="ttdoc">Wrap around sample coordinates to the opposite edge, thus tiling the sampled data beyond the boundary...</div><div class="ttdef"><b>Definition:</b> FunctionTypes.h:38</div></div>
+<div class="ttc" id="group__function_html_gga8c170080a988c99ae4546b1f8e44b4cfa3014a9f4a7f12c3e7d77da27b69804f5"><div class="ttname"><a href="group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfa3014a9f4a7f12c3e7d77da27b69804f5">geom::EDGE_MIRROR</a></div><div class="ttdoc">Mirror the sample coordinates across edges. </div><div class="ttdef"><b>Definition:</b> FunctionTypes.h:40</div></div>
+<div class="ttc" id="group__function_html_gga817402314dfc91b23b3642e5b6bb4549a5dc1c99b5e803daf350345d519b58b67"><div class="ttname"><a href="group__function.html#gga817402314dfc91b23b3642e5b6bb4549a5dc1c99b5e803daf350345d519b58b67">geom::INTERP_NEAREST</a></div><div class="ttdoc">Return the data nearest to the sample point. </div><div class="ttdef"><b>Definition:</b> FunctionTypes.h:48</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 31 2014 15:54:49 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jan 3 2015 00:06:21 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

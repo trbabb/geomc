@@ -12,6 +12,7 @@ var searchData=
   ['diagonal',['diagonal',['../classgeom_1_1_p_l_u_decomposition.html#a070256d0abafc7c932b2b103a4e73394',1,'geom::PLUDecomposition']]],
   ['diagonal_5fbegin',['diagonal_begin',['../classgeom_1_1_diag_matrix.html#a15c7a0bee09a1b09f2a4de66b0245eb6',1,'geom::DiagMatrix::diagonal_begin()'],['../classgeom_1_1_diag_matrix.html#ac8a133dfc45c7aaa53ec759eade3fa05',1,'geom::DiagMatrix::diagonal_begin() const ']]],
   ['diagonal_5fend',['diagonal_end',['../classgeom_1_1_diag_matrix.html#a40fe7cfc97934b7de5ae3ddeddd4e487',1,'geom::DiagMatrix::diagonal_end()'],['../classgeom_1_1_diag_matrix.html#a1a8f94195c56ff6337e240e01a8db0af',1,'geom::DiagMatrix::diagonal_end() const ']]],
+  ['diffuse',['diffuse',['../classgeom_1_1_zonal_harmonics.html#ab39157bdcb0bf73b7f8196e351efcff1',1,'geom::ZonalHarmonics']]],
   ['dimension',['Dimension',['../structgeom_1_1_dimension.html',1,'geom']]],
   ['dimension_3c_20bands_20_3e',['Dimension&lt; Bands &gt;',['../structgeom_1_1_dimension.html',1,'geom']]],
   ['dimension_3c_20m_20_3e',['Dimension&lt; M &gt;',['../structgeom_1_1_dimension.html',1,'geom']]],
@@ -19,8 +20,8 @@ var searchData=
   ['disk',['disk',['../classgeom_1_1_sampler.html#a09d8545103cce1e7e5126f99d85f0b24',1,'geom::Sampler::disk()'],['../classgeom_1_1_sampler.html#af5d4b97b2e68d18e1b17ab880f430cba',1,'geom::Sampler::disk(T radius)']]],
   ['distance',['distance',['../classgeom_1_1_plane.html#a6f7cafd224e5a68740ff38d741cb04bd',1,'geom::Plane']]],
   ['domain',['domain',['../classgeom_1_1_raster.html#aa957af0509310fc2e6307ecb093f4cfd',1,'geom::Raster']]],
-  ['dot',['dot',['../classgeom_1_1_spherical_harmonics.html#afc81fa93572b151c0194f2b54e5e3d17',1,'geom::SphericalHarmonics::dot()'],['../classgeom_1_1_vec_3_01_t_00_012_01_4.html#a3294b44f8ee402a1ce5a6980cd26251c',1,'geom::Vec&lt; T, 2 &gt;::dot()'],['../classgeom_1_1_vec_3_01_t_00_013_01_4.html#a318aebab00f1f08930a51482d092e625',1,'geom::Vec&lt; T, 3 &gt;::dot()'],['../classgeom_1_1_vec_3_01_t_00_014_01_4.html#ae31aa3740992a116937ab6ef5880a449',1,'geom::Vec&lt; T, 4 &gt;::dot()']]],
-  ['dual',['Dual',['../classgeom_1_1_dual.html#aad8cf48ca2384ff06d1f119031846167',1,'geom::Dual::Dual()'],['../classgeom_1_1_dual.html#a271a639e532aecefee1555c1e04338e9',1,'geom::Dual::Dual(T x)'],['../classgeom_1_1_dual.html#a372a1e299a4401c7e6796df8c8c90f09',1,'geom::Dual::Dual(T x, T dx)']]],
+  ['dot',['dot',['../classgeom_1_1_spherical_harmonics.html#afc81fa93572b151c0194f2b54e5e3d17',1,'geom::SphericalHarmonics::dot()'],['../classgeom_1_1_zonal_harmonics.html#a1395237207d0f02c3fc8404fcb98737b',1,'geom::ZonalHarmonics::dot()'],['../classgeom_1_1_vec_3_01_t_00_012_01_4.html#a3294b44f8ee402a1ce5a6980cd26251c',1,'geom::Vec&lt; T, 2 &gt;::dot()'],['../classgeom_1_1_vec_3_01_t_00_013_01_4.html#a318aebab00f1f08930a51482d092e625',1,'geom::Vec&lt; T, 3 &gt;::dot()'],['../classgeom_1_1_vec_3_01_t_00_014_01_4.html#ae31aa3740992a116937ab6ef5880a449',1,'geom::Vec&lt; T, 4 &gt;::dot()']]],
   ['dual',['Dual',['../classgeom_1_1_dual.html',1,'geom']]],
+  ['dual',['Dual',['../classgeom_1_1_dual.html#aad8cf48ca2384ff06d1f119031846167',1,'geom::Dual::Dual()'],['../classgeom_1_1_dual.html#a271a639e532aecefee1555c1e04338e9',1,'geom::Dual::Dual(T x)'],['../classgeom_1_1_dual.html#a372a1e299a4401c7e6796df8c8c90f09',1,'geom::Dual::Dual(T x, T dx)']]],
   ['dx',['dx',['../classgeom_1_1_dual.html#a4bfbe33655359649373afaf3f9558094',1,'geom::Dual']]]
 ];

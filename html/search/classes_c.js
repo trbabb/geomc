@@ -9,6 +9,7 @@ var searchData=
   ['sphericalharmonics',['SphericalHarmonics',['../classgeom_1_1_spherical_harmonics.html',1,'geom']]],
   ['storage',['Storage',['../structgeom_1_1_storage.html',1,'geom']]],
   ['storage_3c_20t_2c_20bands_20_2abands_20_3e',['Storage&lt; T, Bands *Bands &gt;',['../structgeom_1_1_storage.html',1,'geom']]],
+  ['storage_3c_20t_2c_20bands_20_3e',['Storage&lt; T, Bands &gt;',['../structgeom_1_1_storage.html',1,'geom']]],
   ['storage_3c_20t_2c_20dynamic_5fdim_20_3e',['Storage&lt; T, DYNAMIC_DIM &gt;',['../structgeom_1_1_storage.html',1,'geom']]],
   ['storage_3c_20t_2c_20m_20_2an_20_3e',['Storage&lt; T, M *N &gt;',['../structgeom_1_1_storage.html',1,'geom']]]
 ];
