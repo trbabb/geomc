@@ -90,15 +90,38 @@ T legendre(index_t l, index_t m, T x) {
 template <typename T>
 T legendre(index_t n, T x) {
     if (n <= 0) return 1;
-    T p_0 = 1;
-    T p_1 = x;
-    T p_i = x;
+    T p_0 = 1; // P(i - 1, x)
+    T p_1 = x; // P(i,     x)
+    T p_i = x; // P(i + 1, x)
     for (index_t i = 1; i < n; i++) {
-        p_i = (2 * i + 1) * x * p_1 - (i - 1) * p_0 / ((T)i + 1);
+        p_i = ((2 * i + 1) * x * p_1 - i * p_0) / ((T)i + 1);
         p_0 = p_1;
         p_1 = p_i;
     }
     return p_i;
+}
+
+/**
+ * Evaluate the integral of the Legendre polynomal of order `n` 
+ * between -1 and x.
+ * 
+ * @code#include <geomc/function/Basis.h>@endcode
+ * @param n Order of polynomial.
+ * @param x Value of `x` at which to evaluate the integral.
+ */
+template <typename T>
+T legendre_integral(index_t n, T x) {
+    if (n <= 0) return x + 1;
+    T p_0 = 1; // P(i - 1, x)
+    T p_1 = x; // P(i,     x)
+    T p_i = x; // P(i + 1, x)
+    for (index_t i = 1; i < n; i++) {
+        p_i = ((2 * i + 1) * x * p_1 - i * p_0) / ((T)i + 1);
+        p_0 = p_1;
+        p_1 = p_i;
+    }
+    p_i = ((2 * n + 1) * x * p_1 - n * p_0) / ((T)n + 1);
+    return (p_i - p_0) / (2 * n + 1);
 }
 
 /**

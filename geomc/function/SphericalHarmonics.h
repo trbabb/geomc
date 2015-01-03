@@ -9,7 +9,6 @@
 #define	SPHERICALHARMONICS_H
 
 #include <cmath>
-#include <math.h> // xxx debug
 #include <geomc/Storage.h>
 #include <geomc/function/Basis.h>
 
@@ -43,14 +42,11 @@ namespace geom {
  *  
  */  
 
-// todo: - verify basis functions
-//         (reconstructions do not seem accurate)
+// todo:
 //       - there is a 1-x^2 which can be computed from the angles, which are known.
-//       - zonal harmonics/spot function
-//       - (rotated) zonal harmonics -> SH
 //       - sh rotation
 //       - complex numbers
-//       - convolution
+//       * convolution
 //       - consider a `highest_nonzero` to cheapen
 //         band-limiting ops?
 
@@ -114,25 +110,13 @@ class SphericalHarmonics {
     Storage<T,Bands*Bands> coeffs;
     
     /**
-     * @brief Construct a SphericalHarmonics basis for the direction given by `d`.
-     * @param d Direction for basis.
-     * @param n Number of bands to use, if dynamic.
-     */
-    static SphericalHarmonics<T,Bands> basis(Vec<T,3> d, index_t n=Bands) {
-        SphericalHarmonics<T,Bands> out(n);
-        d = d.unit();
-        out.project(d.z, std::atan2(d.y, d.x), 1);
-        return out;
-    }
-    
-    /**
      * Construct a new SphericalHarmonics. 
      * 
      * If dynamically sized, only a single DC band will be allocated.
      */
     SphericalHarmonics():coeffs(       std::max(Bands*Bands,(index_t)1)) {
         Dimension<Bands>::set(n_bands, std::max(Bands,      (index_t)1)); 
-        std::fill(coeffs.get(), coeffs.get() + size(), 0);
+        clear();
     }
     
     /**
@@ -143,7 +127,47 @@ class SphericalHarmonics {
      */
     explicit SphericalHarmonics(index_t bands):coeffs(bands * bands) {
         Dimension<Bands>::set(n_bands, bands);
-        std::fill(coeffs.get(), coeffs.get() + size(), 0);
+        clear();
+    }
+    
+    /**
+     * Construct a new SphericalHarmonics matching the function described
+     * by the given ZonalHarmonics.
+     */
+    template <index_t B>
+    SphericalHarmonics(const ZonalHarmonics<T,B> &zh):
+            coeffs(zh.bands() * zh.bands()) {
+        const T pi = boost::math::constants::pi<T>();
+        const index_t b = Bands > 0 ? std::min(zh.bands(), Bands) : zh.bands();
+        Dimension<Bands>::set(n_bands, b);
+        clear();
+        for (index_t l = 0; l < bands(); l++) {
+            T k = std::sqrt((4*pi) / (2 * l + 1));
+            T p = zh.coeff(l);
+            T v = p * k;
+            this->coeff(l,0) = v;
+        }
+    }
+    
+    /**
+     * Construct a new SphericalHarmonics matching the given ZonalHarmonics, 
+     * re-oriented so that the axis of symmetry aligns with `new_axis`.
+     * @param zh ZonalHarmonics funciton.
+     * @param new_axis New axis of rotational symmetry.
+     */
+    template <index_t B>
+    SphericalHarmonics(const ZonalHarmonics<T,B> &zh, Vec<T,3> new_axis):
+            coeffs(zh.bands() * zh.bands()) {
+        const T pi = boost::math::constants::pi<T>();
+        const index_t b = Bands > 0 ? std::min(zh.bands(), Bands) : zh.bands();
+        Dimension<Bands>::set(n_bands, b);
+        clear();
+        project(new_axis, 1);
+        for (index_t l = 0; l < bands(); l++) {
+            for (index_t m = -l; m <= l; m++) {
+                coeff(l,m) *= zh.coeff(l) * std::sqrt((4*pi) / (2 * l + 1));
+            }
+        }
     }
     
     /**
@@ -160,8 +184,9 @@ class SphericalHarmonics {
      * @param l Integer in `[0, bands())`.
      * @param m Integer in `[-l, l]`.
      */
-    T& coeff(index_t l, index_t m) {
-        return coeffs[l * l + l + m];
+    inline T& coeff(index_t l, index_t m) {
+        index_t i = l * l + l + m;
+        return coeffs[i];
     }
     
     /**
@@ -204,6 +229,35 @@ class SphericalHarmonics {
             sum += coeffs[i] * other.coeffs[i];
         }
         return sum;
+    }
+    
+    /**
+     * Ensure the integral over the entire sphere is 1. 
+     * If the integral is currently 0, no change will be made.
+     */
+    void normalize() {
+        T nh = coeffs[0];
+        if (nh == 0) return;
+        for (index_t i = 1; i < size(); i++) {
+            coeffs[i] /= nh;
+        }
+    }
+    
+    /**
+     * Convolve this SphericalHarmonics with a point spread function
+     * described by `zh`.
+     * @param zh Point spread (kernel) function.
+     */
+    template <index_t ZH_Bands>
+    void convolve(const ZonalHarmonics<T,ZH_Bands> &zh) {
+        for (index_t l = 0; l < bands(); l++) {
+            for (index_t m = -l; m <= l; m++) {
+                if (l < zh.bands())
+                    coeff(l,m) *= zh.coeff(l);
+                else
+                    coeff(l,m)  = 0;
+            }
+        }
     }
     
     
@@ -378,6 +432,14 @@ class SphericalHarmonics {
         _project(std::cos(alt), azi, val);
     }
     
+    
+    /**
+     * Set all coefficients to zero.
+     */
+    inline void clear() {
+        std::fill(coeffs.get(), coeffs.get() + size(), 0);
+    }
+    
     /**
      * Negate the values of this SphericalHarmonics function.
      */
@@ -440,6 +502,263 @@ class SphericalHarmonics {
             out.coeffs[i] = coeffs[i] + sh.coeffs[i];
         }
     }
+    
+    /**
+     * @brief Construct a SphericalHarmonics basis for the direction given by `d`.
+     * @param d Direction for basis.
+     * @param n Number of bands to use, if dynamic.
+     */
+    static SphericalHarmonics<T,Bands> basis(Vec<T,3> d, index_t n=Bands) {
+        SphericalHarmonics<T,Bands> out(n);
+        d = d.unit();
+        out._project(d.z, std::atan2(d.y, d.x), 1);
+        return out;
+    }
+};
+
+// todo: dot products. is there a root pi etc. factor in there?
+
+/**
+ * @brief Represents a function on the N-sphere with axial symmetry.
+ * 
+ * Useful as a convolution kernel for a SphericalHarmonics or another
+ * ZonalHarmonics function.
+ * 
+ * ZonalHarmonics require O(n) storage space on the number of bands and are generally
+ * much more efficient than SphericalHarmonics.
+ */
+template <typename T, index_t Bands>
+class ZonalHarmonics {
+    protected:
+    typename Dimension<Bands>::storage_t n_bands;
+    public:
+    /// Coefficient vector.
+    Storage<T,Bands> coeffs;
+    
+    /**
+     * Construct a new ZonalHarmonics.
+     * 
+     * If dynamically sized, only a single DC band will be allocated.
+     */
+    ZonalHarmonics() : coeffs(std::max(Bands,(index_t)1)) {
+        Dimension<Bands>::set(n_bands,1);
+        clear();
+    }
+    
+    /**
+     * Construct a new ZonalHarmonics (dynamic size).
+     * 
+     * @param n Number of bands to allocate. Ignored if the number of bands
+     * is not dynamic.
+     */
+    ZonalHarmonics(index_t n): coeffs(std::max(n,(index_t)1)) {
+        Dimension<Bands>::set(n_bands,std::max(n,(index_t)1));
+        clear();
+    }
+    
+    /**
+     * Construct a new ZonalHarmonics representing the given SphericalHarmonics
+     * function smoothed by a rotation about its polar axis.
+     * @param sh A SphericalHarmonics funciton.
+     */
+    ZonalHarmonics(const SphericalHarmonics<T,Bands> &sh):
+            coeffs(sh.bands()) {
+        const T pi = boost::math::constants::pi<T>();
+        Dimension<Bands>::set(n_bands,sh.bands());
+        for (index_t l = 0; l < bands(); l++) {
+            coeffs[l] = sh.coeff(l,0) * std::sqrt((2*l - 1) / (4 * pi));
+        }
+    }
+    
+    /**
+     * Return a pointer to the array of coefficients.
+     */
+    inline const T* get() const {
+        return coeffs.get();
+    }
+    
+    /**
+     * Return a pointer to the array of coefficients.
+     */
+    inline T* get() {
+        return coeffs.get();
+    }
+    
+    /**
+     * @return The number of bands in the representation.
+     */
+    inline index_t bands() const {
+        return Dimension<Bands>::get(n_bands);
+    }
+    
+    /**
+     * @return The `n`th band coefficient.
+     */
+    inline T& coeff(index_t n) {
+        return coeffs[n];
+    }
+    
+    /**
+     * @return The `n`th band coefficient.
+     */
+    inline T coeff(index_t n) const {
+        return coeffs[n];
+    }
+    
+    /**
+     * @return The inner product of this ZonalHarmonics with `zh`.
+     */
+    template <index_t B>
+    T dot(const ZonalHarmonics<T,B> &zh) const {
+        T sum = 0;
+        const index_t n = std::min(bands(), zh.bands());
+        for (index_t i = 0; i < bands(); i++) {
+            sum += coeff(i) * zh.coeff(i);
+        }
+        return sum;
+    }
+    
+    /**
+     * Replace this ZonalHarmonics function with an n-th order approximation
+     * of the Lambertian diffuse reflectance function (i.e. `max(0, cos(alt))`).
+     * 
+    * @param order Number of bands to use in the approximation. If no count is specified,
+     * all available bands will be used. Note that very high-order approximations
+     * may be vulernable to numerical instability.
+     */
+    void generate_lambertian(index_t order=-1) {
+        // from "On the relationship between radiance and irradiance: 
+        // determining the illumination from images of a convex Lambertian 
+        // object" by Ramamoorthi and Hanrahan. Note that the coefficients
+        // described therein are those of the spherical harmonics, not zonal 
+        // harmonics, so there is an extra factor of sqrt((2l+1)/4pi) applied here.
+        static const T pi = boost::math::constants::pi<T>();
+        const index_t ct = order < 1 ? bands() : std::min(order, bands());
+        clear();
+        T fac = 1;
+        coeffs[0] = 0.25;
+        if (bands() > 1) {
+            coeffs[1] = 0.5;
+            for (index_t n = 2; n < ct; n += 2) { // odd bands are 0.
+                fac *= n * (n - 1);
+                T fac_num = 1;
+                T fac_den = 1;
+                for (index_t i = 1; i <= n / 2; i++) {
+                    fac_num *= i + n/2;
+                    fac_den *= i;
+                }
+                T k = (2 * n + 1) / (T)2;
+                T A_n  = k / (T)((n + 2) * (n - 1));
+                A_n   *= std::pow(2, -n) * fac_num / fac_den;
+                if (!(n & (index_t)2)) A_n *= -1;
+                coeffs[n] = A_n;
+            }
+        }
+    }
+    
+    /**
+     * Replace this ZonalHarmonics function with an n-th order approximation
+     * of a circular spot on the sphere having value 1 and the given angular radius.
+     * 
+     * @param cos_angle Cosine of the radial angle of the spot (between -1 and 1).
+     */
+    void generate_spot(T cos_angle) {
+        static const T pi = boost::math::constants::pi<T>();
+        const index_t n = bands();
+        const T x = std::min((T)1, std::max((T)-1, cos_angle));
+        coeffs[0] = (2 - x - 1) / 2; // (4 * pi);
+        T p_0 = 1; // P(i - 1, x)
+        T p_1 = x; // P(i,     x)
+        T p_i = x; // P(i + 1, x)
+        for (index_t i = 1; i < n; i++) {
+            T k = (2 * i + 1) / ((T)2);
+            p_i = ((2 * i + 1) * x * p_1 - i * p_0) / ((T)i + 1);
+            coeffs[i] = -k * (p_i - p_0) / (2 * i + 1);
+            p_0 = p_1;
+            p_1 = p_i;
+        }
+    }
+    
+    /**
+     * Evaluate this ZonalHarmonics function at the given angle.
+     * @param cos_alt
+     * @return 
+     */
+    T eval(T cos_alt) const {
+        const T x = cos_alt;
+        T sum = coeffs[0];
+        T p_0 = 1; // P(i - 1, x)
+        T p_1 = x; // P(i,     x)
+        if (bands() > 1) sum += coeffs[1] * x;
+        for (index_t i = 1; i < bands() - 1; i++) {
+            // P(i + 1, x):
+            T p_i = ((2 * i + 1) * x * p_1 - i * p_0) / ((T)i + 1);
+            p_0 = p_1;
+            p_1 = p_i;
+            sum += coeffs[i + 1] * p_i;
+        }
+        return sum;
+    }
+    
+    /**
+     * Project the sample having value `val` at angle given by `cos_alt` to this
+     * ZonalHarmonics function.
+     * @param cos_alt Cosine of the angle from the polar axis to the sample.
+     * @param val Value of the sample.
+     */
+    void project(T cos_alt, T val) {
+        const T x = cos_alt;
+        coeffs[0] = val;
+        if (bands() > 1) coeffs[1] = x * val;
+        T p_0 = 1;
+        T p_1 = x;
+        for (index_t i = 1; i < bands(); i++) {
+            T p_i = (2 * i + 1) * x * p_1 - i * p_0 / ((T)i + 1);
+            p_0 = p_1;
+            p_1 = p_i;
+            coeffs[i] = val * p_i;
+        }
+    }
+    
+    /**
+     * Blur this ZonalHarmonics function using `kernel` as a point spread funciton.
+     * @param kernel Point spread function.
+     */
+    void convolve(const ZonalHarmonics<T,Bands> &kernel) {
+        for (index_t i = 0; i < bands(); i++) {
+            coeffs[i] *= kernel.coeffs[i];
+        }
+    }
+    
+    /**
+     * Convolve this ZonalHarmonics function with itself `k` times.
+     * @param k Real number of times to self-convolve.
+     */
+    void diffuse(T k) {
+        for (index_t i = 0; i < bands(); i++) {
+            coeffs[i] = std::pow(coeffs[i], k);
+        }
+    }
+    
+    /**
+     * Ensure the integral over the entire sphere is 1. 
+     * If the integral is currently 0, no change will be made.
+     */
+    void normalize() {
+        T nh = coeffs[0] * std::sqrt(4 * boost::math::constants::pi<T>());
+        if (nh == 0) return;
+        for (index_t i = 1; i < bands(); i++) {
+            coeffs[i] /= nh;
+        }
+    }
+    
+    /**
+     * Set all coefficients to zero.
+     */
+    inline void clear() {
+        std::fill(coeffs.get(), coeffs.get() + bands(), 0);
+    }
+        
 };
 
 /// @} // group function

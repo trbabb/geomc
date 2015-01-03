@@ -23,6 +23,7 @@ template <typename I, typename O>    class Expr;
 template <typename T, index_t N>     class PerlinNoise;
 template <typename T, index_t N>     class Path;
 template <typename T, index_t Bands> class SphericalHarmonics;
+template <typename T, index_t Bands> class ZonalHarmonics;
 
 /**
  * @addtogroup function
