@@ -76,6 +76,10 @@ public:
         return *p;
     }
     
+    inline MtxSubsetIterator<M,RefType> begin() {
+        return MtxSubsetIterator(mtx, p.begin());
+    }
+    
     inline MtxSubsetIterator<M,RefType> end() {
         return MtxSubsetIterator(mtx, p.end()); 
     }

@@ -214,7 +214,7 @@ public:
         mtxcopy(&LU, m);
         // TODO: this alloc isn't necessary if we become a friend of PermutationMatrix
         UnmanagedStorage<index_t, Mx::ROWDIM> reorder(m.rows());
-        bool ok = decompPLU(LU.begin(), m.rows(), m.cols(), reorder.get(), &swap_parity);
+        bool ok = decompPLU(LU.begin(), m.rows(), m.cols(), reorder.get(), &swap_parity) == 0;
 
         if (not ok) {
             singular = true;

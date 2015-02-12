@@ -11,16 +11,30 @@
 #include <cmath>
 #include <geomc/Storage.h>
 #include <geomc/function/Basis.h>
+#include <complex>
 
 namespace geom {
     
+namespace detail {
+    
+    template <typename T>
+    inline T cpow(const T& a, const T& b) {
+        return std::pow(std::complex<T>(a), std::complex<T>(b)).real();
+    }
+    
+    template <typename T>
+    inline T cpow(const std::complex<T> &a, const std::complex<T> &b) {
+        return std::pow(a, b);
+    }
+    
+    template <typename T>
+    inline T cpow(const Quat<T>& a, const Quat<T> &b) {
+        return std::pow(a ,b);
+    }
+    
+}
+    
 /*
- * the final problem is how to organize this.
- * - how to deal with reconstruction
- *   it's a process of giving n samples and dotting them with the basis
- *   functions. we could do this easily if the n samples are in an array,
- *   but what if we want to do some online algorithm with a huge number of samples?
- *   or dynamic importance sampling/gradient descent/etc?
  * - how to handle euclidean samples? I just don't like the idea of trig on 
  *   the results of atan().
  *   - there exist expressions for this that involve combinatorics
@@ -36,20 +50,45 @@ namespace geom {
  * - does the boost impl accept negative m?
  * - what's the deal with the sqrt(2) factor? Why does it only appear in some
  *   definitions of the SH basis functions?
+ *   - it's a scale factor on the real spherical harmonics, as compared to the 
+ *     complex basis fns. 
  * - what is the proper handling of -m bands? Why do some definitions which
  *   state P(l,-m,x) in terms of P(l,m,x) include an extra partial factorial?
  *   why do these not appear in SH basis definitions that pass |m| to P(...)?
+ *   > again, I think it's real vs. complex-related.
  *  
  */  
 
 // todo:
+//       - rvalue reference assignments/constructors
+//         it is very confusing whether data is duped or not.
+//         also it is very cumbersome to make a duplicate ZH function.
+//       - make an indexing array which sorts the coeffs largest to smallest.
+//         diffusion can become cheap, then, if we work down the array until
+//         the exponentiated coeff is too small to make a difference.
+//         - taking full advantage of sorted coeffs requires closed-form 
+//           evaluation of the legendre polynomials, since in the recurrent
+//           form we will have to touch all the in-between values.
+//         - look into your warped cosine idea. you might have enough info:
+//           warp the domain by cos(theta), use the computed envelope function
+//           from mathoverflow(?), and un-normalize the weights using the mathworks
+//           formula (on the page about "white curves").
+//         - if coeffs decrease roughly monotonically, it's maybe not so
+//           bad. we just do the intermediates along the way until we get to the
+//           target coeff.
+//       - to really model diffusion, you need the complex spherical
+//         harmonics (since exponents of negative coeffs will be complex). 
+//         - see wikipedia for the relation
 //       - there is a 1-x^2 which can be computed from the angles, which are known.
 //       - sh rotation
 //       - complex numbers
 //       * convolution
 //       - consider a `highest_nonzero` to cheapen
 //         band-limiting ops?
-
+//       - I am not sure of the advantage/reason behind the convention difference
+//         in constant factors between ZH and SH. 
+//       - also, does that constant factor play into the inner product?
+    
 /**
  * @addtogroup function
  * @{
@@ -98,6 +137,8 @@ T spherical_harmonic_coeff(index_t l, index_t m, T cos_alt, T azi) {
  * @tparam Bands Number of bands to represent, or 0 if the band count is dynamic. 
  * 
  * Memory requirements are O(n<sup>2</sup>) on the number of bands.
+ * 
+ * This implementation uses the Condon-Shortley phase convention.
  * 
  * Complex-valued SH functions are not yet natively supported.
  */
@@ -663,10 +704,13 @@ class ZonalHarmonics {
      * @param cos_angle Cosine of the radial angle of the spot (between -1 and 1).
      */
     void generate_spot(T cos_angle) {
+        // the indefinite integral of the legendre polynomials are 
+        // analytic and recurrent. We use these to integrate over the range
+        // of cos_angle for which the spot function is nonzero.
         static const T pi = boost::math::constants::pi<T>();
         const index_t n = bands();
         const T x = std::min((T)1, std::max((T)-1, cos_angle));
-        coeffs[0] = (2 - x - 1) / 2; // (4 * pi);
+        coeffs[0] = (2 - x - 1) / 2;
         T p_0 = 1; // P(i - 1, x)
         T p_1 = x; // P(i,     x)
         T p_i = x; // P(i + 1, x)
@@ -725,29 +769,54 @@ class ZonalHarmonics {
      * @param kernel Point spread function.
      */
     void convolve(const ZonalHarmonics<T,Bands> &kernel) {
-        for (index_t i = 0; i < bands(); i++) {
-            coeffs[i] *= kernel.coeffs[i];
+        for (index_t l = 0; l < bands(); l++) {
+            T k = std::sqrt((boost::math::constants::pi<T>() * 4) / (2 * l + 1));
+            coeffs[l] *= k * kernel.coeffs[l];
         }
     }
     
     /**
-     * Convolve this ZonalHarmonics function with itself `k` times.
-     * @param k Real number of times to self-convolve.
+     * Convert this ZonalHarmonics function to its form after `t` self-convolutions.
+     * 
+     * If `t` is 0, this function becomes an N-band approximation of the dirac (identity) kernel.
+     * If `t` is 1, this function remains unchanged.
+     * 
+     * @param t Real number of times to self-convolve.
      */
-    void diffuse(T k) {
-        for (index_t i = 0; i < bands(); i++) {
-            coeffs[i] = std::pow(coeffs[i], k);
+    void diffuse(T t) {
+        // xxx debug
+        //std::cout << "diffusing to " << t << "\n";
+        for (index_t l = 0; l < bands(); l++) {
+            T k = std::sqrt((boost::math::constants::pi<T>() * 4) / (2 * l + 1));
+            T m = k * coeffs[l];
+            coeffs[l] = detail::cpow(m, t) / k;
+            //std::cout << m << " --> " << coeffs[l] * k << "\n";
         }
+        //std::cout << "====\n\n";
     }
     
     /**
      * Ensure the integral over the entire sphere is 1. 
      * If the integral is currently 0, no change will be made.
-     */
+     */ /*
     void normalize() {
-        T nh = coeffs[0] * std::sqrt(4 * boost::math::constants::pi<T>());
+        T k  = std::sqrt(4 * boost::math::constants::pi<T>());
+        T nh = coeffs[0] * k;
         if (nh == 0) return;
+        coeffs[0] = 1 / k;
         for (index_t i = 1; i < bands(); i++) {
+            coeffs[i] /= nh;
+        }
+    }*/
+    
+    // xxx debug
+    void normalize() {
+        T k  = std::sqrt(4 * boost::math::constants::pi<T>() / 3);
+        T nh = coeffs[1] * k;
+        if (nh == 0) return;
+        coeffs[1] = 1 / k;
+        for (index_t i = 0; i < bands(); i++) {
+            if ( i == 1) continue;
             coeffs[i] /= nh;
         }
     }

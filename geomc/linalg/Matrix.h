@@ -247,6 +247,8 @@
 
 //refactoring:
 
+//TODO: there should be a diagonal iterator.
+//      this should be the only writeable iterator belonging to the diagMatrix.
 //TODO: iterators for nonzero entries.
 //TODO: set() should return reference to (or value of) new element, so that `z = (mtx[x][y] = foo)` can
 //      evaluate properly with proxy references.
@@ -988,7 +990,7 @@ operator<<(std::ostream &s, const Mx &mtx) {
     for (int r = 0; r < mtx.rows(); r++){
         if (r != 0) s << "  ";
         for (int c = 0; c < mtx.cols(); c++){
-            s << std::setw(9) << mtx.get(r,c) << " ";
+            s << std::setw(12) << std::right << std::setprecision(5) << mtx.get(r,c) << " ";
         }
         if (r == mtx.rows() - 1){
             // last row, close the matrix.

@@ -11,16 +11,15 @@
 #ifndef GEOMC_DUAL_H
 #define	GEOMC_DUAL_H
 
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_scalar.hpp>
+
 #include <geomc/geomc_defs.h>
 #include <cmath>
 #include <limits>
 
 #ifdef GEOMC_FUNCTION_USE_STREAMS
 #include <iostream>
-#endif
-
-#ifdef GEOMC_RANDOM_H_
-#include <geomc/function/functiondetail/RandomDual.h>
 #endif
 
 //todo: what if you have a vector of duals? Does that work, or would the mult operators be hidden?
@@ -110,13 +109,15 @@ class Dual {
     
     /// Dual-scalar multiplication.
     template <typename U>
-    friend inline Dual<T> operator*(const Dual<T> &d1, U s) {
+    friend inline typename boost::enable_if<boost::is_scalar<U>, Dual<T> >::type 
+    operator*(const Dual<T> &d1, U s) {
         return Dual<T>(d1.x * s, d1.dx * s);
     }
     
     /// Scalar-dual multiplication.
     template <typename U>
-    friend inline Dual<T> operator*(U s, const Dual<T> &d1) {
+    friend inline typename boost::enable_if<boost::is_scalar<U>, Dual<T> >::type 
+    operator*(U s, const Dual<T> &d1) {
         return Dual<T>(s * d1.x, s * d1.dx);
     }
     
@@ -129,7 +130,8 @@ class Dual {
     
     /// Multiply and assign.
     template <typename U>
-    Dual<T>& operator*=(U s) {
+    inline typename boost::enable_if<boost::is_scalar<U>, Dual<T>&>::type  
+    operator*=(U s) {
         x  =  x * s;
         dx = dx * s;
         return *this;
@@ -144,13 +146,15 @@ class Dual {
     
     /// Dual / scalar division.
     template <typename U>
-    friend inline Dual<T> operator/(const Dual<T> &d, U s) {
+    friend inline typename boost::enable_if<boost::is_scalar<U>, Dual<T> >::type 
+    operator/(const Dual<T> &d, U s) {
         return Dual<T>(d.x / s, d.dx / s);
     }
     
     /// Scalar / dual division.
     template <typename U>
-    friend inline Dual<T> operator/(U s, const Dual<T> &d) {
+    friend inline typename boost::enable_if<boost::is_scalar<U>, Dual<T> >::type 
+    operator/(U s, const Dual<T> &d) {
         return Dual<T>(s / d.x, -s*d.dx / (d.x * d.x) );
     }
     
@@ -163,7 +167,8 @@ class Dual {
     
     /// Divide and assign.
     template <typename U>
-    Dual<T>& operator/=(U s) {
+    inline typename boost::enable_if<boost::is_scalar<U>, Dual<T>&>::type  
+    operator/=(U s) {
         x  =  x / s;
         dx = dx / s;
         return *this;
@@ -484,6 +489,19 @@ namespace std {
     /// @} // ingroup function
     
 } // namespace std
+
+
+namespace boost {
+    
+    template <typename T>
+    struct is_scalar< geom::Dual<T> >  : public is_scalar<T> { };
+    
+}
+
+
+#ifdef GEOMC_RANDOM_H_
+#include <geomc/function/functiondetail/RandomDual.h>
+#endif
 
 #endif	/* GEOMC_DUAL_H */
 
