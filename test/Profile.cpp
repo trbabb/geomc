@@ -25,10 +25,7 @@
 #include <geomc/shape/Trace.h>
 #include <geomc/shape/OrientedRect.h>
 #include <geomc/shape/Intersect.h>
-
-#ifdef ENABLE_FRUSTUM
 #include <geomc/shape/Frustum.h>
-#endif
 
 #include "RandomBattery.h"
 
@@ -571,14 +568,12 @@ void randomBox(OrientedRect<T,N> *r) {
     r->box = Rect<T,N>::spanningCorners(b0,b1);
 }
 
-#ifdef ENABLE_FRUSTUM
-
 template <typename T>
 void randomFrustum(Frustum<T,2> *f) {
     Sampler<T> smp;
     f->height = Rect<T,1>::spanningCorners(
-                            getRandom()->rand<T>(-5), 
-                            getRandom()->rand<T>( 5));
+                            getRandom()->rand<T>(-5,5), 
+                            getRandom()->rand<T>(-5,5));
     f->base = Rect<T,1>::spanningCorners(
                             getRandom()->rand<T>(-5), 
                             getRandom()->rand<T>( 5));
@@ -591,8 +586,8 @@ template <typename T, index_t N>
 void randomFrustum(Frustum<T,N> *f) {
     Sampler<T> smp;
     f->height = Rect<T,1>::spanningCorners(
-                            getRandom()->rand<T>(-5), 
-                            getRandom()->rand<T>( 5));
+                            getRandom()->rand<T>(-5,5), 
+                            getRandom()->rand<T>(-5,5));
     Vec<T,N-1> b0 = smp.box(Vec<T,N-1>(-5), Vec<T,N-1>(5));
     Vec<T,N-1> b1 = smp.box(Vec<T,N-1>(-5), Vec<T,N-1>(5));
     f->base = Rect<T,N-1>::spanningCorners(b0, b1);
@@ -600,8 +595,6 @@ void randomFrustum(Frustum<T,N> *f) {
     f->xf *= scale(Vec<T,N>(getRandom()->rand(2,8)));
     f->xf *= translation(smp.template unit<N>());
 }
-
-#endif
 
 template <typename T, index_t N> double profile_gjkIntersect(index_t iters) {
     const index_t n = (index_t)std::ceil(std::sqrt(iters));

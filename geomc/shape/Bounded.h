@@ -59,7 +59,7 @@ public:
      * 
      * Note that some subclasses have overloaded versions of this function for specific
      * shapes which may offer better performance. When handling pointers to Convex objects,
-     * it may be adviseable to cast to the derived classes.
+     * it may be adviseable to cast to the derived class if it is known.
      * 
      * @param other Any other convex shape.
      */
