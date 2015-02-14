@@ -134,8 +134,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a7ae032e36fa513f9e5101795d4172bbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9be4a79438a42199f89a6ba6f7d3fce4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_zonal_harmonics.html#a9be4a79438a42199f89a6ba6f7d3fce4">convolve</a> (const <a class="el" href="classgeom_1_1_zonal_harmonics.html">ZonalHarmonics</a>&lt; T, Bands &gt; &amp;kernel)</td></tr>
 <tr class="separator:a9be4a79438a42199f89a6ba6f7d3fce4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab39157bdcb0bf73b7f8196e351efcff1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_zonal_harmonics.html#ab39157bdcb0bf73b7f8196e351efcff1">diffuse</a> (T k)</td></tr>
-<tr class="separator:ab39157bdcb0bf73b7f8196e351efcff1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a632b21962df88d389d3dd972ad6f0a66"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_zonal_harmonics.html#a632b21962df88d389d3dd972ad6f0a66">diffuse</a> (T t)</td></tr>
+<tr class="separator:a632b21962df88d389d3dd972ad6f0a66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd0de676568888d848beb97dcc53ae47"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_zonal_harmonics.html#acd0de676568888d848beb97dcc53ae47">normalize</a> ()</td></tr>
 <tr class="separator:acd0de676568888d848beb97dcc53ae47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8bb3912a3ce86b15842e79d0b421204"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_zonal_harmonics.html#ac8bb3912a3ce86b15842e79d0b421204">clear</a> ()</td></tr>
@@ -371,7 +371,7 @@ class geom::ZonalHarmonics&lt; T, Bands &gt;</h3>
 
 </div>
 </div>
-<a class="anchor" id="ab39157bdcb0bf73b7f8196e351efcff1"></a>
+<a class="anchor" id="a632b21962df88d389d3dd972ad6f0a66"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -382,7 +382,7 @@ class geom::ZonalHarmonics&lt; T, Bands &gt;</h3>
           <td class="memname">void diffuse </td>
           <td>(</td>
           <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>k</em></td><td>)</td>
+          <td class="paramname"><em>t</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -392,9 +392,11 @@ class geom::ZonalHarmonics&lt; T, Bands &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Convolve this <a class="el" href="classgeom_1_1_zonal_harmonics.html" title="Represents a function on the N-sphere with axial symmetry. ">ZonalHarmonics</a> function with itself <code>k</code> times. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Convert this <a class="el" href="classgeom_1_1_zonal_harmonics.html" title="Represents a function on the N-sphere with axial symmetry. ">ZonalHarmonics</a> function to its form after <code>t</code> self-convolutions.</p>
+<p>If <code>t</code> is 0, this function becomes an N-band approximation of the dirac (identity) kernel. If <code>t</code> is 1, this function remains unchanged.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">k</td><td>Real number of times to self-convolve. </td></tr>
+    <tr><td class="paramname">t</td><td>Real number of times to self-convolve. </td></tr>
   </table>
   </dd>
 </dl>
@@ -639,7 +641,7 @@ class geom::ZonalHarmonics&lt; T, Bands &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 3 2015 00:06:22 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Feb 14 2015 12:31:24 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

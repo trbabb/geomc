@@ -1,6 +1,7 @@
 var searchData=
 [
   ['bands',['bands',['../classgeom_1_1_spherical_harmonics.html#ae2fc3884657b2013685faea52d153c74',1,'geom::SphericalHarmonics::bands()'],['../classgeom_1_1_zonal_harmonics.html#ae2fc3884657b2013685faea52d153c74',1,'geom::ZonalHarmonics::bands()']]],
+  ['base',['base',['../classgeom_1_1_frustum.html#ae0420020dd26e4f71648a58c893e71b2',1,'geom::Frustum']]],
   ['basis',['basis',['../classgeom_1_1_spherical_harmonics.html#a5b01ed59dea4c6c007adbd03420a34cf',1,'geom::SphericalHarmonics']]],
   ['begin',['begin',['../classgeom_1_1_simple_matrix.html#aa4b02d4f1a8500fb07a551069060709f',1,'geom::SimpleMatrix::begin() const '],['../classgeom_1_1_simple_matrix.html#ad69bd11391be1a1dba5c8202259664f8',1,'geom::SimpleMatrix::begin()'],['../classgeom_1_1_grid_iterator.html#a0d646c618502ff2d8f42306cd7769cba',1,'geom::GridIterator::begin()']]],
   ['bounded',['Bounded',['../classgeom_1_1_bounded.html',1,'geom']]],

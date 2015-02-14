@@ -7,7 +7,7 @@ var searchData=
   ['getcenter',['getCenter',['../classgeom_1_1_rect.html#a325aa65421b81a280e89a4f59b4c971e',1,'geom::Rect']]],
   ['getcoldestinations',['getColDestinations',['../classgeom_1_1_permutation_matrix.html#a37b65a04ab8506aea04cccc5a09466e4',1,'geom::PermutationMatrix']]],
   ['getcolsources',['getColSources',['../classgeom_1_1_permutation_matrix.html#ab41e814f842a7422b4ed18b4181adb2e',1,'geom::PermutationMatrix']]],
-  ['getcorners',['getCorners',['../classgeom_1_1_oriented_rect.html#a42a77aeec33b78e04b62b48b4c4c05ad',1,'geom::OrientedRect']]],
+  ['getcorners',['getCorners',['../classgeom_1_1_frustum.html#aef1ed170aee78ddd05dc24ee1a0ac26d',1,'geom::Frustum::getCorners()'],['../classgeom_1_1_oriented_rect.html#a42a77aeec33b78e04b62b48b4c4c05ad',1,'geom::OrientedRect::getCorners()']]],
   ['getdimensions',['getDimensions',['../classgeom_1_1_rect.html#a63fe2e59cc9fdcfec6213f3a3b56c377',1,'geom::Rect']]],
   ['getl',['getL',['../classgeom_1_1_p_l_u_decomposition.html#a0cbe278d7e803664f1fd67b125b546bb',1,'geom::PLUDecomposition::getL() const '],['../classgeom_1_1_p_l_u_decomposition.html#ae6ded734c386628f8ce691c2e04ddc81',1,'geom::PLUDecomposition::getL(SimpleMatrix&lt; S, J, K &gt; *into) const ']]],
   ['getlu',['getLU',['../classgeom_1_1_p_l_u_decomposition.html#a577cf9e7782147eb58eb0da95aab994e',1,'geom::PLUDecomposition']]],

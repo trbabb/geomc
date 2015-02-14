@@ -106,111 +106,105 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>geom {</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span>Frustum : <span class="keyword">public</span> <span class="keyword">virtual</span> Convex&lt;T,N&gt; {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        AffineTransform&lt;T,N&gt; xf;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        Rect&lt;T,N-1&gt; base; <span class="comment">// extents at h = 1;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        Rect&lt;T,1&gt; height;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        Frustum(): base(typename Rect&lt;T,N-1&gt;::point_t(-1), </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                        typename Rect&lt;T,N-1&gt;::point_t( 1)), </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                   height(1,2) {}</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        Frustum(Rect&lt;T,N-1&gt; base, T h0, T h1):</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                    base(base), </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                    height(std::min(h0,h1), std::max(h0,h1)) {}</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordtype">bool</span> contains(Vec&lt;T,N&gt; p)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            p /= xf;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            <span class="keywordflow">if</span> (not height.contains(p[N-1])) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            p /= p[N-1];</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="keywordflow">return</span> base.contains(p.template resized&lt;N-1&gt;());</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        }</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classgeom_1_1_frustum.html">   31</a></span>&#160;<span class="keyword">class </span><a class="code" href="classgeom_1_1_frustum.html">Frustum</a> : <span class="keyword">public</span> <span class="keyword">virtual</span> <a class="code" href="classgeom_1_1_convex.html">Convex</a>&lt;T,N&gt; {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classgeom_1_1_frustum.html#a1656de6a9e00b1bd5387a9317be4b608">   34</a></span>&#160;        <a class="code" href="classgeom_1_1_affine_transform.html">AffineTransform&lt;T,N&gt;</a> <a class="code" href="classgeom_1_1_frustum.html#a1656de6a9e00b1bd5387a9317be4b608">xf</a>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classgeom_1_1_frustum.html#ae0420020dd26e4f71648a58c893e71b2">   36</a></span>&#160;        <a class="code" href="classgeom_1_1_rect.html">Rect</a>&lt;T,N-1&gt; <a class="code" href="classgeom_1_1_frustum.html#ae0420020dd26e4f71648a58c893e71b2">base</a>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classgeom_1_1_frustum.html#ac7ea7326f3c37fdcd29fb3a40c06d82e">   38</a></span>&#160;        <a class="code" href="classgeom_1_1_rect.html">Rect&lt;T,1&gt;</a> <a class="code" href="classgeom_1_1_frustum.html#ac7ea7326f3c37fdcd29fb3a40c06d82e">height</a>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        Vec&lt;T,N&gt; convexSupport(Vec&lt;T,N&gt; d)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keyword">typedef</span> PointType&lt;T,N-1&gt; Pt;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <span class="keyword">const</span> <span class="keyword">static</span> index_t z = N-1;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            d = xf.applyInverseNormal(d);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <span class="comment">// find largest axis</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            <span class="comment">// xxx I think this is wrong.</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            index_t j = 0;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            T hi = <a class="code" href="group__linalg.html#ga1c9486d7173f6c910e1f995c6fa13e8c">std::abs</a>(d[0]);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <span class="keywordflow">for</span> (index_t i = 1; i &lt; N - 1; i++) {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                T q = <a class="code" href="group__linalg.html#ga1c9486d7173f6c910e1f995c6fa13e8c">std::abs</a>(d[i]);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                <span class="keywordflow">if</span> (q &gt; hi) {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                    hi = q;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                    j = i;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                }</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="comment">// to keep the frustum convex, we say that the height range</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="comment">// cannot span the origin.</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="keyword">const</span> T hmax = height.max();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            T hmin = height.min();</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            hmin = (hmax &gt; 0 and hmin &lt; 0) ? 0 : hmin;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            <span class="comment">// use left or right plane?</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            T a = ((d[j] &gt;= 0) == (hmax &gt; 0)) ? </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                        Pt::iterator(base.max())[j] : </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                        Pt::iterator(base.min())[j];</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            a  *=  (d[j] &gt;= 0) ? -1 : 1;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            T h;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            <span class="comment">// use top or bottom?</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            <span class="keywordflow">if</span> (d[j] != 0)</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                h = (d[z] / d[j] &gt; a) ? hmax : hmin;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                h = d[z] &gt; 0 ? hmax : hmin;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            <span class="keywordflow">return</span> xf * Vec&lt;T,N&gt;(</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                        h * base.convexSupport(Pt::from_larger_vector(d) * (h &lt; 0 ? -1 : 1)),</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                        h);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        }</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordtype">void</span> getCorners(Vec&lt;T,N&gt; p[1 &lt;&lt; N])<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            <span class="keyword">typedef</span> PointType&lt;T,N-1&gt; Pt;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            <span class="keyword">typename</span> Pt::point_t extreme[2] = { base.min(), base.max() };</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <span class="keyword">const</span> T hmax = height.max();</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            T hmin = height.min();</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            hmin = (hmax &gt; 0 and hmin &lt; 0) ? 0 : hmin;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            <span class="keywordflow">for</span> (index_t k = 0; k &lt; 2; k++) {</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                <span class="comment">// for lower and upper extents</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                T h = k == 0 ? hmin : hmax;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                <span class="keywordflow">for</span> (index_t c = 0; c &lt; (1 &lt;&lt; (N-1)); c++) {</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                    <span class="comment">// for each corner of the base rect</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                    Vec&lt;T,N&gt; pt;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                    <span class="keywordflow">for</span> (index_t i = 0; i &lt; N-1; i++) {</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                        <span class="comment">// for each coordinate of the corner point</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                        pt[i] = Pt::iterator(extreme[(c &amp; (1 &lt;&lt; i)) != 0])[i];</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                    }</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                    pt[N-1] = 1;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                    pt *= h;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                    pt  = xf * pt;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                    p[c + ((k &gt; 0) ? (1 &lt;&lt;(N-1)) : 0)] = pt;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                }</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            }</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        }</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;}; <span class="comment">// class frustum</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;} <span class="comment">// namespace geom</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">/* FRUSTUM_H */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
-<div class="ttc" id="group__linalg_html_ga1c9486d7173f6c910e1f995c6fa13e8c"><div class="ttname"><a href="group__linalg.html#ga1c9486d7173f6c910e1f995c6fa13e8c">std::abs</a></div><div class="ttdeci">geom::Vec&lt; T, N &gt; abs(const geom::Vec&lt; T, N &gt; &amp;v)</div><div class="ttdef"><b>Definition:</b> VecStd.h:40</div></div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classgeom_1_1_frustum.html#a6768c58ca61f1f5d3b4a0192abd0695b">   42</a></span>&#160;        <a class="code" href="classgeom_1_1_frustum.html#a6768c58ca61f1f5d3b4a0192abd0695b">Frustum</a>(): <a class="code" href="classgeom_1_1_frustum.html#ae0420020dd26e4f71648a58c893e71b2">base</a>(typename <a class="code" href="classgeom_1_1_rect.html">Rect</a>&lt;T,N-1&gt;::<a class="code" href="classgeom_1_1_vec.html">point_t</a>(-1), </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                        typename <a class="code" href="classgeom_1_1_rect.html">Rect</a>&lt;T,N-1&gt;::<a class="code" href="classgeom_1_1_vec.html">point_t</a>( 1)), </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                   <a class="code" href="classgeom_1_1_frustum.html#ac7ea7326f3c37fdcd29fb3a40c06d82e">height</a>(1,2) {}</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        </div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classgeom_1_1_frustum.html#a9561bac77f66359a6c633612b7736d5b">   47</a></span>&#160;        <a class="code" href="classgeom_1_1_frustum.html#a9561bac77f66359a6c633612b7736d5b">Frustum</a>(<a class="code" href="classgeom_1_1_rect.html">Rect&lt;T,N-1&gt;</a> <a class="code" href="classgeom_1_1_frustum.html#ae0420020dd26e4f71648a58c893e71b2">base</a>, T h0, T h1):</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                    base(base), </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                    <a class="code" href="classgeom_1_1_frustum.html#ac7ea7326f3c37fdcd29fb3a40c06d82e">height</a>(std::min(h0,h1), std::max(h0,h1)) {}</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        </div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="classgeom_1_1_frustum.html#a4d83b72301e0dd180511bf8e3ce18695">   57</a></span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="classgeom_1_1_frustum.html#a4d83b72301e0dd180511bf8e3ce18695">contains</a>(<a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> p)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            p /= <a class="code" href="classgeom_1_1_frustum.html#a1656de6a9e00b1bd5387a9317be4b608">xf</a>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            <span class="keywordflow">if</span> (not <a class="code" href="classgeom_1_1_frustum.html#ac7ea7326f3c37fdcd29fb3a40c06d82e">height</a>.<a class="code" href="classgeom_1_1_rect.html#a69cf8c76a2cae6435b65941a18dbc2bf">contains</a>(p[N-1])) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            p /= p[N-1];</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classgeom_1_1_frustum.html#ae0420020dd26e4f71648a58c893e71b2">base</a>.<a class="code" href="classgeom_1_1_rect.html#a69cf8c76a2cae6435b65941a18dbc2bf">contains</a>(p.template resized&lt;N-1&gt;());</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        </div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="classgeom_1_1_frustum.html#a98e342fd1bd993906855214b258ba672">   65</a></span>&#160;        <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> <a class="code" href="classgeom_1_1_frustum.html#a98e342fd1bd993906855214b258ba672">convexSupport</a>(<a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> d)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            <span class="keyword">typedef</span> PointType&lt;T,N-1&gt; Pt;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            d = <a class="code" href="classgeom_1_1_frustum.html#a1656de6a9e00b1bd5387a9317be4b608">xf</a>.applyInverseNormal(d);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            T hmax = <a class="code" href="classgeom_1_1_frustum.html#ac7ea7326f3c37fdcd29fb3a40c06d82e">height</a>.<a class="code" href="classgeom_1_1_rect.html#ae0d448b5c9ab84f88d1ac56203d48096">max</a>();</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            T hmin = <a class="code" href="classgeom_1_1_frustum.html#ac7ea7326f3c37fdcd29fb3a40c06d82e">height</a>.<a class="code" href="classgeom_1_1_rect.html#a33a63681586b26b7db572c83999eaaa3">min</a>();</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            T sign = (hmax &lt; 0) ? -1 : 1;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            <span class="comment">// find the base corner</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> p;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            <span class="keywordflow">for</span> (index_t i = 0; i &lt; N-1; i++) {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                <span class="keywordflow">if</span> (sign * d[i] &gt; 0) p[i] = Pt::iterator(<a class="code" href="classgeom_1_1_frustum.html#ae0420020dd26e4f71648a58c893e71b2">base</a>.<a class="code" href="classgeom_1_1_rect.html#ae0d448b5c9ab84f88d1ac56203d48096">max</a>())[i];</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                <span class="keywordflow">else</span>                 p[i] = Pt::iterator(<a class="code" href="classgeom_1_1_frustum.html#ae0420020dd26e4f71648a58c893e71b2">base</a>.<a class="code" href="classgeom_1_1_rect.html#a33a63681586b26b7db572c83999eaaa3">min</a>())[i];</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            p[N-1] = 1;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <span class="comment">// top or bottom corner?</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            p *= (p.dot(d) &gt; 0) ? hmax : ((hmax &gt; 0 and hmin &lt; 0) ? 0 : hmin);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classgeom_1_1_frustum.html#a1656de6a9e00b1bd5387a9317be4b608">xf</a> * p;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        }</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        </div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="classgeom_1_1_frustum.html#aef1ed170aee78ddd05dc24ee1a0ac26d">   93</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classgeom_1_1_frustum.html#aef1ed170aee78ddd05dc24ee1a0ac26d">getCorners</a>(<a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> p[1 &lt;&lt; N])<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            <span class="keyword">typedef</span> PointType&lt;T,N-1&gt; Pt;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="keyword">typename</span> Pt::point_t extreme[2] = { <a class="code" href="classgeom_1_1_frustum.html#ae0420020dd26e4f71648a58c893e71b2">base</a>.<a class="code" href="classgeom_1_1_rect.html#a33a63681586b26b7db572c83999eaaa3">min</a>(), <a class="code" href="classgeom_1_1_frustum.html#ae0420020dd26e4f71648a58c893e71b2">base</a>.<a class="code" href="classgeom_1_1_rect.html#ae0d448b5c9ab84f88d1ac56203d48096">max</a>() };</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            <span class="keyword">const</span> T hmax = <a class="code" href="classgeom_1_1_frustum.html#ac7ea7326f3c37fdcd29fb3a40c06d82e">height</a>.<a class="code" href="classgeom_1_1_rect.html#ae0d448b5c9ab84f88d1ac56203d48096">max</a>();</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            T hmin = <a class="code" href="classgeom_1_1_frustum.html#ac7ea7326f3c37fdcd29fb3a40c06d82e">height</a>.<a class="code" href="classgeom_1_1_rect.html#a33a63681586b26b7db572c83999eaaa3">min</a>();</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            hmin = (hmax &gt; 0 and hmin &lt; 0) ? 0 : hmin;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <span class="keywordflow">for</span> (index_t k = 0; k &lt; 2; k++) {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                <span class="comment">// for lower and upper extents</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                T h = k == 0 ? hmin : hmax;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                <span class="keywordflow">for</span> (index_t c = 0; c &lt; (1 &lt;&lt; (N-1)); c++) {</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                    <span class="comment">// for each corner of the base rect</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                    <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> pt;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                    <span class="keywordflow">for</span> (index_t i = 0; i &lt; N-1; i++) {</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                        <span class="comment">// for each coordinate of the corner point</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                        pt[i] = Pt::iterator(extreme[(c &amp; (1 &lt;&lt; i)) != 0])[i];</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                    }</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                    pt[N-1] = 1;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                    pt *= h;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                    pt  = <a class="code" href="classgeom_1_1_frustum.html#a1656de6a9e00b1bd5387a9317be4b608">xf</a> * pt;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                    p[c + ((k &gt; 0) ? (1 &lt;&lt;(N-1)) : 0)] = pt;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                }</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            }</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        }</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;}; <span class="comment">// class frustum</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;} <span class="comment">// namespace geom</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">/* FRUSTUM_H */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div>
+<div class="ttc" id="classgeom_1_1_frustum_html"><div class="ttname"><a href="classgeom_1_1_frustum.html">geom::Frustum</a></div><div class="ttdoc">An N-dimensional frustum (truncated pyramid). </div><div class="ttdef"><b>Definition:</b> Frustum.h:31</div></div>
+<div class="ttc" id="classgeom_1_1_frustum_html_ae0420020dd26e4f71648a58c893e71b2"><div class="ttname"><a href="classgeom_1_1_frustum.html#ae0420020dd26e4f71648a58c893e71b2">geom::Frustum::base</a></div><div class="ttdeci">Rect&lt; T, N-1 &gt; base</div><div class="ttdoc">Extent of this frustum at the h = 1 plane. </div><div class="ttdef"><b>Definition:</b> Frustum.h:36</div></div>
+<div class="ttc" id="classgeom_1_1_convex_html"><div class="ttname"><a href="classgeom_1_1_convex.html">geom::Convex</a></div><div class="ttdoc">Virtual class describing convex shapes in N-dimensional space. </div><div class="ttdef"><b>Definition:</b> Bounded.h:38</div></div>
+<div class="ttc" id="classgeom_1_1_frustum_html_a6768c58ca61f1f5d3b4a0192abd0695b"><div class="ttname"><a href="classgeom_1_1_frustum.html#a6768c58ca61f1f5d3b4a0192abd0695b">geom::Frustum::Frustum</a></div><div class="ttdeci">Frustum()</div><div class="ttdoc">Construct a new frustum, spanning the unit rectange and heights between 1 and 2. </div><div class="ttdef"><b>Definition:</b> Frustum.h:42</div></div>
+<div class="ttc" id="classgeom_1_1_frustum_html_aef1ed170aee78ddd05dc24ee1a0ac26d"><div class="ttname"><a href="classgeom_1_1_frustum.html#aef1ed170aee78ddd05dc24ee1a0ac26d">geom::Frustum::getCorners</a></div><div class="ttdeci">void getCorners(Vec&lt; T, N &gt; p[1&lt;&lt; N]) const </div><div class="ttdef"><b>Definition:</b> Frustum.h:93</div></div>
+<div class="ttc" id="classgeom_1_1_rect_html_a69cf8c76a2cae6435b65941a18dbc2bf"><div class="ttname"><a href="classgeom_1_1_rect.html#a69cf8c76a2cae6435b65941a18dbc2bf">geom::Rect::contains</a></div><div class="ttdeci">static bool contains(typename Rect&lt; T, N &gt;::point_t lo, typename Rect&lt; T, N &gt;::point_t hi, typename Rect&lt; T, N &gt;::point_t pt)</div><div class="ttdef"><b>Definition:</b> Rect.h:129</div></div>
+<div class="ttc" id="classgeom_1_1_frustum_html_a4d83b72301e0dd180511bf8e3ce18695"><div class="ttname"><a href="classgeom_1_1_frustum.html#a4d83b72301e0dd180511bf8e3ce18695">geom::Frustum::contains</a></div><div class="ttdeci">bool contains(Vec&lt; T, N &gt; p) const </div><div class="ttdef"><b>Definition:</b> Frustum.h:57</div></div>
+<div class="ttc" id="classgeom_1_1_frustum_html_a98e342fd1bd993906855214b258ba672"><div class="ttname"><a href="classgeom_1_1_frustum.html#a98e342fd1bd993906855214b258ba672">geom::Frustum::convexSupport</a></div><div class="ttdeci">Vec&lt; T, N &gt; convexSupport(Vec&lt; T, N &gt; d) const </div><div class="ttdef"><b>Definition:</b> Frustum.h:65</div></div>
+<div class="ttc" id="classgeom_1_1_rect_html_a33a63681586b26b7db572c83999eaaa3"><div class="ttname"><a href="classgeom_1_1_rect.html#a33a63681586b26b7db572c83999eaaa3">geom::Rect::min</a></div><div class="ttdeci">point_t min() const </div><div class="ttdef"><b>Definition:</b> Rect.h:325</div></div>
+<div class="ttc" id="classgeom_1_1_rect_html_ae0d448b5c9ab84f88d1ac56203d48096"><div class="ttname"><a href="classgeom_1_1_rect.html#ae0d448b5c9ab84f88d1ac56203d48096">geom::Rect::max</a></div><div class="ttdeci">point_t max() const </div><div class="ttdef"><b>Definition:</b> Rect.h:332</div></div>
+<div class="ttc" id="classgeom_1_1_affine_transform_html"><div class="ttname"><a href="classgeom_1_1_affine_transform.html">geom::AffineTransform</a></div><div class="ttdoc">Affine transformation class. </div><div class="ttdef"><b>Definition:</b> AffineTransform.h:61</div></div>
+<div class="ttc" id="classgeom_1_1_rect_html"><div class="ttname"><a href="classgeom_1_1_rect.html">geom::Rect</a></div><div class="ttdoc">An N-dimensional axis-aligned box. </div><div class="ttdef"><b>Definition:</b> Rect.h:51</div></div>
+<div class="ttc" id="classgeom_1_1_frustum_html_a9561bac77f66359a6c633612b7736d5b"><div class="ttname"><a href="classgeom_1_1_frustum.html#a9561bac77f66359a6c633612b7736d5b">geom::Frustum::Frustum</a></div><div class="ttdeci">Frustum(Rect&lt; T, N-1 &gt; base, T h0, T h1)</div><div class="ttdoc">Construct a new frustum spanning the rectangle given by base and the height range between h0 and h1...</div><div class="ttdef"><b>Definition:</b> Frustum.h:47</div></div>
+<div class="ttc" id="classgeom_1_1_vec_html"><div class="ttname"><a href="classgeom_1_1_vec.html">geom::Vec</a></div><div class="ttdoc">A tuple of N elements of type T. </div><div class="ttdef"><b>Definition:</b> LinalgTypes.h:89</div></div>
+<div class="ttc" id="classgeom_1_1_frustum_html_a1656de6a9e00b1bd5387a9317be4b608"><div class="ttname"><a href="classgeom_1_1_frustum.html#a1656de6a9e00b1bd5387a9317be4b608">geom::Frustum::xf</a></div><div class="ttdeci">AffineTransform&lt; T, N &gt; xf</div><div class="ttdoc">Tranform orienting this frustum. </div><div class="ttdef"><b>Definition:</b> Frustum.h:34</div></div>
+<div class="ttc" id="classgeom_1_1_frustum_html_ac7ea7326f3c37fdcd29fb3a40c06d82e"><div class="ttname"><a href="classgeom_1_1_frustum.html#ac7ea7326f3c37fdcd29fb3a40c06d82e">geom::Frustum::height</a></div><div class="ttdeci">Rect&lt; T, 1 &gt; height</div><div class="ttdoc">Height range spanned by this frustum. </div><div class="ttdef"><b>Definition:</b> Frustum.h:38</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 3 2015 00:06:21 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Feb 14 2015 12:31:24 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>
