@@ -36,12 +36,13 @@ None of this:
 
 Double line breaks between functions, single line breaks to break up logical blocks within a function:
 
-    void f(int a) {
+    float f(int a) {
+        int z;
         if (a < 1) {
-           do_something_with(a);
+           z = do_something_with(a);
         }
         
-        int b = a * a + 1;
+        int b = z * a + 1;
         int c = b - g(a);
         return c * std::sqrt(b);
     }
