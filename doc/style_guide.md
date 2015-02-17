@@ -52,6 +52,26 @@ Double line breaks between functions, single line breaks to break up logical blo
         return h(d, z * z + 1);
     }
 
+Classes list member variables first, followed by constructors and destructors, followed by member functions:
+
+    class Foo {
+        float x;
+        float y;
+        Quat<float> q;
+        
+        Foo() {}
+        
+        Vec<float,3> do() {
+            return q * Vec<float,3>(x,y,1);
+        }
+    }
+
+Loop variables should be type `index_t`, which will be 64-bit on 64-bit platforms, allowing for traversal of very large arrays:
+
+    for (index_t i = 0; i < n; i++) {
+        v[i] += k[i];
+    }
+
 Programming
 ===========
 
