@@ -66,11 +66,6 @@ Classes list member variables first, followed by constructors and destructors, f
         }
     }
 
-Loop variables should be type `index_t`, which will be 64-bit on 64-bit platforms, allowing for traversal of very large arrays:
-
-    for (index_t i = 0; i < n; i++) {
-        v[i] += k[i];
-    }
 
 Programming
 ===========
@@ -81,3 +76,26 @@ preferable where possible.
 Do not use logic with "epislons" if it can be avoided, especially since most code is templated.
 The scale of a sensible epsilon would be dependent on the template parameter type). Arithmetic
 accuracy should fail naturally at machine precision.
+
+Loop variables should be type `index_t`, which will be 64-bit on 64-bit platforms, allowing for traversal of very large arrays:
+
+    for (index_t i = 0; i < n; i++) {
+        v[i] += k[i];
+    }
+
+Objects that are modified by a function should be passed as pointers:
+    
+    void foo(Object *out, int in) {
+        out->x = some_function(n);
+    }
+
+Objects that are passed by reference should be *always* declared const:
+
+    int bar(const Object &obj, int k) {
+        return some_function(obj.x, k);
+    }
+
+The above makes it obvious at the call site whether a function will modify an argument:
+
+    invert(&mtx, src);
+
