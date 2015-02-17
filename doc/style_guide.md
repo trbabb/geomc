@@ -8,6 +8,7 @@ K&R indent style.
 * No spaces on the inside of parens.
 * Single space after commas.
 
+Example:
 
     if (var < 1) {
         do_code(var, var2);
