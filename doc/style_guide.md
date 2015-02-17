@@ -26,6 +26,32 @@ If there is a long block of assignments, line up the equal signs to make it look
     int    some_var = 2;
     int another_var = 6;
 
+Spaces around all basic arithmetic operators:
+
+    x * x + y * y + sin(z);
+
+None of this:
+
+    x*x+y*y+sin(z); // No.
+
+Double line breaks between functions, single line breaks to break up logical blocks within a function:
+
+    void f(int a) {
+        if (a < 1) {
+           do_something_with(a);
+        }
+        
+        int b = a * a + 1;
+        int c = b - g(a);
+        return c * std::sqrt(b);
+    }
+    
+    
+    void g(int z) {
+        int d = do_something_else_with(z);
+        return h(d, z * z + 1);
+    }
+
 Programming
 ===========
 
