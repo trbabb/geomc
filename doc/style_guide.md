@@ -2,10 +2,12 @@ Code Style
 ==========
 
 K&R indent style. 
+
 * Single space between braces and parens. 
 * Single space after `if` and `else`.
 * No spaces on the inside of parens.
 * Single space after commas.
+
 
     if (var < 1) {
         do_code(var, var2);
