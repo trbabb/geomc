@@ -20,7 +20,7 @@ Only single-line `if`s can be without braces:
 
     if (test > 0) do_code(x);
 
-If there is a long block of assignments, line up the equal signs to make it lookl ke a more readable table:
+If there is a long block of assignments, line up the equal signs to make it look like a more readable table:
 
     int      my_var = 1;
     int    some_var = 2;
@@ -29,8 +29,8 @@ If there is a long block of assignments, line up the equal signs to make it look
 Programming
 ===========
 
-Do not allocate memory if it can be avoided. Stack variables and stack-allocated arrays are always p
-referable where possible.
+Do not allocate memory if it can be avoided. Stack variables and stack-allocated arrays are always 
+preferable where possible.
 
 Do not use logic with "epislons" if it can be avoided, especially since most code is templated.
 The scale of a sensible epsilon would be dependent on the template parameter type). Arithmetic
