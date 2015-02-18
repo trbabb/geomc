@@ -12,8 +12,6 @@ Includes are of the form:
 
     #include <geomc/linalg/Matrix.h>
 
-Projects should link to libgeomc.a.
-
 Documentation
 =============
 
