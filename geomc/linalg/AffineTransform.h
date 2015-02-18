@@ -44,8 +44,7 @@ namespace geom {
  * Construction
  * ============
  * 
- * Transforms are best constructed using the methods provided by the @link linalg 
- * linalg module@endlink:
+ * Transforms are best constructed using the provided methods:
  * 
  *     Vec<double,3> v = ... ;
  *     AffineTransform<double,3> xf = rotation(axis, angle);
@@ -53,7 +52,7 @@ namespace geom {
  *     xf *= scale(v);
  *     xf *= transformation(mat3x3);
  * 
- * These convenient methods will generally be most efficient and robust, especially
+ * These methods will generally be most efficient and robust, especially
  * when constructing the internal inverse transformation matrix needed by 
  * AffineTransform objects.
  */
@@ -250,10 +249,10 @@ namespace geom {
         T s = sin(theta);
         T oneMcos = 1 - c;
         T m[4][4] = {
-                {c + oneMcos*x*x,           oneMcos*x*y - s*z,      oneMcos*x*z + s*y, 0},
-                {oneMcos*y*x + s*z,     c + oneMcos*y*y,            oneMcos*y*z - s*x, 0},
-                {oneMcos*z*x - s*y,         oneMcos*z*y + s*x,  c + oneMcos*z*z,       0},
-                {0,                         0,                      0,                 1}
+                {c + oneMcos*x*x,        oneMcos*x*y - s*z,      oneMcos*x*z + s*y, 0},
+                {oneMcos*y*x + s*z,  c + oneMcos*y*y,            oneMcos*y*z - s*x, 0},
+                {oneMcos*z*x - s*y,      oneMcos*z*y + s*x,  c + oneMcos*z*z,       0},
+                {0,                      0,                      0,                 1}
         };
         T *from = m[0];
         std::copy(from, from+16, into->begin());
@@ -430,16 +429,13 @@ namespace geom {
     /*******************************
      * Creation Functions          *
      *******************************/
-    
-    /** @addtogroup linalg
-     *  @{
-     */
 
     /**
-     * Rotation about an axis.
+     * @brief Rotation about an axis.
      * @param axis Axis of rotation.
      * @param radians Angle of rotation.
      * @return A transformation representing a rotation about `axis` by angle `radians`.
+     * @related AffineTransform
      */
     template <typename T> 
     AffineTransform<T,3> rotation(Vec<T,3> axis, T radians) {
@@ -451,7 +447,7 @@ namespace geom {
     }
     
     /**
-     * Rotation about point. 
+     * @brief Rotation about a point. 
      * 
      * This transformation will not be a pure rotation; it will include a translation
      * component.
@@ -461,6 +457,7 @@ namespace geom {
      * @param radians Angle of rotation.
      * @return A transformation representing a rotation around the point `center` 
      * by angle `radians` and axis `axis`.
+     * @related AffineTransform
      */
     template <typename T> 
     AffineTransform<T,3> rotation(Vec<T,3> axis, const Vec<T,3> &center, T radians) {
@@ -474,9 +471,10 @@ namespace geom {
     }
     
     /**
-     * Rotation from a quaternion.
+     * @brief Rotation from a quaternion.
      * @param q Rotation quaternion.
      * @return A rotation transformation.
+     * @related AffineTransform
      */
     template <typename T> 
     AffineTransform<T,3> rotation(Quat<T> q) {
@@ -488,9 +486,10 @@ namespace geom {
     }
     
     /**
-     * 2D rotation about the origin by angle `radians`.
+     * @brief 2D rotation about the origin by angle `radians`.
      * @param radians Angle of rotation in the counterclockwise direction
      * @return A 2D rotation transformation.
+     * @related AffineTransform
      */
     template <typename T> 
     AffineTransform<T,2> rotation(T radians) {
@@ -512,10 +511,11 @@ namespace geom {
     }
     
     /**
-     * Rotation to align one vector with another.
+     * @brief Rotation to align one vector with another.
      * @param dir Unit direction to be realigned.
      * @param align_with Unit direction to align with.
      * @return A rotation transform aligning `dir` with `align_with`.
+     * @related AffineTransform
      */
     template <typename T>
     AffineTransform<T,3> direction_align(const Vec<T,3> &dir, const Vec<T,3> &align_with) {
@@ -526,7 +526,8 @@ namespace geom {
     }
     
     /**
-     * Translation transform
+     * @brief Translation transform
+     * @related AffineTransform
      */
     template <typename T, index_t N> 
     AffineTransform<T,N> translation(const Vec<T,N> &tx) {
@@ -539,9 +540,10 @@ namespace geom {
     }
     
     /**
-     * Scale transform. 
+     * @brief Scale transform. 
      * @param sx Vector whose elements describe a scaling along each axis.
      * @return A transform representing a non-uniform scale along each axis.
+     * @related AffineTransform
      */
     template <typename T, index_t N> 
     AffineTransform<T,N> scale(const Vec<T,N> &sx) {
@@ -554,9 +556,10 @@ namespace geom {
     }
     
     /**
-     * Arbitrary transformation
+     * @brief Arbitrary transformation.
      * @param mat `N x N` matrix representing an arbitrary transformation.
      * @return A transformation by `mat`
+     * @related AffineTransform
      */
     template <typename T, index_t N> 
     AffineTransform<T,N> transformation(const SimpleMatrix<T,N,N> &mat) {
@@ -577,7 +580,8 @@ namespace geom {
     //2D & 3D convenience:
     
     /**
-     * Per-axis 3D scale
+     * @brief Per-axis 3D scale
+     * @related AffineTransform
      */
     template <typename T> 
     AffineTransform<T,3> scale(T sx, T sy, T sz) {
@@ -585,7 +589,8 @@ namespace geom {
     }
     
     /**
-     * Per-axis 2D scale
+     * @brief Per-axis 2D scale
+     * @related AffineTransform
      */
     template <typename T> 
     AffineTransform<T,2> scale(T sx, T sy) {
@@ -593,7 +598,8 @@ namespace geom {
         }
     
     /**
-     * 3D translation
+     * @brief 3D translation
+     * @related AffineTransform
      */
     template <typename T> 
     AffineTransform<T,3> translation(T tx, T ty, T tz) {
@@ -601,14 +607,14 @@ namespace geom {
     }
     
     /**
-     * 2D translation
+     * @brief 2D translation
+     * @related AffineTransform
      */
     template <typename T> 
     AffineTransform<T,2> translation(T tx, T ty) {
         return translation(Vec<T,2>(tx,ty));
     }
     
-    /// @} // igroup linalg
 
 } //end namespace geom
 

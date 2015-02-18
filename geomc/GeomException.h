@@ -42,19 +42,4 @@ public:
     virtual ~NonsquareMatrixException() throw ();
 };
 
-///////////////////////
-
-#ifdef GEOMC_VEC_USE_SWIZZLE
-
-class SwizzleCharException : virtual public std::runtime_error {
-public:
-    char c;
-        
-    SwizzleCharException(char c) throw ();
-    virtual ~SwizzleCharException() throw();
-        
-};
-
-#endif // use swizzle
-
 #endif /* GEOMETRYEXCEPTION_H_ */

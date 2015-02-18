@@ -54,10 +54,6 @@
 
 #define GEOMC_LINALG_USE_STREAMS
 
-// Shall vectors include swizzle functions? pulls in <string> and GeomException
-
-#define GEOMC_VEC_USE_SWIZZLE
-
 // Shall the <function> module include functions for outputting to streams?
 
 #define GEOMC_FUNCTION_USE_STREAMS

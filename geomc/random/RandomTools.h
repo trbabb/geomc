@@ -173,7 +173,7 @@ public:
      * are uniformly distributed throughout the volume.
      */
     template <index_t N> inline Vec<T,N> solidball(T radius) {
-        T r = pow(this->rng->template rand<T>(), ((T)1)/N);
+        T r = std::pow(this->rng->template rand<T>(), ((T)1)/N);
         return solidball<N>() * r * radius;
     }
     
@@ -187,7 +187,7 @@ public:
      * throughout the volume.
      */
     template <index_t N> Vec<T,N> shell(T minradius, T maxradius) {
-        T radius = pow(this->rng->template rand<T>(minradius/maxradius, 1), ((T)1)/N);
+        T radius = std::pow(this->rng->template rand<T>(minradius/maxradius, 1), ((T)1)/N);
         return this->unit<N>() * radius * maxradius;
     }
     

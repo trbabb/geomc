@@ -143,18 +143,20 @@ namespace detail {
 
     }; //end of Ray3 specialization
 
-    /** @ingroup linalg
+    /**
      * Ray multiple.
      * @return `(r.origin + s * r.direction)`.
+     * @related Ray
      */
     template <typename T, index_t N> inline Vec<T,N> operator*(const Ray<T,N> r, T s) {
         return r.atMultiple(s);
     }
 
 
-    /** @ingroup linalg
+    /**
      * Ray multiple.
      * @return `(r.origin + s * r.direction)`.
+     * @related Ray
      */
     template <typename T, index_t N> inline Vec<T,N> operator*(T s, const Ray<T,N> r) {
         return r.atMultiple(s);
@@ -167,6 +169,7 @@ namespace detail {
      * 
      *     <(x0, x1, x2, ... ), (v0, v1, v2, ...)>
      * where `x` is the origin and `v` is the direction.
+     * @related Ray
      */
     template <typename T, index_t N>
     inline std::ostream &operator<< (std::ostream &stream, const Ray<T,N> &r) {

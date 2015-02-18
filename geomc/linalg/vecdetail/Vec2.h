@@ -11,11 +11,6 @@
 #include <cmath>
 #include <geomc/linalg/vecdetail/VecBase.h>
 
-#ifdef GEOMC_VEC_USE_SWIZZLE
-#include <string>
-#include <geomc/GeomException.h>
-#endif
-
 namespace geom {
 
     /** @ingroup linalg
@@ -175,35 +170,6 @@ namespace geom {
             if (theta < 0) theta += 2 * M_PI;
             return theta;
         }
-        
-#ifdef GEOMC_VEC_USE_SWIZZLE
-        const Vec<T,2> swizzle(const std::string& xyz) const {
-            if (xyz.length() != 2){
-                throw std::length_error(xyz);
-            }
-            return Vec<T,2>(swizzlecoord(xyz[0]),
-                            swizzlecoord(xyz[1]));
-        }
-#endif
-
-    private:
-        
-#ifdef GEOMC_VEC_USE_SWIZZLE
-        T swizzlecoord(char c) const  {
-            switch (tolower(c)){
-                case 'x':
-                    return detail::VecBase<T,2>::x;
-                case 'y':
-                    return detail::VecBase<T,2>::y;
-                case '0':
-                    return 0;
-                case '1':
-                    return 1;
-                default:
-                    throw SwizzleCharException(c);
-            }
-        }
-#endif
 
     }; //end Vec2 definition
     

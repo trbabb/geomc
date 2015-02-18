@@ -12,11 +12,6 @@
 #include <algorithm>
 #include <geomc/linalg/vecdetail/VecBase.h>
 
-#ifdef GEOMC_VEC_USE_SWIZZLE
-#include <string>
-#include <geomc/GeomException.h>
-#endif
-
 namespace geom {
 
     /*===========================*
@@ -136,49 +131,6 @@ namespace geom {
                    (detail::VecBase<T,4>::z * zz) + 
                    (detail::VecBase<T,4>::w * ww);
         }
-        
-        /*===========================*
-         * 4D Geometry               *
-         *===========================*/
-
-#ifdef GEOMC_VEC_USE_SWIZZLE
-        Vec<T,4> swizzle(const std::string& xyzw) const {
-            if (xyzw.length() != 4) {
-                throw std::length_error(xyzw);
-            }
-            return Vec<T,4>(swizzlecoord(xyzw[0]),
-                            swizzlecoord(xyzw[1]),
-                            swizzlecoord(xyzw[2]),
-                            swizzlecoord(xyzw[3]));
-        }
-#endif
-
-    private:
-        
-#ifdef GEOMC_VEC_USE_SWIZZLE
-        inline T swizzlecoord(char c) const {
-            switch (tolower(c)) {
-                case 'x':
-                case 'r':
-                    return detail::VecBase<T,4>::x;
-                case 'y':
-                case 'g':
-                    return detail::VecBase<T,4>::y;
-                case 'z':
-                case 'b':
-                    return detail::VecBase<T,4>::z;
-                case 'w':
-                case 'a':
-                    return detail::VecBase<T,4>::w;
-                case '1':
-                    return 1;
-                case '0':
-                    return 0;
-                default:
-                    throw SwizzleCharException(c);
-            }
-        }
-#endif
         
     }; //end Vec4 definition
     

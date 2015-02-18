@@ -11,11 +11,6 @@
 #include <cctype>
 #include <geomc/linalg/vecdetail/VecBase.h>
 
-#ifdef GEOMC_VEC_USE_SWIZZLE
-#include <string>
-#include <geomc/GeomException.h>
-#endif
-
 
 namespace geom {
 
@@ -269,17 +264,6 @@ namespace geom {
                     (b*(u2 + w2) - v*(a*u + c*w - uxvywz))*oneMcos + y*cc + ( c*u - a*w + w*x - u*z)*ss,
                     (c*(u2 + v2) - w*(a*u + b*v - uxvywz))*oneMcos + z*cc + (-b*u + a*v - v*x + u*y)*ss);
         }
-        
-#ifdef GEOMC_VEC_USE_SWIZZLE
-        Vec<T,3> swizzle(const std::string& xyz) const {
-            if (xyz.length() != 3){
-                throw std::length_error(xyz);
-            }
-            return Vec<T,3>(swizzlecoord(xyz[0]),
-                            swizzlecoord(xyz[1]),
-                            swizzlecoord(xyz[2]));
-        }
-#endif
 
         /// @return `true` if no elements are an infinity or `NaN`.
         bool isFiniteReal() const {
@@ -287,28 +271,6 @@ namespace geom {
         }
 
     private:
-        
-#ifdef GEOMC_VEC_USE_SWIZZLE
-        T swizzlecoord(char c) const {
-            switch (tolower(c)){
-                case 'x':
-                case 'r':
-                    return detail::VecBase<T,3>::x;
-                case 'y':
-                case 'g':
-                    return detail::VecBase<T,3>::y;
-                case 'z':
-                case 'b':
-                    return detail::VecBase<T,3>::z;
-                case '1':
-                    return 1;
-                case '0':
-                    return 0;
-                default:
-                    throw SwizzleCharException(c);
-            }
-        }
-#endif
         
     }; //end Vec3 definition
 

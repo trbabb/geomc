@@ -45,6 +45,7 @@ class OrientedRect : virtual public Bounded<T,N>, virtual public Convex<T,N> {
         
         /// Obtain an axis-aligned bounding box for this region.
         Rect<T,N> bounds() {
+            // faster than using convexSupport, somewhat surprisingly.
             Vec<T,N> pts[2] = {box.min(), box.max()};
             Vec<T,N> lo = xf * box.min();
             Vec<T,N> hi = lo;
@@ -151,11 +152,10 @@ class OrientedRect : virtual public Bounded<T,N>, virtual public Convex<T,N> {
  * Operators                                  *
  **********************************************/
 
-/** @addtogroup shape 
- *  @{
- */
 
-/// Return a copy of `box` transformed by `xf`.
+/** Return a copy of `box` transformed by `xf`.
+ * @related OrientedRect
+ */
 template <typename T, index_t N>
 inline OrientedRect<T,N> operator*(const AffineTransform<T,N> &xf, OrientedRect<T,N> box) {
     box.xf *= xf;
@@ -163,7 +163,9 @@ inline OrientedRect<T,N> operator*(const AffineTransform<T,N> &xf, OrientedRect<
 }
 
 
-/// Return a copy of `box` transformed by the inverse of `xf`.
+/** Return a copy of `box` transformed by the inverse of `xf`.
+ * @related OrientedRect
+ */
 template <typename T, index_t N>
 inline OrientedRect<T,N> operator/(OrientedRect<T,N> box, const AffineTransform<T,N> &xf) {
     box.xf /= xf;
@@ -171,21 +173,24 @@ inline OrientedRect<T,N> operator/(OrientedRect<T,N> box, const AffineTransform<
 }
  
 
-/// Apply `xf` to `b`.
+/** Apply `xf` to `b`.
+ * @related OrientedRect
+ */
 template <typename T, index_t N>
 inline OrientedRect<T,N>& operator*=(OrientedRect<T,N> &b, const AffineTransform<T,N> &xf) {
     b.xf *= xf;
     return b;
 }
 
-/// Apply the inverse of `xf` to `b`.
+/** Apply the inverse of `xf` to `b`.
+ * @related OrientedRect
+ */
 template <typename T, index_t N>
 inline OrientedRect<T,N>& operator/=(OrientedRect<T,N> &b, const AffineTransform<T,N> &xf) {
     b.xf /= xf;
     return b;
 }
 
-/// @} // addtogroup linalg
 
 } // namespace geom
 

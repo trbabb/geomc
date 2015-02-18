@@ -26,12 +26,6 @@ namespace geom {
     namespace detail {
         template <typename M, typename RefType> class MtxColIterator;
     }
-    
-    //TODO: Fix operators for Quat
-    
-/** @ingroup linalg
- *  @{
- */
 
 /*******************************
  * Vector Operators            *
@@ -50,6 +44,7 @@ namespace geom {
  * @param v A vector
  * @param d Scalar value of type satisfying `boost::is_scalar`
  * @return A new vector `x` such that `x[i] = v[i] * d`
+ * @related Vec
  */
 #ifdef PARSING_DOXYGEN
     inline template <typename T, index_t N, typename U>
@@ -73,6 +68,7 @@ operator* (const V &v, U d) {
  * @param d Scalar value of type satisfying `boost::is_scalar`
  * @param v A vector
  * @return A new vector `x` such that `x[i] = d * v[i]`
+ * @related Vec
  */
 #ifdef PARSING_DOXYGEN
     inline template <typename T, index_t N, typename U>
@@ -96,6 +92,7 @@ operator* (U d, const V &v) {
  * @param a A vector
  * @param b A vector
  * @return A new vector `x` such that `x[i] = a[i] * b[i]`
+ * @related Vec
  */
 #ifdef PARSING_DOXYGEN
 template <typename T, index_t N> 
@@ -115,6 +112,7 @@ operator*(const V &a, const V &b) {
  * @param v A vector
  * @param d Scalar value
  * @return A new vector `x` such that `x[i] = v[i] / d`
+ * @related Vec
  */
 #ifdef PARSING_DOXYGEN
 template <typename T, index_t N, typename U> 
@@ -138,6 +136,7 @@ operator/(const V &v, U d) {
  * @param d Scalar value
  * @param v A vector
  * @return A new vector `x` such that `x[i] = d / v[i]`
+ * @related Vec
  */
 #ifdef PARSING_DOXYGEN
 template <typename T, index_t N, typename U> 
@@ -161,8 +160,9 @@ operator/(U d, const V &v) {
  * @param a A vector
  * @param b A vector
  * @return A new vector `x` such that `x[i] = a[i] / b[i]`
+ * @related Vec
  */
-#ifdef PARSING_DOXYGNE
+#ifdef PARSING_DOXYGEN
 template <typename T, index_t N> 
 const Vec<T,N> operator/ (const Vec<T,N> &a, const Vec<T,N> &b) {}
 #else
@@ -315,9 +315,6 @@ public:
 }; /* class Vec */
 
 } // namespace geom
-
-
-/// @} //ingroup linalg
 
 
 #endif /* VEC_H_ */

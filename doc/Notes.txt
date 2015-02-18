@@ -1,8 +1,20 @@
 what if:
   Vec<T,N>::ones,zeroes,pi,one_half,X_AXIS,etc ?
     x Yes.
+
+TODO:
+  x fix free function docs
+  - switch to scons
+  - fix dual docs
+  - fix matrices
+    - window
+    - wrapper
  
 MATRIX:
+  - make a matrix which can wrap a client-owned array
+  - make a SubMatrix
+  - kill SparseMatrix
+  - kill Augmented or templatize over direction
   - fix mtx multiplication for SimpleMtx to operate on T* rather than the matrix, to prevent code bloat
   - remove writeable iterator from diagmatrix
   x in-place LU solving (collapse L and U storage to one matrix). 
@@ -18,8 +30,7 @@ MATRIX:
     - use this to clean up the defs of some of the operators
   - test matrix intercompatibility
   x matrix generalized iterator is slower
-  - end() iterator position needs clear definition
-  - make a SubsetMatrix, and possibly kill AugmentedMatrix? or template over concatenation axis?
+  x end() iterator position needs clear definition
   x matrix +/-/* operators
   x matrix in-place transpose
   x fix mtxcopy to be src, dest
@@ -63,20 +74,23 @@ GENERAL CLEANUP/MAJOR TODOS:
   - decide and enforce a consistent naming style 
     (under_score(), camelCase(), or CapitalCase()?)
   - fix Random 
+    - or kill Random in favor of c++11 <random>; reduce to sampler and better float selector.
     - to partially specialize rand<T>()
     - implement Ziggurat; use gaussian blob strategy for picking high
       dimensional spheres.
   x fix Quaternion ops to return Quat<T>
-    > note that a branch with this exists using the curiously recurring pattern,
+    x note that a branch with this exists using the curiously recurring pattern,
       but it makes the docs ugly. stupid doxygen
   - open / closed interval logic on rect?
-  - make more spatial partitions?
-  - more basic shapes
-    (cone, frustum, cylinder, torus e.g.)
-  - Fix swizzle code to not construct strings.
-  - oriented box
+  - make more spatial partitions
+  x more basic shapes
+    x frustum
+    x cylinder
+    x oriented box
+    - cone
+  x remove vector swizzling
   - fix hash functions
-  - put sources back in with headers; remove redundant /include dir
+  x put sources back in with headers; remove redundant /include dir
     and fix up makefile to work with it.
   x fix include path to use geomc/ prefix.
   x major problem: matrix copy/reference semantics change based on
@@ -128,9 +142,9 @@ GENERAL CLEANUP/MAJOR TODOS:
     - namespace-global trace() mechanism? (with templates, gets tricky)
   - refactor trace() to accept a Hit as an output argument.
     - rename Hit to RayTest
-  - expose a dimension-independent NormalFromBasis() type function
-    - what you want is the orthogonal complement, or the space of basis vectors that are perpendicular to your N-1 dimensional subspace
-    - in the cross product case, you have two equations (b1 . n = 0; b2 . n = 0) and three unknowns (nx, ny, nz).
+  x expose a dimension-independent NormalFromBasis() type function
+    > what you want is the orthogonal complement, or the space of basis vectors that are perpendicular to your N-1 dimensional subspace
+    > in the cross product case, you have two equations (b1 . n = 0; b2 . n = 0) and three unknowns (nx, ny, nz).
       the last degree of freedom is the magnitude of n. unclear as of yet how this arises.
     o compute by taking the ~~determinant~~ cofactor expansion with i,j,k,...
       - no, that will be slow and unstable. look up 'matrix kernel' or 'matrix null space'.
@@ -140,35 +154,7 @@ GENERAL CLEANUP/MAJOR TODOS:
       x parent must know type of derived for creating iterators.
     x use it to restrict troublesome matrix templates using boost_static_assert/boost::is_base_of().
   - Shapes:
-    - implement frustums
-      - note that a frustum is an affineTransformed box
-      - this will make raytesting easy.
-      - separating axis theorem for frst/box or fst/frst isxn
-        - note that using a general AffineTransform on a Rect
-          will complicate this test, because the number of unique
-          axes in the general case is large (whereas far and near
-          rects all collapse to 2 in the Frustum case). Is this
-          an algebraic property of transforms which we can compute
-          and preserve? 
-        - consider using a QR decomposition, which factors a matrix
-          into an orthogonal matrix and an upper triangular matrix.
-          You may be able to determine from this which axes, and thus
-          which vectors, are subject to skew, and therefore may
-          be made distinct from previously parallel vectors.
-          - No, probably what you want is the singular value decomposition,
-            which factors a matrix into an orthogonal matrix, and 
-            a matrix with non-negative diagonal values.
-        - see if you can limit, with bounding, which axes/faces
-          may contribute to an intersection. 
-        - basically, finding the axes to test is tricky.
-        - hey dumbass! a keystone transform is NOT AFFINE. it is a PROJECTIVE TRANSFORM.
-          - but then what is clip space?
-            - clip space transforms the FOV to the unit interval at unit distance.
-            - this is done, for example, by transforming the camera view direction to the Z axis,
-              and horizontal scaling to account for the FOV.
-            - perspective divide happens thereafter. 
-          - you need a full 4x4 matrix (with nonzero crap in the W line) to account for the
-            dependency on P.
+    x implement frustums
     - define Region<T,N> which simply has contains(Vec<T,N>)
       can be used for planar shapes, or volumes, etc.
       Rects and Spheres are regions, as are planes, arguably.
@@ -181,12 +167,8 @@ GENERAL CLEANUP/MAJOR TODOS:
     x implement triangles(/quads?)
     x implement cylinders
     - implement cones/circular frustums (vec p0, vec p1, T r0, T r1)
-    - implement oriented bounding boxes
+    x implement oriented bounding boxes
     - implement orientedShape?
-      - OBB isxn test: separating axis theorem (6 axes for 3d OBBs).
-        - use a radius test first and/or a bbox test.
-        - xform other rectangle into first rectangle's local space. this cuts axis projection in half
-        - http://www.gamedev.net/page/resources/_/technical/game-programming/2d-rotated-rectangle-collision-r2604
     - implement PlanarFigure
     x change Rect to be templated on T,N; not T instanceof Vec
       x specialize for N=1
@@ -197,28 +179,18 @@ GENERAL CLEANUP/MAJOR TODOS:
         - object ownership will be a Thing, so there's that.
     x make shapes (box, frustum) traceable.
       - make a Traceable virtual class.
-    - implement lots of `bool intersects(ShapeA a, ShapeB b)`
-      - Intersection.h
+    x implement lots of `bool intersects(ShapeA a, ShapeB b)`
+      x Intersection.h
         - intersection, defined as overlap-- i.e. total containment, and partial intrusion.
       - object.fully_contains(objectB)
       - surface_intersection
         - defined as overlap(A,B) and !(B.fully_contains(A) || A.fully_contains(B))
-      - generalize separating axis theorem
-        - in higher dimensions, this gets weird
-          - note that the 3d separating axis test uses the cross product.
-            Not clear how to do this in N dimensions. See probably "wedge product".
-            A vector perpendicular to N-1 vectors in N dimensions is possible to 
-            obtain in general.
-          - what axes do we test?
-          - do we test for each edge, face, and volume for a 4D shape?
-            And on up into higher dimensions? how do you generalize that?
     - implement ShapeSet<T,N-1> intersect_surface_solve(ShapeA a, ShapeB b) ?
       - i.e. a plane and a sphere returns a circle, or a plane and a box returns
         a set of line segments, etc.
     - make AffineTransform<> frustum(...)
     x change Rect to be a template of <T,N>?
-  - move Path back to Shape lib? 
-  - implement general mat.Inverse
+  x implement general mat.Inverse
   x define a clear (signed) index_t with numbits = numbits(size_t)
     x use it everywhere
   x refactor matrices for less virtual indirection
@@ -226,9 +198,6 @@ GENERAL CLEANUP/MAJOR TODOS:
   - AffineTransform:
     - add perspective(Frustum<T,N> f)
     x add transform(Matrix<T,N-1> m)
-      - see:
-          http://stackoverflow.com/questions/2624422/efficient-4x4-matrix-inverse-affine-transform
-        for inverse.
   x cast operator to other Vec<T,N>?
     x ambiguity problems?
   x work out a better include scheme for all the vector types
@@ -245,7 +214,7 @@ GENERAL CLEANUP/MAJOR TODOS:
   x Template-ize PerlinNoise across T,N using new RandomTools<T> class
   - Thread safety, particularly in Exprs and the generic pointer types (AnyArray, AnyPtr)
     - boost::atomic
-  - Use AffineTransform to continue with Craft.cpp
+  x Use AffineTransform to continue with Craft.cpp
   - Exprs need a robust and extensible simplification scheme
   - Exprs need a scheme for tree walking and multiple inputs
     - many inputs of many general types is probably not feasible with templates

@@ -284,11 +284,6 @@ class Dual {
 
 namespace std {
     
-    /**
-     * @ingroup function
-     * @{
-     */
-    
     // general form:
     //   f(x), x` * f`(x)
     // or in other words:
@@ -296,21 +291,27 @@ namespace std {
     
     // TODO: atan2
     
-    /// Sine function.
+    /** Sine function.
+     * @related geom::Dual
+     */
     template <typename T>
     inline geom::Dual<T> sin(const geom::Dual<T> &d) {
         return geom::Dual<T>(sin(d.x), d.dx * cos(d.x));
     }
     
     
-    /// Cosine function.
+    /** Cosine function.
+     * @related geom::Dual
+     */
     template <typename T>
     inline geom::Dual<T> cos(const geom::Dual<T> &d) {
         return geom::Dual<T>(cos(d.x), -d.dx * sin(d.x));
     }
     
     
-    /// Tangent function.
+    /** Tangent function.
+     * @related geom::Dual
+     */
     template <typename T>
     inline geom::Dual<T> tan(const geom::Dual<T> &d) {
         T c = cos(d.x);
@@ -318,7 +319,9 @@ namespace std {
     }
     
     
-    /// Arcsin (inverse sine) function.
+    /** Arcsin (inverse sine) function.
+     * @related geom::Dual
+     */
     template <typename T>
     inline geom::Dual<T> asin(const geom::Dual<T> &d) {
         return geom::Dual<T>(
@@ -327,7 +330,9 @@ namespace std {
     }
     
     
-    /// Arccos (inverse cosine) function.
+    /** Arccos (inverse cosine) function.
+     * @related geom::Dual
+     */
     template <typename T>
     inline geom::Dual<T> acos(const geom::Dual<T> &d) {
         return geom::Dual<T>(
@@ -336,7 +341,9 @@ namespace std {
     }
     
     
-    /// Arctan (inverse tangent) function.
+    /** Arctan (inverse tangent) function.
+     * @related geom::Dual
+     */
     template <typename T>
     inline geom::Dual<T> atan(const geom::Dual<T> &d) {
         return geom::Dual<T>(
@@ -345,7 +352,9 @@ namespace std {
     }
     
     
-    /// Exponential (e<sup>x</sup>) function.
+    /** Exponential (e<sup>x</sup>) function.
+     * @related geom::Dual
+     */
     template <typename T>
     inline geom::Dual<T> exp(const geom::Dual<T> &d) {
         T e = exp(d.x);
@@ -353,7 +362,9 @@ namespace std {
     }
     
     
-    /// Returns `base` raised to exponent `xp`.
+    /** Returns `base` raised to exponent `xp`.
+     * @related geom::Dual
+     */
     template <typename T>
     inline geom::Dual<T> pow(const geom::Dual<T> &base, const geom::Dual<T> &xp) {
         T a_c = pow(base.x, xp.x);
@@ -363,7 +374,9 @@ namespace std {
     }
     
     
-    /// Returns `base` raised to exponent `xp`.
+    /** Returns `base` raised to exponent `xp`.
+     * @related geom::Dual
+     */
     template <typename T, typename U>
     inline geom::Dual<T> pow(const geom::Dual<T> &base, U xp) {
         T a_x = pow(base.x, xp);
@@ -373,7 +386,9 @@ namespace std {
     }
     
     
-    /// Returns `base` raised to exponent `xp`.
+    /** Returns `base` raised to exponent `xp`.
+     * @related geom::Dual
+     */
     template <typename T, typename U>
     inline geom::Dual<T> pow(U base, const geom::Dual<T> &xp) {
         T a_x = pow(base, xp.x);
@@ -383,7 +398,9 @@ namespace std {
     }
     
     
-    /// Square root.
+    /** Square root.
+     * @related geom::Dual
+     */
     template <typename T>
     inline geom::Dual<T> sqrt(const geom::Dual<T> &d) {
         T sr = sqrt(d.x);
@@ -395,7 +412,10 @@ namespace std {
     
     // min, max, ceil, floor
     
-    
+    /**
+     * Absolute value.
+     * @related geom::Dual
+     */
     template <typename T>
     inline geom::Dual<T> abs(const geom::Dual<T> &d) {
         bool neg = d.x < 0;
@@ -419,6 +439,10 @@ namespace std {
     }
     
     
+    /**
+     * Ceiling function.
+     * @related geom::Dual
+     */
     template <typename T>
     inline geom::Dual<T> ceil(const geom::Dual<T> &d) {
         T x = ceil(d.x);
@@ -431,6 +455,10 @@ namespace std {
     }
     
     
+    /**
+     * Floor function.
+     * @related geom::Dual
+     */
     template <typename T>
     inline geom::Dual<T> floor(const geom::Dual<T> &d) {
         T x = floor(d.x);
@@ -443,6 +471,10 @@ namespace std {
     }
     
     
+    /**
+     * Minimum.
+     * @related geom::Dual
+     */
     template <typename T>
     inline geom::Dual<T> min(const geom::Dual<T> &d1, const geom::Dual<T> &d2) {
         bool lt = d1.x <= d2.x;
@@ -464,7 +496,11 @@ namespace std {
         return geom::Dual<T>(x,dx);
     }
     
-        
+    
+    /**
+     * Maximum.
+     * @related geom::Dual
+     */
     template <typename T>
     inline geom::Dual<T> max(const geom::Dual<T> &d1, const geom::Dual<T> &d2) {
         bool gt = d1.x >= d2.x;
@@ -485,8 +521,6 @@ namespace std {
         }
         return geom::Dual<T>(x,dx);
     }
-
-    /// @} // ingroup function
     
 } // namespace std
 

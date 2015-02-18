@@ -16,14 +16,14 @@ namespace geom {
 
 /**
  * @ingroup shape
- * @brief An N-dimensional frustum.
+ * @brief An N-dimensional frustum (truncated pyramid).
  * 
  * The first N-1 dimensions have cross-sections which are rectangles. The last
  * dimension is considered the "height" of the frustum. 
  * 
  * Frustums need not be symmetrical about the origin. The extents of the cross
  * section are described by an N-1 rectangle lying on the `height = 1` plane.
- * 
+ *  
  * If the height range spans `height = 0`, the minimum height is effectively 
  * clamped to 0.
  */

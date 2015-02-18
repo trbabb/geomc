@@ -12,6 +12,9 @@
 #include <geomc/linalg/mtxdetail/MatrixBase.h>
 #include <geomc/linalg/mtxdetail/MatrixCopy.h>
 
+// TODO: templatize to intermediate class, and make a child class
+//       which is a wrapper for user-owned memory.
+
 // TODO: templatize across row/col-major layout.
 //       ...or just make a whole new class.
 

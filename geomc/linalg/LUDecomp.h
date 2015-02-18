@@ -21,7 +21,6 @@ namespace geom {
 #define _MxElem(r,c) m[cols*r + c]
     
 /**
- * @ingroup matrix
  * LU decomposition, pivoting columns.
  * 
  * @param m Row-major array of elements to decompose.
@@ -30,6 +29,7 @@ namespace geom {
  * @param reorder Array with space for `cols` elements to be filled with the column source indexes.
  * @param swap_parity Whether an odd number of column-swaps was performed.
  * @return The number of degenerate columns discovered.
+ * @related PLUDecomposition
  */
 template <typename T>
 index_t decompLUP(T* m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity) {
@@ -92,7 +92,6 @@ index_t decompLUP(T* m, index_t rows, index_t cols, index_t *reorder, bool *swap
 // this saves on multiple instantiations of this method for
 // different static sizes of SimpleMatrix. It's 7% faster too!
 /**
- * @ingroup matrix
  * LU decomposition, pivoting rows.
  * 
  * @param m Row-major array of elements to decompose.
@@ -101,6 +100,7 @@ index_t decompLUP(T* m, index_t rows, index_t cols, index_t *reorder, bool *swap
  * @param reorder Array with space for `rows` elements to be filled with the row source indexes.
  * @param swap_parity Whether an odd number of row-swaps was performed.
  * @return The number of degenerate rows discovered.
+ * @related PLUDecomposition
  */
 template <typename T>
 bool decompPLU(T* m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity) {

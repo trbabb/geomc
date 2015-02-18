@@ -9,16 +9,12 @@
 #define	VECSTD_H
 
 namespace std {
-    
-
-/** @ingroup linalg
- * @{
- */ 
 
     
 // these make vectors more interchangeable with bare types:
 /**
  * Element-wise maximum.
+ * @related geom::Vec
  */
 template <typename T, index_t N>
 inline geom::Vec<T,N> max(const geom::Vec<T,N> &a, const geom::Vec<T,N> &b) {
@@ -27,6 +23,7 @@ inline geom::Vec<T,N> max(const geom::Vec<T,N> &a, const geom::Vec<T,N> &b) {
 
 /**
  * Element-wise minimum.
+ * @related geom::Vec
  */
 template <typename T, index_t N>
 inline geom::Vec<T,N> min(const geom::Vec<T,N> &a, const geom::Vec<T,N> &b) {
@@ -35,6 +32,7 @@ inline geom::Vec<T,N> min(const geom::Vec<T,N> &a, const geom::Vec<T,N> &b) {
 
 /**
  * Element-wise absolute value.
+ * @related geom::Vec
  */
 template <typename T, index_t N>
 inline geom::Vec<T,N> abs(const geom::Vec<T,N> &v) {
@@ -43,6 +41,7 @@ inline geom::Vec<T,N> abs(const geom::Vec<T,N> &v) {
 
 /**
  * Element-wise floor.
+ * @related geom::Vec
  */
 template <typename T, index_t N>
 inline geom::Vec<T,N> floor(const geom::Vec<T,N> &v) {
@@ -51,6 +50,7 @@ inline geom::Vec<T,N> floor(const geom::Vec<T,N> &v) {
 
 /**
  * Element-wise ceiling.
+ * @related geom::Vec
  */
 template <typename T, index_t N>
 inline geom::Vec<T,N> ceil(const geom::Vec<T,N> &v) {
@@ -59,6 +59,7 @@ inline geom::Vec<T,N> ceil(const geom::Vec<T,N> &v) {
 
 /**
  * Element-wise square root.
+ * @related geom::Vec
  */
 template <typename T, index_t N>
 inline geom::Vec<T,N> sqrt(const geom::Vec<T,N> &v) {
@@ -71,6 +72,7 @@ inline geom::Vec<T,N> sqrt(const geom::Vec<T,N> &v) {
 
 /**
  * Element-wise sine.
+ * @related geom::Vec
  */
 template <typename T, index_t N>
 inline geom::Vec<T,N> sin(const geom::Vec<T,N> &v) {
@@ -83,6 +85,7 @@ inline geom::Vec<T,N> sin(const geom::Vec<T,N> &v) {
 
 /**
  * Element-wise cosine.
+ * @related geom::Vec
  */
 template <typename T, index_t N>
 inline geom::Vec<T,N> cos(const geom::Vec<T,N> &v) {
@@ -95,6 +98,7 @@ inline geom::Vec<T,N> cos(const geom::Vec<T,N> &v) {
 
 /**
  * Element-wise tangent.
+ * @related geom::Vec
  */
 template <typename T, index_t N>
 inline geom::Vec<T,N> tan(const geom::Vec<T,N> &v) {
@@ -107,6 +111,7 @@ inline geom::Vec<T,N> tan(const geom::Vec<T,N> &v) {
 
 /**
  * Element-wise exponentiation (e<sup>v<sub>i</sub></sup>).
+ * @related geom::Vec
  */
 template <typename T, index_t N>
 inline geom::Vec<T,N> exp(const geom::Vec<T,N> &v) {
@@ -119,6 +124,7 @@ inline geom::Vec<T,N> exp(const geom::Vec<T,N> &v) {
 
 /**
  * Element-wise natural log.
+ * @related geom::Vec
  */
 template <typename T, index_t N>
 inline geom::Vec<T,N> log(const geom::Vec<T,N> &v) {

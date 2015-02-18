@@ -649,6 +649,33 @@ template <typename T, index_t N> double profile_OBB_intersect(index_t iters) {
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
+template <typename T, index_t N> double profile_OBB_bounds(index_t iters) {
+    index_t n = std::min(iters, (index_t)100000);
+    OrientedRect<T,N> *boxes = new OrientedRect<T,N>[n];
+    for (index_t i = 0; i < n; i++) randomBox(boxes + i);
+    
+    clock_t s = 0;
+    Vec<T,N> z;
+    
+    for (index_t k = 0; k < iters; k += n) {
+        index_t nn = std::min(iters - k, n);
+        
+        Rect<T,N> r;
+        
+        clock_t start = clock();
+        for (index_t j = 0; j < nn; j++) {
+            r  = boxes[j].bounds();
+            z += r.max();
+        }
+        clock_t end = clock();
+        
+        s += end - start;
+    }
+    
+    delete [] boxes;
+    return s / (double)CLOCKS_PER_SEC;;
+}
+
 // this is tautological for N > 3. OBBs use GJK directly!
 template <typename T, index_t N> index_t test_gjkIntersect(index_t iters) {
     const index_t n = (index_t)std::ceil(std::sqrt(iters));
@@ -686,9 +713,6 @@ template <typename T, index_t N> index_t test_gjkIntersect(index_t iters) {
     
     return failures;
 }
-
-
-#ifdef ENABLE_FRUSTUM
 
 template <typename T, index_t N> index_t test_frustumSupport(index_t iters) {
     const index_t n = (index_t)std::ceil(std::sqrt(iters));
@@ -730,7 +754,6 @@ template <typename T, index_t N> index_t test_frustumSupport(index_t iters) {
     return failures;
 }
 
-#endif
 
 template <typename T, index_t N> void test_mtxInverse(index_t iters) {
 	SimpleMatrix<T,N,N> mtx[2];
@@ -956,9 +979,17 @@ int main(int argc, char** argv) {
     profile("2d path", profile_path<double, 2>, iters);
     profile("3d path", profile_path<double, 3>, iters);
     profile("4d path", profile_path<double, 4>, iters);
-    profile("2f path", profile_path<float, 2>, iters);
-    profile("3f path", profile_path<float, 3>, iters);
-    profile("4f path", profile_path<float, 4>, iters);
+    profile("2f path", profile_path<float, 2>,  iters);
+    profile("3f path", profile_path<float, 3>,  iters);
+    profile("4f path", profile_path<float, 4>,  iters);
+    std::cout << std::endl;
+    
+    profile("OBB 2f bounds", profile_OBB_bounds<float,2>,  iters / 10);
+    profile("OBB 3f bounds", profile_OBB_bounds<float,3>,  iters / 10);
+    profile("OBB 4f bounds", profile_OBB_bounds<float,4>,  iters / 10);
+    profile("OBB 2d bounds", profile_OBB_bounds<double,2>, iters / 10);
+    profile("OBB 3d bounds", profile_OBB_bounds<double,3>, iters / 10);
+    profile("OBB 4d bounds", profile_OBB_bounds<double,3>, iters / 10);
     std::cout << std::endl;
     
     profile("sh  3f band", profile_sh<float, 3>,  iters/10);

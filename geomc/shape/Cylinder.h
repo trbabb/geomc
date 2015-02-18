@@ -34,7 +34,7 @@ namespace geom {
             Vec<T,N> p1;
             /// Cylinder radius.
             T radius;
-        
+            
             /// Construct a cylinder of radius and length 1, with axis along X+.
             Cylinder() : radius(1) { p1[0] = 1; }
             
