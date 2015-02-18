@@ -1,6 +1,6 @@
 Geomc linear algebra and geometry library
 
-Tim Babb
+Tim Babb  
 tr.babb@gmail.com
 
 Usage
