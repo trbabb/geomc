@@ -111,17 +111,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    </div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">inline</span> T cpow(<span class="keyword">const</span> T&amp; a, <span class="keyword">const</span> T&amp; b) {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="group__function.html#gac2ea85df61e74d556fec121edf3a0eb3">std::pow</a>(std::complex&lt;T&gt;(a), std::complex&lt;T&gt;(b)).real();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacestd.html#a6ce2ddd6d03b811bebe2ea82212abc0d">std::pow</a>(std::complex&lt;T&gt;(a), std::complex&lt;T&gt;(b)).real();</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    }</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    </div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">inline</span> T cpow(<span class="keyword">const</span> std::complex&lt;T&gt; &amp;a, <span class="keyword">const</span> std::complex&lt;T&gt; &amp;b) {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="group__function.html#gac2ea85df61e74d556fec121edf3a0eb3">std::pow</a>(a, b);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacestd.html#a6ce2ddd6d03b811bebe2ea82212abc0d">std::pow</a>(a, b);</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    }</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    </div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">inline</span> T cpow(<span class="keyword">const</span> Quat&lt;T&gt;&amp; a, <span class="keyword">const</span> Quat&lt;T&gt; &amp;b) {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="group__function.html#gac2ea85df61e74d556fec121edf3a0eb3">std::pow</a>(a ,b);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacestd.html#a6ce2ddd6d03b811bebe2ea82212abc0d">std::pow</a>(a ,b);</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    }</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    </div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
@@ -184,7 +184,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="group__function.html#ga90fb9cc4df73b617838a5c11c3e028ec">  107</a></span>&#160;T <a class="code" href="group__function.html#ga90fb9cc4df73b617838a5c11c3e028ec">spherical_harmonic_coeff</a>(index_t l, index_t m, T cos_alt, T azi) {</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    index_t m_a = std::abs(m);</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> T sr2 = <a class="code" href="group__function.html#ga7985ceba157f09c80c5128059cfe13c9">std::sqrt</a>((T)2);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> T sr2 = std::sqrt((T)2);</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> T pi  = boost::math::constants::pi&lt;T&gt;();</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    </div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    T P_lm = legendre(l, m_a, cos_alt);</div>
@@ -196,12 +196,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    T z = 1;</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordflow">if</span> (l != 0) <span class="keywordflow">for</span> (index_t i = l - m_a + 1; i &lt;= l + m_a; i++) { z *= i; }</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    T k = <a class="code" href="group__function.html#ga7985ceba157f09c80c5128059cfe13c9">std::sqrt</a>((1/z) * ((2 * l + 1) / (4 * pi)));</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    T k = std::sqrt((1/z) * ((2 * l + 1) / (4 * pi)));</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    </div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordflow">if</span> (m &gt; 0) {</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="keywordflow">return</span> sr2 * k * <a class="code" href="group__function.html#gabbc06c7f6c39cde83b065da510efd958">std::cos</a>( m * azi) * P_lm;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="keywordflow">return</span> sr2 * k * std::cos( m * azi) * P_lm;</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (m &lt; 0) {</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keywordflow">return</span> sr2 * k * <a class="code" href="group__function.html#gaa3074d725debeb2c1d35e9915a411ff1">std::sin</a>(-m * azi) * P_lm;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keywordflow">return</span> sr2 * k * std::sin(-m * azi) * P_lm;</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    } <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <span class="keywordflow">return</span> k * legendre(l, 0, cos_alt);</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    }</div>
@@ -232,7 +232,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        <a class="code" href="structgeom_1_1_dimension.html#a11fddec38a10e2109c1aee1589ffc3ce">Dimension&lt;Bands&gt;::set</a>(n_bands, b);</div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        <a class="code" href="classgeom_1_1_spherical_harmonics.html#ac8bb3912a3ce86b15842e79d0b421204">clear</a>();</div>
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        <span class="keywordflow">for</span> (index_t l = 0; l &lt; <a class="code" href="classgeom_1_1_spherical_harmonics.html#ae2fc3884657b2013685faea52d153c74">bands</a>(); l++) {</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            T k = <a class="code" href="group__function.html#ga7985ceba157f09c80c5128059cfe13c9">std::sqrt</a>((4*pi) / (2 * l + 1));</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            T k = std::sqrt((4*pi) / (2 * l + 1));</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;            T p = zh.<a class="code" href="classgeom_1_1_zonal_harmonics.html#a1b3298c4dc2085d701de871f444f94cf">coeff</a>(l);</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;            T v = p * k;</div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;            this-&gt;<a class="code" href="classgeom_1_1_spherical_harmonics.html#a16fd49a666edc4ab1c1253fd2fab0dea">coeff</a>(l,0) = v;</div>
@@ -249,7 +249,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        <a class="code" href="classgeom_1_1_spherical_harmonics.html#a82a2d3edfa0ccc9477d8009b2dbde446">project</a>(new_axis, 1);</div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        <span class="keywordflow">for</span> (index_t l = 0; l &lt; <a class="code" href="classgeom_1_1_spherical_harmonics.html#ae2fc3884657b2013685faea52d153c74">bands</a>(); l++) {</div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;            <span class="keywordflow">for</span> (index_t m = -l; m &lt;= l; m++) {</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;                <a class="code" href="classgeom_1_1_spherical_harmonics.html#a16fd49a666edc4ab1c1253fd2fab0dea">coeff</a>(l,m) *= zh.<a class="code" href="classgeom_1_1_zonal_harmonics.html#a1b3298c4dc2085d701de871f444f94cf">coeff</a>(l) * <a class="code" href="group__function.html#ga7985ceba157f09c80c5128059cfe13c9">std::sqrt</a>((4*pi) / (2 * l + 1));</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;                <a class="code" href="classgeom_1_1_spherical_harmonics.html#a16fd49a666edc4ab1c1253fd2fab0dea">coeff</a>(l,m) *= zh.<a class="code" href="classgeom_1_1_zonal_harmonics.html#a1b3298c4dc2085d701de871f444f94cf">coeff</a>(l) * std::sqrt((4*pi) / (2 * l + 1));</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;            }</div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        }</div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    }</div>
@@ -316,14 +316,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    <span class="comment">// for a unit vector. this formulation may better preserve precision when</span></div>
 <div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    <span class="comment">// z is available directly.</span></div>
 <div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    T _eval(T cos_alt, T azi)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> T sr2 = <a class="code" href="group__function.html#ga7985ceba157f09c80c5128059cfe13c9">std::sqrt</a>((T)2);</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> T sr2 = std::sqrt((T)2);</div>
 <div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> T pi  = boost::math::constants::pi&lt;T&gt;();</div>
 <div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;        <span class="keyword">const</span> index_t l = <a class="code" href="classgeom_1_1_spherical_harmonics.html#ae2fc3884657b2013685faea52d153c74">bands</a>();</div>
 <div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;        <span class="keyword">const</span> T x = cos_alt;</div>
 <div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;        T sum = 0;</div>
 <div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;        <span class="keywordflow">for</span> (index_t m = 0; m &lt; l; m++) {</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;            T c_ma = <a class="code" href="group__function.html#gabbc06c7f6c39cde83b065da510efd958">std::cos</a>(m * azi);</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;            T s_ma = <a class="code" href="group__function.html#gaa3074d725debeb2c1d35e9915a411ff1">std::sin</a>(m * azi);</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;            T c_ma = std::cos(m * azi);</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;            T s_ma = std::sin(m * azi);</div>
 <div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;            T pmm0 = 1;</div>
 <div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;            T pmm1 = 1;</div>
 <div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;            <span class="keywordflow">for</span> (index_t l_i = m; l_i &lt; l; l_i++) {</div>
@@ -336,7 +336,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;                        <span class="keywordflow">for</span> (index_t i = 1; i &lt;= m; i++) {</div>
 <div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;                            pmm0 *= -(i * 2 - 1);</div>
 <div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;                        }</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;                        pmm0 *= <a class="code" href="group__function.html#gac2ea85df61e74d556fec121edf3a0eb3">std::pow</a>(1 - x * x, m / 2.0);</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;                        pmm0 *= <a class="code" href="namespacestd.html#a6ce2ddd6d03b811bebe2ea82212abc0d">std::pow</a>(1 - x * x, m / 2.0);</div>
 <div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;                    }</div>
 <div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;                    P_lm *= pmm0;</div>
 <div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (l_i == m + 1) {</div>
@@ -356,7 +356,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;                <span class="keywordflow">if</span> (l_i != 0) <span class="keywordflow">for</span> (index_t i  = l_i - m + 1; i &lt;= l_i + m; i++) { z *= i; }</div>
 <div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;                </div>
 <div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;                <span class="comment">// fold Legendre values into SH basis functions</span></div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;                T k = <a class="code" href="group__function.html#ga7985ceba157f09c80c5128059cfe13c9">std::sqrt</a>((1/z) * (2 * l_i + 1) / (4 * pi));</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;                T k = std::sqrt((1/z) * (2 * l_i + 1) / (4 * pi));</div>
 <div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;                <span class="keywordflow">if</span> (m != 0) {</div>
 <div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;                    sum += P_lm * sr2 * k * c_ma * <a class="code" href="classgeom_1_1_spherical_harmonics.html#a16fd49a666edc4ab1c1253fd2fab0dea">coeff</a>(l_i,  m);</div>
 <div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;                    sum += P_lm * sr2 * k * s_ma * <a class="code" href="classgeom_1_1_spherical_harmonics.html#a16fd49a666edc4ab1c1253fd2fab0dea">coeff</a>(l_i, -m);</div>
@@ -370,13 +370,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    </div>
 <div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    </div>
 <div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    <span class="keywordtype">void</span> _project(T cos_alt, T azi, T val) {</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> T sr2 = <a class="code" href="group__function.html#ga7985ceba157f09c80c5128059cfe13c9">std::sqrt</a>((T)2);</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> T sr2 = std::sqrt((T)2);</div>
 <div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> T pi  = boost::math::constants::pi&lt;T&gt;();</div>
 <div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;        <span class="keyword">const</span> index_t l = <a class="code" href="classgeom_1_1_spherical_harmonics.html#ae2fc3884657b2013685faea52d153c74">bands</a>();</div>
 <div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;        <span class="keyword">const</span> T x = cos_alt;</div>
 <div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;        <span class="keywordflow">for</span> (index_t m = 0; m &lt; l; m++) {</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;            T c_ma = <a class="code" href="group__function.html#gabbc06c7f6c39cde83b065da510efd958">std::cos</a>(m * azi);</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;            T s_ma = <a class="code" href="group__function.html#gaa3074d725debeb2c1d35e9915a411ff1">std::sin</a>(m * azi);</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;            T c_ma = std::cos(m * azi);</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;            T s_ma = std::sin(m * azi);</div>
 <div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;            T pmm0 = 1;</div>
 <div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;            T pmm1 = 1;</div>
 <div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;            <span class="keywordflow">for</span> (index_t l_i = m; l_i &lt; l; l_i++) {</div>
@@ -387,7 +387,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;                        <span class="keywordflow">for</span> (index_t i = 1; i &lt;= m; i++) {</div>
 <div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;                            pmm0 *= -(i * 2 - 1);</div>
 <div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;                        }</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;                        pmm0 *= <a class="code" href="group__function.html#gac2ea85df61e74d556fec121edf3a0eb3">std::pow</a>(1 - x * x, m / 2.0);</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;                        pmm0 *= <a class="code" href="namespacestd.html#a6ce2ddd6d03b811bebe2ea82212abc0d">std::pow</a>(1 - x * x, m / 2.0);</div>
 <div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;                    }</div>
 <div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;                    P_lm = pmm0;</div>
 <div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (l_i == m + 1) {</div>
@@ -409,7 +409,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;                <span class="keywordflow">if</span> (l_i != 0) <span class="keywordflow">for</span> (index_t i = l_i - m + 1; i &lt;= l_i + m; i++) { z *= i; }</div>
 <div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;                </div>
 <div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;                <span class="comment">// fold Legendre values into SH basis functions</span></div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;                T k = <a class="code" href="group__function.html#ga7985ceba157f09c80c5128059cfe13c9">std::sqrt</a>((1/z) * (2 * l_i + 1) / (4 * pi));</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;                T k = std::sqrt((1/z) * (2 * l_i + 1) / (4 * pi));</div>
 <div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;                <span class="keywordflow">if</span> (m != 0) {</div>
 <div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;                    <a class="code" href="classgeom_1_1_spherical_harmonics.html#a16fd49a666edc4ab1c1253fd2fab0dea">coeff</a>(l_i,  m) += P_lm * sr2 * k * c_ma * val;</div>
 <div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;                    <a class="code" href="classgeom_1_1_spherical_harmonics.html#a16fd49a666edc4ab1c1253fd2fab0dea">coeff</a>(l_i, -m) += P_lm * sr2 * k * s_ma * val;</div>
@@ -428,7 +428,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;    }</div>
 <div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;    </div>
 <div class="line"><a name="l00437"></a><span class="lineno"><a class="line" href="classgeom_1_1_spherical_harmonics.html#a8f922176e2c7570d74123a18276c541c">  437</a></span>&#160;    <span class="keyword">inline</span> T <a class="code" href="classgeom_1_1_spherical_harmonics.html#a8f922176e2c7570d74123a18276c541c">eval</a>(T alt, T azi)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;        <span class="keywordflow">return</span> _eval(<a class="code" href="group__function.html#gabbc06c7f6c39cde83b065da510efd958">std::cos</a>(alt), azi);</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;        <span class="keywordflow">return</span> _eval(std::cos(alt), azi);</div>
 <div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;    }</div>
 <div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    </div>
 <div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;    </div>
@@ -438,7 +438,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;    }</div>
 <div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;    </div>
 <div class="line"><a name="l00472"></a><span class="lineno"><a class="line" href="classgeom_1_1_spherical_harmonics.html#a7bbc327bd559170d0da0668e6b215159">  472</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="classgeom_1_1_spherical_harmonics.html#a7bbc327bd559170d0da0668e6b215159">project</a>(T alt, T azi, T val) {</div>
-<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;        _project(<a class="code" href="group__function.html#gabbc06c7f6c39cde83b065da510efd958">std::cos</a>(alt), azi, val);</div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;        _project(std::cos(alt), azi, val);</div>
 <div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;    }</div>
 <div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;    </div>
 <div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;    </div>
@@ -520,7 +520,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;        <span class="keyword">const</span> T pi = boost::math::constants::pi&lt;T&gt;();</div>
 <div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;        <a class="code" href="structgeom_1_1_dimension.html#a11fddec38a10e2109c1aee1589ffc3ce">Dimension&lt;Bands&gt;::set</a>(n_bands,sh.bands());</div>
 <div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;        <span class="keywordflow">for</span> (index_t l = 0; l &lt; <a class="code" href="classgeom_1_1_zonal_harmonics.html#ae2fc3884657b2013685faea52d153c74">bands</a>(); l++) {</div>
-<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;            <a class="code" href="classgeom_1_1_zonal_harmonics.html#ad0478d2462c79e49a1c1c34f8a2230e1">coeffs</a>[l] = sh.coeff(l,0) * <a class="code" href="group__function.html#ga7985ceba157f09c80c5128059cfe13c9">std::sqrt</a>((2*l - 1) / (4 * pi));</div>
+<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;            <a class="code" href="classgeom_1_1_zonal_harmonics.html#ad0478d2462c79e49a1c1c34f8a2230e1">coeffs</a>[l] = sh.coeff(l,0) * std::sqrt((2*l - 1) / (4 * pi));</div>
 <div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;        }</div>
 <div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;    }</div>
 <div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;    </div>
@@ -577,7 +577,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;                }</div>
 <div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;                T k = (2 * n + 1) / (T)2;</div>
 <div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;                T A_n  = k / (T)((n + 2) * (n - 1));</div>
-<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;                A_n   *= <a class="code" href="group__function.html#gac2ea85df61e74d556fec121edf3a0eb3">std::pow</a>(2, -n) * fac_num / fac_den;</div>
+<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;                A_n   *= <a class="code" href="namespacestd.html#a6ce2ddd6d03b811bebe2ea82212abc0d">std::pow</a>(2, -n) * fac_num / fac_den;</div>
 <div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;                <span class="keywordflow">if</span> (!(n &amp; (index_t)2)) A_n *= -1;</div>
 <div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;                <a class="code" href="classgeom_1_1_zonal_harmonics.html#ad0478d2462c79e49a1c1c34f8a2230e1">coeffs</a>[n] = A_n;</div>
 <div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;            }</div>
@@ -636,7 +636,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;    </div>
 <div class="line"><a name="l00771"></a><span class="lineno"><a class="line" href="classgeom_1_1_zonal_harmonics.html#a9be4a79438a42199f89a6ba6f7d3fce4">  771</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classgeom_1_1_zonal_harmonics.html#a9be4a79438a42199f89a6ba6f7d3fce4">convolve</a>(<span class="keyword">const</span> <a class="code" href="classgeom_1_1_zonal_harmonics.html">ZonalHarmonics&lt;T,Bands&gt;</a> &amp;kernel) {</div>
 <div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;        <span class="keywordflow">for</span> (index_t l = 0; l &lt; <a class="code" href="classgeom_1_1_zonal_harmonics.html#ae2fc3884657b2013685faea52d153c74">bands</a>(); l++) {</div>
-<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;            T k = <a class="code" href="group__function.html#ga7985ceba157f09c80c5128059cfe13c9">std::sqrt</a>((boost::math::constants::pi&lt;T&gt;() * 4) / (2 * l + 1));</div>
+<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;            T k = std::sqrt((boost::math::constants::pi&lt;T&gt;() * 4) / (2 * l + 1));</div>
 <div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;            <a class="code" href="classgeom_1_1_zonal_harmonics.html#ad0478d2462c79e49a1c1c34f8a2230e1">coeffs</a>[l] *= k * kernel.coeffs[l];</div>
 <div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;        }</div>
 <div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;    }</div>
@@ -645,7 +645,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;        <span class="comment">// xxx debug</span></div>
 <div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;        <span class="comment">//std::cout &lt;&lt; &quot;diffusing to &quot; &lt;&lt; t &lt;&lt; &quot;\n&quot;;</span></div>
 <div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;        <span class="keywordflow">for</span> (index_t l = 0; l &lt; <a class="code" href="classgeom_1_1_zonal_harmonics.html#ae2fc3884657b2013685faea52d153c74">bands</a>(); l++) {</div>
-<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;            T k = <a class="code" href="group__function.html#ga7985ceba157f09c80c5128059cfe13c9">std::sqrt</a>((boost::math::constants::pi&lt;T&gt;() * 4) / (2 * l + 1));</div>
+<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;            T k = std::sqrt((boost::math::constants::pi&lt;T&gt;() * 4) / (2 * l + 1));</div>
 <div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;            T m = k * <a class="code" href="classgeom_1_1_zonal_harmonics.html#ad0478d2462c79e49a1c1c34f8a2230e1">coeffs</a>[l];</div>
 <div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;            coeffs[l] = detail::cpow(m, t) / k;</div>
 <div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;            <span class="comment">//std::cout &lt;&lt; m &lt;&lt; &quot; --&gt; &quot; &lt;&lt; coeffs[l] * k &lt;&lt; &quot;\n&quot;;</span></div>
@@ -665,7 +665,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;    </div>
 <div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;    <span class="comment">// xxx debug</span></div>
 <div class="line"><a name="l00813"></a><span class="lineno"><a class="line" href="classgeom_1_1_zonal_harmonics.html#acd0de676568888d848beb97dcc53ae47">  813</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classgeom_1_1_zonal_harmonics.html#acd0de676568888d848beb97dcc53ae47">normalize</a>() {</div>
-<div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;        T k  = <a class="code" href="group__function.html#ga7985ceba157f09c80c5128059cfe13c9">std::sqrt</a>(4 * boost::math::constants::pi&lt;T&gt;() / 3);</div>
+<div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;        T k  = std::sqrt(4 * boost::math::constants::pi&lt;T&gt;() / 3);</div>
 <div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;        T nh = <a class="code" href="classgeom_1_1_zonal_harmonics.html#ad0478d2462c79e49a1c1c34f8a2230e1">coeffs</a>[1] * k;</div>
 <div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;        <span class="keywordflow">if</span> (nh == 0) <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160;        <a class="code" href="classgeom_1_1_zonal_harmonics.html#ad0478d2462c79e49a1c1c34f8a2230e1">coeffs</a>[1] = 1 / k;</div>
@@ -698,9 +698,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="classgeom_1_1_spherical_harmonics_html_aa2e9e307870768c30be0ab11927d131c"><div class="ttname"><a href="classgeom_1_1_spherical_harmonics.html#aa2e9e307870768c30be0ab11927d131c">geom::SphericalHarmonics::operator-</a></div><div class="ttdeci">SphericalHarmonics&lt; T, Bands &gt; &amp; operator-()</div><div class="ttdef"><b>Definition:</b> SphericalHarmonics.h:487</div></div>
 <div class="ttc" id="classgeom_1_1_zonal_harmonics_html_a1b3298c4dc2085d701de871f444f94cf"><div class="ttname"><a href="classgeom_1_1_zonal_harmonics.html#a1b3298c4dc2085d701de871f444f94cf">geom::ZonalHarmonics::coeff</a></div><div class="ttdeci">T &amp; coeff(index_t n)</div><div class="ttdef"><b>Definition:</b> SphericalHarmonics.h:638</div></div>
 <div class="ttc" id="classgeom_1_1_spherical_harmonics_html_afc81fa93572b151c0194f2b54e5e3d17"><div class="ttname"><a href="classgeom_1_1_spherical_harmonics.html#afc81fa93572b151c0194f2b54e5e3d17">geom::SphericalHarmonics::dot</a></div><div class="ttdeci">T dot(const SphericalHarmonics&lt; T, Bands &gt; &amp;other) const </div><div class="ttdef"><b>Definition:</b> SphericalHarmonics.h:266</div></div>
-<div class="ttc" id="group__function_html_gabbc06c7f6c39cde83b065da510efd958"><div class="ttname"><a href="group__function.html#gabbc06c7f6c39cde83b065da510efd958">std::cos</a></div><div class="ttdeci">geom::Dual&lt; T &gt; cos(const geom::Dual&lt; T &gt; &amp;d)</div><div class="ttdoc">Cosine function. </div><div class="ttdef"><b>Definition:</b> Dual.h:308</div></div>
 <div class="ttc" id="classgeom_1_1_zonal_harmonics_html_ac1c8d89ee3e86199152479ed0140ecaf"><div class="ttname"><a href="classgeom_1_1_zonal_harmonics.html#ac1c8d89ee3e86199152479ed0140ecaf">geom::ZonalHarmonics::ZonalHarmonics</a></div><div class="ttdeci">ZonalHarmonics(index_t n)</div><div class="ttdef"><b>Definition:</b> SphericalHarmonics.h:595</div></div>
-<div class="ttc" id="group__function_html_ga7985ceba157f09c80c5128059cfe13c9"><div class="ttname"><a href="group__function.html#ga7985ceba157f09c80c5128059cfe13c9">std::sqrt</a></div><div class="ttdeci">geom::Dual&lt; T &gt; sqrt(const geom::Dual&lt; T &gt; &amp;d)</div><div class="ttdoc">Square root. </div><div class="ttdef"><b>Definition:</b> Dual.h:388</div></div>
+<div class="ttc" id="namespacestd_html_a6ce2ddd6d03b811bebe2ea82212abc0d"><div class="ttname"><a href="namespacestd.html#a6ce2ddd6d03b811bebe2ea82212abc0d">std::pow</a></div><div class="ttdeci">geom::Quat&lt; T &gt; pow(const geom::Quat&lt; T &gt; &amp;q, U a)</div><div class="ttdef"><b>Definition:</b> Quaternion.h:274</div></div>
 <div class="ttc" id="classgeom_1_1_zonal_harmonics_html_af07b05cf7cc8d359b1339243bed91346"><div class="ttname"><a href="classgeom_1_1_zonal_harmonics.html#af07b05cf7cc8d359b1339243bed91346">geom::ZonalHarmonics::generate_spot</a></div><div class="ttdeci">void generate_spot(T cos_angle)</div><div class="ttdef"><b>Definition:</b> SphericalHarmonics.h:706</div></div>
 <div class="ttc" id="classgeom_1_1_zonal_harmonics_html_a632b21962df88d389d3dd972ad6f0a66"><div class="ttname"><a href="classgeom_1_1_zonal_harmonics.html#a632b21962df88d389d3dd972ad6f0a66">geom::ZonalHarmonics::diffuse</a></div><div class="ttdeci">void diffuse(T t)</div><div class="ttdef"><b>Definition:</b> SphericalHarmonics.h:786</div></div>
 <div class="ttc" id="classgeom_1_1_spherical_harmonics_html_a734d45c7e2f6492d65c25e6a4fbced19"><div class="ttname"><a href="classgeom_1_1_spherical_harmonics.html#a734d45c7e2f6492d65c25e6a4fbced19">geom::SphericalHarmonics::operator+</a></div><div class="ttdeci">SphericalHarmonics&lt; T, Bands &gt; operator+(const SphericalHarmonics&lt; T, Bands &gt; &amp;sh)</div><div class="ttdef"><b>Definition:</b> SphericalHarmonics.h:539</div></div>
@@ -710,7 +709,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="classgeom_1_1_zonal_harmonics_html_acd0de676568888d848beb97dcc53ae47"><div class="ttname"><a href="classgeom_1_1_zonal_harmonics.html#acd0de676568888d848beb97dcc53ae47">geom::ZonalHarmonics::normalize</a></div><div class="ttdeci">void normalize()</div><div class="ttdef"><b>Definition:</b> SphericalHarmonics.h:813</div></div>
 <div class="ttc" id="classgeom_1_1_spherical_harmonics_html_a4b1dd02360df803028ad7c6356a64aa6"><div class="ttname"><a href="classgeom_1_1_spherical_harmonics.html#a4b1dd02360df803028ad7c6356a64aa6">geom::SphericalHarmonics::operator/=</a></div><div class="ttdeci">SphericalHarmonics&lt; T, Bands &gt; &amp; operator/=(T k)</div><div class="ttdef"><b>Definition:</b> SphericalHarmonics.h:509</div></div>
 <div class="ttc" id="classgeom_1_1_zonal_harmonics_html_aa68c14b32103c9cc9b6dc021a78e4e37"><div class="ttname"><a href="classgeom_1_1_zonal_harmonics.html#aa68c14b32103c9cc9b6dc021a78e4e37">geom::ZonalHarmonics::eval</a></div><div class="ttdeci">T eval(T cos_alt) const </div><div class="ttdef"><b>Definition:</b> SphericalHarmonics.h:731</div></div>
-<div class="ttc" id="group__function_html_gaa3074d725debeb2c1d35e9915a411ff1"><div class="ttname"><a href="group__function.html#gaa3074d725debeb2c1d35e9915a411ff1">std::sin</a></div><div class="ttdeci">geom::Dual&lt; T &gt; sin(const geom::Dual&lt; T &gt; &amp;d)</div><div class="ttdoc">Sine function. </div><div class="ttdef"><b>Definition:</b> Dual.h:301</div></div>
 <div class="ttc" id="structgeom_1_1_storage_html"><div class="ttname"><a href="structgeom_1_1_storage.html">geom::Storage&lt; T, Bands *Bands &gt;</a></div></div>
 <div class="ttc" id="structgeom_1_1_dimension_html_aeaa154c4040f884382f4f91fca4cb2ea"><div class="ttname"><a href="structgeom_1_1_dimension.html#aeaa154c4040f884382f4f91fca4cb2ea">geom::Dimension::get</a></div><div class="ttdeci">static index_t get(const storage_t s)</div><div class="ttdoc">Retrieve the count from s. </div><div class="ttdef"><b>Definition:</b> Storage.h:69</div></div>
 <div class="ttc" id="classgeom_1_1_zonal_harmonics_html_a9be4a79438a42199f89a6ba6f7d3fce4"><div class="ttname"><a href="classgeom_1_1_zonal_harmonics.html#a9be4a79438a42199f89a6ba6f7d3fce4">geom::ZonalHarmonics::convolve</a></div><div class="ttdeci">void convolve(const ZonalHarmonics&lt; T, Bands &gt; &amp;kernel)</div><div class="ttdef"><b>Definition:</b> SphericalHarmonics.h:771</div></div>
@@ -718,8 +716,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="structgeom_1_1_storage_html_ac051b2568208e363ae2dffb23c0ad9ba"><div class="ttname"><a href="structgeom_1_1_storage.html#ac051b2568208e363ae2dffb23c0ad9ba">geom::Storage::get</a></div><div class="ttdeci">T * get()</div><div class="ttdoc">Return a pointer to the first element in the storage array. </div><div class="ttdef"><b>Definition:</b> Storage.h:106</div></div>
 <div class="ttc" id="classgeom_1_1_spherical_harmonics_html_acd0de676568888d848beb97dcc53ae47"><div class="ttname"><a href="classgeom_1_1_spherical_harmonics.html#acd0de676568888d848beb97dcc53ae47">geom::SphericalHarmonics::normalize</a></div><div class="ttdeci">void normalize()</div><div class="ttdef"><b>Definition:</b> SphericalHarmonics.h:279</div></div>
 <div class="ttc" id="classgeom_1_1_zonal_harmonics_html_a14fd42dae3821a5828023c83a6243e06"><div class="ttname"><a href="classgeom_1_1_zonal_harmonics.html#a14fd42dae3821a5828023c83a6243e06">geom::ZonalHarmonics::ZonalHarmonics</a></div><div class="ttdeci">ZonalHarmonics()</div><div class="ttdef"><b>Definition:</b> SphericalHarmonics.h:584</div></div>
-<div class="ttc" id="group__function_html_gac2ea85df61e74d556fec121edf3a0eb3"><div class="ttname"><a href="group__function.html#gac2ea85df61e74d556fec121edf3a0eb3">std::pow</a></div><div class="ttdeci">geom::Dual&lt; T &gt; pow(const geom::Dual&lt; T &gt; &amp;base, const geom::Dual&lt; T &gt; &amp;xp)</div><div class="ttdoc">Returns base raised to exponent xp. </div><div class="ttdef"><b>Definition:</b> Dual.h:358</div></div>
-<div class="ttc" id="classgeom_1_1_vec_3_01_t_00_013_01_4_html"><div class="ttname"><a href="classgeom_1_1_vec_3_01_t_00_013_01_4.html">geom::Vec&lt; T, 3 &gt;</a></div><div class="ttdoc">3D specialization of vector class. </div><div class="ttdef"><b>Definition:</b> Vec3.h:85</div></div>
+<div class="ttc" id="classgeom_1_1_vec_3_01_t_00_013_01_4_html"><div class="ttname"><a href="classgeom_1_1_vec_3_01_t_00_013_01_4.html">geom::Vec&lt; T, 3 &gt;</a></div><div class="ttdoc">3D specialization of vector class. </div><div class="ttdef"><b>Definition:</b> Vec3.h:80</div></div>
 <div class="ttc" id="classgeom_1_1_spherical_harmonics_html_a5b01ed59dea4c6c007adbd03420a34cf"><div class="ttname"><a href="classgeom_1_1_spherical_harmonics.html#a5b01ed59dea4c6c007adbd03420a34cf">geom::SphericalHarmonics::basis</a></div><div class="ttdeci">static SphericalHarmonics&lt; T, Bands &gt; basis(Vec&lt; T, 3 &gt; d, index_t n=Bands)</div><div class="ttdoc">Construct a SphericalHarmonics basis for the direction given by d. </div><div class="ttdef"><b>Definition:</b> SphericalHarmonics.h:552</div></div>
 <div class="ttc" id="classgeom_1_1_zonal_harmonics_html_aec4cf812c3c4c48f9d972a4cae4be5b4"><div class="ttname"><a href="classgeom_1_1_zonal_harmonics.html#aec4cf812c3c4c48f9d972a4cae4be5b4">geom::ZonalHarmonics::coeff</a></div><div class="ttdeci">T coeff(index_t n) const </div><div class="ttdef"><b>Definition:</b> SphericalHarmonics.h:645</div></div>
 <div class="ttc" id="classgeom_1_1_spherical_harmonics_html_ac5042bb8f199bcfcd8302e9ccd21d909"><div class="ttname"><a href="classgeom_1_1_spherical_harmonics.html#ac5042bb8f199bcfcd8302e9ccd21d909">geom::SphericalHarmonics::operator+=</a></div><div class="ttdeci">SphericalHarmonics&lt; T, Bands &gt; &amp; operator+=(T k)</div><div class="ttdef"><b>Definition:</b> SphericalHarmonics.h:520</div></div>
@@ -741,7 +738,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 14 2015 12:31:23 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 18 2015 00:19:19 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

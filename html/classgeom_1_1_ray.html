@@ -92,6 +92,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#related">Related Functions</a> &#124;
 <a href="classgeom_1_1_ray-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Ray&lt; T, N &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__linalg.html">Linalg</a></div></div>  </div>
@@ -140,6 +141,17 @@ Public Attributes</h2></td></tr>
 <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>direction</b></td></tr>
 <tr class="memdesc:add7dac7c7fbe6bf6ac9c12a3af684dce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Direction of ray. <br /></td></tr>
 <tr class="separator:add7dac7c7fbe6bf6ac9c12a3af684dce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="related"></a>
+Related Functions</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p>(Note that these are not member functions.) </p>
+</td></tr>
+<tr class="memitem:a81e3884483bb83ffb4653c4a1ec3a44a"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:a81e3884483bb83ffb4653c4a1ec3a44a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_ray.html#a81e3884483bb83ffb4653c4a1ec3a44a">operator*</a> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; r, T s)</td></tr>
+<tr class="separator:a81e3884483bb83ffb4653c4a1ec3a44a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ef5833b95b326752b2e35f0718d07ac"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:a3ef5833b95b326752b2e35f0718d07ac"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_ray.html#a3ef5833b95b326752b2e35f0718d07ac">operator*</a> (T s, const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; r)</td></tr>
+<tr class="separator:a3ef5833b95b326752b2e35f0718d07ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T, index_t N&gt;<br />
@@ -320,6 +332,77 @@ class geom::Ray&lt; T, N &gt;</h3>
 
 </div>
 </div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a class="anchor" id="a81e3884483bb83ffb4653c4a1ec3a44a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; operator* </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt;&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>s</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">related</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p><a class="el" href="classgeom_1_1_ray.html" title="Ray class. ">Ray</a> multiple. </p><dl class="section return"><dt>Returns</dt><dd><code>(r.origin + s * r.direction)</code>. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a3ef5833b95b326752b2e35f0718d07ac"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; operator* </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt;&#160;</td>
+          <td class="paramname"><em>r</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">related</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p><a class="el" href="classgeom_1_1_ray.html" title="Ray class. ">Ray</a> multiple. </p><dl class="section return"><dt>Returns</dt><dd><code>(r.origin + s * r.direction)</code>. </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>geomc/linalg/<a class="el" href="_linalg_types_8h_source.html">LinalgTypes.h</a></li>
 <li>geomc/linalg/<a class="el" href="_ray_8h_source.html">Ray.h</a></li>
@@ -327,7 +410,7 @@ class geom::Ray&lt; T, N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 14 2015 12:31:24 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 18 2015 00:19:20 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

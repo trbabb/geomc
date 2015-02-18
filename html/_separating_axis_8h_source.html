@@ -280,8 +280,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                T lo = std::numeric_limits&lt;T&gt;::max();</div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                T hi = std::numeric_limits&lt;T&gt;::lowest();</div>
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;                <span class="keywordflow">for</span> (index_t j = 0; j &lt; n_corners; j++) {</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                    lo = <a class="code" href="group__linalg.html#gab72c97cbf1524c7ccd3263d793823616">std::min</a>(lo, b0_pts[j][i]);</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                    hi = <a class="code" href="group__linalg.html#ga0ec62350e795e225863d4d372a677df2">std::max</a>(hi, b0_pts[j][i]);</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                    lo = std::min(lo, b0_pts[j][i]);</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                    hi = std::max(hi, b0_pts[j][i]);</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;                }</div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                <span class="comment">// if no overlap on this axis, we&#39;ve found a separating axis.</span></div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                <span class="keywordflow">if</span> (lo &gt;= b1.max()[i] or hi &lt; b1.min()[i]) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
@@ -321,13 +321,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;</div>
 <div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">/* SEPARATINGAXIS_H */</span><span class="preprocessor"></span></div>
 <div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;</div>
-<div class="ttc" id="group__linalg_html_ga0ec62350e795e225863d4d372a677df2"><div class="ttname"><a href="group__linalg.html#ga0ec62350e795e225863d4d372a677df2">std::max</a></div><div class="ttdeci">geom::Vec&lt; T, N &gt; max(const geom::Vec&lt; T, N &gt; &amp;a, const geom::Vec&lt; T, N &gt; &amp;b)</div><div class="ttdef"><b>Definition:</b> VecStd.h:24</div></div>
 <div class="ttc" id="group__shape_html_ga1a9c3639e7998d9ea93d79a494439c4b"><div class="ttname"><a href="group__shape.html#ga1a9c3639e7998d9ea93d79a494439c4b">geom::gjk_intersect</a></div><div class="ttdeci">bool gjk_intersect(const Convex&lt; T, N &gt; &amp;shape_a, const Convex&lt; T, N &gt; &amp;shape_b, Vec&lt; T, N &gt; *overlap_axis=NULL)</div><div class="ttdef"><b>Definition:</b> Intersect.h:344</div></div>
-<div class="ttc" id="group__linalg_html_gab72c97cbf1524c7ccd3263d793823616"><div class="ttname"><a href="group__linalg.html#gab72c97cbf1524c7ccd3263d793823616">std::min</a></div><div class="ttdeci">geom::Vec&lt; T, N &gt; min(const geom::Vec&lt; T, N &gt; &amp;a, const geom::Vec&lt; T, N &gt; &amp;b)</div><div class="ttdef"><b>Definition:</b> VecStd.h:32</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 14 2015 12:31:24 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 18 2015 00:19:20 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

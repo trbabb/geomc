@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['max',['max',['../classgeom_1_1_rect.html#ae0d448b5c9ab84f88d1ac56203d48096',1,'geom::Rect::max()'],['../group__linalg.html#ga0ec62350e795e225863d4d372a677df2',1,'std::max()']]],
-  ['min',['min',['../classgeom_1_1_rect.html#a33a63681586b26b7db572c83999eaaa3',1,'geom::Rect::min()'],['../group__linalg.html#gab72c97cbf1524c7ccd3263d793823616',1,'std::min()']]],
+  ['max',['max',['../classgeom_1_1_rect.html#ae0d448b5c9ab84f88d1ac56203d48096',1,'geom::Rect::max()'],['../classgeom_1_1_dual.html#a6ac62be12a9feef6e61445d2ccac0914',1,'geom::Dual::max()'],['../classgeom_1_1_vec.html#a53f73b61fb453fbaae49f89351797d93',1,'geom::Vec::max()']]],
+  ['min',['min',['../classgeom_1_1_rect.html#a33a63681586b26b7db572c83999eaaa3',1,'geom::Rect::min()'],['../classgeom_1_1_dual.html#a11ddd47b1fca3b534e29822cbd4277fd',1,'geom::Dual::min()'],['../classgeom_1_1_vec.html#a4a30e6b3f9197cf8fdf084d656441ca3',1,'geom::Vec::min()']]],
   ['mix',['mix',['../group__function.html#ga544e92cb874abbcc6d0636db7150eced',1,'geom']]],
   ['mtx_5faliases_5fstorage',['mtx_aliases_storage',['../group__matrix.html#gaece56584613790b7e364cf00b93ee36a',1,'geom']]],
   ['mtxcopy',['mtxcopy',['../group__matrix.html#ga18aa4cc96039ea7bf54d7d9fb25defe4',1,'geom']]],

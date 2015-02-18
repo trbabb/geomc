@@ -136,7 +136,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        std::copy(v[0].begin(), v[0].begin() + N * (N-1), m);</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordtype">bool</span> parity_swap = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="group__matrix.html#gae26bc667b31e38699f4b483ed34d43c9">decompLUP</a>(m, N-1, N, P, &amp;parity_swap)) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">if</span> (decompLUP(m, N-1, N, P, &amp;parity_swap)) {</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <span class="comment">// matrix is singular; nullity is &gt; 1. return 0 vector.</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a>();</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        }</div>
@@ -184,7 +184,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        std::fill(m1, m1 + (N-n)*N, (T)0);</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keywordtype">bool</span> parity_swap = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        index_t extra_bases = <a class="code" href="group__matrix.html#gae26bc667b31e38699f4b483ed34d43c9">decompLUP</a>(m0, n, N, P, &amp;parity_swap);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        index_t extra_bases = decompLUP(m0, n, N, P, &amp;parity_swap);</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        </div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="comment">// todo: handle extra degenerate bases.</span></div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        </div>
@@ -235,7 +235,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;</div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">/* ORTHOGONAL_H */</span><span class="preprocessor"></span></div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;</div>
-<div class="ttc" id="group__matrix_html_gae26bc667b31e38699f4b483ed34d43c9"><div class="ttname"><a href="group__matrix.html#gae26bc667b31e38699f4b483ed34d43c9">geom::decompLUP</a></div><div class="ttdeci">index_t decompLUP(T *m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity)</div><div class="ttdef"><b>Definition:</b> LUDecomp.h:35</div></div>
 <div class="ttc" id="group__linalg_html_ga15114a19ef15055cf894fd8e5bf3d962"><div class="ttname"><a href="group__linalg.html#ga15114a19ef15055cf894fd8e5bf3d962">geom::orthonormalize</a></div><div class="ttdeci">void orthonormalize(Vec&lt; T, N &gt; basis[], index_t n)</div><div class="ttdef"><b>Definition:</b> Orthogonal.h:152</div></div>
 <div class="ttc" id="group__linalg_html_ga30df286717929ce22deabe6b52ae9d24"><div class="ttname"><a href="group__linalg.html#ga30df286717929ce22deabe6b52ae9d24">geom::nullspace</a></div><div class="ttdeci">void nullspace(const Vec&lt; T, N &gt; bases[], index_t n, Vec&lt; T, N &gt; null_basis[])</div><div class="ttdef"><b>Definition:</b> Orthogonal.h:98</div></div>
 <div class="ttc" id="group__linalg_html_ga1a08b60461059eecc146451e65370606"><div class="ttname"><a href="group__linalg.html#ga1a08b60461059eecc146451e65370606">geom::orthogonal</a></div><div class="ttdeci">Vec&lt; T, N &gt; orthogonal(const Vec&lt; T, N &gt; v[N-1])</div><div class="ttdef"><b>Definition:</b> Orthogonal.h:49</div></div>
@@ -246,7 +245,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 14 2015 12:31:23 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 18 2015 00:19:20 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

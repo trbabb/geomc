@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['abs',['abs',['../group__linalg.html#ga1c9486d7173f6c910e1f995c6fa13e8c',1,'std']]],
-  ['acos',['acos',['../group__function.html#ga93c494d2f264e2897e1b7a6d2da6297f',1,'std']]],
+  ['abs',['abs',['../classgeom_1_1_dual.html#a38bda1e06b10080d4b7cc87abc7de97c',1,'geom::Dual::abs()'],['../classgeom_1_1_vec.html#ad95a67813e0dffbccab061429acfdf1e',1,'geom::Vec::abs()']]],
+  ['acos',['acos',['../classgeom_1_1_dual.html#aa9658e1e1a1ddd022d66d177159d64ed',1,'geom::Dual']]],
   ['add',['add',['../classgeom_1_1_vec_3_01_t_00_012_01_4.html#a3330d15b85edb80ab15d03064e9d991c',1,'geom::Vec&lt; T, 2 &gt;::add()'],['../classgeom_1_1_vec_3_01_t_00_013_01_4.html#ab7a4060068c3bc3d835cea6b031d4a09',1,'geom::Vec&lt; T, 3 &gt;::add()'],['../classgeom_1_1_vec_3_01_t_00_014_01_4.html#a70221afe55570aa861b6d5ee6303f963',1,'geom::Vec&lt; T, 4 &gt;::add()'],['../group__matrix.html#gad29282e95cba76934ebf5ebff8dabf1d',1,'geom::add(Matrix *d, const Matrix1 &amp;a, const Matrix2 &amp;b)'],['../group__matrix.html#gaebd7d99bad76113a8697036b8fe9a5ad',1,'geom::add(const Matrix1 &amp;a, const Matrix2 &amp;b)']]],
   ['affinetransform',['AffineTransform',['../classgeom_1_1_affine_transform.html#a4b04b30f496f678d29c350d13cc01385',1,'geom::AffineTransform']]],
   ['apply',['apply',['../classgeom_1_1_affine_transform.html#ab0c280a5ad66f0aa94c0a23764c0333e',1,'geom::AffineTransform::apply(const Vec&lt; T, N &gt; &amp;p) const '],['../classgeom_1_1_affine_transform.html#aee25ebcd836fac2a85ebef9b741a8e01',1,'geom::AffineTransform::apply(const AffineTransform&lt; T, N &gt; &amp;xf) const '],['../classgeom_1_1_plane.html#a39625c5ee13a2e7ec08b0261b7353d1d',1,'geom::Plane::apply()']]],
@@ -11,6 +11,6 @@ var searchData=
   ['applynormal',['applyNormal',['../classgeom_1_1_affine_transform.html#a535ae59ac4023fd5a30c7605b50d3143',1,'geom::AffineTransform']]],
   ['applyvector',['applyVector',['../classgeom_1_1_affine_transform.html#afe5b177c3adab6489a0bdfb064352544',1,'geom::AffineTransform']]],
   ['arc',['arc',['../classgeom_1_1_sampler.html#a9ab0f796c427f76cc036cb452453bf4d',1,'geom::Sampler']]],
-  ['asin',['asin',['../group__function.html#ga2df7a7b8e6aac48f4d469ca28918fefb',1,'std']]],
-  ['atan',['atan',['../group__function.html#ga26f48ccbb854f59fd8989a9cc87ac12b',1,'std']]]
+  ['asin',['asin',['../classgeom_1_1_dual.html#a3e88d444be28c99cb9aecf2f1acc45aa',1,'geom::Dual']]],
+  ['atan',['atan',['../classgeom_1_1_dual.html#a8634bb9b47632602ae199aea90f83f58',1,'geom::Dual']]]
 ];

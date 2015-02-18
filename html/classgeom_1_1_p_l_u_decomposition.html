@@ -93,6 +93,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#related">Related Functions</a> &#124;
 <a href="classgeom_1_1_p_l_u_decomposition-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">PLUDecomposition&lt; T, M, N &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__matrix.html">Matrix</a></div></div>  </div>
@@ -158,6 +159,17 @@ Static Public Attributes</h2></td></tr>
 static const index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_p_l_u_decomposition.html#af94d0c73aee8eb1a6468c14a39e1716f">DIAG</a> = M&lt;N?M:N</td></tr>
 <tr class="memdesc:af94d0c73aee8eb1a6468c14a39e1716f"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structgeom_1_1_dimension.html" title="Defines a type for storing a length or element count. ">Dimension</a> of the diagonal of <code>LU</code>. The minimum of <code>M</code> and <code>N</code>, or 0 if either dimension is dynamic. <br /></td></tr>
 <tr class="separator:af94d0c73aee8eb1a6468c14a39e1716f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="related"></a>
+Related Functions</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p>(Note that these are not member functions.) </p>
+</td></tr>
+<tr class="memitem:a7c5b9135b921f40211a4fd89e6392efb"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a7c5b9135b921f40211a4fd89e6392efb"><td class="memTemplItemLeft" align="right" valign="top">index_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_p_l_u_decomposition.html#a7c5b9135b921f40211a4fd89e6392efb">decompLUP</a> (T *m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity)</td></tr>
+<tr class="separator:a7c5b9135b921f40211a4fd89e6392efb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52c352b11b569ed79cae3313b9577928"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a52c352b11b569ed79cae3313b9577928"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_p_l_u_decomposition.html#a52c352b11b569ed79cae3313b9577928">decompPLU</a> (T *m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity)</td></tr>
+<tr class="separator:a52c352b11b569ed79cae3313b9577928"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T, index_t M, index_t N&gt;<br />
@@ -580,6 +592,135 @@ class geom::PLUDecomposition&lt; T, M, N &gt;</h3>
 
 </div>
 </div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a class="anchor" id="a7c5b9135b921f40211a4fd89e6392efb"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">index_t decompLUP </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>m</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">index_t&#160;</td>
+          <td class="paramname"><em>rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">index_t&#160;</td>
+          <td class="paramname"><em>cols</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">index_t *&#160;</td>
+          <td class="paramname"><em>reorder</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool *&#160;</td>
+          <td class="paramname"><em>swap_parity</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">related</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>LU decomposition, pivoting columns.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">m</td><td>Row-major array of elements to decompose. </td></tr>
+    <tr><td class="paramname">rows</td><td>Number of rows in <code>m</code>. </td></tr>
+    <tr><td class="paramname">cols</td><td>Number of columns in <code>m</code>. </td></tr>
+    <tr><td class="paramname">reorder</td><td>Array with space for <code>cols</code> elements to be filled with the column source indexes. </td></tr>
+    <tr><td class="paramname">swap_parity</td><td>Whether an odd number of column-swaps was performed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of degenerate columns discovered. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a52c352b11b569ed79cae3313b9577928"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool decompPLU </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>m</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">index_t&#160;</td>
+          <td class="paramname"><em>rows</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">index_t&#160;</td>
+          <td class="paramname"><em>cols</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">index_t *&#160;</td>
+          <td class="paramname"><em>reorder</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool *&#160;</td>
+          <td class="paramname"><em>swap_parity</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">related</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>LU decomposition, pivoting rows.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">m</td><td>Row-major array of elements to decompose. </td></tr>
+    <tr><td class="paramname">rows</td><td>Number of rows in <code>m</code>. </td></tr>
+    <tr><td class="paramname">cols</td><td>Number of columns in <code>m</code>. </td></tr>
+    <tr><td class="paramname">reorder</td><td>Array with space for <code>rows</code> elements to be filled with the row source indexes. </td></tr>
+    <tr><td class="paramname">swap_parity</td><td>Whether an odd number of row-swaps was performed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of degenerate rows discovered. </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>geomc/linalg/<a class="el" href="_linalg_types_8h_source.html">LinalgTypes.h</a></li>
 <li>geomc/linalg/<a class="el" href="_l_u_decomp_8h_source.html">LUDecomp.h</a></li>
@@ -587,7 +728,7 @@ class geom::PLUDecomposition&lt; T, M, N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 14 2015 12:31:24 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 18 2015 00:19:20 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>
