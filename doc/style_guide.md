@@ -74,9 +74,20 @@ Programming
 Do not allocate memory if it can be avoided. Stack variables and stack-allocated arrays are always 
 preferable where possible.
 
-Do not use logic with "epislons" if it can be avoided, especially since most code is templated.
-The scale of a sensible epsilon would be dependent on the template parameter type). Arithmetic
-accuracy should fail naturally at machine precision.
+Do not use logic with "epislons" if it can be avoided, especially since most code is templated, and the scale of a sensible epsilon would be dependent on the template parameter type. Arithmetic accuracy should fail naturally at machine precision. 
+
+Yes:
+
+    T x = vec.mag();
+    if (x != 0) vec /= x;
+
+No:
+
+    // calculation becomes invalid around the scale of EPSILON, rather than 1ulp.
+    T x = vec.mag();
+    if (x > EPSILON) vec /= x;
+    
+(There is one (rare) exception, which is when choosing between two strategies that each return a more accurate result depending on scale; for example, a complete formula vs. its taylor series approximation near an unstable point. In these cases the numerical considerations should be well understood, and the two strategies should perform demonstrably better in their respective domains).
 
 Loop variables should be type `index_t`, which will be 64-bit on 64-bit platforms, allowing for traversal of very large arrays:
 
