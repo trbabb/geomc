@@ -9,6 +9,10 @@
 #include <stdio.h>
 #include <geomc/GeomException.h>
 
+
+namespace geom {
+
+
 /////////////// GeomException ///////////////
 
 GeomException::GeomException(const std::string& msg) : std::runtime_error(msg) {
@@ -37,3 +41,6 @@ NonsquareMatrixException::NonsquareMatrixException(index_t rows, index_t cols) t
         rows(rows), cols(cols) { /* do nothing */ }
 
 NonsquareMatrixException::~NonsquareMatrixException() throw() { /* do nothing */ }
+
+
+}

@@ -10,6 +10,8 @@
 
 #include <stdexcept>
 #include <geomc/geomc_defs.h>
+ 
+namespace geom {
 
 ///////////////////////
 
@@ -41,5 +43,7 @@ public:
     NonsquareMatrixException(index_t rows, index_t cols) throw ();
     virtual ~NonsquareMatrixException() throw ();
 };
+
+} // namespace geom
 
 #endif /* GEOMETRYEXCEPTION_H_ */

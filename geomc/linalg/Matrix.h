@@ -260,6 +260,10 @@
 
 #include <geomc/linalg/LinalgTypes.h>
 
+#if defined(GEOMC_MTX_CHECK_BOUNDS) or defined(GEOMC_MTX_CHECK_DIMS)
+#include <geomc/GeomException.h>
+#endif
+
 // matrix types
 // each includes matrixdetail and matrixglue
 
@@ -276,15 +280,14 @@
 #include <geomc/linalg/mtxdetail/MatrixInv.h>
 #include <geomc/linalg/mtxdetail/MatrixArithmetic.h>
 
-
 #ifdef GEOMC_LINALG_USE_STREAMS
 
 #include <iostream>
 #include <iomanip>
+ 
+#endif
 
 #include "mtxdetail/MatrixGlue.h"
-
-#endif
 
 
 namespace geom {

@@ -16,7 +16,7 @@
 #include <geomc/linalg/mtxdetail/MatrixGlue.h>
 #include <geomc/linalg/mtxdetail/MatrixIterator.h>
 
-#if GEOMC_MTX_CHECK_BOUNDS
+#if defined(GEOMC_MTX_CHECK_BOUNDS) or defined(GEOMC_MTX_CHECK_DIMS)
 #include <geomc/GeomException.h>
 #endif
 

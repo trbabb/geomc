@@ -12,6 +12,10 @@
 #include <boost/iterator/iterator_traits.hpp>
 #include <geomc/Storage.h>
 #include <geomc/shape/GridIterator.h>
+ 
+#if defined(GEOMC_MTX_CHECK_BOUNDS) or defined(GEOMC_MTX_CHECK_DIMS)
+#include <geomc/GeomException.h>
+#endif
 
 namespace geom {
 
