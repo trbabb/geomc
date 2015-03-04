@@ -1,6 +1,11 @@
 Code Style
 ==========
 
+Braces and indents
+------------------
+
+**Never** indent with tabs; use four spaces.
+
 K&R indent style. 
 
 * Single space between braces and parens. 
@@ -19,12 +24,18 @@ Example:
 Only single-line `if`s can be without braces:
 
     if (test > 0) do_code(x);
+    
+Assignments
+-----------
 
 If there is a long block of assignments, line up the equal signs to make it look like a more readable table:
 
     int      my_var = 1;
     int    some_var = 2;
     int another_var = 6;
+
+Arithmetic
+----------
 
 Spaces around all basic arithmetic operators:
 
@@ -33,6 +44,9 @@ Spaces around all basic arithmetic operators:
 None of this:
 
     x*x+y*y+sin(z); // No.
+
+Line breaks
+-----------
 
 Double line breaks between functions, single line breaks to break up logical blocks within a function:
 
@@ -52,6 +66,9 @@ Double line breaks between functions, single line breaks to break up logical blo
         int d = do_something_else_with(z);
         return h(d, z * z + 1);
     }
+
+Classes
+-------
 
 Classes list member variables first, followed by constructors and destructors, followed by member functions:
 
