@@ -431,7 +431,7 @@ namespace geom {
      *******************************/
 
     /**
-     * @brief Rotation about an axis.
+     * Rotation about an axis.
      * @param axis Axis of rotation.
      * @param radians Angle of rotation.
      * @return A transformation representing a rotation about `axis` by angle `radians`.
@@ -447,7 +447,7 @@ namespace geom {
     }
     
     /**
-     * @brief Rotation about a point. 
+     * Rotation about a point. 
      * 
      * This transformation will not be a pure rotation; it will include a translation
      * component.
@@ -471,7 +471,7 @@ namespace geom {
     }
     
     /**
-     * @brief Rotation from a quaternion.
+     * Rotation from a quaternion.
      * @param q Rotation quaternion.
      * @return A rotation transformation.
      * @related AffineTransform
@@ -486,7 +486,7 @@ namespace geom {
     }
     
     /**
-     * @brief 2D rotation about the origin by angle `radians`.
+     * 2D rotation about the origin by angle `radians`.
      * @param radians Angle of rotation in the counterclockwise direction
      * @return A 2D rotation transformation.
      * @related AffineTransform
@@ -511,7 +511,7 @@ namespace geom {
     }
     
     /**
-     * @brief Rotation to align one vector with another.
+     * Rotation to align one vector with another.
      * @param dir Unit direction to be realigned.
      * @param align_with Unit direction to align with.
      * @return A rotation transform aligning `dir` with `align_with`.
@@ -526,7 +526,7 @@ namespace geom {
     }
     
     /**
-     * @brief Translation transform
+     * Translation transform
      * @related AffineTransform
      */
     template <typename T, index_t N> 
@@ -540,7 +540,7 @@ namespace geom {
     }
     
     /**
-     * @brief Scale transform. 
+     * Scale transform. 
      * @param sx Vector whose elements describe a scaling along each axis.
      * @return A transform representing a non-uniform scale along each axis.
      * @related AffineTransform
@@ -556,7 +556,7 @@ namespace geom {
     }
     
     /**
-     * @brief Arbitrary transformation.
+     * Arbitrary transformation.
      * @param mat `N x N` matrix representing an arbitrary transformation.
      * @return A transformation by `mat`
      * @related AffineTransform
@@ -580,7 +580,7 @@ namespace geom {
     //2D & 3D convenience:
     
     /**
-     * @brief Per-axis 3D scale
+     * Per-axis 3D scale
      * @related AffineTransform
      */
     template <typename T> 
@@ -589,7 +589,7 @@ namespace geom {
     }
     
     /**
-     * @brief Per-axis 2D scale
+     * Per-axis 2D scale
      * @related AffineTransform
      */
     template <typename T> 
@@ -598,7 +598,7 @@ namespace geom {
         }
     
     /**
-     * @brief 3D translation
+     * 3D translation
      * @related AffineTransform
      */
     template <typename T> 
@@ -607,7 +607,7 @@ namespace geom {
     }
     
     /**
-     * @brief 2D translation
+     * 2D translation
      * @related AffineTransform
      */
     template <typename T> 

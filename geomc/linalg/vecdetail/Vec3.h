@@ -191,7 +191,7 @@ namespace geom {
          */
         Vec<T,3> toSpherical() const {
             T r = this->mag();
-            return Vec<T,3>(r, acos(detail::VecBase<T,3>::z/r), atan2(detail::VecBase<T,3>::y,detail::VecBase<T,3>::x));
+            return Vec<T,3>(r, std::acos(detail::VecBase<T,3>::z/r), std::atan2(detail::VecBase<T,3>::y,detail::VecBase<T,3>::x));
         }
         
         /**
@@ -205,10 +205,10 @@ namespace geom {
          */
         Vec<T,3> fromSpherical() const {
             Vec<T,3> oot;
-            T rsinelev = detail::VecBase<T,3>::x * sin(detail::VecBase<T,3>::y);
-            oot.x = rsinelev*cos(detail::VecBase<T,3>::z);
-            oot.y = rsinelev*sin(detail::VecBase<T,3>::z);
-            oot.z = detail::VecBase<T,3>::x*cos(detail::VecBase<T,3>::y);
+            T rsinelev = detail::VecBase<T,3>::x * std::sin(detail::VecBase<T,3>::y);
+            oot.x = rsinelev*std::cos(detail::VecBase<T,3>::z);
+            oot.y = rsinelev*std::sin(detail::VecBase<T,3>::z);
+            oot.z = detail::VecBase<T,3>::x*std::cos(detail::VecBase<T,3>::y);
             return oot;
         }
 
@@ -224,8 +224,8 @@ namespace geom {
             T w2 = w*w;
             T uxvywz = u*detail::VecBase<T,3>::x+v*detail::VecBase<T,3>::y+w*detail::VecBase<T,3>::z;
             T uvw2 = u2+v2+w2;
-            T rsin = sqrt(uvw2)*sin(radians);
-            T c    = cos(radians);
+            T rsin = std::sqrt(uvw2)*std::sin(radians);
+            T c    = std::cos(radians);
 
             return Vec<T,3>(
                     (u*uxvywz+(detail::VecBase<T,3>::x*(v2 + w2)-u*(v*detail::VecBase<T,3>::y+w*detail::VecBase<T,3>::z))*c+rsin*(-w*detail::VecBase<T,3>::y+v*detail::VecBase<T,3>::z))/uvw2,
@@ -249,8 +249,8 @@ namespace geom {
             T y = detail::VecBase<T,3>::y;
             T z = detail::VecBase<T,3>::z;
             
-            T cc = cos(radians);
-            T ss = sin(radians);
+            T cc = std::cos(radians);
+            T ss = std::sin(radians);
             T oneMcos = 1 - cc;
             
             T u2 = u*u;

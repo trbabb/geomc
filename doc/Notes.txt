@@ -6,10 +6,19 @@ TODO:
   x fix free function docs
   - switch to scons
   - fix dual docs
+  - fix tracing
   - fix matrices
     - window
     - wrapper
- 
+
+  missing, but not a showstopper:
+    - space partitions
+  
+  refactor:
+    - grid (add to storage module)
+    - move GridIterator to storage module
+    - have a Raster wrap a Grid
+
 MATRIX:
   - make a matrix which can wrap a client-owned array
   - make a SubMatrix
