@@ -1,6 +1,17 @@
 /*
  * SimpleMatrix.h
  *
+ * This involves a gambit very similar to the VecBase scenario:
+ * We have a class which is essentially unchanging in its body, but
+ * needs to have permuted constructors based on a template parameter.
+ * Therefore we put the entire body in a base class, and then make a thin
+ * derived class with partial specialization, and design the constructor
+ * interface as we please for each specialization.
+ *
+ * This class structure is pretty darn ugly, so we hide it from the user
+ * for the purposes of Doxygen by simply pretending the (hidden) common base class 
+ * is the user-facing one.
+ *
  *  Created on: Apr 18, 2013
  *      Author: tbabb
  */
@@ -12,13 +23,15 @@
 #include <geomc/linalg/mtxdetail/MatrixBase.h>
 #include <geomc/linalg/mtxdetail/MatrixCopy.h>
 
-// TODO: templatize to intermediate class, and make a child class
-//       which is a wrapper for user-owned memory.
 
 // TODO: templatize across row/col-major layout.
 //       ...or just make a whole new class.
 
 namespace geom {
+
+
+///////////////////// Details /////////////////////
+
 
 namespace detail {
 
@@ -42,21 +55,45 @@ namespace detail {
     
 }; // end namespace detail
 
+
+
+///////////////////// Flat matrix base class /////////////////////
+
+
 /** @ingroup matrix 
  *  @brief A basic matrix with `M x N` elements. 
  * 
  * @tparam T Element type.
  * @tparam M Row dimension.
  * @tparam N Column dimension.
+ * @tparam P Policy for memory ownership of the backing array.
+ *
+ * Example:
+ *
+ *     SimpleMatrix<double,4,4> mx;
  * 
- * If `M` or `N` are 0, the matrix has runtime-chosen size, and all copy-constructed
- * duplicates of this matrix should be treated as references to a common array.
+ * If `M` or `N` are 0, the matrix has runtime-chosen size.
+ *
+ * The storage policy behavior is as follows:
+ * <ul>
+ * <li>If the StoragePolicy is `STORAGE_MULTI_OWNER` (default), then all copy-constructed
+ * duplicates of dynamically-sized matrixes should be treated as references to a common array.</li>
+ * <li>If the StoragePolicy is `STORAGE_SINGLE_OWNER`, then copy-constructed 
+ * duplicates of dynamically-sized matrices will make a full copy of the underlying array.</li>
+ * <li>If the StoragePolicy is `STORAGE_USER_OWNER`, then the user must provide
+ * a backing array, whose lifetime is managed manually.</li>
+ * </ul>
  * 
- *  For more on matrices, see the @link matrix matrix module documentation@endlink.
+ * For more on matrices, see the @link matrix matrix module documentation@endlink.
  */
-template <typename T, index_t M, index_t N>
-class SimpleMatrix : public detail::WriteableMatrixBase<T,M,N, SimpleMatrix<T,M,N> > {
-    Storage<T,M*N> data;
+template <typename T, index_t M, index_t N, StoragePolicy P>
+#ifdef PARSING_DOXYGEN
+class SimpleMatrix : public detail::WriteableMatrixBase<T,M,N, FlatMatrixBase<T,M,N,P> > {
+#else
+class FlatMatrixBase : public detail::WriteableMatrixBase<T,M,N, FlatMatrixBase<T,M,N,P> > {
+#endif
+
+    GenericStorage<T, M*N, P> data;
     typename Dimension<M>::storage_t n_rows; // this contortion prevents allocating storage 
     typename Dimension<N>::storage_t n_cols; // for a dimension size when it is not dynamic.
     
@@ -75,7 +112,9 @@ public:
     typedef T* iterator;
     /// @brief Writeable iterator over elements of a row.
     typedef T* row_iterator;
-    
+
+#ifdef PARSING_DOXYGEN
+
     /**
      * @brief Construct a matrix of size `(nrows x ncols)`. 
      * 
@@ -88,69 +127,65 @@ public:
      *     SimpleMatrix<double, 3, 3> m1;
      *     SimpleMatrix<double, 0, 0> m2(3, 3);
      *     SimpleMatrix<double, 0, 0> m3; // XXX: Compiler error!
+     *
+     * This constructor is not available if the storage policy is `STORAGE_USER_OWNER`.
      * 
      * @param nrows Number of rows in the matrix.
      * @param ncols Number of columns in the matrix.
      */
-#ifdef PARSING_DOXYGEN
     explicit SimpleMatrix(index_t nrows, index_t ncols) {}
-#else
-    // I would not expect this trickery to work, but it does!
-    // this mandates row, column arguments for dynamic matrices.
-    // arguments are basically ignored if matrix is static 
-    explicit SimpleMatrix(index_t nrows=detail::DefinedIf<M != DYNAMIC_DIM, M>::value, 
-                 index_t ncols=detail::DefinedIf<N != DYNAMIC_DIM, N>::value) : 
-                     data(nrows * ncols) {
-        Dimension<M>::set(n_rows, nrows);
-        Dimension<N>::set(n_cols, ncols);
-        setIdentity(); 
-    }
-#endif
+
 
     /**
-     * @brief Construct a matrix of size `(nrows x ncols)`, initialized with `src_data`. 
+     * @brief Construct a matrix of size `(nrows x ncols)`, initialized with
+     * `src_data`.
      * 
      * For matrices with dynamic dimension, a size argument is **required** for 
      * that dimension. Size arguments will be ignored for dimensions that are 
      * statically-sized.
+     *
+     * If the storage policy is `STORAGE_USER_OWNER`, `src_data` will be used directly
+     * as the backing storage, and its lifetime must exceed the lifetime of this matrix.
      * 
-     * @param src_data Array of `nrows * ncols` elements, in row-major order, to
-     * be copied.
+     * @param src_data Array of nrows * ncols elements, in row-major order.
      * @param nrows Number of rows in the matrix.
      * @param ncols Number of columns in the matrix.
      */
-#ifdef PARSING_DOXYGEN
-    explicit SimpleMatrix(const T* src_data, index_t nrows, index_t ncols) {}
-#else
-    explicit SimpleMatrix(
-                 const T* src_data,
-                 index_t nrows=detail::DefinedIf<M != DYNAMIC_DIM, M>::value, 
-                 index_t ncols=detail::DefinedIf<N != DYNAMIC_DIM, N>::value) : 
-                     data(nrows * ncols) {
-        Dimension<M>::set(n_rows, nrows);
-        Dimension<N>::set(n_cols, ncols);
-        std::copy(src_data, src_data + nrows * ncols, data.get());
-    }
-#endif
-    
+    explicit SimpleMatrix(T* src_data, index_t nrows, index_t ncols) {}
+
     /**
      * Construct and initialize this matrix with the contents of another.
+     *
+     * This constructor is not available if the storage policy is `STORAGE_USER_OWNER`.
+     * 
      * @tparam Mx A matrix type with agreeing dimension. 
      * @param mtx Matrix containing source elements.
      */
-#ifdef PARSING_DOXYGEN
-    template <typename Mx>
-    SimpleMatrix(const Mx &mtx) {}
+    template <typename Mx> SimpleMatrix(const Mx &mtx) {}
+
 #else
-    template <typename Mx>
-    SimpleMatrix(const Mx &mtx,
-                 typename boost::enable_if_c<
-                    (detail::LinalgDimensionMatch<SimpleMatrix<T,M,N>, Mx>::val),
-                    void*>::type dummy=0) {
-        Dimension<M>::set(n_rows, mtx.rows());
-        Dimension<N>::set(n_cols, mtx.cols());
-        detail::_mtxcopy(this, mtx);
+
+protected:
+
+    explicit FlatMatrixBase(
+                 index_t nrows, 
+                 index_t ncols,
+                 const T* src_data) : 
+                     data(nrows * ncols, src_data) {
+        Dimension<M>::set(n_rows, nrows);
+        Dimension<N>::set(n_cols, ncols);
     }
+
+    // Undefined behavior if storage backing is user-owned. However,
+    // SimpleMatrices with user-owned storage will never try to call this.
+    FlatMatrixBase(index_t nrows, index_t ncols) :
+            data(nrows * ncols) {
+        Dimension<M>::set(n_rows, nrows);
+        Dimension<M>::set(n_cols, ncols);
+    }
+
+public:
+
 #endif
     
     /**************************
@@ -310,7 +345,75 @@ public:
     inline index_t getStorageIDCount() const {
         return 1;
     }
-};
+
+}; // class FlatMatrixBase
+
+
+
+///////////////////// SimpleMatrix /////////////////////
+
+
+// todo: really double check the rows/cols default argument business.
+
+
+template <typename T, index_t M, index_t N, StoragePolicy P>
+class SimpleMatrix : public FlatMatrixBase<T,M,N,P> {
+
+private:
+
+    typedef FlatMatrixBase<T,M,N,P> parent_t;
+
+public:
+
+    // I would not expect this trickery to work, but it does!
+    // this mandates row, column arguments for dynamic matrices.
+    // arguments are basically ignored if matrix is static.
+    explicit SimpleMatrix(
+            index_t nrows=detail::DefinedIf<M != DYNAMIC_DIM, M>::value, 
+            index_t ncols=detail::DefinedIf<N != DYNAMIC_DIM, N>::value) : 
+                parent_t(nrows, ncols) {}
+
+    explicit SimpleMatrix(
+            T* src_data,
+            index_t nrows=detail::DefinedIf<M != DYNAMIC_DIM, M>::value, 
+            index_t ncols=detail::DefinedIf<N != DYNAMIC_DIM, N>::value) : 
+                parent_t(nrows, ncols) {}
+
+    template <typename Mx>
+    SimpleMatrix(const Mx &mtx,
+                 typename boost::enable_if_c<
+                    (detail::LinalgDimensionMatch<SimpleMatrix<T,M,N>, Mx>::val),
+                    void*>::type dummy=0):
+                        parent_t(mtx.rows(), mtx.cols()) {
+        detail::_mtxcopy(this, mtx);
+    }
+
+
+};  // class SimpleMatrix <...>
+
+
+
+///////////////////// SimpleMatrix "wrapper" specialization /////////////////////
+
+
+template <typename T, index_t M, index_t N>
+class SimpleMatrix : public FlatMatrixBase<T,M,N,STORAGE_USER_OWNER> {
+
+private:
+
+    typedef FlatMatrixBase<T,M,N,STORAGE_USER_OWNER> parent_t;
+
+public:
+
+    explicit SimpleMatrix(
+            T* src_data,
+            index_t nrows=detail::DefinedIf<M != DYNAMIC_DIM, M>::value, 
+            index_t ncols=detail::DefinedIf<N != DYNAMIC_DIM, N>::value) : 
+                parent_t(nrows, ncols, src_data) {}
+
+
+};  // class SimpleMatrix <..., USER_OWNER>
+
 
 }; // end namespace geom
 

@@ -1,5 +1,5 @@
 /*
- * NewMatrix.h
+ * MatrixBase.h
  *
  *  Created on: Apr 17, 2013
  *      Author: tbabb

@@ -561,8 +561,8 @@ namespace geom {
      * @return A transformation by `mat`
      * @related AffineTransform
      */
-    template <typename T, index_t N> 
-    AffineTransform<T,N> transformation(const SimpleMatrix<T,N,N> &mat) {
+    template <typename T, index_t N, StoragePolicy P> 
+    AffineTransform<T,N> transformation(const SimpleMatrix<T,N,N,P> &mat) {
         SimpleMatrix<T,N,N>  m_inv;
         AffineTransform<T,N> xfnew;
         

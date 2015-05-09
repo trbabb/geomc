@@ -213,7 +213,7 @@ public:
         
         mtxcopy(&LU, m);
         // TODO: this alloc isn't necessary if we become a friend of PermutationMatrix
-        UnmanagedStorage<index_t, Mx::ROWDIM> reorder(m.rows());
+        UniqueStorage<index_t, Mx::ROWDIM> reorder(m.rows());
         bool ok = decompPLU(LU.begin(), m.rows(), m.cols(), reorder.get(), &swap_parity) == 0;
 
         if (not ok) {
@@ -282,11 +282,11 @@ public:
     template <typename S, index_t J, index_t K>
     void getL(SimpleMatrix<S,J,K> *into) const {}
 #endif
-    template <typename S, index_t J, index_t K>
+    template <typename S, index_t J, index_t K, StoragePolicy SP>
     inline typename boost::enable_if_c<
             detail::MatrixDimensionMatch<L_t, SimpleMatrix<S,J,K> >::isStaticMatch,
         void>::type 
-    getL(SimpleMatrix<S,J,K> *into) const {
+    getL(SimpleMatrix<S,J,K,SP> *into) const {
 #ifdef GEOMC_MTX_CHECK_DIMS
         const index_t diag = diagonal();
         if ((J * L_t::ROWDIM == 0 or J != L_t::ROWDIM or
@@ -314,11 +314,11 @@ public:
     template <typename S, index_t J, index_t K>
     void getU(SimpleMatrix<S,J,K> *into) const {}
 #endif
-    template <typename S, index_t J, index_t K>
+    template <typename S, index_t J, index_t K, StoragePolicy SP>
     inline typename boost::enable_if_c<
             detail::MatrixDimensionMatch<U_t, SimpleMatrix<S,J,K> >::isStaticMatch,
         void>::type
-    getU(SimpleMatrix<S,J,K> *into) const {
+    getU(SimpleMatrix<S,J,K,SP> *into) const {
 #ifdef GEOMC_MTX_CHECK_DIMS
         const index_t diag = diagonal();
         if ((J * U_t::ROWDIM == 0 or J != U_t::ROWDIM or 
@@ -354,7 +354,7 @@ public:
             // because of the permutation, <b> will be destructively
             // updated as it is read.
             index_t n = LU.rows();
-            UnmanagedStorage<S,M> buf(n);
+            UniqueStorage<S,M> buf(n);
             std::copy(b, b+n, buf.get());
             _linearSolve(dest, buf.get());
             return;
@@ -402,8 +402,8 @@ public:
      * @param [out] into Destination matrix; a square matrix with dimensions 
      * equal to `LU`.
      */
-    template <typename S, index_t J, index_t K>
-    void inverse(SimpleMatrix<S,J,K> *into) const {
+    template <typename S, index_t J, index_t K, StoragePolicy SP>
+    void inverse(SimpleMatrix<S,J,K,SP> *into) const {
         
 #ifdef GEOMC_MTX_CHECK_DIMS
         _checkIsSquare();
