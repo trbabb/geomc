@@ -97,7 +97,7 @@ namespace detail {
 namespace detail {
     template <typename T, index_t M, index_t N, typename Derived> class MatrixBase;
 }
-    template <typename T, index_t M, index_t N, StoragePolicy P=STORAGE_MULTI_OWNER> 
+    template <typename T, index_t M, index_t N, StoragePolicy P=STORAGE_SHARED>
                                                 class SimpleMatrix;
     template <typename T, index_t M, index_t N> class DiagMatrix;
     template <typename T>                       class SparseMatrix;

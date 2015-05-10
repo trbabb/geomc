@@ -26,11 +26,11 @@ namespace geom {
 
 enum StoragePolicy {
     /// Dynamically-sized storage will use reference counting to manage memory; all copies of the Storage object share the same underlying array.
-    STORAGE_MULTI_OWNER,
+    STORAGE_SHARED,
     /// Dynamically-sized storage is assumed to have a single owner, and the underlying array will be duplicated on copy or assignment.
-    STORAGE_SINGLE_OWNER,
+    STORAGE_UNIQUE,
     /// Backing storage is provided and managed by the user.
-    STORAGE_USER_OWNER
+    STORAGE_USER_OWNED
 };
 
 
@@ -89,6 +89,15 @@ struct Dimension<DYNAMIC_DIM> {
 };
 
 
+namespace detail {
+
+// because FlatMatrixBase is a friend:
+template <typename T, index_t M, index_t N, StoragePolicy P>
+class FlatMatrixBase;
+
+}
+
+
 //////////////// Storage ////////////////
 
 
@@ -118,9 +127,9 @@ struct Storage {
     /// Construct a new storage array of length `n`. `n` is ignored if the array size is not dynamic.
     explicit Storage(index_t n) {}
     /// Construct a new storage array of length `n` and fill with `n` elements from `srcdata`.
-    Storage(index_t n, T* srcdata) { if (srcdata != NULL) std::copy(srcdata, srcdata + N, data); }
+    Storage(index_t n, const T* srcdata) { std::copy(srcdata, srcdata + N, data); }
     /// Construct a new storage array and fill with `N` elements from `srcdata` (static size only).
-    explicit Storage(T* srcdata)   { if (srcdata != NULL) std::copy(srcdata, srcdata + N, data); }
+    explicit Storage(const T* srcdata)   { std::copy(srcdata, srcdata + N, data); }
     
     /// Return a pointer to the first element in the storage array.
     inline       T* get()       { return data; }
@@ -140,10 +149,9 @@ struct Storage<T,DYNAMIC_DIM> {
     
     explicit Storage(index_t n):
                     data(new T[n]) {}
-    Storage(index_t n, T* srcdata):
+    Storage(index_t n, const T* srcdata):
                     data(new T[n]) {
-        if (srcdata != NULL) 
-            std::copy(srcdata, srcdata + n, data);
+        std::copy(srcdata, srcdata + n, data.get());
     }
 
     inline       T* get()       { return data.get(); }
@@ -215,9 +223,8 @@ struct UniqueStorage {
     /// Construct a new UniqueStorage of size `n`. `n` is ignored if the array size is not dynamic.
     explicit UniqueStorage(index_t n) {}
     /// Construct a new UniqueStorage of size `n`, and copy `n` elements from `srcdata` into the new array.
-    UniqueStorage(index_t n, T* srcdata) {
-        if (srcdata != NULL) 
-            std::copy(srcdata, srcdata + n, data);
+    UniqueStorage(index_t n, const T* srcdata) {
+        std::copy(srcdata, srcdata + n, data);
     }
     
     /// Return a pointer to the first element in the storage array.
@@ -236,14 +243,14 @@ struct UniqueStorage {
 
 template <typename T>
 struct UniqueStorage<T, DYNAMIC_DIM> {
-    T *data;
+    T* data;
     index_t sz;
     
     explicit UniqueStorage(index_t n):
             data(new T[n]),
             sz(n) {}
 
-    UniqueStorage(index_t n, T* srcdata):
+    UniqueStorage(index_t n, const T* srcdata):
             data(new T[n]),
             sz(n) {
         if (srcdata != NULL) 
@@ -302,7 +309,7 @@ struct UniqueStorage<T, DYNAMIC_DIM> {
 
 // fwd decl
 template <typename T, index_t N, StoragePolicy P>
-class GenericStorage;
+struct GenericStorage;
 
 
 /**
@@ -355,13 +362,13 @@ public:
  *
  * The ownership policy behavior is as follows:
  * <ul>
- * <li>If the ownership policy is `STORAGE_MULTI_OWNER`, then dynamically-sized
+ * <li>If the ownership policy is `STORAGE_SHARED`, then dynamically-sized
  * arrays will allocate their own reference-counted memory, and the underlying 
  * storage will be deleted when the last owner is destroyed.</li>
- * <li>If the ownership policy is `STORAGE_SINGLE_OWNER`, then dynamically-sized 
+ * <li>If the ownership policy is `STORAGE_UNIQUE`, then dynamically-sized 
  * arrays will allocate their own memory, and the underlying arrays will be
  * duplicated on copy or assignment.</li>
- * <li>If the ownership is `STORAGE_USER_OWNER`, then the array will simply wrap a pointer
+ * <li>If the ownership is `STORAGE_USER_OWNED`, then the array will simply wrap a pointer
  * to user-owned memory, which must be valid for the lifetime of this
  * object, and must contain the minimum number of elements. Duplicates will
  * refer to the same backing memory. No attempt will be made to free the pointer 
@@ -370,7 +377,7 @@ public:
  * 
  * `#include <geomc/Storage.h>`
  */
-template <typename T, index_t N, StoragePolicy=STORAGE_MULTI_OWNER>
+template <typename T, index_t N, StoragePolicy=STORAGE_SHARED>
 #ifdef PARSING_DOXYGEN
 struct GenericStorage {
 #else
@@ -380,9 +387,12 @@ struct GenericStorage : public Storage<T,N> {
 
     typedef Storage<T,N> parent_t;
 
+#ifdef PARSING_DOXYGEN
     /// Construct a new array of size `n`, initialized with `srcdata`.
-    GenericStorage(T *srcdata, index_t n):
-        parent_t(n, srcdata) {}
+    GenericStorage(index_t n, T* srcdata) {}
+#else
+    inline GenericStorage(index_t n, const T* srcdata):parent_t(n, srcdata) {}
+#endif
 
     /// Construct a new array of size `n`. Not available for user-owned specializations.
     GenericStorage(index_t n):parent_t(n) {}
@@ -410,11 +420,11 @@ public:
 
 // user-owned specialization
 template <typename T, index_t N>
-struct GenericStorage<T,N,STORAGE_USER_OWNER> : public UserOwnedStorage<T,N> {
+struct GenericStorage<T,N,STORAGE_USER_OWNED> : public UserOwnedStorage<T,N> {
 
     typedef UserOwnedStorage<T,N> parent_t;
 
-    GenericStorage(T *srcdata, index_t n):parent_t(n, srcdata) {}
+    GenericStorage(index_t n, T* srcdata):parent_t(n, srcdata) {}
 
 private:
 
@@ -427,11 +437,11 @@ private:
 
 // single-owner specialization
 template <typename T, index_t N>
-struct GenericStorage<T,N,STORAGE_SINGLE_OWNER> : public UniqueStorage<T,N> {
+struct GenericStorage<T,N,STORAGE_UNIQUE> : public UniqueStorage<T,N> {
 
     typedef UniqueStorage<T,N> parent_t;
 
-    GenericStorage(T *srcdata, index_t n):parent_t(n, srcdata) {}
+    GenericStorage(index_t n, const T* srcdata):parent_t(n, srcdata) {}
 
     GenericStorage(index_t n):parent_t(n) {}
 

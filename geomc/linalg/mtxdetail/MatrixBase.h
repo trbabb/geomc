@@ -57,7 +57,7 @@ namespace detail {
 template <typename T, index_t M, index_t N, typename Derived>
 class MatrixBase {
 
-    inline const Derived *derived() const { return static_cast<const Derived*>(this); }
+    inline const Derived* derived() const { return static_cast<const Derived*>(this); }
     
     typedef typename detail::_ImplMtxConstRowtype<Derived,T>::const_row_iterator derived_const_row_iterator;
     
@@ -80,6 +80,15 @@ public:
     typedef MtxColIterator<const Derived,const elem_t>    const_col_iterator;
     
     typedef Storage<storage_id_t, _ImplStorageObjCount<Derived>::count> storagebuffer_t;
+
+    // This is accessible from the derived class(es).
+    // We need this so we can check boost::is_base_of<>; because
+    // the base we are testing has Derived as a template parameter!
+    // We need some way of know which class it was that
+    // was passed to the curiously-recurring base.
+    // I dub this "rectocranial inversion template pattern".
+    // Obligatory note that c++ is a stinky pile of poo.
+    typedef Derived recurring_t;
     
     /**
      * @return Number of rows in the matrix.

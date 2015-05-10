@@ -22,7 +22,7 @@ namespace detail {
 #define REQUIRE_MATRIX_T(Mt) \
     typename boost::enable_if< \
         boost::is_base_of< \
-            geom::detail::MatrixBase<typename Mt::elem_t, Mt::ROWDIM, Mt::COLDIM, Mt>, \
+            geom::detail::MatrixBase<typename Mt::elem_t, Mt::ROWDIM, Mt::COLDIM, typename Mt::recurring_t>, \
             Mt> \
         >::type
 
@@ -31,7 +31,7 @@ namespace detail {
 #define REQUIRE_NONPERMUTE_MATRIX_T(Mt) \
     typename boost::enable_if_c< \
         boost::is_base_of< \
-            geom::detail::MatrixBase<typename Mt::elem_t, Mt::ROWDIM, Mt::COLDIM, Mt>, \
+            geom::detail::MatrixBase<typename Mt::elem_t, Mt::ROWDIM, Mt::COLDIM, typename Mt::recurring_t>, \
             Mt \
         >::value and not \
         boost::is_base_of< \

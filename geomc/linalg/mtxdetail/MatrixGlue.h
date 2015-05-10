@@ -82,10 +82,11 @@ struct IsMatrix {
     static const bool val = false;
 };
 
+
 template <typename Mt>
 struct IsMatrix<Mt, typename boost::enable_if_c<
             boost::is_base_of<
-                geom::detail::MatrixBase<typename Mt::elem_t, Mt::ROWDIM, Mt::COLDIM, Mt>, 
+                geom::detail::MatrixBase<typename Mt::elem_t, Mt::ROWDIM, Mt::COLDIM, typename Mt::recurring_t>, 
                 Mt>::value,
             void>::type> {
     static const bool val = true;

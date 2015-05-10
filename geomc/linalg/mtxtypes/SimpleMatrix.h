@@ -35,21 +35,28 @@ namespace geom {
 
 namespace detail {
 
+
+    // allow myself to introduce myself:
+    // I am a curiously recurring class, and I have to declare myself to declare myself.
+    template <typename T, index_t M, index_t N, StoragePolicy P>
+    class FlatMatrixBase;
+
+
     // specializations of the iterator type helper classes
     // tell the base class which iterators to use.
 
-    template <typename T, index_t M, index_t N>
-    struct _ImplMtxReftype<SimpleMatrix<T,M,N>,T> {
+    template <typename T, index_t M, index_t N, StoragePolicy P>
+    struct _ImplMtxReftype<FlatMatrixBase<T,M,N,P>,T> {
         typedef T& reference;
     };
     
-    template <typename T, index_t M, index_t N>
-    struct _ImplMtxRowtype<SimpleMatrix<T,M,N>,T> {
+    template <typename T, index_t M, index_t N, StoragePolicy P>
+    struct _ImplMtxRowtype<FlatMatrixBase<T,M,N,P>,T> {
         typedef T* row_iterator;
     };
     
-    template <typename T, index_t M, index_t N>
-    struct _ImplMtxConstRowtype<SimpleMatrix<T,M,N>,T> {
+    template <typename T, index_t M, index_t N, StoragePolicy P>
+    struct _ImplMtxConstRowtype<FlatMatrixBase<T,M,N,P>,T> {
         typedef const T* const_row_iterator;
     };
     
@@ -58,6 +65,11 @@ namespace detail {
 
 
 ///////////////////// Flat matrix base class /////////////////////
+
+
+#ifndef PARSING_DOXYGEN
+namespace detail {
+#endif
 
 
 /** @ingroup matrix 
@@ -76,11 +88,11 @@ namespace detail {
  *
  * The storage policy behavior is as follows:
  * <ul>
- * <li>If the StoragePolicy is `STORAGE_MULTI_OWNER` (default), then all copy-constructed
+ * <li>If the StoragePolicy is `STORAGE_SHARED` (default), then all copy-constructed
  * duplicates of dynamically-sized matrixes should be treated as references to a common array.</li>
- * <li>If the StoragePolicy is `STORAGE_SINGLE_OWNER`, then copy-constructed 
+ * <li>If the StoragePolicy is `STORAGE_UNIQUE`, then copy-constructed 
  * duplicates of dynamically-sized matrices will make a full copy of the underlying array.</li>
- * <li>If the StoragePolicy is `STORAGE_USER_OWNER`, then the user must provide
+ * <li>If the StoragePolicy is `STORAGE_USER_OWNED`, then the user must provide
  * a backing array, whose lifetime is managed manually.</li>
  * </ul>
  * 
@@ -88,7 +100,7 @@ namespace detail {
  */
 template <typename T, index_t M, index_t N, StoragePolicy P>
 #ifdef PARSING_DOXYGEN
-class SimpleMatrix : public detail::WriteableMatrixBase<T,M,N, FlatMatrixBase<T,M,N,P> > {
+class SimpleMatrix : public detail::WriteableMatrixBase<T,M,N, SimpleMatrix<T,M,N,P> > {
 #else
 class FlatMatrixBase : public detail::WriteableMatrixBase<T,M,N, FlatMatrixBase<T,M,N,P> > {
 #endif
@@ -128,7 +140,7 @@ public:
      *     SimpleMatrix<double, 0, 0> m2(3, 3);
      *     SimpleMatrix<double, 0, 0> m3; // XXX: Compiler error!
      *
-     * This constructor is not available if the storage policy is `STORAGE_USER_OWNER`.
+     * This constructor is not available if the storage policy is `STORAGE_USER_OWNED`.
      * 
      * @param nrows Number of rows in the matrix.
      * @param ncols Number of columns in the matrix.
@@ -144,7 +156,7 @@ public:
      * that dimension. Size arguments will be ignored for dimensions that are 
      * statically-sized.
      *
-     * If the storage policy is `STORAGE_USER_OWNER`, `src_data` will be used directly
+     * If the storage policy is `STORAGE_USER_OWNED`, `src_data` will be used directly
      * as the backing storage, and its lifetime must exceed the lifetime of this matrix.
      * 
      * @param src_data Array of nrows * ncols elements, in row-major order.
@@ -156,7 +168,7 @@ public:
     /**
      * Construct and initialize this matrix with the contents of another.
      *
-     * This constructor is not available if the storage policy is `STORAGE_USER_OWNER`.
+     * This constructor is not available if the storage policy is `STORAGE_USER_OWNED`.
      * 
      * @tparam Mx A matrix type with agreeing dimension. 
      * @param mtx Matrix containing source elements.
@@ -182,6 +194,7 @@ protected:
             data(nrows * ncols) {
         Dimension<M>::set(n_rows, nrows);
         Dimension<M>::set(n_cols, ncols);
+        setIdentity();
     }
 
 public:
@@ -202,7 +215,7 @@ public:
     template <typename U> SimpleMatrix<T,M,N>& operator*=(U k) {}
 #else
     template <typename U>
-    typename boost::enable_if<boost::is_scalar<U>, SimpleMatrix<T,M,N>&>::type
+    typename boost::enable_if<boost::is_scalar<U>, SimpleMatrix<T,M,N,P>&>::type
     operator*=(U k) {
         T *p = data.get();
         for (index_t i = 0; i < rows() * cols(); i++) {
@@ -349,6 +362,10 @@ public:
 }; // class FlatMatrixBase
 
 
+#ifndef PARSING_DOXYGEN
+} // namespace detail
+#endif
+
 
 ///////////////////// SimpleMatrix /////////////////////
 
@@ -356,12 +373,15 @@ public:
 // todo: really double check the rows/cols default argument business.
 
 
+#ifndef PARSING_DOXYGEN
+
+
 template <typename T, index_t M, index_t N, StoragePolicy P>
-class SimpleMatrix : public FlatMatrixBase<T,M,N,P> {
+class SimpleMatrix : public detail::FlatMatrixBase<T,M,N,P> {
 
 private:
 
-    typedef FlatMatrixBase<T,M,N,P> parent_t;
+    typedef detail::FlatMatrixBase<T,M,N,P> parent_t;
 
 public:
 
@@ -374,10 +394,10 @@ public:
                 parent_t(nrows, ncols) {}
 
     explicit SimpleMatrix(
-            T* src_data,
+            const T* src_data,
             index_t nrows=detail::DefinedIf<M != DYNAMIC_DIM, M>::value, 
             index_t ncols=detail::DefinedIf<N != DYNAMIC_DIM, N>::value) : 
-                parent_t(nrows, ncols) {}
+                parent_t(nrows, ncols, src_data) {}
 
     template <typename Mx>
     SimpleMatrix(const Mx &mtx,
@@ -397,11 +417,11 @@ public:
 
 
 template <typename T, index_t M, index_t N>
-class SimpleMatrix : public FlatMatrixBase<T,M,N,STORAGE_USER_OWNER> {
+class SimpleMatrix<T,M,N,STORAGE_USER_OWNED> : public detail::FlatMatrixBase<T,M,N,STORAGE_USER_OWNED> {
 
 private:
 
-    typedef FlatMatrixBase<T,M,N,STORAGE_USER_OWNER> parent_t;
+    typedef detail::FlatMatrixBase<T,M,N,STORAGE_USER_OWNED> parent_t;
 
 public:
 
@@ -415,6 +435,9 @@ public:
 };  // class SimpleMatrix <..., USER_OWNER>
 
 
-}; // end namespace geom
+#endif
+
+
+} // end namespace geom
 
 #endif /* SIMPLEMATRIX_H_ */
