@@ -42,7 +42,7 @@ template <>
 class _ImplEdge<EDGE_MIRROR> {
 public:
     static inline index_t coord(index_t c, index_t max) {
-        c = abs(c);
+        c = std::abs(c);
         max -= 1;
         int cyc = c/max;
         int i   = c%max;

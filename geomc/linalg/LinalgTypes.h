@@ -100,7 +100,6 @@ namespace detail {
     template <typename T, index_t M, index_t N, StoragePolicy P=STORAGE_SHARED>
                                                 class SimpleMatrix;
     template <typename T, index_t M, index_t N> class DiagMatrix;
-    template <typename T>                       class SparseMatrix;
     template <typename Ma, typename Mb>         class AugmentedMatrix;
     template <index_t N>                        class PermutationMatrix;
     template <typename T>                       class MatrixHandle;

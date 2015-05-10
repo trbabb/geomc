@@ -187,22 +187,6 @@ struct _ImplMatrixScale < DiagMatrix<T,M,N> > {
     }
 };
 
-////////// sparse case //////////
-
-template <typename T>
-struct _ImplMatrixScale< SparseMatrix<T> > {
-    typedef SparseMatrix<T> return_t;
-    
-    template<typename Md, typename U>
-    static void scale(Md *d, U k, const SparseMatrix<T> &m) {
-        d->setZero();
-        typename SparseMatrix<T>::nonzero_iterator i;
-        for (i = m.nonzero_begin(); i != m.nonzero_end(); i++) {
-            MatrixCoord p = i->first;
-            d->set(p.row, p.col, k * i->second);
-        }
-    }
-};
 
 };  // end namespace detail
 };  // end namespace geom

@@ -207,6 +207,8 @@ struct SizedStorage<T,DYNAMIC_DIM> : public Storage<T,DYNAMIC_DIM> {
  * duplication of the underlying array. (If c++11 support is enabled, then
  * move assignments and constructions of dynamically-sized arrays will be 
  * lightweight).
+ *
+ * Statically-sized arrays will allocate their memory on the stack.
  * 
  * @tparam T Element type.
  * @tparam N Size of the array, or 0 for dynamic size.

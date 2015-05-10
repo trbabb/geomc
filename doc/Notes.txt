@@ -7,9 +7,9 @@ TODO:
   - switch to scons
   - fix dual docs
   - fix tracing
-  - fix matrices
+  x fix matrices
     - window
-    - wrapper
+    x wrapper
 
   missing, but not a showstopper:
     - space partitions
@@ -20,9 +20,9 @@ TODO:
     - have a Raster wrap a Grid
 
 MATRIX:
-  - make a matrix which can wrap a client-owned array
+  x make a matrix which can wrap a client-owned array
   - make a SubMatrix
-  - kill SparseMatrix
+  x kill SparseMatrix
   - kill Augmented or templatize over direction
   - fix mtx multiplication for SimpleMtx to operate on T* rather than the matrix, to prevent code bloat
   - remove writeable iterator from diagmatrix

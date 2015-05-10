@@ -270,7 +270,6 @@
 #include <geomc/linalg/mtxtypes/SimpleMatrix.h>
 #include <geomc/linalg/mtxtypes/AugmentedMatrix.h>
 #include <geomc/linalg/mtxtypes/DiagMatrix.h>
-#include <geomc/linalg/mtxtypes/SparseMatrix.h>
 #include <geomc/linalg/mtxtypes/MatrixHandle.h>
 #include <geomc/linalg/mtxtypes/PermutationMatrix.h>
 

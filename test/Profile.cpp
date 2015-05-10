@@ -843,10 +843,13 @@ template <index_t M, index_t N> void test_simpleMatrix() {
 void test_matrixOrder() {
 	index_t sz_r = 5;
 	index_t sz_c = 7;
-	SparseMatrix<double> mtx(sz_r,sz_c);
+    SimpleMatrix<double,3,3> m0;
+    SimpleMatrix<double,3,4> m1;
+	AugmentedMatrix<SimpleMatrix<double,3,3>,
+                    SimpleMatrix<double,3,4> > mtx(&m0, &m1);
     
 	double ct = 0;
-	for (SparseMatrix<double>::iterator it = mtx.begin(); it != mtx.end(); it++) {
+	for (auto it = mtx.begin(); it != mtx.end(); it++) {
 		*it = ct++;
 	}
     
@@ -1008,15 +1011,11 @@ int main(int argc, char** argv) {
     
     profile("5x5 mtxf region copy",    profile_mtxRegionCopy<SimpleMatrix<float,0,0> >,    iters);
     profile("5x5 mtxd region copy",    profile_mtxRegionCopy<SimpleMatrix<double,0,0> >,   iters);
-    profile("5x5 sparsef region copy", profile_mtxRegionCopy<SparseMatrix<float> >,  iters/100);
-    profile("5x5 sparsed region copy", profile_mtxRegionCopy<SparseMatrix<double> >, iters/100);
     profile("5x5 diagf region copy",   profile_mtxRegionCopy<DiagMatrix<float,5,5> >, iters);
     std::cout << std::endl;
 
     profile("5x5 mtxf copy",    profile_mtxCopy<SimpleMatrix<float,0,0> >, iters/100);
     profile("5x5 mtxd copy",    profile_mtxCopy<SimpleMatrix<double,0,0> >, iters/100);
-    profile("5x5 sparsef copy", profile_mtxCopy<SparseMatrix<float> >, iters/100);
-    profile("5x5 sparsed copy", profile_mtxCopy<SparseMatrix<double> >, iters/100);
     profile("5x5 diagf copy",   profile_mtxCopy<DiagMatrix<float,5,5> >, iters/100);
     std::cout << std::endl;
     

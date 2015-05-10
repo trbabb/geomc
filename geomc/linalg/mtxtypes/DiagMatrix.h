@@ -151,6 +151,20 @@ public:
     const T* diagonal_end() const {
         return data.get() + diag;
     }
+
+    /**
+     * Return the `i`th diagonal element.
+     */
+    const T& diagonal(index_t i) const {
+        return data.get()[i];
+    }
+
+    /**
+     * Return a reference to the `i`th diagonal element.
+     */
+    T& diagonal(index_t i) {
+        return data.get()[i];
+    }
     
     inline void getStorageIDs(storage_id_t *buf) const {
         *buf = data.get();
