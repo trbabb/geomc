@@ -102,15 +102,6 @@ public:
 #endif
         return (r == c) ? data.get()[r] : (T(0));
     }
-    
-    inline reference set(index_t r, index_t c, T val) {
-        if (r == c && c < diag) {
-            data.get()[r] = val;
-        } else if (val != 0) {
-            throw std::out_of_range("off-diagonal write");
-        }
-        return reference(this, r, c);
-    }
 
     void setIdentity() {
         std::fill(data.get(), data.get() + diag, 1);
