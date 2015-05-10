@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.7"/>
-<title>geomc: UnmanagedStorage&lt; T, N &gt; Struct Template Reference</title>
+<title>geomc: GenericStorage&lt; T, N, P &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -85,67 +85,59 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="namespacegeom.html">geom</a></li><li class="navelem"><a class="el" href="structgeom_1_1_unmanaged_storage.html">UnmanagedStorage</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespacegeom.html">geom</a></li><li class="navelem"><a class="el" href="structgeom_1_1_generic_storage.html">GenericStorage</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="structgeom_1_1_unmanaged_storage-members.html">List of all members</a>  </div>
+<a href="structgeom_1_1_generic_storage-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">UnmanagedStorage&lt; T, N &gt; Struct Template Reference<div class="ingroups"><a class="el" href="group__storage.html">Storage</a></div></div>  </div>
+<div class="title">GenericStorage&lt; T, N, P &gt; Struct Template Reference<div class="ingroups"><a class="el" href="group__storage.html">Storage</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>ArrayStorage with templated static or dynamic size, and without reference counting (allocated data is deleted upon destruction).  
- <a href="structgeom_1_1_unmanaged_storage.html#details">More...</a></p>
+<p>Array storage with templated static or dynamic size, and template-selectable ownership policy.  
+ <a href="structgeom_1_1_generic_storage.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_storage_8h_source.html">geomc/Storage.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aaec8ddf0c8f57715ed4c6bda67ee3a6d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaec8ddf0c8f57715ed4c6bda67ee3a6d"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_unmanaged_storage.html#aaec8ddf0c8f57715ed4c6bda67ee3a6d">UnmanagedStorage</a> ()</td></tr>
-<tr class="memdesc:aaec8ddf0c8f57715ed4c6bda67ee3a6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="structgeom_1_1_unmanaged_storage.html" title="ArrayStorage with templated static or dynamic size, and without reference counting (allocated data is...">UnmanagedStorage</a> of size <code>N</code>. (Static size only). <br /></td></tr>
-<tr class="separator:aaec8ddf0c8f57715ed4c6bda67ee3a6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1e1b26d91db573b13e2f4f4f562a31a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad1e1b26d91db573b13e2f4f4f562a31a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_unmanaged_storage.html#ad1e1b26d91db573b13e2f4f4f562a31a">UnmanagedStorage</a> (index_t n)</td></tr>
-<tr class="memdesc:ad1e1b26d91db573b13e2f4f4f562a31a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="structgeom_1_1_unmanaged_storage.html" title="ArrayStorage with templated static or dynamic size, and without reference counting (allocated data is...">UnmanagedStorage</a> of size <code>n</code>. <code>n</code> is ignored if the array size is not dynamic. <br /></td></tr>
-<tr class="separator:ad1e1b26d91db573b13e2f4f4f562a31a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd67406f987dc33227c44e9deefd3567"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abd67406f987dc33227c44e9deefd3567"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_generic_storage.html#abd67406f987dc33227c44e9deefd3567">GenericStorage</a> (index_t n, T *srcdata)</td></tr>
+<tr class="memdesc:abd67406f987dc33227c44e9deefd3567"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new array of size <code>n</code>, initialized with <code>srcdata</code>. <br /></td></tr>
+<tr class="separator:abd67406f987dc33227c44e9deefd3567"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad535c6cc3957203634cac14b8d553a72"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad535c6cc3957203634cac14b8d553a72"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_generic_storage.html#ad535c6cc3957203634cac14b8d553a72">GenericStorage</a> (index_t n)</td></tr>
+<tr class="memdesc:ad535c6cc3957203634cac14b8d553a72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new array of size <code>n</code>. Not available for user-owned specializations. <br /></td></tr>
+<tr class="separator:ad535c6cc3957203634cac14b8d553a72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac051b2568208e363ae2dffb23c0ad9ba"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac051b2568208e363ae2dffb23c0ad9ba"></a>
-T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_unmanaged_storage.html#ac051b2568208e363ae2dffb23c0ad9ba">get</a> ()</td></tr>
+T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_generic_storage.html#ac051b2568208e363ae2dffb23c0ad9ba">get</a> ()</td></tr>
 <tr class="memdesc:ac051b2568208e363ae2dffb23c0ad9ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a pointer to the first element in the storage array. <br /></td></tr>
 <tr class="separator:ac051b2568208e363ae2dffb23c0ad9ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a919f0a4ccce2a24c3941433289bb7e70"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a919f0a4ccce2a24c3941433289bb7e70"></a>
-const T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_unmanaged_storage.html#a919f0a4ccce2a24c3941433289bb7e70">get</a> () const </td></tr>
-<tr class="memdesc:a919f0a4ccce2a24c3941433289bb7e70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a pointer to the first (const) element in the storage array. <br /></td></tr>
+const T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_generic_storage.html#a919f0a4ccce2a24c3941433289bb7e70">get</a> () const </td></tr>
+<tr class="memdesc:a919f0a4ccce2a24c3941433289bb7e70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a const pointer to the first element in the storage array. <br /></td></tr>
 <tr class="separator:a919f0a4ccce2a24c3941433289bb7e70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a459efc63918bdc871550717e0c852167"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a459efc63918bdc871550717e0c852167"></a>
-index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_unmanaged_storage.html#a459efc63918bdc871550717e0c852167">size</a> () const </td></tr>
+index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_generic_storage.html#a459efc63918bdc871550717e0c852167">size</a> () const </td></tr>
 <tr class="memdesc:a459efc63918bdc871550717e0c852167"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of elements in the array. <br /></td></tr>
 <tr class="separator:a459efc63918bdc871550717e0c852167"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab13e0a27ac92f24cb28362b194c16e48"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab13e0a27ac92f24cb28362b194c16e48"></a>
-T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_unmanaged_storage.html#ab13e0a27ac92f24cb28362b194c16e48">operator[]</a> (index_t i)</td></tr>
-<tr class="memdesc:ab13e0a27ac92f24cb28362b194c16e48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a reference to the <code>i</code>th element in the array. <br /></td></tr>
-<tr class="separator:ab13e0a27ac92f24cb28362b194c16e48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7734a11ceda850a788895b3d3b92c02"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae7734a11ceda850a788895b3d3b92c02"></a>
-T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_unmanaged_storage.html#ae7734a11ceda850a788895b3d3b92c02">operator[]</a> (index_t i) const </td></tr>
-<tr class="memdesc:ae7734a11ceda850a788895b3d3b92c02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the <code>i</code>th element in the array. <br /></td></tr>
-<tr class="separator:ae7734a11ceda850a788895b3d3b92c02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a6896f24464ed35248eb0bc5cf32e8616"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6896f24464ed35248eb0bc5cf32e8616"></a>
-T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_unmanaged_storage.html#a6896f24464ed35248eb0bc5cf32e8616">data</a> [N]</td></tr>
-<tr class="memdesc:a6896f24464ed35248eb0bc5cf32e8616"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data array. <br /></td></tr>
-<tr class="separator:a6896f24464ed35248eb0bc5cf32e8616"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3d7e89644303828e6a8be9d8ed1dbaf"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab3d7e89644303828e6a8be9d8ed1dbaf"></a>
+T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_generic_storage.html#ab3d7e89644303828e6a8be9d8ed1dbaf">operator[]</a> (index_t idx)</td></tr>
+<tr class="memdesc:ab3d7e89644303828e6a8be9d8ed1dbaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a reference to the <code>i</code>th element in the array. <br /></td></tr>
+<tr class="separator:ab3d7e89644303828e6a8be9d8ed1dbaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41b68e1c0be67a01a1de23ca6d702592"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a41b68e1c0be67a01a1de23ca6d702592"></a>
+T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_generic_storage.html#a41b68e1c0be67a01a1de23ca6d702592">operator[]</a> (index_t idx) const </td></tr>
+<tr class="memdesc:a41b68e1c0be67a01a1de23ca6d702592"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the <code>i</code>th element in the array. <br /></td></tr>
+<tr class="separator:a41b68e1c0be67a01a1de23ca6d702592"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T, index_t N&gt;<br />
-struct geom::UnmanagedStorage&lt; T, N &gt;</h3>
+<div class="textblock"><h3>template&lt;typename T, index_t N, StoragePolicy P&gt;<br />
+struct geom::GenericStorage&lt; T, N, P &gt;</h3>
 
-<p>ArrayStorage with templated static or dynamic size, and without reference counting (allocated data is deleted upon destruction). </p>
+<p>Array storage with templated static or dynamic size, and template-selectable ownership policy. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td>Element type. </td></tr>
@@ -153,16 +145,22 @@ struct geom::UnmanagedStorage&lt; T, N &gt;</h3>
   </table>
   </dd>
 </dl>
-<p>Preferred for when ownership never changes hands and/or memory management is not needed.</p>
+<p>The ownership policy behavior is as follows: </p><ul>
+<li>
+If the ownership policy is <code>STORAGE_SHARED</code>, then dynamically-sized arrays will allocate their own reference-counted memory, and the underlying storage will be deleted when the last owner is destroyed. </li>
+<li>
+If the ownership policy is <code>STORAGE_UNIQUE</code>, then dynamically-sized arrays will allocate their own memory, and the underlying arrays will be duplicated on copy or assignment. </li>
+<li>
+If the ownership is <code>STORAGE_USER_OWNED</code>, then the array will simply wrap a pointer to user-owned memory, which must be valid for the lifetime of this object, and must contain the minimum number of elements. Duplicates will refer to the same backing memory. No attempt will be made to free the pointer upon destruction. </li>
+</ul>
 <p><code>#include &lt;<a class="el" href="_storage_8h_source.html">geomc/Storage.h</a>&gt;</code> </p>
-</div><hr/>The documentation for this struct was generated from the following files:<ul>
-<li>geomc/<a class="el" href="geomc__defs_8h_source.html">geomc_defs.h</a></li>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li>geomc/<a class="el" href="_storage_8h_source.html">Storage.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 18 2015 00:19:20 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat May 9 2015 19:42:33 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

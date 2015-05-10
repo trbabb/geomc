@@ -124,6 +124,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_frustum.html">Frustum</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An N-dimensional frustum (truncated pyramid).  <a href="classgeom_1_1_frustum.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_generic_storage.html">GenericStorage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array storage with templated static or dynamic size, and template-selectable ownership policy.  <a href="structgeom_1_1_generic_storage.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_grid_iterator.html">GridIterator</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterator over the integer points in an N-dimensional grid.  <a href="classgeom_1_1_grid_iterator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -193,8 +196,11 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_storage.html">Storage</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array storage with templated static or dynamic size.  <a href="structgeom_1_1_storage.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_unmanaged_storage.html">UnmanagedStorage</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">ArrayStorage with templated static or dynamic size, and without reference counting (allocated data is deleted upon destruction).  <a href="structgeom_1_1_unmanaged_storage.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_unique_storage.html">UniqueStorage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array storage with templated static or dynamic size, and without reference counting.  <a href="structgeom_1_1_unique_storage.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_user_owned_storage.html">UserOwnedStorage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array storage with templated static or dynamic size, acting as a thin, templated wrapper around a user-owned array.  <a href="structgeom_1_1_user_owned_storage.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_vec.html">Vec</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A tuple of <code>N</code> elements of type <code>T</code>.  <a href="classgeom_1_1_vec.html#details">More...</a><br /></td></tr>
@@ -232,6 +238,11 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:ga83ac62dcb1fe341318ed1bd351a8ad83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array traversal order, specified in terms of which axes to increment first.  <a href="group__shape.html#ga83ac62dcb1fe341318ed1bd351a8ad83">More...</a><br /></td></tr>
 <tr class="separator:ga83ac62dcb1fe341318ed1bd351a8ad83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1fe6a0f4b7ba39c90d3d765ca72c3097"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__storage.html#ga1fe6a0f4b7ba39c90d3d765ca72c3097">StoragePolicy</a> { <a class="el" href="group__storage.html#gga1fe6a0f4b7ba39c90d3d765ca72c3097adafde15a161a69ddaf9d3adf0dce835a">STORAGE_SHARED</a>, 
+<a class="el" href="group__storage.html#gga1fe6a0f4b7ba39c90d3d765ca72c3097abd5f1e54776e44d27c9236631b20efbb">STORAGE_UNIQUE</a>, 
+<a class="el" href="group__storage.html#gga1fe6a0f4b7ba39c90d3d765ca72c3097a29deb9cf05b2518c148c18b4b9411c10">STORAGE_USER_OWNED</a>
+ }</td></tr>
+<tr class="separator:ga1fe6a0f4b7ba39c90d3d765ca72c3097"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
 <tr class="memitem:ga66505ffabe4da800c0ec653d493ea944"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> { <a class="el" href="group__shape.html#gga66505ffabe4da800c0ec653d493ea944a0cc724de9c2be8b3c506f45d4811ddec">HIT_FRONT</a> = 1, 
 <a class="el" href="group__shape.html#gga66505ffabe4da800c0ec653d493ea944a69d567fc54e1147a9879d610a90b2133">HIT_BACK</a> = 2, 
@@ -517,7 +528,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 18 2015 00:19:20 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat May 9 2015 19:42:33 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

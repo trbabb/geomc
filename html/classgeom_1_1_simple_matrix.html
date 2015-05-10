@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.7"/>
-<title>geomc: SimpleMatrix&lt; T, M, N &gt; Class Template Reference</title>
+<title>geomc: SimpleMatrix&lt; T, M, N, P &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -95,7 +95,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classgeom_1_1_simple_matrix-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">SimpleMatrix&lt; T, M, N &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__matrix.html">Matrix</a></div></div>  </div>
+<div class="title">SimpleMatrix&lt; T, M, N, P &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__matrix.html">Matrix</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -156,9 +156,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac1d7026402effa87a698492603365e6f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_simple_matrix.html#ac1d7026402effa87a698492603365e6f">SimpleMatrix</a> (index_t nrows, index_t ncols)</td></tr>
 <tr class="memdesc:ac1d7026402effa87a698492603365e6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a matrix of size <code>(nrows x ncols)</code>.  <a href="#ac1d7026402effa87a698492603365e6f">More...</a><br /></td></tr>
 <tr class="separator:ac1d7026402effa87a698492603365e6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab853fe1b12546dc3c30ebc43f7f79c93"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_simple_matrix.html#ab853fe1b12546dc3c30ebc43f7f79c93">SimpleMatrix</a> (const T *src_data, index_t nrows, index_t ncols)</td></tr>
-<tr class="memdesc:ab853fe1b12546dc3c30ebc43f7f79c93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a matrix of size <code>(nrows x ncols)</code>, initialized with <code>src_data</code>.  <a href="#ab853fe1b12546dc3c30ebc43f7f79c93">More...</a><br /></td></tr>
-<tr class="separator:ab853fe1b12546dc3c30ebc43f7f79c93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81071c0bf3e7d532945f0dde4ef3c28a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_simple_matrix.html#a81071c0bf3e7d532945f0dde4ef3c28a">SimpleMatrix</a> (T *src_data, index_t nrows, index_t ncols)</td></tr>
+<tr class="memdesc:a81071c0bf3e7d532945f0dde4ef3c28a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a matrix of size <code>(nrows x ncols)</code>, initialized with <code>src_data</code>.  <a href="#a81071c0bf3e7d532945f0dde4ef3c28a">More...</a><br /></td></tr>
+<tr class="separator:a81071c0bf3e7d532945f0dde4ef3c28a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a043f7d9b13b1d3a145dac346abfac10a"><td class="memTemplParams" colspan="2">template&lt;typename Mx &gt; </td></tr>
 <tr class="memitem:a043f7d9b13b1d3a145dac346abfac10a"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_simple_matrix.html#a043f7d9b13b1d3a145dac346abfac10a">SimpleMatrix</a> (const Mx &amp;mtx)</td></tr>
 <tr class="separator:a043f7d9b13b1d3a145dac346abfac10a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -222,19 +222,29 @@ static const index_t&#160;</td><td class="memItemRight" valign="bottom"><b>COLDI
 <tr class="separator:ab2aa548f3d644afad91a589c76925f26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T, index_t M, index_t N&gt;<br />
-class geom::SimpleMatrix&lt; T, M, N &gt;</h3>
+<div class="textblock"><h3>template&lt;typename T, index_t M, index_t N, StoragePolicy P = STORAGE_SHARED&gt;<br />
+class geom::SimpleMatrix&lt; T, M, N, P &gt;</h3>
 
 <p>A basic matrix with <code>M x N</code> elements. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td>Element type. </td></tr>
     <tr><td class="paramname">M</td><td>Row dimension. </td></tr>
-    <tr><td class="paramname">N</td><td>Column dimension.</td></tr>
+    <tr><td class="paramname">N</td><td>Column dimension. </td></tr>
+    <tr><td class="paramname">P</td><td>Policy for memory ownership of the backing array.</td></tr>
   </table>
   </dd>
 </dl>
-<p>If <code>M</code> or <code>N</code> are 0, the matrix has runtime-chosen size, and all copy-constructed duplicates of this matrix should be treated as references to a common array.</p>
+<p>Example: </p><pre class="fragment">SimpleMatrix&lt;double,4,4&gt; mx;
+</pre><p>If <code>M</code> or <code>N</code> are 0, the matrix has runtime-chosen size.</p>
+<p>The storage policy behavior is as follows: </p><ul>
+<li>
+If the StoragePolicy is <code>STORAGE_SHARED</code> (default), then all copy-constructed duplicates of dynamically-sized matrixes should be treated as references to a common array. </li>
+<li>
+If the StoragePolicy is <code>STORAGE_UNIQUE</code>, then copy-constructed duplicates of dynamically-sized matrices will make a full copy of the underlying array. </li>
+<li>
+If the StoragePolicy is <code>STORAGE_USER_OWNED</code>, then the user must provide a backing array, whose lifetime is managed manually. </li>
+</ul>
 <p>For more on matrices, see the <a class="el" href="group__matrix.html">matrix module documentation</a>. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ac1d7026402effa87a698492603365e6f"></a>
@@ -274,7 +284,8 @@ class geom::SimpleMatrix&lt; T, M, N &gt;</h3>
 <p>Examples: </p><pre class="fragment">SimpleMatrix&lt;double, 3, 3&gt; m1;
 SimpleMatrix&lt;double, 0, 0&gt; m2(3, 3);
 SimpleMatrix&lt;double, 0, 0&gt; m3; // XXX: Compiler error!
-</pre><dl class="params"><dt>Parameters</dt><dd>
+</pre><p>This constructor is not available if the storage policy is <code>STORAGE_USER_OWNED</code>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nrows</td><td>Number of rows in the matrix. </td></tr>
     <tr><td class="paramname">ncols</td><td>Number of columns in the matrix. </td></tr>
@@ -284,7 +295,7 @@ SimpleMatrix&lt;double, 0, 0&gt; m3; // XXX: Compiler error!
 
 </div>
 </div>
-<a class="anchor" id="ab853fe1b12546dc3c30ebc43f7f79c93"></a>
+<a class="anchor" id="a81071c0bf3e7d532945f0dde4ef3c28a"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -294,7 +305,7 @@ SimpleMatrix&lt;double, 0, 0&gt; m3; // XXX: Compiler error!
         <tr>
           <td class="memname"><a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a> </td>
           <td>(</td>
-          <td class="paramtype">const T *&#160;</td>
+          <td class="paramtype">T *&#160;</td>
           <td class="paramname"><em>src_data</em>, </td>
         </tr>
         <tr>
@@ -324,9 +335,10 @@ SimpleMatrix&lt;double, 0, 0&gt; m3; // XXX: Compiler error!
 
 <p>Construct a matrix of size <code>(nrows x ncols)</code>, initialized with <code>src_data</code>. </p>
 <p>For matrices with dynamic dimension, a size argument is <b>required</b> for that dimension. Size arguments will be ignored for dimensions that are statically-sized.</p>
+<p>If the storage policy is <code>STORAGE_USER_OWNED</code>, <code>src_data</code> will be used directly as the backing storage, and its lifetime must exceed the lifetime of this matrix.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">src_data</td><td>Array of <code>nrows * ncols</code> elements, in row-major order, to be copied. </td></tr>
+    <tr><td class="paramname">src_data</td><td>Array of nrows * ncols elements, in row-major order. </td></tr>
     <tr><td class="paramname">nrows</td><td>Number of rows in the matrix. </td></tr>
     <tr><td class="paramname">ncols</td><td>Number of columns in the matrix. </td></tr>
   </table>
@@ -356,7 +368,9 @@ SimpleMatrix&lt;double, 0, 0&gt; m3; // XXX: Compiler error!
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Construct and initialize this matrix with the contents of another. </p><dl class="tparams"><dt>Template Parameters</dt><dd>
+<p>Construct and initialize this matrix with the contents of another.</p>
+<p>This constructor is not available if the storage policy is <code>STORAGE_USER_OWNED</code>.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">Mx</td><td>A matrix type with agreeing dimension. </td></tr>
   </table>
@@ -1075,7 +1089,7 @@ SimpleMatrix&lt;double, 0, 0&gt; m3; // XXX: Compiler error!
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 18 2015 00:19:20 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat May 9 2015 19:42:33 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

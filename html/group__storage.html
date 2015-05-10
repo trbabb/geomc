@@ -78,7 +78,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
 <div class="title">Storage</div>  </div>
 </div><!--header-->
@@ -98,16 +99,54 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_sized_storage.html">SizedStorage&lt; T, N &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array storage with templated static or dynamic size. If the array is dynamic, its length is stored internally and can be queried.  <a href="structgeom_1_1_sized_storage.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_unmanaged_storage.html">UnmanagedStorage&lt; T, N &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">ArrayStorage with templated static or dynamic size, and without reference counting (allocated data is deleted upon destruction).  <a href="structgeom_1_1_unmanaged_storage.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_unique_storage.html">UniqueStorage&lt; T, N &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array storage with templated static or dynamic size, and without reference counting.  <a href="structgeom_1_1_unique_storage.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_generic_storage.html">GenericStorage&lt; T, N, P &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array storage with templated static or dynamic size, and template-selectable ownership policy.  <a href="structgeom_1_1_generic_storage.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_user_owned_storage.html">UserOwnedStorage&lt; T, N &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array storage with templated static or dynamic size, acting as a thin, templated wrapper around a user-owned array.  <a href="structgeom_1_1_user_owned_storage.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga1fe6a0f4b7ba39c90d3d765ca72c3097"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__storage.html#ga1fe6a0f4b7ba39c90d3d765ca72c3097">StoragePolicy</a> { <a class="el" href="group__storage.html#gga1fe6a0f4b7ba39c90d3d765ca72c3097adafde15a161a69ddaf9d3adf0dce835a">STORAGE_SHARED</a>, 
+<a class="el" href="group__storage.html#gga1fe6a0f4b7ba39c90d3d765ca72c3097abd5f1e54776e44d27c9236631b20efbb">STORAGE_UNIQUE</a>, 
+<a class="el" href="group__storage.html#gga1fe6a0f4b7ba39c90d3d765ca72c3097a29deb9cf05b2518c148c18b4b9411c10">STORAGE_USER_OWNED</a>
+ }</td></tr>
+<tr class="separator:ga1fe6a0f4b7ba39c90d3d765ca72c3097"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Classes for arrays with templated static or dynamic size. </p>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a class="anchor" id="ga1fe6a0f4b7ba39c90d3d765ca72c3097"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum StoragePolicy</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="gga1fe6a0f4b7ba39c90d3d765ca72c3097adafde15a161a69ddaf9d3adf0dce835a"></a>STORAGE_SHARED&#160;</td><td class="fielddoc">
+<p>Dynamically-sized storage will use reference counting to manage memory; all copies of the <a class="el" href="structgeom_1_1_storage.html" title="Array storage with templated static or dynamic size. ">Storage</a> object share the same underlying array. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga1fe6a0f4b7ba39c90d3d765ca72c3097abd5f1e54776e44d27c9236631b20efbb"></a>STORAGE_UNIQUE&#160;</td><td class="fielddoc">
+<p>Dynamically-sized storage is assumed to have a single owner, and the underlying array will be duplicated on copy or assignment. </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="gga1fe6a0f4b7ba39c90d3d765ca72c3097a29deb9cf05b2518c148c18b4b9411c10"></a>STORAGE_USER_OWNED&#160;</td><td class="fielddoc">
+<p>Backing storage is provided and managed by the user. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 18 2015 00:19:20 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat May 9 2015 19:42:33 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

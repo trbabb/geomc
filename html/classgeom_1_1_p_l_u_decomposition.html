@@ -143,9 +143,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a53e5ba3def1af81be8611e0830929ee6"><td class="memTemplParams" colspan="2">template&lt;typename S , index_t K&gt; </td></tr>
 <tr class="memitem:a53e5ba3def1af81be8611e0830929ee6"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; S, K &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_p_l_u_decomposition.html#a53e5ba3def1af81be8611e0830929ee6">linearSolve</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; S, K &gt; &amp;b) const </td></tr>
 <tr class="separator:a53e5ba3def1af81be8611e0830929ee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91b76435ba4e61d6c625c62333331c1a"><td class="memTemplParams" colspan="2">template&lt;typename S , index_t J, index_t K&gt; </td></tr>
-<tr class="memitem:a91b76435ba4e61d6c625c62333331c1a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_p_l_u_decomposition.html#a91b76435ba4e61d6c625c62333331c1a">inverse</a> (<a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; S, J, K &gt; *into) const </td></tr>
-<tr class="separator:a91b76435ba4e61d6c625c62333331c1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56bf8968824d1180d29d2abdc2b4b27f"><td class="memTemplParams" colspan="2">template&lt;typename S , index_t J, index_t K, StoragePolicy SP&gt; </td></tr>
+<tr class="memitem:a56bf8968824d1180d29d2abdc2b4b27f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_p_l_u_decomposition.html#a56bf8968824d1180d29d2abdc2b4b27f">inverse</a> (<a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; S, J, K, SP &gt; *into) const </td></tr>
+<tr class="separator:a56bf8968824d1180d29d2abdc2b4b27f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67ccc6cfa482de0cf47a6ff7124a2b81"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_p_l_u_decomposition.html#a67ccc6cfa482de0cf47a6ff7124a2b81">det</a> () const </td></tr>
 <tr class="separator:a67ccc6cfa482de0cf47a6ff7124a2b81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aedd501e43bebd30ab342fff2d36387ec"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_p_l_u_decomposition.html#aedd501e43bebd30ab342fff2d36387ec">isSingular</a> () const </td></tr>
@@ -424,7 +424,7 @@ class geom::PLUDecomposition&lt; T, M, N &gt;</h3>
 
 </div>
 </div>
-<a class="anchor" id="a91b76435ba4e61d6c625c62333331c1a"></a>
+<a class="anchor" id="a56bf8968824d1180d29d2abdc2b4b27f"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -434,7 +434,7 @@ class geom::PLUDecomposition&lt; T, M, N &gt;</h3>
         <tr>
           <td class="memname">void inverse </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; S, J, K &gt; *&#160;</td>
+          <td class="paramtype"><a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; S, J, K, SP &gt; *&#160;</td>
           <td class="paramname"><em>into</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -728,7 +728,7 @@ class geom::PLUDecomposition&lt; T, M, N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 18 2015 00:19:20 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat May 9 2015 19:42:33 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

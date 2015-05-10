@@ -1,7 +1,7 @@
 var searchData=
 [
   ['d',['d',['../classgeom_1_1_plane.html#a6b27b78b9d187dd926ec53a122ad2772',1,'geom::Plane']]],
-  ['data',['data',['../structgeom_1_1_storage.html#a6896f24464ed35248eb0bc5cf32e8616',1,'geom::Storage::data()'],['../structgeom_1_1_unmanaged_storage.html#a6896f24464ed35248eb0bc5cf32e8616',1,'geom::UnmanagedStorage::data()']]],
+  ['data',['data',['../structgeom_1_1_storage.html#a6896f24464ed35248eb0bc5cf32e8616',1,'geom::Storage::data()'],['../structgeom_1_1_unique_storage.html#a6896f24464ed35248eb0bc5cf32e8616',1,'geom::UniqueStorage::data()']]],
   ['dataextents',['dataExtents',['../classgeom_1_1_raster.html#a57c567559c16f501900105c3fe168179',1,'geom::Raster']]],
   ['decomplup',['decompLUP',['../classgeom_1_1_p_l_u_decomposition.html#a7c5b9135b921f40211a4fd89e6392efb',1,'geom::PLUDecomposition']]],
   ['decompplu',['decompPLU',['../classgeom_1_1_p_l_u_decomposition.html#a52c352b11b569ed79cae3313b9577928',1,'geom::PLUDecomposition']]],
