@@ -34,7 +34,7 @@ namespace detail {
  * lower dimension.
  */
 template <typename T, index_t M, index_t N>
-class DiagMatrix : public detail::WriteableMatrixBase<T,M,N, DiagMatrix<T,M,N> > {
+class DiagMatrix : public detail::MatrixBase<T,M,N, DiagMatrix<T,M,N> > {
     
     index_t diag;
 #ifndef PARSING_DOXYGEN
@@ -48,7 +48,7 @@ public:
     
     typedef typename detail::_ImplMtxReftype<DiagMatrix<T,M,N>,T>::reference reference;
     
-    using detail::WriteableMatrixBase<T,M,N, DiagMatrix<T,M,N> >::get;
+    using detail::MatrixBase<T,M,N, DiagMatrix<T,M,N> >::get;
     
     /**
      * Construct a new diagonal matrix.
