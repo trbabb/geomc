@@ -277,35 +277,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    }</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;};</div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="keyword">struct </span>_ImplMatrixScale&lt; SparseMatrix&lt;T&gt; &gt; {</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keyword">typedef</span> SparseMatrix&lt;T&gt; return_t;</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    </div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Md, <span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="group__matrix.html#gaaef5d783aa86e83c9666737f6b496cd3">scale</a>(Md *d, U k, <span class="keyword">const</span> SparseMatrix&lt;T&gt; &amp;m) {</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        d-&gt;setZero();</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        <span class="keyword">typename</span> SparseMatrix&lt;T&gt;::nonzero_iterator i;</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        <span class="keywordflow">for</span> (i = m.nonzero_begin(); i != m.nonzero_end(); i++) {</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;            MatrixCoord p = i-&gt;first;</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            d-&gt;set(p.row, p.col, k * i-&gt;second);</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        }</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    }</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;};</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;};  <span class="comment">// end namespace detail</span></div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;};  <span class="comment">// end namespace geom</span></div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">/* MATRIXARITHMETIC_H */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;</div>
-<div class="ttc" id="group__matrix_html_gaaef5d783aa86e83c9666737f6b496cd3"><div class="ttname"><a href="group__matrix.html#gaaef5d783aa86e83c9666737f6b496cd3">geom::scale</a></div><div class="ttdeci">void scale(Matrix1 *d, U k, const Matrix &amp;m)</div><div class="ttdef"><b>Definition:</b> Matrix.h:790</div></div>
-<div class="ttc" id="group__matrix_html_gaedd89060fc778b8fdccc689754607925"><div class="ttname"><a href="group__matrix.html#gaedd89060fc778b8fdccc689754607925">geom::sub</a></div><div class="ttdeci">void sub(Matrix *d, const Matrix1 &amp;a, const Matrix2 &amp;b)</div><div class="ttdef"><b>Definition:</b> Matrix.h:705</div></div>
-<div class="ttc" id="group__matrix_html_gad29282e95cba76934ebf5ebff8dabf1d"><div class="ttname"><a href="group__matrix.html#gad29282e95cba76934ebf5ebff8dabf1d">geom::add</a></div><div class="ttdeci">void add(Matrix *d, const Matrix1 &amp;a, const Matrix2 &amp;b)</div><div class="ttdef"><b>Definition:</b> Matrix.h:679</div></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;};  <span class="comment">// end namespace detail</span></div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;};  <span class="comment">// end namespace geom</span></div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">/* MATRIXARITHMETIC_H */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;</div>
+<div class="ttc" id="group__matrix_html_gaaef5d783aa86e83c9666737f6b496cd3"><div class="ttname"><a href="group__matrix.html#gaaef5d783aa86e83c9666737f6b496cd3">geom::scale</a></div><div class="ttdeci">void scale(Matrix1 *d, U k, const Matrix &amp;m)</div><div class="ttdef"><b>Definition:</b> Matrix.h:795</div></div>
+<div class="ttc" id="group__matrix_html_gaedd89060fc778b8fdccc689754607925"><div class="ttname"><a href="group__matrix.html#gaedd89060fc778b8fdccc689754607925">geom::sub</a></div><div class="ttdeci">void sub(Matrix *d, const Matrix1 &amp;a, const Matrix2 &amp;b)</div><div class="ttdef"><b>Definition:</b> Matrix.h:710</div></div>
+<div class="ttc" id="group__matrix_html_gad29282e95cba76934ebf5ebff8dabf1d"><div class="ttname"><a href="group__matrix.html#gad29282e95cba76934ebf5ebff8dabf1d">geom::add</a></div><div class="ttdeci">void add(Matrix *d, const Matrix1 &amp;a, const Matrix2 &amp;b)</div><div class="ttdef"><b>Definition:</b> Matrix.h:684</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat May 9 2015 19:42:33 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon May 18 2015 01:34:25 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

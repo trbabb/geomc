@@ -104,29 +104,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p><code>#include &lt;<a class="el" href="_diag_matrix_8h_source.html">geomc/linalg/mtxtypes/DiagMatrix.h</a>&gt;</code></p>
 
-<p>Inherits WriteableMatrixBase&lt; T, M, N, Derived &gt;.</p>
+<p>Inherits MatrixBase&lt; T, M, N, Derived &gt;.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:aa0e0931b246a92b43823bc1e5a6eb578"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa0e0931b246a92b43823bc1e5a6eb578"></a>
-typedef MtxSubsetIterator<br class="typebreak" />
-&lt; Derived, derived_reference &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>iterator</b></td></tr>
-<tr class="memdesc:aa0e0931b246a92b43823bc1e5a6eb578"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writeable row-major iterator. <br /></td></tr>
-<tr class="separator:aa0e0931b246a92b43823bc1e5a6eb578"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf9e8eb85231fe8fa2ef53154a14feae"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaf9e8eb85231fe8fa2ef53154a14feae"></a>
-typedef iterator&#160;</td><td class="memItemRight" valign="bottom"><b>region_iterator</b></td></tr>
-<tr class="memdesc:aaf9e8eb85231fe8fa2ef53154a14feae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writeable row-major region iterator. <br /></td></tr>
-<tr class="separator:aaf9e8eb85231fe8fa2ef53154a14feae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5fefbc1ef257cb31f4b5debdc74650a6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5fefbc1ef257cb31f4b5debdc74650a6"></a>
-typedef MtxRowIterator<br class="typebreak" />
-&lt; Derived, derived_reference &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>row_iterator</b></td></tr>
-<tr class="memdesc:a5fefbc1ef257cb31f4b5debdc74650a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writeable iterator over row elements. <br /></td></tr>
-<tr class="separator:a5fefbc1ef257cb31f4b5debdc74650a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad867c1e8840c2c6a28356d3f20131bc5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad867c1e8840c2c6a28356d3f20131bc5"></a>
-typedef MtxColIterator<br class="typebreak" />
-&lt; Derived, derived_reference &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>col_iterator</b></td></tr>
-<tr class="memdesc:ad867c1e8840c2c6a28356d3f20131bc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writeable iterator over column elements. <br /></td></tr>
-<tr class="separator:ad867c1e8840c2c6a28356d3f20131bc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3fa2115cdbb245c2f609f654a9888f14"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3fa2115cdbb245c2f609f654a9888f14"></a>
 typedef T&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
 <tr class="memdesc:a3fa2115cdbb245c2f609f654a9888f14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element type. <br /></td></tr>
@@ -165,34 +146,22 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a40fe7cfc97934b7de5ae3ddeddd4e487"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a8f94195c56ff6337e240e01a8db0af"><td class="memItemLeft" align="right" valign="top">const T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_diag_matrix.html#a1a8f94195c56ff6337e240e01a8db0af">diagonal_end</a> () const </td></tr>
 <tr class="separator:a1a8f94195c56ff6337e240e01a8db0af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52c7f0f343a843047010569131bd5535"><td class="memItemLeft" align="right" valign="top">derived_row_iterator&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (index_t i)</td></tr>
-<tr class="separator:a52c7f0f343a843047010569131bd5535"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a980ff8bf17242284335adb86ed747d6c"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_diag_matrix.html#a980ff8bf17242284335adb86ed747d6c">diagonal</a> (index_t i) const </td></tr>
+<tr class="separator:a980ff8bf17242284335adb86ed747d6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc7f51b53f359863743fc1e90c23ca6f"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_diag_matrix.html#acc7f51b53f359863743fc1e90c23ca6f">diagonal</a> (index_t i)</td></tr>
+<tr class="separator:acc7f51b53f359863743fc1e90c23ca6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd7b5ec725a6c8856781c4e8fcd3e0e7"><td class="memItemLeft" align="right" valign="top">derived_const_row_iterator&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (index_t i) const </td></tr>
 <tr class="separator:acd7b5ec725a6c8856781c4e8fcd3e0e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba59e7d383f9955d4648a34ea45b8380"><td class="memItemLeft" align="right" valign="top">row_iterator&#160;</td><td class="memItemRight" valign="bottom"><b>row</b> (index_t i)</td></tr>
-<tr class="separator:aba59e7d383f9955d4648a34ea45b8380"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d68fa524f639658402ef8e321cf0831"><td class="memItemLeft" align="right" valign="top">const_row_iterator&#160;</td><td class="memItemRight" valign="bottom"><b>row</b> (index_t i) const </td></tr>
 <tr class="separator:a7d68fa524f639658402ef8e321cf0831"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8afe2f05aeb09fdb2a91dbd069d1833"><td class="memItemLeft" align="right" valign="top">col_iterator&#160;</td><td class="memItemRight" valign="bottom"><b>col</b> (index_t i)</td></tr>
-<tr class="separator:ad8afe2f05aeb09fdb2a91dbd069d1833"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5916af7606e86125efd3e78930c1966"><td class="memItemLeft" align="right" valign="top">const_col_iterator&#160;</td><td class="memItemRight" valign="bottom"><b>col</b> (index_t i) const </td></tr>
 <tr class="separator:ae5916af7606e86125efd3e78930c1966"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a47179004b544b0acc24053ccfb06c4"><td class="memItemLeft" align="right" valign="top">derived_reference&#160;</td><td class="memItemRight" valign="bottom"><b>get</b> (index_t row, index_t col)</td></tr>
-<tr class="separator:a0a47179004b544b0acc24053ccfb06c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad69bd11391be1a1dba5c8202259664f8"><td class="memItemLeft" align="right" valign="top">iterator&#160;</td><td class="memItemRight" valign="bottom"><b>begin</b> ()</td></tr>
-<tr class="separator:ad69bd11391be1a1dba5c8202259664f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4b02d4f1a8500fb07a551069060709f"><td class="memItemLeft" align="right" valign="top">const_iterator&#160;</td><td class="memItemRight" valign="bottom"><b>begin</b> () const </td></tr>
 <tr class="separator:aa4b02d4f1a8500fb07a551069060709f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acad38d52497a975bfb6f2f6acd76631f"><td class="memItemLeft" align="right" valign="top">iterator&#160;</td><td class="memItemRight" valign="bottom"><b>end</b> ()</td></tr>
-<tr class="separator:acad38d52497a975bfb6f2f6acd76631f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a350132543d80a1c1e5be844e6d2878ea"><td class="memItemLeft" align="right" valign="top">const_iterator&#160;</td><td class="memItemRight" valign="bottom"><b>end</b> () const </td></tr>
 <tr class="separator:a350132543d80a1c1e5be844e6d2878ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad689f4dd2d247525e6d478853ddbb469"><td class="memItemLeft" align="right" valign="top">region_iterator&#160;</td><td class="memItemRight" valign="bottom"><b>region_begin</b> (const <a class="el" href="classgeom_1_1_rect.html">MatrixRegion</a> &amp;r)</td></tr>
-<tr class="separator:ad689f4dd2d247525e6d478853ddbb469"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0dd69f7769e02479346763e795f689b5"><td class="memItemLeft" align="right" valign="top">const_region_iterator&#160;</td><td class="memItemRight" valign="bottom"><b>region_begin</b> (const <a class="el" href="classgeom_1_1_rect.html">MatrixRegion</a> &amp;r) const </td></tr>
 <tr class="separator:a0dd69f7769e02479346763e795f689b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2d9b87b3885449c73eee0367273be53"><td class="memItemLeft" align="right" valign="top">region_iterator&#160;</td><td class="memItemRight" valign="bottom"><b>region_end</b> (const <a class="el" href="classgeom_1_1_rect.html">MatrixRegion</a> &amp;r)</td></tr>
-<tr class="separator:aa2d9b87b3885449c73eee0367273be53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6f01823dbc99c049032cc379499f319"><td class="memItemLeft" align="right" valign="top">const_region_iterator&#160;</td><td class="memItemRight" valign="bottom"><b>region_end</b> (const <a class="el" href="classgeom_1_1_rect.html">MatrixRegion</a> &amp;r) const </td></tr>
 <tr class="separator:ab6f01823dbc99c049032cc379499f319"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -329,30 +298,6 @@ class geom::DiagMatrix&lt; T, M, N &gt;</h3>
 
 </div>
 </div>
-<a class="anchor" id="ad69bd11391be1a1dba5c8202259664f8"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">iterator begin </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>A writeable, random-access, row-major iterator over the elements of this matrix, pointing to the element at (0,0). </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="ae5916af7606e86125efd3e78930c1966"></a>
 <div class="memitem">
 <div class="memproto">
@@ -384,7 +329,7 @@ class geom::DiagMatrix&lt; T, M, N &gt;</h3>
 
 </div>
 </div>
-<a class="anchor" id="ad8afe2f05aeb09fdb2a91dbd069d1833"></a>
+<a class="anchor" id="a980ff8bf17242284335adb86ed747d6c"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -392,7 +337,32 @@ class geom::DiagMatrix&lt; T, M, N &gt;</h3>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">col_iterator col </td>
+          <td class="memname">const T&amp; diagonal </td>
+          <td>(</td>
+          <td class="paramtype">index_t&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Return the <code>i</code>th diagonal element. </p>
+
+</div>
+</div>
+<a class="anchor" id="acc7f51b53f359863743fc1e90c23ca6f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T&amp; diagonal </td>
           <td>(</td>
           <td class="paramtype">index_t&#160;</td>
           <td class="paramname"><em>i</em></td><td>)</td>
@@ -401,17 +371,11 @@ class geom::DiagMatrix&lt; T, M, N &gt;</h3>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">i</td><td>Index of column (zero-indexed) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A writeable iterator over the elements of column <code>i</code>. </dd></dl>
+<p>Return a reference to the <code>i</code>th diagonal element. </p>
 
 </div>
 </div>
@@ -535,72 +499,6 @@ class geom::DiagMatrix&lt; T, M, N &gt;</h3>
 
 </div>
 </div>
-<a class="anchor" id="acad38d52497a975bfb6f2f6acd76631f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">iterator end </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>A writeable, random-access, row-major iterator over the elements of this matrix, pointing to the element just beyond the last element in the lower right corner. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a0a47179004b544b0acc24053ccfb06c4"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">derived_reference get </td>
-          <td>(</td>
-          <td class="paramtype">index_t&#160;</td>
-          <td class="paramname"><em>row</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">index_t&#160;</td>
-          <td class="paramname"><em>col</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Get the element at <code>(row, col)</code>. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">row</td><td>Zero-indexed row coordinate </td></tr>
-    <tr><td class="paramname">col</td><td>Zero-indexed column coordinate </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to the element at <code>(row, col)</code> </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="acd7b5ec725a6c8856781c4e8fcd3e0e7"></a>
 <div class="memitem">
 <div class="memproto">
@@ -629,37 +527,6 @@ class geom::DiagMatrix&lt; T, M, N &gt;</h3>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A const iterator over the elements of row <code>i</code> </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a52c7f0f343a843047010569131bd5535"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">derived_row_iterator operator[] </td>
-          <td>(</td>
-          <td class="paramtype">index_t&#160;</td>
-          <td class="paramname"><em>i</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">i</td><td>Index of row (zero-indexed) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A writeable iterator over the elements of row <code>i</code>. </dd></dl>
 
 </div>
 </div>
@@ -694,37 +561,6 @@ class geom::DiagMatrix&lt; T, M, N &gt;</h3>
 
 </div>
 </div>
-<a class="anchor" id="ad689f4dd2d247525e6d478853ddbb469"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">region_iterator region_begin </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">MatrixRegion</a> &amp;&#160;</td>
-          <td class="paramname"><em>r</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">r</td><td>The zero-indexed region to iterate over. The upper extreme coordinates represent the index just beyond the last element to be iterated over.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A writeable, random-access, row-major iterator over the elements in region <code>r</code>, pointing at the first element in the region (upper left corner). </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="ab6f01823dbc99c049032cc379499f319"></a>
 <div class="memitem">
 <div class="memproto">
@@ -753,37 +589,6 @@ class geom::DiagMatrix&lt; T, M, N &gt;</h3>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A read-only, random-access, row-major iterator over the elements in region <code>r</code>, pointing at the element just beyond the last element in the region. </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="aa2d9b87b3885449c73eee0367273be53"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">region_iterator region_end </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">MatrixRegion</a> &amp;&#160;</td>
-          <td class="paramname"><em>r</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">r</td><td>The zero-indexed region to iterate over. The upper extreme coordinates represent the index just beyond the last element to be iterated over.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A writeable, random-access, row-major iterator over the elements in region <code>r</code>, pointing at the element just beyond the last element in the region. </dd></dl>
 
 </div>
 </div>
@@ -818,37 +623,6 @@ class geom::DiagMatrix&lt; T, M, N &gt;</h3>
 
 </div>
 </div>
-<a class="anchor" id="aba59e7d383f9955d4648a34ea45b8380"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">row_iterator row </td>
-          <td>(</td>
-          <td class="paramtype">index_t&#160;</td>
-          <td class="paramname"><em>i</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">i</td><td>Index of row (zero-indexed) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A writeable iterator over the elements of row <code>i</code>. </dd></dl>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>geomc/linalg/<a class="el" href="_linalg_types_8h_source.html">LinalgTypes.h</a></li>
 <li>geomc/linalg/mtxtypes/<a class="el" href="_diag_matrix_8h_source.html">DiagMatrix.h</a></li>
@@ -856,7 +630,7 @@ class geom::DiagMatrix&lt; T, M, N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat May 9 2015 19:42:33 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon May 18 2015 01:34:25 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

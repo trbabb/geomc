@@ -222,7 +222,7 @@ static const index_t&#160;</td><td class="memItemRight" valign="bottom"><b>COLDI
 <tr class="separator:ab2aa548f3d644afad91a589c76925f26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T, index_t M, index_t N, StoragePolicy P = STORAGE_SHARED&gt;<br />
+<div class="textblock"><h3>template&lt;typename T, index_t M, index_t N, StoragePolicy P = STORAGE_UNIQUE&gt;<br />
 class geom::SimpleMatrix&lt; T, M, N, P &gt;</h3>
 
 <p>A basic matrix with <code>M x N</code> elements. </p>
@@ -239,13 +239,19 @@ class geom::SimpleMatrix&lt; T, M, N, P &gt;</h3>
 </pre><p>If <code>M</code> or <code>N</code> are 0, the matrix has runtime-chosen size.</p>
 <p>The storage policy behavior is as follows: </p><ul>
 <li>
-If the StoragePolicy is <code>STORAGE_SHARED</code> (default), then all copy-constructed duplicates of dynamically-sized matrixes should be treated as references to a common array. </li>
+If the StoragePolicy is <code>STORAGE_UNIQUE</code> (default), then copy-constructed duplicates of dynamically-sized matrices will make a full copy of the underlying array. </li>
 <li>
-If the StoragePolicy is <code>STORAGE_UNIQUE</code>, then copy-constructed duplicates of dynamically-sized matrices will make a full copy of the underlying array. </li>
+If the StoragePolicy is <code>STORAGE_SHARED</code>, then all copy-constructed duplicates of dynamically-sized matrixes should be treated as references to a common array. </li>
 <li>
-If the StoragePolicy is <code>STORAGE_USER_OWNED</code>, then the user must provide a backing array, whose lifetime is managed manually. </li>
+If the StoragePolicy is <code>STORAGE_USER_OWNED</code>, then the matrix will wrap a user-provided backing array, whose lifetime is managed manually. </li>
 </ul>
-<p>For more on matrices, see the <a class="el" href="group__matrix.html">matrix module documentation</a>. </p>
+<p>Note that in c++11, array duplicatations will use rvalue references to avoid a performing full array-copy where possible.</p>
+<h2>Wrapping an array </h2>
+<p>A <a class="el" href="classgeom_1_1_simple_matrix.html" title="A basic matrix with M x N elements. ">SimpleMatrix</a> can be made into a wrapper around a user-owned array like so: </p><pre class="fragment">double myRowMajorArray[16] = { ... };
+SimpleMatrix&lt;double,4,4,STORAGE_USER_OWNED&gt; mtx(myRowMajorArray);
+</pre><p>In the above example, no array duplication will occur, and <code>myRowMajorArray</code> is used direcly as the backing storage for the matrix. Note the use of <code>STORAGE_USER_OWNED</code> for the <a class="el" href="classgeom_1_1_simple_matrix.html" title="A basic matrix with M x N elements. ">SimpleMatrix</a>'s storage policy template parameter.</p>
+<p>In c++11, a template alias is available for this construction, called <code>WrapperMatrix</code>: </p><pre class="fragment">WrapperMatrix&lt;double,4,4&gt; wmtx(myRowMajorArray);
+</pre><p>For more on matrices, see the <a class="el" href="group__matrix.html">matrix module documentation</a>. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ac1d7026402effa87a698492603365e6f"></a>
 <div class="memitem">
@@ -1089,7 +1095,7 @@ SimpleMatrix&lt;double, 0, 0&gt; m3; // XXX: Compiler error!
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat May 9 2015 19:42:33 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon May 18 2015 01:34:25 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

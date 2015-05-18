@@ -108,9 +108,6 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix&lt; T, M, N, P &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A basic matrix with <code>M x N</code> elements.  <a href="classgeom_1_1_simple_matrix.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_sparse_matrix.html">SparseMatrix&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A (still weakly-supported) class which only stores nonzero matrix elements.  <a href="classgeom_1_1_sparse_matrix.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -198,19 +195,20 @@ Functions</h2></td></tr>
 <h1>Use </h1>
 <h2>Matrix dimensions </h2>
 <p>Most matrices have templated size: </p><pre class="fragment">SimpleMatrix&lt;double, 3, 4&gt; mat3x4;
-</pre><p>In the example above, we construct a matrix with 3 rows and 4 columns. This matrix has <b>static dimensions</b>, in that its size is chosen (and fixed) at compile-time. Matrices with dimensions chosen at runtime may be written as: </p><pre class="fragment">SimpleMatrix&lt;double, 0, 0&gt; matNxN(nrows, ncols);
-</pre><p>There are two important functional differences between static matrices and dynamic matrices:</p>
+</pre><p>In the example above, we construct a matrix with 3 rows and 4 columns. This matrix has <b>static dimensions</b>, in that its size is chosen (and fixed) at compile-time.</p>
+<p>Matrices with dimensions <b>chosen at runtime</b> may be written as: </p><pre class="fragment">SimpleMatrix&lt;double, 0, 0&gt; matNxN(nrows, ncols);
+</pre><p>The primary advantage of using "static" matrices is twofold:</p>
 <ul>
-<li>Static matrix operators may perform dimension "agreement" checks at compile-time, catching errors early, and circumventing the cost of runtime dimension checks.</li>
-<li>Static matrices use "copy" semantics, while dynamic matrices use "reference" semantics, and point to common storage when copy-constructed.</li>
+<li>They are backed with static arrays, and thus stack-allocated static matrices do not call <code>malloc()</code> or <code>new[]</code>, and so are faster.</li>
+<li>In any given operation, the dimension of two matrixes can be proven to agree at compile time, making matrix ops slightly cheaper because dimension checking can be skipped (see section on dimension checking below).</li>
 </ul>
-<p>The latter point is important to understand, as writing: </p><pre class="fragment">SimpleMatrix&lt;double, 0, 0&gt; m1 = some_matrix_function(...);
-SimpleMatrix&lt;double, 0, 0&gt; m2 = m1;
-m2[1][2] = 123;
-</pre><p>means that element <code>(1, 2)</code> is altered in <em>both</em> <code>m1</code> and <code>m2</code>. This is <b>not</b> the case with static matrices.</p>
-<p>To check if two matrices share common storage: </p><pre class="fragment">if (mtx_aliases_storage(m1, m2)) { ... }
+<p>Because static matrices are backed with static arrays, large static matrices should not be declared on the stack, and instead should created with the <code>new</code> operator to avoid stack overflow.</p>
+<h2>Backing storage </h2>
+<p>By default, matrices generally behave as though their underlying array is duplicated whenever they are copied; ensuring two distinct matrixes do not alias the same common storage. Note that a full array copy may not always be necessary (ownership transfer is optimized in c++11 with rvalue references), and careful usage can render "heavy" copies quite rare.</p>
+<p>This perference to use "copy" semantics can be changed for <a class="el" href="classgeom_1_1_simple_matrix.html" title="A basic matrix with M x N elements. ">SimpleMatrix</a> by passing different storage policies to its <code>StoragePolicy</code> template parameter.</p>
+<p>To check if two matrices share any common storage: </p><pre class="fragment">if (mtx_aliases_storage(m1, m2)) { ... }
 </pre><p>To copy the elements from one matrix to another, without referencing, and regardless of matrix type or static/dynamic setting: </p><pre class="fragment">mtxcopy(&amp;dst_mtx, src_mtx);
-</pre><p>Because of difference in storage strategy between static and dynamic matrices, copy and pass-by-value operations can be much heavier for large static matrices, because the entire matrix must be copied. Therefore it may be advisable to choose dynamic matrices for any data much larger than a few elements along each axis.</p>
+</pre><p>This method is often optimized over using std::copy() directly on the matrices' iterators. Some matrices (e.g. <a class="el" href="classgeom_1_1_diag_matrix.html" title="A matrix with nonzero elements only along the main diagonal. ">DiagMatrix</a>) may not support <code>std::copy()</code>, but do support <code><a class="el" href="group__matrix.html#ga18aa4cc96039ea7bf54d7d9fb25defe4">mtxcopy()</a></code> with sensible arguments.</p>
 <p>Unless otherwise noted, all operations on matrices are guaranteed to return correct results, even if the destination matrix aliases storage of an operand (though calling operations in this way may incur a performance and/or memory overhead).</p>
 <h2><a class="el" href="structgeom_1_1_dimension.html" title="Defines a type for storing a length or element count. ">Dimension</a> checking </h2>
 <p>Matrix operations often place restrictions on the dimensions of their matrix operands. For example, matrix addition requires that both operands have the same dimensions (in other words, a 3 x 4 matrix can only be added to another 3 x 4 matrix).</p>
@@ -973,7 +971,7 @@ for (mat3::region_iterator i = m.region_begin(r); i != m.region_end(r); i++) {
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat May 9 2015 19:42:33 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon May 18 2015 01:34:25 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>

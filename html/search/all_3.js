@@ -9,7 +9,7 @@ var searchData=
   ['diag',['DIAG',['../classgeom_1_1_p_l_u_decomposition.html#af94d0c73aee8eb1a6468c14a39e1716f',1,'geom::PLUDecomposition']]],
   ['diagmatrix',['DiagMatrix',['../classgeom_1_1_diag_matrix.html#ad4475ee6bbf662eaa1749772e9e5d712',1,'geom::DiagMatrix::DiagMatrix(index_t nrows, index_t ncols)'],['../classgeom_1_1_diag_matrix.html#a8ff9dc869cf1535d94c09d0b43d43d63',1,'geom::DiagMatrix::DiagMatrix(const T src[], index_t n)']]],
   ['diagmatrix',['DiagMatrix',['../classgeom_1_1_diag_matrix.html',1,'geom']]],
-  ['diagonal',['diagonal',['../classgeom_1_1_p_l_u_decomposition.html#a070256d0abafc7c932b2b103a4e73394',1,'geom::PLUDecomposition']]],
+  ['diagonal',['diagonal',['../classgeom_1_1_p_l_u_decomposition.html#a070256d0abafc7c932b2b103a4e73394',1,'geom::PLUDecomposition::diagonal()'],['../classgeom_1_1_diag_matrix.html#a980ff8bf17242284335adb86ed747d6c',1,'geom::DiagMatrix::diagonal(index_t i) const '],['../classgeom_1_1_diag_matrix.html#acc7f51b53f359863743fc1e90c23ca6f',1,'geom::DiagMatrix::diagonal(index_t i)']]],
   ['diagonal_5fbegin',['diagonal_begin',['../classgeom_1_1_diag_matrix.html#a15c7a0bee09a1b09f2a4de66b0245eb6',1,'geom::DiagMatrix::diagonal_begin()'],['../classgeom_1_1_diag_matrix.html#ac8a133dfc45c7aaa53ec759eade3fa05',1,'geom::DiagMatrix::diagonal_begin() const ']]],
   ['diagonal_5fend',['diagonal_end',['../classgeom_1_1_diag_matrix.html#a40fe7cfc97934b7de5ae3ddeddd4e487',1,'geom::DiagMatrix::diagonal_end()'],['../classgeom_1_1_diag_matrix.html#a1a8f94195c56ff6337e240e01a8db0af',1,'geom::DiagMatrix::diagonal_end() const ']]],
   ['diffuse',['diffuse',['../classgeom_1_1_zonal_harmonics.html#a632b21962df88d389d3dd972ad6f0a66',1,'geom::ZonalHarmonics']]],

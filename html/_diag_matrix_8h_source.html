@@ -115,12 +115,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}; <span class="comment">// end namespace detail</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t M, index_t N&gt;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">class </span>DiagMatrix : <span class="keyword">public</span> detail::WriteableMatrixBase&lt;T,M,N, DiagMatrix&lt;T,M,N&gt; &gt; {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">class </span>DiagMatrix : <span class="keyword">public</span> detail::MatrixBase&lt;T,M,N, DiagMatrix&lt;T,M,N&gt; &gt; {</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    </div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    index_t diag;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#ifndef PARSING_DOXYGEN</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="comment">// this shit confuses doxygen because it am stoopid</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    Storage&lt;T, ((M&lt;N)?M:N) &gt; data;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    UniqueStorage&lt;T, ((M&lt;N)?M:N) &gt; data;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">typename</span> Dimension&lt;M&gt;::storage_t n_rows;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">typename</span> Dimension&lt;N&gt;::storage_t n_cols;</div>
@@ -129,7 +129,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">typedef</span> <span class="keyword">typename</span> detail::_ImplMtxReftype&lt;DiagMatrix&lt;T,M,N&gt;,T&gt;::reference reference;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">using</span> detail::WriteableMatrixBase&lt;T,M,N, DiagMatrix&lt;T,M,N&gt; &gt;::get;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">using</span> detail::MatrixBase&lt;T,M,N, DiagMatrix&lt;T,M,N&gt; &gt;::get;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    </div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#ifdef PARSING_DOXYGEN</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="classgeom_1_1_diag_matrix.html#ad4475ee6bbf662eaa1749772e9e5d712">   59</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classgeom_1_1_diag_matrix.html#ad4475ee6bbf662eaa1749772e9e5d712">DiagMatrix</a>(index_t nrows, index_t ncols) {}</div>
@@ -172,64 +172,65 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">return</span> (r == c) ? data.get()[r] : (T(0));</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    }</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keyword">inline</span> reference set(index_t r, index_t c, T val) {</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordflow">if</span> (r == c &amp;&amp; c &lt; diag) {</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            data.get()[r] = val;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (val != 0) {</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            <span class="keywordflow">throw</span> std::out_of_range(<span class="stringliteral">&quot;off-diagonal write&quot;</span>);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        }</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keywordflow">return</span> reference(<span class="keyword">this</span>, r, c);</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    }</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordtype">void</span> setIdentity() {</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        std::fill(data.get(), data.get() + diag, 1);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    }</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> setZero() {</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        std::fill(data.get(), data.get() + diag, 0);</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    }</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    </div>
-<div class="line"><a name="l00127"></a><span class="lineno"><a class="line" href="classgeom_1_1_diag_matrix.html#a15c7a0bee09a1b09f2a4de66b0245eb6">  127</a></span>&#160;    T* <a class="code" href="classgeom_1_1_diag_matrix.html#a15c7a0bee09a1b09f2a4de66b0245eb6">diagonal_begin</a>() {</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <span class="keywordflow">return</span> data.get();</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    }</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    </div>
-<div class="line"><a name="l00135"></a><span class="lineno"><a class="line" href="classgeom_1_1_diag_matrix.html#ac8a133dfc45c7aaa53ec759eade3fa05">  135</a></span>&#160;    <span class="keyword">const</span> T* <a class="code" href="classgeom_1_1_diag_matrix.html#ac8a133dfc45c7aaa53ec759eade3fa05">diagonal_begin</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <span class="keywordflow">return</span> data.get();</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    }</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    </div>
-<div class="line"><a name="l00143"></a><span class="lineno"><a class="line" href="classgeom_1_1_diag_matrix.html#a40fe7cfc97934b7de5ae3ddeddd4e487">  143</a></span>&#160;    T* <a class="code" href="classgeom_1_1_diag_matrix.html#a40fe7cfc97934b7de5ae3ddeddd4e487">diagonal_end</a>() {</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <span class="keywordflow">return</span> data.get() + diag;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    }</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    </div>
-<div class="line"><a name="l00151"></a><span class="lineno"><a class="line" href="classgeom_1_1_diag_matrix.html#a1a8f94195c56ff6337e240e01a8db0af">  151</a></span>&#160;    <span class="keyword">const</span> T* <a class="code" href="classgeom_1_1_diag_matrix.html#a1a8f94195c56ff6337e240e01a8db0af">diagonal_end</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        <span class="keywordflow">return</span> data.get() + diag;</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    }</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    </div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> getStorageIDs(storage_id_t *buf)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        *buf = data.get();</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    }</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    </div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keyword">inline</span> index_t getStorageIDCount()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    }</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;};</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;}; <span class="comment">// end namespace geom</span></div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* DIAGMATRIX_H_ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="classgeom_1_1_diag_matrix_html_a15c7a0bee09a1b09f2a4de66b0245eb6"><div class="ttname"><a href="classgeom_1_1_diag_matrix.html#a15c7a0bee09a1b09f2a4de66b0245eb6">geom::DiagMatrix::diagonal_begin</a></div><div class="ttdeci">T * diagonal_begin()</div><div class="ttdef"><b>Definition:</b> DiagMatrix.h:127</div></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordtype">void</span> setIdentity() {</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        std::fill(data.get(), data.get() + diag, 1);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    }</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> setZero() {</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        std::fill(data.get(), data.get() + diag, 0);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    }</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    </div>
+<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="classgeom_1_1_diag_matrix.html#a15c7a0bee09a1b09f2a4de66b0245eb6">  118</a></span>&#160;    T* <a class="code" href="classgeom_1_1_diag_matrix.html#a15c7a0bee09a1b09f2a4de66b0245eb6">diagonal_begin</a>() {</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="keywordflow">return</span> data.get();</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    }</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    </div>
+<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="classgeom_1_1_diag_matrix.html#ac8a133dfc45c7aaa53ec759eade3fa05">  126</a></span>&#160;    <span class="keyword">const</span> T* <a class="code" href="classgeom_1_1_diag_matrix.html#ac8a133dfc45c7aaa53ec759eade3fa05">diagonal_begin</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <span class="keywordflow">return</span> data.get();</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    }</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    </div>
+<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="classgeom_1_1_diag_matrix.html#a40fe7cfc97934b7de5ae3ddeddd4e487">  134</a></span>&#160;    T* <a class="code" href="classgeom_1_1_diag_matrix.html#a40fe7cfc97934b7de5ae3ddeddd4e487">diagonal_end</a>() {</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <span class="keywordflow">return</span> data.get() + diag;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    }</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    </div>
+<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="classgeom_1_1_diag_matrix.html#a1a8f94195c56ff6337e240e01a8db0af">  142</a></span>&#160;    <span class="keyword">const</span> T* <a class="code" href="classgeom_1_1_diag_matrix.html#a1a8f94195c56ff6337e240e01a8db0af">diagonal_end</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <span class="keywordflow">return</span> data.get() + diag;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    }</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;</div>
+<div class="line"><a name="l00149"></a><span class="lineno"><a class="line" href="classgeom_1_1_diag_matrix.html#a980ff8bf17242284335adb86ed747d6c">  149</a></span>&#160;    <span class="keyword">const</span> T&amp; <a class="code" href="classgeom_1_1_diag_matrix.html#a980ff8bf17242284335adb86ed747d6c">diagonal</a>(index_t i)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        <span class="keywordflow">return</span> data.get()[i];</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    }</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;</div>
+<div class="line"><a name="l00156"></a><span class="lineno"><a class="line" href="classgeom_1_1_diag_matrix.html#acc7f51b53f359863743fc1e90c23ca6f">  156</a></span>&#160;    T&amp; <a class="code" href="classgeom_1_1_diag_matrix.html#acc7f51b53f359863743fc1e90c23ca6f">diagonal</a>(index_t i) {</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <span class="keywordflow">return</span> data.get()[i];</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    }</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    </div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> getStorageIDs(storage_id_t *buf)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        *buf = data.get();</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    }</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    </div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keyword">inline</span> index_t getStorageIDCount()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    }</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;};</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;}; <span class="comment">// end namespace geom</span></div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* DIAGMATRIX_H_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="classgeom_1_1_diag_matrix_html_a980ff8bf17242284335adb86ed747d6c"><div class="ttname"><a href="classgeom_1_1_diag_matrix.html#a980ff8bf17242284335adb86ed747d6c">geom::DiagMatrix::diagonal</a></div><div class="ttdeci">const T &amp; diagonal(index_t i) const </div><div class="ttdef"><b>Definition:</b> DiagMatrix.h:149</div></div>
+<div class="ttc" id="classgeom_1_1_diag_matrix_html_a15c7a0bee09a1b09f2a4de66b0245eb6"><div class="ttname"><a href="classgeom_1_1_diag_matrix.html#a15c7a0bee09a1b09f2a4de66b0245eb6">geom::DiagMatrix::diagonal_begin</a></div><div class="ttdeci">T * diagonal_begin()</div><div class="ttdef"><b>Definition:</b> DiagMatrix.h:118</div></div>
 <div class="ttc" id="structgeom_1_1_dimension_html_a11fddec38a10e2109c1aee1589ffc3ce"><div class="ttname"><a href="structgeom_1_1_dimension.html#a11fddec38a10e2109c1aee1589ffc3ce">geom::Dimension::set</a></div><div class="ttdeci">static void set(storage_t s, index_t v)</div><div class="ttdoc">Set the count (if stored in s) to v. </div><div class="ttdef"><b>Definition:</b> Storage.h:79</div></div>
-<div class="ttc" id="classgeom_1_1_diag_matrix_html_ac8a133dfc45c7aaa53ec759eade3fa05"><div class="ttname"><a href="classgeom_1_1_diag_matrix.html#ac8a133dfc45c7aaa53ec759eade3fa05">geom::DiagMatrix::diagonal_begin</a></div><div class="ttdeci">const T * diagonal_begin() const </div><div class="ttdef"><b>Definition:</b> DiagMatrix.h:135</div></div>
+<div class="ttc" id="classgeom_1_1_diag_matrix_html_ac8a133dfc45c7aaa53ec759eade3fa05"><div class="ttname"><a href="classgeom_1_1_diag_matrix.html#ac8a133dfc45c7aaa53ec759eade3fa05">geom::DiagMatrix::diagonal_begin</a></div><div class="ttdeci">const T * diagonal_begin() const </div><div class="ttdef"><b>Definition:</b> DiagMatrix.h:126</div></div>
 <div class="ttc" id="structgeom_1_1_dimension_html_aeaa154c4040f884382f4f91fca4cb2ea"><div class="ttname"><a href="structgeom_1_1_dimension.html#aeaa154c4040f884382f4f91fca4cb2ea">geom::Dimension::get</a></div><div class="ttdeci">static index_t get(const storage_t s)</div><div class="ttdoc">Retrieve the count from s. </div><div class="ttdef"><b>Definition:</b> Storage.h:81</div></div>
 <div class="ttc" id="classgeom_1_1_diag_matrix_html_a8ff9dc869cf1535d94c09d0b43d43d63"><div class="ttname"><a href="classgeom_1_1_diag_matrix.html#a8ff9dc869cf1535d94c09d0b43d43d63">geom::DiagMatrix::DiagMatrix</a></div><div class="ttdeci">DiagMatrix(const T src[], index_t n)</div><div class="ttdef"><b>Definition:</b> DiagMatrix.h:78</div></div>
-<div class="ttc" id="classgeom_1_1_diag_matrix_html_a1a8f94195c56ff6337e240e01a8db0af"><div class="ttname"><a href="classgeom_1_1_diag_matrix.html#a1a8f94195c56ff6337e240e01a8db0af">geom::DiagMatrix::diagonal_end</a></div><div class="ttdeci">const T * diagonal_end() const </div><div class="ttdef"><b>Definition:</b> DiagMatrix.h:151</div></div>
+<div class="ttc" id="classgeom_1_1_diag_matrix_html_a1a8f94195c56ff6337e240e01a8db0af"><div class="ttname"><a href="classgeom_1_1_diag_matrix.html#a1a8f94195c56ff6337e240e01a8db0af">geom::DiagMatrix::diagonal_end</a></div><div class="ttdeci">const T * diagonal_end() const </div><div class="ttdef"><b>Definition:</b> DiagMatrix.h:142</div></div>
 <div class="ttc" id="classgeom_1_1_diag_matrix_html_ad4475ee6bbf662eaa1749772e9e5d712"><div class="ttname"><a href="classgeom_1_1_diag_matrix.html#ad4475ee6bbf662eaa1749772e9e5d712">geom::DiagMatrix::DiagMatrix</a></div><div class="ttdeci">DiagMatrix(index_t nrows, index_t ncols)</div><div class="ttdef"><b>Definition:</b> DiagMatrix.h:59</div></div>
-<div class="ttc" id="classgeom_1_1_diag_matrix_html_a40fe7cfc97934b7de5ae3ddeddd4e487"><div class="ttname"><a href="classgeom_1_1_diag_matrix.html#a40fe7cfc97934b7de5ae3ddeddd4e487">geom::DiagMatrix::diagonal_end</a></div><div class="ttdeci">T * diagonal_end()</div><div class="ttdef"><b>Definition:</b> DiagMatrix.h:143</div></div>
+<div class="ttc" id="classgeom_1_1_diag_matrix_html_acc7f51b53f359863743fc1e90c23ca6f"><div class="ttname"><a href="classgeom_1_1_diag_matrix.html#acc7f51b53f359863743fc1e90c23ca6f">geom::DiagMatrix::diagonal</a></div><div class="ttdeci">T &amp; diagonal(index_t i)</div><div class="ttdef"><b>Definition:</b> DiagMatrix.h:156</div></div>
+<div class="ttc" id="classgeom_1_1_diag_matrix_html_a40fe7cfc97934b7de5ae3ddeddd4e487"><div class="ttname"><a href="classgeom_1_1_diag_matrix.html#a40fe7cfc97934b7de5ae3ddeddd4e487">geom::DiagMatrix::diagonal_end</a></div><div class="ttdeci">T * diagonal_end()</div><div class="ttdef"><b>Definition:</b> DiagMatrix.h:134</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat May 9 2015 19:42:33 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon May 18 2015 01:34:25 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.7
 </small></address>
