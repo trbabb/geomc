@@ -92,8 +92,8 @@ namespace detail {
  * duplicates of dynamically-sized matrixes should be treated as references to a common array.</li>
  * <li>If the StoragePolicy is `STORAGE_UNIQUE`, then copy-constructed 
  * duplicates of dynamically-sized matrices will make a full copy of the underlying array.</li>
- * <li>If the StoragePolicy is `STORAGE_USER_OWNED`, then the user must provide
- * a backing array, whose lifetime is managed manually.</li>
+ * <li>If the StoragePolicy is `STORAGE_USER_OWNED`, then the matrix will wrap a user-provided
+ * backing array, whose lifetime is managed manually.</li>
  * </ul>
  * 
  * For more on matrices, see the @link matrix matrix module documentation@endlink.
@@ -105,7 +105,7 @@ class SimpleMatrix : public detail::WriteableMatrixBase<T,M,N, SimpleMatrix<T,M,
 class FlatMatrixBase : public detail::WriteableMatrixBase<T,M,N, FlatMatrixBase<T,M,N,P> > {
 #endif
 
-    GenericStorage<T, M*N, P> data;
+    typename GenericStorage<T, M*N, P>::type data;
     typename Dimension<M>::storage_t n_rows; // this contortion prevents allocating storage 
     typename Dimension<N>::storage_t n_cols; // for a dimension size when it is not dynamic.
     
@@ -221,7 +221,7 @@ public:
         for (index_t i = 0; i < rows() * cols(); i++) {
             p[i] *= k;
         }
-        return *this;
+        return *(static_cast<SimpleMatrix<T,M,N,P>*>(this));
     }
 #endif
     

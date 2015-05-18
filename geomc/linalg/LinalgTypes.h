@@ -87,17 +87,17 @@ namespace detail {
    typedef const void* storage_id_t;
 
     // data fwd decls
-    template <typename T, index_t N> class Vec;
-    template <typename T>            class Quat;
-    template <typename T, index_t N> class Ray;
-    template <typename T, index_t N> class AffineTransform;
+    template <typename T, index_t N>            class Vec;
+    template <typename T>                       class Quat;
+    template <typename T, index_t N>            class Ray;
+    template <typename T, index_t N>            class AffineTransform;
     template <typename T, index_t M, index_t N> class PLUDecomposition;
     
     // mtx fwd decls
 namespace detail {
     template <typename T, index_t M, index_t N, typename Derived> class MatrixBase;
 }
-    template <typename T, index_t M, index_t N, StoragePolicy P=STORAGE_SHARED>
+    template <typename T, index_t M, index_t N, StoragePolicy P=STORAGE_UNIQUE>
                                                 class SimpleMatrix;
     template <typename T, index_t M, index_t N> class DiagMatrix;
     template <typename Ma, typename Mb>         class AugmentedMatrix;
@@ -121,35 +121,42 @@ namespace detail {
     typedef Quat<float>    Quatf;
 
     // Ray
-    typedef Ray<double,4> Ray4d;
-    typedef Ray<double,3> Ray3d;
-    typedef Ray<double,2> Ray2d;
+    typedef Ray<double,4>  Ray4d;
+    typedef Ray<double,3>  Ray3d;
+    typedef Ray<double,2>  Ray2d;
     
-    typedef Ray<float,4> Ray4f;
-    typedef Ray<float,3> Ray3f;
-    typedef Ray<float,2> Ray2f;
+    typedef Ray<float,4>   Ray4f;
+    typedef Ray<float,3>   Ray3f;
+    typedef Ray<float,2>   Ray2f;
     
     typedef Ray<index_t,4> Ray4i;
     typedef Ray<index_t,3> Ray3i;
     typedef Ray<index_t,2> Ray2i;
     
     // Matrix
-    typedef SimpleMatrix<double,4,4> SimpleMatrix4d;
-    typedef SimpleMatrix<double,3,3> SimpleMatrix3d;
-    typedef SimpleMatrix<double,2,2> SimpleMatrix2d;
-    typedef SimpleMatrix<double,0,0> SimpleMatrixNd;
+    typedef SimpleMatrix<double,4,4>  SimpleMatrix4d;
+    typedef SimpleMatrix<double,3,3>  SimpleMatrix3d;
+    typedef SimpleMatrix<double,2,2>  SimpleMatrix2d;
+    typedef SimpleMatrix<double,0,0>  SimpleMatrixNd;
     
-    typedef SimpleMatrix<float,4,4> SimpleMatrix4f;
-    typedef SimpleMatrix<float,3,3> SimpleMatrix3f;
-    typedef SimpleMatrix<float,2,2> SimpleMatrix2f;
-    typedef SimpleMatrix<float,0,0> SimpleMatrixNf;
+    typedef SimpleMatrix<float,4,4>   SimpleMatrix4f;
+    typedef SimpleMatrix<float,3,3>   SimpleMatrix3f;
+    typedef SimpleMatrix<float,2,2>   SimpleMatrix2f;
+    typedef SimpleMatrix<float,0,0>   SimpleMatrixNf;
     
     // AffineTransform
     typedef AffineTransform<double,3> AffineTransform3d;
     typedef AffineTransform<double,2> AffineTransform2d;
     
-    typedef AffineTransform<float,3> AffineTransform3f;
-    typedef AffineTransform<float,2> AffineTransform2f;
+    typedef AffineTransform<float,3>  AffineTransform3f;
+    typedef AffineTransform<float,2>  AffineTransform2f;
+
+#if __cplusplus >= 201103L
+
+    template <typename T, index_t M, index_t N> 
+    using WrapperMatrix = SimpleMatrix<T,M,N,STORAGE_USER_OWNED>;
+
+#endif
     
     // Point type information
     // these are used to switch code between behaviors for
@@ -200,16 +207,7 @@ namespace detail {
             return v[0];
         }
     };
-
-    // still nascent:
-    template <typename T>
-    struct PointType<T,DYNAMIC_DIM> {
-        typedef T* point_t;
-        
-        static inline T& iterator(point_t &p) {
-            return p;
-        }
-    };
+    
 } // namespace geom
 
 #endif /* LINALGTYPES_H_ */

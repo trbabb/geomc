@@ -163,7 +163,8 @@ bool decompPLU(T* m, index_t rows, index_t cols, index_t *reorder, bool *swap_pa
 
 //////////// PLU class ////////////
 
-/** @ingroup matrix
+/** 
+ * @ingroup matrix
  * @brief Computes the PLU decompostion for a matrix `A`, such that `PA = LU`.
  * 
  * `L` and `U` are lower and upper triangular matrices, respectively.

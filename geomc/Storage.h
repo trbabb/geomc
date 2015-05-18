@@ -255,8 +255,7 @@ struct UniqueStorage<T, DYNAMIC_DIM> {
     UniqueStorage(index_t n, const T* srcdata):
             data(new T[n]),
             sz(n) {
-        if (srcdata != NULL) 
-            std::copy(srcdata, srcdata + n, data);
+        std::copy(srcdata, srcdata + n, data);
     }
 
 #if __cplusplus >= 201103L
@@ -379,27 +378,25 @@ public:
  * 
  * `#include <geomc/Storage.h>`
  */
-template <typename T, index_t N, StoragePolicy=STORAGE_SHARED>
+template <typename T, index_t N, StoragePolicy P>
 #ifdef PARSING_DOXYGEN
 struct GenericStorage {
 #else
 struct GenericStorage : public Storage<T,N> {
-
 #endif
 
-    typedef Storage<T,N> parent_t;
+    /// Storage class inherited from.
+    typedef Storage<T,N> type;
 
 #ifdef PARSING_DOXYGEN
     /// Construct a new array of size `n`, initialized with `srcdata`.
     GenericStorage(index_t n, T* srcdata) {}
 #else
-    inline GenericStorage(index_t n, const T* srcdata):parent_t(n, srcdata) {}
+    inline GenericStorage(index_t n, const T* srcdata):type(n, srcdata) {}
 #endif
 
     /// Construct a new array of size `n`. Not available for user-owned specializations.
-    GenericStorage(index_t n):parent_t(n) {}
-
-public:
+    GenericStorage(index_t n):type(n) {}
 
 #ifdef PARSING_DOXYGEN
 
@@ -424,13 +421,13 @@ public:
 template <typename T, index_t N>
 struct GenericStorage<T,N,STORAGE_USER_OWNED> : public UserOwnedStorage<T,N> {
 
-    typedef UserOwnedStorage<T,N> parent_t;
+    typedef UserOwnedStorage<T,N> type;
 
-    GenericStorage(index_t n, T* srcdata):parent_t(n, srcdata) {}
+    GenericStorage(index_t n, T* srcdata):type(n, srcdata) {}
 
 private:
 
-    GenericStorage(index_t n):parent_t(0, NULL) {}
+    GenericStorage(index_t n):type(0, NULL) {}
 
     friend class FlatMatrixBase;
 
@@ -441,15 +438,17 @@ private:
 template <typename T, index_t N>
 struct GenericStorage<T,N,STORAGE_UNIQUE> : public UniqueStorage<T,N> {
 
-    typedef UniqueStorage<T,N> parent_t;
+    typedef UniqueStorage<T,N> type;
 
-    GenericStorage(index_t n, const T* srcdata):parent_t(n, srcdata) {}
+    GenericStorage(index_t n, const T* srcdata):type(n, srcdata) {}
 
-    GenericStorage(index_t n):parent_t(n) {}
+    GenericStorage(index_t n):type(n) {}
 
 };
 
+
 /// @} // group linalg
+
 
 } // end namespace geom
 
