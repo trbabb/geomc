@@ -39,7 +39,7 @@ class DiagMatrix : public detail::MatrixBase<T,M,N, DiagMatrix<T,M,N> > {
     index_t diag;
 #ifndef PARSING_DOXYGEN
     // this shit confuses doxygen because it am stoopid
-    Storage<T, ((M<N)?M:N) > data;
+    UniqueStorage<T, ((M<N)?M:N) > data;
 #endif
     typename Dimension<M>::storage_t n_rows;
     typename Dimension<N>::storage_t n_cols;

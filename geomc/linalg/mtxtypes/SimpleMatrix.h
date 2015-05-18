@@ -88,13 +88,32 @@ namespace detail {
  *
  * The storage policy behavior is as follows:
  * <ul>
- * <li>If the StoragePolicy is `STORAGE_SHARED` (default), then all copy-constructed
- * duplicates of dynamically-sized matrixes should be treated as references to a common array.</li>
- * <li>If the StoragePolicy is `STORAGE_UNIQUE`, then copy-constructed 
+ * <li>If the StoragePolicy is `STORAGE_UNIQUE` (default), then copy-constructed 
  * duplicates of dynamically-sized matrices will make a full copy of the underlying array.</li>
+ * <li>If the StoragePolicy is `STORAGE_SHARED`, then all copy-constructed
+ * duplicates of dynamically-sized matrixes should be treated as references to a common array.</li>
  * <li>If the StoragePolicy is `STORAGE_USER_OWNED`, then the matrix will wrap a user-provided
  * backing array, whose lifetime is managed manually.</li>
  * </ul>
+ *
+ * Note that in c++11, array duplicatations will use rvalue references to avoid a performing full 
+ * array-copy where possible.
+ *
+ * Wrapping an array
+ * -----------------
+ *
+ * A SimpleMatrix can be made into a wrapper around a user-owned array like so:
+ *
+ *     double myRowMajorArray[16] = { ... };
+ *     SimpleMatrix<double,4,4,STORAGE_USER_OWNED> mtx(myRowMajorArray);
+ *
+ * In the above example, no array duplication will occur, and `myRowMajorArray` is 
+ * used direcly as the backing storage for the matrix. Note the use of `STORAGE_USER_OWNED`
+ * for the SimpleMatrix's storage policy template parameter.
+ *
+ * In c++11, a template alias is available for this construction, called `WrapperMatrix`:
+ *
+ *     WrapperMatrix<double,4,4> wmtx(myRowMajorArray);
  * 
  * For more on matrices, see the @link matrix matrix module documentation@endlink.
  */

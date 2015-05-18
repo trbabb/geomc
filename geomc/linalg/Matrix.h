@@ -53,29 +53,37 @@
  * 
  * In the example above, we construct a matrix with 3 rows and 4 columns. This 
  * matrix has **static dimensions**, in that its size is chosen (and fixed) at 
- * compile-time. Matrices with dimensions chosen at runtime may be written as:
+ * compile-time. 
+ *
+ * Matrices with dimensions **chosen at runtime** may be written as:
  * 
  *     SimpleMatrix<double, 0, 0> matNxN(nrows, ncols);
  * 
- * There are two important functional differences between static matrices and 
- * dynamic matrices:
+ * The primary advantage of using "static" matrices is twofold:
+ *
+ *  - They are backed with static arrays, and thus stack-allocated static matrices
+ *    do not call `malloc()` or `new[]`, and so are faster.
+ *  - In any given operation, the dimension of two matrixes can be proven
+ *    to agree at compile time, making matrix ops slightly cheaper because
+ *    dimension checking can be skipped (see section on dimension checking below).
+ *
+ * Because static matrices are backed with static arrays, large static matrices should
+ * not be declared on the stack, and instead should created with the `new` operator to 
+ * avoid stack overflow.
+ *
+ * Backing storage
+ * ---------------
  * 
- *   - Static matrix operators may perform dimension "agreement" checks at 
- *     compile-time, catching errors early, and circumventing the cost of runtime 
- *     dimension checks.
- *   - Static matrices use "copy" semantics, while dynamic matrices use 
- *     "reference" semantics, and point to common storage when copy-constructed.
+ * By default, matrices generally behave as though their underlying array is duplicated
+ * whenever they are copied; ensuring two distinct matrixes do not alias the same common 
+ * storage. Note that a full array copy may not always be necessary (ownership transfer is 
+ * optimized in c++11 with rvalue references), and careful usage can render "heavy" copies 
+ * quite rare. 
+ *
+ * This perference to use "copy" semantics can be changed for SimpleMatrix by 
+ * passing different storage policies to its `StoragePolicy` template parameter.
  * 
- * The latter point is important to understand, as writing:
- * 
- *     SimpleMatrix<double, 0, 0> m1 = some_matrix_function(...);
- *     SimpleMatrix<double, 0, 0> m2 = m1;
- *     m2[1][2] = 123;
- * 
- * means that element `(1, 2)` is altered in *both* `m1` and `m2`. This is **not** 
- * the case with static matrices.
- * 
- * To check if two matrices share common storage:
+ * To check if two matrices share any common storage:
  *     
  *     if (mtx_aliases_storage(m1, m2)) { ... }
  * 
@@ -83,12 +91,10 @@
  * of matrix type or static/dynamic setting:
  * 
  *     mtxcopy(&dst_mtx, src_mtx);
- * 
- * Because of difference in storage strategy between static and dynamic matrices, copy 
- * and pass-by-value operations can be much heavier for large static matrices, 
- * because the entire matrix must be copied. Therefore it may be advisable to 
- * choose dynamic matrices for any data much larger than a few elements along 
- * each axis.
+ *
+ * This method is often optimized over using std::copy() directly on the matrices' iterators. 
+ * Some matrices (e.g. DiagMatrix) may not support `std::copy()`, but do support `mtxcopy()` 
+ * with sensible arguments.
  * 
  * Unless otherwise noted, all operations on matrices are guaranteed to return 
  * correct results, even if the destination matrix aliases storage of an operand 
