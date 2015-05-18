@@ -9,6 +9,7 @@
 #define PERMUTATIONMATRIX_H_
 
 #include <utility>
+#include <geomc/Storage.h>
 #include <geomc/linalg/mtxdetail/MatrixBase.h>
 
 namespace geom {
@@ -44,18 +45,16 @@ protected:
 
 template <>
 class PermuteMatrixBase<DYNAMIC_DIM> {
-    boost::shared_array<index_t> row_src;
-    boost::shared_array<index_t> row_dst;
-    index_t n;
+    UniqueStorage<index_t,DYNAMIC_DIM> row_src;
+    UniqueStorage<index_t,DYNAMIC_DIM> row_dst;
 public:
     explicit PermuteMatrixBase(index_t n):
-                row_src(new index_t[n]),
-                row_dst(new index_t[n]),
-                n(n) {}
+                row_src(n),
+                row_dst(n) {}
     
 protected:
-    inline index_t _rows() const { return n; }
-    inline index_t _cols() const { return n; }
+    inline index_t _rows() const { return row_src.size(); }
+    inline index_t _cols() const { return row_src.size(); }
     const inline index_t *getSrcData() const { return row_src.get(); }
           inline index_t *getSrcData()       { return row_src.get(); }
     const inline index_t *getDstData() const { return row_dst.get(); } 

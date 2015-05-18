@@ -284,6 +284,7 @@ struct UniqueStorage<T, DYNAMIC_DIM> {
         sz = other.sz;
         other.data = NULL;
         other.sz = 0;
+        return *this;
     }
 #endif
 
