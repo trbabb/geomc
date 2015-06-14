@@ -60,9 +60,9 @@ namespace detail {
  */  
 
 // todo:
-//       - rvalue reference assignments/constructors
+//       x rvalue reference assignments/constructors
 //         it is very confusing whether data is duped or not.
-//         also it is very cumbersome to make a duplicate ZH function.
+//       - also it is very cumbersome to make a duplicate ZH function.
 //       - make an indexing array which sorts the coeffs largest to smallest.
 //         diffusion can become cheap, then, if we work down the array until
 //         the exponentiated coeff is too small to make a difference.
@@ -148,7 +148,7 @@ class SphericalHarmonics {
     typename Dimension<Bands>::storage_t n_bands;
     public:
     /// Coefficient vector.
-    Storage<T,Bands*Bands> coeffs;
+    UniqueStorage<T,Bands*Bands> coeffs;
     
     /**
      * Construct a new SphericalHarmonics. 
@@ -574,7 +574,7 @@ class ZonalHarmonics {
     typename Dimension<Bands>::storage_t n_bands;
     public:
     /// Coefficient vector.
-    Storage<T,Bands> coeffs;
+    UniqueStorage<T,Bands> coeffs;
     
     /**
      * Construct a new ZonalHarmonics.

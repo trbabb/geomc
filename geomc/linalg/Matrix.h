@@ -63,9 +63,9 @@
  *
  *  - They are backed with static arrays, and thus stack-allocated static matrices
  *    do not call `malloc()` or `new[]`, and so are faster.
- *  - In any given operation, the dimension of two matrixes can be proven
- *    to agree at compile time, making matrix ops slightly cheaper because
- *    dimension checking can be skipped (see section on dimension checking below).
+ *  - In any given operation, the agreement of matrix dimensions can be proven at
+ *    compile time, making matrix ops slightly cheaper by avoiding the check, and 
+ *    catching errors early. (See section on dimension checking below)
  *
  * Because static matrices are backed with static arrays, large static matrices should
  * not be declared on the stack, and instead should created with the `new` operator to 
@@ -76,12 +76,12 @@
  * 
  * By default, matrices generally behave as though their underlying array is duplicated
  * whenever they are copied; ensuring two distinct matrixes do not alias the same common 
- * storage. Note that a full array copy may not always be necessary (ownership transfer is 
+ * storage. Note that a full array copy is not always necessary (ownership transfer is 
  * optimized in c++11 with rvalue references), and careful usage can render "heavy" copies 
  * quite rare. 
  *
- * This perference to use "copy" semantics can be changed for SimpleMatrix by 
- * passing different storage policies to its `StoragePolicy` template parameter.
+ * This preference to use "copy" semantics can be changed for SimpleMatrix by 
+ * passing different policies to its `StoragePolicy` template parameter.
  * 
  * To check if two matrices share any common storage:
  *     
