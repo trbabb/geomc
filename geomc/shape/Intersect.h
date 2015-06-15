@@ -12,6 +12,7 @@
 #include <geomc/linalg/Vec.h>
 #include <geomc/linalg/Orthogonal.h>
 #include <geomc/shape/Bounded.h>
+#include <vector>
 
 // todo: can we get faster/more stable/simpler results by solving for barycentric coords?
 
@@ -446,11 +447,12 @@ inline bool gjk_intersect(const Vec<T,N> *pts_a, index_t n_a,
 }
 
 
-// todo: simplex_comparison can be a hard equality check for n=2
-// todo: for n=2, we know which edges (verts) are to be patched exactly.
-//       there are two of them, and dynamic list is unnecessary.
 // todo: does this algorithm REALLY generalize this way?
 // todo: write an optimized N=2 implementation and then verify it against the general one
+//       - edge comparison is a hard equality check
+//       - there can only ever be exactly two unpatched hole edges.
+// todo: optimize face insertion
+// todo: allow buffer containers to be passed.
 
 // observation: The number of faces is strictly increasing.
 //              you don't need to delete a face (O(n)); they can be clobbered.
@@ -536,7 +538,7 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
         // if our estimated closest point is not sufficiently different from
         // our last estimate, decide that we've converged and quit.
         if ((looped and fractional_tolerance > 0 and 
-                (last_proj - overlap_axis).mag() / overlap_axis.mag() < fractional_tolerance)
+                (last_proj - *overlap_axis).mag() / overlap_axis->mag() < fractional_tolerance)
                 or *overlap_axis == Vec<T,N>::zeros) {
             break;
         }
@@ -545,12 +547,12 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
         
         // look in a direction normal to that face
         // and find a new point on the minkowski difference.
-        Vec<T,N> minkowski_pt = shape_a.convex_support( best_face->n) - 
-                                shape_b.convex_support(-best_face->n);
+        Vec<T,N> minkowski_pt = shape_a.convexSupport( best_face->n) - 
+                                shape_b.convexSupport(-best_face->n);
         
-        // finish if we add a duplicate point (possible for polytopes)
+        // finish if we add a duplicate point (possible for polytopes).
         // such a point would produce a degenerate face, i.e. we aren't going
-        // to find any more new faces. this is a linear algorithm, but I am 
+        // to find any more new faces. this is a linear algorithm-- but I am 
         // not sure whether a hashset construction/test is actually worth it.
         for (auto v : verts) if (v == minkowski_pt) break;
         
@@ -558,8 +560,8 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
         
         // now delete all the faces that fall "behind" the new point.
         for (auto f = faces.begin(); f != faces.end();) {
-            // if this face is below the new point...
-            if (f->n.dot(minkowski_pt - verts[f->pts[0]]) > 0) {
+            // if this face is behind the new point...
+            if (f->n.dot(minkowski_pt - verts[f->v[0]]) > 0) {
                 // add all the edges of this face to the boundary edge list.
                 // (all the non-internal edges are hole boundary, which must each
                 //  become part of a new face).
@@ -567,30 +569,20 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
                     // find a vertex to exclude from the face, making an edge.
                     detail::Edge<T,N> e;
                     for (index_t j = 0; j < N - 1; j++) {
-                        e.v[j] = f->pts[(i + j + 1) % N];
+                        e.v[j] = f->v[(i + j + 1) % N];
                         if (N > 3 and j > 0) {
                             splex_vtx_buf[j-1] = verts[e.v[0]] - verts[e.v[j]];
                         }
                     }
                     
-                    // correct the edge winding, if necessary.
-                    if (N > 3) {
-                        splex_vtx_buf[N-2] = f->n;
-                        // the parity here is arbitrary; all that matters is that it's consistent.
-                        Vec<T,N> n_edge = orthogonal(splex_vtx_buf); 
-                        if (n_edge.dot(verts[e.v[0]] - splex_vtx_buf[0]) > 0) {
-                            std::swap(e.v[0], e.v[1]);
-                        }
-                    }
-                    
                     // add the edge.
                     // if there exists an edge in the list with opposite winding, they "annihilate"
-                    // we should actually never see a collision with equal winding, so if we do, that's bad.
+                    // but edges are only ever shared by exactly two faces, so we don't need to check the parity!
                     detail::Edge<T,N> e_tmp;
                     bool annihilated = false;
                     for (auto e_other = edges.begin(); e_other != edges.end(); ++e_other) {
                         e_tmp = *e_other;
-                        if (simplex_comparison(e, e_tmp, N-1) == -1) {
+                        if (std::abs(detail::simplex_comparison(e.v, e_tmp.v, N-1)) == 1) {
                             edges.erase(e_other);
                             annihilated = true;
                             break;
