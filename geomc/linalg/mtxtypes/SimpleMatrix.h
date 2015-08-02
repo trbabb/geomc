@@ -206,6 +206,17 @@ protected:
         Dimension<M>::set(n_rows, nrows);
         Dimension<N>::set(n_cols, ncols);
     }
+    
+    // const overload of above.
+    // needed for user owned storage.
+    explicit FlatMatrixBase(
+                 index_t nrows, 
+                 index_t ncols,
+                 T* src_data) : 
+                     data(nrows * ncols, src_data) {
+        Dimension<M>::set(n_rows, nrows);
+        Dimension<N>::set(n_cols, ncols);
+    }
 
     // Undefined behavior if storage backing is user-owned. However,
     // SimpleMatrices with user-owned storage will never try to call this.

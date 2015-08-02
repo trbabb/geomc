@@ -76,8 +76,8 @@ void mtxcopy(Md *into, const Ms &src,
     typedef detail::_ImplMtxAdaptor<Ms, detail::_ImplVecOrient<Md,Ms>::orient> S;
     
     // runtime dimension match check
-    if ((D::ROWDIM * S::ROWDIM == DYNAMIC_DIM and D::rows(*into) != S::rows(*into)) or
-        (D::COLDIM * S::COLDIM == DYNAMIC_DIM and D::cols(*into) != S::cols(*into))) {
+    if ((D::ROWDIM * S::ROWDIM == DYNAMIC_DIM and D::rows(*into) != S::rows(src)) or
+        (D::COLDIM * S::COLDIM == DYNAMIC_DIM and D::cols(*into) != S::cols(src))) {
         throw DimensionMismatchException(D::rows(*into), D::cols(*into), S::rows(src), S::cols(src));
     }
 #endif
