@@ -212,7 +212,7 @@ protected:
     FlatMatrixBase(index_t nrows, index_t ncols) :
             data(nrows * ncols) {
         Dimension<M>::set(n_rows, nrows);
-        Dimension<M>::set(n_cols, ncols);
+        Dimension<N>::set(n_cols, ncols);
         setIdentity();
     }
 
@@ -338,7 +338,9 @@ public:
      * @return A reference to the element at `(row, col)`, for convenience.
      */
     inline reference set(index_t r, index_t c, T val) {
-        return (data.get()[r * cols() + c] = val);
+        T* elem = data.get() + r * cols() + c;
+        *elem = val;
+        return *elem;
     }
     
     /**

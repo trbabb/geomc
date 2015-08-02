@@ -73,7 +73,7 @@ struct _ImplMtxInstance <geom::Vec<T,N> > {
 template <typename Md, typename M>
 inline void mtx_copy_txpose(Md *into, const M& m) {
     for (index_t c = 0; c < into->cols(); c++) {
-        for (int r = 0; r < into->rows(); r++) {
+        for (index_t r = 0; r < into->rows(); r++) {
             into->set(r, c, m.get(c, r));
         }
     }
