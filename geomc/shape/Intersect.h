@@ -12,7 +12,12 @@
 #include <geomc/linalg/Vec.h>
 #include <geomc/linalg/Orthogonal.h>
 #include <geomc/shape/Bounded.h>
+
 #include <vector>
+#include <map>
+ 
+// xxx debug
+#define EMIT(...) if(emit_debug) emit(__VA_ARGS__)
 
 // todo: can we get faster/more stable/simpler results by solving for barycentric coords?
 
@@ -124,7 +129,6 @@ namespace detail {
         
     };
     
-    
     // returns 0 if unequal, 1 if same orientation, -1 if opposite orientation
     // pass a mutable simplex to s1 plz, kthx
     int simplex_comparison(const index_t* s0, index_t* s1, index_t n) {
@@ -159,6 +163,11 @@ namespace detail {
     struct Face {
         index_t v[N]; // in ccw order.
         Vec<T,N> n;   // face normal.
+        
+        inline bool operator==(const Face<T,N>& other) {
+            for (index_t i = 0; i < N; i++) if (v[i] != other.v[i]) return false;
+            return true;
+        }
     };
     
     
@@ -297,16 +306,21 @@ namespace detail {
     bool gjk_simplex_nearest_origin(detail::Simplex<T,N> *simplex, Vec<T,N> *d) {
         typedef detail::SubSimplex<T,N> SS;
         // queue for sub-simplexes to check.
+        // (sub-simplexes store their null basis, and ptrs to their verts).
         detail::StaticQueue<SS, detail::gjk_queue_size_fac(N) + 1> q;
 
         Vec<T,N> A = simplex->pts[simplex->n - 1];
         SS boundary;
-
+        
+        // enqueue this simplex, and its null basis 
         q.create_back()->createFrom(*simplex);
 
         // process the "frontier"
         while (q.size > 0) {
             SS &s = q.peek_front(); // note that `s` includes `A` implicitly.
+            // a simplex is a "boundary" simplex if the origin projects down its normal within its bounds.
+            // if any of the simplex's edge planes do not contain the origin, this cannot be true.
+            // however, that edge itself may be a boundary simplex.
             bool parent_is_boundary = true;
             for (index_t i = 0; i < s.n; i++) {
                 SS &child = q.create_back()->createFrom(s, i, A);
@@ -380,7 +394,7 @@ namespace detail {
         else 
             initial[0] = 1;
         
-        Vec<T,N> a = shape_a.convexSupport(initial) - 
+        Vec<T,N> a = shape_a.convexSupport( initial) - 
                      shape_b.convexSupport(-initial);
         Vec<T,N> d = -a;
         s->n = 0;
@@ -394,7 +408,7 @@ namespace detail {
             a = shape_a.convexSupport( d) - 
                 shape_b.convexSupport(-d);
             if (a.dot(d) < 0) {
-                if (overlap_axis) *overlap_axis = d;
+                if (overlap_axis) *overlap_axis = -a.projectOn(d);
                 return false;
             }
             s->insert(a);
@@ -446,19 +460,64 @@ inline bool gjk_intersect(const Vec<T,N> *pts_a, index_t n_a,
     return gjk_intersect(a, b, overlap_axis);
 }
 
-
-// todo: does this algorithm REALLY generalize this way?
 // todo: write an optimized N=2 implementation and then verify it against the general one
 //       - edge comparison is a hard equality check
 //       - there can only ever be exactly two unpatched hole edges.
 // todo: optimize face insertion
 // todo: allow buffer containers to be passed.
+// todo: test at what point hashtable construction is faster for duplicate pt tests.
+// todo: keep the faces in sorted order by distance. insertion is O(lg(n)) and
+//       searching is O(1). std::list means no shuffling.
 
 // observation: The number of faces is strictly increasing.
-//              you don't need to delete a face (O(n)); they can be clobbered.
-//              use a skip list.
+//              you don't need to delete a face [O(n)]; they can be clobbered.
+//              use a ~~skip list~~ std::list.
 // note that there is no reason to extend this algorithm to find a
 // separation axis, because GJK already gives that to us.
+
+// begin debug {
+
+template <typename T, index_t N>
+void emit(const detail::Face<T,N>& f, bool highlight=false) {
+    if (highlight) std::cout << "h ";
+    std::cout << "f ";
+    for (index_t i = 0; i < N; i++) {
+        std::cout << f.v[i] << " ";
+    }
+    std::cout << "n " << f.n << "\n";
+}
+
+template <typename T, index_t N>
+void emit(const detail::Edge<T,N>& e, bool highlight=false) {
+    if (highlight) std::cout << "h ";
+    std::cout << "e ";
+    for (index_t i = 0; i < N-1; i++) {
+        std::cout << e.v[i] << " ";
+    }
+    std::cout << "\n";
+}
+
+template <typename T, index_t N>
+void emit(const Vec<T,N>& v) {
+    std::cout << "v ";
+    for (index_t i = 0; i < N; i++) std::cout << v[i] << " ";
+    std::cout << "\n";
+}
+
+// } end debug
+
+
+bool disjoint_separation_axis(const Convex<T,N>& shape_a,
+                              const Convex<T,N>& shape_b, 
+                              Vec<T,N> *overlap_axis,
+                              const detail::Simplex<T,N>& splex,
+                              double fractional_tolerance = 0.001,
+                              index_t iteration_limit = -1) {
+    std::vector< Vec<T,N> >                  verts;
+    std::vector< detail::Edge<T,N> >         edges; // problem. subsimplexes have ptrs to verts, but a std::vector's ptr may be invalidated. :(
+    std::multimap< T, detail::SubSimplex<T,N> > faces;
+}
+
 
 /**
  * @ingroup shape
@@ -478,10 +537,10 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
                              const Convex<T,N>& shape_b,
                              Vec<T,N>* overlap_axis,
                              double fractional_tolerance = 0.001,
-                             index_t iteration_limit = -1) {
+                             index_t iteration_limit = -1,
+                             bool emit_debug=false) { // xxx debug
     detail::Simplex<T,N> splex;
     
-    // assignment below is intended.
     if (not detail::gjk_intersect(shape_a, shape_b, overlap_axis, &splex)) {
         return false;
     }
@@ -496,10 +555,13 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
     for (index_t i = 0; i <= N; i++) {
         // choose a vertex to exclude, making a face, and construct it.
         Vec<T,N> A = verts[i];
+        
+            EMIT(A);
+        
         detail::Face<T,N> face;
         for (index_t j = 0; j < N; j++) {
-            face.v[j] = (i + j + 1) % N;
-            if (j > 0) splex_vtx_buf[j-1] = verts[face.v[0]] - verts[i];
+            face.v[j] = (i + j + 1) % (N + 1);
+            if (j > 0) splex_vtx_buf[j-1] = verts[face.v[0]] - verts[face.v[j]];
         }
         
         // correct the winding.
@@ -512,14 +574,17 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
         }
         face.n = n.unit();
         faces.push_back(face);
+        
+            EMIT(face);
     }
-    
-    typename std::vector< detail::Face<T,N> >::iterator best_face;
     Vec<T,N> last_proj;
     bool looped = false;
     
     // iterate on the face list, choosing the closest one and expanding it
     for (index_t k = 0; iteration_limit < 1 or k < iteration_limit; k++) {
+        typename std::vector< detail::Face<T,N> >::iterator best_face;
+        
+        if (emit_debug) std::cout << "=\n";
         
         // find the face closest to the origin.
         T d = std::numeric_limits<T>::max();
@@ -532,13 +597,18 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
             }
         }
         
+            // debug: emit current polytope, highlighting the closest face
+            for (auto f = faces.begin(); f != faces.end(); ++f) EMIT(*f, f == best_face);
+        
         // project the origin to the closest face.
-        *overlap_axis = -verts[best_face->v[0]].projectOn(best_face->n);
+        *overlap_axis = verts[best_face->v[0]].projectOn(best_face->n);
         
         // if our estimated closest point is not sufficiently different from
-        // our last estimate, decide that we've converged and quit.
+        // our last estimate (or if the origin is on the current face),
+        // decide that we've converged and quit.
         if ((looped and fractional_tolerance > 0 and 
-                (last_proj - *overlap_axis).mag() / overlap_axis->mag() < fractional_tolerance)
+                (last_proj - *overlap_axis).mag() / overlap_axis->mag() < fractional_tolerance) 
+                // origin is exactly on the face:
                 or *overlap_axis == Vec<T,N>::zeros) {
             break;
         }
@@ -554,9 +624,12 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
         // such a point would produce a degenerate face, i.e. we aren't going
         // to find any more new faces. this is a linear algorithm-- but I am 
         // not sure whether a hashset construction/test is actually worth it.
-        for (auto v : verts) if (v == minkowski_pt) break;
+        for (auto v : verts) if (v == minkowski_pt) goto FINISH;
         
         verts.push_back(minkowski_pt);
+    
+            // debug: emit newest hull pt
+            EMIT(minkowski_pt);
         
         // now delete all the faces that fall "behind" the new point.
         for (auto f = faces.begin(); f != faces.end();) {
@@ -570,9 +643,6 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
                     detail::Edge<T,N> e;
                     for (index_t j = 0; j < N - 1; j++) {
                         e.v[j] = f->v[(i + j + 1) % N];
-                        if (N > 3 and j > 0) {
-                            splex_vtx_buf[j-1] = verts[e.v[0]] - verts[e.v[j]];
-                        }
                     }
                     
                     // add the edge.
@@ -597,6 +667,10 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
             }
         }
         
+        for (auto e : edges) {
+            EMIT(e, true);
+        }
+        
         // patch up the hole by constructing new faces,
         // connecting each hole-adjacent edge to the new vertex.
         index_t new_vert = verts.size() - 1;
@@ -612,7 +686,7 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
             f.n = orthogonal(splex_vtx_buf).unit();
             
             // correct the face winding, if necessary.
-            if (N > 3) {
+            if (true or N > 3) {
                 // we know the origin is inside the polytope, so we will
                 // use that to test whether the normal is pointing the right way.
                 // so here we treat minkowski_pt as a vector pointing from inside
@@ -629,6 +703,10 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
         edges.clear();
         looped = true;
     }
+    
+    FINISH:
+    
+    if (emit_debug) std::cout << "=\n";
     
     return true;
 }

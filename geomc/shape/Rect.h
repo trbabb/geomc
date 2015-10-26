@@ -449,12 +449,23 @@ public:
     inline point_t clamp(point_t p) const {
         return std::min(maxs, std::max(mins, p));
     }
-
+    
     /**
-     * @return `p`'s fractional position within this Rect.
+     * Interpolate the corners of this Rect using s as an interpolation parameter.
+     * 
+     * Values of `s` between 0 and 1 correspond to points inside this Rect.
      */
-    point_t boxFraction(point_t p) const {
-        return (point_t(1)-p) * mins + p * maxs ;
+    point_t lerp(point_t s) const {
+       return (point_t(1) - s) * mins + s * maxs;
+    }
+    
+    /**
+     * Find `p`'s fractional position within this Rect.
+     *
+     * Inverse operation of `lerp()`.
+     */
+    point_t unlerp(point_t p) const {
+        return (p - mins) / (maxs - mins);
     }
     
     point_t convexSupport(point_t d) const {

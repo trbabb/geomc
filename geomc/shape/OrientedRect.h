@@ -67,7 +67,7 @@ class OrientedRect : virtual public Bounded<T,N>, virtual public Convex<T,N> {
         
         
         Vec<T,N> convexSupport(Vec<T,N> d) const {
-            Vec<T,N> d_body = d / xf;
+            Vec<T,N> d_body = xf.applyInverseNormal(d);
             Vec<T,N> o;
             for (index_t i = 0; i < N; i++) {
                 o[i] = ((d_body[i] < 0) ? box.min() : box.max())[i];
