@@ -20,6 +20,8 @@
 #define EMIT(...) if(emit_debug) emit(__VA_ARGS__)
 
 // todo: can we get faster/more stable/simpler results by solving for barycentric coords?
+// todo: disjoint_separating_axis()
+
 
 namespace geom {
     
@@ -62,71 +64,86 @@ namespace detail {
         
         SubSimplex():n(0) {}
         
-        const Vec<T,N> *pts[N+1]; // array of <= N pointers to const vec
-        Vec<T,N> null_basis[N];   // basis for orthogonal complement of spanned space
-        index_t n; // number of stored points (i.e., excludes "A"). equal to the dimension spanned by `this`.
+        index_t pts[N];
+        
+        // basis for spanned space and its orthogonal complement. laid out like:
+        //              parent         simplex
+        //  normal    null basis    spanning basis
+        //    [1]    [ N - n - 1 ]      [ n ]
+        Vec<T,N> basis[N];
+        
+        // number of stored points (i.e., excludes "A"). equal to the dimension spanned by `this`.
+        index_t n;
+        
+        inline       Vec<T,N>* nullspace()               { return basis; }
+        inline const Vec<T,N>* nullspace() const         { return basis; }
+        inline       Vec<T,N>* spanning()                { return basis + N - n; }
+        inline const Vec<T,N>* spanning() const          { return basis + N - n; }
+        inline       Vec<T,N>& spanning(index_t i)       { return basis[N - n + i]; }
+        inline const Vec<T,N>& spanning(index_t i) const { return basis[N - n + i]; }
+        
         
         // create a new, complete simplex from `s`. The final vertex is of `s`
         // is "A", and is not stored. 
         SubSimplex& createFrom(const Simplex<T,N> &s) {
             // the last vertex is assumed to be `A`
             n = s.n - 1;
-            for (index_t i = 0; i < n; i++) {
-                pts[i] = &s[i];
-            }
-            // compute null space (if it's not one of {R^N, 0})
-            if (n > 0 and n < N) {
-                // compute the null space of this simplex.
-                Vec<T,N> A = s[s.n - 1];
-                Vec<T,N> *simplex_basis = null_basis + N - n;
+            for (index_t i = 0; i < n; i++) pts[i] = i;
+            
+            // compute spanning and null spaces
+            if (n > 0) {
+                Vec<T,N> A = s[n];
+                Vec<T,N> *spanning_basis = spanning();
                 for (index_t i = 0; i < n; i++) {
-                    simplex_basis[i] = s[i] - A;
+                    spanning_basis[i] = s[i] - A;
                 }
-                nullspace(simplex_basis, n, null_basis);
+                // (short circuits if n == N)
+                geom::nullspace(spanning_basis, n, basis);
             }
             return *this;
         }
         
-        // create a new sub-simplex of lower dimension by excluding the vertex with
-        // index `excluded`. The point `A` is taken to be the final vertex of this
-        // sub simplex, and is used in calculating the null space and normal.
-        SubSimplex& createFrom(const SubSimplex &s, index_t excluded, const Vec<T,N> &A) {
+        
+        // create a new sub-simplex of lower dimension by excluding the vertex with index `excluded`.
+        SubSimplex& createFrom(const SubSimplex &s, index_t excluded) {
             n = s.n - 1;
             index_t j = 0;
+            
+            // copy the source's null basis, leaving a hole for the normal to come
+            std::copy(s.nullspace(), s.nullspace() + N - s.n, nullspace() + 1);
+            
+            // copy the source's spanning basis, skipping the excluded vtx.
+            Vec<T,N>* spanning_basis = spanning();
             for (index_t i = 0; i < s.n; i++) {
                 if (i == excluded) continue;
-                pts[j++] = s.pts[i];
+                pts[j]            = s.pts[i];
+                spanning_basis[j] = s.spanning(i);
+                ++j;
             }
-            // compute the simplex normal
-            std::copy(s.null_basis, s.null_basis + N - s.n, null_basis);
-            Vec<T,N> *simplex_basis = null_basis + N - s.n; // high part of null_basis array
-            for (index_t i = 0; i < n; i++) {
-                simplex_basis[i] = *(pts[i]) - A;
-            }
+            // `basis` now looks like: [1 blank] [parent null space] [spanning basis]
+            
+            // compute the normal
             if (n > 0) {
                 // the normal lies orthogonal to the null space of the parent
-                // and orthogonal to the space of the child. null_space now
-                // contains both.
-                Vec<T,N> normal = orthogonal(null_basis);
+                // and orthogonal to the space of the child. the `n-1` tail of `basis` 
+                // now contains both.
+                Vec<T,N> normal = orthogonal(basis + 1);
                 // flip the normal if it points "inside"
-                if (normal.dot(s[excluded] - A) > 0) normal = -normal;
+                if (normal.dot(s.spanning(excluded)) > 0) normal = -normal;
                 // extend the null basis.
-                simplex_basis[0] = normal;
+                basis[0] = normal;
             } else {
                 // we are a point; parent simplex is a line; there is only one normal
-                simplex_basis[0] = A - s[0];
+                basis[0] = -s.spanning(0);
             }
             return *this;
         }
         
-        const Vec<T,N>& operator[](index_t i) const {
-            return *(pts[i]);
-        }
         
         inline Vec<T,N> getNormal() const {
-            return null_basis[N-n-1];
+            return basis[0];
         }
-        
+    
     };
     
     // returns 0 if unequal, 1 if same orientation, -1 if opposite orientation
@@ -247,15 +264,12 @@ namespace detail {
                 // projection is simpler.
                 bool swap_proj = false;
                 index_t proj_n = null_dim;
-                Vec<T,N> *proj_basis = boundary.null_basis;
+                Vec<T,N> *proj_basis = boundary.nullspace();
 
                 if ( null_dim > boundary.n ) {
-                    proj_basis = boundary.null_basis + N - boundary.n;
+                    proj_basis = boundary.spanning();
                     proj_n = boundary.n;
                     swap_proj = true;
-                    for (index_t i = 0; i < boundary.n; i++) {
-                        proj_basis[i] = boundary[i] - A;
-                    }
                 }
 
                 // gram-schmidt orthonormalization.
@@ -277,7 +291,7 @@ namespace detail {
                 
                 // We use orthogonal() instead of ^ because this is a 
                 // dimension-agnostic function. orthogonal inlines to ^ anyway.
-                Vec<T,N> vs[3] = {(T)0, A - boundary[0], -A};
+                Vec<T,N> vs[3] = {(T)0, -boundary.spanning(0), -A};
                 vs[0] = orthogonal(vs+1);
                 *d = orthogonal(vs);
             }
@@ -306,7 +320,7 @@ namespace detail {
     bool gjk_simplex_nearest_origin(detail::Simplex<T,N> *simplex, Vec<T,N> *d) {
         typedef detail::SubSimplex<T,N> SS;
         // queue for sub-simplexes to check.
-        // (sub-simplexes store their null basis, and ptrs to their verts).
+        // (sub-simplexes store their spanning and null bases).
         detail::StaticQueue<SS, detail::gjk_queue_size_fac(N) + 1> q;
 
         Vec<T,N> A = simplex->pts[simplex->n - 1];
@@ -318,12 +332,12 @@ namespace detail {
         // process the "frontier"
         while (q.size > 0) {
             SS &s = q.peek_front(); // note that `s` includes `A` implicitly.
-            // a simplex is a "boundary" simplex if the origin projects down its normal within its bounds.
-            // if any of the simplex's edge planes do not contain the origin, this cannot be true.
-            // however, that edge itself may be a boundary simplex.
+            
+            // determine whether the origin projects onto this simplex, or instead to one of its edges.
+            // edge simplexes must be recursively checked for projection containment and so are enqueued.
             bool parent_is_boundary = true;
             for (index_t i = 0; i < s.n; i++) {
-                SS &child = q.create_back()->createFrom(s, i, A);
+                SS &child = q.create_back()->createFrom(s, i);
                 Vec<T,N> normal = child.getNormal();
 
                 if (A.dot(normal) < 0) { 
@@ -348,14 +362,13 @@ namespace detail {
         bool containment = gjk_direction_to_origin(boundary, A, d);
         
         // put the new simplex back into the return variable.
-        // we use a temp because the boundary actually points into `simplex`.
-        Simplex<T,N> tmp;
-        tmp.n = boundary.n + 1;
-        tmp.pts[boundary.n] = A;
+        // boundary's indecies are strictly increasing, so this is ok.
         for (index_t i = 0; i < boundary.n; i++) {
-            tmp[i] = boundary[i];
+            (*simplex)[i] = (*simplex)[boundary.pts[i]];
+            if (boundary.pts[i] < i) std::cout << "WTF, MATES.\n";
         }
-        *simplex = tmp;
+        (*simplex)[boundary.n] = A;
+        simplex->n = boundary.n + 1;
         
         return containment;
     }
@@ -507,6 +520,7 @@ void emit(const Vec<T,N>& v) {
 // } end debug
 
 
+template <typename T, index_t N>
 bool disjoint_separation_axis(const Convex<T,N>& shape_a,
                               const Convex<T,N>& shape_b, 
                               Vec<T,N> *overlap_axis,
@@ -514,7 +528,7 @@ bool disjoint_separation_axis(const Convex<T,N>& shape_a,
                               double fractional_tolerance = 0.001,
                               index_t iteration_limit = -1) {
     std::vector< Vec<T,N> >                  verts;
-    std::vector< detail::Edge<T,N> >         edges; // problem. subsimplexes have ptrs to verts, but a std::vector's ptr may be invalidated. :(
+    std::vector< detail::Edge<T,N> >         edges;
     std::multimap< T, detail::SubSimplex<T,N> > faces;
 }
 
