@@ -676,7 +676,8 @@ namespace detail {
          * of `this` aligned with `v`.
          */
         self_t projectOn(const self_t &v) const {
-            return v * this->dot(v) / v.mag2();
+            T m2 = v.mag2();
+            return m2 != 0 ? (v * this->dot(v) / m2) : v;
         }
 
         /**

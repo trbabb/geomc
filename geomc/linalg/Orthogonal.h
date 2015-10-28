@@ -35,6 +35,8 @@ dx + ey + fz + g = 0
 
 namespace geom {
     
+    // todo: orthogonal() does not respect winding. the wedge product is maybe something you need.
+    
     /**
      * @addtogroup linalg
      * @{
@@ -111,9 +113,10 @@ namespace geom {
         std::fill(m1, m1 + (N-n)*N, (T)0);
         bool parity_swap = false;
         
-        index_t extra_bases = decompLUP(m0, n, N, P, &parity_swap);
+        decompLUP(m0, n, N, P, &parity_swap);
         
         // todo: handle extra degenerate bases.
+        // todo: refactor this to use a mtx wrapper.
         
         // foreach null space basis
         for (index_t b = 0; b < N - n; b++) {

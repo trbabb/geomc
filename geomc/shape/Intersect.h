@@ -6,7 +6,7 @@
  */
 
 #ifndef INTERSECT_H
-#define	INTERSECT_H
+#define INTERSECT_H
 
 #include <limits.h>
 #include <geomc/linalg/Vec.h>
@@ -14,7 +14,6 @@
 #include <geomc/shape/Bounded.h>
 
 #include <vector>
-#include <map>
  
 // xxx debug
 #define EMIT(...) if(emit_debug) emit(__VA_ARGS__)
@@ -56,39 +55,41 @@ namespace detail {
     };
     
     
-    // Store a sub-simplex, keeping track of its null basis. 
-    // The sub-simplex implicitly includes an unstored vertex A, which in GJK
-    // is common to all tested sub-simplexes. 
+    // Store a sub-simplex, keeping track of its null basis and spanning basis.
+    // The final vertex ("A") is implictly translated to the origin to simplify computation.
     template <typename T, index_t N>
     struct SubSimplex {
         
         SubSimplex():n(0) {}
         
-        index_t pts[N];
+        index_t pts[N+1]; // indecies of the verts into the source simplex
+                          // in principle, this is not needed, as we could just 
+                          // translate by `A`, but for floating point raisins
+                          // we keep track of this.
         
         // basis for spanned space and its orthogonal complement. laid out like:
         //              parent         simplex
         //  normal    null basis    spanning basis
         //    [1]    [ N - n - 1 ]      [ n ]
+        // All spanning bases point from `A` toward the corresponding vertex.
         Vec<T,N> basis[N];
         
         // number of stored points (i.e., excludes "A"). equal to the dimension spanned by `this`.
         index_t n;
         
         inline       Vec<T,N>* nullspace()               { return basis; }
-        inline const Vec<T,N>* nullspace() const         { return basis; }
+        inline const Vec<T,N>* nullspace()         const { return basis; }
         inline       Vec<T,N>* spanning()                { return basis + N - n; }
-        inline const Vec<T,N>* spanning() const          { return basis + N - n; }
+        inline const Vec<T,N>* spanning()          const { return basis + N - n; }
         inline       Vec<T,N>& spanning(index_t i)       { return basis[N - n + i]; }
         inline const Vec<T,N>& spanning(index_t i) const { return basis[N - n + i]; }
         
         
         // create a new, complete simplex from `s`. The final vertex is of `s`
         // is "A", and is not stored. 
-        SubSimplex& createFrom(const Simplex<T,N> &s) {
-            // the last vertex is assumed to be `A`
+        SubSimplex& createFrom(const Simplex<T,N>& s) {
             n = s.n - 1;
-            for (index_t i = 0; i < n; i++) pts[i] = i;
+            for (index_t i = 0; i < s.n; i++) pts[i] = i;
             
             // compute spanning and null spaces
             if (n > 0) {
@@ -105,20 +106,33 @@ namespace detail {
         
         
         // create a new sub-simplex of lower dimension by excluding the vertex with index `excluded`.
-        SubSimplex& createFrom(const SubSimplex &s, index_t excluded) {
+        SubSimplex& createFrom(const SubSimplex& s, index_t excluded) {
             n = s.n - 1;
-            index_t j = 0;
             
             // copy the source's null basis, leaving a hole for the normal to come
             std::copy(s.nullspace(), s.nullspace() + N - s.n, nullspace() + 1);
             
             // copy the source's spanning basis, skipping the excluded vtx.
             Vec<T,N>* spanning_basis = spanning();
-            for (index_t i = 0; i < s.n; i++) {
-                if (i == excluded) continue;
-                pts[j]            = s.pts[i];
-                spanning_basis[j] = s.spanning(i);
-                ++j;
+            if (excluded < s.n) {
+                index_t j = 0;
+                for (index_t i = 0; i < s.n; i++) {
+                    if (i == excluded) continue;
+                    pts[j]            = s.pts[i];
+                    spanning_basis[j] = s.spanning(i);
+                    ++j;
+                }
+                pts[n] = s.pts[s.n];
+            } else {
+                // refactor the spanning basis to exclude "A"
+                // (only used in contact-finding; ordinary EPA can, by construction,
+                // skip checking sub-simplexes not involving "A").
+                Vec<T,N> B = s.spanning(s.n - 1);
+                for (index_t i = 0; i < n; i++) {
+                    spanning_basis[i] = s.spanning(i) - B;
+                    pts[i] = s.pts[i];
+                }
+                pts[n] = s.pts[n];
             }
             // `basis` now looks like: [1 blank] [parent null space] [spanning basis]
             
@@ -129,7 +143,8 @@ namespace detail {
                 // now contains both.
                 Vec<T,N> normal = orthogonal(basis + 1);
                 // flip the normal if it points "inside"
-                if (normal.dot(s.spanning(excluded)) > 0) normal = -normal;
+                Vec<T,N> v = (excluded == s.n) ? s.spanning(0) : s.spanning(excluded);
+                if (normal.dot(v) > 0) normal = -normal;
                 // extend the null basis.
                 basis[0] = normal;
             } else {
@@ -235,8 +250,8 @@ namespace detail {
         // find the direction to the origin. 
         // assumes a simplex which has already passed containment tests.
         // project the direction to the origin onto the null space of our simplex.
-        // the final `else` would be sufficient by itself, but in some cases
-        // we can be clever and save some redundant calculations.
+        // (the final `else` would be sufficient by itself, but in some cases
+        // we can be clever and save some redundant calculations).
         index_t null_dim = N - boundary.n;
         if (null_dim == N) {
             // single point case; "projection" is trivial.
@@ -312,12 +327,14 @@ namespace detail {
      * cheap, it may not be a big deal. (Also note that each edge needs a complete null basis,
      * which would have to be constructed for each edge). At best, this might save
      * us some storage.
+     *
+     * edit: are we simply guaranteed to terminate before we check more than N edges?
      */
     
     // todo: check for degenerate simplexes and ignore them.
     
     template <typename T, index_t N>
-    bool gjk_simplex_nearest_origin(detail::Simplex<T,N> *simplex, Vec<T,N> *d) {
+    bool gjk_simplex_nearest_origin(detail::Simplex<T,N> *simplex, Vec<T,N> *d, bool fullcheck=false) {
         typedef detail::SubSimplex<T,N> SS;
         // queue for sub-simplexes to check.
         // (sub-simplexes store their spanning and null bases).
@@ -331,15 +348,16 @@ namespace detail {
 
         // process the "frontier"
         while (q.size > 0) {
-            SS &s = q.peek_front(); // note that `s` includes `A` implicitly.
+            SS &s = q.peek_front();
             
             // determine whether the origin projects onto this simplex, or instead to one of its edges.
             // edge simplexes must be recursively checked for projection containment and so are enqueued.
             bool parent_is_boundary = true;
-            for (index_t i = 0; i < s.n; i++) {
+            index_t ct = fullcheck ? s.n + 1 : s.n;
+            for (index_t i = 0; i < ct; i++) {
                 SS &child = q.create_back()->createFrom(s, i);
                 Vec<T,N> normal = child.getNormal();
-
+                
                 if (A.dot(normal) < 0) { 
                     // the origin is "outside" this sub-simplex, and therefore it
                     // may be (or contain) a boundary simplex. We also know the parent
@@ -359,15 +377,13 @@ namespace detail {
             }
         }
         
-        bool containment = gjk_direction_to_origin(boundary, A, d);
+        bool containment = gjk_direction_to_origin(boundary, simplex->pts[boundary.pts[boundary.n]], d);
         
         // put the new simplex back into the return variable.
         // boundary's indecies are strictly increasing, so this is ok.
-        for (index_t i = 0; i < boundary.n; i++) {
+        for (index_t i = 0; i < boundary.n + 1; i++) {
             (*simplex)[i] = (*simplex)[boundary.pts[i]];
-            if (boundary.pts[i] < i) std::cout << "WTF, MATES.\n";
         }
-        (*simplex)[boundary.n] = A;
         simplex->n = boundary.n + 1;
         
         return containment;
@@ -420,11 +436,11 @@ namespace detail {
         while (true) {
             a = shape_a.convexSupport( d) - 
                 shape_b.convexSupport(-d);
+            s->insert(a);
             if (a.dot(d) < 0) {
                 if (overlap_axis) *overlap_axis = -a.projectOn(d);
                 return false;
             }
-            s->insert(a);
             
             if (detail::gjk_simplex_nearest_origin(s, &d)) {
                 if (overlap_axis) *overlap_axis = d;
@@ -481,12 +497,13 @@ inline bool gjk_intersect(const Vec<T,N> *pts_a, index_t n_a,
 // todo: test at what point hashtable construction is faster for duplicate pt tests.
 // todo: keep the faces in sorted order by distance. insertion is O(lg(n)) and
 //       searching is O(1). std::list means no shuffling.
+// todo: abstract penetration solving into a class, with cache workspace
+//       holding the std::lists, etc.
+// todo: clean up debug mumbo jumbo
 
 // observation: The number of faces is strictly increasing.
 //              you don't need to delete a face [O(n)]; they can be clobbered.
-//              use a ~~skip list~~ std::list.
-// note that there is no reason to extend this algorithm to find a
-// separation axis, because GJK already gives that to us.
+//              use a ~~skip list~~ ~~std::list~~ sorted multimap.
 
 // begin debug {
 
@@ -520,22 +537,104 @@ void emit(const Vec<T,N>& v) {
 // } end debug
 
 
+// xxx: simplex_nearest_origin assumes by the invariants of GJK that
+//      the last vertex in the simplex is "A" and *must* include the sub-simplex
+//      closest to the origin, so the "backfacing" simplex is not checked. This is 
+//      a bogus assumption because of our "explosion" algorithm and we miss plenty of cases.
+//    - I have hacked subSimplex to allow checking of backfacing simplexes, but:
+//      - I get occasional segfaults in the sub-simplex construction code
+//        - possible/likely that your "static stack" is blown by the extra simplexes :[
+//      - it strangely does not seem to resolve the problem
+//      - there may be an issue in that the notion of "backfacing" is destroyed when "A" is discarded?
+//    - the problem manifests as gjk_direction_to_origin erroneously reporting full volume containment of the origin.
+//    - consider projecting origin to simplex null basis
+//      - concerned about case where said projection is zero, e.g.:
+//        an edge points directly at the origin, as when the minkowski volume is a sphere. 
+// xxx: the simplex "explosion to volume" process is apparently not guaranteed to terminate. :(
+
+// given a minkowski volume which does *not* enclose the origin, find the closest point
+// on the volume to the origin.
 template <typename T, index_t N>
-bool disjoint_separation_axis(const Convex<T,N>& shape_a,
+void disjoint_separation_axis(const Convex<T,N>& shape_a,
                               const Convex<T,N>& shape_b, 
                               Vec<T,N> *overlap_axis,
-                              const detail::Simplex<T,N>& splex,
+                              detail::Simplex<T,N>* splex,
                               double fractional_tolerance = 0.001,
                               index_t iteration_limit = -1) {
-    std::vector< Vec<T,N> >                  verts;
-    std::vector< detail::Edge<T,N> >         edges;
-    std::multimap< T, detail::SubSimplex<T,N> > faces;
+    // expand the simplex to a volume 
+    // by searching along each axis of the simplex's null basis.
+    // xxx: for some reason this does not terminate in occasional cases? (~1/500?)
+    //      due to search in the normal direction, I would expect valid expansion except
+    //      in the case of a perfectly degenerate simplex, which should be exceedingly rare
+    while (splex->n < N + 1) {
+        // search the initial nullspace axes first, and only bother to
+        // re-construct the sub-simplex and its nullspace if those searches failed.
+        detail::SubSimplex<T,N> s_initial;
+        s_initial.createFrom(*splex);
+        index_t n_null = N - s_initial.n;
+        // search in both directions
+        for (index_t i = 0; i < n_null * 2 and splex->n < N + 1; i++) {
+            index_t ii = i % n_null;
+            T      sgn = (i / n_null) ? ((T)-1) : ((T)1);
+            Vec<T,N> n = sgn * s_initial.nullspace()[ii];
+            Vec<T,N> a = shape_a.convexSupport( n) - 
+                         shape_b.convexSupport(-n);
+            // do not insert a duplicate vtx.
+            bool dupe = false;
+            for (index_t j = 0; j < splex->n; j++) {
+                if ((*splex)[j] == a) {  // todo: O(n) search ok?
+                    dupe = true;
+                    break;
+                }
+            }
+            if (not dupe) splex->insert(a);
+        }
+    }
+    
+    // iteratively search outward from the closest (sub-)simplex.
+    Vec<T,N> last_proj;
+    Vec<T,N> new_proj;
+    bool looped = false;
+    for (index_t j = 0; j != iteration_limit; j++) {
+        Vec<T,N> d;
+        
+        // update `splex` and `d`
+        gjk_simplex_nearest_origin(splex, &d);
+        
+        // search in the direction of the "best" normal
+        Vec<T,N> a = shape_a.convexSupport( d) -
+                     shape_b.convexSupport(-d);
+        
+        // project the origin onto the simplex, down along its normal
+        new_proj = ((*splex)[0]).projectOn(d);
+        
+        // if the search point already exists in the simplex, halt
+        for (index_t i = 0; i < splex->n; i++) if ((*splex)[i] == a) {
+            goto DONE_DJSA;
+        }
+    
+        // if our estimated closest point is not sufficiently different from
+        // our last estimate (or if the origin is on the current face),
+        // decide that we've converged and quit.
+        if ((looped and fractional_tolerance > 0 and 
+                (last_proj - new_proj).mag() / new_proj.mag() < fractional_tolerance) 
+                // origin is exactly on the face:
+                or new_proj == Vec<T,N>::zeros) {
+            break;
+        }
+        
+        splex->insert(a);
+        last_proj = new_proj;
+        looped = true;
+    }
+    DONE_DJSA: *overlap_axis = new_proj;
 }
 
 
 /**
  * @ingroup shape
  * Use the Expanding Polytope Algorithm to find a minimum translation vector that would bring shape B into contact with A.
+ * If A and B are not interpenetrating the results are undefined.
  * 
  * @param shape_a A convex shape.
  * @param shape_b A convex shape.
@@ -556,6 +655,12 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
     detail::Simplex<T,N> splex;
     
     if (not detail::gjk_intersect(shape_a, shape_b, overlap_axis, &splex)) {
+        // xxx: this shit below ain't work
+        disjoint_separation_axis(shape_a, shape_b, 
+                                 overlap_axis,
+                                 &splex,
+                                 fractional_tolerance,
+                                 iteration_limit);
         return false;
     }
     
@@ -600,7 +705,7 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
         
         if (emit_debug) std::cout << "=\n";
         
-        // find the face closest to the origin.
+        // find the face closest to the origin
         T d = std::numeric_limits<T>::max();
         for (auto f = faces.begin(); f != faces.end(); ++f) {
             Vec<T,N> v = verts[f->v[0]]; // a vertex on the face
@@ -681,6 +786,7 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
             }
         }
         
+        // debug
         for (auto e : edges) {
             EMIT(e, true);
         }
@@ -700,7 +806,7 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
             f.n = orthogonal(splex_vtx_buf).unit();
             
             // correct the face winding, if necessary.
-            if (true or N > 3) {
+            if (N > 3) {
                 // we know the origin is inside the polytope, so we will
                 // use that to test whether the normal is pointing the right way.
                 // so here we treat minkowski_pt as a vector pointing from inside
@@ -713,7 +819,6 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
             
             faces.push_back(f);
         }
-        
         edges.clear();
         looped = true;
     }
@@ -728,5 +833,5 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
 
 } // end namespace geom
 
-#endif	/* INTERSECT_H */
+#endif  /* INTERSECT_H */
 
