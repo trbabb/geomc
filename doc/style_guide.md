@@ -32,12 +32,12 @@ It is good to highlight similar structure by aligning code into a visual table:
 
     int myvar_1   =  func(1,   2, 3);
     int myvar_123 =  func(1,  55, 0);
-    int myvar_2   =  func(2,  55, 0);
+    int myvar_2   =  func(2, 255, 0);
     int myvar_3   = thing(1,   0, 0);
 
-This makes it easy to examine similarities and differences, reducing mental workload. When in doubt about whether to justify left or right, prefer to keep similar elements aligned vertically. Even without repetitive structure, it can be useful to align long blocks of assignments around a column of equal signs.
+This makes it easy to examine similarities and differences, reducing mental workload. When in doubt about whether to justify left or right, prefer to keep similar elements aligned vertically.
 
-This can work with classes too:
+This principle is not restricted to blocks of assignments; it works elsewhere:
 
     class Foo {
         int       thing_foo(int a, int b);
@@ -45,7 +45,7 @@ This can work with classes too:
         SomeClass boop(int a);
     };
 
-Do apply common sense; tabular alignment should not be preferred when it creates excessively long lines or visual clutter.
+Do apply common sense; tabular alignment need not be preferred where it creates excessively long lines or visual clutter.
 
 Arithmetic
 ----------
