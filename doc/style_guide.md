@@ -97,6 +97,20 @@ Classes list member variables first, followed by constructors and destructors, f
         }
     }
 
+Declarations
+------------
+
+Declare each variable in its own statement:
+
+    int* a;
+    int* b;
+
+Never use comma separated declarations with decorated types. C++'s design contains a mistake where the `*` associates with the variable name instead of the type, inviting misleading constructions like:
+
+    // NEVER:
+    int* a, b;
+
+In the above, `a` is an `int*`, but `b` is an `int`. To avoid this confusion, separate declarations must always be used instead.
 
 Programming
 ===========
