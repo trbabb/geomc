@@ -112,6 +112,15 @@ Never use comma separated declarations with decorated types. C++'s design contai
 
 In the above, `a` is an `int*`, but `b` is an `int`. To avoid this confusion, separate declarations must always be used instead.
 
+Comparisons
+-----------
+
+Modern languages support `and` and `or` keywords. These are easier to read, have been part of the C/C++ standard since the early days. They should be preferred over `||` and `&&`:
+
+    if ((cond1 and cond2) or cond3) {
+        do_a_thing(x);
+    }
+
 Programming
 ===========
 
@@ -134,16 +143,28 @@ No:
     T x = vec.mag();
     if (x > EPSILON) vec /= x;
     
-(There is one (rare) exception, which is when choosing between two strategies that each return a more accurate result depending on scale; for example, a complete formula vs. its taylor series approximation near an unstable point. In these cases the numerical considerations should be well understood, and the two strategies should perform demonstrably better in their respective domains).
+There is one (rare) exception, which is when choosing between two strategies that each return a more accurate result depending on scale; for example, a complete formula vs. its taylor series approximation near an unstable point. In these cases the numerical considerations should be well understood, and the two strategies should perform demonstrably better in their respective domains:
 
-Loops
+    template <typename T>
+    T complicated_func(T input) {
+        if (input < 1 and input > 0) {
+            // unstable region better approximated with a different method:
+            taylor_approx(input);
+        } else {
+            direct_eval(input);
+        }
+    }
+
+Counters
 ------
 
-Loop variables should be type `index_t`, which will be 64-bit on 64-bit platforms, allowing for traversal of very large arrays:
+Counter variables should be type `index_t`, which will be 64-bit on 64-bit platforms:
 
     for (index_t i = 0; i < n; i++) {
         v[i] += k[i];
     }
+
+Using `index_t` guarantees that large counts of objects can be handled properly on 64-bit systems without overflow.
 
 Argument passing style
 ----------------------
