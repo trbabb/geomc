@@ -213,7 +213,11 @@ Const Correctness
 
 If an object is passed by pointer and *not* modified by a function, you must declare it `const`:
 
-    // `obj` is not modified; declare `obj` const.
-    int foo(const Object* obj) {
-        return obj->x * 2;
+    // `objs` are not modified; declare `objs` const.
+    int foo(const Object* objs, int n) {
+        index_t sum = 0;
+        for (index_t i = 0; i < n; i++) {
+            sum += objs[i].x * 2;
+        }
+        return sum;
     }
