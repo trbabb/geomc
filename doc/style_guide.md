@@ -185,3 +185,25 @@ The above makes it obvious at the call site whether a function will modify an ar
 
     invert(&mtx, src);
 
+Optimization
+------------
+
+Structure and factor code to be readable and maintainable. These two factors *always* take precedence over optimizations that modern compilers are known to perform. In addition, `geomc` is intended to be compatible with multiple compilers, so a factorization that helps one might hurt another. 
+
+Examples of transformations that should **not** be written in source unless they add clarity:
+
+* Constant folding
+* Loop unrolling
+* Implicit casting of constants
+* Anything that involves copy-pasting
+* Common sub-expression elimination
+
+Examples of **valid** optimizations include:
+
+* Selection of an asymptotically-better algorithm
+* Checks to skip execution of large blocks of code
+* Refactoring array layouts for better cache performance
+* Factorizations to avoid copying large objects
+* Factorizations to avoid dynamic memory allocations
+
+Limit the mental workload on programmers / maintainers to that work which compilers *cannot* do.
