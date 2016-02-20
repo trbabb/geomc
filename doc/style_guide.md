@@ -188,7 +188,7 @@ The above makes it obvious at the call site whether a function will modify an ar
 Optimization
 ------------
 
-Structure and factor code to be readable and maintainable. These two factors *always* take precedence over optimizations that modern compilers are known to perform. In addition, `geomc` is intended to be compatible with multiple compilers, so a factorization that helps one might hurt another. 
+Structure and factor code to be readable and maintainable. These two factors *always* take precedence over optimizations that modern compilers are known to perform. In addition, `geomc` is intended to be compatible with multiple compilers, so a low-level factorization intended to help one might hurt another. 
 
 Examples of transformations that should **not** be written in source unless they add clarity or reduce code duplication:
 
