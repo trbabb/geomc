@@ -203,7 +203,7 @@ Examples of **valid** optimizations include:
 * Selection of an asymptotically-better algorithm
 * Checks to skip execution of large blocks of code
 * Refactoring array layouts for better cache performance
-* Factorizations to avoid copying large objects
+* Factorizations to avoid unnecessary copying of objects
 * Factorizations to avoid dynamic memory allocations
 
 Limit the mental workload on programmers / maintainers to that work which compilers *cannot* do.
