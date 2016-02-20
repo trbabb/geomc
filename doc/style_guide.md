@@ -206,4 +206,14 @@ Examples of **valid** optimizations include:
 * Factorizations to avoid unnecessary copying of objects
 * Factorizations to avoid dynamic memory allocations
 
-Limit the mental workload on programmers / maintainers to that work which compilers *cannot* do.
+In general, limit the mental workload on programmers / maintainers to that work which compilers *cannot* do.
+
+Const Correctness
+-----------------
+
+If an object is passed by pointer and *not* modified by a function, you must declare it `const`:
+
+    // `obj` is not modified; declare `obj` const.
+    int foo(const Object* obj) {
+        return obj->x * 2;
+    }
