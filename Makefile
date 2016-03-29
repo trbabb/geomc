@@ -1,8 +1,8 @@
-CC = g++
+CC = clang++
 AR = ar
 PREFIX   = /opt/local
 INCLUDES = .
-CFLAGS   = -std=c++11 -O3 -Wall -c -fmessage-length=0 -Wno-unused -Wno-unused-local-typedefs
+CFLAGS   = -std=c++11 -O3 -Wall -c -fmessage-length=0 
 IFLAGS   = $(addprefix -I, $(INCLUDES))
 MODULES  = function linalg random shape
 SOURCES  = $(wildcard geomc/*.cpp) \
@@ -28,10 +28,10 @@ lib : $(OBJECTS)
 
 profile : lib build/Profile.o
 	mkdir -p bin
-	$(CC) $(LIB) build/Profile.o -o bin/profile
+	$(CC) -g $(LIB) build/Profile.o -o bin/profile
 
 build/Profile.o : test/Profile.cpp
-	$(CC) $(CFLAGS) $(IFLAGS) -o build/Profile.o test/Profile.cpp 
+	$(CC) -g $(CFLAGS) $(IFLAGS) -o build/Profile.o test/Profile.cpp 
 
 build/%.o : geomc/random/%.cpp
 	$(CC) $(CFLAGS) $(IFLAGS) -o $@ $<

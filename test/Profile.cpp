@@ -679,7 +679,7 @@ template <typename T, index_t N> double profile_OBB_bounds(index_t iters) {
 // this is tautological for N > 3. OBBs use GJK directly!
 template <typename T, index_t N> index_t test_gjkIntersect(index_t iters) {
     const index_t n = (index_t)std::ceil(std::sqrt(iters));
-    OrientedRect<T,N> *boxes = new OrientedRect<T,N>[n];
+    OrientedRect<T,N>* boxes = new OrientedRect<T,N>[n];
     bool b = true;
     for (index_t i = 0; i < n; i++) {
         randomBox(boxes + i);
@@ -712,6 +712,50 @@ template <typename T, index_t N> index_t test_gjkIntersect(index_t iters) {
     std::cout << " (" << positive << " overlapped " << negative << " disjoint)" << std::endl;
     
     return failures;
+}
+
+template <typename T, index_t N> T test_gjkNearest(index_t iters) {
+    const index_t n = (index_t)std::ceil(std::sqrt(iters));
+    OrientedRect<T,N>* boxes = new OrientedRect<T,N>[n];
+    bool b = true;
+    for (index_t i = 0; i < n; i++) {
+        randomBox(boxes + i);
+    }
+    
+    Vec<T,N> d;
+    index_t i0 = 0;
+    index_t i1 = 0;
+    T olap_sum = 0;
+    T disj_sum = 0;
+    index_t olap_n = 0;
+    index_t disj_n = 0;
+    for (index_t j = 0; j < iters; j++) {
+        i0 = (i0 + 1) % n;
+        if (i0 == 0) i1 = (i1 + 1) % n;
+        OrientedRect<T,N>& b0 = boxes[i0];
+        OrientedRect<T,N>& b1 = boxes[i1];
+        
+        Vec<T,N> axi;
+        bool olap = minimal_separation_axis(b0, b1, &axi);
+        Vec<T,N> contact = b1.convexSupport(axi) + axi;
+        T dist = (b0.convexSupport(-axi) - contact).mag();
+        
+        // tally error
+        if (olap) {
+            olap_sum += dist;
+            olap_n++;
+        } else {
+            disj_sum += dist;
+            disj_n++;
+        }
+    }
+    
+    delete [] boxes;
+    
+    std::cout << "gjk " << N << "D nearest axis:" << std::endl;
+    std::cout << "  overlap mean error:  " << (olap_sum / olap_n) << std::endl;
+    std::cout << "  disjoint mean error: " << (disj_sum / disj_n) << std::endl;
+    return (olap_sum + disj_sum) / iters;
 }
 
 template <typename T, index_t N> index_t test_frustumSupport(index_t iters) {
@@ -841,8 +885,6 @@ template <index_t M, index_t N> void test_simpleMatrix() {
 }
 
 void test_matrixOrder() {
-	index_t sz_r = 5;
-	index_t sz_c = 7;
     SimpleMatrix<double,3,3> m0;
     SimpleMatrix<double,3,4> m1;
 	AugmentedMatrix<SimpleMatrix<double,3,3>,
@@ -854,8 +896,8 @@ void test_matrixOrder() {
 	}
     
 	std::cout << "[";
-	for (index_t r = 0; r < sz_r; r++) {
-		for (index_t c = 0; c < sz_c; c++) {
+	for (index_t r = 0; r < mtx.rows(); r++) {
+		for (index_t c = 0; c < mtx.cols()    ; c++) {
 			std::cout << mtx.get(r,c) << " ";
 		}
 		std::cout << std::endl;
@@ -895,6 +937,8 @@ int main(int argc, char** argv) {
     Vec3d a3d;
     Vec4d a4d;
     
+    test_gjkNearest<double,3>(1000);
+    
     index_t iters = 10000000;
     
     test_matrixOrder();
@@ -910,6 +954,8 @@ int main(int argc, char** argv) {
     test_OOBB<double,3>();
     test_gjkIntersect<double,2>(1000000);
     test_gjkIntersect<double,3>(1000000);
+    // test_gjkNearest<double,2>(1000000);
+    // test_gjkNearest<double,3>(1000);
     
 #ifdef ENABLE_FRUSTUM
     test_frustumSupport<double,2>(1000000);

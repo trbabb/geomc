@@ -20,6 +20,12 @@
 
 // todo: can we get faster/more stable/simpler results by solving for barycentric coords?
 // todo: disjoint_separating_axis()
+//       x occasional infinite loop in polytope explosion
+//         > caused by final point being a duplicate, resulting in degenerate simplex
+//       - ~25% of disjoint boxes get the wrong separation axis
+//       - repro cases for both by running `distcheck` in `noodle`. see seeds below.
+//       * must implement visualization protocol in disjoint_...()
+// todo: clean up all the debug crap
 
 
 namespace geom {
@@ -221,6 +227,7 @@ namespace detail {
             T *ret = q + back;
             back = (back + 1) % N;
             size++;
+            if (size > N) throw "BAD";// xxx debug
             return ret;
         }
         
@@ -263,6 +270,10 @@ namespace detail {
             // normal is facing toward the origin. otherwise, we need to check 
             // and flip it if necessary.
             if (d->dot(A) > 0) *d *= -1;
+            // check for degenerate case: origin lies on face
+            // (we do not check this in the other cases because `d` will represent a vector
+            // from the origin to the simplex, and we check this against zero at the end).
+            if (-A.projectOn(*d).mag2() == 0) return true;
         } else if (null_dim == 0) {
             // simplex forms a complete basis; no vertexes were eliminated.
             // in other words, no plane test failed. The origin is inside
@@ -311,7 +322,10 @@ namespace detail {
                 *d = orthogonal(vs);
             }
         }
-        return false;
+        // if the distance from the simplex to the origin is zero,
+        // then the simplex "contains" the origin (i.e. the origin lies on it).
+        // we must terminate now, because further simplexes will be degenerate.
+        return d->mag2() == 0;
     }
     
     
@@ -338,9 +352,9 @@ namespace detail {
         typedef detail::SubSimplex<T,N> SS;
         // queue for sub-simplexes to check.
         // (sub-simplexes store their spanning and null bases).
+        // xxx: This is questionable.
         detail::StaticQueue<SS, detail::gjk_queue_size_fac(N) + 1> q;
-
-        Vec<T,N> A = simplex->pts[simplex->n - 1];
+        
         SS boundary;
         
         // enqueue this simplex, and its null basis 
@@ -357,8 +371,9 @@ namespace detail {
             for (index_t i = 0; i < ct; i++) {
                 SS &child = q.create_back()->createFrom(s, i);
                 Vec<T,N> normal = child.getNormal();
+                Vec<T,N> B = simplex->pts[child.pts[0]]; // a pt on the simplex
                 
-                if (A.dot(normal) < 0) { 
+                if (B.dot(normal) < 0) { 
                     // the origin is "outside" this sub-simplex, and therefore it
                     // may be (or contain) a boundary simplex. We also know the parent
                     // cannot be the boundary simplex. 
@@ -452,7 +467,77 @@ namespace detail {
     
 
 } // namespace detail
- 
+
+
+
+// =============== begin debug {
+
+template <typename T, index_t N>
+void emit(const detail::Face<T,N>& f, bool highlight=false) {
+    if (highlight) std::cout << "h ";
+    std::cout << "f ";
+    for (index_t i = 0; i < N; i++) {
+        std::cout << f.v[i] << " ";
+    }
+    std::cout << "n " << f.n << "\n";
+}
+
+template <typename T, index_t N>
+void emit(const detail::Edge<T,N>& e, bool highlight=false) {
+    if (highlight) std::cout << "h ";
+    std::cout << "e ";
+    for (index_t i = 0; i < N-1; i++) {
+        std::cout << e.v[i] << " ";
+    }
+    std::cout << "\n";
+}
+
+template <typename T, index_t N>
+void emit(const Vec<T,N>& v, bool highlight=false) {
+    if (highlight) std::cout << "h ";
+    std::cout << "v ";
+    for (index_t i = 0; i < N; i++) std::cout << v[i] << " ";
+    std::cout << "\n";
+}
+
+template <typename T, index_t N>
+void emit(const detail::Simplex<T,N>& s, bool full) {
+    if (full) {
+        for (int i = 0; i < s.n; i++) {
+            emit(s.pts[i]);
+        }
+    }
+    detail::Edge<T,N> e;
+    detail::Face<T,N> f;
+    switch(s.n) {
+        case 2: 
+            // emit a line segment
+            e.v[0] = 0;
+            e.v[1] = 1;
+            emit(e); 
+            break;
+        case 3:
+            // emit a single face
+            for (int i = 0; i < 3; i++) f.v[i] = i;
+            emit(f);
+            break;
+        case 4:
+            // emit 4 faces; excluding k each time
+            for (int k = 0; k < 4; k++) {
+                int ii = 0;
+                for (int i = 0; i < 4; i++) {
+                    if (i == k) continue;
+                    f.v[ii++] = i;
+                }
+                emit(f);
+            }
+            break;
+    }
+}
+
+// } =============== end debug
+
+
 
 // todo: what if I want to do stuff like dilate or erode the minkowski difference?
 //       what if I want to do stuff to only one of the shapes?
@@ -489,84 +574,12 @@ inline bool gjk_intersect(const Vec<T,N> *pts_a, index_t n_a,
     return gjk_intersect(a, b, overlap_axis);
 }
 
-// todo: write an optimized N=2 implementation and then verify it against the general one
-//       - edge comparison is a hard equality check
-//       - there can only ever be exactly two unpatched hole edges.
-// todo: optimize face insertion
-// todo: allow buffer containers to be passed.
-// todo: test at what point hashtable construction is faster for duplicate pt tests.
-// todo: keep the faces in sorted order by distance. insertion is O(lg(n)) and
-//       searching is O(1). std::list means no shuffling.
-// todo: abstract penetration solving into a class, with cache workspace
-//       holding the std::lists, etc.
-// todo: clean up debug mumbo jumbo
-
-// observation: The number of faces is strictly increasing.
-//              you don't need to delete a face [O(n)]; they can be clobbered.
-//              use a ~~skip list~~ ~~std::list~~ sorted multimap.
-
-// begin debug {
 
 template <typename T, index_t N>
-void emit(const detail::Face<T,N>& f, bool highlight=false) {
-    if (highlight) std::cout << "h ";
-    std::cout << "f ";
-    for (index_t i = 0; i < N; i++) {
-        std::cout << f.v[i] << " ";
-    }
-    std::cout << "n " << f.n << "\n";
-}
-
-template <typename T, index_t N>
-void emit(const detail::Edge<T,N>& e, bool highlight=false) {
-    if (highlight) std::cout << "h ";
-    std::cout << "e ";
-    for (index_t i = 0; i < N-1; i++) {
-        std::cout << e.v[i] << " ";
-    }
-    std::cout << "\n";
-}
-
-template <typename T, index_t N>
-void emit(const Vec<T,N>& v) {
-    std::cout << "v ";
-    for (index_t i = 0; i < N; i++) std::cout << v[i] << " ";
-    std::cout << "\n";
-}
-
-// } end debug
-
-
-// xxx: simplex_nearest_origin assumes by the invariants of GJK that
-//      the last vertex in the simplex is "A" and *must* include the sub-simplex
-//      closest to the origin, so the "backfacing" simplex is not checked. This is 
-//      a bogus assumption because of our "explosion" algorithm and we miss plenty of cases.
-//    - I have hacked subSimplex to allow checking of backfacing simplexes, but:
-//      - I get occasional segfaults in the sub-simplex construction code
-//        - possible/likely that your "static stack" is blown by the extra simplexes :[
-//      - it strangely does not seem to resolve the problem
-//      - there may be an issue in that the notion of "backfacing" is destroyed when "A" is discarded?
-//    - the problem manifests as gjk_direction_to_origin erroneously reporting full volume containment of the origin.
-//    - consider projecting origin to simplex null basis
-//      - concerned about case where said projection is zero, e.g.:
-//        an edge points directly at the origin, as when the minkowski volume is a sphere. 
-// xxx: the simplex "explosion to volume" process is apparently not guaranteed to terminate. :(
-
-// given a minkowski volume which does *not* enclose the origin, find the closest point
-// on the volume to the origin.
-template <typename T, index_t N>
-void disjoint_separation_axis(const Convex<T,N>& shape_a,
-                              const Convex<T,N>& shape_b, 
-                              Vec<T,N> *overlap_axis,
-                              detail::Simplex<T,N>* splex,
-                              double fractional_tolerance = 0.001,
-                              index_t iteration_limit = -1) {
-    // expand the simplex to a volume 
-    // by searching along each axis of the simplex's null basis.
-    // xxx: for some reason this does not terminate in occasional cases? (~1/500?)
-    //      due to search in the normal direction, I would expect valid expansion except
-    //      in the case of a perfectly degenerate simplex, which should be exceedingly rare
-    while (splex->n < N + 1) {
+void explode_simplex(const Convex<T,N>& shape_a,
+                     const Convex<T,N>& shape_b, 
+                     detail::Simplex<T,N>* splex) {
+   while (splex->n < N + 1) {
         // search the initial nullspace axes first, and only bother to
         // re-construct the sub-simplex and its nullspace if those searches failed.
         detail::SubSimplex<T,N> s_initial;
@@ -587,9 +600,65 @@ void disjoint_separation_axis(const Convex<T,N>& shape_a,
                     break;
                 }
             }
-            if (not dupe) splex->insert(a);
+            if (not dupe) {
+                splex->insert(a);
+            }
         }
     }
+}
+
+
+// todo: write an optimized N=2 implementation and then verify it against the general one
+//       - edge comparison is a hard equality check
+//       - there can only ever be exactly two unpatched hole edges.
+// todo: optimize face insertion
+// todo: abstract into class to allow buffer amortization
+// todo: test at what point hashtable construction is faster for duplicate pt tests.
+// todo: keep the faces in sorted order by distance. insertion is O(lg(n)) and
+//       searching is O(1). std::list means no shuffling.
+// todo: abstract penetration solving into a class, with cache workspace
+//       holding the std::lists, etc.
+// todo: clean up debug mumbo jumbo
+
+// observation: The number of faces is strictly increasing.
+//              you don't need to delete a face [O(n)]; they can be clobbered.
+//              use a ~~skip list~~ ~~std::list~~ sorted multimap.
+
+// xxx: inf loop case is `distcheck 18292`
+
+// xxx: disjoint shapes do not find the correct separation axis ~25% of the time.
+//    - (seed) `distcheck 18299` repros this.
+//    - the problem manifests as gjk_direction_to_origin erroneously reporting full volume containment of the origin.
+//    - there may be an issue in that the notion of "backfacing" is destroyed when "A" is discarded on recursion?
+//    - consider projecting origin to simplex null basis:
+//      - concerned about case where said projection is zero, e.g.:
+//        an edge points directly at the origin, as when the minkowski volume is a sphere. 
+
+// given a minkowski volume which does *not* enclose the origin, find the closest point
+// on the volume to the origin.
+template <typename T, index_t N>
+void disjoint_separation_axis(const Convex<T,N>& shape_a,
+                              const Convex<T,N>& shape_b, 
+                              Vec<T,N> *overlap_axis,
+                              detail::Simplex<T,N>* splex,
+                              double fractional_tolerance = 0.001,
+                              index_t iteration_limit = -1,
+                              bool emit_debug = false) {
+    
+    // final pt may have been a duplicate; if so, remove it.
+    Vec<T,N> A = splex->pts[splex->n - 1];
+    for (index_t i = 0; i < splex->n - 1; i++) {
+        if (splex->pts[i] == A) {
+            splex->remove(splex->n - 1);
+            break;
+        }
+    }
+    
+    EMIT(*splex, true);
+    if (emit_debug) std::cout << "=\n";
+    
+    // expand the simplex to a volume
+    explode_simplex(shape_a, shape_b, splex);
     
     // iteratively search outward from the closest (sub-)simplex.
     Vec<T,N> last_proj;
@@ -634,7 +703,7 @@ void disjoint_separation_axis(const Convex<T,N>& shape_a,
 /**
  * @ingroup shape
  * Use the Expanding Polytope Algorithm to find a minimum translation vector that would bring shape B into contact with A.
- * If A and B are not interpenetrating the results are undefined.
+ * If A and B are not interpenetrating the separation axis is undefined. 
  * 
  * @param shape_a A convex shape.
  * @param shape_b A convex shape.
@@ -662,6 +731,12 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
                                  fractional_tolerance,
                                  iteration_limit);
         return false;
+    }
+    
+    if (splex.n != N + 1) {
+        // rare degenerate case: origin lies on a sub-simplex
+        // simplex must be "exploded" to a volume.
+        explode_simplex(shape_a, shape_b, &splex);
     }
     
     std::vector< Vec<T,N> >          verts(splex.pts, splex.pts + splex.n);
@@ -702,6 +777,7 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
     // iterate on the face list, choosing the closest one and expanding it
     for (index_t k = 0; iteration_limit < 1 or k < iteration_limit; k++) {
         typename std::vector< detail::Face<T,N> >::iterator best_face;
+        bool found = false; // xxx debug
         
         if (emit_debug) std::cout << "=\n";
         
@@ -713,14 +789,34 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
             if (d_this < d) {
                 d = d_this;
                 best_face = f;
+                found = true;
             }
+        }
+        
+        // xxx debug {
+        if (not found) {
+            std::cout << "verts:\n";
+            for (auto v : verts) {
+                std::cout << "  " << v << "\n";
+            }
+            std::cout << "facenormals:\n";
+            for (auto f : faces) {
+                std::cout << "  " << f.n << "\n";
+            }
+            std::cout << "iteration " << k << "\n";            
+            const OrientedRect<T,N>* r0 = dynamic_cast<const OrientedRect<T,N>*>(&shape_a);
+            const OrientedRect<T,N>* r1 = dynamic_cast<const OrientedRect<T,N>*>(&shape_b);
+            // breakpoint set --file Intersect.h --line 798
+            throw "poop train\n";
         }
         
             // debug: emit current polytope, highlighting the closest face
             for (auto f = faces.begin(); f != faces.end(); ++f) EMIT(*f, f == best_face);
         
         // project the origin to the closest face.
-        *overlap_axis = verts[best_face->v[0]].projectOn(best_face->n);
+        *overlap_axis = verts[best_face->v[0]].projectOn(best_face->n);  // xxx: best_face->n is a no-go.
+                                                                         // can we fail to find best_face due to inf?
+                                                                         // 
         
         // if our estimated closest point is not sufficiently different from
         // our last estimate (or if the origin is on the current face),

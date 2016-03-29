@@ -88,7 +88,9 @@ namespace geom {
     }
     
     /**
-     * Compute the null space of a vector basis.
+     * Compute the null space of a vector basis. 
+     * 
+     * `bases` and `null_basis` may alias each other.
      * 
      * @param bases Array of `n` linearly independent basis vectors.
      * @param n Number of basis vectors in the array.
