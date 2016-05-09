@@ -2,7 +2,7 @@ CC = clang++
 AR = ar
 PREFIX   = /opt/local
 INCLUDES = .
-CFLAGS   = -std=c++11 -O3 -Wall -c -fmessage-length=0 
+CFLAGS   = -std=c++11 -Os -Wall -c -fmessage-length=0 
 IFLAGS   = $(addprefix -I, $(INCLUDES))
 MODULES  = function linalg random shape
 SOURCES  = $(wildcard geomc/*.cpp) \
@@ -14,7 +14,7 @@ LIB      = lib/$(LIBNAME)
 INCDIR   = $(PREFIX)/include
 LIBDIR   = $(PREFIX)/lib
 
-all : lib
+all : lib liblite
 
 docs :
 	mkdir -p doc/gen
@@ -25,6 +25,9 @@ lib : $(OBJECTS)
 	$(AR) rs $(LIB) $(OBJECTS)
 	@echo
 	@echo Done building library.
+
+liblite : build/GeomException.o build/Hash.o
+	$(AR) rs lib/libgeomc_lite.a build/GeomException.o build/Hash.o
 
 profile : lib build/Profile.o
 	mkdir -p bin
