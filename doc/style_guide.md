@@ -97,12 +97,37 @@ Classes list member variables first, followed by constructors and destructors, f
         }
     }
 
+Comments
+--------
+
+A single space follows comment delimiters:
+
+    // this is really broken; I have no idea what's happening here
+
+Logical operators
+-----------------
+
+The `and`, `or`, and `not` keywords are preferred over `&&`, `||` and `!`:
+
+    if ((foo == 1 and bar == 2) or baz == 3) {
+        return;
+    }
+    
+    if (not qux) {
+        return;
+    }
+
+These keywords are completely portable and standards-compliant, and have been [since before QWERTY keyboards were standard](http://stackoverflow.com/questions/2393673/c-and-or-not-xor-keywords). 
 
 Programming
 ===========
 
-Do not allocate memory if it can be avoided. Stack variables and (reasonably-size) stack-allocated arrays are always 
-preferable where possible.
+Memory allocation
+-----------------
+
+Assume wherever possible that code will be inner-loop code. Consider heap memory allocations to be expensive, and prefer using stack variables and arrays over dynamic allocations wherever it is reasonable. 
+
+Where large buffers are needed, consider allowing the user to provide them, or encapsulate the operation in a class that can be re-used.
 
 Precision
 ---------
