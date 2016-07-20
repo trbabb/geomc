@@ -185,6 +185,14 @@ namespace detail {
         static inline point_t from_larger_vector(const Vec<T,N+1> &v) {
             return v.template resized<N>();
         }
+        
+        static inline T mag2(const point_t &p) {
+            return p.mag2();
+        }
+        
+        static inline T mag(const point_t &p) {
+            return p.mag();
+        }
     };
 
     template <typename T>
@@ -205,6 +213,14 @@ namespace detail {
         
         static inline point_t from_larger_vector(const Vec<T,2> &v) {
             return v[0];
+        }
+        
+        static inline T mag2(const point_t &p) {
+            return p * p;
+        }
+        
+        static inline T mag(const point_t &p) {
+            return p;
         }
     };
     

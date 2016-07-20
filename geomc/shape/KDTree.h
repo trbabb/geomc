@@ -8,10 +8,11 @@ namespace geom {
 
 
 // todo: std::list may be arbitrarily stupid with memory allocation. look into this.
-// todo: owned std::list would allow a native, light swap() on items
+// todo: owned std::list would allow a native, light swap() on items (aka splice?)
 //       owned list would also permit reserve()
 //       owned list could avoid copying unnecessary objects to newly constructed child nodes
 //       > or consider going back to flat arrays. :[
+//       > consider looking into how to make/use a std::allocator.
 // todo: helper should first try to call dist2() on bounded objects, 
 //       then revert to obj.bounds().dist2().
 // todo: could make the bound a generic Concept type.
@@ -21,9 +22,13 @@ namespace geom {
 // todo: generic proximity search. some kind of distance<>(a,b), overlaps<a,b>, matches<a,b>, etc.
 //       e.g. ray or segment intersect, generic shape intersect, disjoint tests, and so on.
 
-// todo: xxx: come up with some kind of portable alloca()
-//            or a large, shared buffer
-// todo: xxx: fix Rect to use consistent comparators.
+// todo: come up with a portable alloca() and remove the arity restriction
+//       you could do: fast_buffer<N>(n). always statically allocates N, 
+//                     if n > N, malloc also and use that instead
+// todo: xxx: fix clients of Rect to handle boundary issue
+// todo: xxx: erase() on objects.
+// todo: xxx: enforce that node_arity <= MAX_ARITY when inserting kids.
+// todo: xxx: median pivot
 
 /** @addtogroup shape
  *  @{
@@ -63,6 +68,11 @@ enum class KDInsertionChoice {
 };
 
 
+// if I had a cross-platform alloca(), I could instead obey the zero/one/infinity princicple. >:(
+// I am going to use this space to gripe about c++ apologists who think "you can't do it, therefore you don't need it".
+#define MAX_KDTREE_ARITY 16
+
+
 /*****************************************
  * KDTree class                          *
  *****************************************/
@@ -90,9 +100,9 @@ private:
     
     struct KDNode;
     
-    typedef typename std::list<KDNode>::iterator      KDNodeRef;
-    typedef typename std::list<Object>::iterator      KDDataRef;
-    typedef typename detail::ShapeIndexHelper<Object> helper_t;
+    typedef typename std::list<KDNode>::iterator KDNodeRef;
+    typedef typename std::list<Object>::iterator KDDataRef;
+    typedef detail::ShapeIndexHelper<T,N,Object> helper_t;
     
     struct KDNode {
         
@@ -135,8 +145,8 @@ public:
         typedef KDNodeIterator<Const>                            self_t;
         typedef typename ConstType<Rect<T,N>,Const>::reference_t bound_reference;
         typedef typename std::conditional<Const,
-                            std::list<Object>::const_iterator,
-                            std::list<Object>::iterator>::type   object_iterator;
+                            typename std::list<Object>::const_iterator,
+                            typename std::list<Object>::iterator>::type   object_iterator;
         
         /// `+i`: Become first child
         inline self_t& operator+() {
@@ -221,10 +231,10 @@ public:
     typedef KDNodeIterator<true>  const_node_iterator;
     
     /// Iterator over objects
-    typedef std::list<Object>::iterator object_iterator;
+    typedef typename std::list<Object>::iterator object_iterator;
     
     /// Const iterator over objects
-    typedef std::list<Object>::const_iterator const_object_iterator;
+    typedef typename std::list<Object>::const_iterator const_object_iterator;
     
     
     /// Structure encapsulating the tree balancing parameters
@@ -288,7 +298,7 @@ public:
         //objects.reserve(nobjs);
         objects.insert(objects.begin(), objs, objs + nobjs);
         //nodes.reserve(std::ceil(std::log(nobjs, params.node_arity)));
-        rebalanceTree(params);
+        rebalance(params);
     }
     
     
@@ -297,7 +307,7 @@ public:
     KDTree(ObjectIterator begin, ObjectIterator end, const KDStructureParams params=DefaultParameters) {
         objects.insert(objects.begin(), begin, end);
         //nodes.reserve(std::ceil(std::log(objects.size(), params.node_arity)));
-        rebalanceTree(params);
+        rebalance(params);
     }
     
     
@@ -463,10 +473,11 @@ public:
     
     
     /**
-     * Change the balancing parameters of the tree, and rebuild it according to the new settings.
+     * Change the balancing parameters of the tree, and rebuild it according to the new artings.
      */
     inline void rebalance(const KDStructureParams& newParams) {
         params = newParams;
+        params.node_arity = std::min(params.node_arity, (index_t)MAX_KDTREE_ARITY);
         rebalance();
     }
     
@@ -641,8 +652,8 @@ public:
             // creating a new sibling
             new_node = nodes.insert(n->child_end, KDNode());
             new_node->parent        = n;
-            new_node->child_begin   = new_sibling->child_end   = n->child_end;
-            new_node->objects_begin = new_sibling->objects_end = n->objects_end;
+            new_node->child_begin   = new_node->child_end   = n->child_end;
+            new_node->objects_begin = new_node->objects_end = n->objects_end;
         }
         return new_node;
     }
@@ -664,7 +675,9 @@ public:
     Object& nearest(const Vec<T,N>& p) {
         KDDataRef ref;
         T big = std::numeric_limits<T>::max();
-        nearestInNode(nodes.begin(), p, &ref, big, big);
+        T best_d2    = big;
+        T worst_best = big;
+        nearestInNode(nodes.begin(), p, &ref, &best_d2, &worst_best);
         return *ref;
     }
     
@@ -698,6 +711,7 @@ private:
     void splitNode(KDNodeRef split_child, index_t depth) {
         Vec<T,N> mean;
         Vec<T,N> dim;
+        Vec<T,N> var;
         
         index_t split_axis = 0;
         T pivot;
@@ -711,15 +725,14 @@ private:
                 split_axis = depth % N;
                 break;
             case KDAxisChoice::AXIS_HIGHEST_VARIANCE: {
-                Vec<T,N> var;
-                for (KDDataRef i = split_node->objects_begin; i != split_node->objects_end; ++i) {
+                for (KDDataRef i = split_child->objects_begin; i != split_child->objects_end; ++i) {
                     mean += helper_t::getPoint(*i);
                 }
-                for (KDDataRef i = split_node->objects_begin; i != split_node->objects_end; ++i) {
+                for (KDDataRef i = split_child->objects_begin; i != split_child->objects_end; ++i) {
                     Vec<T,N> p = helper_t::getPoint(*i) - mean;
                     var += p * p;
                 }
-                var /= std::max(1, split_node->nobjs - 1); // variance with Bessel's correction
+                var /= std::max<index_t>(1, split_child->nobjs - 1); // variance with Bessel's correction
                 dim = var;
                 
             CHOOSE_BIGGEST_AXIS:
@@ -738,15 +751,15 @@ private:
         // choose a pivot
         switch (params.pivot) {
             case KDPivotChoice::PIVOT_MEAN:
-                if (params.axis == AXIS_HIGHEST_VARIANCE) {
+                if (params.axis == KDAxisChoice::AXIS_HIGHEST_VARIANCE) {
                     // already calculated mean above
                     pivot = mean[split_axis];
                 } else {
                     // calculate the mean now
-                    for (KDDataRef i = split_node->objects_begin; i != split_node->objects_end; ++i) {
+                    for (KDDataRef i = split_child->objects_begin; i != split_child->objects_end; ++i) {
                         pivot += helper_t::getPoint(*i)[split_axis];
                     }
-                    pivot /= split_node->nobjs;
+                    pivot /= split_child->nobjs;
                 }
                 break;
             case KDPivotChoice::PIVOT_MEDIAN:
@@ -758,22 +771,24 @@ private:
         KDNodeRef new_sibling = insertChild(split_child->parent).node;
         
         // partition the objects; create bbox
-        split_child->bound = Rect<T,N>();
+        split_child->bounds = Rect<T,N>();
         index_t nobjs = split_child->nobjs;
-        KDDataRef middle = split_child->objects_end;
-        for (KDDataRef i = split_child->objects_begin; i != middle; ++i) {
+        KDDataRef middle = new_sibling->objects_end = split_child->objects_end;
+        for (KDDataRef i = split_child->objects_begin; i != middle; ) {
             Vec<T,N> v = helper_t::getPoint(*i);
             if (v[split_axis] > pivot) {
                 // move this object to the new (upper) sibling
                 std::swap(*i, *--middle);
-                split_node->nobjs--;
-                new_sibling->bound |= helper_t::bounds(*i);
+                split_child->nobjs--;
+                new_sibling->bounds |= helper_t::bounds(*i);
+                // `i` now contains an unchecked object; don't increment.
             } else {
-                split_child->bound |= helper_t::bounds(*i);
+                split_child->bounds |= helper_t::bounds(*i);
+                ++i;
             }
         }
         split_child->objects_end = new_sibling->objects_begin = middle;
-        new_sibling->nobjs = nobjs - split_node->nobjs;
+        new_sibling->nobjs = nobjs - split_child->nobjs;
     }
     
     
@@ -789,8 +804,8 @@ private:
         
         if (node->nobjs > params.leaf_arity) {
             
-            NodeRef split_child = insertChild(node).node;
-            n_added = 1;
+            KDNodeRef split_child = insertChild(node).node;
+            index_t n_added = 1;
             
             while (n_added < params.node_arity and split_child != node->child_end) {
                 // continue splitting the oldest node 
@@ -817,8 +832,8 @@ private:
     object_iterator insert_impl(
             KDNodeRef node, 
             const Object& obj, 
-            const Rect<T,N>& bnd, 
-            const Vec<T,N>& ctr
+            const Rect<T,N>& bnd,
+            const Vec<T,N>& ctr,
             index_t depth) {
         
         node->bounds |= bnd;
@@ -827,7 +842,7 @@ private:
         if (node->child_begin != node->child_end) {
             KDNodeRef best;
             T best_metric = std::numeric_limits<T>::max();
-            for (KDDataRef i = ; i != new_end; ++i) {
+            for (KDNodeRef i = node->child_begin; i != node->child_end; ++i) {
                 T metric;
                 switch (params.insert) {
                     case KDInsertionChoice::INSERT_SHORTEST_DISTANCE:
@@ -885,17 +900,23 @@ private:
         };
         index_t child_ct   = 0;
         index_t recurse_ct = 0;
-        SearchInfo* buf = /* xxx: alloca(sizeof(SearchInfo) * params.node_arity) */;
-        for (KDNodeRef i = node->child_begin; i != node->child_end; ++i, ++child_ct) {
+        
+        // todo: With a portable alloca(), this could be arbitrarily large or small.
+        // this is the only line of code where leaf arity is actually restricted. 
+        // but instead we are forced to use the maximum sane amount of memory in all cases.
+        // (ironically, the argument against alloca is that it "uses too much stack").
+        SearchInfo buf[MAX_KDTREE_ARITY];
+        
+        for (KDNodeRef i = node->child_begin; i != node->child_end and recurse_ct <= MAX_KDTREE_ARITY; ++i, ++child_ct) {
             T box_d2 = i->bounds.dist2(p);
             T box_worst_d2 = detail::worst_case_nearest2(p, i->bounds);
-            if (box_d2 < best_d2 and box_d2 <= *worst_best) {
+            if (box_d2 < *best_d2 and box_d2 <= *worst_best) {
                 buf[recurse_ct++] = {i, box_d2};
             }
             *worst_best = std::min(*worst_best, box_worst_d2);
         }
         // recurse
-        while (recurse_ct-- >= 0) {
+        while (--recurse_ct >= 0) {
             // subsequently added nodes may have better worst cases than we knew about before,
             // or subsequent recursions may have improved the best estimate, rendering our
             // checks obsolete and allowing us to discard more nodes. check again plz.
@@ -908,7 +929,7 @@ private:
         if (child_ct == 0) {
             for (KDDataRef i = node->objects_begin; i != node->objects_end; ++i) {
                 T d2 = helper_t::dist2(*i, p);
-                if (d2 < best_d2) {
+                if (d2 < *best_d2) {
                     *best_d2 = d2;
                     *nearest = i;
                 }
@@ -917,21 +938,11 @@ private:
     }
     
     
-    struct KDRangeIterator {
-        KDNodeRef node;
-        KDDataRef object;
-        Rect<T,N> range;
-        
-        KDRangeIterator() {
-            
-        }
-    };
-    
-    
 }; // KDTree class
 
 
 /// @} // addtogroup shape
+
 
 /*****************************************
  * Static members                        *
@@ -939,11 +950,13 @@ private:
 
 
 template <typename T, index_t N, typename Object, typename NodeData>
-typename KDTree<T,N,Object,NodeData>::KDStructureParams KDTree<T,N,Object,NodeData>::DefaultParameters = 
+const typename KDTree<T,N,Object,NodeData>::KDStructureParams KDTree<T,N,Object,NodeData>::DefaultParameters = 
 {
-    KDAxisChoice::AXIS_LONGEST,  // axis strategy
-    std::min(2 << N, 16),        // internal node arity
-    std::min(2 << N, 16)         // leaf node arity
+    KDAxisChoice::AXIS_LONGEST,
+    KDPivotChoice::PIVOT_MEAN,
+    KDInsertionChoice::INSERT_SMALLEST_VOLUME_INCREASE,
+    std::min(2 << N, MAX_KDTREE_ARITY),        // internal node arity
+    std::min(2 << N, MAX_KDTREE_ARITY)         // leaf node arity
 };
 
 

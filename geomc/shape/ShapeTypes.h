@@ -55,6 +55,7 @@ namespace geom {
     template <typename T, index_t N> class OrientedRect;
     template <typename T, index_t N> class Cylinder;
     
+    template <typename T, index_t N, typename Object, typename NodeData=void*>          class KDTree;
     template <typename T, index_t N, ArrayOrder Order=ARRAYORDER_FIRST_DIM_CONSECUTIVE> class GridIterator;
     
     typedef Sphere<double,2> Circle2d;

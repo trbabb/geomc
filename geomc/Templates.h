@@ -26,7 +26,10 @@ struct ConstType <T,true> {
 };
 
 
-#if __cplusplus <= 201103L
+} // end namespace geom
+
+
+#if __cplusplus < 201103L
 
 namespace std {
     
@@ -46,6 +49,3 @@ namespace std {
 }
 
 #endif
-
-
-} // end namespace geom
