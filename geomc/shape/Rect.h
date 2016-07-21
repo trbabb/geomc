@@ -105,7 +105,14 @@ public:
      * @param hi Upper extreme
      */
     Rect(point_t lo, point_t hi):mins(lo),maxs(hi) {}
+    
+    
+    /**
+     * @brief Construct a rect containing only the point `p`.
+     */
+    Rect(point_t p):mins(p),maxs(p) {}
 
+    
     /**
      * Construct an empty rectangle.
      *
@@ -125,6 +132,7 @@ public:
 #endif
         //do nothing else
     }
+
 
     /****************************
      * Convenience functions    *
@@ -489,7 +497,7 @@ public:
         T vol = 1;
         point_t dim = getDimensions();
         for (index_t axis = 0; axis < N; axis++) {
-            vol *= std::max(ptype::iterator(dim)[axis], 0);
+            vol *= std::max(ptype::iterator(dim)[axis], (T)0);
         }
         return vol;
     }

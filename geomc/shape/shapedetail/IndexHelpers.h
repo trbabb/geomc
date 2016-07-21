@@ -21,17 +21,18 @@ struct ShapeIndexHelper {
     typedef Rect<T,N> bound_t;
     
     static inline Vec<T,N> getPoint(const D& obj) {
-        return d.getCenter();
+        return obj.getCenter();
     }
     
-    static inline T getDist2(const D& obj, const Vec<T,N>& p) {
+    static inline T dist2(const D& obj, const Vec<T,N>& p) {
         return obj.dist2(p);
     }
     
     static inline bound_t bounds(const D& obj) {
-        return d.bounds();
+        return obj.bounds();
     }
-}
+    
+};
 
 
 // pointers to indexable shapes
@@ -44,15 +45,15 @@ struct ShapeIndexHelper< T, N, D* > {
         return ShapeIndexHelper<T,N,D>::getPoint(*obj);
     }
     
-    static inline T getDist2(const D* obj, const Vec<T,N>& p) {
+    static inline T dist2(const D* obj, const Vec<T,N>& p) {
         return ShapeIndexHelper<T,N,D>::getDist2(*obj, p);
     }
     
     static inline bound_t bounds(const D* obj) {
-        return ShapeIndexHelper<T,N,D>::bounds(*d);
+        return ShapeIndexHelper<T,N,D>::bounds(*obj);
     }
     
-}
+};
 
 
 // key / value pairs
@@ -66,14 +67,15 @@ struct ShapeIndexHelper< T, N, std::pair<K, V> > {
         return ShapeIndexHelper<T,N,K>::getPoint(obj.first);
     }
     
-    static inline T getDist2(const std::pair<K,V>& obj, const Vec<T,N>& p) {
+    static inline T dist2(const std::pair<K,V>& obj, const Vec<T,N>& p) {
         return ShapeIndexHelper<T,N,K>::getDist2(obj.first);
     }
     
     static inline bound_t bounds(const std::pair<K,V>& obj) {
         return ShapeIndexHelper<T,N,K>::bounds(obj.first);
     }
-}
+    
+};
 
 
 // bare vector 
@@ -86,7 +88,7 @@ struct ShapeIndexHelper< T, N, Vec<T,N> > {
         return v;
     }
     
-    static inline T getDist2(const Vec<T,N>& v, const Vec<T,N>& p) {
+    static inline T dist2(const Vec<T,N>& v, const Vec<T,N>& p) {
         return v.dist2(p);
     }
     
@@ -94,7 +96,7 @@ struct ShapeIndexHelper< T, N, Vec<T,N> > {
         return v;
     }
     
-}
+};
 
 
 // bounded shapes
@@ -107,7 +109,7 @@ struct ShapeIndexHelper< T, N, Bounded<T,N> > {
         return r.bounds().getCenter();
     }
     
-    static inline T getDist2(const Bounded<T,N>& r, const Vec<T,N>& p) {
+    static inline T dist2(const Bounded<T,N>& r, const Vec<T,N>& p) {
         return r.bounds().clamp(p).dist2(p);
     }
     
@@ -115,7 +117,7 @@ struct ShapeIndexHelper< T, N, Bounded<T,N> > {
         return r.bounds();
     }
     
-}
+};
 
 
 // returns an upper bound on the squared distance to the nearest object
@@ -140,7 +142,7 @@ T worst_case_nearest2(const Vec<T,N>& p, const Rect<T,N>& r) {
     }
     
     for (index_t axis = 0; axis < N; axis++) {
-        Vec<T,N> face_extreme = far_extemes;
+        Vec<T,N> face_extreme = far_extremes;
         // along this axis, we only need the nearer face:
         face_extreme[axis] = near_extremes[axis];
         result = std::min(result, (face_extreme - p).mag2());

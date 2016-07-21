@@ -17,6 +17,10 @@ namespace geom {
 //       then revert to obj.bounds().dist2().
 // todo: could make the bound a generic Concept type.
 // todo: make a thin Container wrapper for i.getPoints() and i.rangeSearch()
+// todo: it is an invariant that node->last == ++node->first?
+//       if so, we could probably eliminate some fixup and memory by using that convention.
+//       > no, I don't think that's the case, because split nodes are not adjacent.
+//         they could be, but then the refinement order is not the same as child order.
 // todo: range search
 // todo: knn?
 // todo: generic proximity search. some kind of distance<>(a,b), overlaps<a,b>, matches<a,b>, etc.
@@ -862,9 +866,18 @@ private:
                     best_metric = metric;
                 }
             }
-            object_iterator out = insert_impl(best, obj, bnd, ctr);
+            object_iterator out = insert_impl(best, obj, bnd, ctr, depth + 1);
         } else {
-            objects.insert(node->objects_end, obj);
+            KDDataRef inserted = objects.insert(node->objects_end, obj);
+            
+            if (node->objects_begin == node->objects_end) {
+                // "separate" begin and end ptrs
+                node->objects_begin = inserted;
+                // uncommon/degenerate case: multiple layers of empty nodes:
+                for (KDNodeRef p = node->parent; p != nodes.end() and p->objects_begin == p->objects_end; p = p->parent) {
+                    p->objects_begin = inserted;
+                }
+            }
             
             // subdivide if necessary
             if (node->nobjs > params.leaf_arity) {
