@@ -28,14 +28,14 @@ Only single-line `if`s can be without braces:
 Alignment
 -----------
 
-It is good to highlight similar structure by aligning code into a visual table:
+It is good to highlight parallel structure by aligning similar elements vertically:
 
     int myvar_1   =  func(1,   2, 3);
     int myvar_123 =  func(1,  55, 0);
     int myvar_2   =  func(2, 255, 0);
     int myvar_3   = thing(1,   0, 0);
 
-This makes it easy to examine similarities and differences, reducing mental workload. When in doubt about whether to justify left or right, prefer to keep similar elements aligned vertically.
+This makes it easy to examine similarities and differences, reducing mental workload. When in doubt about whether to justify left or right, prefer to keep digit places and matching text vertically aligned. Do not displace the beginning of a line, as it destroys the indentation.
 
 This principle is not restricted to blocks of assignments; it works elsewhere:
 
@@ -57,6 +57,52 @@ Spaces around all basic arithmetic operators:
 None of this:
 
     x*x+y*y+sin(z); // No.
+
+Logical operators
+-----------------
+
+The `and`, `or`, and `not` keywords are preferred over `&&`, `||` and `!`:
+
+    if ((foo == 1 and bar == 2) or baz == 3) {
+        return;
+    }
+    
+    if (not qux) {
+        return;
+    }
+
+These keywords are completely portable and standards-compliant, and have been [since before QWERTY keyboards were standard](http://stackoverflow.com/questions/2393673/c-and-or-not-xor-keywords). Most syntax highlighters will correctly identify them as keywords and highlight them.
+
+Ternary "if":
+-------------
+
+Enclose each branch of a ternary "if" in parentheses unless it is a single token, and surround the `?` and `:` with spaces:
+
+    int x = (a or b) ? (y + 1) : z;
+
+
+Wrapping lines
+--------------
+
+Long or complicatedly-nested function calls should break each top-level argument onto its own line, having an indent at least one block deeper than beginning of the fuction name. It is preferable to wrap the line before the first argument (rather than indent more deeply to align with it).
+
+    int x = someFunctionCall(
+                1,
+                myVariable,
+                anotherFunctionCall(5, z, 22),
+                K_NUM_DOLPHINS);
+
+Complicated function definitions should obey the same rule: Long argument lists are broken into one per line, though closely-related sets of arguments may share a line. Wrapped arguments should be indented one block beyond the function body:
+
+    int someFunction(
+            int arg1,
+            int arg2,
+            char** thingies,
+            float x, float y,    // x, y are a pair
+            SomeClass* myFoo) {
+        // body goes here
+        // ...
+    }
 
 Line breaks
 -----------
@@ -97,27 +143,23 @@ Classes list member variables first, followed by constructors and destructors, f
         }
     }
 
+Initializer lists have one init per line. There is no space between the function definition and the inciting colon. Like long function definitions, inits are indented one deeper than the function body:
+
+    Foo::Foo(int a, int b):
+            member_one(a),
+            member_two(b) {
+        // body goes here
+        // ...
+    }
+
 Comments
 --------
 
 A single space follows comment delimiters:
 
-    // this is really broken; I have no idea what's happening here
+    // I have no idea what's happening here
 
-Logical operators
------------------
-
-The `and`, `or`, and `not` keywords are preferred over `&&`, `||` and `!`:
-
-    if ((foo == 1 and bar == 2) or baz == 3) {
-        return;
-    }
-    
-    if (not qux) {
-        return;
-    }
-
-These keywords are completely portable and standards-compliant, and have been [since before QWERTY keyboards were standard](http://stackoverflow.com/questions/2393673/c-and-or-not-xor-keywords). 
+Comment as though you'll have your memory completely wiped before the next time you'll need to touch your code. 
 
 Programming
 ===========
@@ -125,9 +167,9 @@ Programming
 Memory allocation
 -----------------
 
-Assume wherever possible that code will be inner-loop code. Consider heap memory allocations to be expensive, and prefer using stack variables and arrays over dynamic allocations wherever it is reasonable. 
+Assume wherever possible that code will be called in an inner loop. Consider heap memory allocations to be expensive, and prefer using stack variables and (small) arrays over dynamic allocations wherever it is reasonable. 
 
-Where large buffers are needed, consider allowing the user to provide them, or encapsulate the operation in a class that can be re-used.
+Where large temporary buffers are needed, consider allowing the user to provide them, or encapsulate the operation and its buffers in a class that can be re-used.
 
 Precision
 ---------
@@ -145,16 +187,18 @@ No:
     T x = vec.mag();
     if (x > EPSILON) vec /= x;
     
-(There is one (rare) exception, which is when choosing between two strategies that each return a more accurate result depending on scale; for example, a complete formula vs. its taylor series approximation near an unstable point. In these cases the numerical considerations should be well understood, and the two strategies should perform demonstrably better in their respective domains).
+There is one (uncommon) exception, which is when choosing between two strategies that each return a more accurate result depending on scale; for example, a complete formula vs. its taylor series approximation near an unstable point. In these cases the numerical considerations should be well understood, and the two strategies should perform demonstrably better in their respective domains.
 
 Loops
 ------
 
-Loop variables should be type `index_t`, which will be 64-bit on 64-bit platforms, allowing for traversal of very large arrays:
+Loop variables should be type `index_t`, which will be 64-bit on 64-bit platforms, allowing for traversal of large arrays:
 
     for (index_t i = 0; i < n; i++) {
         v[i] += k[i];
     }
+
+While it is true that some loops will not require the extra bit depth, it is better to maintain consistency, and the choice of `index_t` is unlikely to have any negative impact on performance.
 
 Argument passing style
 ----------------------
@@ -168,10 +212,10 @@ Objects that are modified by a function should be passed as pointers:
 Objects that are passed by reference should be *always* declared const:
 
     int bar(const Object &obj, int k) {
-        return some_function(obj.x, k);
+        return (obj.x + k) / obj.z;
     }
 
 The above makes it obvious at the call site whether a function will modify an argument:
 
-    invert(&mtx, src);
+    invert(&dst, src);
 
