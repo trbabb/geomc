@@ -7,6 +7,7 @@
 //       (maybe call it boundary so people don't retardedly nest data structures).
 // todo: after key/value structure, permit a distance metric; allow KNN.
 // todo: specialize for when leaf items or node items are void?
+// todo: provide a split() function which divides a node in two based on a test/comparison function/functor.
 
 
 // todo: return next iterator on erase(). can be compared to node.end().
@@ -17,6 +18,18 @@ namespace geom {
  *  @{
  */
 
+/**
+ * @brief A dynamic tree of arbitrary arity.
+ *
+ * Each node in the tree may store an associated `NodeItem` object.
+ * 
+ * Leaf nodes may own a list of `LeafItem` objects. `LeafItem`s are kept
+ * such that all the `LeafItems` in a subtree are contiguous, and internal nodes
+ * can provide iterators to the first and last `LeafItem`s in their respective subtrees.
+ *
+ * @tparam NodeItem Type of data to be kept with internal tree nodes.
+ * @tparam LeafItem Type of data to be kept by leaf nodes.
+ */
 template <typename NodeItem, typename LeafItem>
 class Tree {
     
@@ -53,21 +66,23 @@ class Tree {
         NodeItem data;
     };
     
-    /// Iterator over items
-    typedef typename std::list<LeafItem>::iterator item_iterator;
-    
-    /// Const iterator over items
-    typedef typename std::list<LeafItem>::const_iterator const_item_iterator;
-    
     std::list<Node>     nodes;
     std::list<LeafItem> items;
     
 public:
     
+    /// Iterator over `LeafItem`s
+    typedef typename std::list<LeafItem>::iterator item_iterator;
+    
+    /// Const iterator over `LeafItem`s
+    typedef typename std::list<LeafItem>::const_iterator const_item_iterator;
+    
     /**
-     * An optionally-const iterator over the internal nodes of a tree.
+     * @brief An optionally-const iterator over the internal nodes of a tree.
      *
      * Dereferencing this iterator produces a `NodeItem` object.
+     *
+     * @tparam Const Whether this iterator refers to a `const` item or not.
      */
     template <bool Const>
     class NodeIterator {
@@ -82,12 +97,20 @@ public:
         
     public:
         
+        /// The tree's `NodeItem` type.
         typedef NodeItem                                         value_type;
+        /// A (possibly const) reference to a `NodeItem`.
         typedef typename ConstType<NodeItem,Const>::reference_t  reference;       // reference to value type
+        /// A (possibly const) pointer to a `NodeItem`.
         typedef typename ConstType<NodeItem,Const>::pointer_t    pointer;         // pointer to value type
+        /// A const reference to a `NodeItem`.
         typedef const NodeItem&                                  const_reference; // const ref to value type
+        /// Iterator over child nodes; same as self type.
         typedef NodeIterator<Const>                              iterator;        // self type (container concept)
+        
         typedef NodeIterator<Const>                              self_t;          // self type
+        
+        /// Iterator over `LeafItem`s.
         typedef typename std::conditional<Const,
                     typename std::list<Object>::const_iterator,
                     typename std::list<Object>::iterator>::type  item_iterator; // iterator for leaf items
@@ -211,7 +234,7 @@ public:
     
     
     /**
-     * Construct a tree having a single root node, and copy the
+     * @brief Construct a tree having a single root node, and copy the
      * items in `[begin, end)` to it.
      */
     template <typename LeafItemIterator>
@@ -282,12 +305,12 @@ public:
     
     
     /**
-     * Return parent node of item `i`, if `i` belongs to the subtree at `n`,
-     * by performing a depth-first search in `n * log(n)` time.
+     * Return parent node of item `i` by performing a depth-first search in `n * log(n)` time.
      *
-     * If `i` is not in the subtree `n`, then return `end()`.
+     * If `i` is not in the subtree under `node`, then return `end()`.
      */
-    NodeRef find_parent(const NodeRef& n, const item_iterator& i) const {
+    node_iterator find_parent(const node_iterator& node, const item_iterator& i) const {
+        NodeRef n = node.node;
         // todo: do not recurse. make a loop, to avoid possible stack overflow.
         if (n->n_children == 0) {
             item_iterator end_item = n->items_last; ++end_item;
@@ -297,7 +320,7 @@ public:
         } else {
             NodeRef end_child = n->child_last; ++end_child;
             for (NodeRef child = n->child_first; child != end_child; ++child) {
-                NodeRef found = find_parent(child, j);
+                NodeRef found = find_parent(child, j).node;
                 if (found != m_nodes.end()) return found;
             }
         }
@@ -465,13 +488,15 @@ public:
     
     
     /**
-     * Remove an item from the tree which belongs to the node `ancestor`.
+     * Remove an item from the tree which is a descendent of the node `ancestor`.
      * If `item` is not in the subtree, the tree will be unchanged.
      *
      * Providing a close ancestor of `item` reduces the cost of finding `item`'s parent in the tree before removal.
+     * In general, an `O(n * log(n))` search is performed to find the direct parent of `item`, where `n` is the
+     * size of the subtree belonging to `ancestor`.
      */
     bool erase(const item_iterator& item, const node_iterator& ancestor) {
-        NodeRef parent = find_parent(ancestor.node);
+        NodeRef parent = find_parent(ancestor.node).node;
         
         if (parent != m_nodes.end()) _erase(item, parent);
         
@@ -483,7 +508,7 @@ public:
     /**
      * Remove an item from the tree.
      *
-     * Performs an O(n) search through the tree to find `item`'s parent.
+     * Performs an O(n * log(n)) search through the tree to find `item`'s parent.
      */
     bool erase(const item_iterator& item) {
         return erase(item, this->begin());
@@ -509,11 +534,16 @@ public:
             
             while (n != m_nodes.end()) {
                 n->n_items -= n_deleted;
-                if (n->items_first == del_first_item) {
-                    n->items_first = next_item;
-                }
-                if (n->items_last == del_last_item) {
-                    n->items_last = prev_item;
+                // fix up the boundary items
+                if (n->n_items == 0) {
+                    n->items_first = n->items_last = m_items.end();
+                } else {
+                    if (n->items_first == del_first_item) {
+                        n->items_first = next_item;
+                    }
+                    if (n->items_last == del_last_item) {
+                        n->items_last = prev_item;
+                    }
                 }
                 n = n->parent;
             }
@@ -522,7 +552,7 @@ public:
     
     
     /**
-     * Remove the subtree with root `node`, including all the leaf items.
+     * Remove the subtree having root `node`, including all the leaf items.
      * 
      * `node` may not be the root node; if the root is given, the tree is unchanged.
      */
@@ -622,7 +652,7 @@ protected:
         return successor;
     }
     
-};
+}; // class tree
 
 
 /// @} // addtogroup storage
