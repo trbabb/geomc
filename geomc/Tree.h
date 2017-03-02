@@ -2,12 +2,15 @@
 
 // todo: function(s) to move an item/child from one node to another?
 //       (may require custom list)
+//       maybe partition(node_a, node_b, functor, data)
+//       or split(node_a, compare, data)
 // todo: permit key/value structure.
 //       nodes represent an abstract kind of set membership. node.contains(key). 
 //       (maybe call it boundary so people don't retardedly nest data structures).
 // todo: after key/value structure, permit a distance metric; allow KNN.
 // todo: specialize for when leaf items or node items are void?
 // todo: provide a split() function which divides a node in two based on a test/comparison function/functor.
+// todo: smarter/more optimized underlying data structure
 
 
 // todo: return next iterator on erase(). can be compared to node.end().
@@ -21,7 +24,7 @@ namespace geom {
 /**
  * @brief A dynamic tree of arbitrary arity.
  *
- * Each node in the tree may store an associated `NodeItem` object.
+ * Each node in the tree may store an associated `NodeItem` object. A node may have any number of child nodes.
  * 
  * Leaf nodes may own a list of `LeafItem` objects. `LeafItem`s are kept
  * such that all the `LeafItems` in a subtree are contiguous, and internal nodes
@@ -259,7 +262,7 @@ public:
     }
     
     
-    /// Number of internal nodes in the tree.
+    /// Number of nodes in the tree.
     inline index_t nodes() const {
         return m_nodes.begin()->n_children + 1; // include root, of course
     }
@@ -285,6 +288,22 @@ public:
     
     
     /**
+     * Return an iterator pointing at the first leaf item in the tree.
+     */
+    inline item_iterator items_begin() {
+        return m_items.begin();
+    }
+    
+    
+    /**
+     * Return an iterator just beyond the last leaf item in the tree.
+     */
+    inline item_iterator items_end() {
+        return m_items.end();
+    }
+    
+    
+    /**
      * Return a const iterator pointing at the root tree node. 
      * Use `+i` and `-i` to ascend and descend to the first-child and parent nodes
      * respectively. `++i` and `--i` navigate the tree in breadth-first order, and can
@@ -305,7 +324,7 @@ public:
     
     
     /**
-     * Return parent node of item `i` by performing a depth-first search in `n * log(n)` time.
+     * Return the parent node of item `i` in subtree at `node` by performing a depth-first search in `n * log(n)` time.
      *
      * If `i` is not in the subtree under `node`, then return `end()`.
      */
@@ -331,8 +350,10 @@ public:
     /**
      * Insert the given item into the tree under the given node.
      * 
-     * `node` must be a leaf node; i.e. one with no child nodes, so that placement of `obj` is not ambiguous.
-     * If `node` is not a leaf node, then the tree is unchanged and the off-end item_iterator is returned instead.
+     * `node` must be a leaf node; i.e. one with no child nodes, so that placement of `obj` is not ambiguous. 
+     * If `node` is not a leaf node, the tree is unchanged.
+     *
+     * @return An iterator to the newly placed item, or `items_end()` if `node` is not a leaf node.
      */
     item_iterator insert(const node_iterator& parent, const LeafItem& obj) { // todo: move semantics?
         if (parent.nodes() > 0) return items.end();
@@ -455,7 +476,7 @@ public:
      *
      * @return The inserted node.
      */
-    node_iterator insert_node(const node_iterator& node, NodeItem&& obj) {
+    node_iterator insert_child_node(const node_iterator& node, const NodeItem& obj) {
         NodeRef parent = node.node;
         NodeRef new_node;
         
@@ -473,7 +494,7 @@ public:
             parent->child_first = parent->child_last = new_node;
         } else {
             // simple case: parent already contains node; 
-            // insert point in straighforward (after the last child).
+            // insert point in straightforward (after the last child).
             NodeRef insert_pt = parent->child_last; ++insert_pt;
             new_node = m_nodes.insert(insert_pt, Node(this, parent, obj))
             
@@ -488,20 +509,107 @@ public:
     
     
     /**
+     * Insert a new tree node to the left of `node`, under the same parent.
+     *
+     * If `node` is the root node, the tree is unaffected and the off-end node is returned.
+     * Otherwise, the new node is returned.
+     */
+    node_iterator insert_sibling_node(const node_iterator& node, const NodeItem& obj) {
+        NodeRef n = node.node;
+        if (n == m_nodes.begin()) return m_nodes.end();
+        
+        NodeRef parent = n->parent;
+        NodeRef new_node = m_nodes.insert(n, Node(this, parent, obj));
+        if (n == parent->end()) {
+            parent->child_last = new_node;
+        }
+        if (n == parent->begin()) {
+            parent->child_first = new_node;
+        }
+        parent->n_children++;
+        return new_node;
+    }
+    
+    
+    /**
+     * Split `node` into two sibling nodes. A new node will be created to the left of `node`, and
+     * the items of `node` will be split between them according to the result of `compare(item, pivot)`:
+     * If the comparison is less than zero, the item will be moved to the left (new) node. Otherwise, it will
+     * remain in the right (existing) node.
+     *
+     * @param node The node to split; a non-root node with no child nodes.
+     * @param compare A callable object `compare(a,b)` which accepts a `LeafItem` as its left argument and a `Z` as its right argument,
+     *        and returns a signed number (negative for `a < b`, positive for `a > b`, zero for equality).
+     * @param obj The internal node object to assign to the newly-created (low) node.
+     *
+     * @return The newly created sibling, or the off-end node if `node` is not a childless non-root node.
+     */
+    template <typename Func, typename Z>
+    node_iterator split(node_iterator& node, Func compare, Z pivot, NodeItem& obj) {
+        if (node == m_nodes.begin() or node.nodes() > 0) return m_nodes.end();
+        
+        node_iterator new_node = insert_sibling_node(node, obj);
+        NodeRef hi = node.node;
+        NodeRef lo = new_node.node;
+        
+        // traverse `node` looking for items to move to the new `lo` node.
+        // because `lo` is adjacent to `hi`, we can add items to `lo` by moving the 
+        // boundary between `lo` and `hi` and swapping the contents of the iterators.
+        // we traverse backwards so that our swapping does not unsort our items.
+        for (item_iterator i = hi->items_last; i != std::prev(hi->items_first); ) {
+            if (compare(*i, pivot) < 0) {
+                // move the item to the lower node
+                
+                // grab one item from the beginning of `hi`.
+                // swap `*i` and the stolen item, so that the 
+                // tested item lies in the low node where it belongs, 
+                // and the stolen item lies under `i`. we'll check it
+                // on the next iteration.
+                
+                if (lo->n_items == 0) {
+                    lo->items_first = lo->items_last = hi->items_first;
+                } else {
+                    lo->items_last = hi->items_first;
+                }
+                
+                ++lo->n_items;
+                --hi->n_items;
+                ++hi->items_first;
+                std::swap(*i, *(lo->items_last));
+                
+                // we do not decrement i, because we've just moved
+                // an untested item underneath it. we should test
+                // it first before moving on to the next one.
+            } else {
+                // `*i` is in the right place.
+                --i;
+            }
+        }
+    }
+    
+    
+    /**
      * Remove an item from the tree which is a descendent of the node `ancestor`.
      * If `item` is not in the subtree, the tree will be unchanged.
      *
      * Providing a close ancestor of `item` reduces the cost of finding `item`'s parent in the tree before removal.
      * In general, an `O(n * log(n))` search is performed to find the direct parent of `item`, where `n` is the
      * size of the subtree belonging to `ancestor`.
+     *
+     * @return An iterator pointing to the position of the item just beyond the one that was deleted. 
+     * This will be `parent.items_end()` if the deleted item was the last one in its parent node.
      */
-    bool erase(const item_iterator& item, const node_iterator& ancestor) {
+    item_iterator erase(const item_iterator& item, const node_iterator& ancestor) {
         NodeRef parent = find_parent(ancestor.node).node;
         
-        if (parent != m_nodes.end()) _erase(item, parent);
+        if (parent != m_nodes.end()) return _erase(item, parent);
+        
+        return items.end();
         
         // todo: in key/value subclass, you can find `item` in log(n) time. 
         // be sure to override this fucker.
+        
+        // todo: no way to detect error condition of "item not found".
     }
     
     
@@ -509,8 +617,11 @@ public:
      * Remove an item from the tree.
      *
      * Performs an O(n * log(n)) search through the tree to find `item`'s parent.
+     *
+     * @return An iterator pointing to the position of the item just beyond the one that was deleted, 
+     * or `items_end()` if it was the last one in the tree.
      */
-    bool erase(const item_iterator& item) {
+    item_iterator erase(const item_iterator& item) {
         return erase(item, this->begin());
     }
     
@@ -552,11 +663,13 @@ public:
     
     
     /**
-     * Remove the subtree having root `node`, including all the leaf items.
+     * Remove the subtree having root `node`, including all its leaf items.
      * 
      * `node` may not be the root node; if the root is given, the tree is unchanged.
+     *
+     * @return An iterator pointing to the position of the node following the deleted one (which may be `parent.end()`).
      */
-    bool erase(const node_iterator& node) {
+    node_iterator erase(const node_iterator& node) {
         if (node.node->parent == m_nodes.end()) return false;
         
         clear(node);
@@ -579,6 +692,8 @@ public:
         } else if (n->child_last == x) {
             n->child_last = prev_node;
         }
+        
+        return next_node;
     }
     
     
@@ -600,7 +715,7 @@ public:
 protected:
     
     // erase when `parent` is known to be the exact parent of `item`; not just an ancestor.
-    void _erase(const item_iterator& item, NodeRef parent) {
+    item_iterator _erase(const item_iterator& item, NodeRef parent) {
         item_iterator next_item = m_items.erase(item);
         item_iterator prev_item = next_item; --prev_item;
         
@@ -619,6 +734,8 @@ protected:
             }
             parent = parent->parent;
         }
+        
+        return next_item;
     }
     
     
@@ -652,7 +769,7 @@ protected:
         return successor;
     }
     
-}; // class tree
+}; // class Tree
 
 
 /// @} // addtogroup storage
