@@ -6,7 +6,7 @@
  */
 
 #ifndef STORAGE_H
-#define	STORAGE_H
+#define STORAGE_H
 
 #include <boost/smart_ptr/shared_array.hpp>
 #include <geomc/geomc_defs.h>
@@ -289,6 +289,7 @@ struct UniqueStorage<T, DYNAMIC_DIM> {
 #endif
 
     UniqueStorage& operator=(const UniqueStorage<T,0>& other) {
+        if (&other == this) return;
         if (sz != other.sz) {
             if (data) delete [] data;
             data = new T[other.sz];
@@ -336,8 +337,6 @@ struct UserOwnedStorage {
         Dimension<N>::set(dim, sz);
     }
 
-public:
-
     /// Return a pointer to the first element in the storage array.
     inline       T* get()       { return data; }
     /// Return a const pointer to the first element in the storage array.
@@ -349,6 +348,119 @@ public:
     inline T& operator[](index_t idx)       { return data[idx]; }
     /// Return the `i`th element in the array.
     inline T  operator[](index_t idx) const { return data[idx]; }
+};
+
+
+/**
+ * @brief Array storage which does not allocate from the heap unless the requested 
+ * size is larger than a threshhold, `N`. 
+ * 
+ * @tparam T Element type.
+ * @tparam N Maximum stack-allocated array size.
+ *
+ * Useful when a required buffer is expected to be small, but there is no explicit
+ * upper bound on the possible size. This allows the stack to be used in the majority
+ * case, only deferring to heap allocation when unusually large buffers are needed.
+ *
+ * On assignment or copy, reallocations we be avoided if the existing buffer is already 
+ * the correct size. Move semantics will also avoid an allocation in c++11 or later.
+ *
+ * This buffer will *always* stack-allocate a buffer of size `N` (it will simply not be used
+ * when a heap allocation is necessary).
+ */
+template <typename T, index_t N>
+class SmallStorage {
+    
+    T  buf[N];
+    T* data;
+    index_t sz;
+    
+public:
+    
+    /// Allocate storage for `n` objects.
+    explicit SmallStorage(index_t n) : sz(n) {
+        if (sz > N) {
+            data = new T[sz];
+        } else {
+            data = &buf;
+        }
+    }
+    
+    /// Destory this storage.
+    ~SmallStorage() {
+        if (sz > N) delete [] data;
+        sz = 0;
+        data = NULL;
+    }
+    
+    /// Construct a new SmallStorage containing the elements of `other`. 
+    SmallStorage(SmallStorage<T,N>& other) : sz(other.sz) {
+        if (sz > N) {
+            data = new T[sz];
+        } else {
+            data = &buf;
+        }
+        std::copy(other.data, other.data + sz, data);
+    }
+    
+#if __cplusplus >= 201103L
+    
+    /// Move the contents of `other` to a new `SmallStorage`.
+    SmallStorage(SmallStorage<T,N>&& other) : sz(other.sz) {
+        if (sz > N) {
+            data = other.data;
+        } else {
+            data = &buf;
+            std::copy(other.data, other.data + sz, data);
+        }
+        other.data = NULL;
+        other.sz = 0;
+    }
+    
+    /// Move the contents of `other` to this `SmallStorage`.
+    SmallStorage<T,N>& operator=(SmallStorage<T,N>&& other) {
+        if (sz > N and data) delete [] data;
+        sz = other.sz;
+        if (sz > N) {
+            data = other.data;
+        } else {
+            data = &buf;
+            std::copy(other.data, other.data + sz, data);
+        }
+        other.data = NULL;
+        other.sz = 0;
+        return *this;
+    }
+    
+#endif
+    
+    /// Copy the contents of `other` to this `SmallStorage`. 
+    SmallStorage<T,N>& operator=(SmallStorage<T,N>& other) {
+        if (&other == this) return; // no self-assign
+        // don't bother to realloc if the buffer is already the correct size.
+        if (sz > N and data and sz != other.sz) delete [] data;
+        if (other.sz <= N) {
+            data = &buf;
+        } else if (other.sz != sz or not data) {
+            data = new T[other.sz];
+        }
+        sz = other.sz;
+        std::copy(other.data, other.data + sz, data);
+        return *this;
+    }
+    
+    /// Return a pointer to the first element in the storage array.
+    inline       T* get()       { return data; }
+    /// Return a pointer to the first (const) element in the storage array.
+    inline const T* get() const { return data; }
+    /// Return the number of elements in the array.
+    inline index_t size() const { return sz; }
+    
+    /// Return a reference to the `i`th element in the array.
+    inline T& operator[](index_t i)       { return data[i]; }
+    /// Return the `i`th element in the array.
+    inline T  operator[](index_t i) const { return data[i]; }
+    
 };
 
 
@@ -453,5 +565,5 @@ struct GenericStorage<T,N,STORAGE_UNIQUE> : public UniqueStorage<T,N> {
 
 } // end namespace geom
 
-#endif	/* STORAGE_H */
+#endif  /* STORAGE_H */
 

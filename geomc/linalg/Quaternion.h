@@ -53,6 +53,21 @@ public:
     
     /// Construct a quaternion from the 4D vector `v`.
     Quat(const Vec<T,4> &v):detail::VecCommon< T, 4, Quat<T> >(v.begin()) {}
+
+    /**
+     * Construct a quaternion from a brace-initialization list. (c++11)
+     *
+     * Example: `Quat<float> q = {0, 0, 0, 1};`
+     * @param items A brace-initializer list.
+     */
+#if __cplusplus >= 201103L or PARSING_DOXYGEN
+    Quat(const std::initializer_list<T>& items):detail::VecCommon< T,4,Quat<T> >(items.begin()) {
+#if __cplusplus >= 201402L
+        // items.size() not constexpr in c++11  D:<
+        static_assert(items.size() == 4);
+#endif
+    }
+#endif
     
     /*******************************
      * Static constructors         *

@@ -90,6 +90,11 @@ class PermutationMatrix : public detail::MatrixBase<bool,N,N, PermutationMatrix<
 private:
     typedef detail::PermuteMatrixBase<N> parent_t;
     
+    index_t sign; // 0 means "not computed yet".
+                  // could possibly compute on construction.
+                  // (or don't store at all).
+                  // disadvantage: duplicated code; computeSign() is non-const. :(
+    
 public:
     
     template <typename Md, typename Ma, typename Mb>
@@ -111,6 +116,30 @@ public:
     }
     
     //////////// methods ////////////
+    
+    /**
+     * Compute the signature of this permutation.
+     *
+     * Runs in _O(n)_ time; or _O(1)_ time if previously computed.
+     *
+     * @return -1 if the number of transpositions in this permutation is odd, 1 otherwise.
+     */
+    T getSign() {
+        if (sign == 0) {
+            index_t n = detail::PermuteMatrixBase<N>::_rows();
+            index_t *row_src = parent_t::getSrcData();
+            index_t *row_dst = parent_t::getDstData();
+            
+            sign = computeSign(row_src, row_dst, n) ? -1 : 1;
+            
+            // we just destroyed our dst data. recompute.
+            for (index_t i = 0; i < n; i++) {
+                row_dst[row_src[i]] = i;
+            }
+        } else {
+            return sign;
+        }
+    }
     
     
     /**
@@ -210,6 +239,7 @@ public:
         for (index_t i = 0; i < n; i++) {
             row_dst[row_src[i]] = i;
         }
+        sign = 0;
     }
     
     /**
@@ -232,6 +262,7 @@ public:
         for (index_t i = 0; i < n; i++) {
             row_src[row_dst[i]] = i;
         }
+        sign = 0;
     }
     
     /**
@@ -290,6 +321,7 @@ public:
         dst[src[b]] = a;
         // swap a/b
         std::swap(src[a], src[b]);
+        sign *= -1;
     }
     
     /**
@@ -308,6 +340,7 @@ public:
         src[dst[b]] = a;
         // swap a/b
         std::swap(dst[a], dst[b]);
+        sign *= -1;
     }
     
     /**
@@ -330,6 +363,7 @@ public:
             *i0++ = i;
             *i1++ = i;
         }
+        sign = 1;
     }
     
     /**
@@ -350,6 +384,36 @@ public:
     /******** friends ********/
     
     friend bool detail::mtxequal<N>(const PermutationMatrix<N> &a, const PermutationMatrix<N> &b);
+    
+private:
+    
+    // compute the signature of this permutation, by counting the length of the cycles.
+    // because we can decompose a permutation into a product of cyclical permutations,
+    // we can decompose the sign as the product of the sign of those cycles.
+    // a cycle has odd sign (-1) if the number of elements in the cycle is even.
+    // of course we do not actually have to keep track of the count; only its parity.
+    // note that inverting/transposing a permutation does not change its sign,
+    // so we can interchange row_src and row_dst at our convenience without changing the answer.
+    // whichever one we are given, we use the other as a buffer to mark which elements
+    // have been visited; this allows us to avoid a dynamic memory alloc. for that reason,
+    // we must call this function after one index map has been filled, but before the other has been computed.
+    // runs in O(n) time.
+    
+    bool computeSign(T* p, T* buf, index_t n) {
+        std::fill(buf, buf+n, (T)0);
+        
+        // follow the cycles.
+        bool odd = false;
+        for (index_t i = 0; i < n; ++i) {
+            if  (buf[i] == 1) continue; // not strictly necessary, but saves us an indirection
+            else buf[i] = 1;
+            for (index_t j = p[i]; buf[j] != 1; j = p[j]) {
+                buf[j] = 1; // mark that this element has been visited.
+                odd = !odd; // the product of the sign of the cycles has flipped.
+            }
+        }
+        return odd;
+    }
 };
 
 };

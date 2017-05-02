@@ -15,6 +15,7 @@
 #include <tr1/functional>
 #else
 #include <functional>
+#include <type_traits>
 #endif
 
 #include <boost/integer.hpp>

@@ -8,7 +8,7 @@
 #ifndef FRUSTUM_H
 #define	FRUSTUM_H
 
-#include <limits.h>
+#include <climits>
 #include <geomc/shape/Rect.h>
 #include <geomc/linalg/AffineTransform.h>
 

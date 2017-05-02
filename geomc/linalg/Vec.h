@@ -312,6 +312,21 @@ public:
         }
     }
     
+    /**
+     * Construct a vector from a brace-initialization list. (c++11)
+     *
+     * Example: `Vec<int,3> v = {2, 5, 8};`
+     * @param items A brace-initializer list.
+     */
+#if __cplusplus >= 201103L or PARSING_DOXYGEN
+    Vec(const std::initializer_list<T>& items):detail::VecCommon< T,N,Vec<T,N> >(items.begin()) {
+#if __cplusplus >= 201402L
+        // items.size() not constexpr in c++11  D:<
+        static_assert(items.size() == N);
+#endif
+    }
+#endif
+    
 }; /* class Vec */
 
 } // namespace geom
