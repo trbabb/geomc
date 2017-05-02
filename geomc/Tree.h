@@ -7,8 +7,8 @@
 // todo: specialize for when leaf items or node items are void
 // todo: smarter/more optimized underlying data structure
 // todo: insert multiple items
-
-// xxx: todo: tree copy constructor
+// todo: "flat array" variant tree. abstract NodeRef and ItemRef to be ptrs.
+// todo: figure out a way to put node_successor, aka subtree_last into node iterator?
 
 namespace geom {
     
@@ -65,18 +65,31 @@ class Tree {
         NodeItem data;
     };
     
+    
+    // internally, nodes are kept in (sort of) breadth-first order.
+    // all direct children of a node are contiguous, and come 
+    // after (though not necessarily *immediately* after) their parent.
+    // all the descendents of a leftward child come before all the 
+    // descendents of the child to its right. Therefore, any given subtree
+    // (excluding its root) is contiguous. It is this recursive pattern:
+    
+    // [node] [c1 c2 c3 c4 ...] [children of c1] [descendents of c1...] [children of c2] [descendents of c2...] ...
+      
     std::list<Node>     nodes;
+    
+    // items are stored in depth-first order. 
+    // all items in a subtree are contiguous.
+    
     std::list<LeafItem> items;
     
 public:
-    
     
     template <bool Const>
     class ItemIterator {
         
         friend class Tree<NodeItem,LeafItem>;
         
-        typedef ItemIterator<const> self_t;
+        typedef ItemIterator<Const> self_t;
         typedef typename ConstType<LeafItem,Const>::reference_t reference; // reference to value type
         typedef typename ConstType<LeafItem,Const>::pointer_t   pointer;   // pointer to value type
         
@@ -117,11 +130,11 @@ public:
         }
         
         inline reference operator*() const {
-            return item->data;
+            return *item;
         }
         
         inline pointer operator->() const {
-            return &(item->data);
+            return &(*item);
         }
         
         template <bool C>
@@ -141,6 +154,8 @@ public:
      * @brief An optionally-const iterator over the internal nodes of a tree.
      *
      * Dereferencing this iterator produces a `NodeItem` object.
+     *
+     * This class can be treated as a container of objects of its own type.
      *
      * @tparam Const Whether this iterator refers to a `const` item or not.
      */
@@ -248,7 +263,9 @@ public:
             return item_iterator(node->items_first, node);
         }
         
-        /// Get last (off-end) object in this subtree
+        /**
+         * @brief Get last (off-end) object in this subtree. It is invalid to increment or dereference this iterator.
+         */
         inline item_iterator items_end() const {
             item_iterator tmp = node->items_last;
             return item_iterator(++tmp, node);
@@ -317,6 +334,23 @@ public:
         n.items_last  = m_items.end(); --n.items_last;
         n.n_items     = m_nodes.size();
         n.n_children  = 0;
+    }
+    
+    
+    /// Make a copy of the given tree.
+    Tree(const Tree<NodeItem, LeafItem>& other):
+            m_nodes(other.m_nodes),
+            m_items(other.m_items) {
+        recalculate_references(); 
+    }
+    
+    
+    // Construct a new tree from the subtree in `tree` rooted at `n`.
+    Tree(const Tree<NodeItem, LeafItem>& tree, node_iterator n):
+            m_nodes(n.begin().node, tree.node_successor(n.node)),
+            m_items(n.items_begin().item, n.items_end().item) {
+        m_nodes.push_front(n.node);
+        recalculate_references();
     }
     
     
@@ -418,18 +452,12 @@ public:
      * If `i` is not in the subtree under `node`, then return `end()`.
      */
     node_iterator find_parent(const node_iterator& ancestor, const item_iterator& i) const {
-        NodeRef n = ancestor.node;
-        // todo: do not recurse. make a loop, to avoid possible stack overflow.
-        if (n->n_children == 0) {
-            ItemRef end_item = n->items_last; ++end_item;
-            for (ItemRef j = n->items_first; j != end_item; ++j) {
-                if (j == i.item) return n;
-            }
-        } else {
-            NodeRef end_child = n->child_last; ++end_child;
-            for (NodeRef child = n->child_first; child != end_child; ++child) {
-                NodeRef found = find_parent(child, j).node;
-                if (found != m_nodes.end()) return found;
+        NodeRef subtree_last = node_successor(ancestor.node);
+        for (NodeRef n = ancestor.node; n != subtree_last; ++n) {
+            if (n->n_children == 0) {
+                for (ItemRef j = n->items_first; j != end_item; ++j) {
+                    if (j == i.item) return n;
+                }
             }
         }
         return m_nodes.end();
@@ -598,16 +626,16 @@ public:
     
     
     /**
-     * Insert a new tree node to the left of `node`, under `parent`.
+     * Insert a new tree node to the left of `insert_before`, under `parent`.
      *
-     * If `node` is the root node, or if `node` is not a child (or end-child) of `parent`, then the tree is 
+     * If `insert_before` is the root node, or if `insert_before` is not a child (or end-child) of `parent`, then the tree is 
      * unaffected and `end()` is returned. Otherwise, the new node is returned.
      */
     node_iterator insert_sibling_node(
-            const node_iterator& node, 
+            const node_iterator& insert_before, 
             const node_iterator& parent, 
             const NodeItem& obj) {
-        NodeRef n = node.node;
+        NodeRef n = insert_before.node;
         NodeRef p = parent.node;
         
         if (n == m_nodes.begin())                      return m_nodes.end();
@@ -621,6 +649,46 @@ public:
             p->child_first = new_node;
         }
         p->n_children++;
+        return new_node;
+    }
+    
+    
+    /**
+     * Insert new tree nodes to the left of `insert_before`, under `parent`.
+     *
+     * If `insert_before` is the root node, or if `insert_before` is not a child (or end-child) of `parent`, then the tree is 
+     * unaffected and `end()` is returned. Otherwise, the new node is returned.
+     *
+     * @param insert_before A node_iterator pointing to the sibling just after the last new node to be inserted.
+     * @param parent Parent node of the nodes to be created.
+     * @param i_begin A forward iterator to the first NodeItem to be inserted.
+     * @param i_end A forward iterator just beyond the last NodeItem to be inserted.
+     */
+    template <typename NodeItemIterator>
+    node_iterator insert_sibling_nodes(
+            const node_iterator& insert_before,
+            const node_iterator& parent,
+            const NodeItemIterator& i_begin,
+            const NodeItemIterator& i_end) {
+        NodeRef n = insert_before.node;
+        NodeRef p = parent.node;
+        
+        if (n == m_nodes.begin())                      return m_nodes.end();
+        if (n->parent != p and parent.end().node != n) return m_nodes.end();
+            
+        // todo: m_nodes.reserve(n_items);
+        NodeRef new_node;
+        index_t ct = 0;
+        for (NodeItemIterator i = i_begin; i != i_end; ++i, ++ct) {
+            new_node = m_nodes.insert(n, Node(this, parent, *i));
+        }
+        if (n == p->end()) {
+            p->child_last = new_node;
+        }
+        if (n == p->begin()) {
+            p->child_first = new_node;
+        }
+        p->n_children += ct;
         return new_node;
     }
     
@@ -834,7 +902,57 @@ protected:
     }
     
     
-    // find the position of the node that follows `node` in list (breadth-first) order.
+    // use all the child counts to recompute the first/last 
+    // references in internal nodes. useful when taking ownership
+    // of another tree's internal node list.
+    void recalculate_references() {
+        NodeRef nod = m_nodes.begin();
+        NodeRef begin_child = node; ++begin_child;
+        ItemRef begin_items = m_items.begin();
+        
+        for (; nod != m_nodes.end(); ++nod) {
+            if (nod->n_children > 0) {
+                nod->child_first = nod->child_last = begin_child;
+                nod->child_first->parent = nod;
+                
+                // acquire direct children
+                for (index_t c = 0; c < nod->n_children - 1; ++c) {
+                    ++nod->child_last;
+                    nod->child_last->parent = nod;
+                }
+                
+                // move the node "free space"
+                begin_child = nod->child_last; ++begin_child;
+            } else {
+                nod->child_first = nod->child_last = nodes.end();
+                
+                if (n->n_items > 0) {
+                    nod->items_first = nod->items_last = begin_items;
+                    for (index_t i = 0; i < nod->n_items - 1; ++i) {
+                        ++nod->items_last;
+                    }
+                    
+                    // move the item "free space"
+                    begin_items = nod->items_last; ++begin_items;
+                } else {
+                    nod->items_first = nod->items_last = items.end();
+                }
+                
+                // fixup the items_end along the right edge of this subtree.
+                NodeRef descendent = nod;
+                for (NodeRef ancestor = nod->parent; ancestor != m_nodes.end(); descendent = ancestor, ancestor = ancestor->parent) {
+                    if (ancestor->child_last == descendent) {
+                        ancestor->items_last = nod->items_last;
+                    } else {
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    // find the position of the node that follows `node` in list ("breadth-first") order.
     // the successor to `node` occurs just before the next subtree to the right.
     // an `O(k * log(n))` operation, on `n` the size of the tree, and `k` the arity.
     NodeRef node_successor(const NodeRef& node) const {
