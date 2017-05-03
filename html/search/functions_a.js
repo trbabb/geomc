@@ -1,10 +1,8 @@
 var searchData=
 [
-  ['max',['max',['../classgeom_1_1_rect.html#ae0d448b5c9ab84f88d1ac56203d48096',1,'geom::Rect::max()'],['../classgeom_1_1_dual.html#a6ac62be12a9feef6e61445d2ccac0914',1,'geom::Dual::max()'],['../classgeom_1_1_vec.html#a53f73b61fb453fbaae49f89351797d93',1,'geom::Vec::max()']]],
-  ['min',['min',['../classgeom_1_1_rect.html#a33a63681586b26b7db572c83999eaaa3',1,'geom::Rect::min()'],['../classgeom_1_1_dual.html#a11ddd47b1fca3b534e29822cbd4277fd',1,'geom::Dual::min()'],['../classgeom_1_1_vec.html#a4a30e6b3f9197cf8fdf084d656441ca3',1,'geom::Vec::min()']]],
-  ['mix',['mix',['../group__function.html#ga544e92cb874abbcc6d0636db7150eced',1,'geom']]],
-  ['mtx_5faliases_5fstorage',['mtx_aliases_storage',['../group__matrix.html#gaece56584613790b7e364cf00b93ee36a',1,'geom']]],
-  ['mtxcopy',['mtxcopy',['../group__matrix.html#ga18aa4cc96039ea7bf54d7d9fb25defe4',1,'geom']]],
-  ['mul',['mul',['../group__matrix.html#ga3f7b11d56dfce541930313e00471845a',1,'geom::mul(Matrix *into, const Matrix1 &amp;a, const Matrix2 &amp;b)'],['../group__matrix.html#ga2d61c9c78d6cfeec7f676ebbf028970c',1,'geom::mul(const Matrix1 &amp;a, const Matrix2 &amp;b)']]],
-  ['mult',['mult',['../classgeom_1_1_quat.html#af668dc6f192a4bb561867444a758bc4f',1,'geom::Quat']]]
+  ['leftperpendicular',['leftPerpendicular',['../classgeom_1_1_vec_3_01_t_00_012_01_4.html#aca99cc9291134afa9f9ec242e38bffd5',1,'geom::Vec&lt; T, 2 &gt;']]],
+  ['legendre',['legendre',['../group__function.html#gacd52d5fc246f3c14cf79eb8d14ac4a30',1,'geom::legendre(index_t l, index_t m, T x)'],['../group__function.html#ga87c5526808ff9654e1d90fe051ce7aea',1,'geom::legendre(index_t n, T x)']]],
+  ['legendre_5fintegral',['legendre_integral',['../group__function.html#ga95a927c5fe7620e09d6aab019693901c',1,'geom']]],
+  ['linearsolve',['linearSolve',['../classgeom_1_1_p_l_u_decomposition.html#ae22d5b1b92531ed728ad72f381dedb29',1,'geom::PLUDecomposition::linearSolve(S *dest, const S *b) const'],['../classgeom_1_1_p_l_u_decomposition.html#a32ae6cbc7515433c9551f7c7382442b5',1,'geom::PLUDecomposition::linearSolve(const Vec&lt; S, K &gt; &amp;b) const']]],
+  ['log',['log',['../classgeom_1_1_quat.html#a86fb061fdfdd40dc6fa186d3e610ee02',1,'geom::Quat::log()'],['../classgeom_1_1_vec.html#aa7b41eb3a584fcd27fe18d95055ba103',1,'geom::Vec::log()'],['../namespacestd.html#a33a9556aaf94463ba9fe13865f8c8f2c',1,'std::log()']]]
 ];

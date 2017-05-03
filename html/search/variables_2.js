@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['d',['d',['../classgeom_1_1_plane.html#a6b27b78b9d187dd926ec53a122ad2772',1,'geom::Plane']]],
-  ['data',['data',['../structgeom_1_1_storage.html#a6896f24464ed35248eb0bc5cf32e8616',1,'geom::Storage::data()'],['../structgeom_1_1_unique_storage.html#a6896f24464ed35248eb0bc5cf32e8616',1,'geom::UniqueStorage::data()']]],
-  ['diag',['DIAG',['../classgeom_1_1_p_l_u_decomposition.html#af94d0c73aee8eb1a6468c14a39e1716f',1,'geom::PLUDecomposition']]],
-  ['dx',['dx',['../classgeom_1_1_dual.html#a4bfbe33655359649373afaf3f9558094',1,'geom::Dual']]]
+  ['center',['center',['../classgeom_1_1_sphere.html#af7758d07cb343a93ef77c390e47eac99',1,'geom::Sphere']]],
+  ['coeffs',['coeffs',['../classgeom_1_1_spherical_harmonics.html#aef650f223b88c3fb0c353423b0d55c67',1,'geom::SphericalHarmonics::coeffs()'],['../classgeom_1_1_zonal_harmonics.html#a692a8fe226a30e23ba83c96d9f9f870a',1,'geom::ZonalHarmonics::coeffs()']]]
 ];

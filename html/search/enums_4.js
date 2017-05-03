@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['storagepolicy',['StoragePolicy',['../group__storage.html#ga1fe6a0f4b7ba39c90d3d765ca72c3097',1,'geom']]]
+  ['kdaxischoice',['KDAxisChoice',['../group__shape.html#ga7a6d185fa30835f2dad16775f601446f',1,'geom']]],
+  ['kdinsertionchoice',['KDInsertionChoice',['../group__shape.html#ga611cf03037c0db7c4856806508335f7a',1,'geom']]],
+  ['kdpivotchoice',['KDPivotChoice',['../group__shape.html#gaedead3dfc83fef09fb8925fe63429df1',1,'geom']]]
 ];

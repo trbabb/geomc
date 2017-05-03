@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['point_5ft',['point_t',['../classgeom_1_1_grid_iterator.html#a4a0e3e1855b80e670018f5318d4278bf',1,'geom::GridIterator::point_t()'],['../classgeom_1_1_rect.html#a1cb6b750c9af01a4f8cefeec08aa4ec8',1,'geom::Rect::point_t()']]]
+  ['node_5fiterator',['node_iterator',['../classgeom_1_1_k_d_tree.html#a7f9cb14106b6a7d3bce38bf258fb4d83',1,'geom::KDTree::node_iterator()'],['../classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92',1,'geom::Tree::node_iterator()']]]
 ];
