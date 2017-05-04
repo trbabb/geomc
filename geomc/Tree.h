@@ -919,6 +919,35 @@ public:
     }
     
     
+    /// Tree equality
+    bool operator==(const Tree<NodeItem, LeafItem>& other) const {
+        if (this == &other) return true;
+        if (item_count() != other.item_count()) return false;
+        if (m_items      != other.m_items)      return false;
+        
+        // because the references will point to different memory,
+        // we can't compare raw data. we have to examine the structure of the tree.
+        NodeRef a_n =       m_nodes.begin();
+        NodeRef b_n = other.m_nodes.begin();
+        for (; a_n != m_nodes.end() and b_n != other.m_nodes.end(); ++a_n, ++b_n) {
+            if (a_n->n_items    != b_n->n_items)    return false;
+            if (a_n->n_children != b_n->n_children) return false;
+            if (a_n->data       != b_n->data)       return false;
+        }
+        
+        // must have same total number of nodes; not just a matching prefix subtree.
+        if (not (a_n == m_nodes.end() and b_n == other.m_nodes.end()) return false;
+        
+        return true;
+    }
+    
+    
+    /// Tree inequality
+    bool operator!=(const Tree<NodeItem, LeafItem>& other) const {
+        return not (*this == other);
+    }
+    
+    
 protected:
     
     // erase when `parent` is known to be the exact parent of `item`; not just an ancestor.
