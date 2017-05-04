@@ -112,7 +112,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a3dee5770ede29888f2c0136bbd7f5a95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e2471f9d383fcf1f1d1be2a9c8c2740"><td class="memTemplParams" colspan="2"><a id="a6e2471f9d383fcf1f1d1be2a9c8c2740"></a>
 template&lt;typename LeafItemIterator &gt; </td></tr>
-<tr class="memitem:a6e2471f9d383fcf1f1d1be2a9c8c2740"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a6e2471f9d383fcf1f1d1be2a9c8c2740">Tree</a> (LeafItemIterator <a class="el" href="classgeom_1_1_tree.html#ad82100fde5705b4b7f0f3e473a3b7a68">begin</a>, LeafItemIterator <a class="el" href="classgeom_1_1_tree.html#a4522f956a262bb379743238c48041bd4">end</a>)</td></tr>
+<tr class="memitem:a6e2471f9d383fcf1f1d1be2a9c8c2740"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a6e2471f9d383fcf1f1d1be2a9c8c2740">Tree</a> (LeafItemIterator begin, LeafItemIterator end)</td></tr>
 <tr class="memdesc:a6e2471f9d383fcf1f1d1be2a9c8c2740"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a tree having a single root node, and copy the items in <code>[begin, end)</code> to it. <br /></td></tr>
 <tr class="separator:a6e2471f9d383fcf1f1d1be2a9c8c2740"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4428843869e2861c7629ab3e5ba05a2"><td class="memItemLeft" align="right" valign="top"><a id="ac4428843869e2861c7629ab3e5ba05a2"></a>
@@ -123,53 +123,94 @@ template&lt;typename LeafItemIterator &gt; </td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a0d709241de5862181e1a653382efcd19">Tree</a> (const <a class="el" href="classgeom_1_1_tree.html">Tree</a>&lt; NodeItem, LeafItem &gt; &amp;tree, <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> n)</td></tr>
 <tr class="memdesc:a0d709241de5862181e1a653382efcd19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new tree from the subtree in <code>tree</code> rooted at <code>n</code>. <br /></td></tr>
 <tr class="separator:a0d709241de5862181e1a653382efcd19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a550b0bcc87e2f4575e698932f4fd7406"><td class="memItemLeft" align="right" valign="top"><a id="a550b0bcc87e2f4575e698932f4fd7406"></a>
-index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a550b0bcc87e2f4575e698932f4fd7406">items</a> () const</td></tr>
-<tr class="memdesc:a550b0bcc87e2f4575e698932f4fd7406"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of leaf items in the tree. <br /></td></tr>
-<tr class="separator:a550b0bcc87e2f4575e698932f4fd7406"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10f669b39f407801a814d6d073e42833"><td class="memItemLeft" align="right" valign="top"><a id="a10f669b39f407801a814d6d073e42833"></a>
-index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a10f669b39f407801a814d6d073e42833">nodes</a> () const</td></tr>
-<tr class="memdesc:a10f669b39f407801a814d6d073e42833"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of nodes in the tree. <br /></td></tr>
-<tr class="separator:a10f669b39f407801a814d6d073e42833"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad82100fde5705b4b7f0f3e473a3b7a68"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#ad82100fde5705b4b7f0f3e473a3b7a68">begin</a> ()</td></tr>
-<tr class="separator:ad82100fde5705b4b7f0f3e473a3b7a68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4522f956a262bb379743238c48041bd4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a4522f956a262bb379743238c48041bd4">end</a> ()</td></tr>
-<tr class="separator:a4522f956a262bb379743238c48041bd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00de11b29bcbc81323bce607802b472d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#acdbd2626c510eaae84369fb16d184b07">const_node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a00de11b29bcbc81323bce607802b472d">begin</a> () const</td></tr>
-<tr class="separator:a00de11b29bcbc81323bce607802b472d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe50ea780c22d59588c69b36842be72a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#acdbd2626c510eaae84369fb16d184b07">const_node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#abe50ea780c22d59588c69b36842be72a">end</a> () const</td></tr>
-<tr class="separator:abe50ea780c22d59588c69b36842be72a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaaef0ca860b304a41dfb1e7d540a48a2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#ae777874928fa873c326f73904604b92d">item_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#aaaef0ca860b304a41dfb1e7d540a48a2">items_begin</a> ()</td></tr>
+<tr class="memitem:a460b83eeb68ebc31ef23757902fbccd0"><td class="memItemLeft" align="right" valign="top"><a id="a460b83eeb68ebc31ef23757902fbccd0"></a>
+index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a460b83eeb68ebc31ef23757902fbccd0">item_count</a> () const</td></tr>
+<tr class="memdesc:a460b83eeb68ebc31ef23757902fbccd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of leaf items in the tree. <br /></td></tr>
+<tr class="separator:a460b83eeb68ebc31ef23757902fbccd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65aa5dc1b8bfbc815ba7057c312ea154"><td class="memItemLeft" align="right" valign="top"><a id="a65aa5dc1b8bfbc815ba7057c312ea154"></a>
+index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a65aa5dc1b8bfbc815ba7057c312ea154">node_count</a> () const</td></tr>
+<tr class="memdesc:a65aa5dc1b8bfbc815ba7057c312ea154"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of nodes in the tree. <br /></td></tr>
+<tr class="separator:a65aa5dc1b8bfbc815ba7057c312ea154"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c89bd5f29f203eb92ed32c02dddb869"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a9c89bd5f29f203eb92ed32c02dddb869">nodes_begin</a> ()</td></tr>
+<tr class="memdesc:a9c89bd5f29f203eb92ed32c02dddb869"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return an iterator pointing at the root tree node.  <a href="#a9c89bd5f29f203eb92ed32c02dddb869">More...</a><br /></td></tr>
+<tr class="separator:a9c89bd5f29f203eb92ed32c02dddb869"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14edd5e784b0845c30c46950f18e94cf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a14edd5e784b0845c30c46950f18e94cf">nodes_end</a> ()</td></tr>
+<tr class="memdesc:a14edd5e784b0845c30c46950f18e94cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return an iterator pointing beyond the last node in the tree.  <a href="#a14edd5e784b0845c30c46950f18e94cf">More...</a><br /></td></tr>
+<tr class="separator:a14edd5e784b0845c30c46950f18e94cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad398e3ccbb170ab1272fe6b9579a7d4d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#acdbd2626c510eaae84369fb16d184b07">const_node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#ad398e3ccbb170ab1272fe6b9579a7d4d">nodes_begin</a> () const</td></tr>
+<tr class="memdesc:ad398e3ccbb170ab1272fe6b9579a7d4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a const iterator pointing at the root tree node.  <a href="#ad398e3ccbb170ab1272fe6b9579a7d4d">More...</a><br /></td></tr>
+<tr class="separator:ad398e3ccbb170ab1272fe6b9579a7d4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae936f55f8abe9092b8a9a4d990688c42"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#acdbd2626c510eaae84369fb16d184b07">const_node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#ae936f55f8abe9092b8a9a4d990688c42">nodes_end</a> () const</td></tr>
+<tr class="memdesc:ae936f55f8abe9092b8a9a4d990688c42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return an iterator pointing beyond the last node in the tree.  <a href="#ae936f55f8abe9092b8a9a4d990688c42">More...</a><br /></td></tr>
+<tr class="separator:ae936f55f8abe9092b8a9a4d990688c42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaaef0ca860b304a41dfb1e7d540a48a2"><td class="memItemLeft" align="right" valign="top"><a id="aaaef0ca860b304a41dfb1e7d540a48a2"></a>
+<a class="el" href="classgeom_1_1_tree.html#ae777874928fa873c326f73904604b92d">item_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#aaaef0ca860b304a41dfb1e7d540a48a2">items_begin</a> ()</td></tr>
+<tr class="memdesc:aaaef0ca860b304a41dfb1e7d540a48a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return an iterator pointing at the first leaf item in the tree. <br /></td></tr>
 <tr class="separator:aaaef0ca860b304a41dfb1e7d540a48a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1bd962b430fd2d4cabc704274f52a1db"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#ae777874928fa873c326f73904604b92d">item_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a1bd962b430fd2d4cabc704274f52a1db">items_end</a> ()</td></tr>
+<tr class="memitem:a1bd962b430fd2d4cabc704274f52a1db"><td class="memItemLeft" align="right" valign="top"><a id="a1bd962b430fd2d4cabc704274f52a1db"></a>
+<a class="el" href="classgeom_1_1_tree.html#ae777874928fa873c326f73904604b92d">item_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a1bd962b430fd2d4cabc704274f52a1db">items_end</a> ()</td></tr>
+<tr class="memdesc:a1bd962b430fd2d4cabc704274f52a1db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return an iterator just beyond the last leaf item in the tree. <br /></td></tr>
 <tr class="separator:a1bd962b430fd2d4cabc704274f52a1db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15e907114251699dd596e7ae4246f212"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#a11c2099e8386a85ee242d49448ac1760">const_item_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a15e907114251699dd596e7ae4246f212">items_begin</a> () const</td></tr>
+<tr class="memitem:a15e907114251699dd596e7ae4246f212"><td class="memItemLeft" align="right" valign="top"><a id="a15e907114251699dd596e7ae4246f212"></a>
+<a class="el" href="classgeom_1_1_tree.html#a11c2099e8386a85ee242d49448ac1760">const_item_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a15e907114251699dd596e7ae4246f212">items_begin</a> () const</td></tr>
+<tr class="memdesc:a15e907114251699dd596e7ae4246f212"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return an iterator pointing at the first (const) leaf item in the tree. <br /></td></tr>
 <tr class="separator:a15e907114251699dd596e7ae4246f212"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a937f1b29dd6f55a6a1d86fcb8bfbcf76"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#a11c2099e8386a85ee242d49448ac1760">const_item_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a937f1b29dd6f55a6a1d86fcb8bfbcf76">items_end</a> () const</td></tr>
+<tr class="memitem:a937f1b29dd6f55a6a1d86fcb8bfbcf76"><td class="memItemLeft" align="right" valign="top"><a id="a937f1b29dd6f55a6a1d86fcb8bfbcf76"></a>
+<a class="el" href="classgeom_1_1_tree.html#a11c2099e8386a85ee242d49448ac1760">const_item_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a937f1b29dd6f55a6a1d86fcb8bfbcf76">items_end</a> () const</td></tr>
+<tr class="memdesc:a937f1b29dd6f55a6a1d86fcb8bfbcf76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return an iterator just beyond the last (const) leaf item in the tree. <br /></td></tr>
 <tr class="separator:a937f1b29dd6f55a6a1d86fcb8bfbcf76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65ebe20469a47203a53422653cf5afdd"><td class="memItemLeft" align="right" valign="top"><a id="a65ebe20469a47203a53422653cf5afdd"></a>
+<a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a65ebe20469a47203a53422653cf5afdd">subtree_begin</a> (const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;root)</td></tr>
+<tr class="memdesc:a65ebe20469a47203a53422653cf5afdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the first node in a contiguous block of nodes in the subtree rooted at <code>root</code> (excluding <code>root</code> itself). <br /></td></tr>
+<tr class="separator:a65ebe20469a47203a53422653cf5afdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbe935453dbf6b1f51a9a6e2fe324a01"><td class="memItemLeft" align="right" valign="top"><a id="afbe935453dbf6b1f51a9a6e2fe324a01"></a>
+<a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#afbe935453dbf6b1f51a9a6e2fe324a01">subtree_end</a> (const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;root)</td></tr>
+<tr class="memdesc:afbe935453dbf6b1f51a9a6e2fe324a01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the last (off-end) node in a contiguous block of nodes in the subtree rooted at <code>root</code>. <br /></td></tr>
+<tr class="separator:afbe935453dbf6b1f51a9a6e2fe324a01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49f181a1381a478cdad069d61e8e2e3b"><td class="memItemLeft" align="right" valign="top"><a id="a49f181a1381a478cdad069d61e8e2e3b"></a>
+<a class="el" href="classgeom_1_1_tree.html#acdbd2626c510eaae84369fb16d184b07">const_node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a49f181a1381a478cdad069d61e8e2e3b">subtree_begin</a> (const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;root) const</td></tr>
+<tr class="memdesc:a49f181a1381a478cdad069d61e8e2e3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the first node in a contiguous block of nodes in the subtree rooted at <code>root</code> (excluding <code>root</code> itself). <br /></td></tr>
+<tr class="separator:a49f181a1381a478cdad069d61e8e2e3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8e9b2d2334f4c0a6fa191b118cef8f6"><td class="memItemLeft" align="right" valign="top"><a id="af8e9b2d2334f4c0a6fa191b118cef8f6"></a>
+<a class="el" href="classgeom_1_1_tree.html#acdbd2626c510eaae84369fb16d184b07">const_node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#af8e9b2d2334f4c0a6fa191b118cef8f6">subtree_end</a> (const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;root) const</td></tr>
+<tr class="memdesc:af8e9b2d2334f4c0a6fa191b118cef8f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the last (off-end) node in a contiguous block of nodes in the subtree rooted at <code>root</code>. <br /></td></tr>
+<tr class="separator:af8e9b2d2334f4c0a6fa191b118cef8f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0cbb6995c58805b10100f39652a7cac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#ae0cbb6995c58805b10100f39652a7cac">find_parent</a> (const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;ancestor, const <a class="el" href="classgeom_1_1_tree.html#ae777874928fa873c326f73904604b92d">item_iterator</a> &amp;i) const</td></tr>
+<tr class="memdesc:ae0cbb6995c58805b10100f39652a7cac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exhaustively search for the direct parent node of item <code>i</code> in the subtree rooted at <code>ancestor</code>.  <a href="#ae0cbb6995c58805b10100f39652a7cac">More...</a><br /></td></tr>
 <tr class="separator:ae0cbb6995c58805b10100f39652a7cac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c96bcdd6de576785c797f7e2c789090"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#ae777874928fa873c326f73904604b92d">item_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a4c96bcdd6de576785c797f7e2c789090">insert</a> (const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;parent, const LeafItem &amp;obj)</td></tr>
+<tr class="memdesc:a4c96bcdd6de576785c797f7e2c789090"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert the given item into the tree under the given node.  <a href="#a4c96bcdd6de576785c797f7e2c789090">More...</a><br /></td></tr>
 <tr class="separator:a4c96bcdd6de576785c797f7e2c789090"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a583e3f63ef6b5b3ab86483741ac029ec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a583e3f63ef6b5b3ab86483741ac029ec">insert_child_node</a> (const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;node, const NodeItem &amp;obj)</td></tr>
+<tr class="memdesc:a583e3f63ef6b5b3ab86483741ac029ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert a new tree node under the given node.  <a href="#a583e3f63ef6b5b3ab86483741ac029ec">More...</a><br /></td></tr>
 <tr class="separator:a583e3f63ef6b5b3ab86483741ac029ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52fe4319f86043cdd3ad24a524c9ea79"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a52fe4319f86043cdd3ad24a524c9ea79">insert_sibling_node</a> (const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;insert_before, const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;parent, const NodeItem &amp;obj)</td></tr>
+<tr class="memdesc:a52fe4319f86043cdd3ad24a524c9ea79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert a new tree node to the left of <code>insert_before</code>, under <code>parent</code>.  <a href="#a52fe4319f86043cdd3ad24a524c9ea79">More...</a><br /></td></tr>
 <tr class="separator:a52fe4319f86043cdd3ad24a524c9ea79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7afc115ff0d591abea705998654e7dc"><td class="memTemplParams" colspan="2">template&lt;typename NodeItemIterator &gt; </td></tr>
 <tr class="memitem:ad7afc115ff0d591abea705998654e7dc"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#ad7afc115ff0d591abea705998654e7dc">insert_sibling_nodes</a> (const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;insert_before, const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;parent, const NodeItemIterator &amp;i_begin, const NodeItemIterator &amp;i_end)</td></tr>
+<tr class="memdesc:ad7afc115ff0d591abea705998654e7dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert new tree nodes to the left of <code>insert_before</code>, under <code>parent</code>.  <a href="#ad7afc115ff0d591abea705998654e7dc">More...</a><br /></td></tr>
 <tr class="separator:ad7afc115ff0d591abea705998654e7dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a05a4eaaf9623bd63441faa4583757753"><td class="memTemplParams" colspan="2">template&lt;typename Func , typename P &gt; </td></tr>
 <tr class="memitem:a05a4eaaf9623bd63441faa4583757753"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a05a4eaaf9623bd63441faa4583757753">split</a> (<a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;node, Func compare, P pivot, NodeItem &amp;obj)</td></tr>
+<tr class="memdesc:a05a4eaaf9623bd63441faa4583757753"><td class="mdescLeft">&#160;</td><td class="mdescRight">Split <code>node</code> into two sibling nodes.  <a href="#a05a4eaaf9623bd63441faa4583757753">More...</a><br /></td></tr>
 <tr class="separator:a05a4eaaf9623bd63441faa4583757753"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c14711927d243df9da93627c5257cbd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#ae777874928fa873c326f73904604b92d">item_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a6c14711927d243df9da93627c5257cbd">erase</a> (const <a class="el" href="classgeom_1_1_tree.html#ae777874928fa873c326f73904604b92d">item_iterator</a> &amp;item, const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;ancestor)</td></tr>
+<tr class="memdesc:a6c14711927d243df9da93627c5257cbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove an item from the tree which is a descendent of the node <code>ancestor</code>.  <a href="#a6c14711927d243df9da93627c5257cbd">More...</a><br /></td></tr>
 <tr class="separator:a6c14711927d243df9da93627c5257cbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2c393c4efde99ee5d6366f37edf3548"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#ae777874928fa873c326f73904604b92d">item_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#aa2c393c4efde99ee5d6366f37edf3548">erase</a> (const <a class="el" href="classgeom_1_1_tree.html#ae777874928fa873c326f73904604b92d">item_iterator</a> &amp;item)</td></tr>
+<tr class="memdesc:aa2c393c4efde99ee5d6366f37edf3548"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove an item from the tree.  <a href="#aa2c393c4efde99ee5d6366f37edf3548">More...</a><br /></td></tr>
 <tr class="separator:aa2c393c4efde99ee5d6366f37edf3548"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6288b6c241eafc6ad98ab1fe97587215"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a6288b6c241eafc6ad98ab1fe97587215">clear</a> (const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;node)</td></tr>
+<tr class="memitem:a6288b6c241eafc6ad98ab1fe97587215"><td class="memItemLeft" align="right" valign="top"><a id="a6288b6c241eafc6ad98ab1fe97587215"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a6288b6c241eafc6ad98ab1fe97587215">clear</a> (const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;node)</td></tr>
+<tr class="memdesc:a6288b6c241eafc6ad98ab1fe97587215"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty <code>node</code> of all child nodes and descendent items. <br /></td></tr>
 <tr class="separator:a6288b6c241eafc6ad98ab1fe97587215"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f770d47abea5b9cba92e5710af6ae04"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a0f770d47abea5b9cba92e5710af6ae04">erase</a> (const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;node)</td></tr>
+<tr class="memdesc:a0f770d47abea5b9cba92e5710af6ae04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the subtree and its root at <code>node</code>, including all its leaf items.  <a href="#a0f770d47abea5b9cba92e5710af6ae04">More...</a><br /></td></tr>
 <tr class="separator:a0f770d47abea5b9cba92e5710af6ae04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdadb5be5024ffa343d7f3cbafc5e558"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#abdadb5be5024ffa343d7f3cbafc5e558">flatten</a> (const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;node)</td></tr>
+<tr class="memitem:abdadb5be5024ffa343d7f3cbafc5e558"><td class="memItemLeft" align="right" valign="top"><a id="abdadb5be5024ffa343d7f3cbafc5e558"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#abdadb5be5024ffa343d7f3cbafc5e558">flatten</a> (const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;node)</td></tr>
+<tr class="memdesc:abdadb5be5024ffa343d7f3cbafc5e558"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recursively remove all the children of <code>node</code>, and take ownership of all items beneath them. <br /></td></tr>
 <tr class="separator:abdadb5be5024ffa343d7f3cbafc5e558"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -187,137 +228,6 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
   </dd>
 </dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad82100fde5705b4b7f0f3e473a3b7a68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad82100fde5705b4b7f0f3e473a3b7a68">&#9670;&nbsp;</a></span>begin() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> begin </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Return an iterator pointing at the root tree node. Use <code>+i</code> and <code>-i</code> to ascend and descend to the first-child and parent nodes respectively. <code>++i</code> and <code>--i</code> navigate the tree in breadth-first order, and can therefore be used to find the next and previous siblings. </p>
-
-</div>
-</div>
-<a id="a00de11b29bcbc81323bce607802b472d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00de11b29bcbc81323bce607802b472d">&#9670;&nbsp;</a></span>begin() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_tree.html#acdbd2626c510eaae84369fb16d184b07">const_node_iterator</a> begin </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Return a const iterator pointing at the root tree node. Use <code>+i</code> and <code>-i</code> to ascend and descend to the first-child and parent nodes respectively. <code>++i</code> and <code>--i</code> navigate the tree in breadth-first order, and can therefore be used to find the next and previous siblings. </p>
-
-</div>
-</div>
-<a id="a6288b6c241eafc6ad98ab1fe97587215"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6288b6c241eafc6ad98ab1fe97587215">&#9670;&nbsp;</a></span>clear()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void clear </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;&#160;</td>
-          <td class="paramname"><em>node</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Empty <code>node</code> of all child nodes and descendent items. </p>
-
-</div>
-</div>
-<a id="a4522f956a262bb379743238c48041bd4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4522f956a262bb379743238c48041bd4">&#9670;&nbsp;</a></span>end() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> end </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Return an iterator pointing beyond the last node in the tree; conceptually the parent of the root. </p>
-
-</div>
-</div>
-<a id="abe50ea780c22d59588c69b36842be72a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe50ea780c22d59588c69b36842be72a">&#9670;&nbsp;</a></span>end() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_tree.html#acdbd2626c510eaae84369fb16d184b07">const_node_iterator</a> end </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Return a const iterator pointing beyond the last node in the tree in breadth-first order; conceptually the parent of the root. </p>
-
-</div>
-</div>
 <a id="a6c14711927d243df9da93627c5257cbd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6c14711927d243df9da93627c5257cbd">&#9670;&nbsp;</a></span>erase() <span class="overload">[1/3]</span></h2>
 
@@ -351,7 +261,9 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Remove an item from the tree which is a descendent of the node <code>ancestor</code>. If <code>item</code> is not in the subtree, the tree will be unchanged.</p>
+
+<p>Remove an item from the tree which is a descendent of the node <code>ancestor</code>. </p>
+<p>If <code>item</code> is not in the subtree, the tree will be unchanged.</p>
 <p>Providing a close ancestor of <code>item</code> reduces the cost of finding <code>item</code>'s parent in the tree before removal. In general, an <code>O(n * log(n))</code> search is performed to find the direct parent of <code>item</code>, where <code>n</code> is the size of the subtree belonging to <code>ancestor</code>.</p>
 <dl class="section return"><dt>Returns</dt><dd>An iterator pointing to the position of the item just beyond the one that was deleted. This will be <code>parent.items_end()</code> if the deleted item was the last one in its parent node. </dd></dl>
 
@@ -380,9 +292,10 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Remove an item from the tree.</p>
+
+<p>Remove an item from the tree. </p>
 <p>Performs an <code>n log(n)</code> search through the node from which <code>item</code> was obtained, where <code>n</code> is the number of items in that node's subtree.</p>
-<dl class="section return"><dt>Returns</dt><dd>An iterator pointing to the position of the item just beyond the one that was deleted, or <code><a class="el" href="classgeom_1_1_tree.html#a1bd962b430fd2d4cabc704274f52a1db">items_end()</a></code> if it was the last one in the tree. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>An iterator pointing to the position of the item just beyond the one that was deleted, or <code><a class="el" href="classgeom_1_1_tree.html#a1bd962b430fd2d4cabc704274f52a1db" title="Return an iterator just beyond the last leaf item in the tree. ">items_end()</a></code> if it was the last one in the tree. </dd></dl>
 
 </div>
 </div>
@@ -409,7 +322,8 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Remove the subtree and its root at <code>node</code>, including all its leaf items.</p>
+
+<p>Remove the subtree and its root at <code>node</code>, including all its leaf items. </p>
 <p><code>node</code> may not be the root node; if the root is given, the tree is unchanged.</p>
 <dl class="section return"><dt>Returns</dt><dd>An iterator pointing to the position of the node following the deleted one (which may be <code>parent.end()</code>). </dd></dl>
 
@@ -448,35 +362,9 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Exhaustively search for the direct parent node of item <code>i</code> in the subtree rooted at <code>ancestor</code>.</p>
-<p>If <code>i</code> is not in the subtree under <code>node</code>, then return <code><a class="el" href="classgeom_1_1_tree.html#a4522f956a262bb379743238c48041bd4">end()</a></code>. </p>
 
-</div>
-</div>
-<a id="abdadb5be5024ffa343d7f3cbafc5e558"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdadb5be5024ffa343d7f3cbafc5e558">&#9670;&nbsp;</a></span>flatten()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void flatten </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;&#160;</td>
-          <td class="paramname"><em>node</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Recursively remove all the children of <code>node</code>, and take ownership of all items beneath them. </p>
+<p>Exhaustively search for the direct parent node of item <code>i</code> in the subtree rooted at <code>ancestor</code>. </p>
+<p>If <code>i</code> is not in the subtree under <code>node</code>, then return <code>end()</code>. </p>
 
 </div>
 </div>
@@ -513,9 +401,10 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Insert the given item into the tree under the given node.</p>
+
+<p>Insert the given item into the tree under the given node. </p>
 <p><code>node</code> must be a leaf node; i.e. one with no child nodes, so that placement of <code>obj</code> is not ambiguous. If <code>node</code> is not a leaf node, the tree is unchanged.</p>
-<dl class="section return"><dt>Returns</dt><dd>An iterator to the newly placed item, or <code><a class="el" href="classgeom_1_1_tree.html#a1bd962b430fd2d4cabc704274f52a1db">items_end()</a></code> if <code>node</code> is not a leaf node. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>An iterator to the newly placed item, or <code><a class="el" href="classgeom_1_1_tree.html#a1bd962b430fd2d4cabc704274f52a1db" title="Return an iterator just beyond the last leaf item in the tree. ">items_end()</a></code> if <code>node</code> is not a leaf node. </dd></dl>
 
 </div>
 </div>
@@ -552,7 +441,9 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Insert a new tree node under the given node. If the created node is the first child of <code>node</code>, then it will contain all of <code>node</code>'s <code>LeafItems</code>, otherwise it will be empty. (This guarantees that all leaf items have a parent node which is a leaf node).</p>
+
+<p>Insert a new tree node under the given node. </p>
+<p>If the created node is the first child of <code>node</code>, then it will contain all of <code>node</code>'s <code>LeafItems</code>, otherwise it will be empty. (This guarantees that all leaf items have a parent node which is a leaf node).</p>
 <dl class="section return"><dt>Returns</dt><dd>The inserted node. </dd></dl>
 
 </div>
@@ -596,8 +487,9 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Insert a new tree node to the left of <code>insert_before</code>, under <code>parent</code>.</p>
-<p>If <code>insert_before</code> is the root node, or if <code>insert_before</code> is not a child (or end-child) of <code>parent</code>, then the tree is unaffected and <code><a class="el" href="classgeom_1_1_tree.html#a4522f956a262bb379743238c48041bd4">end()</a></code> is returned. Otherwise, the new node is returned. </p>
+
+<p>Insert a new tree node to the left of <code>insert_before</code>, under <code>parent</code>. </p>
+<p>If <code>insert_before</code> is the root node, or if <code>insert_before</code> is not a child (or end-child) of <code>parent</code>, then the tree is unaffected and <code>end()</code> is returned. Otherwise, the new node is returned. </p>
 
 </div>
 </div>
@@ -646,8 +538,9 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Insert new tree nodes to the left of <code>insert_before</code>, under <code>parent</code>.</p>
-<p>If <code>insert_before</code> is the root node, or if <code>insert_before</code> is not a child (or end-child) of <code>parent</code>, then the tree is unaffected and <code><a class="el" href="classgeom_1_1_tree.html#a4522f956a262bb379743238c48041bd4">end()</a></code> is returned. Otherwise, the new node is returned.</p>
+
+<p>Insert new tree nodes to the left of <code>insert_before</code>, under <code>parent</code>. </p>
+<p>If <code>insert_before</code> is the root node, or if <code>insert_before</code> is not a child (or end-child) of <code>parent</code>, then the tree is unaffected and <code>end()</code> is returned. Otherwise, the new node is returned.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">insert_before</td><td>A node_iterator pointing to the sibling just after the last new node to be inserted. </td></tr>
@@ -660,8 +553,8 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
 
 </div>
 </div>
-<a id="aaaef0ca860b304a41dfb1e7d540a48a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaaef0ca860b304a41dfb1e7d540a48a2">&#9670;&nbsp;</a></span>items_begin() <span class="overload">[1/2]</span></h2>
+<a id="a9c89bd5f29f203eb92ed32c02dddb869"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c89bd5f29f203eb92ed32c02dddb869">&#9670;&nbsp;</a></span>nodes_begin() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -670,7 +563,7 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_tree.html#ae777874928fa873c326f73904604b92d">item_iterator</a> items_begin </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> nodes_begin </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -682,12 +575,14 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Return an iterator pointing at the first leaf item in the tree. </p>
+
+<p>Return an iterator pointing at the root tree node. </p>
+<p>Use <code>+i</code> and <code>-i</code> to ascend and descend to the first-child and parent nodes respectively. <code>++i</code> and <code>--i</code> navigate the tree in breadth-first order, and can therefore be used to find the next and previous siblings. </p>
 
 </div>
 </div>
-<a id="a15e907114251699dd596e7ae4246f212"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a15e907114251699dd596e7ae4246f212">&#9670;&nbsp;</a></span>items_begin() <span class="overload">[2/2]</span></h2>
+<a id="ad398e3ccbb170ab1272fe6b9579a7d4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad398e3ccbb170ab1272fe6b9579a7d4d">&#9670;&nbsp;</a></span>nodes_begin() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -696,7 +591,7 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_tree.html#a11c2099e8386a85ee242d49448ac1760">const_item_iterator</a> items_begin </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_tree.html#acdbd2626c510eaae84369fb16d184b07">const_node_iterator</a> nodes_begin </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -708,12 +603,14 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Return an iterator pointing at the first (const) leaf item in the tree. </p>
+
+<p>Return a const iterator pointing at the root tree node. </p>
+<p>Use <code>+i</code> and <code>-i</code> to ascend and descend to the first-child and parent nodes respectively. <code>++i</code> and <code>--i</code> navigate the tree in breadth-first order, and can therefore be used to find the next and previous siblings. </p>
 
 </div>
 </div>
-<a id="a1bd962b430fd2d4cabc704274f52a1db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1bd962b430fd2d4cabc704274f52a1db">&#9670;&nbsp;</a></span>items_end() <span class="overload">[1/2]</span></h2>
+<a id="a14edd5e784b0845c30c46950f18e94cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14edd5e784b0845c30c46950f18e94cf">&#9670;&nbsp;</a></span>nodes_end() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -722,7 +619,7 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_tree.html#ae777874928fa873c326f73904604b92d">item_iterator</a> items_end </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> nodes_end </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -734,12 +631,14 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Return an iterator just beyond the last leaf item in the tree. </p>
+
+<p>Return an iterator pointing beyond the last node in the tree. </p>
+<p>This node is conceptually the parent of the root. </p>
 
 </div>
 </div>
-<a id="a937f1b29dd6f55a6a1d86fcb8bfbcf76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a937f1b29dd6f55a6a1d86fcb8bfbcf76">&#9670;&nbsp;</a></span>items_end() <span class="overload">[2/2]</span></h2>
+<a id="ae936f55f8abe9092b8a9a4d990688c42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae936f55f8abe9092b8a9a4d990688c42">&#9670;&nbsp;</a></span>nodes_end() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -748,7 +647,7 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_tree.html#a11c2099e8386a85ee242d49448ac1760">const_item_iterator</a> items_end </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_tree.html#acdbd2626c510eaae84369fb16d184b07">const_node_iterator</a> nodes_end </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -760,7 +659,9 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Return an iterator just beyond the last (const) leaf item in the tree. </p>
+
+<p>Return an iterator pointing beyond the last node in the tree. </p>
+<p>This node is conceptually the parent of the root. </p>
 
 </div>
 </div>
@@ -809,7 +710,9 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Split <code>node</code> into two sibling nodes. A new node will be created to the left of <code>node</code>, and the items of <code>node</code> will be split between them according to the result of <code>compare(item, pivot)</code>: If the comparison is less than zero, the item will be moved to the left (new) node. Otherwise, it will remain in the right (existing) node.</p>
+
+<p>Split <code>node</code> into two sibling nodes. </p>
+<p>A new node will be created to the left of <code>node</code>, and the items of <code>node</code> will be split between them according to the result of <code>compare(item, pivot)</code>: If the comparison is less than zero, the item will be moved to the left (new) node. Otherwise, it will remain in the right (existing) node.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">node</td><td>The node to split; a non-root node with no child nodes. </td></tr>
@@ -828,7 +731,7 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed May 3 2017 10:42:13 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu May 4 2017 00:44:06 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
