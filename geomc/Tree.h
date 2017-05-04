@@ -46,7 +46,7 @@ class Tree {
              const NodeItem& obj): // xxx move semantics?
                 parent(parent),
                 child_first (t->m_nodes.end()),
-                child_last  (t->m_nodes.end()),
+                child_last  (t->m_nodes.end()), 
                 items_first (t->m_items.end()),
                 items_last  (t->m_items.end()),
                 n_items     (0),
@@ -345,7 +345,7 @@ public:
     }
     
     
-    // Construct a new tree from the subtree in `tree` rooted at `n`.
+    /// Construct a new tree from the subtree in `tree` rooted at `n`.
     Tree(const Tree<NodeItem, LeafItem>& tree, node_iterator n):
             m_nodes(n.begin().node, tree.node_successor(n.node)),
             m_items(n.items_begin().item, n.items_end().item) {
@@ -446,8 +446,7 @@ public:
     
     
     /**
-     * Return the direct parent node of item `i` in subtree rooted at `ancestor` by performing a depth-first 
-     * search in `n * log(n)` time.
+     * Exhaustively search for the direct parent node of item `i` in the subtree rooted at `ancestor`.
      *
      * If `i` is not in the subtree under `node`, then return `end()`.
      */
@@ -455,6 +454,7 @@ public:
         NodeRef subtree_last = node_successor(ancestor.node);
         for (NodeRef n = ancestor.node; n != subtree_last; ++n) {
             if (n->n_children == 0) {
+                ItemRef end_item = n->items_last; ++end_item;
                 for (ItemRef j = n->items_first; j != end_item; ++j) {
                     if (j == i.item) return n;
                 }
@@ -907,12 +907,14 @@ protected:
     // of another tree's internal node list.
     void recalculate_references() {
         NodeRef nod = m_nodes.begin();
-        NodeRef begin_child = node; ++begin_child;
+        NodeRef begin_child = nod; ++begin_child;
         ItemRef begin_items = m_items.begin();
         
         for (; nod != m_nodes.end(); ++nod) {
+            nod->child_first = nod->child_last = (nod->n_children > 0) ? begin_child : m_nodes.end();
+            nod->items_first = nod->items_last = (nod->n_items    > 0) ? begin_items : m_items.end();
+            
             if (nod->n_children > 0) {
-                nod->child_first = nod->child_last = begin_child;
                 nod->child_first->parent = nod;
                 
                 // acquire direct children
@@ -924,25 +926,20 @@ protected:
                 // move the node "free space"
                 begin_child = nod->child_last; ++begin_child;
             } else {
-                nod->child_first = nod->child_last = nodes.end();
-                
                 if (n->n_items > 0) {
-                    nod->items_first = nod->items_last = begin_items;
                     for (index_t i = 0; i < nod->n_items - 1; ++i) {
                         ++nod->items_last;
                     }
-                    
                     // move the item "free space"
                     begin_items = nod->items_last; ++begin_items;
-                } else {
-                    nod->items_first = nod->items_last = items.end();
                 }
-                
+                    
                 // fixup the items_end along the right edge of this subtree.
                 NodeRef descendent = nod;
+                ItemRef end_item = begin_items; --end_item;
                 for (NodeRef ancestor = nod->parent; ancestor != m_nodes.end(); descendent = ancestor, ancestor = ancestor->parent) {
                     if (ancestor->child_last == descendent) {
-                        ancestor->items_last = nod->items_last;
+                        if (ancestor->n_items > 0) ancestor->items_last = end_item;
                     } else {
                         break;
                     }
