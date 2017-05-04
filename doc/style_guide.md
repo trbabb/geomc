@@ -35,7 +35,19 @@ It is good to highlight parallel structure by aligning similar elements vertical
     int myvar_2   =  func(2, 255, 0);
     int myvar_3   = thing(1,   0, 0);
 
-This makes it easy to examine similarities and differences, reducing mental workload. When in doubt about whether to justify left or right, prefer to keep digit places and matching text vertically aligned. Do not displace the beginning of a line, as it destroys the indentation.
+This makes it easy to examine similarities and differences, reducing mental workload, and making errors much easier to find. Here's an example:
+
+    if (a_n->n_items != b_n->n_items) return false;
+    if (a_n->n_children != a_n->n_children) return false;
+    if (a_n->data != b_n->data) return false;
+
+With vertical alignment, the code is much easier to read. The alignment also highlights that `b_n` has been mistyped as `a_n` on the second row:
+
+    if (a_n->n_items    != b_n->n_items)    return false;
+    if (a_n->n_children != a_n->n_children) return false;
+    if (a_n->data       != b_n->data)       return false;
+
+When in doubt about whether to justify left or right, prefer to keep digit places and matching text vertically aligned. Do not displace the beginning of a line, as it destroys the indentation.
 
 This principle is not restricted to blocks of assignments; it works elsewhere:
 
@@ -92,7 +104,7 @@ Long or complicatedly-nested function calls should break each top-level argument
                 anotherFunctionCall(5, z, 22),
                 K_NUM_DOLPHINS);
 
-Complicated function definitions should obey the same rule: Long argument lists are broken into one per line, though closely-related sets of arguments may share a line. Wrapped arguments should be indented one block beyond the function body:
+Complicated function signatures should obey the same rule: Long argument lists are broken into one per line, though closely-related sets of arguments may share a line. Wrapped arguments should be indented one block beyond the function body:
 
     int someFunction(
             int arg1,
@@ -102,6 +114,13 @@ Complicated function definitions should obey the same rule: Long argument lists 
             SomeClass* myFoo) {
         // body goes here
         // ...
+    }
+
+Simpler function signatures which fit onto a single line should be kept that way:
+
+    // simple function definition stays on one line:
+    Matrix mult(const Matrix& a, const Matrix& b) {
+        //...
     }
 
 Line breaks
