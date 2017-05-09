@@ -514,110 +514,32 @@ public:
     item_iterator insert(const node_iterator& parent, const LeafItem& obj) { // todo: move semantics?
         if (parent.nodes() > 0) return items.end();
         
-        // this is a bit complex and special case-y, but fundamentally it is O(log(n)).
-        // we will walk the tree vertically from the insertion node at least once and at most twice.
-        // most of this complexity has to do with handling the case where the new item becomes
-        // the new first_item or last_item of its ancestor(s). furthermore, the bulk of this is only
-        // paid when the first item is added to an empty node.
-        
-        ItemRef new_item;
-        NodeRef ancestor = parent.node;
+        NodeRef node = parent.node;
+        ItemRef prev_item;
+        ItemRef insert_pos;
         
         if (parent.item_count() > 0) {
-            // basic/common case: node already has items.
-            ItemRef old_item = ancestor->items_first;
-            ItemRef insert_pos = old_item; ++insert_pos;
-            new_item = m_items.insert(insert_pos, obj);
-            
-            // walk up the tree updating the boundary (if necessary) and the item count.
-            while (ancestor != m_nodes.end()) {
-                ancestor->n_items++;
-                if (ancestor->items_last == old_item) {
-                    ancestor->items_last = new_item;
-                }
-                ancestor = ancestor->parent;
-            }
+            // node already has items.
+            prev_item = node->items_last;
+            insert_pos = prev_item; ++insert_pos;
         } else {
             // adding the first item to an empty node.
-            // find the first ancestor with childen
-            NodeRef cur_node = parent.node;
-            while (cur_node->n_items == 0 and cur_node->parent != m_nodes.end()) {
-                ancestor = cur_node;
-                cur_node = cur_node->parent;
+            insert_pos = item_successor(node);
+            prev_item = insert_pos; --prev_item;
+        }
+        
+        ItemRef new_item = m_items.insert(insert_pos, obj);
+        
+        // walk upwards from the item's parent, updating the item count and boundary items.
+        while (node != m_nodes.end()) {
+            if (node->items_first == insert_pos or node->n_items == 0) {
+                node->items_first = new_item;
             }
-            
-            // find a populated subtree adjacent to the inserted item's ancestor.
-            // to ensure that items are contiguous in a tree, we must place the new item between them.
-            NodeRef populated_left  = m_nodes.end();
-            NodeRef populated_right = m_nodes.end();
-            bool hit_child = false;
-            // walk the children of cur_node looking for a populated subtree.
-            for (NodeRef sibling = cur_node->child_first; true; ++sibling) {
-                if (sibling == ancestor) {
-                    hit_child = true; // child abuse
-                    continue;
-                }
-                if (sibling->n_items > 0) {
-                    // found a populated subtree.
-                    if (not hit_child) {
-                        // it's on the left side of the ancestor.
-                        populated_left = sibling;
-                    } else {
-                        // it's on the right side of the ancestor.
-                        populated_right = sibling;
-                        break; // can't discover any new info now.
-                    }
-                }
-                if (sibling == cur_node->child_last) break;
+            if (node->items_last == prev_item or node->n_items == 0) {
+                node->items_last = new_item;
             }
-            
-            // place the new item between a populated subtree and the current one.
-            bool empty_root = false;
-            if (populated_left != m_nodes.end()) {
-                // populated subtree is to the left of us; place new item to the right of it
-                ItemRef tmp = populated_left->child_last; ++tmp;
-                new_item = m_items.insert(tmp, obj);
-            } else {
-                if (populated_right != m_nodes.end()) {
-                    // populated subtree is to the right of us; place new item to the left of it
-                    new_item = m_items.insert(populated_right->child_first, obj);
-                } else {
-                    // empty root node.
-                    new_item = m_items.insert(m_items.end(), obj);
-                    cur_node->items_first = cur_node->items_last = new_item;
-                    empty_root = true;
-                }
-            }
-            
-            // update the boundaries of the parent subtree, if necessary.
-            // we may have inserted an item on the "outside" of the parent's first/last child.
-            // (because we have at least one sibling to the left or right of us with items,
-            // this can only happen on one of the two boundaries).
-            if ((populated_left == m_nodes.end() or populated_right == m_nodes.end()) and not empty_root) {
-                bool left_edge = populated_left == m_nodes.end(); // was it the left edge that was empty?
-                ItemRef old_edge = (left_edge) ? (cur_node->items_first) : (cur_node->items_last);
-                while (cur_node != m_nodes.end()) {
-                    NodeRef& update = (left_edge) ? (cur_node->items_first) : (cur_node->items_last);
-                    if (update == old_edge) {
-                        update = new_item;
-                    } else {
-                        break;
-                    }
-                    cur_node = cur_node->parent;
-                }
-            }
-            
-            // walk upwards from the item's parent.
-            // - update the item counts
-            // - set the boundary items for all newly-nonempty ancestors of the placed item
-            ancestor = parent.node;
-            while (ancestor != m_nodes.end()) {
-                ancestor->n_items++;
-                if (ancestor->items_first == m_items.end()) {
-                    ancestor->items_first = ancestor->items_last = new_item;
-                }
-                ancestor = ancestor->parent;
-            }
+            node->n_items++;
+            node = node->parent;
         }
         
         return item_iterator(new_item, parent.node);
@@ -936,6 +858,8 @@ public:
         }
         
         // must have same total number of nodes; not just a matching prefix subtree.
+        // we don't check item_count() beforehand because it may not be stored, 
+        // and will thus doubly incur the linear cost we have pay above.
         if (not (a_n == m_nodes.end() and b_n == other.m_nodes.end()) return false;
         
         return true;
@@ -1050,6 +974,19 @@ protected:
             }
         }
         return successor;
+    }
+    
+    
+    // find the first item that occurs after where the last item owned by the given node would go, in tree order.
+    ItemRef item_successor(const NodeRef& node) const {
+        for (NodeRef parent = node->parent; parent != m_nodes.end(); node = parent, parent = node->parent) {
+            for (NodeRef end_c = parent->child_last; node != end_c; ++node) {
+                if (node->n_items > 0) {
+                    return node->items_first;
+                }
+            }
+        }
+        return m_items.end();
     }
     
 }; // class Tree
