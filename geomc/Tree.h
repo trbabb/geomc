@@ -546,6 +546,61 @@ public:
     }
     
     
+    /**
+     * @brief Insert multiple leaf items into the tree under the given node.
+     * 
+     * `node` must be a leaf node; i.e. one with no child nodes, so that placement of the new objects is not abiguous.
+     * If `node` is not a leaf node, the tree is unchanged.
+     *
+     * @return An iterator to the first newly placed item, or `items_end()` if no items were inserted, or `items_end()` if `node` is not a leaf node.
+     */
+    template <typename LeafItemIterator>
+    item_iterator insert(
+            const node_iterator& parent, 
+            const LeafItemIterator& first_item, 
+            const LeafItemIterator& off_end_item) {
+        if (parent.nodes() > 0) return item_iterator(items.end(), m_nodes.begin());
+        
+        NodeRef node = parent.node;
+        ItemRef prev_item;
+        ItemRef insert_pos;
+        
+        if (parent.item_count() > 0) {
+            // node already has items.
+            prev_item = node->items_last;
+            insert_pos = prev_item; ++insert_pos;
+        } else {
+            // adding the first item to an empty node.
+            insert_pos = item_successor(node);
+            prev_item = insert_pos; --prev_item;
+        }
+        
+        ItemRef last_new_item;
+        index_t n_new_items = 0;
+        for (LeafItemIterator i = first_item; i != off_end_item; ++i, ++n_new_items) {
+            new_item = m_items.insert(insert_pos, *i);
+        }
+        
+        // walk upwards from the item's parent, updating the item count and boundary items.
+        if (n_new_items > 0) {
+            ItemRef first_new_item = prev_item; ++first_new_item;
+            while (node != m_nodes.end()) {
+                if (node->items_first == insert_pos or node->n_items == 0) {
+                    node->items_first = first_new_item;
+                }
+                if (node->items_last == prev_item or node->n_items == 0) {
+                    node->items_last = last_new_item;
+                }
+                node->n_items += n_new_items;
+                node = node->parent;
+            }
+            return item_iterator(first_new_item, parent.node);
+        } else {
+            return item_iterator(items.end(), m_nodes.begin());
+        }
+    }
+    
+    
     /** 
      * @brief Insert a new tree node under the given node. 
      *
