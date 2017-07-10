@@ -28,7 +28,7 @@ Only single-line `if`s can be without braces:
 Blank lines
 -----------
 
-It is better if blank lines are indented to the same level as surrounding code; most editors can be configured to do this automatically (or at least not delete whitespace from blank lines). 
+It is more tidy if blank lines are indented to the same level as surrounding code; most editors can be configured to do this automatically (or at least not delete whitespace from blank lines). 
 
     void foo() {
     ····index_t a = // ...
@@ -38,6 +38,8 @@ It is better if blank lines are indented to the same level as surrounding code; 
     ········// ...
     ····}
     }
+
+This makes it a little nicer when adding a new comment or line of code into the blank space, especially on double blank lines between functions, as some editors only auto-indent based on the line above.
 
 Alignment
 -----------
