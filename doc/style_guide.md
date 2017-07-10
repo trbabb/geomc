@@ -24,7 +24,21 @@ Example:
 Only single-line `if`s can be without braces:
 
     if (test > 0) do_code(x);
-    
+
+Blank lines
+-----------
+
+It is better if blank lines are indented to the same level as surrounding code; most editors can be configured to do this automatically (or at least not delete whitespace from blank lines). 
+
+    void foo() {
+    ····index_t a = // ...
+    ····index_t b = // ...
+    ····
+    ····for (index_t i = 0; i < n; ++i) {
+    ····    // ...
+    ····}
+    }
+
 Alignment
 -----------
 
