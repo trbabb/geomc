@@ -1,1 +1,5 @@
 doc/gen
+
+.DS_Store
+*.log
+
