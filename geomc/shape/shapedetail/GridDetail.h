@@ -19,7 +19,7 @@ struct _ImplArrayOrder {
     BOOST_STATIC_ASSERT(N != N);
 };
 
-// this redundant bullshit is necessary because c++ is (say it with me) retarded.
+// this redundant bullshit is necessary because c++ is badly designed.
 // the partial specializations of the the static member variables each need to have
 // their own corresponding class template, we can't just specialize the static
 // variable by itself.

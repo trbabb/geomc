@@ -15,10 +15,10 @@
 namespace geom {
 namespace detail {
 
-// all of these bullshit helper classes are just c++'s utterly
-// retarded, roundabout way of providing the functionality of a
+// all of these bullsh*t helper classes are just c++'s utterly
+// backward, roundabout way of providing the functionality of a
 // templated conditionally-compiled code block. If those were 
-// just implemented directly, then this code wouldn't look so fucking 
+// just implemented directly, then this code wouldn't look so damn 
 // ugly. A pox on bjarne stroustrup for cursing humanity with his hideous 
 // troll language.
 

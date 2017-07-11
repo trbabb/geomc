@@ -273,7 +273,7 @@ public:
  * Used to inform the matrix base class about the     *
  * derived class's choice of iterator implementation. *
  *                                                    *
- * Because c++ is a retarded, broken language, it     *
+ * Because c++ is a stupid, broken language, it       *
  * cannot resolve type declaration dependencies if    *
  * the type definitions belong to the classes         *
  * themselves.                                        *

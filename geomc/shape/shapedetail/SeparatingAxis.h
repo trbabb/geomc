@@ -208,8 +208,8 @@ namespace detail {
                 for (index_t corner = 0; corner < n_corners; corner++) {
                     T b0_proj = axis.dot(b0_pts[corner]);
                     T b1_proj = axis.dot(b1_pts[corner]);
-                    b0_range.extendTo(b0_proj);
-                    b1_range.extendTo(b1_proj);
+                    b0_range |= b0_proj;
+                    b1_range |= b1_proj;
                 }
                 // no overlap on this axis; separating axis found.
                 if (not b0_range.intersects(b1_range)) return false;

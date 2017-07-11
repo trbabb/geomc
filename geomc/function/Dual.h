@@ -367,10 +367,21 @@ namespace std {
      */
     template <typename T>
     inline geom::Dual<T> pow(const geom::Dual<T> &base, const geom::Dual<T> &xp) {
+        // here we use the chain rule for partial derivatives:
+        //   f(x,y) = x ^ y
+        //   x = g(t); y = h(t)
+        // then:
+        //   df / dt = (df / dx) * (dx / dt) + (df / dy) * (dy / dt)
+        //           = (df / dx) * g`(t)     + (df / dy) * h`(t)
+        // and: 
+        //   df / dx = d/dx (x ^ y) = y * x ^ (y - 1)
+        //   df / dy = d/dy (x ^ y) = log(x) * (x ^ y)
         T a_c = pow(base.x, xp.x);
         return geom::Dual<T>(
                 a_c, 
-                base.dx * xp.x * a_c / xp.x + xp.dx * a_c * log(base.x));
+                base.dx * xp.x * a_c / xp.x +
+                xp.dx * a_c * log(base.x));
+        
     }
     
     

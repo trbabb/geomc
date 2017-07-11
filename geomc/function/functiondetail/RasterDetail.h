@@ -59,14 +59,14 @@ public:
 };
 
 // the following is completely unreadable
-// because c++ is utterly fucking retarded.
+// because c++ is utterly moronic.
 // this should all be in the main class, but
 // member functions cannot be specialized in-place
-// because c++ is, again, too fucking stupid to
+// because c++ is, again, too damn stupid to
 // perform the simple substitution transformtaion
 // applied here. therefore we make a fuckton of 
 // opaque helper classes, one for pretty much every 
-// single fucking member function. fuck me. 
+// single member function. fuck me. 
 // fuck c++. fuck bjarne stroustrup.
 
 /*************************

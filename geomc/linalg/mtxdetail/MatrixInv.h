@@ -12,11 +12,6 @@
 
 #include <geomc/linalg/LinalgTypes.h>
 #include <geomc/linalg/LUDecomp.h>
- 
- 
-#if defined(GEOMC_MTX_CHECK_BOUNDS) or defined(GEOMC_MTX_CHECK_DIMS)
-#include <geomc/GeomException.h>
-#endif
 
 namespace geom {
 namespace detail {
@@ -104,7 +99,7 @@ struct _ImplMtxInvRaw<T,4>{
     // prevent a little code bloat by templating over iterator type.
     // this allows all the "contiguous memory" matrices to share the
     // same inversion function. Would save even more bloat if we could
-    // assign back to <s> inside _inv(), but sadly c++ is fucking retarded
+    // assign back to <s> inside _inv(), but sadly c++ is dumb
     // and doesn't allow the array initialization syntax for assignments,
     // thus mandating two copies instead of one (one inside the function,
     // and one outside).

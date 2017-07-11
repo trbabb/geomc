@@ -118,7 +118,7 @@ public:
      *
      * Sets lower and upper bounds to the maximum and minimum values of `T`, respectively.
      *
-     * A union of any finite point or Rect with this empty rectangle will result in a Rect that exactly contains it.
+     * A union between this Rect and any finite shape is an identity operation.
      */
     Rect():
         mins(std::numeric_limits<T>::max()),
@@ -240,7 +240,7 @@ public:
     /**
      * @brief Point union.
      *
-     * Extend `this` to fully contain `b`. 
+     * Extend `this` to fully contain `p`. 
      * @return a reference to `this`, for convenience.
      */
     Rect<T,N>& operator|=(const point_t& p) {
@@ -274,10 +274,22 @@ public:
      * @brief Translation.
      * 
      * @param dx Amount by which to translate this region.
+     *   Add `dx` to the coordinates of all the bounds.
      * @return A translated Rect.
      */
     inline Rect<T,N> operator+(point_t dx) const {
         return Rect<T,N>(mins + dx, maxs + dx);
+    }
+    
+    /**
+     * @brief Translation.
+     * 
+     * @param dx Amount by which to translate this region.
+     *   Subtract `dx` from the coordinates of all the bounds.
+     * @return A translated Rect.
+     */
+    inline Rect<T,N> operator-(point_t dx) const {
+        return Rect<T,N>(mins - dx, maxs - dx);
     }
     
 
@@ -285,11 +297,26 @@ public:
      * @brief Translation.
      * 
      * @param dx Amount by which to translate this region.
+     *   Add `dx` to the coordinates of all the bounds.
      * @return  A reference to `this`, for convenience.
      */
     inline Rect<T,N>& operator+=(T dx) {
         maxs += dx;
         mins += dx;
+        return *this;
+    }
+    
+    
+    /**
+     * @brief Translation.
+     * 
+     * @param dx Amount by which to translate this region. 
+     *   Subtract `dx` from the coordinates of all the bounds.
+     * @return  A reference to `this`, for convenience.
+     */
+    inline Rect<T,N>& operator-=(T dx) {
+        maxs -= dx;
+        mins -= dx;
         return *this;
     }
 
@@ -376,7 +403,7 @@ public:
 
     /**
      * @return `true` if and only if `pt` is inside this rectangle.
-     * Lower extremes are inclusive, while upper are exclusive.
+     * Points on the surface of the Rect are considered to be contained by it.
      */
     bool contains(point_t pt) const {
         for (index_t axis = 0; axis < N; axis++) {
@@ -389,8 +416,8 @@ public:
     }
  
     /**
-     * @return `true` if an only if this region intersects with `box`. Lower extremes
-     * are considered inclusive, while upper are exclusive.
+     * @return `true` if an only if this region intersects with `box`.
+     * Points on the surface of the Rect are considered to be contained by it.
      */
     bool intersects(const Rect<T,N> &box) const {
         for (index_t axis = 0; axis < N; axis++) {
@@ -426,6 +453,9 @@ public:
 
     /**
      * @return The size of this region along each axis.
+     *
+     * Note that for integer type Rects, since this includes both the high and low boundaries,
+     * the length along each axis is `max - min + 1`.
      */
     inline point_t getDimensions() const {
         return maxs - mins + endpoint_measure;
@@ -558,6 +588,7 @@ public:
      * Values of `s` between 0 and 1 correspond to points inside this Rect.
      */
     point_t remap(point_t s) const {
+        // todo: template for integer type? beware endpoint measure.
        return (point_t(1) - s) * mins + s * maxs;
     }
     

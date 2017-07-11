@@ -99,7 +99,7 @@ public:
      * @param hi Upper extreme of the region (exclusive).
      */
     GridIterator(const point_t &lo, const point_t &hi):
-                region(lo,hi),
+                region(lo, hi - point_t(1)),
                 pt(lo) {}
     
     /**
@@ -120,7 +120,7 @@ public:
         other.pt = region.min();
         // one beyond the highest cell. i.e. first cell in
         // (N-1)D block just beyond the end of this region. 
-        other.pt[dim_last] = region.max()[dim_last];
+        other.pt[dim_last] = region.max()[dim_last] + 1;
         return other;
     }
     
@@ -134,7 +134,7 @@ private:
     
     inline void increment() { 
         for (index_t i = dim_first; 
-                i != dim_end and ++(pt[i]) >= region.max()[i]; 
+                i != dim_end and ++(pt[i]) > region.max()[i]; 
                 i += dim_increment) {
             if (i != dim_last) pt[i] = region.min()[i];
         }
@@ -171,7 +171,7 @@ private:
         index_t vol  = 1;
         for (index_t i = dim_first; i != dim_end; i += dim_increment) {
             dist += vol * jump[i];
-            vol  *= dim[i];
+            vol  *= std::max(dim[i], 0);
         }
         return dist;
     }
@@ -212,7 +212,7 @@ public:
             region(r),
             pt(region.min()) {}
     GridIterator(const point_t &lo, const point_t &hi):
-            region(lo,hi),
+            region(lo, hi + 1),
             pt(lo) {}
     
     inline GridIterator<T,1,Order> begin() const {
@@ -223,7 +223,7 @@ public:
     
     inline GridIterator<T,1,Order> end() const {
         GridIterator<T,1,Order> other = *this;
-        other.pt = region.max();
+        other.pt = region.max() + 1;
         return other;
     }
     

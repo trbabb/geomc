@@ -13,7 +13,7 @@ namespace geom {
 
 /////////////// GeomException ///////////////
 
-GeomException::GeomException(const char* msg):msg(msg) { /* do nothing */ }
+GeomException::GeomException(const char* msg) throw () : msg(msg) { /* do nothing */ }
 
 const char* GeomException::what() { return msg; }
 
@@ -33,4 +33,4 @@ NonsquareMatrixException::NonsquareMatrixException(index_t rows, index_t cols) t
         rows(rows), cols(cols) { /* do nothing */ }
 
 
-}
+} // namespace geom

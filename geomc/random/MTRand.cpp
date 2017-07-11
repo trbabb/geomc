@@ -11,7 +11,6 @@
  * NOT CRYPTOGRAPHICALLY SECURE! Don't use for cryptography/gambling
  */
 
-#include <cstdlib>
 #include <ctime>
 #include <limits>
 #include <geomc/random/MTRand.h>

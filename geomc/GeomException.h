@@ -16,7 +16,7 @@ namespace geom {
 
 class GeomException {
 public:
-    GeomException(const char* msg);
+    GeomException(const char* msg) throw ();
     
     const char* what();
     
