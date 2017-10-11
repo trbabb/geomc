@@ -175,8 +175,7 @@ bool decompPLU(T* m, index_t rows, index_t cols, index_t* reorder, bool* swap_pa
 template <typename T>
 void linearSolveLUP(const T* lup, const index_t* p, index_t n, T* x, const T* b) {
     const T* m = lup;       // so the macro works
-    const index_t rows = n; // ...
-    const index_t cols = n;
+    const index_t cols = n; // ...
     
     // <y> and <x>'s elements are used such that
     // y[i] is never read after x[i] is written.
@@ -217,8 +216,7 @@ void linearSolveLUP(const T* lup, const index_t* p, index_t n, T* x, const T* b)
 template <typename T>
 void linearSolveLUP(const T* lup, index_t n, T* x, const T* b) {
     const T* m = lup;       // so the macro works
-    const index_t rows = n; // ...
-    const index_t cols = n;
+    const index_t cols = n; // ...
     
     // <y> and <x>'s elements are used such that
     // y[i] is never read after x[i] is written.

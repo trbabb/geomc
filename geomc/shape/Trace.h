@@ -105,6 +105,8 @@ inline bool ray_csg_subtract(
         bool* hit_a,
         bool* hit_near,
         HitSide* side) {
+    // xxx: I don't think this is right.
+    // consider the concave part of a subtracted sphere.
     
     // csg subtract
     bool a_near = a_lo < b_hi;
@@ -133,7 +135,10 @@ inline bool ray_csg_subtract(
 
 
 /**
- * Ray trace a simplex (e.g. triangle, tetrahedron, etc.). 
+ * Ray trace a simplex (e.g. triangle, tetrahedron, etc.), returning
+ * barycentric coordinates for the hit point.
+ *
+ * This method is somewhat slower that using basis coordinates. 
  * 
  * @param verts An array of the simplex's N vertices.
  * @param ray The ray to intersect with the simplex.
@@ -143,7 +148,7 @@ inline bool ray_csg_subtract(
  * @return `true` if the ray hit the simplex.
  */
 template <typename T, index_t N>
-bool trace_simplex(const Vec<T,N> verts[N], const Ray<T,N>& ray, Vec<T,N>* bary_coords, T* s) {
+bool trace_simplex_barycentric(const Vec<T,N> verts[N], const Ray<T,N>& ray, Vec<T,N>* bary_coords, T* s) {
     /*  We solve by linear system of barycentric coordinates:   
     
         p * A + q * B + r * C      = o + sv
@@ -158,6 +163,7 @@ bool trace_simplex(const Vec<T,N> verts[N], const Ray<T,N>& ray, Vec<T,N>* bary_
     */
     
     // populate matrix as above
+    // todo: could formulate as row-major?
     SimpleMatrix<T,N+1,N+1> m;
     for (index_t row = 0; row < N; ++row) {
         for (index_t col = 0; col < N; ++col) {
@@ -168,10 +174,15 @@ bool trace_simplex(const Vec<T,N> verts[N], const Ray<T,N>& ray, Vec<T,N>* bary_
     }
     
     // solve for x
-    // todo: would mtx inverse be faster for small mtxs?
     Vec<T,N+1> x;
     Vec<T,N+1> b(ray.origin, 1);
-    if (!linearSolve(m.begin(), N+1, x.begin(), b.begin())) return false;
+    if (N < 4) {
+        SimpleMatrix<T,N+1,N+1> M_i;
+        if (!inv(&M_i, m)) return false;
+        x = M_i * b;
+    } else {
+        if (!linearSolve(m.begin(), N+1, x.begin(), b.begin())) return false;
+    }
     
     // inside simplex?
     for (index_t i = 0; i < N; ++i) {
@@ -181,6 +192,65 @@ bool trace_simplex(const Vec<T,N> verts[N], const Ray<T,N>& ray, Vec<T,N>* bary_
     // output result
     *s = x[N];
     *bary_coords = x.template resized<N>();
+    return true;
+}
+
+
+/**
+ * Ray trace a simplex (e.g. triangle, tetrahedron, etc.), returning
+ * the surface parameters of the hit point in coordinates of the basis formed
+ * by the edges radiating from `verts[0]`.
+ * 
+ * @param verts An array of the simplex's N vertices.
+ * @param ray The ray to intersect with the simplex.
+ * @param uv Buffer for the surface coordinates of the hitpoint. (return variable)
+ * @param s The ray parameter of the hit point. (return variable)
+ * @return `true` if the ray hit the simplex.
+ */
+template <typename T, index_t N>
+bool trace_simplex(const Vec<T,N> verts[N], const Ray<T,N>& ray, Vec<T,N-1>* uv, T* s) {
+    /* Solve for u,v coordinates along the edges radiating from `verts[0]`:
+    A + u(B-A) + v(C-A)      = o + sV
+        u(B-A) + v(C-A) - sV = o - A
+    Mx = o - A
+    */
+    
+    // todo: can formulate row-major?
+    
+    // populate matrix
+    SimpleMatrix<T,N,N> m;
+    for (index_t col = 1; col < N; ++col) {
+        Vec<T,N> v = verts[col] - verts[0];
+        for (index_t row = 0; row < N; ++row) {
+            m.set(row, col, v[row]);
+        }
+    }
+    for (index_t row = 0; row < N; ++row) {
+        m.set(row, N-1, -ray.direction[row]);
+    }
+    
+    // linear solve
+    Vec<T,N> x;
+    Vec<T,N> b = ray.origin - verts[0];
+    if (N < 5) {
+        SimpleMatrix<T,N,N> m_inv;
+        if (!inv(&m_inv, m)) return false;
+        x = m_inv * b;
+    } else {
+        if (!linearSolve(m.begin(), N, x.begin(), b.begin())) return false;
+    }
+    
+    // inside simplex?
+    T sum = 0;
+    for (index_t i = 0; i < N - 1; ++i) {
+        if (x[i] < 0) return false;
+        sum += x[i];
+    }
+    if (sum > 1) return false;
+    
+    // output result
+    *s  = x[N];
+    *uv = x.template resized<N-1>();
     return true;
 }
 
@@ -214,6 +284,7 @@ Hit<T,3> trace_tri(const Vec<T,3> &p0,
     // thus we can solve:
     //    u*dPdu + v*dPdv + t*N = P
     // t should essentially be zero; we can ignore it.
+    //     xxx: ^ that reeks of stupid. can we solve this in one go?
     
     // 3d matrix inversion is faster than you think. 
     // also, gcc tends to unroll those copy ops.

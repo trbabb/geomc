@@ -171,7 +171,7 @@ private:
         index_t vol  = 1;
         for (index_t i = dim_first; i != dim_end; i += dim_increment) {
             dist += vol * jump[i];
-            vol  *= std::max(dim[i], 0);
+            vol  *= std::max(dim[i], (T)0);
         }
         return dist;
     }
