@@ -107,8 +107,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af58b0be9725006cf318033ee17af2774"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c2ebd7266b302fcfd5df14ed9ce965d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_cylinder.html#a2c2ebd7266b302fcfd5df14ed9ce965d">convexSupport</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; d) const</td></tr>
 <tr class="separator:a2c2ebd7266b302fcfd5df14ed9ce965d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba5a4657db9701c4cd4bdc0c3ed63dee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_hit.html">Hit</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_cylinder.html#aba5a4657db9701c4cd4bdc0c3ed63dee">trace</a> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; &amp;ray, <a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> side, bool endcaps=true) const</td></tr>
-<tr class="separator:aba5a4657db9701c4cd4bdc0c3ed63dee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae268e06bf8fc12bf090286ce1d795306"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_hit.html">Hit</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_cylinder.html#ae268e06bf8fc12bf090286ce1d795306">trace</a> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; &amp;ray, <a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> side) const</td></tr>
+<tr class="separator:ae268e06bf8fc12bf090286ce1d795306"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2ade53f5bdba2534b1489dd36b5adb34"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_convex.html#a2ade53f5bdba2534b1489dd36b5adb34">intersects</a> (const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;other) const</td></tr>
 <tr class="separator:a2ade53f5bdba2534b1489dd36b5adb34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -319,8 +319,8 @@ class geom::Cylinder&lt; T, N &gt;</h3>
 
 </div>
 </div>
-<a id="aba5a4657db9701c4cd4bdc0c3ed63dee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba5a4657db9701c4cd4bdc0c3ed63dee">&#9670;&nbsp;</a></span>trace()</h2>
+<a id="ae268e06bf8fc12bf090286ce1d795306"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae268e06bf8fc12bf090286ce1d795306">&#9670;&nbsp;</a></span>trace()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -338,13 +338,7 @@ class geom::Cylinder&lt; T, N &gt;</h3>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a>&#160;</td>
-          <td class="paramname"><em>side</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>endcaps</em> = <code>true</code>&#160;</td>
+          <td class="paramname"><em>side</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -362,7 +356,6 @@ class geom::Cylinder&lt; T, N &gt;</h3>
   <table class="params">
     <tr><td class="paramname">ray</td><td>A ray. </td></tr>
     <tr><td class="paramname">side</td><td>Whether to hit-test the front (outside) or back (inside) of the cylinder. </td></tr>
-    <tr><td class="paramname">endcaps</td><td>Whether to trace the end caps. </td></tr>
   </table>
   </dd>
 </dl>
@@ -376,7 +369,7 @@ class geom::Cylinder&lt; T, N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu May 4 2017 00:44:06 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Oct 11 2017 00:03:02 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

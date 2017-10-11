@@ -1,7 +1,7 @@
 var searchData=
 [
   ['inputdimension',['inputDimension',['../classgeom_1_1_raster.html#a544cc8ef5f4e347d9d4b34eb12a17f63',1,'geom::Raster']]],
-  ['insert',['insert',['../classgeom_1_1_k_d_tree.html#ac526307c77b26e504c8c447a98e85699',1,'geom::KDTree::insert()'],['../classgeom_1_1_tree.html#a4c96bcdd6de576785c797f7e2c789090',1,'geom::Tree::insert()']]],
+  ['insert',['insert',['../classgeom_1_1_k_d_tree.html#ac526307c77b26e504c8c447a98e85699',1,'geom::KDTree::insert()'],['../classgeom_1_1_tree.html#a4c96bcdd6de576785c797f7e2c789090',1,'geom::Tree::insert(const node_iterator &amp;parent, const LeafItem &amp;obj)'],['../classgeom_1_1_tree.html#a041b18ed20b313b68b99404bd72c4b7f',1,'geom::Tree::insert(const node_iterator &amp;parent, const LeafItemIterator &amp;first_item, const LeafItemIterator &amp;off_end_item, index_t *new_item_count=nullptr)']]],
   ['insert_5fchild_5fnode',['insert_child_node',['../classgeom_1_1_tree.html#a583e3f63ef6b5b3ab86483741ac029ec',1,'geom::Tree']]],
   ['insert_5fsibling_5fnode',['insert_sibling_node',['../classgeom_1_1_tree.html#a52fe4319f86043cdd3ad24a524c9ea79',1,'geom::Tree']]],
   ['insert_5fsibling_5fnodes',['insert_sibling_nodes',['../classgeom_1_1_tree.html#ad7afc115ff0d591abea705998654e7dc',1,'geom::Tree']]],

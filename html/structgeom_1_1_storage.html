@@ -145,7 +145,7 @@ struct geom::Storage&lt; T, N &gt;</h3>
   </table>
   </dd>
 </dl>
-<p>The array will be dynamically allocated if the dimension template argument <code>N</code> is zero; otherwise the storage will be allocated on the stack. Dynamically allocated storage uses reference counting for memory management.</p>
+<p>The array will be dynamically allocated if the dimension template argument <code>N</code> is zero; otherwise the storage will be local. Dynamically allocated storage uses reference counting for memory management.</p>
 <p>This is the simplest type of storage, in which the client is responsible for keeping track of the size of dynamic arrays. (This may save space particularly if multiple/parallel <a class="el" href="structgeom_1_1_storage.html" title="Array storage with templated static or dynamic size. ">Storage</a> arrays are in use).</p>
 <p><code>#include &lt;<a class="el" href="_storage_8h_source.html">geomc/Storage.h</a>&gt;</code> </p>
 </div><hr/>The documentation for this struct was generated from the following files:<ul>
@@ -155,7 +155,7 @@ struct geom::Storage&lt; T, N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu May 4 2017 00:44:06 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Oct 11 2017 00:03:02 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

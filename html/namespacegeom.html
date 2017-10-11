@@ -365,6 +365,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a1dd9da1915651b5bfa798463a796c320"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
 <tr class="memitem:a1dd9da1915651b5bfa798463a796c320"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacegeom.html#a1dd9da1915651b5bfa798463a796c320">trace_sphere</a> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; &amp;ray, T *s0, T *s1, const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;center, T r)</td></tr>
 <tr class="separator:a1dd9da1915651b5bfa798463a796c320"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab60a55b77259159109893ad21012c04f"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:gab60a55b77259159109893ad21012c04f"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#gab60a55b77259159109893ad21012c04f">ray_csg_intersect</a> (T a_lo, T a_hi, T b_lo, T b_hi, T *s, bool *hit_a, bool *hit_near, <a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> *side)</td></tr>
+<tr class="separator:gab60a55b77259159109893ad21012c04f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa678b8f3b78685df3d69093cdc76a477"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:gaa678b8f3b78685df3d69093cdc76a477"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#gaa678b8f3b78685df3d69093cdc76a477">ray_csg_subtract</a> (T a_lo, T a_hi, T b_lo, T b_hi, T *s, bool *hit_a, bool *hit_near, <a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> *side)</td></tr>
+<tr class="separator:gaa678b8f3b78685df3d69093cdc76a477"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga43bf1cbcb882aa6fd9c0ec1224b11c59"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:ga43bf1cbcb882aa6fd9c0ec1224b11c59"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#ga43bf1cbcb882aa6fd9c0ec1224b11c59">trace_simplex</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; verts[N], const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; &amp;ray, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *bary_coords, T *s)</td></tr>
+<tr class="separator:ga43bf1cbcb882aa6fd9c0ec1224b11c59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
 <tr class="memitem:gafbda519a671cae9db99fef6c4c305eff"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:gafbda519a671cae9db99fef6c4c305eff"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__function.html#gafbda519a671cae9db99fef6c4c305eff">clamp</a> (const T &amp;v, const T &amp;lo, const T &amp;hi)</td></tr>
@@ -538,7 +547,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu May 4 2017 00:44:06 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Oct 11 2017 00:03:02 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

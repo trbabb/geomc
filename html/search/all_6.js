@@ -19,7 +19,7 @@ var searchData=
   ['getrandom',['getRandom',['../group__random.html#gaafd702a26c7914707002c7066da808e4',1,'geom']]],
   ['getrowdestinations',['getRowDestinations',['../classgeom_1_1_permutation_matrix.html#a2cf2ca073a278fccfd2d0d6b79eb2d75',1,'geom::PermutationMatrix']]],
   ['getrowsources',['getRowSources',['../classgeom_1_1_permutation_matrix.html#a43f4a07564dbfd3802eb6929d861c284',1,'geom::PermutationMatrix']]],
-  ['getsign',['getSign',['../classgeom_1_1_permutation_matrix.html#a63798efffc0af66bec012a75b40da6fd',1,'geom::PermutationMatrix']]],
+  ['getsign',['getSign',['../classgeom_1_1_permutation_matrix.html#a497509a60eb721b47550ec506f667214',1,'geom::PermutationMatrix']]],
   ['getstructureparams',['getStructureParams',['../classgeom_1_1_k_d_tree.html#a06b5f50606904d9c6f1955e58a20ba57',1,'geom::KDTree']]],
   ['getu',['getU',['../classgeom_1_1_p_l_u_decomposition.html#a6ce708813e23adbf0ca1d3d70e9b36c0',1,'geom::PLUDecomposition::getU() const'],['../classgeom_1_1_p_l_u_decomposition.html#a4f7c05401efe27833cb490ae8cecf68e',1,'geom::PLUDecomposition::getU(SimpleMatrix&lt; S, J, K &gt; *into) const']]],
   ['gjk_5fintersect',['gjk_intersect',['../group__shape.html#gae6a7299cdadee88e7fea6a903a9d7a5f',1,'geom']]],

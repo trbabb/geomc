@@ -140,6 +140,15 @@ Functions</h2></td></tr>
 <tr class="memitem:gaa2aa68593baf6e21dfeddc950f7de472"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
 <tr class="memitem:gaa2aa68593baf6e21dfeddc950f7de472"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#gaa2aa68593baf6e21dfeddc950f7de472">minimal_separation_axis</a> (const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;shape_a, const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;shape_b, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *overlap_axis, double fractional_tolerance=0.001, index_t iteration_limit=-1, bool emit_debug=false)</td></tr>
 <tr class="separator:gaa2aa68593baf6e21dfeddc950f7de472"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab60a55b77259159109893ad21012c04f"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:gab60a55b77259159109893ad21012c04f"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#gab60a55b77259159109893ad21012c04f">ray_csg_intersect</a> (T a_lo, T a_hi, T b_lo, T b_hi, T *s, bool *hit_a, bool *hit_near, <a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> *side)</td></tr>
+<tr class="separator:gab60a55b77259159109893ad21012c04f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa678b8f3b78685df3d69093cdc76a477"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:gaa678b8f3b78685df3d69093cdc76a477"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#gaa678b8f3b78685df3d69093cdc76a477">ray_csg_subtract</a> (T a_lo, T a_hi, T b_lo, T b_hi, T *s, bool *hit_a, bool *hit_near, <a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> *side)</td></tr>
+<tr class="separator:gaa678b8f3b78685df3d69093cdc76a477"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga43bf1cbcb882aa6fd9c0ec1224b11c59"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:ga43bf1cbcb882aa6fd9c0ec1224b11c59"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#ga43bf1cbcb882aa6fd9c0ec1224b11c59">trace_simplex</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; verts[N], const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; &amp;ray, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *bary_coords, T *s)</td></tr>
+<tr class="separator:ga43bf1cbcb882aa6fd9c0ec1224b11c59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga66505ffabe4da800c0ec653d493ea944"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> { <a class="el" href="group__shape.html#gga66505ffabe4da800c0ec653d493ea944a0cc724de9c2be8b3c506f45d4811ddec">HIT_FRONT</a> = 1, 
 <a class="el" href="group__shape.html#gga66505ffabe4da800c0ec653d493ea944a69d567fc54e1147a9879d610a90b2133">HIT_BACK</a> = 2, 
 <a class="el" href="group__shape.html#gga66505ffabe4da800c0ec653d493ea944aa12161be84ffe5b80d56277bb1f5ae66">HIT_BOTH</a> = 3
@@ -405,10 +414,235 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="gab60a55b77259159109893ad21012c04f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab60a55b77259159109893ad21012c04f">&#9670;&nbsp;</a></span>ray_csg_intersect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool geom::ray_csg_intersect </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>a_lo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>a_hi</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>b_lo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>b_hi</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool *&#160;</td>
+          <td class="paramname"><em>hit_a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool *&#160;</td>
+          <td class="paramname"><em>hit_near</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> *&#160;</td>
+          <td class="paramname"><em>side</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Compute the constructive solid geometry intersection of two convex shapes from their near and far hits.</p>
+<p>The given near and far hits may be distances or ray parameters, and may be negative.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a_lo</td><td>Near hit of object A. </td></tr>
+    <tr><td class="paramname">a_hi</td><td>Far hit of object A. </td></tr>
+    <tr><td class="paramname">b_lo</td><td>Near hit of object B. </td></tr>
+    <tr><td class="paramname">b_hi</td><td>Far hit of object B. </td></tr>
+    <tr><td class="paramname">s</td><td><a class="el" href="classgeom_1_1_ray.html" title="Ray class. ">Ray</a> parameter. (return variable) </td></tr>
+    <tr><td class="paramname">hit_a</td><td>Will be set to <code>true</code> if object A's surface generated the hit, otherwise <code>false</code>. (return variable) </td></tr>
+    <tr><td class="paramname">hit_hear</td><td>Will be set to <code>true</code> if the near surface (lower ray parameter) generated the hit, otherwise <code>false</code>. (return variable) </td></tr>
+    <tr><td class="paramname">side</td><td>Return variable for the surface side (HIT_FRONT or HIT_BACK) that was hit; must be initialized with the permitted hit side flags. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gaa678b8f3b78685df3d69093cdc76a477"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa678b8f3b78685df3d69093cdc76a477">&#9670;&nbsp;</a></span>ray_csg_subtract()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool geom::ray_csg_subtract </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>a_lo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>a_hi</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>b_lo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>b_hi</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool *&#160;</td>
+          <td class="paramname"><em>hit_a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool *&#160;</td>
+          <td class="paramname"><em>hit_near</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> *&#160;</td>
+          <td class="paramname"><em>side</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Compute the constructive solid geometry subtraction (A-B) of two convex shapes from their near and far hits.</p>
+<p>The given near and far hits may be distances or ray parameters, and may be negative.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a_lo</td><td>Near hit of object A. </td></tr>
+    <tr><td class="paramname">a_hi</td><td>Far hit of object A. </td></tr>
+    <tr><td class="paramname">b_lo</td><td>Near hit of subtracted object B. </td></tr>
+    <tr><td class="paramname">b_hi</td><td>Far hit of subtracted object B. </td></tr>
+    <tr><td class="paramname">s</td><td><a class="el" href="classgeom_1_1_ray.html" title="Ray class. ">Ray</a> parameter. (return variable) </td></tr>
+    <tr><td class="paramname">hit_a</td><td>Will be set to <code>true</code> if object A's surface generated the hit, otherwise <code>false</code>. (return variable) </td></tr>
+    <tr><td class="paramname">hit_hear</td><td>Will be set to <code>true</code> if the near surface of the constructed object produced the hit; <code>false</code> otherwise. (return variable) </td></tr>
+    <tr><td class="paramname">side</td><td>Return variable for the surface side (HIT_FRONT or HIT_BACK) that was hit; must be initialized with the permitted hit side flags. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga43bf1cbcb882aa6fd9c0ec1224b11c59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga43bf1cbcb882aa6fd9c0ec1224b11c59">&#9670;&nbsp;</a></span>trace_simplex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool geom::trace_simplex </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td>
+          <td class="paramname"><em>verts</em>[N], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>ray</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *&#160;</td>
+          <td class="paramname"><em>bary_coords</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>s</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p><a class="el" href="classgeom_1_1_ray.html" title="Ray class. ">Ray</a> trace a simplex (e.g. triangle, tetrahedron, etc.).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">verts</td><td>An array of the simplex's N vertices. </td></tr>
+    <tr><td class="paramname">ray</td><td>The ray to intersect with the simplex. </td></tr>
+    <tr><td class="paramname">bary_coords</td><td>The barycentric coordinates representing the mixture of verticies which produces the ray hit point. (return variable) </td></tr>
+    <tr><td class="paramname">s</td><td>The ray parameter producing the hit. (return variable) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the ray hit the simplex. </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu May 4 2017 00:44:06 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Oct 11 2017 00:03:02 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

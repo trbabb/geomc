@@ -100,10 +100,10 @@ typedef const NodeItem &amp;&#160;</td><td class="memItemRight" valign="bottom">
 typedef <a class="el" href="classgeom_1_1_tree_1_1_node_iterator.html">NodeIterator</a>&lt; Const &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree_1_1_node_iterator.html#a5cdef5ae2e489db625c98df21cff6e8b">iterator</a></td></tr>
 <tr class="memdesc:a5cdef5ae2e489db625c98df21cff6e8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterator over child nodes; same as self type. <br /></td></tr>
 <tr class="separator:a5cdef5ae2e489db625c98df21cff6e8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d160bace6ede9b01851f93957cf11d8"><td class="memItemLeft" align="right" valign="top"><a id="a3d160bace6ede9b01851f93957cf11d8"></a>
-typedef ItemIterator&lt; const  &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree_1_1_node_iterator.html#a3d160bace6ede9b01851f93957cf11d8">item_iterator</a></td></tr>
-<tr class="memdesc:a3d160bace6ede9b01851f93957cf11d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterator over <code>LeafItem</code>s. <br /></td></tr>
-<tr class="separator:a3d160bace6ede9b01851f93957cf11d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29d9424815cac5d9e9c03fe48d167623"><td class="memItemLeft" align="right" valign="top"><a id="a29d9424815cac5d9e9c03fe48d167623"></a>
+typedef ItemIterator&lt; Const &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree_1_1_node_iterator.html#a29d9424815cac5d9e9c03fe48d167623">item_iterator</a></td></tr>
+<tr class="memdesc:a29d9424815cac5d9e9c03fe48d167623"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterator over <code>LeafItem</code>s. <br /></td></tr>
+<tr class="separator:a29d9424815cac5d9e9c03fe48d167623"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -156,11 +156,11 @@ index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memdesc:a3e9e0a2b53534bc10d67ab581c1231bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get last (off-end) child. <br /></td></tr>
 <tr class="separator:a3e9e0a2b53534bc10d67ab581c1231bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15db153c8168cf7ca6534c32159459b7"><td class="memItemLeft" align="right" valign="top"><a id="a15db153c8168cf7ca6534c32159459b7"></a>
-<a class="el" href="classgeom_1_1_tree_1_1_node_iterator.html#a3d160bace6ede9b01851f93957cf11d8">item_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree_1_1_node_iterator.html#a15db153c8168cf7ca6534c32159459b7">items_begin</a> () const</td></tr>
+<a class="el" href="classgeom_1_1_tree_1_1_node_iterator.html#a29d9424815cac5d9e9c03fe48d167623">item_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree_1_1_node_iterator.html#a15db153c8168cf7ca6534c32159459b7">items_begin</a> () const</td></tr>
 <tr class="memdesc:a15db153c8168cf7ca6534c32159459b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get first object inside this subtree. <br /></td></tr>
 <tr class="separator:a15db153c8168cf7ca6534c32159459b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab1525bf78a2c1fe544c7ba1254adf643"><td class="memItemLeft" align="right" valign="top"><a id="ab1525bf78a2c1fe544c7ba1254adf643"></a>
-<a class="el" href="classgeom_1_1_tree_1_1_node_iterator.html#a3d160bace6ede9b01851f93957cf11d8">item_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree_1_1_node_iterator.html#ab1525bf78a2c1fe544c7ba1254adf643">items_end</a> () const</td></tr>
+<a class="el" href="classgeom_1_1_tree_1_1_node_iterator.html#a29d9424815cac5d9e9c03fe48d167623">item_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree_1_1_node_iterator.html#ab1525bf78a2c1fe544c7ba1254adf643">items_end</a> () const</td></tr>
 <tr class="memdesc:ab1525bf78a2c1fe544c7ba1254adf643"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get last (off-end) object in this subtree. It is invalid to increment or dereference this iterator. <br /></td></tr>
 <tr class="separator:ab1525bf78a2c1fe544c7ba1254adf643"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -184,7 +184,7 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;::NodeIterator&lt; Const &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu May 4 2017 00:44:06 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Oct 11 2017 00:03:02 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
