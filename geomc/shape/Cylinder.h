@@ -102,22 +102,18 @@ namespace geom {
              * @param ray A ray.
              * @param side Whether to hit-test the front (outside) or back 
              * (inside) of the cylinder.
-             * @param endcaps Whether to trace the end caps.
              * @return A ray Hit describing whether and where the ray intersects 
              * this cylinder, as well as the normal, side hit, and ray parameter.
              */
-            Hit<T,N> trace(const Ray<T,N> &ray, HitSide side, bool endcaps=true) const {
+            Hit<T,N> trace(const Ray<T,N> &ray, HitSide side) const {
                 Hit<T,N> h;
-                
                 /* The general principle is as follows:
                  * We examine the right triangle formed by the candidate hit point P,
                  * `p0` and the cylinder axis. We may solve one of the triangle
                  * legs to obtain the distance from P to the axis. With P constructed
                  * as `o + sv`, we may solve for s such that the square of said
-                 * distance equals the square of the cylinder radius. The second
-                 * triangle leg gives P's projection onto the cylinder axis, which
-                 * we may use to determine if we are actually on the shaft between 
-                 * p0 and p1.
+                 * distance equals the square of the cylinder radius. We then use CSG
+                 * with two planes to remove the cylinder beyond the endcaps.
                  */
                 
                 Vec<T,N> axis = p1 - p0;
@@ -132,51 +128,41 @@ namespace geom {
                 T b  = 2 * (k.dot(ray.direction) - l * m / a2);
                 T c  = k2 - l * l / a2 - radius * radius;
                 
-                T s;
                 T roots[2];
                 if (quadratic_solve(roots, a, b, c)) {
+                    // trace endcaps
+                    T pl_0 = trace_plane(p0, -axis, r);
+                    T pl_1 = trace_plane(p1,  axis, r);
+                    T n_sign = 1;
                     
-                    if (!detail::chooseRayHit(&s, roots, &side)) {
-                        // miss
-                        return h;
+                    // order roots low -> hi
+                    if (pl_0 > pl_1) {
+                        std::swap(pl_0, pl_1); 
+                        n_sign = -1;
                     }
-                    T hdotaxis = l + m * s;
-                    Vec<T,N> n;
-                    Vec<T,N> px;
-                    if (hdotaxis >= 0 and hdotaxis < a2) {
-                        // hit cylinder shaft
-                        h.p = ray.atMultiple(s);
-                        h.n = Ray<T,N>(p0, axis).directionFromAxisTo(h.p).unit();
-                        h.s = s;
-                        h.side = side;
-                        h.hit  = true;
-                        return h;
-                    } else if (hdotaxis < 0) {
-                        // hit shaft before p0; test for cap 0 hit
-                        n  = -axis;
-                        px = p0;
-                    } else {
-                        // hit shaft after p1; test for cap 1 hit
-                        n  = axis;
-                        px = p1;
+                    if (roots[0] > roots[1]) {
+                        std::swap(roots[0], roots[1]);
                     }
                     
-                    if (endcaps) {
-                        Plane<T,N> plane(n, px); // normalizes `n`
-                        if (detail::_ImplTracePlane(&s, plane, ray, &side)) {
-                            Vec<T,N> p = ray.atMultiple(s);
-                            // TODO: can we be sure the cap doesn't "leak" due to precision?
-                            // i.e. if the entry/exit points cross the endcap axis projection,
-                            // assuming the facing matches, the ray *must* hit. beware of 'start
-                            // inside' case, however
-                            if (p.dist2(px) <= radius * radius) {
-                                // within cap radius; hit
-                                h.p = p;
-                                h.n = plane.normal;
-                                h.s = s;
-                                h.side = side;
-                                h.hit  = true;
-                            }
+                    // perform csg
+                    bool hit_cylinder;
+                    bool hit_near;
+                    h.hit = csg_intersect(
+                                roots[0], roots[1],
+                                pl_0, pl_1,
+                                &h.s,
+                                &hit_cylinder,
+                                &hit_near,
+                                &h.side);
+                    
+                    // update the hit with P, N
+                    // (csg_intersect took care of the others)
+                    if (h.hit) {
+                        h.p = r.atMultiple(h.s);
+                        if (hit_cylinder) {
+                            h.n = Ray<T,N>(p0, axis).directionFromAxisTo(h.p).unit()
+                        } else {
+                            h.n = (((hit_near ? -1 : 1) * n_sign) * axis).unit();
                         }
                     }
                 }

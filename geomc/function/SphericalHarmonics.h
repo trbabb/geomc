@@ -37,7 +37,7 @@ namespace detail {
 /*
  * - how to handle euclidean samples? I just don't like the idea of trig on 
  *   the results of atan().
- *   - there exist expressions for this that involve combinatorics
+ *   - there exist expressions for this that involve combinatorics.
  *     they are not formulated as recurrence relations, though you could
  *     probably do that work.
  *   - euclidean basis functions might allow N-dimensional SH.
@@ -79,6 +79,14 @@ namespace detail {
 //       - to really model diffusion, you need the complex spherical
 //         harmonics (since exponents of negative coeffs will be complex). 
 //         - see wikipedia for the relation
+//         - I think this is very doable.
+//           - coeffs for complex SH are related very simply to the real SH coeffs.
+//             (basically don't mult in a factor of sqrt(2), sometimes flip the sign,
+//             and exchange -m for m.
+//           - simply dot the function you are matching with the complex-valued coeffs.
+//             that will give you something that is properly-phased.
+//           - exponentiate the complex-valued function, then take the magnitude.
+//           - only question is how to factor the class to handle both real and complex SH.
 //       - there is a 1-x^2 which can be computed from the angles, which are known.
 //       - sh rotation
 //       - complex numbers
@@ -87,7 +95,7 @@ namespace detail {
 //         band-limiting ops?
 //       - I am not sure of the advantage/reason behind the convention difference
 //         in constant factors between ZH and SH. 
-//       - also, does that constant factor play into the inner product?
+//       - also, does that constant factor play into the inner product?`
     
 /**
  * @addtogroup function
@@ -673,7 +681,6 @@ class ZonalHarmonics {
         // object" by Ramamoorthi and Hanrahan. Note that the coefficients
         // described therein are those of the spherical harmonics, not zonal 
         // harmonics, so there is an extra factor of sqrt((2l+1)/4pi) applied here.
-        static const T pi = boost::math::constants::pi<T>();
         const index_t ct = order < 1 ? bands() : std::min(order, bands());
         clear();
         T fac = 1;
@@ -707,7 +714,6 @@ class ZonalHarmonics {
         // the indefinite integral of the legendre polynomials are 
         // analytic and recurrent. We use these to integrate over the range
         // of cos_angle for which the spot function is nonzero.
-        static const T pi = boost::math::constants::pi<T>();
         const index_t n = bands();
         const T x = std::min((T)1, std::max((T)-1, cos_angle));
         coeffs[0] = (2 - x - 1) / 2;

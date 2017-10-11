@@ -12,6 +12,7 @@
 
 namespace geom {
 
+
 /************************************************
  * Matrix LU decomposition                      *
  *                                              *
@@ -103,7 +104,7 @@ index_t decompLUP(T* m, index_t rows, index_t cols, index_t *reorder, bool *swap
  * @related PLUDecomposition
  */
 template <typename T>
-bool decompPLU(T* m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity) {
+bool decompPLU(T* m, index_t rows, index_t cols, index_t* reorder, bool* swap_parity) {
     const index_t n = std::min(rows, cols);
     index_t degenerate_ct = 0;
     *swap_parity = false;
@@ -158,6 +159,117 @@ bool decompPLU(T* m, index_t rows, index_t cols, index_t *reorder, bool *swap_pa
     
     return degenerate_ct;
 }
+
+
+
+/**
+ * Solve a system of linear equations `LUx = Pb`.
+ *
+ * @param lup An `n x n` LUP-decomposed matrix. 
+ * @param p The permutation array filled by `decompLUP()`.
+ * @param n The number of rows and columns in the matrix.
+ * @param x The solution vector of `n` elements to be filled.
+ * @param b A vector of `n` elements.
+ * @related PLUDecomposition
+ */
+template <typename T>
+void linearSolveLUP(const T* lup, const index_t* p, index_t n, T* x, const T* b) {
+    const T* m = lup;       // so the macro works
+    const index_t rows = n; // ...
+    const index_t cols = n;
+    
+    // <y> and <x>'s elements are used such that
+    // y[i] is never read after x[i] is written.
+    // thus we may collapse their storage and save space:
+    T* y = x;
+    
+    // LUx = Pb
+    // (Ux) is a vector, so let's solve for it:
+    // Ly  = Pb
+    y[0] = b[p[0]];
+    for (index_t r = 1; r < n; r++) {
+        y[r] = b[p[r]];
+        for (index_t c = 0; c < r; c++) {
+            y[r] -= y[c] * _MxElem(r,c);
+        }
+    }
+    // now with y, we may obtain x from:
+    // Ux = y
+    for (index_t r = n - 1; r >= 0; r--) {
+        // x[r] = y[r]; // nop; x and y are the same!
+        for (index_t c = n - 1; c > r; c--) {
+            x[r] -= x[c] * _MxElem(r,c);
+        }
+        x[r] /= _MxElem(r,r);
+    }
+}
+
+
+/**
+ * Solve a system of linear equations `LUx = b`, without a permutation map.
+ *
+ * @param lup An `n x n` LUP-decomposed matrix.
+ * @param n The number of rows and columns in the matrix.
+ * @param x The solution vector of `n` elements to be filled.
+ * @param b A vector of `n` elements.
+ * @related PLUDecomposition
+ */
+template <typename T>
+void linearSolveLUP(const T* lup, index_t n, T* x, const T* b) {
+    const T* m = lup;       // so the macro works
+    const index_t rows = n; // ...
+    const index_t cols = n;
+    
+    // <y> and <x>'s elements are used such that
+    // y[i] is never read after x[i] is written.
+    // thus we may collapse their storage and save space:
+    T* y = x;
+    
+    // LUx = b
+    // (Ux) is a vector, so let's solve for it:
+    // Ly  = b
+    y[0] = b[0];
+    for (index_t r = 1; r < n; r++) {
+        y[r] = b[r];
+        for (index_t c = 0; c < r; c++) {
+            y[r] -= y[c] * _MxElem(r,c);
+        }
+    }
+    // now with y, we may obtain x from:
+    // Ux = y
+    for (index_t r = n - 1; r >= 0; r--) {
+        // x[r] = y[r]; // nop; x and y are the same!
+        for (index_t c = n - 1; c > r; c--) {
+            x[r] -= x[c] * _MxElem(r,c);
+        }
+        x[r] /= _MxElem(r,r);
+    }
+}
+
+
+/**
+ * Solve a system of linear equations `Mx = b`.
+ * 
+ * @param m A row-major buffer of elements in the matrix `M`. This array will
+ * be altered during the solution process, so pass a copy if the original 
+ * needs to remain unchanged.
+ * @param n The number of rows in the matrix.
+ * @param x The solution vector of `N` elements to be filled.
+ * @param b A vector of `N` elements.
+ * @return `true` if the system is not degenerate.
+ * @related PLUDecomposition
+ */
+template <typename T>
+inline bool linearSolve(T* m, index_t n, T* x, const T* b) {
+    SmallStorage<index_t, 32> p(n); // probably will never have to alloc.
+    bool parity;
+    if (decompPLU(m, n, n, p.get(), &parity) > 0) {
+        return false;
+    }
+    linearSolveLUP(m, p.get(), n, x, b);
+    return true;
+}
+
 
 #undef _MxElem
 
@@ -214,6 +326,7 @@ public:
         
         mtxcopy(&LU, m);
         // TODO: this alloc isn't necessary if we become a friend of PermutationMatrix
+        //       this is pr. important, since all mtx inverse > 4 calls us
         UniqueStorage<index_t, Mx::ROWDIM> reorder(m.rows());
         bool ok = decompPLU(LU.begin(), m.rows(), m.cols(), reorder.get(), &swap_parity) == 0;
 
@@ -357,12 +470,12 @@ public:
             index_t n = LU.rows();
             UniqueStorage<S,M> buf(n);
             std::copy(b, b+n, buf.get());
-            _linearSolve(dest, buf.get());
+            geom::linearSolveLUP(LU.begin(), P.getRowSources(), LU.rows(), dest, buf.get());
             return;
         }
 #endif
         
-        _linearSolve(dest, b);
+        geom::linearSolveLUP(LU.begin(), P.getRowSources(), LU.rows(), dest, b);
      }
     
     
@@ -388,7 +501,13 @@ public:
         _checkIsSquare();
 #endif
         
-        _linearSolve(dest.begin(), b.begin());
+        geom::linearSolveLUP(
+            LU.begin(), 
+            P.getRowSources(), 
+            LU.rows(), 
+            dest.begin(), 
+            b.begin());
+        
         return dest;
     }
     
@@ -486,38 +605,6 @@ protected:
     
     
     template <typename S>
-    void _linearSolve(S *dest, const S *b, bool permute=true) const {
-        const index_t  n = LU.rows();
-        const index_t *p = P.getRowSources(); // permutation map
-        
-        // <y> and <dest>'s elements are used such that
-        // y[i] is never read after dest[i] is written.
-        // thus we may collapse their storage and save space:
-        S *y = dest;
-
-        // LUx = Pb
-        // (Ux) is a vector, so let's solve for it:
-        // Ly  = Pb
-        y[0] = permute ? b[p[0]] : b[0];
-        for (index_t r = 1; r < n; r++) {
-            y[r] = permute ? b[p[r]] : b[r];
-            for (index_t c = 0; c < r; c++) {
-                y[r] -= y[c] * LU.get(r,c);
-            }
-        }
-        // now with y, we may obtain x from:
-        // Ux = y
-        for (index_t r = n - 1; r >= 0; r--) {
-            // dest[r] = y[r]; // nop; dest and y are the same!
-            for (index_t c = n - 1; c > r; c--) {
-                dest[r] -= dest[c] * LU.get(r,c);
-            }
-            dest[r] /= LU.get(r,r);
-        }
-    }
-    
-    
-    template <typename S>
     void _inverseTranspose(S *dest) const {
         // Set LUx = PI and solve for x, choosing columns of PI one at a time.
         // Here, we use the rows of our destination matrix as though they are
@@ -527,7 +614,7 @@ protected:
         std::fill(dest, dest + (n*n), 0);
         for (index_t i = 0; i < n; i++, dest += n) {
             dest[p[i]] = 1;
-            _linearSolve(dest, dest, false);
+            geom::linearSolveLUP(LU.begin(), LU.rows(), dest, dest);
         }
     }
     

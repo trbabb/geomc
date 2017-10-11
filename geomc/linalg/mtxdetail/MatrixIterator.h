@@ -64,7 +64,7 @@ public:
     MtxSubsetIterator(M *m, MatrixCoord pt=MatrixCoord::zeros):
                           mtx(m),
                           p(MatrixRegion(MatrixCoord::zeros,
-                                         MatrixCoord(m->rows(), m->cols())),
+                                         MatrixCoord(m->rows()-1, m->cols()-1)),
                             pt) {}
     
     MtxSubsetIterator(M *m, const GridIterator<index_t,2,ARRAYORDER_LAST_DIM_CONSECUTIVE> &p):
@@ -165,7 +165,8 @@ private:
     }
     
     inline RefType dereference() const {
-        return mtx->get(pt.row, pt.col); //make sure this is calling the function with the right const-ness!
+        // make sure this is calling the function with the right const-ness!
+        return mtx->get(pt.row, pt.col);
     }
     
 };
@@ -175,7 +176,7 @@ private:
  *****************************************************/
 
 template <typename M, typename RefType>
-class MtxRowIterator : public boost::iterator_facade<MtxRowIterator<M,RefType>,       // self type
+class MtxRowIterator : public boost::iterator_facade<MtxRowIterator<M,RefType>,    // self type
                                                   typename M::elem_t,              // value (pointed to) type
                                                   std::random_access_iterator_tag, // implemented concepts (all)
                                                   RefType> {                       // reference to elem type (may be a proxy)

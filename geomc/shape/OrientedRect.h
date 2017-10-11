@@ -62,7 +62,7 @@ class OrientedRect : virtual public Bounded<T,N>, virtual public Convex<T,N> {
                 hi = std::max(hi, p);
             }
             
-            return Rect<T,N>(lo,hi);
+            return Rect<T,N>(lo, hi);
         }
         
         

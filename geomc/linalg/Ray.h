@@ -56,14 +56,14 @@ namespace detail {
          * the ray origin.
          */
         inline Vec<T,N> atDistance(T d) const {
-            return origin + direction.unit()*d;
+            return origin + direction.unit() * d;
         }
 
         /**
          * @return The point `origin + s * direction`.
          */
         inline Vec<T,N> atMultiple(T s) const {
-            return origin + direction*s;
+            return origin + direction * s;
         }
 
         /**

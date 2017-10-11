@@ -41,7 +41,7 @@
 //   to contain p
 // - which is slow and ugly
 // - the upper and lower bounds now mean different things, and
-//   there you still need to increment and decrement
+//   that means you need to increment and decrement
 //   Sometimes And Not Other Times. 
 // compare to "both endpoints are symmetrical and the same logic applies everywhere"
 // * BEWARE the meaning of dim(). it is one less than the "length" for integer types.
@@ -319,13 +319,40 @@ public:
         mins -= dx;
         return *this;
     }
+    
+    
+    /**
+     * @brief Range exclusion.
+     *
+     * @param other Range to be excluded from the range of this `Rect`.
+     * @return A new `Rect` whose range does not overlap `other`.
+     */
+    inline Rect<T,N> operator-(const Rect<T,N>& other) {
+        return Rect<T,N>(
+            std::max(mins,other.maxs),
+            std::min(maxs,other.mins));
+    }
+    
+    
+    /**
+     * @brief Range exclusion.
+     *
+     * @param other Range to remove from this `Rect`.
+     * @return A reference to `this`, for convenience.
+     */
+    inline Rect<T,N>& operator-=(const Rect<T,N>& other) {
+        mins = std::max(mins, other.maxs);
+        maxs = std::min(maxs, other.mins);
+        return *this;
+    }
+    
 
     /**
      * @brief Equality test.
      * 
      * @return `true` if and only if all the corresponding extremes of `b` are the same.
      */
-    bool operator==(Rect<T,N> b) const {
+    inline bool operator==(Rect<T,N> b) const {
         return (maxs == b.maxs) && (mins == b.mins);
     }
     
@@ -335,52 +362,52 @@ public:
      * @return `true` if and only if any extreme of `b` is different from
      * the corresponding extreme in `this`.
      */
-    bool operator!=(Rect<T,N> b) const {
+    inline bool operator!=(Rect<T,N> b) const {
         return (maxs != b.maxs) || (mins != b.mins);
     }
 
     /**
-     * @brief Uniform scale.
+     * @brief Scale transformation.
      * 
      * @param a Scale factor.
      * @return A new Rect, scaled about the origin by factor `a`.
      */
-    Rect<T,N> operator*(point_t a) const {
+    inline Rect<T,N> operator*(point_t a) const {
         return Rect<T,N>(mins*a, maxs*a);
     }
 
     /**
-     * @brief Uniform scale. 
+     * @brief Scale transformation. 
      * 
      * Scale this Rect about the origin by factor `a`. 
      * 
      * @param a Scale factor
      * @return A reference to `this`, for convenience.
      */
-    Rect<T,N>& operator*=(point_t a) {
+    inline Rect<T,N>& operator*=(point_t a) {
         mins *= a;
         maxs *= a;
         return *this;
     }
 
     /**
-     * @brief Uniform scale.
+     * @brief Scale transformation.
      * 
      * @param a Scale factor.
      * @return A new Rect, scaled about the origin by multiple `1 / a`.
      */
-    Rect<T,N> operator/(point_t a) const {
+    inline Rect<T,N> operator/(point_t a) const {
         return Rect<T,N>(mins/a, maxs/a);
     }
 
     /**
-     * @brief Uniform scale. 
+     * @brief Scale transformation. 
      * 
      * Scale this Rect about the origin by factor `1 / a`. 
      * @param a Scale factor
      * @return A reference to `this`, for convenience.
      */
-    Rect<T,N>& operator/=(point_t a) {
+    inline Rect<T,N>& operator/=(point_t a) {
         mins /= a;
         maxs /= a;
         return *this;
@@ -416,8 +443,7 @@ public:
     }
  
     /**
-     * @return `true` if an only if this region intersects with `box`.
-     * Points on the surface of the Rect are considered to be contained by it.
+     * @return `true` if and only if there is a point overlapped by both `Rect`s.
      */
     bool intersects(const Rect<T,N> &box) const {
         for (index_t axis = 0; axis < N; axis++) {

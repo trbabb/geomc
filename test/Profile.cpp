@@ -233,7 +233,7 @@ template <index_t N> double profile_raw_vec_add(index_t iters) {
 }
 
 template <index_t N> double profile_perlin(index_t iters) {
-	typedef typename PointType<double,N>::point_t point_t;
+    typedef typename PointType<double,N>::point_t point_t;
     index_t n = NUM_PROFILE_CASES;
     point_t range = point_t(100000);
     point_t *vecs_src = new point_t[n];
@@ -259,7 +259,7 @@ template <index_t N> double profile_perlin(index_t iters) {
 
 template <typename T, index_t N> double profile_perlin_grad(index_t iters) {
     typedef Dual<T> dual;
-	typedef typename PointType<dual,N>::point_t point_t;
+    typedef typename PointType<dual,N>::point_t point_t;
     
     index_t n = NUM_PROFILE_CASES;
     point_t range = point_t(10000);
@@ -284,7 +284,7 @@ template <typename T, index_t N> double profile_perlin_grad(index_t iters) {
 }
 
 template <typename T, index_t N> double profile_perlin_hard_grad(index_t iters) {
-	typedef typename PointType<T,N>::point_t point_t;
+    typedef typename PointType<T,N>::point_t point_t;
     
     index_t n = NUM_PROFILE_CASES;
     point_t range = point_t(10000);
@@ -308,29 +308,70 @@ template <typename T, index_t N> double profile_perlin_hard_grad(index_t iters) 
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
-// careful with this. allocates lots o memory.
-template <typename T> double profile_rayTriangleTest(index_t iters) {
+template <typename T> 
+double profile_rayTriangleTest(index_t iters) {
     Sampler<T> rvs;
-	Ray<T,3> *rays = new Ray<T,3>[iters];
-	// generate N random rays. 
-	for (index_t i = 0; i < iters; i++) {
-		rays[i].origin    = rvs.template unit<3>(2.0);
-		rays[i].direction = rvs.template unit<3>();
-	}
-	// triangle points
-	Vec<T,3> p0(0.75,0,0);
-	Vec<T,3> p1(0,0.75,0);
-	Vec<T,3> p2(0,0,0.75);
+    static const index_t N = 3;
+    index_t n = std::sqrt(iters);
+    Ray<T,N>* rays = new Ray<T,N>[n];
+    Vec<T,N>* pts  = new Vec<T,N>[n*N];
+    
+    // generate n random rays; pts. 
+    for (index_t i = 0; i < n; i++) {
+        rays[i].origin    = rvs.template unit<N>(2.0);
+        rays[i].direction = rvs.template unit<N>();
+        for (index_t j = 0; j < N; ++j) {
+            pts[i*N + j] = rvs.template unit<N>();
+        }
+    }
+    index_t hits = 0;
 
-	clock_t start = clock();
-	for (index_t i = 0; i < iters; i++) {
-		trace_tri(p0, p1, p2, rays[i], HIT_FRONT);
-	}
-	clock_t end = clock();
-	
-	delete [] rays;
+    clock_t start = clock();
+    for (index_t i = 0; i < n; i++) {
+        Vec<T,N>* verts = pts + N * i;
+        for (index_t j = 0; j < n; ++j) {
+            hits += trace_tri(verts[0], verts[1], verts[2], rays[j], HIT_FRONT).hit;
+        }
+    }
+    clock_t end = clock();
+    
+    delete [] rays;
 
-	return (end-start) / (double)CLOCKS_PER_SEC;
+    return (end-start) / (double)CLOCKS_PER_SEC;
+}
+
+
+template <typename T, index_t N> 
+double profile_raySimplexTest(index_t iters) {
+    Sampler<T> rvs;
+    index_t n = std::sqrt(iters);
+    Ray<T,N>* rays = new Ray<T,N>[n];
+    Vec<T,N>* pts  = new Vec<T,N>[n*N];
+    
+    // generate n random rays; pts. 
+    for (index_t i = 0; i < n; i++) {
+        rays[i].origin    = rvs.template unit<N>(2.0);
+        rays[i].direction = rvs.template unit<N>();
+        for (index_t j = 0; j < N; ++j) {
+            pts[i*N + j] = rvs.template unit<N>();
+        }
+    }
+    index_t hits = 0;
+    Vec<T,N> bary;
+    T s;
+
+    clock_t start = clock();
+    for (index_t i = 0; i < n; i++) {
+        Vec<T,N>* verts = pts + N * i;
+        for (index_t j = 0; j < n; ++j) {
+            hits += trace_simplex(verts, rays[j], &bary, &s);
+        }
+    }
+    clock_t end = clock();
+    
+    delete [] rays;
+
+    return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
 template <typename T, index_t Bands> double profile_sh(index_t iters) {
@@ -339,12 +380,12 @@ template <typename T, index_t Bands> double profile_sh(index_t iters) {
     Vec<T,3> *vs = new Vec<T,3>[n];
     fill_unit_vec_array<T,3>(vs, n);
     
-	clock_t start = clock();
+    clock_t start = clock();
     for (index_t i = 0; i < iters; i++) {
         Vec<T,3> v = vs[i % n];
         sh.eval(v);
     }
-	clock_t end = clock();
+    clock_t end = clock();
     
     delete [] vs;
     
@@ -359,13 +400,13 @@ template <typename T, index_t Bands> double profile_sh_buffer(index_t iters) {
     fill_unit_vec_array<T,3>(vs, n);
     T k = 0;
     
-	clock_t start = clock();
+    clock_t start = clock();
     for (index_t i = 0; i < iters; i++) {
         Vec<T,3> v = vs[i % n];
         spherical_harmonic_coeff(&buf, v.z, std::atan2(v.y, v.x));
         k = sh.dot(buf);
     }
-	clock_t end = clock();
+    clock_t end = clock();
     
     delete [] vs;
     
@@ -419,22 +460,25 @@ template <typename T, index_t N> double profile_path(index_t iters) {
 
 template <typename T, index_t N, index_t Channels, Interpolation Interp> 
 double profile_raster(index_t iters) {
-	index_t n = 128;
-	Vec<index_t,N> dim(n);
+    static const index_t n = 128;
+    Vec<index_t,N> dim(n);
     Raster<T,T,N,Channels> image(dim);
     Vec<T,N> *coords = new Vec<T,N>[n];
-    Sampler<T> rvs;
+    Sampler<T> smp;
     
+    // fill with random junk
+    // also make some random coords to use
     for (index_t i = 0; i < n; i++) {
-    	coords[i] = rvs.box(Vec<T,N>::zeros, (Vec<T,N>)dim);
-    	for (index_t j = 0; j < n; j++) {
-    		image.set(Vec<index_t,N>(i,j), rvs.template unit<Channels>());
-    	}
+        coords[i] = smp.box(Vec<T,N>::zeros, (Vec<T,N>)dim);
+        for (index_t j = 0; j < n; j++) {
+            image.set(Vec<index_t,N>(i,j), smp.template unit<Channels>());
+        }
     }
     
+    // sample in a bunch of random places.
     clock_t start = clock();
     for (index_t i = 0; i < iters; i++) {
-        image.template sample<EDGE_CLAMP,Interp>(coords[i & (n-1)]);
+        image.template sample<EDGE_CLAMP,Interp>(coords[i % n]);
     }
     clock_t end = clock();
     
@@ -458,77 +502,77 @@ template <typename T> double profile_rotCtr(index_t iters) {
 }
 
 template <typename M> double profile_mtxCopy(index_t iters) {
-	index_t rows = 5;
-	index_t cols = 5;
-	M m(rows,cols);
-	Random *rng = getRandom();
-	typedef typename M::elem_t T;
-	T *ary = new T[rows*cols+1];
-	for (index_t i = 0; i < rows*cols+1; i++) {
-		ary[i] = rng->rand(1.0);
-	}
-	clock_t start = clock();
-	for (index_t i = 0; i < iters; i++) {
-		std::copy(m.begin(), m.end(), ary);	
-	}
-	clock_t end = clock();
-	
-	delete [] ary;
-	return (end-start) / (double)CLOCKS_PER_SEC;
+    index_t rows = 5;
+    index_t cols = 5;
+    M m(rows,cols);
+    Random *rng = getRandom();
+    typedef typename M::elem_t T;
+    T *ary = new T[rows*cols+1];
+    for (index_t i = 0; i < rows*cols+1; i++) {
+        ary[i] = rng->rand(1.0);
+    }
+    clock_t start = clock();
+    for (index_t i = 0; i < iters; i++) {
+        std::copy(m.begin(), m.end(), ary); 
+    }
+    clock_t end = clock();
+    
+    delete [] ary;
+    return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
 template <typename M> double profile_mtxRegionCopy(index_t iters) {
-	index_t rows = 5;
-	index_t cols = 5;
-	M m(rows,cols);
-	Random *rng = getRandom();
-	typedef typename M::elem_t T;
-	T *ary = new T[rows*cols+1];
-	for (index_t i = 0; i < rows*cols+1; i++) {
-		ary[i] = rng->rand(1.0);
-	}
-	clock_t start = clock();
-	for (index_t i = 0; i < iters; i++) {
-		MatrixRegion region(MatrixCoord(1,1), MatrixCoord(rows-1, cols-1));
-		std::copy(m.region_begin(region), m.region_end(region), ary);
-	}
-	clock_t end = clock();
-	
-	delete [] ary;
-	return (end-start) / (double)CLOCKS_PER_SEC;
+    index_t rows = 5;
+    index_t cols = 5;
+    M m(rows,cols);
+    Random *rng = getRandom();
+    typedef typename M::elem_t T;
+    T *ary = new T[rows*cols+1];
+    for (index_t i = 0; i < rows*cols+1; i++) {
+        ary[i] = rng->rand(1.0);
+    }
+    clock_t start = clock();
+    for (index_t i = 0; i < iters; i++) {
+        MatrixRegion region(MatrixCoord(1,1), MatrixCoord(rows-1, cols-1));
+        std::copy(m.region_begin(region), m.region_end(region), ary);
+    }
+    clock_t end = clock();
+    
+    delete [] ary;
+    return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
 template <typename T, index_t N> double profile_mtxInverse(index_t iters) {
-	SimpleMatrix<T,N,N> mtx[2];
-	Random *rng = getRandom();
-	for (T *p = mtx[0].begin(); p != mtx[0].end(); p++) {
-		*p = rng->rand(1.0);
-	}
-	index_t x = 0;
-	clock_t start = clock();
-	for (index_t i = 0; i < iters; i++, x = !x) {
-		inv(&mtx[!x], mtx[x]);	
-	}
-	clock_t end = clock();
-	
-	return (end-start) / (double)CLOCKS_PER_SEC;
+    SimpleMatrix<T,N,N> mtx[2];
+    Random *rng = getRandom();
+    for (T *p = mtx[0].begin(); p != mtx[0].end(); p++) {
+        *p = rng->rand(1.0);
+    }
+    index_t x = 0;
+    clock_t start = clock();
+    for (index_t i = 0; i < iters; i++, x = !x) {
+        inv(&mtx[!x], mtx[x]);  
+    }
+    clock_t end = clock();
+    
+    return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
 template <typename T, index_t N> double profile_mtxInverseLU(index_t iters) {
-	SimpleMatrix<T,N,N> mtx[2];
-	Random *rng = getRandom();
-	for (T *p = mtx[0].begin(); p != mtx[0].end(); p++) {
-		*p = rng->rand(1.0);
-	}
-	index_t x = 0;
-	clock_t start = clock();
-	for (index_t i = 0; i < iters; i++, x = !x) {
-		PLUDecomposition<T,N,N> plu = plu_decompose(mtx[x]);
-		plu.inverse(&mtx[!x]);	
-	}
-	clock_t end = clock();
-	
-	return (end-start) / (double)CLOCKS_PER_SEC;
+    SimpleMatrix<T,N,N> mtx[2];
+    Random *rng = getRandom();
+    for (T *p = mtx[0].begin(); p != mtx[0].end(); p++) {
+        *p = rng->rand(1.0);
+    }
+    index_t x = 0;
+    clock_t start = clock();
+    for (index_t i = 0; i < iters; i++, x = !x) {
+        PLUDecomposition<T,N,N> plu = plu_decompose(mtx[x]);
+        plu.inverse(&mtx[!x]);  
+    }
+    clock_t end = clock();
+    
+    return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
 template <typename T, index_t N>
@@ -676,6 +720,9 @@ template <typename T, index_t N> double profile_OBB_bounds(index_t iters) {
     return s / (double)CLOCKS_PER_SEC;;
 }
 
+//#define EMIT_GJK_ERRS
+//#define EMIT_GJK_ALL
+
 // this is tautological for N > 3. OBBs use GJK directly!
 template <typename T, index_t N> index_t test_gjkIntersect(index_t iters) {
     const index_t n = (index_t)std::ceil(std::sqrt(iters));
@@ -699,20 +746,36 @@ template <typename T, index_t N> index_t test_gjkIntersect(index_t iters) {
         Vec<T,N> b1[n_corners];
         boxes[i0].getCorners(b0);
         boxes[i1].getCorners(b1);
-        bool gjk = gjk_intersect(b0, n_corners, b1, n_corners, &d);
+        bool print = false;
+#ifdef EMIT_GJK_ALL
+        print = true;
+#endif
+        bool gjk = gjk_intersect(b0, n_corners, b1, n_corners, &d, print);
         bool SAT = boxes[i0].intersects(boxes[i1]);
-        if (gjk != SAT) failures++;
+        if (gjk != SAT) {
+#ifdef EMIT_GJK_ERRS
+            gjk_intersect(b0, n_corners, b1, n_corners, &d, true);
+            std::cout << ".\n";
+#endif
+            failures++;
+        }
+#ifdef EMIT_GJK_ALL
+        std::cout << ".\n";
+#endif
         if (SAT) positive++;
         else negative++;
     }
     
     delete [] boxes;
-    
+
+#if !defined(EMIT_GJK_ERRS) and !defined(EMIT_GJK_ALL)
     std::cout << "gjk " << N << "D failures: " << failures;
     std::cout << " (" << positive << " overlapped " << negative << " disjoint)" << std::endl;
+#endif
     
     return failures;
 }
+
 
 template <typename T, index_t N> T test_gjkNearest(index_t iters) {
     const index_t n = (index_t)std::ceil(std::sqrt(iters));
@@ -800,32 +863,32 @@ template <typename T, index_t N> index_t test_frustumSupport(index_t iters) {
 
 
 template <typename T, index_t N> void test_mtxInverse(index_t iters) {
-	SimpleMatrix<T,N,N> mtx[2];
-	Random *rng = getRandom();
-	for (T *p = mtx[0].begin(); p != mtx[0].end(); p++) {
-		*p = rng->rand(1.0);
-	}
-	std::cout << mtx[0];
-	index_t x = 0;
-	for (index_t i = 0; i < iters; i++, x = !x) {
-		inv(&mtx[!x], mtx[x]);
-		std::cout << mtx[!x];
-	}
+    SimpleMatrix<T,N,N> mtx[2];
+    Random *rng = getRandom();
+    for (T *p = mtx[0].begin(); p != mtx[0].end(); p++) {
+        *p = rng->rand(1.0);
+    }
+    std::cout << mtx[0];
+    index_t x = 0;
+    for (index_t i = 0; i < iters; i++, x = !x) {
+        inv(&mtx[!x], mtx[x]);
+        std::cout << mtx[!x];
+    }
 }
 
 template <typename M> void test_mtxRegionCopy(index_t rows, index_t cols) {
-	M m(rows,cols);
-	typedef typename M::elem_t T;
-	const index_t subn = (rows-2)*(cols-2);
-	T *v = new T[subn];
-	
-	for (index_t i = 0; i < subn; i++) {
-		v[i] = 11*i;
-	}
-	
-	std::fill(m.begin(), m.end(), 1);
-	std::copy(v, v+subn, m.region_begin(1,1,rows-1, cols-1));
-	cout << m;
+    M m(rows,cols);
+    typedef typename M::elem_t T;
+    const index_t subn = (rows-2)*(cols-2);
+    T *v = new T[subn];
+    
+    for (index_t i = 0; i < subn; i++) {
+        v[i] = 11*i;
+    }
+    
+    std::fill(m.begin(), m.end(), 1);
+    std::copy(v, v+subn, m.region_begin(1,1,rows-1, cols-1));
+    cout << m;
 }
 
 template <typename T, index_t N> void test_OOBB() {
@@ -835,7 +898,7 @@ template <typename T, index_t N> void test_OOBB() {
 }
 
 template <typename T, index_t M, index_t N> void test_mtxArithmetic(index_t rows, index_t cols) {
-	SimpleMatrix<T,M,N> a(rows,cols);
+    SimpleMatrix<T,M,N> a(rows,cols);
     SimpleMatrix<T,M,N> b(rows,cols);
     SimpleMatrix<T,M,N == 0 ? 0 : N+1> bogus(rows,cols+1);
     
@@ -848,61 +911,63 @@ template <typename T, index_t M, index_t N> void test_mtxArithmetic(index_t rows
 }
 
 template <index_t N> void test_permuteMatrix() {
-	PermutationMatrix<N> p;
+    PermutationMatrix<N> p;
     PermutationMatrix<N> p1;
-	Vec<double,N> v;
-	Random *rng = getRandom();
-	for (index_t i = 0; i < N; i++) {
-		v[i] = i;
-	}
-	for (index_t i = 0; i < N*2; i++) {
-		p.swap_rows(rng->rand(N), rng->rand(N));
+    Vec<double,N> v;
+    Random *rng = getRandom();
+    for (index_t i = 0; i < N; i++) {
+        v[i] = i;
+    }
+    for (index_t i = 0; i < N*2; i++) {
+        p.swap_rows(rng->rand(N), rng->rand(N));
         p1.swap_rows(rng->rand(N), rng->rand(N));
-	}
-	SimpleMatrix<double,N,N> m;
-	SimpleMatrix<double,N,N> minv;
+    }
+    SimpleMatrix<double,N,N> m;
+    SimpleMatrix<double,N,N> minv;
     SimpleMatrix<double,N,N> m_p1;
-	std::copy(p.begin(), p.end(),  m.begin());
+    std::copy(p.begin(), p.end(),  m.begin());
     std::copy(p1.begin(), p1.end(),  m_p1.begin());
-	inv(&minv, p);
-	cout << "v: " << v << endl;
-	cout << "P: " << endl << p << endl;
-	cout << "P*v: " << (p * v) << endl;
-	cout << "M: " << endl << m << endl;
-	cout << "M*v: " << (m * v) << endl;
+    inv(&minv, p);
+    bool correct = (p * p1) == (m * m_p1);
+    if (!correct) throw "permutation matrix failure";
+    cout << "v: " << v << endl;
+    cout << "P: " << endl << p << endl;
+    cout << "P*v: " << (p * v) << endl;
+    cout << "M: " << endl << m << endl;
+    cout << "M*v: " << (m * v) << endl;
     cout << "P * P1: " << (p * p1) << endl;
-    cout << "P * P1 correct? " << ((p * p1) == (m * m_p1)) << endl;
-	cout << "P^-1: " << endl << minv << endl;
+    cout << "P * P1 correct? " << correct << endl;
+    cout << "P^-1: " << endl << minv << endl;
 }
 
 template <index_t M, index_t N> void test_simpleMatrix() {
-	SimpleMatrix<double, M, N> m;
-	SimpleMatrix<double, DYNAMIC_DIM, DYNAMIC_DIM> q(M,N);
-	m[0][1] = 5;
-	q[0][1] = 8;
-	cout << m << endl;
-	cout << q << endl;
+    SimpleMatrix<double, M, N> m;
+    SimpleMatrix<double, DYNAMIC_DIM, DYNAMIC_DIM> q(M,N);
+    m[0][1] = 5;
+    q[0][1] = 8;
+    cout << m << endl;
+    cout << q << endl;
 }
 
 void test_matrixOrder() {
     SimpleMatrix<double,3,3> m0;
     SimpleMatrix<double,3,4> m1;
-	AugmentedMatrix<SimpleMatrix<double,3,3>,
+    AugmentedMatrix<SimpleMatrix<double,3,3>,
                     SimpleMatrix<double,3,4> > mtx(&m0, &m1);
     
-	double ct = 0;
-	for (auto it = mtx.begin(); it != mtx.end(); it++) {
-		*it = ct++;
-	}
+    double ct = 0;
+    for (auto it = mtx.begin(); it != mtx.end(); it++) {
+        *it = ct++;
+    }
     
-	std::cout << "[";
-	for (index_t r = 0; r < mtx.rows(); r++) {
-		for (index_t c = 0; c < mtx.cols()    ; c++) {
-			std::cout << mtx.get(r,c) << " ";
-		}
-		std::cout << std::endl;
-	}
-	std::cout << "]" << std::endl;
+    std::cout << "[";
+    for (index_t r = 0; r < mtx.rows(); r++) {
+        for (index_t c = 0; c < mtx.cols()    ; c++) {
+            std::cout << mtx.get(r,c) << " ";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << "]" << std::endl;
 }
 
 void profile(std::string name, double (*fnc)(index_t), index_t iterations) {
@@ -931,13 +996,19 @@ void test_dual() {
 
 using geom::operator<<;
 
+#if defined(EMIT_GJK_ERRS) or defined(EMIT_GJK_ALL)
+int main(int argc, char** argv) {
+    test_gjkIntersect<double,3>(100000);
+    return 0;
+}
+#else
 
 int main(int argc, char** argv) {
     Vec2d a2d;
     Vec3d a3d;
     Vec4d a4d;
     
-    test_gjkNearest<double,3>(1000);
+    //test_gjkNearest<double,3>(1000);
     
     index_t iters = 10000000;
     
@@ -1020,10 +1091,14 @@ int main(int argc, char** argv) {
     profile("4d dot", profile_vec_dot<4>, iters);
     profile("8d dot", profile_vec_dot<8>, iters);
     std::cout << std::endl;
-	
-    profile("rayf-triangle hit", profile_rayTriangleTest<float>,  iters/10);
-    profile("rayd-triangle hit", profile_rayTriangleTest<double>, iters/10);
-	std::cout << std::endl;
+    
+    profile("ray3f-triangle hit", profile_rayTriangleTest<float>,  iters/10);
+    profile("ray3d-triangle hit", profile_rayTriangleTest<double>, iters/10);
+    profile("ray3d-simplex hit", profile_raySimplexTest<double,3>, iters/10);
+    profile("ray4d-simplex hit", profile_raySimplexTest<double,4>, iters/10);
+    profile("ray5d-simplex hit", profile_raySimplexTest<double,5>, iters/10);
+    
+    std::cout << std::endl;
     
     profile("2d path", profile_path<double, 2>, iters);
     profile("3d path", profile_path<double, 3>, iters);
@@ -1062,7 +1137,7 @@ int main(int argc, char** argv) {
 
     profile("5x5 mtxf copy",    profile_mtxCopy<SimpleMatrix<float,0,0> >, iters/100);
     profile("5x5 mtxd copy",    profile_mtxCopy<SimpleMatrix<double,0,0> >, iters/100);
-    profile("5x5 diagf copy",   profile_mtxCopy<DiagMatrix<float,5,5> >, iters/100);
+    profile("5x5 diagf copy",   profile_mtxCopy<DiagMatrix<float,5,5> >, iters/100);   // xxx: memory error in here?!
     std::cout << std::endl;
     
     profile("2x2 mtxf inv", profile_mtxInverse<float,2>,  iters/10);
@@ -1120,3 +1195,6 @@ int main(int argc, char** argv) {
     
     return 0;
 }
+
+#endif
+

@@ -108,7 +108,7 @@ class FlatMatrixBase;
  * @tparam N Size of the array, or 0 for dynamic size.
  * 
  * The array will be dynamically allocated if the dimension template argument `N` is 
- * zero; otherwise the storage will be allocated on the stack. Dynamically allocated
+ * zero; otherwise the storage will be local. Dynamically allocated
  * storage uses reference counting for memory management. 
  * 
  * This is the simplest type of storage, in which the client is responsible for 
@@ -208,7 +208,9 @@ struct SizedStorage<T,DYNAMIC_DIM> : public Storage<T,DYNAMIC_DIM> {
  * move assignments and constructions of dynamically-sized arrays will be 
  * lightweight).
  *
- * Statically-sized arrays will allocate their memory on the stack.
+ * Statically-sized instances use local member arrays (as opposed to 
+ * heap-allocated ones), so stack-allocated `UniqueStorage`s will also 
+ * allocate their underlying arrays on the stack.
  * 
  * @tparam T Element type.
  * @tparam N Size of the array, or 0 for dynamic size.
@@ -382,7 +384,7 @@ public:
         if (sz > N) {
             data = new T[sz];
         } else {
-            data = &buf;
+            data = buf;
         }
     }
     
@@ -398,7 +400,7 @@ public:
         if (sz > N) {
             data = new T[sz];
         } else {
-            data = &buf;
+            data = buf;
         }
         std::copy(other.data, other.data + sz, data);
     }
@@ -410,7 +412,7 @@ public:
         if (sz > N) {
             data = other.data;
         } else {
-            data = &buf;
+            data = buf;
             std::copy(other.data, other.data + sz, data);
         }
         other.data = NULL;
@@ -424,7 +426,7 @@ public:
         if (sz > N) {
             data = other.data;
         } else {
-            data = &buf;
+            data = buf;
             std::copy(other.data, other.data + sz, data);
         }
         other.data = NULL;
@@ -440,7 +442,7 @@ public:
         // don't bother to realloc if the buffer is already the correct size.
         if (sz > N and data and sz != other.sz) delete [] data;
         if (other.sz <= N) {
-            data = &buf;
+            data = buf;
         } else if (other.sz != sz or not data) {
             data = new T[other.sz];
         }

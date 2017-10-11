@@ -105,7 +105,7 @@ public:
         coord_t s = pt - ((coord_t)gridPt);
         
         // copy surrounding 2^N sample pts into a contiguous buffer
-        r->template copy<Edge>(buf, Rect<int,N>(gridPt, gridPt + grid_t(2)));
+        r->template copy<Edge>(buf, Rect<int,N>(gridPt, gridPt + grid_t(1)));
         
         return interp_linear(PointType<I,N>::iterator(s), buf, N);
     }
@@ -124,7 +124,7 @@ public:
         coord_t s = pt - ((coord_t)gridPt);
         
         // copy surrounding 4^N sample pts into a contiguous buffer
-        r->template copy<Edge>(buf, Rect<int,N>(gridPt - grid_t(1), gridPt + grid_t(3)));
+        r->template copy<Edge>(buf, Rect<int,N>(gridPt - grid_t(1), gridPt + grid_t(2)));
         
         return interp_cubic(PointType<I,N>::iterator(s), buf, N);
     }

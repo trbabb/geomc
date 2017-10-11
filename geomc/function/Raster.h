@@ -27,6 +27,16 @@ namespace geom {
 //      > functions like integrate and resample will also be able to 
 //        bypass the need for interp/edge params because it's internal state.
 //      > but... need to pass around rasters without these stupid template params.
+    
+/*
+ * Need two classes: Raster and Grid (or some clearer naming thereof). 
+ * Grid always has array indexes and is not interpolated.
+ * Grids support basic arithmetic ops.
+ * Raster wraps a Grid, interpolates it, and defines a domain.
+ * Should grids be agnostic of input/output dim? I.e. always functions of
+ * T^n -> T? and simply provide functions for slicing differently?
+ *   what was the reason we got rid of Raster<Vec<T,N>> ? did we actually try that?
+ */
 /*
  * new class design
  *   - base class which handles base data, extents, domain, and the exposure thereof
@@ -421,7 +431,7 @@ public:
 protected:
     
     inline coord_t toGridSpace(const coord_t &pt) const {
-        return (coord_t)m_extent * (pt - m_domain.min()) / m_domain.getDimensions();
+        return (coord_t)m_extent * m_domain.unmap(pt);
     }
     
     template <EdgeBehavior Edge>

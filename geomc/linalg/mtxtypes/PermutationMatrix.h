@@ -124,7 +124,7 @@ public:
      *
      * @return -1 if the number of transpositions in this permutation is odd, 1 otherwise.
      */
-    T getSign() {
+    index_t getSign() {
         if (sign == 0) {
             index_t n = detail::PermuteMatrixBase<N>::_rows();
             index_t *row_src = parent_t::getSrcData();
@@ -399,8 +399,8 @@ private:
     // we must call this function after one index map has been filled, but before the other has been computed.
     // runs in O(n) time.
     
-    bool computeSign(T* p, T* buf, index_t n) {
-        std::fill(buf, buf+n, (T)0);
+    bool computeSign(index_t* p, index_t* buf, index_t n) {
+        std::fill(buf, buf+n, 0);
         
         // follow the cycles.
         bool odd = false;
