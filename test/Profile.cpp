@@ -357,14 +357,14 @@ double profile_raySimplexTest(index_t iters) {
         }
     }
     index_t hits = 0;
-    Vec<T,N> bary;
+    Vec<T,N-1> srf_coords;
     T s;
 
     clock_t start = clock();
     for (index_t i = 0; i < n; i++) {
         Vec<T,N>* verts = pts + N * i;
         for (index_t j = 0; j < n; ++j) {
-            hits += trace_simplex(verts, rays[j], &bary, &s);
+            hits += trace_simplex(verts, rays[j], &srf_coords, &s);
         }
     }
     clock_t end = clock();
@@ -373,6 +373,7 @@ double profile_raySimplexTest(index_t iters) {
 
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
+
 
 template <typename T, index_t Bands> double profile_sh(index_t iters) {
     SphericalHarmonics<T,Bands> sh;
@@ -1092,11 +1093,11 @@ int main(int argc, char** argv) {
     profile("8d dot", profile_vec_dot<8>, iters);
     std::cout << std::endl;
     
-    profile("ray3f-triangle hit", profile_rayTriangleTest<float>,  iters/10);
-    profile("ray3d-triangle hit", profile_rayTriangleTest<double>, iters/10);
-    profile("ray3d-simplex hit", profile_raySimplexTest<double,3>, iters/10);
-    profile("ray4d-simplex hit", profile_raySimplexTest<double,4>, iters/10);
-    profile("ray5d-simplex hit", profile_raySimplexTest<double,5>, iters/10);
+    profile("ray3f-triangle hit",     profile_rayTriangleTest<float>,       iters/10);
+    profile("ray3d-triangle hit",     profile_rayTriangleTest<double>,      iters/10);
+    profile("ray3d-simplex hit",      profile_raySimplexTest<double,3>,     iters/10);
+    profile("ray4d-simplex hit",      profile_raySimplexTest<double,4>,     iters/10);
+    profile("ray5d-simplex hit",      profile_raySimplexTest<double,5>,     iters/10);
     
     std::cout << std::endl;
     

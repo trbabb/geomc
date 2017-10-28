@@ -136,70 +136,8 @@ inline bool ray_csg_subtract(
 
 /**
  * Ray trace a simplex (e.g. triangle, tetrahedron, etc.), returning
- * barycentric coordinates for the hit point.
- *
- * This method is somewhat slower that using basis coordinates. 
- * 
- * @param verts An array of the simplex's N vertices.
- * @param ray The ray to intersect with the simplex.
- * @param bary_coords The barycentric coordinates representing the mixture of 
- * verticies which produces the ray hit point. (return variable)
- * @param s The ray parameter producing the hit. (return variable)
- * @return `true` if the ray hit the simplex.
- */
-template <typename T, index_t N>
-bool trace_simplex_barycentric(const Vec<T,N> verts[N], const Ray<T,N>& ray, Vec<T,N>* bary_coords, T* s) {
-    /*  We solve by linear system of barycentric coordinates:   
-    
-        p * A + q * B + r * C      = o + sv
-                ...           - sv = o
-            and:
-        p + q + r = 1
-        
-        Ax Bx Xx -Vx   p    Ox
-        Ay By Xy -Vy * q  = Oy
-        Az Bz Xz -Vz   r    Oz
-        1  1  1   0    s    1
-    */
-    
-    // populate matrix as above
-    // todo: could formulate as row-major?
-    SimpleMatrix<T,N+1,N+1> m;
-    for (index_t row = 0; row < N; ++row) {
-        for (index_t col = 0; col < N; ++col) {
-            m.set(row, col, verts[col][row]);
-        }
-        m.set(row, N, 1);
-        m.set(N, row, -ray.direction[row]);
-    }
-    
-    // solve for x
-    Vec<T,N+1> x;
-    Vec<T,N+1> b(ray.origin, 1);
-    if (N < 4) {
-        SimpleMatrix<T,N+1,N+1> M_i;
-        if (!inv(&M_i, m)) return false;
-        x = M_i * b;
-    } else {
-        if (!linearSolve(m.begin(), N+1, x.begin(), b.begin())) return false;
-    }
-    
-    // inside simplex?
-    for (index_t i = 0; i < N; ++i) {
-        if (x[i] < 0) return false;
-    }
-    
-    // output result
-    *s = x[N];
-    *bary_coords = x.template resized<N>();
-    return true;
-}
-
-
-/**
- * Ray trace a simplex (e.g. triangle, tetrahedron, etc.), returning
- * the surface parameters of the hit point in coordinates of the basis formed
- * by the edges radiating from `verts[0]`.
+ * the surface parameters of the hit point, given in coordinates of the basis 
+ * spanned by the edges radiating from `verts[0]`.
  * 
  * @param verts An array of the simplex's N vertices.
  * @param ray The ray to intersect with the simplex.
@@ -215,7 +153,9 @@ bool trace_simplex(const Vec<T,N> verts[N], const Ray<T,N>& ray, Vec<T,N-1>* uv,
     Mx = o - A
     */
     
-    // todo: can formulate row-major?
+    // todo: cramer's rule might be used in 3d for faster linear solve. 
+    //       (note: is unstable).
+    // todo: can formulate row-major for speed?
     
     // populate matrix
     SimpleMatrix<T,N,N> m;
