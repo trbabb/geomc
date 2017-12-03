@@ -146,9 +146,6 @@ Functions</h2></td></tr>
 <tr class="memitem:gaa678b8f3b78685df3d69093cdc76a477"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
 <tr class="memitem:gaa678b8f3b78685df3d69093cdc76a477"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#gaa678b8f3b78685df3d69093cdc76a477">ray_csg_subtract</a> (T a_lo, T a_hi, T b_lo, T b_hi, T *s, bool *hit_a, bool *hit_near, <a class="el" href="group__shape.html#ga66505ffabe4da800c0ec653d493ea944">HitSide</a> *side)</td></tr>
 <tr class="separator:gaa678b8f3b78685df3d69093cdc76a477"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad59a8f56e82ebf1d20ef3919ef838810"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
-<tr class="memitem:gad59a8f56e82ebf1d20ef3919ef838810"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#gad59a8f56e82ebf1d20ef3919ef838810">trace_simplex_barycentric</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; verts[N], const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; &amp;ray, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *bary_coords, T *s)</td></tr>
-<tr class="separator:gad59a8f56e82ebf1d20ef3919ef838810"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf3d91572058f9454062fed9b7a08d159"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
 <tr class="memitem:gaf3d91572058f9454062fed9b7a08d159"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#gaf3d91572058f9454062fed9b7a08d159">trace_simplex</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; verts[N], const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; &amp;ray, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N-1 &gt; *uv, T *s)</td></tr>
 <tr class="separator:gaf3d91572058f9454062fed9b7a08d159"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -628,7 +625,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="classgeom_1_1_ray.html" title="Ray class. ">Ray</a> trace a simplex (e.g. triangle, tetrahedron, etc.), returning the surface parameters of the hit point in coordinates of the basis formed by the edges radiating from <code>verts[0]</code>.</p>
+<p><a class="el" href="classgeom_1_1_ray.html" title="Ray class. ">Ray</a> trace a simplex (e.g. triangle, tetrahedron, etc.), returning the surface parameters of the hit point, given in coordinates of the basis spanned by the edges radiating from <code>verts[0]</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">verts</td><td>An array of the simplex's N vertices. </td></tr>
@@ -642,62 +639,10 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="gad59a8f56e82ebf1d20ef3919ef838810"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gad59a8f56e82ebf1d20ef3919ef838810">&#9670;&nbsp;</a></span>trace_simplex_barycentric()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool geom::trace_simplex_barycentric </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td>
-          <td class="paramname"><em>verts</em>[N], </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; &amp;&#160;</td>
-          <td class="paramname"><em>ray</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *&#160;</td>
-          <td class="paramname"><em>bary_coords</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T *&#160;</td>
-          <td class="paramname"><em>s</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p><a class="el" href="classgeom_1_1_ray.html" title="Ray class. ">Ray</a> trace a simplex (e.g. triangle, tetrahedron, etc.), returning barycentric coordinates for the hit point.</p>
-<p>This method is somewhat slower that using basis coordinates.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">verts</td><td>An array of the simplex's N vertices. </td></tr>
-    <tr><td class="paramname">ray</td><td>The ray to intersect with the simplex. </td></tr>
-    <tr><td class="paramname">bary_coords</td><td>The barycentric coordinates representing the mixture of verticies which produces the ray hit point. (return variable) </td></tr>
-    <tr><td class="paramname">s</td><td>The ray parameter producing the hit. (return variable) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><code>true</code> if the ray hit the simplex. </dd></dl>
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 11 2017 12:12:58 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2017 18:51:12 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

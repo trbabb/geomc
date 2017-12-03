@@ -2,10 +2,9 @@ var searchData=
 [
   ['inputdimension',['inputDimension',['../classgeom_1_1_raster.html#a544cc8ef5f4e347d9d4b34eb12a17f63',1,'geom::Raster']]],
   ['insert',['insert',['../structgeom_1_1_k_d_tree_1_1_k_d_structure_params.html#a75625203498ac85cdf4d37b23cc2bb40',1,'geom::KDTree::KDStructureParams::insert()'],['../classgeom_1_1_k_d_tree.html#ac526307c77b26e504c8c447a98e85699',1,'geom::KDTree::insert()'],['../classgeom_1_1_tree.html#a4c96bcdd6de576785c797f7e2c789090',1,'geom::Tree::insert(const node_iterator &amp;parent, const LeafItem &amp;obj)'],['../classgeom_1_1_tree.html#a041b18ed20b313b68b99404bd72c4b7f',1,'geom::Tree::insert(const node_iterator &amp;parent, const LeafItemIterator &amp;first_item, const LeafItemIterator &amp;off_end_item, index_t *new_item_count=nullptr)']]],
-  ['insert_5fchild_5fnode',['insert_child_node',['../classgeom_1_1_tree.html#a583e3f63ef6b5b3ab86483741ac029ec',1,'geom::Tree']]],
+  ['insert_5fchild_5fnode',['insert_child_node',['../classgeom_1_1_tree.html#a6f3001ced38a6087a9bea4262e967dbf',1,'geom::Tree']]],
+  ['insert_5fchild_5fnodes',['insert_child_nodes',['../classgeom_1_1_tree.html#a7cf0c9631bc608d549489ebb8cc26a2b',1,'geom::Tree']]],
   ['insert_5fshortest_5fdistance',['INSERT_SHORTEST_DISTANCE',['../group__shape.html#gga611cf03037c0db7c4856806508335f7aaf2c351ff00aba171d0822f4f02e916d5',1,'geom']]],
-  ['insert_5fsibling_5fnode',['insert_sibling_node',['../classgeom_1_1_tree.html#a52fe4319f86043cdd3ad24a524c9ea79',1,'geom::Tree']]],
-  ['insert_5fsibling_5fnodes',['insert_sibling_nodes',['../classgeom_1_1_tree.html#ad7afc115ff0d591abea705998654e7dc',1,'geom::Tree']]],
   ['insert_5fsmallest_5fvolume_5fincrease',['INSERT_SMALLEST_VOLUME_INCREASE',['../group__shape.html#gga611cf03037c0db7c4856806508335f7aaa8ed78892950508d029bba00f6babf9b',1,'geom']]],
   ['insertnode',['insertNode',['../classgeom_1_1_k_d_tree.html#a4880dc763d3d5fee6cc9ad9f63921e3b',1,'geom::KDTree']]],
   ['interp_5fcubic',['INTERP_CUBIC',['../group__function.html#gga817402314dfc91b23b3642e5b6bb4549acc459868280daf43da1548ef8d8a43f8',1,'geom::INTERP_CUBIC()'],['../group__function.html#gad9ba556080798c2b8e085f39157dca3c',1,'geom::interp_cubic(S s, const T p[4])'],['../group__function.html#gacd8324cc76aadfb005d2625379cad18b',1,'geom::interp_cubic(const S s[], const T p[], int dim)']]],

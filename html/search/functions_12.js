@@ -5,7 +5,6 @@ var searchData=
   ['tospherical',['toSpherical',['../classgeom_1_1_vec_3_01_t_00_013_01_4.html#a19b6a1a87ca92b1f5f7a292753a010d3',1,'geom::Vec&lt; T, 3 &gt;']]],
   ['trace',['trace',['../classgeom_1_1_cylinder.html#ae268e06bf8fc12bf090286ce1d795306',1,'geom::Cylinder::trace()'],['../classgeom_1_1_oriented_rect.html#ac70bf405a1663c61ac7d8e9dbecc624e',1,'geom::OrientedRect::trace()'],['../classgeom_1_1_plane.html#a1087325aff0fb85aeede9d61b8ee4eb9',1,'geom::Plane::trace()'],['../classgeom_1_1_rect.html#a48022224b53f7a93cd98008ac9a60b85',1,'geom::Rect::trace()'],['../classgeom_1_1_sphere.html#ae268e06bf8fc12bf090286ce1d795306',1,'geom::Sphere::trace()']]],
   ['trace_5fsimplex',['trace_simplex',['../group__shape.html#gaf3d91572058f9454062fed9b7a08d159',1,'geom']]],
-  ['trace_5fsimplex_5fbarycentric',['trace_simplex_barycentric',['../group__shape.html#gad59a8f56e82ebf1d20ef3919ef838810',1,'geom']]],
   ['trace_5fsphere',['trace_sphere',['../namespacegeom.html#a1dd9da1915651b5bfa798463a796c320',1,'geom']]],
   ['transformation',['transformation',['../classgeom_1_1_affine_transform.html#adcba19e52a0be4488abe38fcb23581b1',1,'geom::AffineTransform']]],
   ['translate',['translate',['../classgeom_1_1_rect.html#ae1444b33bb12d63ca516e2bbc46972d0',1,'geom::Rect']]],

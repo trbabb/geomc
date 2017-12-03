@@ -850,7 +850,7 @@ class geom::PLUDecomposition&lt; T, M, N &gt;</h3>
 <p>Solve a system of linear equations <code>LUx = Pb</code>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lup</td><td>An <code>n x n</code> LUP-decomposed matrix. </td></tr>
+    <tr><td class="paramname">lup</td><td>An <code>n x n</code> LUP-decomposed matrix in row-major layout. </td></tr>
     <tr><td class="paramname">p</td><td>The permutation array filled by <code><a class="el" href="classgeom_1_1_p_l_u_decomposition.html#a7c5b9135b921f40211a4fd89e6392efb">decompLUP()</a></code>. </td></tr>
     <tr><td class="paramname">n</td><td>The number of rows and columns in the matrix. </td></tr>
     <tr><td class="paramname">x</td><td>The solution vector of <code>n</code> elements to be filled. </td></tr>
@@ -909,7 +909,7 @@ class geom::PLUDecomposition&lt; T, M, N &gt;</h3>
 <p>Solve a system of linear equations <code>LUx = b</code>, without a permutation map.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lup</td><td>An <code>n x n</code> LUP-decomposed matrix. </td></tr>
+    <tr><td class="paramname">lup</td><td>An <code>n x n</code> LUP-decomposed matrix in row-major layout. </td></tr>
     <tr><td class="paramname">n</td><td>The number of rows and columns in the matrix. </td></tr>
     <tr><td class="paramname">x</td><td>The solution vector of <code>n</code> elements to be filled. </td></tr>
     <tr><td class="paramname">b</td><td>A vector of <code>n</code> elements. </td></tr>
@@ -926,7 +926,7 @@ class geom::PLUDecomposition&lt; T, M, N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Oct 11 2017 12:12:58 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 2 2017 18:51:12 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
