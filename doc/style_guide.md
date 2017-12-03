@@ -194,7 +194,17 @@ A single space follows comment delimiters:
 
     // I have no idea what's happening here
 
-Comment as though you'll have your memory completely wiped before the next time you'll need to touch your code. 
+If a line or block of code required any mental work or reasoning beyond trivial 
+idioms, a comment is required there. If there is any "why was it done this way" 
+or "what does this mean" question that is not trivially explained by the code 
+itself without mental effort, a comment is required there. The goal is that a 
+future reader-- including yourself-- should never have to reproduce that 
+reasoning from scratch or from reverse engineering the code.
+
+Comment as though you'll have all your memory of working on the code wiped
+before the next time you'll touch it. This is closer to the truth than many
+people tend to admit, and is also a good method for empathizing with future
+maintainers who are not yourself!
 
 Programming
 ===========
