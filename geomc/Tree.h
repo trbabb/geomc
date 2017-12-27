@@ -108,16 +108,28 @@ class Tree {
     
 public:
     
+    /**
+     * @brief An optionally-const iterator over the leaf items of a tree.
+     *
+     * Dereferencing this iterator produces a `LeafItem` object.
+     *
+     * Items are listed in depth-first order.
+     *
+     * @tparam Const Whether this iterator refers to a `const` item or not.
+     */
     template <bool Const>
     class ItemIterator {
         
         friend class Tree<NodeItem,LeafItem>;
         
+    public:
         typedef ItemIterator<Const> self_t;
-        // reference to value type
+        /// A (possibly const) reference to a LeafItem.
         typedef typename ConstType<LeafItem,Const>::reference_t reference;
-        // pointer to value type
+        /// A (possibly const) pointer to a LeafItem.
         typedef typename ConstType<LeafItem,Const>::pointer_t   pointer;
+    
+    private:
         
         ItemRef item;
         NodeRef parent; // an ancestor of the item. may or may not be "close" 
@@ -134,41 +146,49 @@ public:
         
     public:
         
+        /// `++i`: Next item
         inline self_t& operator++() {
             ++item;
             return *this;
         }
         
+        /// `--i`: Previous item
         inline self_t& operator--() {
             --item;
             return *this;
         }
         
+        /// `i++`: Next item
         inline self_t operator++(int) {
             self_t tmp = item;
             ++item;
             return tmp;
         }
         
+        /// `i--`: Previous item
         inline self_t operator--(int) {
             self_t tmp = item;
             --item;
             return tmp;
         }
         
+        /// `*i`: Get item value
         inline reference operator*() const {
             return *item;
         }
         
+        /// `i->...`: Access item member
         inline pointer operator->() const {
             return &(*item);
         }
         
+        /// Returns `true` iff `other` points to the same LeafItem.
         template <bool C>
         inline bool operator==(const ItemIterator<C>& other) const {
             return item == other.item;
         }
         
+        /// Returns `true` iff `other` does not point to the same LeafItem.
         template <bool C>
         inline bool operator!=(const ItemIterator<C>& other) const {
             return item != other.item;
@@ -934,8 +954,9 @@ public:
     /**
      * @brief Remove an item from the tree.
      *
-     * Performs an `n log(n)` search through the subtree from which `item` 
-     * was obtained, where `n` is the number of items in that subtree.
+     * Performs an `n log(n)` search through the tree (with `n` being
+     * the total number of items in the tree). It is faster to use `erase(2)`
+     * with a close ancestor of `item` provided, if one is known.
      *
      * Invalidates the iterator to this item, as well as any `end()`
      * `item_iterator`s.
