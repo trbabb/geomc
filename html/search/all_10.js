@@ -20,7 +20,7 @@ var searchData=
   ['rect_3c_20index_5ft_2c_20n_20_3e',['Rect&lt; index_t, N &gt;',['../classgeom_1_1_rect.html',1,'geom']]],
   ['rect_3c_20t_2c_201_20_3e',['Rect&lt; T, 1 &gt;',['../classgeom_1_1_rect.html',1,'geom']]],
   ['rect_3c_20t_2c_20n_2d1_20_3e',['Rect&lt; T, N-1 &gt;',['../classgeom_1_1_rect.html',1,'geom']]],
-  ['reference',['reference',['../classgeom_1_1_simple_matrix.html#a9b1a63f171d76a7a3995b6858e99f2ea',1,'geom::SimpleMatrix::reference()'],['../classgeom_1_1_tree_1_1_node_iterator.html#a2847c7789d53e69d24f981a1cca6a4d3',1,'geom::Tree::NodeIterator::reference()']]],
+  ['reference',['reference',['../classgeom_1_1_simple_matrix.html#a9b1a63f171d76a7a3995b6858e99f2ea',1,'geom::SimpleMatrix::reference()'],['../classgeom_1_1_tree_1_1_item_iterator.html#ac8e81b5695d1e3c90bf7cc83c0309e9f',1,'geom::Tree::ItemIterator::reference()'],['../classgeom_1_1_tree_1_1_node_iterator.html#a2847c7789d53e69d24f981a1cca6a4d3',1,'geom::Tree::NodeIterator::reference()']]],
   ['reflectx',['reflectX',['../classgeom_1_1_vec_3_01_t_00_012_01_4.html#a1e75d06b23a51934264e8b6b6fc4775b',1,'geom::Vec&lt; T, 2 &gt;::reflectX()'],['../classgeom_1_1_vec_3_01_t_00_013_01_4.html#a9b4c1f931b28d007c58e88c7893a196c',1,'geom::Vec&lt; T, 3 &gt;::reflectX()']]],
   ['reflecty',['reflectY',['../classgeom_1_1_vec_3_01_t_00_012_01_4.html#a6bf6d38a3e6daee4717edfac84f1e141',1,'geom::Vec&lt; T, 2 &gt;::reflectY()'],['../classgeom_1_1_vec_3_01_t_00_013_01_4.html#aa1f0cc79df28f8206d5bbae00b4d5fe8',1,'geom::Vec&lt; T, 3 &gt;::reflectY()']]],
   ['reflectz',['reflectZ',['../classgeom_1_1_vec_3_01_t_00_013_01_4.html#a6396cef0fe90c6a1c3392d42bf9e889e',1,'geom::Vec&lt; T, 3 &gt;']]],

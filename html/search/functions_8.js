@@ -1,7 +1,7 @@
 var searchData=
 [
   ['inputdimension',['inputDimension',['../classgeom_1_1_raster.html#a544cc8ef5f4e347d9d4b34eb12a17f63',1,'geom::Raster']]],
-  ['insert',['insert',['../classgeom_1_1_k_d_tree.html#ac526307c77b26e504c8c447a98e85699',1,'geom::KDTree::insert()'],['../classgeom_1_1_tree.html#a4c96bcdd6de576785c797f7e2c789090',1,'geom::Tree::insert(const node_iterator &amp;parent, const LeafItem &amp;obj)'],['../classgeom_1_1_tree.html#a041b18ed20b313b68b99404bd72c4b7f',1,'geom::Tree::insert(const node_iterator &amp;parent, const LeafItemIterator &amp;first_item, const LeafItemIterator &amp;off_end_item, index_t *new_item_count=nullptr)']]],
+  ['insert',['insert',['../classgeom_1_1_k_d_tree.html#ac526307c77b26e504c8c447a98e85699',1,'geom::KDTree::insert()'],['../classgeom_1_1_tree.html#aa9580e990fdcd66b8ecc11442fd56c25',1,'geom::Tree::insert(const node_iterator &amp;parent, const item_iterator &amp;insert_before, const LeafItem &amp;obj)'],['../classgeom_1_1_tree.html#a640f48efcfa7305f500bd4aa2a1e2d9d',1,'geom::Tree::insert(const node_iterator &amp;parent, const item_iterator &amp;insert_before, const LeafItemIterator begin_item, const LeafItemIterator &amp;end_item, index_t *new_item_count=nullptr)']]],
   ['insert_5fchild_5fnode',['insert_child_node',['../classgeom_1_1_tree.html#a6f3001ced38a6087a9bea4262e967dbf',1,'geom::Tree']]],
   ['insert_5fchild_5fnodes',['insert_child_nodes',['../classgeom_1_1_tree.html#a7cf0c9631bc608d549489ebb8cc26a2b',1,'geom::Tree']]],
   ['insertnode',['insertNode',['../classgeom_1_1_k_d_tree.html#a4880dc763d3d5fee6cc9ad9f63921e3b',1,'geom::KDTree']]],

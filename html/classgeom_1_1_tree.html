@@ -81,6 +81,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree_1_1_item_iterator.html">ItemIterator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An optionally-const iterator over the leaf items of a tree.  <a href="classgeom_1_1_tree_1_1_item_iterator.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree_1_1_node_iterator.html">NodeIterator</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An optionally-const iterator over the internal nodes of a tree.  <a href="classgeom_1_1_tree_1_1_node_iterator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -96,11 +99,11 @@ typedef <a class="el" href="classgeom_1_1_tree_1_1_node_iterator.html">NodeItera
 <tr class="memdesc:acdbd2626c510eaae84369fb16d184b07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Const iterator over the internal tree nodes. <br /></td></tr>
 <tr class="separator:acdbd2626c510eaae84369fb16d184b07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae777874928fa873c326f73904604b92d"><td class="memItemLeft" align="right" valign="top"><a id="ae777874928fa873c326f73904604b92d"></a>
-typedef ItemIterator&lt; false &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#ae777874928fa873c326f73904604b92d">item_iterator</a></td></tr>
+typedef <a class="el" href="classgeom_1_1_tree_1_1_item_iterator.html">ItemIterator</a>&lt; false &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#ae777874928fa873c326f73904604b92d">item_iterator</a></td></tr>
 <tr class="memdesc:ae777874928fa873c326f73904604b92d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterator over <code>LeafItem</code>s. <br /></td></tr>
 <tr class="separator:ae777874928fa873c326f73904604b92d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11c2099e8386a85ee242d49448ac1760"><td class="memItemLeft" align="right" valign="top"><a id="a11c2099e8386a85ee242d49448ac1760"></a>
-typedef ItemIterator&lt; true &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a11c2099e8386a85ee242d49448ac1760">const_item_iterator</a></td></tr>
+typedef <a class="el" href="classgeom_1_1_tree_1_1_item_iterator.html">ItemIterator</a>&lt; true &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a11c2099e8386a85ee242d49448ac1760">const_item_iterator</a></td></tr>
 <tr class="memdesc:a11c2099e8386a85ee242d49448ac1760"><td class="mdescLeft">&#160;</td><td class="mdescRight">Const iterator over <code>LeafItem</code>s. <br /></td></tr>
 <tr class="separator:a11c2099e8386a85ee242d49448ac1760"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -178,13 +181,13 @@ index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:a366760216804c5139b39d512413cdef5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a366760216804c5139b39d512413cdef5">find_parent</a> (const <a class="el" href="classgeom_1_1_tree.html#acdbd2626c510eaae84369fb16d184b07">const_node_iterator</a> &amp;ancestor, const <a class="el" href="classgeom_1_1_tree.html#a11c2099e8386a85ee242d49448ac1760">const_item_iterator</a> &amp;i) const</td></tr>
 <tr class="memdesc:a366760216804c5139b39d512413cdef5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exhaustively search for the direct parent node of item <code>i</code> in the subtree rooted at <code>ancestor</code>.  <a href="#a366760216804c5139b39d512413cdef5">More...</a><br /></td></tr>
 <tr class="separator:a366760216804c5139b39d512413cdef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c96bcdd6de576785c797f7e2c789090"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#ae777874928fa873c326f73904604b92d">item_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a4c96bcdd6de576785c797f7e2c789090">insert</a> (const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;parent, const LeafItem &amp;obj)</td></tr>
-<tr class="memdesc:a4c96bcdd6de576785c797f7e2c789090"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert the given item into the tree under the given node.  <a href="#a4c96bcdd6de576785c797f7e2c789090">More...</a><br /></td></tr>
-<tr class="separator:a4c96bcdd6de576785c797f7e2c789090"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a041b18ed20b313b68b99404bd72c4b7f"><td class="memTemplParams" colspan="2">template&lt;typename LeafItemIterator &gt; </td></tr>
-<tr class="memitem:a041b18ed20b313b68b99404bd72c4b7f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#ae777874928fa873c326f73904604b92d">item_iterator</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a041b18ed20b313b68b99404bd72c4b7f">insert</a> (const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;parent, const LeafItemIterator &amp;first_item, const LeafItemIterator &amp;off_end_item, index_t *new_item_count=nullptr)</td></tr>
-<tr class="memdesc:a041b18ed20b313b68b99404bd72c4b7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert multiple leaf items into the tree under the given node.  <a href="#a041b18ed20b313b68b99404bd72c4b7f">More...</a><br /></td></tr>
-<tr class="separator:a041b18ed20b313b68b99404bd72c4b7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9580e990fdcd66b8ecc11442fd56c25"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#ae777874928fa873c326f73904604b92d">item_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#aa9580e990fdcd66b8ecc11442fd56c25">insert</a> (const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;parent, const <a class="el" href="classgeom_1_1_tree.html#ae777874928fa873c326f73904604b92d">item_iterator</a> &amp;insert_before, const LeafItem &amp;obj)</td></tr>
+<tr class="memdesc:aa9580e990fdcd66b8ecc11442fd56c25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert an item into the given node.  <a href="#aa9580e990fdcd66b8ecc11442fd56c25">More...</a><br /></td></tr>
+<tr class="separator:aa9580e990fdcd66b8ecc11442fd56c25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a640f48efcfa7305f500bd4aa2a1e2d9d"><td class="memTemplParams" colspan="2">template&lt;typename LeafItemIterator &gt; </td></tr>
+<tr class="memitem:a640f48efcfa7305f500bd4aa2a1e2d9d"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#ae777874928fa873c326f73904604b92d">item_iterator</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a640f48efcfa7305f500bd4aa2a1e2d9d">insert</a> (const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;parent, const <a class="el" href="classgeom_1_1_tree.html#ae777874928fa873c326f73904604b92d">item_iterator</a> &amp;insert_before, const LeafItemIterator begin_item, const LeafItemIterator &amp;end_item, index_t *new_item_count=nullptr)</td></tr>
+<tr class="memdesc:a640f48efcfa7305f500bd4aa2a1e2d9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert multiple leaf items into the given node.  <a href="#a640f48efcfa7305f500bd4aa2a1e2d9d">More...</a><br /></td></tr>
+<tr class="separator:a640f48efcfa7305f500bd4aa2a1e2d9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f3001ced38a6087a9bea4262e967dbf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a6f3001ced38a6087a9bea4262e967dbf">insert_child_node</a> (const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;parent, const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;insert_before, const NodeItem &amp;obj)</td></tr>
 <tr class="memdesc:a6f3001ced38a6087a9bea4262e967dbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert a new tree node to the left of <code>insert_before</code>, under <code>parent</code>.  <a href="#a6f3001ced38a6087a9bea4262e967dbf">More...</a><br /></td></tr>
 <tr class="separator:a6f3001ced38a6087a9bea4262e967dbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -274,6 +277,7 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
 <p>Remove an item from the subtree rooted at <code>ancestor</code>. </p>
 <p>If <code>item</code> is not in the subtree, the tree will be unchanged.</p>
 <p>Providing a close ancestor of <code>item</code> reduces the cost of finding <code>item</code>'s parent in the tree before removal. In general, an <code>O(n * log(n))</code> search is performed to find the direct parent of <code>item</code>, where <code>n</code> is the size of the subtree belonging to <code>ancestor</code>.</p>
+<p>Invalidates the iterator to this item, as well as any <code>end()</code> <code>item_iterator</code>s.</p>
 <dl class="section return"><dt>Returns</dt><dd>An iterator pointing to the position of the item just beyond the one that was deleted. This will be <code>parent.items_end()</code> if the deleted item was the last one in its parent node. </dd></dl>
 
 </div>
@@ -303,7 +307,8 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
 </div><div class="memdoc">
 
 <p>Remove an item from the tree. </p>
-<p>Performs an <code>n log(n)</code> search through the subtree from which <code>item</code> was obtained, where <code>n</code> is the number of items in that subtree.</p>
+<p>Performs an <code>n log(n)</code> search through the tree (with <code>n</code> being the total number of items in the tree). It is faster to use <code>erase(2)</code> with a close ancestor of <code>item</code> provided, if one is known.</p>
+<p>Invalidates the iterator to this item, as well as any <code>end()</code> <code>item_iterator</code>s.</p>
 <dl class="section return"><dt>Returns</dt><dd>An iterator pointing to the position of the item just beyond the one that was deleted, or <code><a class="el" href="classgeom_1_1_tree.html#a1bd962b430fd2d4cabc704274f52a1db" title="Return an iterator just beyond the last leaf item in the tree. ">items_end()</a></code> if it was the last one in the tree. </dd></dl>
 
 </div>
@@ -377,8 +382,8 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
 
 </div>
 </div>
-<a id="a4c96bcdd6de576785c797f7e2c789090"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4c96bcdd6de576785c797f7e2c789090">&#9670;&nbsp;</a></span>insert() <span class="overload">[1/2]</span></h2>
+<a id="aa9580e990fdcd66b8ecc11442fd56c25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9580e990fdcd66b8ecc11442fd56c25">&#9670;&nbsp;</a></span>insert() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -391,6 +396,12 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classgeom_1_1_tree.html#a043679698df71566ba0950dc26f98a92">node_iterator</a> &amp;&#160;</td>
           <td class="paramname"><em>parent</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_tree.html#ae777874928fa873c326f73904604b92d">item_iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>insert_before</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -411,14 +422,24 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p>Insert the given item into the tree under the given node. </p>
-<p><code>node</code> must be a leaf node; i.e. one with no child nodes, so that placement of <code>obj</code> is not ambiguous. If <code>node</code> is not a leaf node, the tree is unchanged.</p>
-<dl class="section return"><dt>Returns</dt><dd>An iterator to the newly placed item, or <code><a class="el" href="classgeom_1_1_tree.html#a1bd962b430fd2d4cabc704274f52a1db" title="Return an iterator just beyond the last leaf item in the tree. ">items_end()</a></code> if <code>node</code> is not a leaf node. </dd></dl>
+<p>Insert an item into the given node. </p>
+<p>The new item will be inserted before the item at <code>insert_before</code>. <code>insert_before</code> must belong to the given node, otherwise the behavior is undefined. It is permissible for <code>insert_before</code> to be the node's <code><a class="el" href="classgeom_1_1_tree.html#aaaef0ca860b304a41dfb1e7d540a48a2" title="Return an iterator pointing at the first leaf item in the tree. ">items_begin()</a></code> or <code><a class="el" href="classgeom_1_1_tree.html#a1bd962b430fd2d4cabc704274f52a1db" title="Return an iterator just beyond the last leaf item in the tree. ">items_end()</a></code>.</p>
+<p><code>node</code> must be a leaf node; i.e. one with no child nodes, so that placement of the new objects is not abiguous. If <code>node</code> is not a leaf node, the tree is unchanged.</p>
+<p>Invalidates all <code>end()</code> <code>node_iterator</code>s.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parent</td><td>Leaf node under which the new items will be inserted. </td></tr>
+    <tr><td class="paramname">insert_before</td><td>Item belonging to <code>parent</code> which the new items are to be inserted before. </td></tr>
+    <tr><td class="paramname">obj</td><td>New leaf item to be inserted.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>An iterator to the first newly placed item if any were placed; <code><a class="el" href="classgeom_1_1_tree.html#a1bd962b430fd2d4cabc704274f52a1db" title="Return an iterator just beyond the last leaf item in the tree. ">items_end()</a></code> otherwise. </dd></dl>
 
 </div>
 </div>
-<a id="a041b18ed20b313b68b99404bd72c4b7f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a041b18ed20b313b68b99404bd72c4b7f">&#9670;&nbsp;</a></span>insert() <span class="overload">[2/2]</span></h2>
+<a id="a640f48efcfa7305f500bd4aa2a1e2d9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a640f48efcfa7305f500bd4aa2a1e2d9d">&#9670;&nbsp;</a></span>insert() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -435,14 +456,20 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const LeafItemIterator &amp;&#160;</td>
-          <td class="paramname"><em>first_item</em>, </td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_tree.html#ae777874928fa873c326f73904604b92d">item_iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>insert_before</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const LeafItemIterator&#160;</td>
+          <td class="paramname"><em>begin_item</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const LeafItemIterator &amp;&#160;</td>
-          <td class="paramname"><em>off_end_item</em>, </td>
+          <td class="paramname"><em>end_item</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -463,18 +490,21 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p>Insert multiple leaf items into the tree under the given node. </p>
+<p>Insert multiple leaf items into the given node. </p>
+<p>The new items will be inserted before the item at <code>insert_before</code>, in the same order. <code>insert_before</code> must belong to the given node, otherwise the behavior is undefined. It is permissible for <code>insert_before</code> to be the node's <code><a class="el" href="classgeom_1_1_tree.html#aaaef0ca860b304a41dfb1e7d540a48a2" title="Return an iterator pointing at the first leaf item in the tree. ">items_begin()</a></code> or <code><a class="el" href="classgeom_1_1_tree.html#a1bd962b430fd2d4cabc704274f52a1db" title="Return an iterator just beyond the last leaf item in the tree. ">items_end()</a></code>.</p>
 <p><code>node</code> must be a leaf node; i.e. one with no child nodes, so that placement of the new objects is not abiguous. If <code>node</code> is not a leaf node, the tree is unchanged.</p>
+<p>Invalidates all <code>end()</code> <code>node_iterator</code>s.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">parent</td><td>Leaf node under which the new items will be inserted. </td></tr>
+    <tr><td class="paramname">insert_before</td><td>Item belonging to <code>parent</code> which the new items are to be inserted before. </td></tr>
     <tr><td class="paramname">first_item</td><td>Forward iterator to first <code>LeafItem</code> to be inserted. </td></tr>
     <tr><td class="paramname">off_end_item</td><td>Forward iterator just beyond the last <code>LeafItem</code> to be inserted. </td></tr>
     <tr><td class="paramname">new_item_count</td><td>Optional return pointer to receive the count of newly placed objects.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>An iterator to the last newly placed item, or the last item in the node if no new items were placed, or <code><a class="el" href="classgeom_1_1_tree.html#a1bd962b430fd2d4cabc704274f52a1db" title="Return an iterator just beyond the last leaf item in the tree. ">items_end()</a></code> if <code>node</code> is not a leaf node. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>An iterator to the first newly placed item if any were placed; <code><a class="el" href="classgeom_1_1_tree.html#a1bd962b430fd2d4cabc704274f52a1db" title="Return an iterator just beyond the last leaf item in the tree. ">items_end()</a></code> otherwise. </dd></dl>
 
 </div>
 </div>
@@ -521,6 +551,7 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
 <p>Insert a new tree node to the left of <code>insert_before</code>, under <code>parent</code>. </p>
 <p>If the parent node was previously empty, then its new first child will contain all of the parent's <code>LeafItem</code>s (this is to ensure those leaf items all have a parent which is a leaf node). Otherwise, the new node will be empty of any <code>LeafItem</code>s.</p>
 <p>If <code>insert_before</code> is the root node, or if <code>insert_before</code> is not a child (or end-child) of <code>parent</code>, then the tree is unaffected and <code>end()</code> is returned. Otherwise, the new node is returned.</p>
+<p>Invalidates all <code>end()</code> <code>node_iterator</code>s.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">parent</td><td>Parent node of the new node to be created. </td></tr>
@@ -582,6 +613,7 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
 <p>Insert new tree nodes to the left of <code>insert_before</code>, under <code>parent</code>. Return the first newly created node. </p>
 <p>If the parent node was previously empty, then its new first child will contain all of the parent's <code>LeafItem</code>s (this is to ensure those leaf items all have a parent which is a leaf node). All other new nodes will be empty of any <code>LeafItem</code>s.</p>
 <p>If <code>insert_before</code> is the root node, or if <code>insert_before</code> is not a child (or end-child) of <code>parent</code>, then the tree is unaffected and <code>end()</code> is returned. Likewise, if no new nodes were inserted, <code>end()</code> is returned. Otherwise, the first new node is returned.</p>
+<p>Invalidates all <code>end()</code> <code>node_iterator</code>s.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">parent</td><td>Parent node of the new nodes to be created. </td></tr>
@@ -756,7 +788,7 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
 <p>Split <code>node</code> into two sibling nodes. </p>
 <p>A new node will be created to the left of <code>node</code> under the same parent, and the items of <code>node</code> will be split between them according to the result of <code>compare(item, pivot)</code>: If the comparison is less than zero, the item will be moved to the left (new) node. Otherwise, it will remain in the right (existing) node.</p>
 <p>The split node must not be the root and must have no children. If either is the case, the tree will not be changed and the off-end node will be returned.</p>
-<p>All iterators to the items under <code>node</code> are invalidated by this operation.</p>
+<p>All iterators to the items under <code>node</code> are invalidated by this operation, as well as all <code>end()</code> <code>item_iterator</code>s.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">node</td><td>The node to split; a non-root node with no child nodes. </td></tr>
@@ -775,7 +807,7 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 2 2017 18:51:12 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Dec 26 2017 17:37:17 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

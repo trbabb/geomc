@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['vec',['Vec',['../classgeom_1_1_vec.html',1,'geom']]],
-  ['vec_3c_20index_5ft_2c_202_20_3e',['Vec&lt; index_t, 2 &gt;',['../classgeom_1_1_vec.html',1,'geom']]],
-  ['vec_3c_20t_2c_202_20_3e',['Vec&lt; T, 2 &gt;',['../classgeom_1_1_vec_3_01_t_00_012_01_4.html',1,'geom']]],
-  ['vec_3c_20t_2c_203_20_3e',['Vec&lt; T, 3 &gt;',['../classgeom_1_1_vec_3_01_t_00_013_01_4.html',1,'geom']]],
-  ['vec_3c_20t_2c_204_20_3e',['Vec&lt; T, 4 &gt;',['../classgeom_1_1_vec_3_01_t_00_014_01_4.html',1,'geom']]]
+  ['uniquestorage',['UniqueStorage',['../structgeom_1_1_unique_storage.html',1,'geom']]],
+  ['uniquestorage_3c_20index_5ft_2c_20dynamic_5fdim_20_3e',['UniqueStorage&lt; index_t, DYNAMIC_DIM &gt;',['../structgeom_1_1_unique_storage.html',1,'geom']]],
+  ['uniquestorage_3c_20t_2c_20bands_20_2abands_20_3e',['UniqueStorage&lt; T, Bands *Bands &gt;',['../structgeom_1_1_unique_storage.html',1,'geom']]],
+  ['uniquestorage_3c_20t_2c_20bands_20_3e',['UniqueStorage&lt; T, Bands &gt;',['../structgeom_1_1_unique_storage.html',1,'geom']]],
+  ['userownedstorage',['UserOwnedStorage',['../structgeom_1_1_user_owned_storage.html',1,'geom']]]
 ];
