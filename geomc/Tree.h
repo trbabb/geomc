@@ -11,6 +11,12 @@
 // todo: smarter/more optimized underlying data structure
 // todo: "flat array" variant tree. abstract NodeRef and ItemRef to be ptrs.
 // todo: figure out a way to put node_successor, aka subtree_last into node iterator?
+// todo: implement find(item_test(LeafItem) -> bool, node_test(NodeItem)=lambda x:true)
+//       a generic algorithm for walking the tree to search for an item.
+//       node_test() returns `true` if the node might possibly contain the item.
+//       (templating over the functions would allow functors and inlining)
+// todo: might be good to support re-rooting a tree at a child
+// todo: might be good to support subtree-adoption from another tree
 
 
 // xxx: coredump in node_successor
@@ -80,14 +86,17 @@ class Tree {
     };
     
     
-    // internally, nodes are kept in (sort of) breadth-first order.
-    // all direct children of a node are contiguous, and come 
+    // internally, nodes are kept in "sibling-first" order:
+    //   - visit a node
+    //   - visit its next sibling, if there is one
+    //   - visit its first child
+    // as such, all direct children of a node are contiguous, and come 
     // after (though not necessarily *immediately* after) their parent.
     // all the descendents of a leftward child come before all the 
     // descendents of the child to its right. Therefore, any given subtree
     // (excluding its root) is contiguous. It is this recursive pattern:
     
-    // [node] [c1 c2 c3 c4 ...] 
+    // [node] ... [c1 c2 c3 c4 ...] 
     //    [children of c1] [descendents of c1...] 
     //    [children of c2] [descendents of c2...] 
     //    ...
@@ -535,128 +544,146 @@ public:
     
     
     /**
-     * @brief Insert the given item into the tree under the given node.
-     * 
-     * `node` must be a leaf node; i.e. one with no child nodes, so that 
-     * placement of `obj` is not ambiguous. If `node` is not a leaf node, 
-     * the tree is unchanged.
+     * @brief Insert an item into the given node.
      *
-     * @return An iterator to the newly placed item, or `items_end()` 
-     * if `node` is not a leaf node.
-     */
-    item_iterator insert(
-            const node_iterator& parent, 
-            const LeafItem& obj) { // todo: move semantics?
-        
-        if (parent.node_count() > 0) return item_iterator(items.end(), m_nodes.begin());
-        
-        NodeRef node = parent.node;
-        ItemRef prev_item;
-        ItemRef insert_pos;
-        
-        if (parent.item_count() > 0) {
-            // node already has items.
-            prev_item = node->items_last;
-            insert_pos = prev_item; ++insert_pos;
-        } else {
-            // adding the first item to an empty node.
-            insert_pos = item_successor(node);
-            prev_item = insert_pos; --prev_item;
-        }
-        
-        ItemRef new_item = m_items.insert(insert_pos, obj);
-        
-        // walk upwards from the item's parent, 
-        // updating the item count and boundary items.
-        while (node != m_nodes.end()) {
-            if (node->items_first == insert_pos or node->n_items == 0) {
-                node->items_first = new_item;
-            }
-            if (node->items_last == prev_item or node->n_items == 0) {
-                node->items_last = new_item;
-            }
-            node->n_items++;
-            node = node->parent;
-        }
-        
-        return item_iterator(new_item, parent.node);
-    }
-    
-    
-    /**
-     * @brief Insert multiple leaf items into the tree under the given node.
+     * The new item will be inserted before the item at `insert_before`.
+     * `insert_before` must belong to the given node, otherwise the behavior 
+     * is undefined. It is permissible for `insert_before` to be the node's 
+     * `items_begin()` or `items_end()`.
      * 
      * `node` must be a leaf node; i.e. one with no child nodes, so that 
      * placement of the new objects is not abiguous. If `node` is not a 
      * leaf node, the tree is unchanged.
      *
+     * Invalidates all `end()` `node_iterator`s.
+     *
      * @param parent Leaf node under which the new items will be inserted.
+     * @param insert_before Item belonging to `parent` which the new items
+     * are to be inserted before.
+     * @param obj New leaf item to be inserted.
+     *
+     * @return An iterator to the first newly placed item if any were placed;
+     * `items_end()` otherwise.
+     */
+    item_iterator insert(
+            const node_iterator& parent,
+            const item_iterator& insert_before,
+            const LeafItem& obj) {
+        // todo: it would be great if we could protect against the user
+        //   providing an insert_pt that doesn't belong to the parent
+        
+        // must insert to a leaf node
+        if (parent.node_count() > 0) {
+            return items_end();
+        }
+        
+        // retrieve parent and insert point
+        NodeRef node = parent.node;
+        ItemRef insert_pt = insert_before.item;
+        if (node.n_items == 0) {
+            insert_pt = item_successor(node);
+        }
+        
+        // insert the item
+        ItemRef new_item = m_items.insert(insert_pt, obj);
+        
+        // ascend the tree, updating the item ranges of the ancestors
+        ItemRef precursor_item = new_item; --precursor_item;
+        while (node != m_nodes.end()) {
+            if (node->items_first == insert_pt or node->n_items == 0) {
+                node->items_first = new_item;
+            }
+            if (node->items_last == precursor_item or node->n_items == 0) {
+                node->items_last = new_item;
+            }
+            node->n_items += 1;
+            node = node->parent;
+        }
+        
+        return new_item;
+    }
+    
+    
+    /**
+     * @brief Insert multiple leaf items into the given node.
+     *
+     * The new items will be inserted before the item at `insert_before`, in 
+     * the same order. `insert_before` must belong to the given node, 
+     * otherwise the behavior is undefined. It is permissible for 
+     * `insert_before` to be the node's `items_begin()` or `items_end()`.
+     * 
+     * `node` must be a leaf node; i.e. one with no child nodes, so that 
+     * placement of the new objects is not abiguous. If `node` is not a 
+     * leaf node, the tree is unchanged.
+     *
+     * Invalidates all `end()` `node_iterator`s.
+     *
+     * @param parent Leaf node under which the new items will be inserted.
+     * @param insert_before Item belonging to `parent` which the new items
+     * are to be inserted before.
      * @param first_item Forward iterator to first `LeafItem` to be inserted.
      * @param off_end_item Forward iterator just beyond the last `LeafItem` 
      * to be inserted.
      * @param new_item_count Optional return pointer to receive the count 
      * of newly placed objects.
      *
-     * @return An iterator to the last newly placed item, or the last item 
-     * in the node if no new items were placed, or `items_end()` if `node` 
-     * is not a leaf node.
+     * @return An iterator to the first newly placed item if any were placed;
+     * `items_end()` otherwise.
      */
     template <typename LeafItemIterator>
     item_iterator insert(
-            const node_iterator& parent, 
-            const LeafItemIterator& first_item, 
-            const LeafItemIterator& off_end_item,
+            const node_iterator& parent,
+            const item_iterator& insert_before,
+            const LeafItemIterator  begin_item,
+            const LeafItemIterator& end_item,
             index_t* new_item_count=nullptr) {
-        // xxx: implement an insert_before mechanism
+        // todo: it would be great if we could protect against the user
+        //   providing an insert_pt that doesn't belong to the parent
+        
+        // must insert to a leaf node
         if (parent.node_count() > 0) {
-            return item_iterator(items.end(), m_nodes.begin());
+            return items_end();
+        }
+        if (begin_item == end_item) {
+            // nothing to be done
+            return items_end();
         }
         
+        // retrieve parent and insert point
         NodeRef node = parent.node;
-        ItemRef prev_item;
-        ItemRef insert_pos;
-        
-        if (parent.item_count() > 0) {
-            // node already has items.
-            prev_item = node->items_last;
-            insert_pos = prev_item; ++insert_pos;
-        } else {
-            // adding the first item to an empty node.
-            insert_pos = item_successor(node);
-            prev_item = insert_pos; --prev_item;
+        ItemRef insert_pt = insert_before.item;
+        if (node.n_items == 0) {
+            insert_pt = item_successor(node);
         }
         
-        // xxx: decide whether to return last inserted item or first inserted item
-        //      make sure all insert methods are consistent
-        //      (hint: it should be first item, so you can forwards-walk across
-        //      all the things you just made. if you want the last item, just
-        //      go backwards one from your insert_before point).
-        ItemRef last_new_item = prev_item;
-        index_t n_new_items = 0;
-        for (LeafItemIterator i = first_item; i != off_end_item; ++i, ++n_new_items) {
-            last_new_item = m_items.insert(insert_pos, *i);
+        // insert the first item
+        ItemRef first_new_item = m_items.insert(insert_pt, *begin_item);
+        ItemRef last_new_item  = first_new_item;
+        ++begin_item;
+        
+        // insert the remaining items
+        index_t item_ct = 1;
+        for (LeafItemIterator i = begin_item; i != end_item; ++i) {
+            last_new_item = m_items.insert(insert_pt, *i);
+            ++item_ct;
         }
         
-        // walk upwards from the item's parent, 
-        // updating the item count and boundary items.
-        if (n_new_items > 0) {
-            ItemRef first_new_item = prev_item; ++first_new_item;
-            while (node != m_nodes.end()) {
-                if (node->items_first == insert_pos or node->n_items == 0) {
-                    node->items_first = first_new_item;
-                }
-                if (node->items_last == prev_item or node->n_items == 0) {
-                    node->items_last = last_new_item;
-                }
-                node->n_items += n_new_items;
-                node = node->parent;
+        // ascend the tree, updating the item ranges of the ancestors
+        ItemRef precursor_item = first_new_item; --precursor_item;
+        while (node != m_nodes.end()) {
+            if (node->items_first == insert_pt or node->n_items == 0) {
+                node->items_first = first_new_item;
             }
-            
+            if (node->items_last == precursor_item or node->n_items == 0) {
+                node->items_last = last_new_item;
+            }
+            node->n_items += item_ct;
+            node = node->parent;
         }
-        if (new_item_count) *new_item_count = n_new_items;
-        return item_iterator(last_new_item, parent.node);
+        
+        if (new_item_count) *new_item_count = item_ct;
+        return first_new_item;
     }
-    
     
     /**
      * @brief Insert a new tree node to the left of `insert_before`, 
@@ -670,6 +697,8 @@ public:
      * If `insert_before` is the root node, or if `insert_before` is not 
      * a child (or end-child) of `parent`, then the tree is unaffected 
      * and `end()` is returned. Otherwise, the new node is returned.
+     *
+     * Invalidates all `end()` `node_iterator`s.
      *
      * @param parent Parent node of the new node to be created.
      * @param insert_before A `node_iterator` pointing to the sibling just
@@ -692,7 +721,7 @@ public:
         
         // set the insert point for empty nodes
         if (parent_empty) {
-            n = p; ++n;
+            n = node_successor(p)
         }
         
         // create the new node
@@ -733,6 +762,7 @@ public:
      * `end()` is returned. Likewise, if no new nodes were inserted, 
      * `end()` is returned. Otherwise, the first new node is returned. 
      * 
+     * Invalidates all `end()` `node_iterator`s.
      *
      * @param parent Parent node of the new nodes to be created.
      * @param insert_before A node_iterator pointing to the sibling just 
@@ -758,7 +788,7 @@ public:
         
         // set the insert point for empty nodes
         if (parent_empty) {
-            n = p; ++n;
+            n = node_successor(p);
         }
         
         // create the first node, and keep a reference to it
@@ -782,10 +812,10 @@ public:
         }
         
         // adjust child endpoints if necessary
-        if (n == parent.end().node) {
+        if (insert_before.node == parent.end().node) {
             p->child_last = last_new_node;
         }
-        if (n == parent.begin().node) {
+        if (insert_before.node == parent.begin().node) {
             p->child_first = first_new_node;
         }
         p->n_children += ct;
@@ -807,7 +837,7 @@ public:
      * node will be returned.
      *
      * All iterators to the items under `node` are invalidated
-     * by this operation.
+     * by this operation, as well as all `end()` `item_iterator`s.
      *
      * @param node The node to split; a non-root node with no child nodes.
      * @param compare A callable object `compare(a,b)` which accepts a 
@@ -878,6 +908,9 @@ public:
      * search is performed to find the direct parent of `item`, where `n` is the
      * size of the subtree belonging to `ancestor`.
      *
+     * Invalidates the iterator to this item, as well as any `end()`
+     * `item_iterator`s.
+     *
      * @return An iterator pointing to the position of the item just beyond 
      * the one that was deleted. This will be `parent.items_end()` if the 
      * deleted item was the last one in its parent node.
@@ -903,6 +936,9 @@ public:
      *
      * Performs an `n log(n)` search through the subtree from which `item` 
      * was obtained, where `n` is the number of items in that subtree.
+     *
+     * Invalidates the iterator to this item, as well as any `end()`
+     * `item_iterator`s.
      *
      * @return An iterator pointing to the position of the item just 
      * beyond the one that was deleted, or `items_end()` if it was the 
@@ -1005,7 +1041,8 @@ public:
         
         // because of breadth-first order, 
         // this is exactly all the descendents of `parent`:
-        m_nodes.erase(parent->child_first, node_successor(parent));
+        m_nodes.erase(parent->child_first, 
+            (parent));
         
         parent->n_children = 0;
         parent->child_first = parent->child_last = m_nodes.end();
@@ -1124,7 +1161,7 @@ protected:
     }
     
     
-    // find the position of the node that follows `node` in list ("breadth-first") order.
+    // find the position of the node that follows `node` in list ("sibling-first") order.
     // the successor to `node` occurs just before the next subtree to the right.
     // an `O(k * log(n))` operation, on `n` the size of the tree, and `k` the arity.
     // this is different from `++node` because `++node` may descend into the 
