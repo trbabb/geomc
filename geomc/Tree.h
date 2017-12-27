@@ -51,11 +51,32 @@ namespace geom {
 template <typename NodeItem, typename LeafItem>
 class Tree {
     
+    // internally, nodes are kept in "sibling-first" order:
+    //   - visit a node
+    //   - visit its next sibling, if there is one
+    //   - visit its first child
+    // as such, all direct children of a node are contiguous, and come 
+    // after (though not necessarily *immediately* after) their parent.
+    // all the descendents of a leftward child come before all the 
+    // descendents of the child to its right. Therefore, any given subtree
+    // (excluding its root) is contiguous. It is this recursive pattern:
+    
+    // [node] ... [c1 c2 c3 c4 ...] 
+    //    [children of c1] [descendents of c1...] 
+    //    [children of c2] [descendents of c2...] 
+    //    ...
+    
+    
+    /******************************
+     * Member classes and structs *
+     ******************************/
+    
     // fwd decl
     struct Node;
     
     typedef typename std::list<Node>::iterator     NodeRef;
     typedef typename std::list<LeafItem>::iterator ItemRef;
+    
     
     struct Node {
         
@@ -85,29 +106,6 @@ class Tree {
         NodeItem data;
     };
     
-    
-    // internally, nodes are kept in "sibling-first" order:
-    //   - visit a node
-    //   - visit its next sibling, if there is one
-    //   - visit its first child
-    // as such, all direct children of a node are contiguous, and come 
-    // after (though not necessarily *immediately* after) their parent.
-    // all the descendents of a leftward child come before all the 
-    // descendents of the child to its right. Therefore, any given subtree
-    // (excluding its root) is contiguous. It is this recursive pattern:
-    
-    // [node] ... [c1 c2 c3 c4 ...] 
-    //    [children of c1] [descendents of c1...] 
-    //    [children of c2] [descendents of c2...] 
-    //    ...
-      
-    std::list<Node>     nodes;
-    
-    // items are stored in depth-first order. 
-    // all items in a subtree are contiguous.
-    
-    std::list<LeafItem> items;
-    
 public:
     
     template <bool Const>
@@ -127,14 +125,12 @@ public:
                         // to accelerate tree search/mutation actions on an 
                         // item iterator.
         
-        ItemIterator(const ItemRef& item, const NodeRef& parent):
-            item(item),
-            parent(parent) {}
+        ItemIterator(const ItemRef& item):
+            item(item) {}
         
         // can always promote to const:
         ItemIterator(const ItemIterator<false>& other):
-            item(other.item),
-            parent(other.parent) {}
+            item(other.item) {}
         
     public:
         
@@ -296,7 +292,7 @@ public:
         
         /// Get first object inside this subtree
         inline item_iterator items_begin() const {
-            return item_iterator(node->items_first, node);
+            return node->items_first;
         }
         
         /**
@@ -305,7 +301,7 @@ public:
          */
         inline item_iterator items_end() const {
             item_iterator tmp = node->items_last;
-            return item_iterator(++tmp, node);
+            return ++tmp;
         }
     };
     
@@ -328,21 +324,29 @@ public:
     
 private:
     
+    
     /************************************
      * Members                          *
      ************************************/
     
     // invariant after construction: root node exists.
-    
     std::list<Node>     m_nodes;
+    
+    // items are stored in depth-first order. 
+    // all items in a subtree are contiguous.
     std::list<LeafItem> m_items;
 
 public:
     
     
+    /************************************
+     * Methods                          *
+     ************************************/
+    
+    
     /// Construct an empty Tree.
     Tree() {
-        nodes.push_back(Node());
+        m_nodes.push_back(Node());
         Node&       root = m_nodes.front();
         root.parent      = m_nodes.end();
         root.child_first = m_nodes.end(); // no children
@@ -362,7 +366,7 @@ public:
     Tree(LeafItemIterator begin, LeafItemIterator end) {
         m_items.assign(begin, end);
         
-        nodes.push_back(Node());
+        m_nodes.push_back(Node());
         Node&       n = m_nodes.front();
         n.parent      = m_nodes.end();
         n.child_first = m_nodes.end();
@@ -453,7 +457,7 @@ public:
      * @brief Return an iterator pointing at the first leaf item in the tree.
      */
     inline item_iterator items_begin() {
-        return item_iterator(m_items.begin(), m_nodes.begin());
+        return m_items.begin();
     }
     
     
@@ -461,7 +465,7 @@ public:
      * @brief Return an iterator just beyond the last leaf item in the tree.
      */
     inline item_iterator items_end() {
-        return item_iterator(m_items.end(), m_nodes.begin());
+        return m_items.end();
     }
     
     
@@ -470,9 +474,7 @@ public:
      */
     inline const_item_iterator items_begin() const {
         self_t* t = const_cast<self_t*>(this);
-        return const_item_iterator(
-            t->m_items.begin(), 
-            t->m_nodes.begin());
+        return t->m_items.begin();
     }
     
     
@@ -481,9 +483,7 @@ public:
      */
     inline const_item_iterator items_end() const {
         self_t* t = const_cast<self_t*>(this);
-        return const_item_iterator(
-            t->m_items.end(), 
-            t->m_nodes.begin());
+        return t->m_items.end();
     }
     
     
@@ -922,7 +922,7 @@ public:
         
         if (parent != m_nodes.end()) return _erase(item.item, parent);
         
-        return item_iterator(m_items.end(), m_nodes.begin());
+        return m_items.end();
         
         // todo: in key/value subclass, you can find `item` in log(n) time. 
         // be sure to override this fucker.
@@ -945,7 +945,7 @@ public:
      * last one in the tree.
      */
     item_iterator erase(const item_iterator& item) {
-        return erase(item, item.parent);
+        return erase(item, m_nodes.begin());
     }
     
     
@@ -1103,7 +1103,7 @@ protected:
             parent = parent->parent;
         }
         
-        return item_iterator(next_item, parent);
+        return next_item;
     }
     
     
