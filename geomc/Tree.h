@@ -22,6 +22,7 @@
 // xxx: coredump in node_successor
 //      > made a change; need to test.
 //      > change was ascent check against ::end()
+//      > and also duplicated members w/ inconsistent use.
 
 // xxx: note that deleting a node invalidates all item iterators
 //      beneath it, in that they might have considered the deleted
@@ -122,29 +123,23 @@ public:
         
         friend class Tree<NodeItem,LeafItem>;
         
+        ItemRef item;
+        
+        ItemIterator(const ItemRef& item):
+            item(item) {}
+        
     public:
+        
         typedef ItemIterator<Const> self_t;
         /// A (possibly const) reference to a LeafItem.
         typedef typename ConstType<LeafItem,Const>::reference_t reference;
         /// A (possibly const) pointer to a LeafItem.
         typedef typename ConstType<LeafItem,Const>::pointer_t   pointer;
-    
-    private:
         
-        ItemRef item;
-        NodeRef parent; // an ancestor of the item. may or may not be "close" 
-                        // depending on how the item was found. this can be used 
-                        // to accelerate tree search/mutation actions on an 
-                        // item iterator.
-        
-        ItemIterator(const ItemRef& item):
-            item(item) {}
         
         // can always promote to const:
         ItemIterator(const ItemIterator<false>& other):
             item(other.item) {}
-        
-    public:
         
         /// `++i`: Next item
         inline self_t& operator++() {
@@ -208,8 +203,6 @@ public:
      */
     template <bool Const>
     class NodeIterator {
-    
-    public: // xxx WHY
         
         friend class Tree<NodeItem,LeafItem>;
         
@@ -217,10 +210,10 @@ public:
         
         NodeIterator(NodeRef n) : node(n) {}
         
-         // can always promote/cast to const:
-        NodeIterator(const NodeIterator<false>& i) : node(i.node) {}
-        
     public:
+        
+        // can always promote/cast to const:
+        NodeIterator(const NodeIterator<false>& i) : node(i.node) {}
         
         // container concept typedefs:
         
@@ -279,6 +272,19 @@ public:
             return tmp;
         }
         
+        /// Returns `true` iff `other` points to the same node.
+        template <bool C>
+        inline bool operator==(const NodeIterator<C>& other) const {
+            return node == other.node;
+        }
+        
+        /// Returns `true` iff `other` does not point to the same node.
+        template <bool C>
+        inline bool operator!=(const NodeIterator<C>& other) const {
+            return node != other.node;
+        }
+        
+        
         /// `*i`: Get node value
         inline reference operator*() const {
             return node->data;
@@ -307,7 +313,8 @@ public:
         /// Get last (off-end) child
         inline self_t end() const {
             NodeRef tmp = node->child_last;
-            return ++tmp;
+            // cannot increment the ::end() iterator
+            return (node->n_children > 0) ? ++tmp : tmp;
         }
         
         /// Get first object inside this subtree
@@ -321,7 +328,8 @@ public:
          */
         inline item_iterator items_end() const {
             item_iterator tmp = node->items_last;
-            return ++tmp;
+            // cannot increment the ::end() iterator
+            return (node->n_items > 0) ? ++tmp : tmp;
         }
     };
     
@@ -367,7 +375,7 @@ public:
     /// Construct an empty Tree.
     Tree() {
         m_nodes.push_back(Node());
-        Node&       root = m_nodes.front();
+        Node& root       = m_nodes.front();
         root.parent      = m_nodes.end();
         root.child_first = m_nodes.end(); // no children
         root.child_last  = m_nodes.end();
@@ -546,13 +554,13 @@ public:
      * the subtree rooted at `ancestor`.
      *
      * If `i` is not in the subtree under `node`, then return `end()`.
-     */`
+     */
     node_iterator find_parent(
             const const_node_iterator& ancestor, 
             const const_item_iterator& i) const {
         NodeRef subtree_last = node_successor(ancestor.node);
         for (NodeRef n = ancestor.node; n != subtree_last; ++n) {
-            if (n->n_children == 0) {
+            if (n->n_children == 0 and n->n_items > 0) {
                 ItemRef end_item = n->items_last; ++end_item;
                 for (ItemRef j = n->items_first; j != end_item; ++j) {
                     if (j == i.item) return n;
@@ -585,7 +593,7 @@ public:
      * @return An iterator to the first newly placed item if any were placed;
      * `items_end()` otherwise.
      */
-    item_iterator insert(
+    item_iterator insert_item(
             const node_iterator& parent,
             const item_iterator& insert_before,
             const LeafItem& obj) {
@@ -600,7 +608,7 @@ public:
         // retrieve parent and insert point
         NodeRef node = parent.node;
         ItemRef insert_pt = insert_before.item;
-        if (node.n_items == 0) {
+        if (node->n_items == 0) {
             insert_pt = item_successor(node);
         }
         
@@ -651,7 +659,7 @@ public:
      * `items_end()` otherwise.
      */
     template <typename LeafItemIterator>
-    item_iterator insert(
+    item_iterator insert_items(
             const node_iterator& parent,
             const item_iterator& insert_before,
             const LeafItemIterator  begin_item,
@@ -705,6 +713,24 @@ public:
         return first_new_item;
     }
     
+    
+    /// Convenience function to insert an item at the end of its parent node.
+    inline item_iterator insert_item(
+            const node_iterator& parent,
+            const LeafItem& item) {
+        return insert_item(parent, parent.items_end(), item);
+    }
+    
+    
+    /// Convenience function to insert multiple items at the end of their parent node.
+    template <typename LeafItemIterator>
+    inline item_iterator insert_items(
+            const node_iterator& parent,
+            const LeafItemIterator& begin_item,
+            const LeafItemIterator& end_item) {
+        return insert_items(parent, parent.items_end(), begin_item, end_item);
+    }
+    
     /**
      * @brief Insert a new tree node to the left of `insert_before`, 
      * under `parent`.
@@ -733,37 +759,41 @@ public:
             const NodeItem& obj) {
         NodeRef p = parent.node;
         NodeRef n = insert_before.node;
-        bool parent_empty = p->n_children == 0;
+        bool parent_childless = p->n_children == 0;
         
         // check invalid cases
         if (n == m_nodes.begin())                      return m_nodes.end();
-        if (n->parent != p and parent.end().node != n) return m_nodes.end();
+        if (n->parent != p and n != parent.end().node) return m_nodes.end();
         
         // set the insert point for empty nodes
-        if (parent_empty) {
-            n = node_successor(p)
+        if (parent_childless) {
+            n = node_successor(p);
         }
         
+        // remember what our off-end node was
+        NodeRef prev_end_node = parent.end().node;
+        
         // create the new node
-        NodeRef new_node = m_nodes.insert(n, Node(this, parent, obj));
+        NodeRef new_node = m_nodes.insert(n, Node(this, p, obj));
         
         // take ownership of the parent's items, if we are its first child
         // (every item must belong to a leaf node, and the parent
         // has just become an internal node).
-        if (parent_empty) {
+        if (parent_childless) {
             new_node->items_first = p->items_first;
             new_node->items_last  = p->items_last;
             new_node->n_items     = p->n_items;
         }
         
         // adjust child endpoints if necessary
-        if (insert_before.node == parent.end().node) {
+        if (insert_before.node == prev_end_node) {
             p->child_last = new_node;
         }
-        if (insert_before.node == p.begin().node) {
+        if (insert_before.node == p->child_first) {
             p->child_first = new_node;
         }
         p->n_children++;
+        
         return new_node;
     }
     
@@ -780,7 +810,7 @@ public:
      * If `insert_before` is the root node, or if `insert_before` is not 
      * a child (or end-child) of `parent`, then the tree is unaffected and 
      * `end()` is returned. Likewise, if no new nodes were inserted, 
-     * `end()` is returned. Otherwise, the first new node is returned. 
+     * `end()` is returned. Otherwise, the first new node is returned.
      * 
      * Invalidates all `end()` `node_iterator`s.
      *
@@ -813,6 +843,7 @@ public:
         
         // create the first node, and keep a reference to it
         // todo: m_nodes.reserve(n_items);
+        NodeRef prev_end_node  = parent.end().node;
         NodeRef first_new_node = m_nodes.insert(n, Node(this, parent, *(i_begin++)));
         NodeRef last_new_node  = first_new_node;
         
@@ -832,14 +863,38 @@ public:
         }
         
         // adjust child endpoints if necessary
-        if (insert_before.node == parent.end().node) {
+        if (insert_before.node == prev_end_node) {
             p->child_last = last_new_node;
         }
-        if (insert_before.node == parent.begin().node) {
+        if (insert_before.node == p->child_first) {
             p->child_first = first_new_node;
         }
         p->n_children += ct;
         return first_new_node;
+    }
+    
+    
+    /**
+     * @brief Convenience function to insert a new child node as the last 
+     * node under its parent.
+     */
+    inline node_iterator insert_child_node(
+            const node_iterator& parent,
+            const NodeItem& obj) {
+        return insert_child_node(parent, parent.end(), obj);
+    }
+    
+    
+    /** 
+     * @brief Convenience function to insert multiple new child nodes after
+     * the last node under their parent.
+     */
+    template <typename NodeItemIterator>
+    inline node_iterator insert_child_nodes(
+            const node_iterator& parent,
+            const NodeItemIterator& i_begin,
+            const NodeItemIterator& i_end) {
+        return insert_child_nodes(parent, parent.end(), i_begin, i_end);
     }
     
     
@@ -1192,9 +1247,9 @@ protected:
         NodeRef child     = node;
         NodeRef successor = nodes_end().node; // if there is no subtree to the right,
                                               // this is the conceptual successor.
-        
         while (ancestor != m_nodes.end()) {
-            NodeRef off_end_child = ancestor->child_last; ++off_end_child;
+            NodeRef off_end_child = ancestor->child_last; 
+            if (ancestor->n_children > 0) ++off_end_child;
             // look for a populated node to the right of us
             while (++child != off_end_child) {
                 if (child->n_children > 0) {
@@ -1221,7 +1276,8 @@ protected:
         for (NodeRef parent = node->parent; 
                 parent != m_nodes.end(); 
                 node = parent, parent = node->parent) {
-            NodeRef end_c = parent->child_last; ++end_c;
+            NodeRef end_c = parent->child_last;
+            if (parent->n_children != 0) ++end_c;
             for (; node != end_c; ++node) {
                 if (node->n_items > 0) {
                     return node->items_first;
