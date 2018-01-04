@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['find_5fparent',['find_parent',['../classgeom_1_1_tree.html#a366760216804c5139b39d512413cdef5',1,'geom::Tree']]],
-  ['flatten',['flatten',['../classgeom_1_1_k_d_tree.html#abdadb5be5024ffa343d7f3cbafc5e558',1,'geom::KDTree::flatten()'],['../classgeom_1_1_tree.html#abdadb5be5024ffa343d7f3cbafc5e558',1,'geom::Tree::flatten()']]],
+  ['find_5fparent',['find_parent',['../classgeom_1_1_subtree_base.html#a42f1bd83e4929d36d71738d704d9e860',1,'geom::SubtreeBase']]],
+  ['flatten',['flatten',['../classgeom_1_1_k_d_tree.html#abdadb5be5024ffa343d7f3cbafc5e558',1,'geom::KDTree::flatten()'],['../classgeom_1_1_subtree.html#a4c4590df33ce47ad8a42e06f9f44fc93',1,'geom::Subtree::flatten()']]],
   ['floor',['floor',['../classgeom_1_1_dual.html#a5d9af36eeea9e5df3f681d76d587391e',1,'geom::Dual::floor()'],['../classgeom_1_1_vec.html#a303f5bfdc55c7b0422064260a74d0843',1,'geom::Vec::floor()']]],
   ['from_5fbasis',['from_basis',['../classgeom_1_1_plane.html#afc7f4de9282d9490cd185b302fe0f193',1,'geom::Plane::from_basis(const Vec&lt; T, N &gt; bases[N-1])'],['../classgeom_1_1_plane.html#a3f71bc16568dd958596543c5ad4dc444',1,'geom::Plane::from_basis(const Vec&lt; T, N &gt; bases[N-1], Vec&lt; T, N &gt; p)']]],
   ['from_5fsimplex',['from_simplex',['../classgeom_1_1_plane.html#ae26ad47ba0530b185a0b562927f493a8',1,'geom::Plane']]],

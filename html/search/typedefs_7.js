@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['reference',['reference',['../classgeom_1_1_simple_matrix.html#a9b1a63f171d76a7a3995b6858e99f2ea',1,'geom::SimpleMatrix::reference()'],['../classgeom_1_1_tree_1_1_item_iterator.html#ac8e81b5695d1e3c90bf7cc83c0309e9f',1,'geom::Tree::ItemIterator::reference()'],['../classgeom_1_1_tree_1_1_node_iterator.html#a2847c7789d53e69d24f981a1cca6a4d3',1,'geom::Tree::NodeIterator::reference()']]],
+  ['reference',['reference',['../classgeom_1_1_simple_matrix.html#a9b1a63f171d76a7a3995b6858e99f2ea',1,'geom::SimpleMatrix::reference()'],['../classgeom_1_1_subtree_base.html#a4f200ee652f18b2412fa000a8fedf794',1,'geom::SubtreeBase::reference()']]],
   ['row_5fiterator',['row_iterator',['../classgeom_1_1_simple_matrix.html#abd8c4bb02eaa4a6e767daa085d850b78',1,'geom::SimpleMatrix']]]
 ];
