@@ -21,9 +21,8 @@
 //       of re-rooting (i.e. root().take(some_descendent_of_self)).
 //       generally only cheap if nodes permit slicing.
 // todo: it is not possible to have an empty tree.
-// todo: esplain me, is this all really better than a first-child next-sibling tree?
-//       > yes, because we can iterate bidirectionally. this is first-child next-sibling
-//         {intersection} last-child previous-sibling.
+// todo: should SubtreeBase -> Subtree (etc) conversion be written in terms of
+//       a static_cast(this) rather than construction? might be faster.
 
 // todo: get the docs correct about what end() and begin() iterators are invalidated.
 //       -> begin() on this node if we insert before begin
@@ -33,8 +32,6 @@
 //       -> more for deletion, splitting, adopting, (taking)
 //       all this is complicated, so editing while using a range for() is
 //       just all around a bad idea.
-
-// xxx: need difference_type :(
 
 // xxx: how to subclass?
 //   > subclass Tree and call it, e.g. AssociativeTree and/or RTree
@@ -75,7 +72,7 @@ Leaf nodes may own a list of `LeafItem` objects. `LeafItem`s are kept
 in (contiguous) depth-first order, and internal nodes may therefore provide 
 iterators to the first and last `LeafItem`s in their respective subtrees.
 
-All mutation and access to a tree is provided by the Subtree and 
+All mutation and access to a tree is provided through the Subtree and 
 ConstSubtree classes; both thin iterators pointing into the Tree data structure.
 
 Trees are kept in "sibling-contiguous" order, as replicated by this pseudocode:
@@ -372,6 +369,8 @@ public:
     typedef Tree<NodeItem, LeafItem> tree_t;
     /// Iterator difference type.
     typedef typename std::iterator_traits<NodeRef>::difference_type difference_type;
+    /// Iterator category.
+    typedef typename std::iterator_traits<NodeRef>::iterator_category iterator_category;
     
     
     /************************************
@@ -404,25 +403,25 @@ public:
     /// `+i`: Become first child
     inline self_t& operator+() {
         _root = _root->child_first;
-        return *this;
+        return *static_cast<self_t*>(this);
     }
     
     /// `-i`: Become parent
     inline self_t& operator-() {
         _root = _root->parent;
-        return *this;
+        return *static_cast<self_t*>(this);
     }
     
     /// `++i`: Become next sibling
     inline self_t& operator++() {
         _root = ++_root;
-        return *this;
+        return *static_cast<self_t*>(this);
     }
     
     /// `--i`: Become previous sibling
     inline self_t& operator--() {
         _root = --_root;
-        return *this;
+        return *static_cast<self_t*>(this);
     }
     
     /// `i++`: Become next sibling
@@ -633,7 +632,6 @@ public:
     using typename base_t::const_iterator;
     using typename base_t::item_iterator;
     using typename base_t::const_item_iterator;
-    using typename base_t::difference_type;
     
     /// Construct a duplicate iterator to the same node of the same tree.
     ConstSubtree(const ConstSubtree<NodeItem, LeafItem>& other) = default;
@@ -674,7 +672,6 @@ public:
     using typename base_t::iterator;
     using typename base_t::const_iterator;
     using typename base_t::item_iterator;
-    using typename base_t::difference_type;
     
     
     /// Construct a duplicate iterator to the same node of the same tree.
