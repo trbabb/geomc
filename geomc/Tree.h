@@ -19,7 +19,7 @@
 //       the subtree from its source and adopts it. if it belongs to the
 //       same tree, a copy could be avoided. be sure to permit the case
 //       of re-rooting (i.e. root().take(some_descendent_of_self)).
-//       generally only cheap if nodes permit slicing.
+//       generally only cheap if `list` permits slicing and splicing.
 // todo: it is not possible to have an empty tree.
 // todo: should SubtreeBase -> Subtree (etc) conversion be written in terms of
 //       a static_cast(this) rather than construction? might be faster.
@@ -35,7 +35,11 @@
 
 // xxx: how to subclass?
 //   > subclass Tree and call it, e.g. AssociativeTree and/or RTree
-//   > subclass the two iterators 
+//   > subclass the two iterators
+//     > may have to templatize SubtreeBase over Tree type so that member and
+//       typedefs are in agreement.
+//     > SubtreeBase also directly refers to Subtree and ConstSubtree, which
+//       will have to be corrected somehow.
 //   > have the subclassed Tree return the new iterators from root() and begin()/end()
 //   - might need a way to chain delegation of self_t up the iterator inheritance hierarchy.
 //     - tree defines what its iterators are, iterators are passed tree_t, iterators
@@ -46,6 +50,7 @@
 //       but never become one or hand it out?
 //   - note with this scheme algorithms have to pick the subclass of tree
 //     they work on :|
+//     > ...which is probably OK.
 
 
 namespace geom {
@@ -211,25 +216,37 @@ public:
     }
     
     
-    /// Return an iterator to the first item in the tree (root), in sibling-contiguous order.
+    /** 
+     * @brief Return an iterator to the first item in the tree (root), 
+     * in sibling-contiguous order.
+     */
     Subtree<NodeItem, LeafItem> begin() {
         return root();
     }
     
     
-    /// Return an iterator to the last (off-end) item in the tree, in sibling-contiguous order.
+    /**
+     * @brief Return an iterator to the last (off-end) item in the tree, 
+     * in sibling-contiguous order.
+     */
     Subtree<NodeItem, LeafItem> end() {
         return Subtree<NodeItem, LeafItem>(_nodes.end(), this);
     }
     
     
-    /// Return a const iterator to the first item in the tree (root), in sibling-contiguous order.
+    /**
+     * @brief Return a const iterator to the first item in the tree (root), 
+     * in sibling-contiguous order.
+     */
     ConstSubtree<NodeItem, LeafItem> begin() const {
         return root();
     }
     
     
-    /// Return a const iterator to the last (off-end) item in the tree, in sibling-contiguous order.
+    /**
+     * @brief Return a const iterator to the last (off-end) item in the tree, 
+     * in sibling-contiguous order.
+     */
     ConstSubtree<NodeItem, LeafItem> end() const {
         return ConstSubtree<NodeItem, LeafItem>(_nodes.end(), this);
     }
@@ -288,6 +305,46 @@ protected:
         n->items_first = _items.front();
         n->items_last  = _items.end(); --(n->items_last);
         root().recalculate_references();
+    }
+    
+    
+    void update_boundary_items(
+            NodeRef leaf,
+            ItemRef new_first,
+            ItemRef new_last,
+            index_t delta_items) {
+        
+        NodeRef prev_child = _nodes.end();
+        NodeRef n = leaf;
+        
+        ItemRef old_first = n->items_first;
+        ItemRef old_last  = n->items_last;
+        
+        // update ancestors' item count and boundary items
+        while (n != _nodes.end()) {
+            n->n_items += delta_items;
+            
+            if (n->n_items == 0) {
+                n->items_first = n->items_last = _items.end();
+            } else {
+                // If we ascended from an edge node, that node certainly
+                // controls (or used to control) our edge item. 
+                // But it might have also controlled our edge item if the 
+                // edge sibling doesn't have any items. In this case,
+                // its previous edge item will also be ours.
+                if (n->child_first == prev_child or 
+                        n->items_first == old_first) {
+                    n->items_first = new_first;
+                }
+                if (n->child_last == prev_child or
+                        n->items_last == old_last) {
+                    n->items_last = new_last;
+                }
+            }
+            
+            prev_child = n;
+            n = n->parent;
+        }
     }
     
 };
@@ -389,7 +446,7 @@ public:
     /**
      * @brief Get the parent node.
      *
-     * The parent of `root()` is `tree()->end()`.
+     * The parent of `tree()->root()` is `tree()->end()`.
      */
     inline self_t parent() const {
         return self_t(_root->parent, _storage);
@@ -556,16 +613,19 @@ public:
     
 protected:   
         
-    // compute the position of the node that follows `node`'s subtree in "sibling-first" order.
-    // the successor to `node` occurs just before the next subtree to the right.
-    // an `O(k * log(n))` operation, on `n` the size of the tree, and `k` the arity.
-    // this is different from `++node` because `++node` may descend into the 
-    // current node's subtree; we want to exactly hop over it.
+    // compute the position of the node that follows `node`'s subtree in 
+    // "sibling-first" order. the successor to `node` occurs just before 
+    // the next subtree to the right. an `O(k * log(n))` operation, on `n` 
+    // the size of the tree, and `k` the arity. this is different from 
+    // `++node` because `++node` may descend into the current node's 
+    // subtree; we want to exactly hop over it.
     NodeRef node_successor(const NodeRef& node) const {
         NodeRef ancestor  = node->parent;
         NodeRef child     = node;
-        NodeRef successor = _storage->_nodes.end(); // if there is no subtree to the right,
-                                                    // this is the conceptual successor.
+        // if there is no subtree to the right,
+        // this is the conceptual successor:
+        NodeRef successor = _storage->_nodes.end();
+        
         while (ancestor != _storage->_nodes.end()) {
             NodeRef off_end_child = ancestor->child_last; 
             if (ancestor->n_children > 0) ++off_end_child;
@@ -724,7 +784,8 @@ public:
         NodeRef prev_end_node = this->end()._root;
         
         // create the new node
-        NodeRef new_node = this->_storage->_nodes.insert(n, typename base_t::Node(this->_storage, p, args...));
+        NodeRef new_node = this->_storage->_nodes.insert(
+            n, typename base_t::Node(this->_storage, p, args...));
         
         // take ownership of the parent's items, if we are its first child
         // (every item must belong to a leaf node, and the parent
@@ -803,9 +864,10 @@ public:
         }
         
         // create the first node, and keep a reference to it
-        // todo: _nodes.reserve(n_items);
+        // todo: this->_storage->_nodes.reserve(n_items);
         NodeRef prev_end_node  = this->end()._root;
-        NodeRef first_new_node = this->_storage->_nodes.insert(n, Node(this->_storage, p, *(i_begin++)));
+        NodeRef first_new_node = this->_storage->_nodes.insert(
+            n, base_t::Node(this->_storage, p, *(i_begin++)));
         NodeRef last_new_node  = first_new_node;
         
         // transfer ownership of the parent's items to the first child.
@@ -820,7 +882,8 @@ public:
         // add the rest of the nodes
         index_t ct = 1;
         for (NodeItemIterator i = i_begin; i != i_end; ++i, ++ct) {
-            last_new_node = this->_storage->_nodes.insert(n, base_t::Node(this->_storage, p, *i));
+            last_new_node = this->_storage->_nodes.insert(
+                n, base_t::Node(this->_storage, p, *i));
         }
         
         // adjust child endpoints if necessary
@@ -850,8 +913,8 @@ public:
     /**
      * @brief Insert an item under this node.
      *
-     * The new item will be inserted before the item at `insert_before`.
-     * `insert_before` must belong to this node, otherwise the behavior 
+     * The new item will be inserted before the item at `insert_before`,
+     * which must belong to this node, otherwise the behavior 
      * is undefined. It is permissible for `insert_before` to be this node's 
      * `items_begin()` or `items_end()`.
      * 
@@ -873,8 +936,8 @@ public:
     item_iterator insert_item(
             const item_iterator& insert_before,
             const LeafItem& obj) const {
-        // todo: it would be great if we could protect against the user
-        //   providing an insert_pt that doesn't belong to the parent
+        // todo: it would be great if we could efficiently protect against 
+        //   the user providing an insert_pt that doesn't belong to the parent
         
         // must insert to a leaf node
         if (this->node_count() > 0) {
@@ -891,18 +954,25 @@ public:
         // insert the item
         ItemRef new_item = this->_storage->_items.insert(insert_pt, obj);
         
-        // ascend the tree, updating the item ranges of the ancestors
-        ItemRef precursor_item = new_item; --precursor_item;
-        while (n != this->_storage->_nodes.end()) {
-            if (n->items_first == insert_pt or n->n_items == 0) {
-                n->items_first = new_item;
-            }
-            if (n->items_last == precursor_item or n->n_items == 0) {
-                n->items_last = new_item;
-            }
-            n->n_items += 1;
-            n = n->parent;
+        // figure out the new begin/end items
+        ItemRef new_begin, new_end;
+        if (insert_before == n->items_first) {
+            new_begin = new_item;
+        } else {
+            new_begin = n->items_first;
         }
+        if (std::prev(insert_pt) == n->items_last or n->n_items == 0) {
+            new_end = new_item;
+        } else {
+            new_end = n->items_last;
+        }
+        
+        // udpate the boundaries of this node, and its ancestors
+        this->_storage->update_boundary_items(
+            this->_root,
+            new_begin,
+            new_end,
+            1);
         
         return new_item;
     }
@@ -977,18 +1047,25 @@ public:
             ++item_ct;
         }
         
-        // ascend the tree, updating the item ranges of the ancestors
-        ItemRef precursor_item = first_new_item; --precursor_item;
-        while (n != this->_storage->_nodes.end()) {
-            if (n->items_first == insert_pt or n->n_items == 0) {
-                n->items_first = first_new_item;
-            }
-            if (n->items_last == precursor_item or n->n_items == 0) {
-                n->items_last = last_new_item;
-            }
-            n->n_items += item_ct;
-            n = n->parent;
+        // figure out the new begin/end items
+        ItemRef new_begin, new_end;
+        if (insert_before == n->items_first) {
+            new_begin = first_new_item;
+        } else {
+            new_begin = n->items_first;
         }
+        if (std::prev(insert_pt) == n->items_last or n->n_items == 0) {
+            new_end = last_new_item;
+        } else {
+            new_end = n->items_last;
+        }
+        
+        // udpate the boundaries of this node, and its ancestors
+        this->_storage->update_boundary_items(
+            this->_root,
+            new_begin,
+            new_end,
+            item_ct);
         
         if (new_item_count) *new_item_count = item_ct;
         return first_new_item;
@@ -1026,14 +1103,21 @@ public:
         
         NodeRef n = new_node._root;
         
+        // insert all the items
+        // (also updates the boundary items; etc.)
+        // new node is now a valid leaf with a buncha items:
+        ItemRef first_new_item = n.insert_items(
+            other_subtree.items_begin(),
+            other_subtree.items_end());
+        
         // todo: _storage->_nodes.reserve(...)
         
         // insert all the descendent nodes
         NodeRef subtree_end    = this->node_successor(n);
         NodeRef first_new_node = this->_storage->_nodes.insert(
             subtree_end, 
-            other_subtree._root->child_first, 
-            std::next(other_subtree._root->child_last));
+            other_subtree.subtree_begin()._root, 
+            other_subtree.subtree_end()._root);
         
         // update the new root's child list
         n->n_children = other_subtree.node_count();
@@ -1041,11 +1125,6 @@ public:
             n->child_first = first_new_node;
             n->child_last  = subtree_end; --(n->child_last);
         }
-        
-        // insert all the items
-        n.insert_items(
-            other_subtree._root->items_first,
-            std::next(other_subtree._root->items_last));
         
         // all the pointers/iterators inside the subtree have to point
         // to *our* storage; not the original storage
@@ -1075,7 +1154,7 @@ public:
      * `LeafItem` as its left argument and a `P` as its right 
      * argument, and returns a signed number (negative for `a < b`, 
      * positive for `a > b`, zero for equality).
-     * @param args Constructor arguments for the internal node object 
+     * @param args Constructor arguments for the `NodeItem` object 
      * to be assigned to the newly-created (low) node.
      *
      * @return The newly created sibling, or the off-end node if this 
@@ -1098,6 +1177,8 @@ public:
         // because `lo` is adjacent to `hi`, we can add items to `lo` by moving the 
         // boundary between `lo` and `hi` and swapping the contents of the iterators.
         // we traverse backwards so that our swapping does not unsort our items.
+        
+        // corner case: hi is / becomes empty
         for (ItemRef i = hi->items_last; i != std::prev(hi->items_first); ) {
             if (compare(*i, pivot) < 0) {
                 // move the item to the lower node
@@ -1114,9 +1195,9 @@ public:
                     lo->items_last = hi->items_first;
                 }
                 
-                ++lo->n_items;
-                --hi->n_items;
-                ++hi->items_first;
+                ++(lo->n_items);
+                --(hi->n_items);
+                ++(hi->items_first);
                 std::swap(*i, *(lo->items_last));
                 
                 // we do not decrement i, because we've just moved
@@ -1127,6 +1208,15 @@ public:
                 --i;
             }
         }
+        
+        // if the `hi` node was emptied, fix up its item boundaries.
+        if (hi->n_items == 0) {
+            hi->items_first = hi->items_last = this->_storage->_items.end();
+        }
+        
+        // we didn't delete/add any LeafItems, so we don't need to
+        // update the boundary items.
+        
         return new_node;
     }
     
@@ -1140,34 +1230,63 @@ public:
      * Invalidates the iterator to this item, as well as any `end()`
      * `item_iterator`s.
      *
-     * @param deleted Optional return value pointer to be filled with `true` 
+     * @param item The item to delete; a direct child of this node.
+     * @param success Optional return value pointer to be filled with `true` 
      * if the item was deleted; `false` if the tree is unchanged.
      * @return An iterator pointing to the position of the item just beyond 
      * the one that was deleted. This will be `items_end()` if the 
      * deleted item was the last one in its parent node.
      */
     item_iterator erase(const item_iterator& item, bool* success=nullptr) const {
-        if (this->_root->n_children == 0) {
+        item_iterator ret = this->items_end();
+        bool ok = false;
+        NodeRef n = this->_root;
+        
+        if (n->n_children == 0) {
             // verify that the item actually belongs to us.
             // (otherwise hell could break loose).
-            // this is a linear check; if we knew we were the parent, the
+            // this is a linear check; if we *knew* we were the parent, the
             // entire operation would be log(n). laaaaame.
             bool found = false;
-            for (item_iterator i = this->_root->items_begin(); 
-                    i != this->_root->items_end(); 
+            for (item_iterator i = n->items_begin(); 
+                    i != n->items_end(); 
                     ++i) {
                 if (i == item) {
                     found = true;
                     break;
                 }
             }
+            
             if (found) {
-                if (success) *success = true;
-                return _erase(item, this->_root);
+                ItemRef next_item = this->_storage->_items.erase(item);
+                ItemRef prev_item = next_item; --prev_item;
+                
+                // figure out the new begin / end items
+                ItemRef new_begin, new_end;
+                if (item == n->items_first) {
+                    new_begin = next_item;
+                } else {
+                    new_begin = n->items_first;
+                }
+                if (item == n->items_last) {
+                    new_end = prev_item;
+                } else {
+                    new_end = prev_item;
+                }
+                
+                this->_storage->update_boundary_items(
+                    n, 
+                    new_begin,
+                    new_end,
+                    -1);
+                
+                ok  = true;
+                ret = next_item;
             }
         }
-        if (success) *success = false;
-        return this->items_end();
+        
+        if (success) *success = ok;
+        return ret;
     }
     
     
@@ -1194,22 +1313,8 @@ public:
             }
             ItemRef prev_item = next_item; --prev_item;
             
-            // update ancestors' item count and boundary items
-            while (n != this->_storage->_nodes.end()) {
-                n->n_items -= n_deleted;
-                // fix up the boundary items
-                if (n->n_items == 0) {
-                    n->items_first = n->items_last = this->_storage->_items.end();
-                } else {
-                    if (n->items_first == del_first_item) {
-                        n->items_first = next_item;
-                    }
-                    if (n->items_last == del_last_item) {
-                        n->items_last = prev_item;
-                    }
-                }
-                n = n->parent;
-            }
+            // update item boundaries / counts
+            this->_storage->update_boundary_items(n, next_item, prev_item, n_deleted);
         }
     }
     
@@ -1243,7 +1348,9 @@ public:
         this->_root->n_children--;
         if (this->_root->n_children == 0) {
             // `x` was the only child
-            this->_root->child_first = this->_root->child_last = this->_storage->_nodes.end();
+            this->_root->child_first = 
+                this->_root->child_last = 
+                    this->_storage->_nodes.end();
         } else if (this->_root->child_first == x) {
             this->_root->child_first = next_node;
         } else if (this->_root->child_last == x) {
@@ -1264,10 +1371,14 @@ public:
         
         // because of sibling-first order, 
         // this is exactly all the descendents of `_root`:
-        this->_storage->_nodes.erase(this->_root->child_first, this->node_successor(this->_root));
+        this->_storage->_nodes.erase(
+            this->_root->child_first, 
+            this->node_successor(this->_root));
         
         this->_root->n_children = 0;
-        this->_root->child_first = this->_root->child_last = this->_storage->_nodes.end();
+        this->_root->child_first = 
+            this->_root->child_last = 
+                this->_storage->_nodes.end();
     }
     
     
@@ -1275,31 +1386,6 @@ public:
     
     
 protected:
-    
-    // erase when `parent` is known to be the exact parent of `item`; not just an ancestor.
-    item_iterator _erase(const ItemRef& item, NodeRef parent) const {
-        ItemRef next_item = this->_storage->_items.erase(item);
-        ItemRef prev_item = next_item; --prev_item;
-        
-        // update the ancestors.
-        while (parent != this->_storage->_nodes.end()) {
-            parent->n_items--;
-            if (parent->n_items == 0) {
-                parent->items_first = parent->items_last = this->_storage->_items.end();
-            } else {
-                if (parent->child_first == item) {
-                    parent->child_first = next_item;
-                }
-                if (parent->child_last == item) {
-                    parent->child_last = prev_item;
-                }
-            }
-            parent = parent->parent;
-        }
-        
-        return next_item;
-    }
-    
     
     // use all the child counts to recompute the first/last 
     // references in internal nodes. useful when taking ownership
@@ -1315,8 +1401,10 @@ protected:
     // (though it may still take O(n) to execute).
     void recalculate_references() const {
         NodeRef begin_child = this->_root->child_first;
-        ItemRef begin_items = this->_root->items_first; // next unassigned leaf item
-        ItemRef last_item   = this->_root->items_last;  // last / most recent assigned leaf item in the list
+        // next unassigned leaf item:
+        ItemRef begin_items = this->_root->items_first;
+        // last / most recent assigned leaf item in the list: 
+        ItemRef last_item   = this->_root->items_last;
         NodeRef end_child   = this->end()._root;
         
         // in essence we "build" the tree by simply taking ownership of 
