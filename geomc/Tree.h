@@ -177,7 +177,7 @@ public:
         
         // create root
         _nodes.push_back(Node(this, _nodes.end()));
-        NodeRef node = _nodes.front();
+        NodeRef node = _nodes.begin();
         
         // assign items to root
         node->items_first = _items.begin();
@@ -264,7 +264,7 @@ public:
     
     /// Total number of items in this Tree.
     inline size_t item_count() const {
-        return _nodes.front()->n_items;
+        return _nodes.begin()->n_items;
     }
     
         
@@ -276,8 +276,8 @@ public:
         
         // because the references will point to different memory,
         // we can't compare raw data. we have to examine the structure of the tree.
-        NodeRef a_n =       _nodes.begin();
-        NodeRef b_n = other._nodes.begin();
+        auto a_n =       _nodes.begin();
+        auto b_n = other._nodes.begin();
         for (; a_n != _nodes.end() and b_n != other._nodes.end(); ++a_n, ++b_n) {
             if (a_n->n_items    != b_n->n_items)    return false;
             if (a_n->n_children != b_n->n_children) return false;
@@ -302,10 +302,10 @@ public:
 protected:
     
     inline void recalculate_tree() {
-        NodeRef n = _nodes.front();
+        NodeRef n = _nodes.begin();
         n->child_first = std::next(n);
         n->child_last  = _nodes.end(); --(n->child_last);
-        n->items_first = _items.front();
+        n->items_first = _items.begin();
         n->items_last  = _items.end(); --(n->items_last);
         root().recalculate_references();
     }
