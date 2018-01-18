@@ -204,6 +204,9 @@ public:
     }
     
     
+    // xxx: Todo: make a constructor which populates the NodeItem
+    
+    
     /// Get a subtree iterator to the root of this tree.
     inline Subtree<NodeItem, LeafItem> root() {
         return Subtree<NodeItem, LeafItem>(_nodes.begin(), this);
@@ -630,9 +633,9 @@ protected:
             NodeRef off_end_child = ancestor->child_last; 
             if (ancestor->n_children > 0) ++off_end_child;
             // look for a populated node to the right of us
-            while (++child != off_end_child) {
-                if (child->n_children > 0) {
-                    successor = child->child_first;
+            for (NodeRef c = child; c != off_end_child; ++c) {
+                if (c->n_children > 0) {
+                    successor = c->child_first;
                     break;
                 }
             }
@@ -657,13 +660,14 @@ protected:
                 node = parent, parent = node->parent) {
             NodeRef end_c = parent->child_last;
             if (parent->n_children != 0) ++end_c;
-            for (; node != end_c; ++node) {
-                if (node->n_items > 0) {
-                    return node->items_first;
+            for (NodeRef c = node; c != end_c; ++c) {
+                if (c->n_items > 0) {
+                    return c->items_first;
                 }
             }
         }
-        return items_end();
+        return this->_storage->_items.end
+        ();
     }
     
 }; // class SubtreeBase
@@ -961,7 +965,7 @@ public:
         } else {
             new_begin = n->items_first;
         }
-        if (std::prev(insert_pt) == n->items_last or n->n_items == 0) {
+        if (std::prev(new_item) == n->items_last or n->n_items == 0) {
             new_end = new_item;
         } else {
             new_end = n->items_last;
@@ -1054,7 +1058,7 @@ public:
         } else {
             new_begin = n->items_first;
         }
-        if (std::prev(insert_pt) == n->items_last or n->n_items == 0) {
+        if (std::prev(first_new_item) == n->items_last or n->n_items == 0) {
             new_end = last_new_item;
         } else {
             new_end = n->items_last;
