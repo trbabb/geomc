@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['node_5fiterator',['node_iterator',['../classgeom_1_1_k_d_tree.html#a7f9cb14106b6a7d3bce38bf258fb4d83',1,'geom::KDTree']]]
+  ['l_5ft',['L_t',['../classgeom_1_1_p_l_u_decomposition.html#ad49493e5523739689d1e1b1dcf1ba045',1,'geom::PLUDecomposition']]]
 ];

@@ -83,13 +83,13 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a3dee5770ede29888f2c0136bbd7f5a95">Tree</a> ()</td></tr>
 <tr class="memdesc:a3dee5770ede29888f2c0136bbd7f5a95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an empty <a class="el" href="classgeom_1_1_tree.html" title="A dynamic tree of arbitrary arity. ">Tree</a>. <br /></td></tr>
 <tr class="separator:a3dee5770ede29888f2c0136bbd7f5a95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf5fcdda87c073e87fb2aeae047bb2fa"><td class="memItemLeft" align="right" valign="top"><a id="aaf5fcdda87c073e87fb2aeae047bb2fa"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#aaf5fcdda87c073e87fb2aeae047bb2fa">Tree</a> (const <a class="el" href="classgeom_1_1_tree.html">Tree</a>&lt; NodeItem, LeafItem &gt; &amp;&amp;other)=default</td></tr>
-<tr class="memdesc:aaf5fcdda87c073e87fb2aeae047bb2fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default move constructor. <br /></td></tr>
-<tr class="separator:aaf5fcdda87c073e87fb2aeae047bb2fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae918aabf95bd58a387a0c04b91ed4012"><td class="memItemLeft" align="right" valign="top"><a id="ae918aabf95bd58a387a0c04b91ed4012"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#ae918aabf95bd58a387a0c04b91ed4012">Tree</a> (<a class="el" href="classgeom_1_1_tree.html">Tree</a>&lt; NodeItem, LeafItem &gt; &amp;&amp;other)=default</td></tr>
+<tr class="memdesc:ae918aabf95bd58a387a0c04b91ed4012"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default move constructor. <br /></td></tr>
+<tr class="separator:ae918aabf95bd58a387a0c04b91ed4012"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e2471f9d383fcf1f1d1be2a9c8c2740"><td class="memTemplParams" colspan="2"><a id="a6e2471f9d383fcf1f1d1be2a9c8c2740"></a>
 template&lt;typename LeafItemIterator &gt; </td></tr>
-<tr class="memitem:a6e2471f9d383fcf1f1d1be2a9c8c2740"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a6e2471f9d383fcf1f1d1be2a9c8c2740">Tree</a> (LeafItemIterator begin, LeafItemIterator end)</td></tr>
+<tr class="memitem:a6e2471f9d383fcf1f1d1be2a9c8c2740"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a6e2471f9d383fcf1f1d1be2a9c8c2740">Tree</a> (LeafItemIterator <a class="el" href="classgeom_1_1_tree.html#aba1098f1dec0822347287234149f28aa">begin</a>, LeafItemIterator <a class="el" href="classgeom_1_1_tree.html#a59cf3fa0b8dcfe04be4f6d69b4821c47">end</a>)</td></tr>
 <tr class="memdesc:a6e2471f9d383fcf1f1d1be2a9c8c2740"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a tree having a single root node, and copy the items in <code>[begin, end)</code> to it. <br /></td></tr>
 <tr class="separator:a6e2471f9d383fcf1f1d1be2a9c8c2740"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4428843869e2861c7629ab3e5ba05a2"><td class="memItemLeft" align="right" valign="top"><a id="ac4428843869e2861c7629ab3e5ba05a2"></a>
@@ -108,6 +108,30 @@ template&lt;typename LeafItemIterator &gt; </td></tr>
 <a class="el" href="classgeom_1_1_const_subtree.html">ConstSubtree</a>&lt; NodeItem, LeafItem &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a69491381ae971833b4fe3552a65be91f">root</a> () const</td></tr>
 <tr class="memdesc:a69491381ae971833b4fe3552a65be91f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a const subtree iterator to the root of this tree. <br /></td></tr>
 <tr class="separator:a69491381ae971833b4fe3552a65be91f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba1098f1dec0822347287234149f28aa"><td class="memItemLeft" align="right" valign="top"><a id="aba1098f1dec0822347287234149f28aa"></a>
+<a class="el" href="classgeom_1_1_subtree.html">Subtree</a>&lt; NodeItem, LeafItem &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#aba1098f1dec0822347287234149f28aa">begin</a> ()</td></tr>
+<tr class="memdesc:aba1098f1dec0822347287234149f28aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return an iterator to the first item in the tree (root), in sibling-contiguous order. <br /></td></tr>
+<tr class="separator:aba1098f1dec0822347287234149f28aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59cf3fa0b8dcfe04be4f6d69b4821c47"><td class="memItemLeft" align="right" valign="top"><a id="a59cf3fa0b8dcfe04be4f6d69b4821c47"></a>
+<a class="el" href="classgeom_1_1_subtree.html">Subtree</a>&lt; NodeItem, LeafItem &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a59cf3fa0b8dcfe04be4f6d69b4821c47">end</a> ()</td></tr>
+<tr class="memdesc:a59cf3fa0b8dcfe04be4f6d69b4821c47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return an iterator to the last (off-end) item in the tree, in sibling-contiguous order. <br /></td></tr>
+<tr class="separator:a59cf3fa0b8dcfe04be4f6d69b4821c47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39d0694a1e036bb82e7cea553d374c89"><td class="memItemLeft" align="right" valign="top"><a id="a39d0694a1e036bb82e7cea553d374c89"></a>
+<a class="el" href="classgeom_1_1_const_subtree.html">ConstSubtree</a>&lt; NodeItem, LeafItem &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a39d0694a1e036bb82e7cea553d374c89">begin</a> () const</td></tr>
+<tr class="memdesc:a39d0694a1e036bb82e7cea553d374c89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a const iterator to the first item in the tree (root), in sibling-contiguous order. <br /></td></tr>
+<tr class="separator:a39d0694a1e036bb82e7cea553d374c89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adab8586bad3aed9d82ab8a74848b8053"><td class="memItemLeft" align="right" valign="top"><a id="adab8586bad3aed9d82ab8a74848b8053"></a>
+<a class="el" href="classgeom_1_1_const_subtree.html">ConstSubtree</a>&lt; NodeItem, LeafItem &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#adab8586bad3aed9d82ab8a74848b8053">end</a> () const</td></tr>
+<tr class="memdesc:adab8586bad3aed9d82ab8a74848b8053"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a const iterator to the last (off-end) item in the tree, in sibling-contiguous order. <br /></td></tr>
+<tr class="separator:adab8586bad3aed9d82ab8a74848b8053"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a259cb5a711406a8c3e5d937eb9350cca"><td class="memItemLeft" align="right" valign="top"><a id="a259cb5a711406a8c3e5d937eb9350cca"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a259cb5a711406a8c3e5d937eb9350cca">size</a> () const</td></tr>
+<tr class="memdesc:a259cb5a711406a8c3e5d937eb9350cca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total number of nodes in this <a class="el" href="classgeom_1_1_tree.html" title="A dynamic tree of arbitrary arity. ">Tree</a>. <br /></td></tr>
+<tr class="separator:a259cb5a711406a8c3e5d937eb9350cca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa73c0c7973a3734fac48eb5b78c77d46"><td class="memItemLeft" align="right" valign="top"><a id="aa73c0c7973a3734fac48eb5b78c77d46"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#aa73c0c7973a3734fac48eb5b78c77d46">item_count</a> () const</td></tr>
+<tr class="memdesc:aa73c0c7973a3734fac48eb5b78c77d46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total number of items in this <a class="el" href="classgeom_1_1_tree.html" title="A dynamic tree of arbitrary arity. ">Tree</a>. <br /></td></tr>
+<tr class="separator:aa73c0c7973a3734fac48eb5b78c77d46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82a62a03b23f0ee4ed8c4407d93dee77"><td class="memItemLeft" align="right" valign="top"><a id="a82a62a03b23f0ee4ed8c4407d93dee77"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_tree.html#a82a62a03b23f0ee4ed8c4407d93dee77">operator==</a> (const <a class="el" href="classgeom_1_1_tree.html">Tree</a>&lt; NodeItem, LeafItem &gt; &amp;other) const</td></tr>
 <tr class="memdesc:a82a62a03b23f0ee4ed8c4407d93dee77"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classgeom_1_1_tree.html" title="A dynamic tree of arbitrary arity. ">Tree</a> equality. <br /></td></tr>
@@ -123,8 +147,24 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
 
 <p>A dynamic tree of arbitrary arity. </p>
 <p>Each node in the tree may store an associated <code>NodeItem</code> object. A node may have any number of child nodes.</p>
-<p>Leaf nodes may own a list of <code>LeafItem</code> objects. <code>LeafItem</code>s are kept such that all the <code>LeafItems</code> in any subtree are contiguous, and internal nodes provide iterators to the first and last <code>LeafItem</code>s in their respective subtrees.</p>
-<p>All mutation and access to a tree is provided by the <a class="el" href="classgeom_1_1_subtree.html" title="A non-const iterator to a subtree. ">Subtree</a> and <a class="el" href="classgeom_1_1_const_subtree.html" title="An const iterator to a subtree. ">ConstSubtree</a> classes; thin iterators pointing into the <a class="el" href="classgeom_1_1_tree.html" title="A dynamic tree of arbitrary arity. ">Tree</a> data structure.</p>
+<p>Leaf nodes may own a list of <code>LeafItem</code> objects. <code>LeafItem</code>s are kept in (contiguous) depth-first order, and internal nodes may therefore provide iterators to the first and last <code>LeafItem</code>s in their respective subtrees.</p>
+<p>All mutation and access to a tree is provided through the <a class="el" href="classgeom_1_1_subtree.html" title="A non-const iterator to a subtree. ">Subtree</a> and <a class="el" href="classgeom_1_1_const_subtree.html" title="An const iterator to a subtree. ">ConstSubtree</a> classes; both thin iterators pointing into the <a class="el" href="classgeom_1_1_tree.html" title="A dynamic tree of arbitrary arity. ">Tree</a> data structure.</p>
+<p>Trees are kept in "sibling-contiguous" order, as replicated by this pseudocode:</p>
+<pre>
+traverse(node):
+    for each child c of node:
+        visit(c)
+    for each child c of node:
+        traverse(c)
+</pre><p>which produces nodes in this order:</p>
+<pre>
+[node] ... [c1 c2 c3 c4 ...]
+    [children of c1]
+        [descendents of c1...]
+    [children of c2]
+        [descendents of c2...]
+    ...
+</pre><p>In this manner, a subtree may be distant from its root, but that entire subtree is contiguous. This also preserves the contiguousness of siblings.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">NodeItem</td><td>Type of data to be kept with internal tree nodes. </td></tr>
@@ -138,7 +178,7 @@ class geom::Tree&lt; NodeItem, LeafItem &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 4 2018 01:27:15 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 17 2018 23:20:16 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

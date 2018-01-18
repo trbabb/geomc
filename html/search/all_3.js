@@ -11,6 +11,7 @@ var searchData=
   ['diagonal',['diagonal',['../classgeom_1_1_p_l_u_decomposition.html#aa5467bd1f1873c5181c1b8ff1f963fc9',1,'geom::PLUDecomposition::diagonal()'],['../classgeom_1_1_diag_matrix.html#a91c7cff026b243ee8e37f72735031c0e',1,'geom::DiagMatrix::diagonal(index_t i) const'],['../classgeom_1_1_diag_matrix.html#acc7f51b53f359863743fc1e90c23ca6f',1,'geom::DiagMatrix::diagonal(index_t i)']]],
   ['diagonal_5fbegin',['diagonal_begin',['../classgeom_1_1_diag_matrix.html#a15c7a0bee09a1b09f2a4de66b0245eb6',1,'geom::DiagMatrix::diagonal_begin()'],['../classgeom_1_1_diag_matrix.html#a099e32dbd8a96be2677f78a15ad80cbb',1,'geom::DiagMatrix::diagonal_begin() const']]],
   ['diagonal_5fend',['diagonal_end',['../classgeom_1_1_diag_matrix.html#a40fe7cfc97934b7de5ae3ddeddd4e487',1,'geom::DiagMatrix::diagonal_end()'],['../classgeom_1_1_diag_matrix.html#ab03f2997313e2f0b8b6b2905137c42d5',1,'geom::DiagMatrix::diagonal_end() const']]],
+  ['difference_5ftype',['difference_type',['../classgeom_1_1_subtree_base.html#abfdd13f89f59c2e4cbe107005e05ca27',1,'geom::SubtreeBase']]],
   ['diffuse',['diffuse',['../classgeom_1_1_zonal_harmonics.html#a632b21962df88d389d3dd972ad6f0a66',1,'geom::ZonalHarmonics']]],
   ['dimension',['Dimension',['../structgeom_1_1_dimension.html',1,'geom']]],
   ['dimension_3c_20bands_20_3e',['Dimension&lt; Bands &gt;',['../structgeom_1_1_dimension.html',1,'geom']]],
