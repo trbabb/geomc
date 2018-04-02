@@ -176,6 +176,23 @@ public:
         typename Rect<T,N>::point_t hi = std::max(c1, c2);
         return Rect<T,N>(lo, hi);
     }
+    
+    /**
+     * Construct a Rect containing all the points in the sequence
+     * between `begin` and `end`.
+     * @tparam PointIterator An iterator to a `point_t`.
+     * @param begin Iterator to the first point.
+     * @param end Iterator to the off-end point.
+     * @return A new Rect containing all the points in the given sequence.
+     */
+    template <typename PointIterator>
+    inline static Rect<T,N> fromPoints(PointIterator begin, PointIterator end) {
+        Rect<T,N> r;
+        for (PointIterator i = begin; i != end; ++i) {
+            r |= *i;
+        }
+        return r;
+    }
 
     /**
      * Test whether a point is in the N-dimensional range `[min, max]`.

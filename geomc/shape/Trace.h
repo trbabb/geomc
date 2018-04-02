@@ -316,6 +316,31 @@ inline T trace_plane(const Vec<T,N> plane_pt, const Vec<T,N> plane_n, const Ray<
     return s;
 }
 
+template <typename T, index_t N>
+bool trace_sphere(const Vec<T,N>& center, T radius, const Ray<T,N> &ray, T* s) {
+    T r2 = radius * radius;
+    // if inside, we are guaranteed to hit the back. return miss if not tracing backface.
+    const Vec<T,N>& dir = ray.direction; //for shorthand
+    Vec<T,N> x0 = center - ray.origin;
+    // solve for s such that ||s * ray - ctr|| == radius 
+    T a = dir.dot(dir);
+    T b = -2 * dir.dot(x0);
+    T c = x0.dot(x0) - r2;
+    T roots[2];
+    if (quadratic_solve(roots, a, b, c)) {
+        if (roots[1] < roots[0]) {
+            std::swap(roots[0], roots[1]);
+        }
+        T positive_root = (roots[0] >= 0) ? roots[0] : roots[1];
+        if (positive_root >= 0) {
+            *s = positive_root;
+            return true;
+        }
+    }
+    // no intersection; return miss.
+    return false;
+}
+
 
 /// @}   // addtogroup shape
 

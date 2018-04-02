@@ -23,6 +23,7 @@
 // todo: it is not possible to have an empty tree.
 // todo: should SubtreeBase -> Subtree (etc) conversion be written in terms of
 //       a static_cast(this) rather than construction? might be faster.
+// todo: ctor args form for insert_item()
 
 // todo: get the docs correct about what end() and begin() iterators are invalidated.
 //       -> begin() on this node if we insert before begin
@@ -614,7 +615,7 @@ public:
         return self_t(_storage->_nodes.end(), _storage);
     }
     
-protected:   
+protected:
         
     // compute the position of the node that follows `node`'s subtree in 
     // "sibling-first" order. the successor to `node` occurs just before 
@@ -817,11 +818,10 @@ public:
      * @brief Convenience function to insert a new child node at the 
      * end of this node's children.
      *
-     * @param args Constructor args for the new `NodeItem` to be placed.
+     * @param obj NodeItem to insert into the new node.
      */
-    template <typename ... Args>
-    inline self_t insert_child_node(const NodeItem& obj, Args&& ... args) const {
-        return insert_child_node(this->end(), obj, args...);
+    inline self_t insert_child_node(const NodeItem& obj) const {
+        return insert_child_node(this->end(), obj);
     }
     
     
@@ -1395,7 +1395,7 @@ protected:
     // references in internal nodes. useful when taking ownership
     // of another tree's internal node list.
     // preconditions: 
-    //   - first & last item AND child pointers of this node are correct
+    //   - first item AND child pointers of this node are correct
     //   - the descendents of this subtree have correct child and item counts
     //   - the nodes belonging to this subtree exist and are correctly ordered
     //     and placed in the tree
@@ -1408,15 +1408,13 @@ protected:
         // next unassigned leaf item:
         ItemRef begin_items = this->_root->items_first;
         // last / most recent assigned leaf item in the list: 
-        ItemRef last_item   = this->_root->items_last;
-        NodeRef end_child   = this->end()._root;
+        ItemRef last_item   = begin_items; --last_item;
+        NodeRef end_child   = this->node_successor(this->_root);
         
         // in essence we "build" the tree by simply taking ownership of 
         // the nodes/items that already exist. we walk over the nodes in 
         // tree order, which means that child nodes are taken in order too.
-        // this spares us recursion (i.e. no possibility of stack-blowing) 
-        // and some logic keeping track of descent/ascent.
-        for (NodeRef node = this->_root; node != end_child; ++node) {
+        for (NodeRef node = this->_root; node != end_child; ) {
             node->child_first = node->child_last = 
                 (node->n_children > 0) ? begin_child : this->_storage->_nodes.end();
             node->items_first = node->items_last = 
@@ -1427,16 +1425,19 @@ protected:
                 
                 // acquire direct children
                 for (index_t c = 0; c < node->n_children - 1; ++c) {
-                    ++node->child_last;
+                    ++(node->child_last);
                     node->child_last->parent = node;
                 }
                 
                 // move the node "free space"
                 begin_child = node->child_last; ++begin_child;
+                
+                // populate first child's subtree
+                node = node->child_first;
             } else {
                 if (node->n_items > 0) {
                     for (index_t i = 0; i < node->n_items - 1; ++i) {
-                        ++node->items_last;
+                        ++(node->items_last);
                     }
                     // move the item "free space"
                     begin_items = last_item = node->items_last; ++begin_items;
@@ -1444,15 +1445,14 @@ protected:
                     
                 // fixup the items_end along the right edge of this subtree.
                 NodeRef descendent = node;
-                for (NodeRef ancestor = node->parent; 
-                        ancestor != this->_root; 
+                for (NodeRef ancestor = node->parent;
+                        ancestor != this->_root;
                         descendent = ancestor, ancestor = ancestor->parent) {
-                    if (ancestor->child_last == descendent) {
-                        if (ancestor->n_items > 0) ancestor->items_last = last_item;
-                    } else {
-                        break;
-                    }
+                    if (ancestor->n_items > 0) ancestor->items_last = last_item;
                 }
+                
+                // done populating this tree. populate the next sibling tree.
+                node = this->node_successor(node);
             }
         }
     }

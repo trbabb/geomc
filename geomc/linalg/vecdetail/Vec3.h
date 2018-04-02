@@ -264,7 +264,22 @@ namespace geom {
                     (b*(u2 + w2) - v*(a*u + c*w - uxvywz))*oneMcos + y*cc + ( c*u - a*w + w*x - u*z)*ss,
                     (c*(u2 + v2) - w*(a*u + b*v - uxvywz))*oneMcos + z*cc + (-b*u + a*v - v*x + u*y)*ss);
         }
-
+        
+        /**
+         * Compute a transform aligning `from` with `to` and apply it to `this`.
+         */
+        Vec<T,3> align(const Vec<T,3>& from, const Vec<T,3>& to) {
+            // modified from http://iquilezles.org/www/articles/noacos/noacos.htm
+            const Vec<T,3>& v = *this;
+            const Vec<T,3>  q = from.cross(to);
+            const T         c = from.dot(to);
+            const T         k = 1 / (1 + c);
+            return Vec<T,3>(
+                (q.x * q.x * k + c)   * v.x + (q.y * q.x * k - q.z) * v.y + (q.z * q.x * k + q.y) * v.z,
+                (q.x * q.y * k + q.z) * v.x + (q.y * q.y * k + c)   * v.y + (q.z * q.y * k - q.x) * v.z,
+                (q.x * q.z * k - q.y) * v.x + (q.y * q.z * k + q.x) * v.y + (q.z * q.z * k + c)   * v.z);
+        }
+        
         /// @return `true` if no elements are an infinity or `NaN`.
         bool isFiniteReal() const {
             return isReal(detail::VecBase<T,3>::x) && isReal(detail::VecBase<T,3>::y) && isReal(detail::VecBase<T,3>::z);
