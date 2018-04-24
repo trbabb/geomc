@@ -91,7 +91,7 @@ class Extrusion : public virtual Convex<T,N> {
                 d_[0] = 1;
             }
             
-            Vec<T,N-1> p0 = base.convexSupport(d_).template resized<N>();
+            Vec<T,N-1> p0 = base.convexSupport(d_);
             
             // top or bottom face?
             Vec<T,N> p1 = Vec<T,N>(p0, (d[N-1] > 0) ? hmax : hmin);
