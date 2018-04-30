@@ -12,6 +12,67 @@
 
 namespace geom {
 
+namespace detail {
+
+    template <typename T, bool RowMajor>
+    struct MxWrap {
+
+        T* m;
+        index_t rows;
+        index_t cols;
+
+        inline T& elem(index_t r, index_t c) {
+            return m[cols * r + c];
+        }
+    };
+
+    template <typename T>
+    struct MxWrap<T, false> {
+
+        T* m;
+        index_t rows;
+        index_t cols;
+
+        inline T& elem(index_t r, index_t c) {
+            return m[rows * c + r];
+        }
+
+    };
+    
+    // goddammit c++, why can't you just template over const-ness
+    
+    template <typename T, bool RowMajor>
+    struct MxWrapC {
+
+        const T* m;
+        index_t rows;
+        index_t cols;
+
+        inline T elem(index_t r, index_t c) {
+            return m[cols * r + c];
+        }
+    };
+
+    template <typename T>
+    struct MxWrapC<T, false> {
+
+        const T* m;
+        index_t rows;
+        index_t cols;
+
+        inline T elem(index_t r, index_t c) {
+            return m[rows * c + r];
+        }
+
+    };
+    
+}
+
+
+/** @ingroup linalg
+ *  @{
+ */
+
 
 /************************************************
  * Matrix LU decomposition                      *
@@ -19,21 +80,21 @@ namespace geom {
  * Implementation using Doolittle's algorithm   *
  ************************************************/
 
-#define _MxElem(r,c) m[cols*r + c]
-    
 /**
  * LU decomposition, pivoting columns.
+ *
+ * @tparam T The element type of the matrix.
+ * @tparam RowMajor Whether the layout of the matrix is row-major (`true`) or column-major (`false`).
  * 
- * @param m Row-major array of elements to decompose.
+ * @param m Array of elements to decompose.
  * @param rows Number of rows in `m`.
  * @param cols Number of columns in `m`.
  * @param reorder Array with space for `cols` elements to be filled with the column source indexes.
  * @param swap_parity Whether an odd number of column-swaps was performed.
  * @return The number of degenerate columns discovered.
- * @related PLUDecomposition
  */
-template <typename T>
-index_t decompLUP(T* m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity) {
+template <typename T, bool RowMajor=true>
+index_t decompLUP(T* m, index_t rows, index_t cols, index_t* reorder, bool* swap_parity) {
     const index_t n = std::min(rows, cols);
     index_t degenerate_ct = 0;
     *swap_parity = false;
@@ -41,13 +102,15 @@ index_t decompLUP(T* m, index_t rows, index_t cols, index_t *reorder, bool *swap
     for (index_t i = 0; i < cols; i++){
         reorder[i] = i;
     }
+
+    detail::MxWrap<T,RowMajor> mx = {m, rows, cols};
     
     for (index_t i = 0; i < n - 1; i++) {
         // find pivot
-        T biggest = std::abs(_MxElem(i,i));
+        T biggest = std::abs(mx.elem(i,i));
         index_t pvt = i;
         for (index_t p = i + 1; p < cols; p++) {
-            T pvt_val = std::abs(_MxElem(i,p));
+            T pvt_val = std::abs(mx.elem(i,p));
             if (pvt_val > biggest) {
                 pvt = p;
                 biggest = pvt_val;
@@ -63,8 +126,8 @@ index_t decompLUP(T* m, index_t rows, index_t cols, index_t *reorder, bool *swap
         } else if (pvt != i) {
             // swap col <i> with col <pvt>
             for (index_t r = 0; r < rows; r++) {
-                std::swap(_MxElem(r, i),
-                          _MxElem(r, pvt));
+                std::swap(mx.elem(r, i),
+                          mx.elem(r, pvt));
             }
             // make a note of the permutation in <P>
             std::swap(reorder[i], reorder[pvt]);
@@ -72,17 +135,17 @@ index_t decompLUP(T* m, index_t rows, index_t cols, index_t *reorder, bool *swap
         }
         
         // eliminate lower elements
-        T a = _MxElem(i,i);
+        T a = mx.elem(i,i);
         for (index_t r = i + 1; r < rows; r++) {
-            T b = _MxElem(r,i) / a;
+            T b = mx.elem(r,i) / a;
             for (index_t c = i + 1; c < cols; c++) {
                 // R_r = R_r - b * R_i
-                T src_elem = _MxElem(i,c);
-                T dst_elem = _MxElem(r,c);
-                _MxElem(r,c) = dst_elem - b * src_elem;
+                T src_elem = mx.elem(i,c);
+                T dst_elem = mx.elem(r,c);
+                mx.elem(r,c) = dst_elem - b * src_elem;
             }
             // set the lower matrix
-            _MxElem(r,i) = b;
+            mx.elem(r,i) = b;
         }
     }
     
@@ -94,17 +157,19 @@ index_t decompLUP(T* m, index_t rows, index_t cols, index_t *reorder, bool *swap
 // different static sizes of SimpleMatrix. It's 7% faster too!
 /**
  * LU decomposition, pivoting rows.
+ *
+ * @tparam T The element type of the matrix.
+ * @tparam RowMajor Whether the layout of the matrix is row-major (`true`) or column-major (`false`).
  * 
- * @param m Row-major array of elements to decompose.
+ * @param m Array of elements to decompose.
  * @param rows Number of rows in `m`.
  * @param cols Number of columns in `m`.
  * @param reorder Array with space for `rows` elements to be filled with the row source indexes.
  * @param swap_parity Whether an odd number of row-swaps was performed.
  * @return The number of degenerate rows discovered.
- * @related PLUDecomposition
  */
-template <typename T>
-bool decompPLU(T* m, index_t rows, index_t cols, index_t* reorder, bool* swap_parity) {
+template <typename T, bool RowMajor=true>
+index_t decompPLU(T* m, index_t rows, index_t cols, index_t* reorder, bool* swap_parity) {
     const index_t n = std::min(rows, cols);
     index_t degenerate_ct = 0;
     *swap_parity = false;
@@ -112,13 +177,15 @@ bool decompPLU(T* m, index_t rows, index_t cols, index_t* reorder, bool* swap_pa
     for (index_t i = 0; i < rows; i++){
         reorder[i] = i;
     }
+
+    detail::MxWrap<T,RowMajor> mx = {m, rows, cols};
     
     for (index_t i = 0; i < n - 1; i++) {
         // find pivot
-        T biggest = std::abs(_MxElem(i,i));
+        T biggest = std::abs(mx.elem(i,i));
         index_t pvt = i;
         for (index_t p = i + 1; p < rows; p++) {
-            T pvt_val = std::abs(_MxElem(p,i));
+            T pvt_val = std::abs(mx.elem(p,i));
             if (pvt_val > biggest) {
                 pvt = p;
                 biggest = pvt_val;
@@ -134,8 +201,8 @@ bool decompPLU(T* m, index_t rows, index_t cols, index_t* reorder, bool* swap_pa
         } else if (pvt != i) {
             // swap row <i> with row <pvt>
             for (index_t c = 0; c < cols; c++) {
-                std::swap(_MxElem(i,   c),
-                          _MxElem(pvt, c));
+                std::swap(mx.elem(i,   c),
+                          mx.elem(pvt, c));
             }
             // make a note of the permutation in <P>
             std::swap(reorder[i], reorder[pvt]);
@@ -143,17 +210,17 @@ bool decompPLU(T* m, index_t rows, index_t cols, index_t* reorder, bool* swap_pa
         }
         
         // eliminate lower elements
-        T a = _MxElem(i,i);
+        T a = mx.elem(i,i);
         for (index_t r = i + 1; r < rows; r++) {
-            T b = _MxElem(r,i) / a;
+            T b = mx.elem(r,i) / a;
             for (index_t c = i + 1; c < cols; c++) {
                 // R_r = R_r - b * R_i
-                T src_elem = _MxElem(i,c);
-                T dst_elem = _MxElem(r,c);
-                _MxElem(r,c) = dst_elem - b * src_elem;
+                T src_elem = mx.elem(i,c);
+                T dst_elem = mx.elem(r,c);
+                mx.elem(r,c) = dst_elem - b * src_elem;
             }
             // set the lower matrix
-            _MxElem(r,i) = b;
+            mx.elem(r,i) = b;
         }
     }
     
@@ -165,17 +232,20 @@ bool decompPLU(T* m, index_t rows, index_t cols, index_t* reorder, bool* swap_pa
 /**
  * Solve a system of linear equations `LUx = Pb`.
  *
+ * @tparam T The element type of the matrix.
+ * @tparam RowMajor Whether the layout of the matrix is row-major (`true`) or column-major (`false`).
+ *
  * @param lup An `n x n` LUP-decomposed matrix. 
  * @param p The permutation array filled by `decompLUP()`.
  * @param n The number of rows and columns in the matrix.
  * @param x The solution vector of `n` elements to be filled.
  * @param b A vector of `n` elements.
- * @related PLUDecomposition
+ * @param skip How many variables, in order from the first, to skip solving for. If greater
+ * than 0, the corresponding variables within `x` will contain nonsense values.
  */
-template <typename T>
-void linearSolveLUP(const T* lup, const index_t* p, index_t n, T* x, const T* b) {
-    const T* m = lup;       // so the macro works
-    const index_t cols = n; // ...
+template <typename T, bool RowMajor=true>
+void linearSolveLUP(const T* lup, const index_t* p, index_t n, T* x, const T* b, index_t skip=0) {
+    detail::MxWrapC<T,RowMajor> mx = {lup, n, n};
     
     // <y> and <x>'s elements are used such that
     // y[i] is never read after x[i] is written.
@@ -183,23 +253,23 @@ void linearSolveLUP(const T* lup, const index_t* p, index_t n, T* x, const T* b)
     T* y = x;
     
     // LUx = Pb
-    // (Ux) is a vector, so let's solve for it:
+    // (Ux) is a vector (call it "y"), so let's solve for it:
     // Ly  = Pb
     y[0] = b[p[0]];
     for (index_t r = 1; r < n; r++) {
         y[r] = b[p[r]];
         for (index_t c = 0; c < r; c++) {
-            y[r] -= y[c] * _MxElem(r,c);
+            y[r] -= y[c] * mx.elem(r,c);
         }
     }
     // now with y, we may obtain x from:
     // Ux = y
-    for (index_t r = n - 1; r >= 0; r--) {
+    for (index_t r = n - 1; r >= skip; r--) {
         // x[r] = y[r]; // nop; x and y are the same!
         for (index_t c = n - 1; c > r; c--) {
-            x[r] -= x[c] * _MxElem(r,c);
+            x[r] -= x[c] * mx.elem(r,c);
         }
-        x[r] /= _MxElem(r,r);
+        x[r] /= mx.elem(r,r);
     }
 }
 
@@ -207,16 +277,19 @@ void linearSolveLUP(const T* lup, const index_t* p, index_t n, T* x, const T* b)
 /**
  * Solve a system of linear equations `LUx = b`, without a permutation map.
  *
- * @param lup An `n x n` LUP-decomposed matrix.
+ * @tparam T The element type of the matrix.
+ * @tparam RowMajor Whether the layout of the matrix is row-major (`true`) or column-major (`false`).
+ *
+ * @param lup An `n x n` LU-decomposed matrix.
  * @param n The number of rows and columns in the matrix.
  * @param x The solution vector of `n` elements to be filled.
  * @param b A vector of `n` elements.
- * @related PLUDecomposition
+ * @param skip How many variables, in order from the first, to skip solving for. If greater
+ * than 0, the corresponding variables within `x` will contain nonsense values.
  */
-template <typename T>
-void linearSolveLUP(const T* lup, index_t n, T* x, const T* b) {
-    const T* m = lup;       // so the macro works
-    const index_t cols = n; // ...
+template <typename T, bool RowMajor=true>
+void linearSolveLU(const T* lu, index_t n, T* x, const T* b, index_t skip=0) {
+    detail::MxWrapC<T,RowMajor> mx = {lu, n, n};
     
     // <y> and <x>'s elements are used such that
     // y[i] is never read after x[i] is written.
@@ -230,46 +303,89 @@ void linearSolveLUP(const T* lup, index_t n, T* x, const T* b) {
     for (index_t r = 1; r < n; r++) {
         y[r] = b[r];
         for (index_t c = 0; c < r; c++) {
-            y[r] -= y[c] * _MxElem(r,c);
+            y[r] -= y[c] * mx.elem(r,c);
         }
     }
     // now with y, we may obtain x from:
     // Ux = y
-    for (index_t r = n - 1; r >= 0; r--) {
+    for (index_t r = n - 1; r >= skip; r--) {
         // x[r] = y[r]; // nop; x and y are the same!
         for (index_t c = n - 1; c > r; c--) {
-            x[r] -= x[c] * _MxElem(r,c);
+            x[r] -= x[c] * mx.elem(r,c);
         }
-        x[r] /= _MxElem(r,r);
+        x[r] /= mx.elem(r,r);
     }
 }
 
 
 /**
  * Solve a system of linear equations `Mx = b`.
+ *
+ * @tparam T The element type of the matrix.
+ * @tparam RowMajor Whether the layout of the matrix is row-major (`true`) or column-major (`false`).
  * 
- * @param m A row-major buffer of elements in the matrix `M`. This array will
+ * @param m A buffer of elements in the matrix `M`. This array will
  * be altered during the solution process, so pass a copy if the original 
  * needs to remain unchanged.
  * @param n The number of rows in the matrix.
  * @param x The solution vector of `N` elements to be filled.
- * @param b A vector of `N` elements.
+ * @param b A vector of `N` elements. 
+ * @param skip How many variables, in order from the first, to skip solving for. If greater 
+ * than 0, the corresponding variables within `x` will contain nonsense values.
  * @return `true` if the system is not degenerate.
- * @related PLUDecomposition
  */
-template <typename T>
-inline bool linearSolve(T* m, index_t n, T* x, const T* b) {
+template <typename T, bool RowMajor=true>
+inline bool linearSolve(T* m, index_t n, T* x, const T* b, index_t skip=0) {
     SmallStorage<index_t, 32> p(n); // probably will never have to alloc.
     bool parity;
-    if (decompPLU(m, n, n, p.get(), &parity) > 0) {
+    if (decompPLU<T,RowMajor>(m, n, n, p.get(), &parity) > 0) {
         return false;
     }
-    linearSolveLUP(m, p.get(), n, x, b);
+    linearSolveLUP<T,RowMajor>(m, p.get(), n, x, b, skip);
     return true;
 }
 
 
-#undef _MxElem
+/**
+ * Write a vector `b` in terms of the basis vectors in `bases`; return `x` such that 
+ * `sum(bases[i] * x[i]) = b`.
+ * 
+ * @param bases An array of basis vectors. The contents of this array will
+ * be altered during the solution process, so pass a copy if the original 
+ * array needs to remain unchanged.
+ * @param x The solution vector to be filled.
+ * @param b A vector.
+ * @param skip How many variables, in order from the first, to skip solving for. If greater 
+ * than 0, the corresponding variables within `x` will contain nonsense values.
+ * @return `true` if the system is not degenerate.
+ */
+template <typename T, index_t N>
+inline bool linearSolve(Vec<T,N>* bases, Vec<T,N>* x, const Vec<T,N>& b, index_t skip=0) {
+    if (N < 5) {
+        // matrix inv is empirically faster than solve() for N < 5.
+
+        // m is row major, but our bases should be columns.
+        // m and its inverse are thus transposed.
+        WrapperMatrix<T,N,N> m(bases[0].begin());
+        SimpleMatrix<T,N,N>  m_inv_txpose;
+        if (!inv(&m_inv_txpose, m)) return false;
+        // reverse mult order to get mul by txpose:
+        *x = b * m_inv_txpose;
+    } else {
+        index_t p[N];
+        T* const m = bases[0].begin();
+        bool parity;
+        if (decompPLU<T,false>(m, N, N, p, &parity) > 0) {
+            return false;
+        }
+        linearSolveLUP<T,false>(m, p, N, x->begin(), b.begin(), skip);
+        return true;
+    }
+}
+
+
+/// @}  ingroup linalg
+
 
 //////////// PLU class ////////////
 
@@ -284,7 +400,7 @@ template <typename T, index_t M, index_t N>
 class PLUDecomposition {
 public:
     /// Dimension of the diagonal of `LU`. The minimum of `M` and `N`, or 0 if either dimension is dynamic.
-    static const index_t DIAG = M<N?M:N;
+    static const index_t DIAG = (M<N)?M:N;
     /// Matrix type for holding `L`.
     typedef SimpleMatrix<T,M,DIAG> L_t;
     /// Matrix type for holding `U`.
@@ -316,7 +432,11 @@ public:
     
     template <typename Mx>
     explicit PLUDecomposition(const Mx& m, 
-                              typename boost::enable_if_c<detail::MatrixDimensionMatch<SimpleMatrix<T,M,N>, Mx>::isStaticMatch, int>::type dummy=0):
+                              typename boost::enable_if_c<
+                                    detail::MatrixDimensionMatch<
+                                        SimpleMatrix<T,M,N>,
+                                        Mx>::isStaticMatch,
+                                    int>::type dummy=0):
             LU(m.rows(), m.cols()),
             P(m.rows()),
             singular(false),
@@ -607,12 +727,14 @@ protected:
         // Set LUx = PI and solve for x, choosing columns of PI one at a time.
         // Here, we use the rows of our destination matrix as though they are
         // column vectors, and the caller will transpose.
+        // todo: we can now call the templated solver and treat 
+        //       the input matrix as column-major directly.
         const index_t *p = P.getColSources();
         const index_t n = LU.rows();
         std::fill(dest, dest + (n*n), 0);
         for (index_t i = 0; i < n; i++, dest += n) {
             dest[p[i]] = 1;
-            geom::linearSolveLUP(LU.begin(), LU.rows(), dest, dest);
+            geom::linearSolveLU(LU.begin(), LU.rows(), dest, dest);
         }
     }
     

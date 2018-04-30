@@ -145,10 +145,31 @@ namespace geom {
             }
         }
     }
+
+    /**
+     * Use the Gram-Schmidt process to orthogonalize a set of basis vectors. 
+     * The first basis vector will not change. The remaining vectors may be
+     * of arbitrary magnitude, but will be mutually orthogonal to each
+     * other and to the first vector.
+     * 
+     * @param basis Set of `n` bases vectors. 
+     * @param n Number of basis vectors between 0 and `N` inclusive.
+     */
+    template <typename T, index_t N>
+    void orthogonalize(Vec<T,N> basis[], index_t n) {
+        for (index_t i = 1; i < n; i++) {
+            for (index_t j = 0; j < i; j++) {
+                // modified gram-schmidt uses the intermediate basis
+                // for better numerical stability.
+                basis[i] -= basis[i].projectOn(basis[j]);
+            }
+        }
+    }
     
     /**
      * Use the Gram-Schmidt process to orthonormalize a set of basis vectors. 
-     * The first basis vector will not change direction. 
+     * The first basis vector will not change direction. All vectors will
+     * be made mutually orthogonal and unit length.
      * 
      * @param basis Set of `n` bases vectors. 
      * @param n Number of basis vectors between 0 and `N` inclusive.

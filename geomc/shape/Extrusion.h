@@ -18,7 +18,7 @@ namespace geom {
  * @ingroup shape
  * @brief An N-dimensional extrusion of an arbitrary N-1 dimensional convex shape.
  * 
- * The first N-1 dimensions have cross-sections which are of type `ConvexShape`
+ * The first N-1 dimensions have cross-sections which are `ConvexShape`s
  * (e.g., `Rect`, `Sphere`, `Frustum`...). The shape is lofted "vertically" into the last dimension.
  *
  * Example:
@@ -38,9 +38,7 @@ class Extrusion : public virtual Convex<T,N> {
         
         
         /// Construct a new extrusion, with unit length directly along the final ("height") axis.
-        Extrusion():height(0,1) {
-            axis[N-1] = 1;
-        }
+        Extrusion():height(0,1) {}
         
         /// Construct an extrusion with cross section `base` and height range `height`.
         Extrusion(const ConvexShape<T,N-1,Args...>& base, const Rect<T,1>& height):
@@ -98,6 +96,8 @@ class Extrusion : public virtual Convex<T,N> {
             
             return xf * p1;
         }
+
+        // todo: trace()
 
 
 }; // class extrusion
