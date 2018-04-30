@@ -1,8 +1,8 @@
 var searchData=
 [
   ['dataextents',['dataExtents',['../classgeom_1_1_raster.html#adbedc1b2c4c1888f0498dfaffb89a592',1,'geom::Raster']]],
-  ['decomplup',['decompLUP',['../classgeom_1_1_p_l_u_decomposition.html#a7c5b9135b921f40211a4fd89e6392efb',1,'geom::PLUDecomposition']]],
-  ['decompplu',['decompPLU',['../classgeom_1_1_p_l_u_decomposition.html#a52c352b11b569ed79cae3313b9577928',1,'geom::PLUDecomposition']]],
+  ['decomplup',['decompLUP',['../group__linalg.html#ga91ab5ecfc9ad48d99101a7fd29345574',1,'geom']]],
+  ['decompplu',['decompPLU',['../group__linalg.html#ga17f7fa328f09732cc04bc2ef35bd20fb',1,'geom']]],
   ['det',['det',['../classgeom_1_1_p_l_u_decomposition.html#a9f7456d70abd64fe4f99c07b23207043',1,'geom::PLUDecomposition']]],
   ['diagmatrix',['DiagMatrix',['../classgeom_1_1_diag_matrix.html#ad4475ee6bbf662eaa1749772e9e5d712',1,'geom::DiagMatrix::DiagMatrix(index_t nrows, index_t ncols)'],['../classgeom_1_1_diag_matrix.html#a8ff9dc869cf1535d94c09d0b43d43d63',1,'geom::DiagMatrix::DiagMatrix(const T src[], index_t n)']]],
   ['diagonal',['diagonal',['../classgeom_1_1_p_l_u_decomposition.html#aa5467bd1f1873c5181c1b8ff1f963fc9',1,'geom::PLUDecomposition::diagonal()'],['../classgeom_1_1_diag_matrix.html#a91c7cff026b243ee8e37f72735031c0e',1,'geom::DiagMatrix::diagonal(index_t i) const'],['../classgeom_1_1_diag_matrix.html#acc7f51b53f359863743fc1e90c23ca6f',1,'geom::DiagMatrix::diagonal(index_t i)']]],

@@ -146,6 +146,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9afced2165ba213569c41793afaabf13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ef29c4dd3fd33224241afc5b91a42b6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html#a3ef29c4dd3fd33224241afc5b91a42b6">rotate</a> (T u, T v, T w, T a, T b, T c, T radians)</td></tr>
 <tr class="separator:a3ef29c4dd3fd33224241afc5b91a42b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b6f855fae27825de6787973c5044ea7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html#a8b6f855fae27825de6787973c5044ea7">align</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt; &amp;from, const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt; &amp;to)</td></tr>
+<tr class="separator:a8b6f855fae27825de6787973c5044ea7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9011ac2fed4cf263b2019789864047d2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html#a9011ac2fed4cf263b2019789864047d2">isFiniteReal</a> () const</td></tr>
 <tr class="separator:a9011ac2fed4cf263b2019789864047d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a211db5212cc5a0bff0898e1b6f798d1a"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (index_t idx) const</td></tr>
@@ -385,6 +387,43 @@ v.{r,g,b} // conventional color tuple coordinate names
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A new vector <code>x</code> such that <code>x[i] = this[i] + v[i]</code>. </dd></dl>
+
+</div>
+</div>
+<a id="a8b6f855fae27825de6787973c5044ea7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b6f855fae27825de6787973c5044ea7">&#9670;&nbsp;</a></span>align()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,3&gt; align </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>from</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>to</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Compute a transform aligning <code>from</code> with <code>to</code> and apply it to <code>this</code>. </p>
 
 </div>
 </div>
@@ -2026,7 +2065,7 @@ v.{r,g,b} // conventional color tuple coordinate names
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 17 2018 23:20:16 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Apr 30 2018 00:22:31 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

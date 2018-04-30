@@ -1,17 +1,12 @@
 var searchData=
 [
-  ['sampler',['Sampler',['../classgeom_1_1_sampler.html',1,'geom']]],
-  ['simplematrix',['SimpleMatrix',['../classgeom_1_1_simple_matrix.html',1,'geom']]],
-  ['simplematrix_3c_20t_2c_20m_2c_20n_20_3e',['SimpleMatrix&lt; T, M, N &gt;',['../classgeom_1_1_simple_matrix.html',1,'geom']]],
-  ['simplematrix_3c_20t_2c_20n_2b1_2c_20n_2b1_20_3e',['SimpleMatrix&lt; T, N+1, N+1 &gt;',['../classgeom_1_1_simple_matrix.html',1,'geom']]],
-  ['sizedstorage',['SizedStorage',['../structgeom_1_1_sized_storage.html',1,'geom']]],
-  ['smallstorage',['SmallStorage',['../classgeom_1_1_small_storage.html',1,'geom']]],
-  ['sphere',['Sphere',['../classgeom_1_1_sphere.html',1,'geom']]],
-  ['sphericalharmonics',['SphericalHarmonics',['../classgeom_1_1_spherical_harmonics.html',1,'geom']]],
-  ['storage',['Storage',['../structgeom_1_1_storage.html',1,'geom']]],
-  ['storage_3c_20t_2c_20dynamic_5fdim_20_3e',['Storage&lt; T, DYNAMIC_DIM &gt;',['../structgeom_1_1_storage.html',1,'geom']]],
-  ['subtree',['Subtree',['../classgeom_1_1_subtree.html',1,'geom']]],
-  ['subtreebase',['SubtreeBase',['../classgeom_1_1_subtree_base.html',1,'geom']]],
-  ['subtreebase_3c_20nodeitem_2c_20leafitem_2c_20false_20_3e',['SubtreeBase&lt; NodeItem, LeafItem, false &gt;',['../classgeom_1_1_subtree_base.html',1,'geom']]],
-  ['subtreebase_3c_20nodeitem_2c_20leafitem_2c_20true_20_3e',['SubtreeBase&lt; NodeItem, LeafItem, true &gt;',['../classgeom_1_1_subtree_base.html',1,'geom']]]
+  ['random',['Random',['../classgeom_1_1_random.html',1,'geom']]],
+  ['raster',['Raster',['../classgeom_1_1_raster.html',1,'geom']]],
+  ['ray',['Ray',['../classgeom_1_1_ray.html',1,'geom']]],
+  ['ray_3c_20t_2c_203_20_3e',['Ray&lt; T, 3 &gt;',['../classgeom_1_1_ray_3_01_t_00_013_01_4.html',1,'geom']]],
+  ['rect',['Rect',['../classgeom_1_1_rect.html',1,'geom']]],
+  ['rect_3c_20i_2c_20m_20_3e',['Rect&lt; I, M &gt;',['../classgeom_1_1_rect.html',1,'geom']]],
+  ['rect_3c_20index_5ft_2c_20n_20_3e',['Rect&lt; index_t, N &gt;',['../classgeom_1_1_rect.html',1,'geom']]],
+  ['rect_3c_20t_2c_201_20_3e',['Rect&lt; T, 1 &gt;',['../classgeom_1_1_rect.html',1,'geom']]],
+  ['rect_3c_20t_2c_20n_2d1_20_3e',['Rect&lt; T, N-1 &gt;',['../classgeom_1_1_rect.html',1,'geom']]]
 ];

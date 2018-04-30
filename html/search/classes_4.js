@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['frustum',['Frustum',['../classgeom_1_1_frustum.html',1,'geom']]]
+  ['extrusion',['Extrusion',['../classgeom_1_1_extrusion.html',1,'geom']]]
 ];

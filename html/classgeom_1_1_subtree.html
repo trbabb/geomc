@@ -237,10 +237,9 @@ index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:ad43bcd0c6dc2c358fa5dffa45eba0784"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_subtree_base.html#a20332cb6a90a1f49b19c1f5795a8b11f">self_t</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_subtree.html#ad43bcd0c6dc2c358fa5dffa45eba0784">insert_child_node</a> (const <a class="el" href="classgeom_1_1_subtree_base.html#a20332cb6a90a1f49b19c1f5795a8b11f">self_t</a> &amp;insert_before, Args &amp;&amp;... args) const</td></tr>
 <tr class="memdesc:ad43bcd0c6dc2c358fa5dffa45eba0784"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert a new tree node under this one, to the left of <code>insert_before</code>.  <a href="#ad43bcd0c6dc2c358fa5dffa45eba0784">More...</a><br /></td></tr>
 <tr class="separator:ad43bcd0c6dc2c358fa5dffa45eba0784"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad892b9b00129e25c32ff00e2c74273cb"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; </td></tr>
-<tr class="memitem:ad892b9b00129e25c32ff00e2c74273cb"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_subtree_base.html#a20332cb6a90a1f49b19c1f5795a8b11f">self_t</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_subtree.html#ad892b9b00129e25c32ff00e2c74273cb">insert_child_node</a> (const NodeItem &amp;obj, Args &amp;&amp;... args) const</td></tr>
-<tr class="memdesc:ad892b9b00129e25c32ff00e2c74273cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience function to insert a new child node at the end of this node's children.  <a href="#ad892b9b00129e25c32ff00e2c74273cb">More...</a><br /></td></tr>
-<tr class="separator:ad892b9b00129e25c32ff00e2c74273cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fa6141e19b8f2fd807db44f39bd0292"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_subtree_base.html#a20332cb6a90a1f49b19c1f5795a8b11f">self_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_subtree.html#a9fa6141e19b8f2fd807db44f39bd0292">insert_child_node</a> (const NodeItem &amp;obj) const</td></tr>
+<tr class="memdesc:a9fa6141e19b8f2fd807db44f39bd0292"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience function to insert a new child node at the end of this node's children.  <a href="#a9fa6141e19b8f2fd807db44f39bd0292">More...</a><br /></td></tr>
+<tr class="separator:a9fa6141e19b8f2fd807db44f39bd0292"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad9e5b2197a9af6c7de917c272febf27c"><td class="memTemplParams" colspan="2">template&lt;typename NodeItemIterator &gt; </td></tr>
 <tr class="memitem:ad9e5b2197a9af6c7de917c272febf27c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_subtree_base.html#a20332cb6a90a1f49b19c1f5795a8b11f">self_t</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_subtree.html#ad9e5b2197a9af6c7de917c272febf27c">insert_child_nodes</a> (const <a class="el" href="classgeom_1_1_subtree_base.html#a20332cb6a90a1f49b19c1f5795a8b11f">self_t</a> &amp;insert_before, NodeItemIterator i_begin, const NodeItemIterator &amp;i_end) const</td></tr>
 <tr class="memdesc:ad9e5b2197a9af6c7de917c272febf27c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert new tree nodes to the left of <code>insert_before</code>, under this node. Return the first newly created node.  <a href="#ad9e5b2197a9af6c7de917c272febf27c">More...</a><br /></td></tr>
@@ -570,8 +569,8 @@ class geom::Subtree&lt; NodeItem, LeafItem &gt;</h3>
 
 </div>
 </div>
-<a id="ad892b9b00129e25c32ff00e2c74273cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad892b9b00129e25c32ff00e2c74273cb">&#9670;&nbsp;</a></span>insert_child_node() <span class="overload">[2/2]</span></h2>
+<a id="a9fa6141e19b8f2fd807db44f39bd0292"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fa6141e19b8f2fd807db44f39bd0292">&#9670;&nbsp;</a></span>insert_child_node() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -583,18 +582,8 @@ class geom::Subtree&lt; NodeItem, LeafItem &gt;</h3>
           <td class="memname"><a class="el" href="classgeom_1_1_subtree_base.html#a20332cb6a90a1f49b19c1f5795a8b11f">self_t</a> insert_child_node </td>
           <td>(</td>
           <td class="paramtype">const NodeItem &amp;&#160;</td>
-          <td class="paramname"><em>obj</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Args &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
+          <td class="paramname"><em>obj</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -607,7 +596,7 @@ class geom::Subtree&lt; NodeItem, LeafItem &gt;</h3>
 <p>Convenience function to insert a new child node at the end of this node's children. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">args</td><td>Constructor args for the new <code>NodeItem</code> to be placed. </td></tr>
+    <tr><td class="paramname">obj</td><td>NodeItem to insert into the new node. </td></tr>
   </table>
   </dd>
 </dl>
@@ -872,7 +861,7 @@ class geom::Subtree&lt; NodeItem, LeafItem &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 17 2018 23:20:16 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Apr 30 2018 00:22:31 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

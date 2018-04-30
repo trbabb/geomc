@@ -101,6 +101,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_dual.html">Dual</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class implementing the dual numbers, whose arithmetic operations perform a simultaneous calculation of the first derivative.  <a href="classgeom_1_1_dual.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_extrusion.html">Extrusion</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An N-dimensional extrusion of an arbitrary N-1 dimensional convex shape.  <a href="classgeom_1_1_extrusion.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_frustum.html">Frustum</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An N-dimensional frustum (truncated pyramid).  <a href="classgeom_1_1_frustum.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -163,6 +166,9 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A basic matrix with <code>M x N</code> elements.  <a href="classgeom_1_1_simple_matrix.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_simplex.html">Simplex</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A simplex in N dimensions (e.g. a tetrahedron, triangle, line, point).  <a href="classgeom_1_1_simplex.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_sized_storage.html">SizedStorage</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array storage with templated static or dynamic size. If the array is dynamic, its length is stored internally and can be queried.  <a href="structgeom_1_1_sized_storage.html#details">More...</a><br /></td></tr>
@@ -345,6 +351,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ga30df286717929ce22deabe6b52ae9d24"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
 <tr class="memitem:ga30df286717929ce22deabe6b52ae9d24"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga30df286717929ce22deabe6b52ae9d24">nullspace</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; bases[], index_t n, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; null_basis[])</td></tr>
 <tr class="separator:ga30df286717929ce22deabe6b52ae9d24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga03f1b41485890042afd5512975ab88be"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:ga03f1b41485890042afd5512975ab88be"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga03f1b41485890042afd5512975ab88be">orthogonalize</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; basis[], index_t n)</td></tr>
+<tr class="separator:ga03f1b41485890042afd5512975ab88be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga15114a19ef15055cf894fd8e5bf3d962"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
 <tr class="memitem:ga15114a19ef15055cf894fd8e5bf3d962"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga15114a19ef15055cf894fd8e5bf3d962">orthonormalize</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; basis[], index_t n)</td></tr>
 <tr class="separator:ga15114a19ef15055cf894fd8e5bf3d962"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -402,6 +411,25 @@ Functions</h2></td></tr>
 <tr class="memitem:gaf3b06f89ce818f5cfac82456caeced15"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:gaf3b06f89ce818f5cfac82456caeced15"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__function.html#gaf3b06f89ce818f5cfac82456caeced15">quadratic_solve</a> (T results[2], T a, T b, T c)</td></tr>
 <tr class="separator:gaf3b06f89ce818f5cfac82456caeced15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr class="memitem:ga91ab5ecfc9ad48d99101a7fd29345574"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
+<tr class="memitem:ga91ab5ecfc9ad48d99101a7fd29345574"><td class="memTemplItemLeft" align="right" valign="top">index_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga91ab5ecfc9ad48d99101a7fd29345574">decompLUP</a> (T *m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity)</td></tr>
+<tr class="separator:ga91ab5ecfc9ad48d99101a7fd29345574"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga17f7fa328f09732cc04bc2ef35bd20fb"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
+<tr class="memitem:ga17f7fa328f09732cc04bc2ef35bd20fb"><td class="memTemplItemLeft" align="right" valign="top">index_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga17f7fa328f09732cc04bc2ef35bd20fb">decompPLU</a> (T *m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity)</td></tr>
+<tr class="separator:ga17f7fa328f09732cc04bc2ef35bd20fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9624e71da2de028a9ebcac0052cab672"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
+<tr class="memitem:ga9624e71da2de028a9ebcac0052cab672"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga9624e71da2de028a9ebcac0052cab672">linearSolveLUP</a> (const T *lup, const index_t *p, index_t n, T *x, const T *b, index_t skip=0)</td></tr>
+<tr class="separator:ga9624e71da2de028a9ebcac0052cab672"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacf11b62b5a89c5da231e4884ee9c0b9a"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
+<tr class="memitem:gacf11b62b5a89c5da231e4884ee9c0b9a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gacf11b62b5a89c5da231e4884ee9c0b9a">linearSolveLU</a> (const T *lu, index_t n, T *x, const T *b, index_t skip=0)</td></tr>
+<tr class="separator:gacf11b62b5a89c5da231e4884ee9c0b9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad5360f5909cfd510e964575c042bfe8a"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
+<tr class="memitem:gad5360f5909cfd510e964575c042bfe8a"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gad5360f5909cfd510e964575c042bfe8a">linearSolve</a> (T *m, index_t n, T *x, const T *b, index_t skip=0)</td></tr>
+<tr class="separator:gad5360f5909cfd510e964575c042bfe8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad7fcc088b1764542650552620648a476"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:gad7fcc088b1764542650552620648a476"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gad7fcc088b1764542650552620648a476">linearSolve</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *bases, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *x, const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;b, index_t skip=0)</td></tr>
+<tr class="separator:gad7fcc088b1764542650552620648a476"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Namespace of all <code>geomc</code> functions and classes. </p>
@@ -556,7 +584,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 17 2018 23:20:16 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Apr 30 2018 00:22:31 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

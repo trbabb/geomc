@@ -7,6 +7,7 @@ var searchData=
   ['from_5fsimplex',['from_simplex',['../classgeom_1_1_plane.html#ae26ad47ba0530b185a0b562927f493a8',1,'geom::Plane']]],
   ['fromcenter',['fromCenter',['../classgeom_1_1_rect.html#ad6033bfee82cf9b5c18e9ae88432d8c0',1,'geom::Rect']]],
   ['fromcorner',['fromCorner',['../classgeom_1_1_rect.html#a4079853023e619d487148000a36b9fb8',1,'geom::Rect']]],
+  ['frompoints',['fromPoints',['../classgeom_1_1_rect.html#a5157f1d3a4c2d27323efd27c8639c9b4',1,'geom::Rect']]],
   ['frompolar',['fromPolar',['../classgeom_1_1_vec_3_01_t_00_012_01_4.html#a706757308c93bdfbb98aab2bd25ceb1d',1,'geom::Vec&lt; T, 2 &gt;']]],
   ['fromrgb',['fromRGB',['../namespacegeom.html#abdd4eebc7b195b3e0e9aba2fa746c166',1,'geom']]],
   ['fromspherical',['fromSpherical',['../classgeom_1_1_vec_3_01_t_00_013_01_4.html#a6800f895bdd859f63153c5f7fc1d3265',1,'geom::Vec&lt; T, 3 &gt;']]],
