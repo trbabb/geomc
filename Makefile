@@ -2,7 +2,7 @@ CC = clang++
 AR = ar
 PREFIX   = /opt/local
 INCLUDES = .
-CFLAGS   = -std=c++11 -O3 -Wall -c -fmessage-length=0 
+CFLAGS   = -std=c++11 -O3 -Wall -c -fmessage-length=0 -Wno-unused-local-typedef
 IFLAGS   = $(addprefix -I, $(INCLUDES))
 MODULES  = function linalg random shape
 SOURCES  = $(wildcard geomc/*.cpp) \

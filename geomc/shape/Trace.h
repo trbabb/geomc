@@ -155,30 +155,18 @@ bool trace_simplex(const Vec<T,N> verts[N], const Ray<T,N>& ray, Vec<T,N-1>* uv,
     
     // todo: cramer's rule might be used in 3d for faster linear solve. 
     //       (note: is unstable).
-    // todo: can formulate row-major for speed?
-    
-    // populate matrix
-    SimpleMatrix<T,N,N> m;
-    for (index_t col = 1; col < N; ++col) {
-        Vec<T,N> v = verts[col] - verts[0];
-        for (index_t row = 0; row < N; ++row) {
-            m.set(row, col, v[row]);
-        }
+
+    // compute bases
+    Vec<T,N> bases[N];
+    for (index_t i = 1; i < N; ++i) {
+        bases[i - 1] = verts[i] - verts[0];
     }
-    for (index_t row = 0; row < N; ++row) {
-        m.set(row, N-1, -ray.direction[row]);
-    }
+    bases[N - 1] = -ray.direction;
     
     // linear solve
     Vec<T,N> x;
     Vec<T,N> b = ray.origin - verts[0];
-    if (N < 5) {
-        SimpleMatrix<T,N,N> m_inv;
-        if (!inv(&m_inv, m)) return false;
-        x = m_inv * b;
-    } else {
-        if (!linearSolve(m.begin(), N, x.begin(), b.begin())) return false;
-    }
+    if (not linearSolve(bases, &x, b)) return false;
     
     // inside simplex?
     T sum = 0;
@@ -202,6 +190,7 @@ inline Hit<T,3> trace_tri(Vec<T,3> p[3], const Ray<T,3> &r, HitSide sides=HIT_FR
 
 
 // todo: this is undoubtedly slower than it has to be
+//       trace_simplex(...) is faster on all counts.
 template <typename T>
 Hit<T,3> trace_tri(const Vec<T,3> &p0, 
                    const Vec<T,3> &p1, 
