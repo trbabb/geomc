@@ -16,9 +16,6 @@
 // todo: handle degeneracy. GJK can make use of it.
 // todo: performance check old GJK vs new
 // todo: performance check projectionContains() vs. project() == this
-// todo: offer "inverted" projection, where point is sent to surface only
-//       if inside?
-
 
 namespace geom {
 
@@ -60,6 +57,24 @@ public:
     Vec<T,N> operator[](index_t i) const {
         return pts[i];
     }
+    
+    
+    /// Simplex equality check.
+    bool operator==(const Simplex<T,N>& other) const {
+        // overridden because there may be garbage in the 
+        // unused vertices which shouldn't count as a difference.
+        if (other.n != n) return false;
+        for (index_t = 0; i < n; ++i) {
+            if (other.pts[i] != pts[i]) return false;
+        }
+        return truel
+    }
+    
+    
+    /// Simplex inequality check.
+    inline bool operator!=(const Simplex<T,N>& other) const {
+        return not ((*this) == other);
+    }
 
 
     /**
@@ -71,7 +86,7 @@ public:
         Simplex<T,N> s = *this;
         if (n < N + 1) {
             s.n += 1;
-            s[n] = p;
+            s.pts[n] = p;
         }
         return s;
     }
@@ -96,8 +111,7 @@ public:
      * @param p A point.
      * @param params Optional return variable; return the `n - 1` surface parameters
      * of this simplex representing the projection of `p` onto the space
-     * spanned by this simplex. (Variables in `params` with index of `n - 1`
-     * or greater will contain nonsense values).
+     * spanned by this simplex.
      * @return `true` if `p` is on or inside this simplex after projection; 
      * `false` otherwise.
      */
@@ -107,7 +121,7 @@ public:
                 return false;
             
             case 1: {
-                return pts[0] == p;
+                return true;
             } break;
             
             case 2: {
@@ -143,18 +157,21 @@ public:
                 Vec<T,N> x;
                 if (not linearSolve(bases, &x, p - pts[0], n_null)) return false;
                 
-                // provide surface parameters to caller, e.g. so they can perform
-                // the projection if they want to.
-                if (params) {
-                    *params = x;
-                }
-                
                 // check that the coordinates of `p` are inside the simplex
                 T sum = 0;
-                for (index_t i = 0; i < n_bases; ++i) {
+                for (index_t i = n_null; i < N; ++i) {
                     if (x[i] < 0) return false;
                     sum += x[i];
                 }
+                
+                // provide surface parameters to caller, e.g. so they can perform
+                // the projection if they want to.
+                if (params) {
+                    for (index_t i = 0; i < n_bases; ++i) {
+                        (*params)[i] = x[i + n_null];
+                    }
+                }
+                
                 return (sum <= 1);
             }
         }
@@ -204,8 +221,9 @@ public:
     Vec<T,N> project(const Vec<T,N>& p, Simplex<T,N>* onto=nullptr) const {
         Vec<T,N> buffer[N];
         Simplex<T,N> s;
-        if (n < N + 1) {
-            // we need to compute the nullspace.
+        
+        // initialize the nullspace, if necessary
+        if (n - 1 < N) {
             Vec<T,N>* const basis      = buffer + N - n + 1;
             Vec<T,N>* const null_basis = buffer;
             for (index_t i = 1; i < n; ++i) {
@@ -218,15 +236,12 @@ public:
         // leaves `buffer` containing its nullspace and spanning space.
         this->_find_nearest(p, buffer, false, Vec<T,N>::zeros, &s);
         
-        // todo: the buffer has your bases + nullspace in a good state.
-        // consider adding option to solve for surface parameters.
-        
         // choose the smaller basis to project on
-        index_t n_bases = s.n;
-        index_t n_null  = N - n_bases;
-        index_t proj_dims;
+        index_t   n_bases = s.n - 1;
+        index_t   n_null  = N - n_bases;
+        index_t   proj_dims;
         Vec<T,N>* proj_basis;
-        Vec<T,N> out;
+        Vec<T,N>  out;
         bool proj_to_null;
         if (n_bases < n_null) {
             proj_dims    = n_bases;
@@ -342,12 +357,19 @@ private:
             // try each sub-simplex.
             for (index_t i = 0; i < n; ++i) {
                 Simplex<T,N> sub = this->exclude(i);
-                if (sub._find_nearest(p, all_bases, true, pts[i] - sub[0], proj, onto)) {
+                if (sub._find_nearest(p, all_bases, true, pts[i] - sub[0], onto)) {
                     // some sub-simplex of us both faces `p` and contains
-                    // its projection. `proj` and `onto` now reflect that projection.
+                    // its projection. `all_bases` and `onto` now reflect that sub-simplex.
                     return true;
                 }
             }
+            
+            // restore the state of `all_bases`
+            // nobody messed with the normal because it was in their null space.
+            // and the simplex which just filled in its basis was the one that 
+            // excluded vertex `n`.
+            all_bases[0] = bases[0];
+            bases[0]     = pts[1] - pts[n];
             
             // no sub-simplex claimed `p` was "beyond" it and took the projection.
             // therefore, this is the simplex onto which `p` projects.
