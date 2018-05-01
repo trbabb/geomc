@@ -317,7 +317,7 @@ public:
      *   Add `dx` to the coordinates of all the bounds.
      * @return  A reference to `this`, for convenience.
      */
-    inline Rect<T,N>& operator+=(T dx) {
+    inline Rect<T,N>& operator+=(point_t dx) {
         maxs += dx;
         mins += dx;
         return *this;
@@ -331,7 +331,7 @@ public:
      *   Subtract `dx` from the coordinates of all the bounds.
      * @return  A reference to `this`, for convenience.
      */
-    inline Rect<T,N>& operator-=(T dx) {
+    inline Rect<T,N>& operator-=(point_t dx) {
         maxs -= dx;
         mins -= dx;
         return *this;
