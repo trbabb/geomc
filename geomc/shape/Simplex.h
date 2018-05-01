@@ -10,11 +10,15 @@
 
 #include <geomc/shape/Bounded.h>
 #include <geomc/linalg/Vec.h>
-#include <geomc/linalg/LUDecomp.h>
+#include <geomc/linalg/Orthogonal.h>
 
-// todo: Store A + basis vectors;
-//       implement operator[] to do the subtraction.
-//       translation would be cheap this way too (move only A!)
+
+// todo: handle degeneracy. GJK can make use of it.
+// todo: performance check old GJK vs new
+// todo: performance check projectionContains() vs. project() == this
+// todo: offer "inverted" projection, where point is sent to surface only
+//       if inside?
+
 
 namespace geom {
 
@@ -190,15 +194,16 @@ public:
     /**
      * @brief Project `p` to the nearest point on the simplex.
      *
+     * The point is unchanged if `p` is already inside the simplex.
+     *
      * @param p The point to project onto the surface of this simplex.
      * @param onto Optional output parameter to receive the sub-simplex
-     * onto which `p` was projected.
-     *
-     * The point is unchanged if `p` is already inside the simplex.
+     * onto which `p` was projected. It is permissible for `onto` to 
+     * alias `this`.
      */
     Vec<T,N> project(const Vec<T,N>& p, Simplex<T,N>* onto=nullptr) const {
         Vec<T,N> buffer[N];
-        Vec<T,N> out;
+        Simplex<T,N> s;
         if (n < N + 1) {
             // we need to compute the nullspace.
             Vec<T,N>* const basis      = buffer + N - n + 1;
@@ -208,10 +213,59 @@ public:
             }
             nullspace(basis, n - 1, null_basis);
         }
-        this->_project(p, buffer, false, out, &out, onto); // first `out` is dummy
+        
+        // this puts the simplex which faces `p` into `s`, and
+        // leaves `buffer` containing its nullspace and spanning space.
+        this->_find_nearest(p, buffer, false, Vec<T,N>::zeros, &s);
         
         // todo: the buffer has your bases + nullspace in a good state.
         // consider adding option to solve for surface parameters.
+        
+        // choose the smaller basis to project on
+        index_t n_bases = s.n;
+        index_t n_null  = N - n_bases;
+        index_t proj_dims;
+        Vec<T,N>* proj_basis;
+        Vec<T,N> out;
+        bool proj_to_null;
+        if (n_bases < n_null) {
+            proj_dims    = n_bases;
+            proj_basis   = buffer + n_null;
+            proj_to_null = true;
+        } else {
+            proj_dims    = n_null;
+            proj_basis   = buffer;
+            proj_to_null = false;
+        }
+        
+        // project to the relevant subspace
+        if (proj_dims > 0) {
+            if (N > 3 and (not proj_to_null or N - n > 0) and proj_dims > 1) {
+                // if we're projecting to the nullspace, it's already orthogonal,
+                // unless the nullspace started with > 1 dimension (in which case 
+                // it was made by `nullspace` above; orthogonalize it now). 
+                // this will never happen in 3D because there is always a projection
+                // space of dim <= 1 to choose.
+                orthogonalize(proj_basis, proj_dims);
+            }
+            Vec<T,N> p_in_basis = p - s.pts[0];
+            for (index_t i = 0; i < proj_dims; ++i) {
+                out += p_in_basis.projectOn(proj_basis[i]);
+            }
+        }
+        
+        // offset the subspace projection so it lies on the simplex surface
+        if (proj_to_null) {
+            // `out` is the direction away from the simplex toward `p`.
+            // travel backwards in that direction from `p` to get to the simplex.
+            out = p - out;
+        } else {
+            // `out` is the direction from s's corner to the projected point.
+            // add s's corner to get the absolute point.
+            out += s.pts[0];
+        }
+        
+        if (onto) *onto = s;
         
         return out;
     }
@@ -233,81 +287,72 @@ private:
     //   [normal] [parent null basis] [spanning basis]
     // where `normal` remains to be computed.
     // in the base case (not is_sub), all nullspace axes are provided.
-    bool _project(
+    bool _find_nearest(
             Vec<T,N> p, 
             Vec<T,N> all_bases[], 
             bool is_sub,
-            Vec<T,N> missing_basis, 
-            Vec<T,N>* proj, 
+            Vec<T,N> missing_basis,
             Simplex<T,N>* onto) const {
-        switch (n) {
-            case 0:
-                // cannot project onto empty set
-                return false;
+        if (n == 1) {
+            // projection onto a single point is trivial
+            // note: we leave `all_bases` in a garbage state,
+            // but we don't use it, since we don't need it!
+            *onto = *this;
+            return true;
+        } else {
+            // orthogonally project p onto this simplex along its nullspace.
+            const index_t n_bases      = n - 1;
+            const index_t n_null       = N - n + 1;
+            Vec<T,N>* const bases      = all_bases + n_null;
+            Vec<T,N>* const null_bases = all_bases + 1;
             
-            case 1: {
-                // projection onto a single point is trivial
-                *proj = pts[0];
-                if (onto) *onto = *this;
-                return true;
-            } break;
-            
-            default: {
-                // orthogonally project p onto this simplex along its nullspace.
-                const index_t n_bases      = n - 1;
-                const index_t n_null       = N - n + 1;
-                Vec<T,N>* const bases      = all_bases + n_null;
-                Vec<T,N>* const null_bases = all_bases + 1;
-                
-                // compute simplex's basis
-                for (index_t i = 1; i < n; ++i) {
-                    bases[i - 1] = pts[i] - pts[0];
-                }
-                
-                // complete the simplex's nullspace
-                Vec<T,N> normal;
-                if (n_null != 0) {
-                    if (is_sub) {
-                        // newest nullspace axis not provided; must be computed.
-                        all_bases[0] = orthogonal(null_bases); // <- also contains `bases`! 
-                    
-                        // `normal` is the vector pointing to `p` along the new axis
-                        // (which will be orthogonal both to this simplex, and
-                        // to the nullspace of the parent simplex).
-                        normal = (p - pts[0]).projectOn(all_bases[0]);
-                        
-                        // might `p` be on the "inside" of the parent simplex?
-                        if (normal.dot(missing_basis) > 0) {
-                            // `p` falls "inward" of the boundary space spanned
-                            // by this simplex. `p` therefore does not project to this
-                            // simplex; instead it projects to some other simplex,
-                            // possibly a parent of this, which *does* face (or envelop) `p`.
-                            return false;
-                        }
-                    }
-                    // since there is at least one nullspace axis,
-                    // move it aside for the sub-simplex searching code coming below,
-                    // which will prepend its own normal.
-                    bases[0] = all_bases[0];
-                }
-                
-                // does `p` project to some sub-simplex of ours?
-                // try each sub-simplex.
-                for (index_t i = 0; i < n; ++i) {
-                    Simplex<T,N> sub = this->exclude(i);
-                    if (sub._project(p, all_bases, true, pts[i] - sub[0], proj, onto)) {
-                        // some sub-simplex of us both faces `p` and contains
-                        // its projection. `proj` and `onto` now reflect that projection.
-                        return true;
-                    }
-                }
-                
-                // no sub-simplex claimed `p` was "beyond" it and took the projection.
-                // therefore, this is the simplex onto which `p` projects.
-                *proj = p - normal;
-                if (onto) *onto = *this;
-                return true;
+            // compute simplex's basis
+            for (index_t i = 1; i < n; ++i) {
+                bases[i - 1] = pts[i] - pts[0];
             }
+            
+            // complete the simplex's nullspace
+            Vec<T,N> normal;
+            if (n_null != 0) {
+                if (is_sub) {
+                    // newest nullspace axis not provided; must be computed.
+                    all_bases[0] = orthogonal(null_bases); // <- also contains `bases`! 
+                
+                    // `normal` is the vector pointing to `p` along the new axis
+                    // (which will be orthogonal both to this simplex, and
+                    // to the nullspace of the parent simplex).
+                    normal = (p - pts[0]).projectOn(all_bases[0]);
+                    
+                    // might `p` be on the "inside" of the parent simplex?
+                    if (normal.dot(missing_basis) > 0) {
+                        // `p` falls "inward" of the boundary space spanned
+                        // by this simplex. `p` therefore does not project to this
+                        // simplex; instead it projects to some other simplex,
+                        // possibly a parent of this, which *does* face (or envelop) `p`.
+                        return false;
+                    }
+                }
+                // since there is at least one nullspace axis,
+                // move it aside for the sub-simplex searching code coming below,
+                // which will prepend its own normal.
+                bases[0] = all_bases[0];
+            }
+            
+            // does `p` project to some sub-simplex of ours?
+            // try each sub-simplex.
+            for (index_t i = 0; i < n; ++i) {
+                Simplex<T,N> sub = this->exclude(i);
+                if (sub._find_nearest(p, all_bases, true, pts[i] - sub[0], proj, onto)) {
+                    // some sub-simplex of us both faces `p` and contains
+                    // its projection. `proj` and `onto` now reflect that projection.
+                    return true;
+                }
+            }
+            
+            // no sub-simplex claimed `p` was "beyond" it and took the projection.
+            // therefore, this is the simplex onto which `p` projects.
+            *onto = *this;
+            return true;
         }
     }
 
