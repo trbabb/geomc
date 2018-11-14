@@ -36,34 +36,6 @@ namespace detail {
         inline T& elem(index_t r, index_t c) {
             return m[rows * c + r];
         }
-
-    };
-    
-    // goddammit c++, why can't you just template over const-ness
-    
-    template <typename T, bool RowMajor>
-    struct MxWrapC {
-
-        const T* m;
-        index_t rows;
-        index_t cols;
-
-        inline T elem(index_t r, index_t c) {
-            return m[cols * r + c];
-        }
-    };
-
-    template <typename T>
-    struct MxWrapC<T, false> {
-
-        const T* m;
-        index_t rows;
-        index_t cols;
-
-        inline T elem(index_t r, index_t c) {
-            return m[rows * c + r];
-        }
-
     };
     
 }
@@ -245,7 +217,7 @@ index_t decompPLU(T* m, index_t rows, index_t cols, index_t* reorder, bool* swap
  */
 template <typename T, bool RowMajor=true>
 void linearSolveLUP(const T* lup, const index_t* p, index_t n, T* x, const T* b, index_t skip=0) {
-    detail::MxWrapC<T,RowMajor> mx = {lup, n, n};
+    detail::MxWrap<const T, RowMajor> mx = {lup, n, n};
     
     // <y> and <x>'s elements are used such that
     // y[i] is never read after x[i] is written.
@@ -289,7 +261,7 @@ void linearSolveLUP(const T* lup, const index_t* p, index_t n, T* x, const T* b,
  */
 template <typename T, bool RowMajor=true>
 void linearSolveLU(const T* lu, index_t n, T* x, const T* b, index_t skip=0) {
-    detail::MxWrapC<T,RowMajor> mx = {lu, n, n};
+    detail::MxWrap<const T,RowMajor> mx = {lu, n, n};
     
     // <y> and <x>'s elements are used such that
     // y[i] is never read after x[i] is written.
@@ -350,7 +322,7 @@ inline bool linearSolve(T* m, index_t n, T* x, const T* b, index_t skip=0) {
  * Write a vector `b` in terms of the basis vectors in `bases`; return `x` such that 
  * `sum(bases[i] * x[i]) = b`.
  * 
- * @param bases An array of basis vectors. The contents of this array will
+ * @param bases An array of `N` basis vectors. The contents of this array will
  * be altered during the solution process, so pass a copy if the original 
  * array needs to remain unchanged.
  * @param x The solution vector to be filled.

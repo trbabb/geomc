@@ -3,27 +3,30 @@
 #include <list>
 #include <type_traits>
 
-// todo: permit key/value structure.
-//       nodes represent an abstract kind of set membership. node.may_contain(key). 
-//       (maybe call it boundary so people don't retardedly nest data structures).
-// todo: after key/value structure, permit a distance metric; allow KNN.
+// todo: t.query<Key, BoundingFn(k,node), MatchingFn(k,item)>(Key k) -> item_iterator (derived)
+//       - or t.visit(visitor)
+//         - visitor has visit(node)
+//         - visitor has should_traverse(node)
+//         > the former (iterator) is more flexible with less infrastructure.
+//           the traversal is interchangeable and generic. with a visitor you
+//           have to re-implement the traversal, and also bundle your logic 
+//           into a class or a functor, instead of doing it in-place. too fussy.
+//       - something similar for trees with no items.
+//         - t.query<Key, BoundingFn(k,node), MatchingFn(k,node)>(Key k) -> node_iterator (derived)
+//       *** consider what happens if the tree is mutated underneath you
+// todo: permit key/value structure. use BoundingFn for search.
+// todo: permit a distance metric; allow KNN.
+//       >> implement as a free function.
 // todo: consider factoring the above simply as free functions which implement algorithms.
 // todo: specialize for when leaf items or node items are void
 // todo: smarter/more optimized underlying data structure
 // todo: "flat array" variant tree. abstract NodeRef and ItemRef to be ptrs.
-// todo: implement find(item_test(LeafItem) -> bool, node_test(NodeItem)=lambda x:true)
-//       a generic algorithm for walking the tree to search for an item.
-//       node_test() returns `true` if the node might possibly contain the item.
-//       (templating over the functions would allow functors and inlining)
 // todo: might be good to implement take(subtree) which removes 
 //       the subtree from its source and adopts it. if it belongs to the
 //       same tree, a copy could be avoided. be sure to permit the case
 //       of re-rooting (i.e. root().take(some_descendent_of_self)).
 //       generally only cheap if `list` permits slicing and splicing.
-// todo: it is not possible to have an empty tree.
-// todo: should SubtreeBase -> Subtree (etc) conversion be written in terms of
-//       a static_cast(this) rather than construction? might be faster.
-// todo: ctor args form for insert_item()
+// todo: it is not possible to have an empty tree. (can have zero items, but must have one node).
 
 // todo: get the docs correct about what end() and begin() iterators are invalidated.
 //       -> begin() on this node if we insert before begin
@@ -52,6 +55,18 @@
 //   - note with this scheme algorithms have to pick the subclass of tree
 //     they work on :|
 //     > ...which is probably OK.
+
+// ...OR:
+//   - an R-tree "has a" Tree, not "is a" tree.
+//   - R-tree has insert(item), erase({item,node}_iterator), find(item), find_parent(item)
+//     which return iterators, and call the tree iterators.
+//     - uses Bound(item) -> Boundary
+//     - uses Bound(Boundary, item) -> bool
+//     - uses Union(Boundary, Boundary) -> Boundary
+//   - possibly only let the user have a const_subtree iterator into the master tree.
+//   - consider how to make ListTree and ArrayTree interchangeable within
+
+// todo: formally define the sorting order
 
 
 namespace geom {
@@ -256,6 +271,23 @@ public:
     }
     
     
+    /**
+     * @brief Convert a ConstSubtree into a Subtree by removing its constness.
+     *
+     * Allows code with mutable access to the source tree to use ConstSubtree
+     * handles for any mutation with constant overhead.
+     *
+     * If the supplied ConstSubtree does not belong to this Tree, then `end()` is returned.
+     */
+    inline Subtree<NodeItem, LeafItem> subtree(ConstSubtree<NodeItem, LeafItem>& i) {
+        if (i._storage == this) {
+            return Subtree<NodeItem, LeafItem>(i._root, this);
+        } else {
+            return end();
+        }
+    }
+    
+    
     /// Total number of nodes in this Tree.
     inline size_t size() const {
         // may be slow for dumb implementations of std::list :(
@@ -273,7 +305,7 @@ public:
     bool operator==(const Tree<NodeItem, LeafItem>& other) const {
         if (this == &other) return true;
         if (item_count() != other.item_count()) return false;
-        if (_items       != other._items)      return false;
+        if (_items       != other._items)       return false;
         
         // because the references will point to different memory,
         // we can't compare raw data. we have to examine the structure of the tree.
@@ -312,6 +344,9 @@ protected:
     }
     
     
+    // called when a leaf node adds or removes one or more of its edge items.
+    // the edge items for the anscestors potentially need to be updated to
+    // include/exclude the affected items.
     void update_boundary_items(
             NodeRef leaf,
             ItemRef new_first,
@@ -391,7 +426,7 @@ protected:
     
 public:
     
-    /// Self type. A Subtree if this is a const iterator; a ConstSubtree otherwise.
+    /// Self type. A ConstSubtree if this is a const iterator; a Subtree otherwise.
     typedef typename std::conditional<
             Const,
             ConstSubtree<NodeItem, LeafItem>,
@@ -615,6 +650,48 @@ public:
         return self_t(_storage->_nodes.end(), _storage);
     }
     
+    
+    /**
+     * @brief Search for the direct parent node of item `i` in 
+     * this subtree, using `BoundingFn` to exclude subtrees which 
+     * cannot contain `i`.
+     *
+     * If `i` is not in the subtree under this node, then return `end()`.
+     *
+     * Because `BoundingFn` is templated, it may be inlined for performance.
+     *
+     * @param i The item to find the parent of.
+     * @tparam BoundingFn A function which returns `true` if node `n` might possibly 
+     * contain item `i`.
+     */
+    template <bool BoundingFn(const NodeItem&, const LeafItem&)>
+    self_t find_parent(const const_item_iterator& i) const {
+        NodeRef cur_root     = _root;
+        NodeRef subtree_last = node_successor(_root);
+        while (cur_root != subtree_last) {
+            if (BoundingFn(cur_root->data, *i)) {
+                // cur_root may contain `i`
+                if (cur_root->n_children > 0) {
+                    // recurse
+                    cur_root = cur_root->child_first;
+                } else {
+                    // look for item
+                    ItemRef end_item = cur_root->items_last; ++end_item;
+                    for (ItemRef j = cur_root->items_first; j != end_item; ++j) {
+                        // found it
+                        if (j == i) return self_t(cur_root, _storage);
+                    }
+                    // our current node is a leaf, so there is no subtree to jump over.
+                    ++cur_root;
+                }
+            } else {
+                // check next sibling
+                cur_root = node_successor(cur_root);
+            }
+        }
+        return self_t(_storage->_nodes.end(), _storage);
+    }
+    
 protected:
         
     // compute the position of the node that follows `node`'s subtree in 
@@ -667,8 +744,7 @@ protected:
                 }
             }
         }
-        return this->_storage->_items.end
-        ();
+        return this->_storage->_items.end();
     }
     
 }; // class SubtreeBase
@@ -932,14 +1008,16 @@ public:
      *
      * @param insert_before Item belonging to `parent` which the new items
      * are to be inserted before.
-     * @param obj New leaf item to be inserted.
+     * @param args New `LeafItem` to be inserted, or constructor arguments 
+     * for the new `LeafItem`.
      *
      * @return An iterator to the first newly placed item if any were placed;
      * `items_end()` otherwise.
      */
+    template <typename ... Args>
     item_iterator insert_item(
             const item_iterator& insert_before,
-            const LeafItem& obj) const {
+            Args&& ... args) const {
         // todo: it would be great if we could efficiently protect against 
         //   the user providing an insert_pt that doesn't belong to the parent
         
@@ -956,7 +1034,7 @@ public:
         }
         
         // insert the item
-        ItemRef new_item = this->_storage->_items.insert(insert_pt, obj);
+        ItemRef new_item = this->_storage->_items.insert(insert_pt, T(args...));
         
         // figure out the new begin/end items
         ItemRef new_begin, new_end;
@@ -1231,7 +1309,7 @@ public:
      * If `item` is not in the subtree, or if this subtree is not a leaf
      * node, the tree will be unchanged.
      *
-     * Invalidates the iterator to this item, as well as any `end()`
+     * Invalidates the iterator to this item, and potentially any `end()`
      * `item_iterator`s.
      *
      * @param item The item to delete; a direct child of this node.

@@ -463,6 +463,31 @@ public:
     /// Return the `i`th element in the array.
     inline T  operator[](index_t i) const { return data[i]; }
     
+    /**
+     * @brief Ensure space is available for at least `n` elements.
+     *
+     * If the current buffer is not large enough to hold `n` elements,
+     * then a new buffer will be allocated and the contents moved to it.
+     * In this case, any previous pointers returned from this object
+     * are invalidated.
+     *
+     * If a new buffer is allocated, its size will be exactly `n`.
+     */
+    void resize(index_t n) {
+        if (n > N and n > sz) {
+            T* new_data = new T[n];
+            // move the data rather than copy-construct for efficiency:
+            std::copy(
+                std::make_move_iterator(data), 
+                std::make_move_iterator(data + sz), new_data);
+            std::swap(new_data, data); // a little more atomic
+            if (sz > N) {
+                delete [] new_data;
+            }
+            sz = n;
+        }
+    }
+    
 };
 
 
@@ -562,7 +587,7 @@ struct GenericStorage<T,N,STORAGE_UNIQUE> : public UniqueStorage<T,N> {
 };
 
 
-/// @} // group linalg
+/// @} // group storage
 
 
 } // end namespace geom
