@@ -16,9 +16,13 @@ var searchData=
   ['pludecompostion',['PLUDecompostion',['../classgeom_1_1_p_l_u_decomposition.html#a484c03d55be181a0a696985c830face8',1,'geom::PLUDecomposition']]],
   ['point_5ft',['point_t',['../classgeom_1_1_grid_iterator.html#a4a0e3e1855b80e670018f5318d4278bf',1,'geom::GridIterator::point_t()'],['../classgeom_1_1_rect.html#a4a0e3e1855b80e670018f5318d4278bf',1,'geom::Rect::point_t()']]],
   ['pointer',['pointer',['../classgeom_1_1_subtree_base.html#a8fede1dd56a91627717fcbf0ef1bcb6e',1,'geom::SubtreeBase']]],
+  ['pop_5fback',['pop_back',['../classgeom_1_1_circular_buffer.html#a73649441c9e19846aa9da9a2b214e03e',1,'geom::CircularBuffer']]],
+  ['pop_5ffront',['pop_front',['../classgeom_1_1_circular_buffer.html#a5ba3e2ed440bc373fb80e339a2272dff',1,'geom::CircularBuffer']]],
   ['pow',['pow',['../classgeom_1_1_dual.html#a23097432a036769a98d5b41fee3a68fd',1,'geom::Dual::pow(const geom::Dual&lt; T &gt; &amp;base, const geom::Dual&lt; T &gt; &amp;xp)'],['../classgeom_1_1_dual.html#afa23e19ec7c81757d03430850dd1c3af',1,'geom::Dual::pow(const geom::Dual&lt; T &gt; &amp;base, U xp)'],['../classgeom_1_1_dual.html#aa547745301607349f3ddc7c42f7f67d3',1,'geom::Dual::pow(U base, const geom::Dual&lt; T &gt; &amp;xp)'],['../namespacestd.html#a6ce2ddd6d03b811bebe2ea82212abc0d',1,'std::pow()']]],
   ['project',['project',['../classgeom_1_1_spherical_harmonics.html#a82a2d3edfa0ccc9477d8009b2dbde446',1,'geom::SphericalHarmonics::project(Vec&lt; T, 3 &gt; d, T val)'],['../classgeom_1_1_spherical_harmonics.html#a7bbc327bd559170d0da0668e6b215159',1,'geom::SphericalHarmonics::project(T alt, T azi, T val)'],['../classgeom_1_1_zonal_harmonics.html#a7ae032e36fa513f9e5101795d4172bbc',1,'geom::ZonalHarmonics::project()'],['../classgeom_1_1_plane.html#ab5aaef0b66d45e8926cde52a8d500555',1,'geom::Plane::project()'],['../classgeom_1_1_simplex.html#a76998c4f07c232296392d2410c7b174e',1,'geom::Simplex::project()']]],
   ['projection_5fcontains',['projection_contains',['../classgeom_1_1_simplex.html#a1e53fb0ef759bc0911addbe6f6b6b261',1,'geom::Simplex']]],
   ['pt',['pt',['../classgeom_1_1_grid_iterator.html#a6557d66a1f4b24281a12de0d4e5d9ecd',1,'geom::GridIterator']]],
-  ['pts',['pts',['../classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f',1,'geom::Simplex']]]
+  ['pts',['pts',['../classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f',1,'geom::Simplex']]],
+  ['push_5fback',['push_back',['../classgeom_1_1_circular_buffer.html#ab32da790af34509a87008eacf308e3f6',1,'geom::CircularBuffer']]],
+  ['push_5ffront',['push_front',['../classgeom_1_1_circular_buffer.html#a29596880b19bbfdf89abcf0169cf6201',1,'geom::CircularBuffer']]]
 ];

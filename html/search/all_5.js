@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['find_5fparent',['find_parent',['../classgeom_1_1_subtree_base.html#a42f1bd83e4929d36d71738d704d9e860',1,'geom::SubtreeBase']]],
+  ['find_5fparent',['find_parent',['../classgeom_1_1_subtree_base.html#a42f1bd83e4929d36d71738d704d9e860',1,'geom::SubtreeBase::find_parent(const const_item_iterator &amp;i) const'],['../classgeom_1_1_subtree_base.html#a0a04d0384e97e2e26d1fb2d4c0d40945',1,'geom::SubtreeBase::find_parent(const const_item_iterator &amp;i) const']]],
   ['flatten',['flatten',['../classgeom_1_1_k_d_tree.html#abdadb5be5024ffa343d7f3cbafc5e558',1,'geom::KDTree::flatten()'],['../classgeom_1_1_subtree.html#ada96bbb426ada24e24e6960972f3cdaf',1,'geom::Subtree::flatten()']]],
   ['floor',['floor',['../classgeom_1_1_dual.html#a5d9af36eeea9e5df3f681d76d587391e',1,'geom::Dual::floor()'],['../classgeom_1_1_vec.html#a303f5bfdc55c7b0422064260a74d0843',1,'geom::Vec::floor()']]],
   ['from_5fbasis',['from_basis',['../classgeom_1_1_plane.html#afc7f4de9282d9490cd185b302fe0f193',1,'geom::Plane::from_basis(const Vec&lt; T, N &gt; bases[N-1])'],['../classgeom_1_1_plane.html#a3f71bc16568dd958596543c5ad4dc444',1,'geom::Plane::from_basis(const Vec&lt; T, N &gt; bases[N-1], Vec&lt; T, N &gt; p)']]],

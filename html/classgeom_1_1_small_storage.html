@@ -115,6 +115,9 @@ T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_small_storage.html#a029975b32f3ffc1a4ae750ec32ef4b3d">operator[]</a> (index_t i) const</td></tr>
 <tr class="memdesc:a029975b32f3ffc1a4ae750ec32ef4b3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the <code>i</code>th element in the array. <br /></td></tr>
 <tr class="separator:a029975b32f3ffc1a4ae750ec32ef4b3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad617ed4d69ec25cac22dfd7c2c4cf24a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_small_storage.html#ad617ed4d69ec25cac22dfd7c2c4cf24a">resize</a> (index_t n)</td></tr>
+<tr class="memdesc:ad617ed4d69ec25cac22dfd7c2c4cf24a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ensure space is available for at least <code>n</code> elements.  <a href="#ad617ed4d69ec25cac22dfd7c2c4cf24a">More...</a><br /></td></tr>
+<tr class="separator:ad617ed4d69ec25cac22dfd7c2c4cf24a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T, index_t N&gt;<br />
@@ -131,13 +134,44 @@ class geom::SmallStorage&lt; T, N &gt;</h3>
 <p>Useful when a required buffer is expected to be small, but there is no explicit upper bound on the possible size. This allows the stack to be used in the majority case, only deferring to heap allocation when unusually large buffers are needed.</p>
 <p>On assignment or copy, reallocations we be avoided if the existing buffer is already the correct size. Move semantics will also avoid an allocation in c++11 or later.</p>
 <p>This buffer will <em>always</em> stack-allocate a buffer of size <code>N</code> (it will simply not be used when a heap allocation is necessary). </p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad617ed4d69ec25cac22dfd7c2c4cf24a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad617ed4d69ec25cac22dfd7c2c4cf24a">&#9670;&nbsp;</a></span>resize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void resize </td>
+          <td>(</td>
+          <td class="paramtype">index_t&#160;</td>
+          <td class="paramname"><em>n</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ensure space is available for at least <code>n</code> elements. </p>
+<p>If the current buffer is not large enough to hold <code>n</code> elements, then a new buffer will be allocated and the contents moved to it. In this case, any previous pointers returned from this object are invalidated.</p>
+<p>If a new buffer is allocated, its size will be exactly <code>n</code>. </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>geomc/<a class="el" href="_storage_8h_source.html">Storage.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Apr 30 2018 00:22:31 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 14 2018 01:20:24 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -140,6 +140,9 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:ga6e5ab5662ce01a33da5ea5d5c397f56a"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:ga6e5ab5662ce01a33da5ea5d5c397f56a"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#ga6e5ab5662ce01a33da5ea5d5c397f56a">gjk_intersect</a> (const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;shape_a, const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;shape_b, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *overlap_axis=nullptr, <a class="el" href="classgeom_1_1_simplex.html">Simplex</a>&lt; T, N &gt; *simplex=nullptr)</td></tr>
+<tr class="separator:ga6e5ab5662ce01a33da5ea5d5c397f56a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae6a7299cdadee88e7fea6a903a9d7a5f"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
 <tr class="memitem:gae6a7299cdadee88e7fea6a903a9d7a5f"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#gae6a7299cdadee88e7fea6a903a9d7a5f">gjk_intersect</a> (const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;shape_a, const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;shape_b, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *overlap_axis=NULL, bool emit_debug=false)</td></tr>
 <tr class="separator:gae6a7299cdadee88e7fea6a903a9d7a5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -307,8 +310,58 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga6e5ab5662ce01a33da5ea5d5c397f56a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6e5ab5662ce01a33da5ea5d5c397f56a">&#9670;&nbsp;</a></span>gjk_intersect() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool geom::gjk_intersect </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>shape_a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>shape_b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *&#160;</td>
+          <td class="paramname"><em>overlap_axis</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classgeom_1_1_simplex.html">Simplex</a>&lt; T, N &gt; *&#160;</td>
+          <td class="paramname"><em>simplex</em> = <code>nullptr</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Use the Gilbert-Johnson-Keerthi algorithm to determine if two convex shapes overlap, and return an axis of overlap. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">shape_a</td><td>A convex shape. </td></tr>
+    <tr><td class="paramname">shape_b</td><td>A convex shape. </td></tr>
+    <tr><td class="paramname">overlap_axis</td><td>An initial axis along which to test for overlap; upon completion this will be populated with an axis (not necessarily minimal) of overlap or separation. Pass null to choose an arbitrary initial axis. </td></tr>
+    <tr><td class="paramname">simplex</td><td>A <code><a class="el" href="classgeom_1_1_simplex.html" title="A simplex in N dimensions (e.g. a tetrahedron, triangle, line, point). ">Simplex</a></code> which will be filled with the section of the Minkowski volume representing the overlap </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if and only if <code>shape_a</code> and <code>shape_b</code> overlap. </dd></dl>
+
+</div>
+</div>
 <a id="gae6a7299cdadee88e7fea6a903a9d7a5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae6a7299cdadee88e7fea6a903a9d7a5f">&#9670;&nbsp;</a></span>gjk_intersect()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#gae6a7299cdadee88e7fea6a903a9d7a5f">&#9670;&nbsp;</a></span>gjk_intersect() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -648,7 +701,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Apr 30 2018 00:22:31 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 14 2018 01:20:23 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

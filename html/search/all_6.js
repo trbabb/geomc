@@ -22,7 +22,7 @@ var searchData=
   ['getsign',['getSign',['../classgeom_1_1_permutation_matrix.html#a497509a60eb721b47550ec506f667214',1,'geom::PermutationMatrix']]],
   ['getstructureparams',['getStructureParams',['../classgeom_1_1_k_d_tree.html#a06b5f50606904d9c6f1955e58a20ba57',1,'geom::KDTree']]],
   ['getu',['getU',['../classgeom_1_1_p_l_u_decomposition.html#a6ce708813e23adbf0ca1d3d70e9b36c0',1,'geom::PLUDecomposition::getU() const'],['../classgeom_1_1_p_l_u_decomposition.html#a4f7c05401efe27833cb490ae8cecf68e',1,'geom::PLUDecomposition::getU(SimpleMatrix&lt; S, J, K &gt; *into) const']]],
-  ['gjk_5fintersect',['gjk_intersect',['../group__shape.html#gae6a7299cdadee88e7fea6a903a9d7a5f',1,'geom']]],
+  ['gjk_5fintersect',['gjk_intersect',['../group__shape.html#ga6e5ab5662ce01a33da5ea5d5c397f56a',1,'geom::gjk_intersect(const Convex&lt; T, N &gt; &amp;shape_a, const Convex&lt; T, N &gt; &amp;shape_b, Vec&lt; T, N &gt; *overlap_axis=nullptr, Simplex&lt; T, N &gt; *simplex=nullptr)'],['../group__shape.html#gae6a7299cdadee88e7fea6a903a9d7a5f',1,'geom::gjk_intersect(const Convex&lt; T, N &gt; &amp;shape_a, const Convex&lt; T, N &gt; &amp;shape_b, Vec&lt; T, N &gt; *overlap_axis=NULL, bool emit_debug=false)']]],
   ['global_5fbegin',['global_begin',['../classgeom_1_1_subtree_base.html#a201b9c6eefbceabdfd1820e04eac733a',1,'geom::SubtreeBase']]],
   ['global_5fend',['global_end',['../classgeom_1_1_subtree_base.html#aa73c72f9f9beab6308a14be4a34b92c8',1,'geom::SubtreeBase']]],
   ['gradient',['gradient',['../classgeom_1_1_perlin_noise.html#a4358acb23c7b9acfb713a77f7a5a104c',1,'geom::PerlinNoise']]],

@@ -107,7 +107,7 @@ typedef ConstItemRef&#160;</td><td class="memItemRight" valign="bottom"><a class
 <tr class="separator:a3951804461d164a1dd2e7dd74721ff42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20332cb6a90a1f49b19c1f5795a8b11f"><td class="memItemLeft" align="right" valign="top"><a id="a20332cb6a90a1f49b19c1f5795a8b11f"></a>
 typedef std::conditional&lt; Const, <a class="el" href="classgeom_1_1_const_subtree.html">ConstSubtree</a>&lt; NodeItem, LeafItem &gt;, <a class="el" href="classgeom_1_1_subtree.html">Subtree</a>&lt; NodeItem, LeafItem &gt; &gt;::type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_subtree_base.html#a20332cb6a90a1f49b19c1f5795a8b11f">self_t</a></td></tr>
-<tr class="memdesc:a20332cb6a90a1f49b19c1f5795a8b11f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Self type. A Subtree if this is a const iterator; a ConstSubtree otherwise. <br /></td></tr>
+<tr class="memdesc:a20332cb6a90a1f49b19c1f5795a8b11f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Self type. A ConstSubtree if this is a const iterator; a Subtree otherwise. <br /></td></tr>
 <tr class="separator:a20332cb6a90a1f49b19c1f5795a8b11f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13c1070af17f7a056d7152475eb71515"><td class="memItemLeft" align="right" valign="top"><a id="a13c1070af17f7a056d7152475eb71515"></a>
 typedef NodeItem&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_subtree_base.html#a13c1070af17f7a056d7152475eb71515">value_type</a></td></tr>
@@ -240,6 +240,9 @@ index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:a42f1bd83e4929d36d71738d704d9e860"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_subtree_base.html#a20332cb6a90a1f49b19c1f5795a8b11f">self_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_subtree_base.html#a42f1bd83e4929d36d71738d704d9e860">find_parent</a> (const <a class="el" href="classgeom_1_1_const_subtree.html#a3951804461d164a1dd2e7dd74721ff42">const_item_iterator</a> &amp;i) const</td></tr>
 <tr class="memdesc:a42f1bd83e4929d36d71738d704d9e860"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exhaustively search for the direct parent node of item <code>i</code> in this subtree.  <a href="#a42f1bd83e4929d36d71738d704d9e860">More...</a><br /></td></tr>
 <tr class="separator:a42f1bd83e4929d36d71738d704d9e860"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a04d0384e97e2e26d1fb2d4c0d40945"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_subtree_base.html#a20332cb6a90a1f49b19c1f5795a8b11f">self_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_subtree_base.html#a0a04d0384e97e2e26d1fb2d4c0d40945">find_parent</a> (const <a class="el" href="classgeom_1_1_const_subtree.html#a3951804461d164a1dd2e7dd74721ff42">const_item_iterator</a> &amp;i) const</td></tr>
+<tr class="memdesc:a0a04d0384e97e2e26d1fb2d4c0d40945"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for the direct parent node of item <code>i</code> in this subtree, using <code>BoundingFn</code> to exclude subtrees which cannot contain <code>i</code>.  <a href="#a0a04d0384e97e2e26d1fb2d4c0d40945">More...</a><br /></td></tr>
+<tr class="separator:a0a04d0384e97e2e26d1fb2d4c0d40945"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename NodeItem, typename LeafItem&gt;<br />
@@ -248,7 +251,7 @@ class geom::ConstSubtree&lt; NodeItem, LeafItem &gt;</h3>
 <p>An const iterator to a subtree. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a42f1bd83e4929d36d71738d704d9e860"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42f1bd83e4929d36d71738d704d9e860">&#9670;&nbsp;</a></span>find_parent()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a42f1bd83e4929d36d71738d704d9e860">&#9670;&nbsp;</a></span>find_parent() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -273,6 +276,48 @@ class geom::ConstSubtree&lt; NodeItem, LeafItem &gt;</h3>
 
 <p>Exhaustively search for the direct parent node of item <code>i</code> in this subtree. </p>
 <p>If <code>i</code> is not in the subtree under this node, then return <code><a class="el" href="classgeom_1_1_subtree_base.html#a3e9e0a2b53534bc10d67ab581c1231bb" title="Get last (off-end) child. ">end()</a></code>. </p>
+
+</div>
+</div>
+<a id="a0a04d0384e97e2e26d1fb2d4c0d40945"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a04d0384e97e2e26d1fb2d4c0d40945">&#9670;&nbsp;</a></span>find_parent() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_subtree_base.html#a20332cb6a90a1f49b19c1f5795a8b11f">self_t</a> find_parent </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_subtree_base.html#a3951804461d164a1dd2e7dd74721ff42">const_item_iterator</a> &amp;&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Search for the direct parent node of item <code>i</code> in this subtree, using <code>BoundingFn</code> to exclude subtrees which cannot contain <code>i</code>. </p>
+<p>If <code>i</code> is not in the subtree under this node, then return <code><a class="el" href="classgeom_1_1_subtree_base.html#a3e9e0a2b53534bc10d67ab581c1231bb" title="Get last (off-end) child. ">end()</a></code>.</p>
+<p>Because <code>BoundingFn</code> is templated, it may be inlined for performance.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>The item to find the parent of. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">BoundingFn</td><td>A function which returns <code>true</code> if node <code>n</code> might possibly contain item <code>i</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -366,7 +411,7 @@ class geom::ConstSubtree&lt; NodeItem, LeafItem &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Apr 30 2018 00:22:31 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 14 2018 01:20:23 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
