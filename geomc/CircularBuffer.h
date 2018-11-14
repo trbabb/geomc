@@ -51,7 +51,7 @@ public:
      */
     inline const T& operator[](index_t i) const {
         i = positive_mod(i, _size);
-        return _data.get()[(head + i) % _data.size()];
+        return _data.get()[(_head + i) % _data.size()];
     }
     
     /**
@@ -63,7 +63,7 @@ public:
      */
     inline T& operator[](index_t i) {
         i = positive_mod(i, _size);
-        return _data.get()[(head + i) % _data.size()];
+        return _data.get()[(_head + i) % _data.size()];
     }
     
     /// Return the number of items in the buffer.
@@ -79,7 +79,7 @@ public:
     /// Add an element to the end of the buffer.
     inline void push_back(const T& t) {
         check_size();
-        _data.get()[_size % _data.size()] = t;
+        _data.get()[(_head + _size) % _data.size()] = t;
         _size += 1;
     }
     
