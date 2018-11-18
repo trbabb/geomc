@@ -154,7 +154,7 @@ namespace detail {
 #if __cplusplus >= 201103L
 
     template <typename T, index_t M, index_t N> 
-    using WrapperMatrix = SimpleMatrix<T,M,N,STORAGE_USER_OWNED>;
+    using WrapperMatrix = SimpleMatrix<T,M,N,STORAGE_WRAPPED>;
 
 #endif
     

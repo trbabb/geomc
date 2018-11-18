@@ -30,12 +30,12 @@ public:
     /**
      * @return An axis-aligned box completely enclosing this shape.
      */
-    virtual geom::Rect<T,N> bounds() = 0;
+    virtual Rect<T,N> bounds() = 0;
 };
 
 
 /// Virtual class describing convex shapes in N-dimensional space.
-template <typename T, index_t N> class Convex {
+template <typename T, index_t N> class Convex : virtual public Bounded<T,N> {
 public:
     typedef typename PointType<T,N>::point_t point_t;
     
@@ -65,6 +65,26 @@ public:
      */
     bool intersects(const Convex<T,N> &other) const {
         return gjk_intersect(*this, other);
+    }
+    
+    /**
+     * @brief Returns an axis-aligned box completely enclosing this shape.
+     *
+     * The default implementation calls `convexSupport()` along each of the 
+     * principal axes to find the extents.
+     */
+    Rect<T,N> bounds() {
+        Rect<T,N> b;
+        T* mins = point_t::iterator(b.mins);
+        T* maxs = point_t::iterator(b.maxs);
+        for (index_t i = 0; i < N; ++i) {
+            point_t axis;
+            point_t::iterator(axis)[i] =  1;
+            maxs[i] = convexSupport(axis)[i];
+            point_t::iterator(axis)[i] = -1;
+            mins[i] = convexSupport(axis)[i];
+        }
+        return b;
     }
     
 };

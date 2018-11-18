@@ -22,7 +22,7 @@ namespace geom {
  * @brief A Rect with arbitrary position and orientation.
  */
 template <typename T, index_t N>
-class OrientedRect : virtual public Bounded<T,N>, virtual public Convex<T,N> {
+class OrientedRect : virtual public Convex<T,N> {
     
     public:
         

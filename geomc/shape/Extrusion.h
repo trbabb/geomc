@@ -12,6 +12,7 @@
 #include <geomc/shape/Rect.h>
 #include <geomc/linalg/AffineTransform.h>
 
+
 namespace geom {
 
 /**

@@ -27,6 +27,26 @@
 // TODO: templatize across row/col-major layout.
 //       ...or just make a whole new class.
 
+/* 
+    what would we need for templated layout?
+
+    - tell us the row iterators
+    - tell us the column iterators
+    - provide get() --> {const,} iterator
+    - tell us how create storage
+    - tell us how to fill(?)
+    
+    Would need to update generic row and column iterators to
+    iterate over the whole matrix, not just their own column.
+    This would mean that row() or col() would behave the same
+    way regardless of layout.
+    
+    This would allow us to more easily treat vectors as columns
+    directly; e.g. for linear solve, tracing triangle, orthogonalizaing...
+    
+    Might be even better to abstract the memory into a Grid<...>.
+*/
+
 namespace geom {
 
 
@@ -92,7 +112,7 @@ namespace detail {
  * duplicates of dynamically-sized matrices will make a full copy of the underlying array.</li>
  * <li>If the StoragePolicy is `STORAGE_SHARED`, then all copy-constructed
  * duplicates of dynamically-sized matrixes should be treated as references to a common array.</li>
- * <li>If the StoragePolicy is `STORAGE_USER_OWNED`, then the matrix will wrap a user-provided
+ * <li>If the StoragePolicy is `STORAGE_WRAPPED`, then the matrix will wrap a user-provided
  * backing array, whose lifetime is managed manually.</li>
  * </ul>
  *
@@ -105,10 +125,10 @@ namespace detail {
  * A SimpleMatrix can be made into a wrapper around a user-owned array like so:
  *
  *     double myRowMajorArray[16] = { ... };
- *     SimpleMatrix<double,4,4,STORAGE_USER_OWNED> mtx(myRowMajorArray);
+ *     SimpleMatrix<double,4,4,STORAGE_WRAPPED> mtx(myRowMajorArray);
  *
  * In the above example, no array duplication will occur, and `myRowMajorArray` is 
- * used direcly as the backing storage for the matrix. Note the use of `STORAGE_USER_OWNED`
+ * used direcly as the backing storage for the matrix. Note the use of `STORAGE_WRAPPED`
  * for the SimpleMatrix's storage policy template parameter.
  *
  * In c++11, a template alias is available for this construction, called `WrapperMatrix`:
@@ -159,7 +179,7 @@ public:
      *     SimpleMatrix<double, 0, 0> m2(3, 3);
      *     SimpleMatrix<double, 0, 0> m3; // XXX: Compiler error!
      *
-     * This constructor is not available if the storage policy is `STORAGE_USER_OWNED`.
+     * This constructor is not available if the storage policy is `STORAGE_WRAPPED`.
      * 
      * @param nrows Number of rows in the matrix.
      * @param ncols Number of columns in the matrix.
@@ -175,7 +195,7 @@ public:
      * that dimension. Size arguments will be ignored for dimensions that are 
      * statically-sized.
      *
-     * If the storage policy is `STORAGE_USER_OWNED`, `src_data` will be used directly
+     * If the storage policy is `STORAGE_WRAPPED`, `src_data` will be used directly
      * as the backing storage, and its lifetime must exceed the lifetime of this matrix.
      * 
      * @param src_data Array of nrows * ncols elements, in row-major order.
@@ -187,7 +207,7 @@ public:
     /**
      * Construct and initialize this matrix with the contents of another.
      *
-     * This constructor is not available if the storage policy is `STORAGE_USER_OWNED`.
+     * This constructor is not available if the storage policy is `STORAGE_WRAPPED`.
      * 
      * @tparam Mx A matrix type with agreeing dimension. 
      * @param mtx Matrix containing source elements.
@@ -449,11 +469,11 @@ public:
 
 
 template <typename T, index_t M, index_t N>
-class SimpleMatrix<T,M,N,STORAGE_USER_OWNED> : public detail::FlatMatrixBase<T,M,N,STORAGE_USER_OWNED> {
+class SimpleMatrix<T,M,N,STORAGE_WRAPPED> : public detail::FlatMatrixBase<T,M,N,STORAGE_WRAPPED> {
 
 private:
 
-    typedef detail::FlatMatrixBase<T,M,N,STORAGE_USER_OWNED> parent_t;
+    typedef detail::FlatMatrixBase<T,M,N,STORAGE_WRAPPED> parent_t;
 
 public:
 

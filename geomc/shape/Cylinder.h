@@ -26,7 +26,7 @@ namespace geom {
      * segment in 2D.
      */
     template <typename T, index_t N>
-    class Cylinder : virtual public Bounded<T,N>, virtual public Convex<T,N> {
+    class Cylinder : virtual public Convex<T,N> {
         public:
             /// Axis endpoint.
             Vec<T,N> p0;

@@ -29,12 +29,9 @@
 
 
 // todo: add specializations with c calls to permit nextafter() to work in <= c++03
-// todo: Consider making the comparison be >= and <= in all cases.
- //      Move the increment logic outside.
-//       Would need to fix GridIterator, Raster, anything with MatrixRegion
-//       i'll fix this later, but soon.
+// done: Consider making the comparison be >= and <= in all cases.
 
-// reason for switching. 
+// reason for switching:
 // using <= and >= is inconsistent with half-open interval convention, but
 // - union of rect with a point should thereafter contain the point
 // - with a half-open interval, we'd need to "increment" the upper bound
@@ -79,7 +76,7 @@ namespace geom {
  * object, which abstracts away the boundary logic for you.
  */
 template <typename T, index_t N> 
-class Rect : virtual public Bounded<T,N>, virtual public Convex<T,N> {
+class Rect : virtual public Convex<T,N> {
 protected:
     typedef PointType<T,N> ptype;
 
@@ -370,7 +367,7 @@ public:
      * @return `true` if and only if all the corresponding extremes of `b` are the same.
      */
     inline bool operator==(Rect<T,N> b) const {
-        return (maxs == b.maxs) && (mins == b.mins);
+        return (maxs == b.maxs) and (mins == b.mins);
     }
     
     /**
@@ -380,7 +377,7 @@ public:
      * the corresponding extreme in `this`.
      */
     inline bool operator!=(Rect<T,N> b) const {
-        return (maxs != b.maxs) || (mins != b.mins);
+        return (maxs != b.maxs) or (mins != b.mins);
     }
 
     /**
@@ -390,7 +387,7 @@ public:
      * @return A new Rect, scaled about the origin by factor `a`.
      */
     inline Rect<T,N> operator*(point_t a) const {
-        return Rect<T,N>(mins*a, maxs*a);
+        return Rect<T,N>(mins * a, maxs * a);
     }
 
     /**
@@ -414,7 +411,7 @@ public:
      * @return A new Rect, scaled about the origin by multiple `1 / a`.
      */
     inline Rect<T,N> operator/(point_t a) const {
-        return Rect<T,N>(mins/a, maxs/a);
+        return Rect<T,N>(mins / a, maxs / a);
     }
 
     /**

@@ -22,7 +22,7 @@ namespace geom {
      * @brief A N-dimensional circle, sphere, or hypersphere
      */
     template <typename T, index_t N>
-    class Sphere : virtual public Bounded<T,N>, virtual public Convex<T,N> {
+    class Sphere : virtual public Convex<T,N> {
     public:
         /// Center of the sphere.
         Vec<T,N> center;

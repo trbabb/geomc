@@ -1,3 +1,4 @@
+#include <boost/iterator/iterator_facade.hpp>
 #include <geomc/geomc_defs.h>
 #include <geomc/Templates.h>
 #include <list>
@@ -300,7 +301,7 @@ public:
         return _nodes.begin()->n_items;
     }
     
-        
+    
     /// Tree equality
     bool operator==(const Tree<NodeItem, LeafItem>& other) const {
         if (this == &other) return true;
@@ -467,6 +468,80 @@ public:
     typedef typename std::iterator_traits<NodeRef>::difference_type difference_type;
     /// Iterator category.
     typedef typename std::iterator_traits<NodeRef>::iterator_category iterator_category;
+    
+    
+    /**
+     * @brief A forward iterator over this type of Subtree, which visits 
+     * all the nodes which pass the supplied `TestFn`.
+     *
+     * @tparam I The type of Subtree to visit.
+     * @tparam BoundingFn A callable object which accepts an `I` and
+     * returns `true` if that Subtree may contain items which pass `TestFn`.
+     * @tparam TestFn A callable object which accepts an `I` and returns
+     * `true` if that Subtree should be visited by this `QueryIterator`.
+     */
+    template <typename I, typename BoundingFn, typename TestFn>
+    class QueryIterator : public boost::iterator_facade<
+            QueryIterator<I, BoundingFn, TestFn>, // curiously recurring!
+            I,                                    // type referred to
+            boost::forward_traversal_tag> {       // forward-only iterator (for now)
+        
+        friend class boost::iterator_core_access;
+        
+        I _item;
+        I _end;
+        BoundingFn _bound;
+        TestFn     _test;
+        
+    public:
+        
+        /// Construct a new QueryIterator.
+        QueryIterator(const I& start, BoundingFn bound, TestFn test):
+                _item(start),
+                _end(_item.subtree_end()), 
+                _bound(bound),
+                _test(test) {
+            if (not _bound(_item)) {
+                _item = _end;
+            } else if (not _test(_item)) {
+                increment();
+            }
+        }
+        
+        /// Return true if this iterator points at the subtree at `other`.
+        bool operator==(const I& other) const {
+            return other == _item;
+        }
+    
+    private:
+        
+        void increment() {
+            ++_item;
+            while (_item != _end and not _test(_item)) {
+                if (_bound(_item)) {
+                    // descend into tree
+                    _item = _item.begin();
+                } else {
+                    // jump over tree
+                    _item = _item.subtree_end();
+                }
+            }
+        }
+        
+        bool equal(const QueryIterator& other) const {
+            return _item == other._item;
+        }
+        
+        I& dereference() const {
+            return _item;
+        }
+        
+    };
+    
+    /// Convenience test function for `query()` which returns `true` on all nodes.
+    static bool visit_all_nodes(const self_t& s)  { return true; }
+    /// Convenience test function for `query()` which returns `true` on all nodes with zero child nodes.
+    static bool visit_all_leaf_nodes(const self_t& s) { return s.node_count() == 0; }
     
     
     /************************************
@@ -690,6 +765,29 @@ public:
             }
         }
         return self_t(_storage->_nodes.end(), _storage);
+    }
+    
+    
+    /**
+     * @brief Return an iterator over all the subtrees for which `test(subtree)` returns
+     * true. The iterator dereferences to `self_t`.
+     *
+     * The iterator's sequence finishes on (and excludes) this node's `subtree_end()` node.
+     * `QueryIterator`s and `Subtree` nodes can be compared directly.
+     *
+     * `visit_all_nodes()` and `visit_all_leaf_nodes()` are convenience static member
+     * functions of this class which can be passed to `test`.
+     *
+     * @param bound A callable object which accepts a `self_t` and returns `true` if 
+     * that Subtree might contain objects which pass `test()`. Children of Subtrees
+     * which do not pass `bound()` will be skipped.
+     * @param test A callable object which accepts a `self_t` and returns `true` if
+     * that Subtree should be visited by the iterator. If omitted, all nodes which 
+     * pass `bound()` will be visited.
+     */
+    template <typename BoundingFn, typename TestFn>
+    inline QueryIterator<self_t, BoundingFn, TestFn> query(BoundingFn bound, TestFn test=visit_all_nodes) const {
+        return QueryIterator<self_t, BoundingFn, TestFn>(*this, bound, test);
     }
     
 protected:
@@ -1034,7 +1132,7 @@ public:
         }
         
         // insert the item
-        ItemRef new_item = this->_storage->_items.insert(insert_pt, T(args...));
+        ItemRef new_item = this->_storage->_items.emplace(insert_pt, args...);
         
         // figure out the new begin/end items
         ItemRef new_begin, new_end;
@@ -1230,7 +1328,7 @@ public:
      * node will be returned.
      *
      * All iterators to the items under this node are invalidated
-     * by this operation, as well as all `end()` `item_iterator`s.
+     * by this operation, as well as potentially any `end()` `item_iterator`s.
      *
      * @param compare A callable object `compare(a,b)` which accepts a 
      * `LeafItem` as its left argument and a `P` as its right 
@@ -1537,7 +1635,6 @@ protected:
     
     
 }; // ConstSubtree
-
 
 
 

@@ -30,13 +30,8 @@ namespace detail {
 
 //TODO: diagonal iterators.
 //TODO: nonzero iterators?
-//TODO: verify behavior of i->x()
 //TODO: make a special randaccess iterator for contiguous types, such that i[x] is a bit faster? 
 //      i.e. use a ptr rather than a point.
-
-
-// PROBLEM: We are looping in the wrong order.
-//    I believe because row, col is a funny order.
 
 template <typename M, typename RefType>
 class MtxSubsetIterator : public boost::iterator_facade<MtxSubsetIterator<M,RefType>, // self type

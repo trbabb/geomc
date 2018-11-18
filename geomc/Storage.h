@@ -29,8 +29,8 @@ enum StoragePolicy {
     STORAGE_SHARED,
     /// Dynamically-sized storage is assumed to have a single owner, and the underlying array will be duplicated on copy or assignment.
     STORAGE_UNIQUE,
-    /// Backing storage is provided and managed by the user.
-    STORAGE_USER_OWNED
+    /// Backing storage is provided and managed by the caller.
+    STORAGE_WRAPPED
 };
 
 
@@ -309,7 +309,7 @@ struct UniqueStorage<T, DYNAMIC_DIM> {
 };
 
 
-//////////////// User-owned storage ////////////////
+//////////////// Wrapped storage ////////////////
 
 
 // fwd decl
@@ -319,7 +319,8 @@ struct GenericStorage;
 
 /**
  * @brief Array storage with templated static or dynamic size, acting
- * as a thin, templated wrapper around a user-owned array.
+ * as a thin, templated wrapper around a bare array which is memory managed
+ * by the caller.
  * 
  * @tparam T Element type.
  * @tparam N Size of the array, or 0 for dynamic size.
@@ -329,12 +330,12 @@ struct GenericStorage;
  * `#include <geomc/Storage.h>`
  */
 template <typename T, index_t N>
-struct UserOwnedStorage {
+struct WrappedStorage {
     T *data;
     typename Dimension<N>::storage_t dim;
 
-    /// Construct a new `UserOwnedStorage` and use `srcdata` as the backing memory.
-    UserOwnedStorage(index_t sz, T *srcdata):
+    /// Construct a new `WrappedStorage` and use `srcdata` as the backing memory.
+    WrappedStorage(index_t sz, T *srcdata):
             data(srcdata) {
         Dimension<N>::set(dim, sz);
     }
@@ -509,8 +510,8 @@ public:
  * <li>If the ownership policy is `STORAGE_UNIQUE`, then dynamically-sized 
  * arrays will allocate their own memory, and the underlying arrays will be
  * duplicated on copy or assignment.</li>
- * <li>If the ownership is `STORAGE_USER_OWNED`, then the array will simply wrap a pointer
- * to user-owned memory, which must be valid for the lifetime of this
+ * <li>If the ownership is `STORAGE_WRAPPED`, then the array will simply wrap a pointer
+ * to caller-managed memory, which must be valid for the lifetime of this
  * object, and must contain the minimum number of elements. Duplicates will
  * refer to the same backing memory. No attempt will be made to free the pointer 
  * upon destruction.</li>
@@ -535,7 +536,7 @@ struct GenericStorage : public Storage<T,N> {
     inline GenericStorage(index_t n, const T* srcdata):type(n, srcdata) {}
 #endif
 
-    /// Construct a new array of size `n`. Not available for user-owned specializations.
+    /// Construct a new array of size `n`. Not available for wrapped specializations.
     GenericStorage(index_t n):type(n) {}
 
 #ifdef PARSING_DOXYGEN
@@ -557,11 +558,11 @@ struct GenericStorage : public Storage<T,N> {
 };
 
 
-// user-owned specialization
+// caller-owned specialization
 template <typename T, index_t N>
-struct GenericStorage<T,N,STORAGE_USER_OWNED> : public UserOwnedStorage<T,N> {
+struct GenericStorage<T,N,STORAGE_WRAPPED> : public WrappedStorage<T,N> {
 
-    typedef UserOwnedStorage<T,N> type;
+    typedef WrappedStorage<T,N> type;
 
     GenericStorage(index_t n, T* srcdata):type(n, srcdata) {}
 

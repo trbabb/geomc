@@ -13,6 +13,9 @@ namespace geom {
  * A circular buffer can accommodate adding elements to either the front or the back
  * of the list in constant time.
  *
+ * Furthermore, indexing off the end of the circular buffer wraps around to the beginning again.
+ * This works in both directions.
+ *
  * @tparam T Element type.
  * @tparam N Static capacity of the buffer. Adding more than this number of elements
  * to the buffer will incur a heap memory allocation. To always use heap allocation, 
@@ -32,21 +35,30 @@ public:
     
     /// Construct a new empty circular buffer.
     CircularBuffer():
-        _data(N),
-        _head(0),
-        _size(0) {}
+            _data(N),
+            _head(0),
+            _size(0) {}
     
     /// Construct a new empty circular buffer, with space for at least `capacity` items.
     CircularBuffer(index_t capacity):
-        _data(capacity),
-        _head(0),
-        _size(0) {}
+            _data(capacity),
+            _head(0),
+            _size(0) {}
+    
+    /// Construct a new circular buffer containing the items in the range `[begin, end)`.
+    template <typename InputIterator>
+    CircularBuffer(InputIterator begin, InputIterator end, index_t count):
+            _data(count),
+            _head(0),
+            _size(count) {
+        std::copy(begin, end, _data.get());
+    }
     
     /**
      * @brief Get the `i`th element in the buffer. 
      * 
      * Indicies beyond the end of the buffer will wrap around again to the beginning.
-     * Negative indices are permitted and count from the end of the buffer. -1 denotes the 
+     * Negative indices are permitted and count from the end of the buffer, with -1 denoting the 
      * last element in the buffer.
      */
     inline const T& operator[](index_t i) const {
@@ -58,7 +70,7 @@ public:
      * @brief Get the `i`th element in the buffer. 
      * 
      * Indicies beyond the end of the buffer will wrap around again to the beginning.
-     * Negative indices are permitted and count from the end of the buffer. -1 denotes the 
+     * Negative indices are permitted and count from the end of the buffer, with -1 denoting the 
      * last element in the buffer.
      */
     inline T& operator[](index_t i) {
@@ -84,7 +96,7 @@ public:
     }
     
     /**
-     * @brief Add an element to the front of the buffer.
+     * @brief Add an element to the beginning of the buffer.
      * 
      * This increases the indices of all the existing elements by one.
      * The new element will have index zero.
@@ -102,18 +114,38 @@ public:
      * 
      * This decreases the indices of all the remaining elements by one.
      */
-    T pop_front() {
+    T&& pop_front() {
         const index_t old = _head;
         _head  = (_head + 1) % _data.size();
         _size -= 1;
-        return _data.get()[old];
+        return std::move(_data.get()[old]);
     }
     
     /// Remove the element at the end of the buffer.
-    T pop_back() {
+    T&& pop_back() {
         index_t i = (_head + _size) % _data.size();
         size -= 1;
-        return _data.get()[i];
+        return std::move(_data.get()[i]);
+    }
+    
+    /// Return a reference to the item at the beginning of the buffer.
+    inline T& peek_front() {
+        return *_data.get();
+    }
+    
+    /// Return a const reference to the item at the beginning of the buffer.
+    inline const T& peek_front() const {
+        return *_data.get();
+    }
+    
+    /// Return a reference to the item at the end of the buffer.
+    inline T& peek_back() {
+        return _data.get()[(_head + _size) % _data.size()];
+    }
+    
+    /// Return a const reference to the item at the end of the buffer.
+    inline const T& peek_back() const {
+        return _data.get()[(_head + _size) % _data.size()];
     }
     
     /// Empty the buffer of all items.
