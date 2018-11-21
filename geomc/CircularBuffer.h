@@ -1,6 +1,13 @@
 #include <geomc/Storage.h>
 
 namespace geom {
+    
+// todo: implement with placement_new. 
+// - use aligned_storage.
+// - manually destruct on pop
+// - manually placement copy on iterator construct (std::copy will use assignment operator if it exists)
+// - override copy/move/assignment operators
+// - avoid use of copy/move/assignment operators for T when creating/destroying.
 
 /**
  * @addtogroup storage
@@ -39,7 +46,7 @@ public:
             _head(0),
             _size(0) {}
     
-    /// Construct a new empty circular buffer, with space for at least `capacity` items.
+    /// Construct a new empty circular buffer, with space \for at least `capacity` items.
     CircularBuffer(index_t capacity):
             _data(capacity),
             _head(0),
@@ -104,7 +111,7 @@ public:
     inline void push_front(const T& t) {
         check_size();
         const index_t n = _data.size();
-        _head = _data.get() + (_head + n - 1) % n; 
+        _head = (_head + n - 1) % n; 
         _data.get()[_head] = t;
         _size += 1;
     }
@@ -114,38 +121,38 @@ public:
      * 
      * This decreases the indices of all the remaining elements by one.
      */
-    T&& pop_front() {
+    T pop_front() {
         const index_t old = _head;
         _head  = (_head + 1) % _data.size();
         _size -= 1;
-        return std::move(_data.get()[old]);
+        return _data.get()[old];
     }
     
     /// Remove the element at the end of the buffer.
-    T&& pop_back() {
-        index_t i = (_head + _size) % _data.size();
-        size -= 1;
-        return std::move(_data.get()[i]);
+    T pop_back() {
+        index_t i = (_head + _size - 1) % _data.size();
+        _size -= 1;
+        return _data.get()[i];
     }
     
     /// Return a reference to the item at the beginning of the buffer.
-    inline T& peek_front() {
-        return *_data.get();
+    inline T& front() {
+        return _data.get()[_head];
     }
     
     /// Return a const reference to the item at the beginning of the buffer.
-    inline const T& peek_front() const {
-        return *_data.get();
+    inline const T& front() const {
+        return _data.get()[_head];
     }
     
     /// Return a reference to the item at the end of the buffer.
-    inline T& peek_back() {
-        return _data.get()[(_head + _size) % _data.size()];
+    inline T& back() {
+        return _data.get()[(_head + _size - 1) % _data.size()];
     }
     
     /// Return a const reference to the item at the end of the buffer.
-    inline const T& peek_back() const {
-        return _data.get()[(_head + _size) % _data.size()];
+    inline const T& back() const {
+        return _data.get()[(_head + _size - 1) % _data.size()];
     }
     
     /// Empty the buffer of all items.

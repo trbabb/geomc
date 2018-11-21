@@ -28,10 +28,11 @@
 #include <geomc/shape/shapedetail/Hit.h>
 
 
+// todo: min() and max() were functions returning point_t and I don't know why.
+//       refactor to expose member vars?
 // todo: add specializations with c calls to permit nextafter() to work in <= c++03
 // done: Consider making the comparison be >= and <= in all cases.
 
-// reason for switching:
 // using <= and >= is inconsistent with half-open interval convention, but
 // - union of rect with a point should thereafter contain the point
 // - with a half-open interval, we'd need to "increment" the upper bound
@@ -62,8 +63,8 @@ namespace geom {
  *
  * Example: 
  * 
- * * `Rect<double,4>::point_t` is `Vec<double,4>`;  `getMin()` returns a `Vec4d`.
- * * `Rect<double,1>::point_t` is `double`; `getMin()` returns a `double`.
+ * * `Rect<double,4>::point_t` is `Vec<double,4>`;  `min()` returns a `Vec4d`.
+ * * `Rect<double,1>::point_t` is `double`; `min()` returns a `double`.
  * 
  * Rect boundaries are inclusive. The points `min()` and `max()` are guaranteed
  * to be inside the Rect. Therefore, "degenerate" Rects (like those that contain only
@@ -473,14 +474,28 @@ public:
     /**
      * @return The lower extremes of this region.
      */
-    inline point_t min() const {
+    inline const point_t& min() const {
+        return mins;
+    }
+    
+    /**
+     * @return The lower extremes of this region.
+     */
+    inline point_t& min() {
         return mins;
     }
 
     /** 
      * @return The upper extremes of this region. 
      */
-    inline point_t max() const {
+    inline const point_t& max() const {
+        return maxs;
+    }
+    
+    /** 
+     * @return The upper extremes of this region. 
+     */
+    inline point_t& max() {
         return maxs;
     }
     

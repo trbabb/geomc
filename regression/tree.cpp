@@ -4,6 +4,8 @@
 #include <boost/test/unit_test.hpp>
 #include <geomc/Tree.h>
 #include <geomc/random/RandomTools.h>
+#include <geomc/CircularBuffer.h>
+#include <geomc/shape/Rect.h>
 
 using namespace geom;
 using namespace std;
@@ -32,14 +34,16 @@ void fill_tree(const Subtree<const char*, index_t>& t) {
 }
 
 
-void fill_leaf_with_items(Subtree<const char*, index_t> tree, index_t n) {
+template <typename T>
+void fill_leaf_with_items(Subtree<T, index_t> subtree, index_t n) {
     Random* rng = geom::getRandom();
     for (index_t i = 0; i < n; ++i) {
-        auto b = tree.items_begin();
-        if (tree.item_count() > 0) {
-            std::advance(b, rng->rand(tree.item_count()));
+        auto b = subtree.items_begin();
+        if (subtree.item_count() > 0) {
+            index_t j = rng->rand(subtree.item_count()); // xxx need to be able to insert at end
+            std::advance(b, j);
         }
-        tree.insert_item(b, rng->rand<index_t>());
+        subtree.insert_item(b, rng->rand<index_t>());
     }
 }
 
@@ -82,7 +86,15 @@ void populate_tree(const Subtree<const char*, index_t>& tree, index_t n) {
 }
 
 
-void print_subtree(Subtree<const char*, index_t> p, index_t depth=0) {
+template <typename T, index_t N>
+std::ostream& operator<<(std::ostream& s, const Rect<T,N>& r) {
+    s << "[" << r.min() << " : " << r.max() << "]";
+    return s;
+} 
+
+
+template <typename T>
+void print_subtree(Subtree<T, index_t> p, index_t depth=0) {
     cout << std::string(depth * 2, ' ') << "(+) " << *p << " ";
     if (p.node_count() == 0) {
         cout << p.item_count() << endl;
@@ -98,18 +110,102 @@ void print_subtree(Subtree<const char*, index_t> p, index_t depth=0) {
     }
 }
 
+void split_subtree(Subtree<Rect<index_t, 1>, index_t> n) {
+    const index_t max_arity = 4;
+    if (n.item_count() > max_arity) {
+        // make a new child identical to ourselves; put it on the stack
+        CircularBuffer<Subtree<Rect<index_t, 1>, index_t>, 8> buf;
+        buf.push_back(n.insert_child_node(*n));
+        
+        // split into siblings until we are full, or all the siblings are small enough.
+        while (buf.size() > 0 and n.node_count() < max_arity) {
+            auto child = buf.pop_front();
+            if (child.item_count() > max_arity) {
+                double avg = 0;
+                index_t ct = 0;
+                for (auto k = child.items_begin(); k != child.items_end(); ++k) {
+                    avg += *k;
+                    ++ct;
+                }
+                avg /= ct;
+                auto new_node = child.split(compare, avg);
+                if (new_node == child.end()) {
+                    continue;
+                }
+                // if the split produced an empty node,
+                // don't try to split again to avoid an infinite loop.
+                if (new_node.item_count() == 0) {
+                    n.erase(new_node);
+                } else if (child.item_count() == 0) {
+                    n.erase(child);
+                } else {
+                    // both nodes are potential candidates for further splitting.
+                    buf.push_back(new_node);
+                    buf.push_back(child);
+                }
+            }
+        }
+        
+        if (n.node_count() > 1) {
+            // subdivide / recurse on new children
+            for (auto child = n.begin(); child != n.end(); ++child) {
+                split_subtree(child);
+            }
+        } else {
+            // split was unsuccessful.
+            n.erase(n.begin());
+        }
+    }
+    
+    // rebound this node
+    // not optimal but meh
+    Rect<index_t, 1> bnd;
+    for (auto i = n.items_begin(); i != n.items_end(); ++i) {
+        bnd |= *i;
+    }
+    *n = bnd;
+}
+
+
+bool bound(Subtree<Rect<index_t, 1>, index_t>& t, index_t s) {
+    return t->contains(s);
+}
+
+bool visit_all(Subtree<Rect<index_t, 1>, index_t>& t, index_t s) {
+    return true;
+}
+
+
+void populate_search_tree(Tree<Rect<index_t, 1>, index_t>& tree, index_t n) {
+    auto r = tree.root();
+    *r = Rect<index_t, 1>();
+    fill_leaf_with_items(r, 130);
+    // split ourselves
+    split_subtree(r);
+    const index_t query_pt = 100;
+    index_t ct = 0;
+    for (auto i = r.query(query_pt, bound, bound); i != r.subtree_end() and ct < 130; ++i, ++ct) {
+        auto bnd = **i;
+        BOOST_CHECK(bnd.contains(query_pt));
+    }
+}
+
+
+///////////// test suites /////////////
+
+
 BOOST_AUTO_TEST_SUITE(tree_construction)
 
-BOOST_AUTO_TEST_CASE(construct_small_tree)
-{
+
+BOOST_AUTO_TEST_CASE(construct_small_tree) {
     Tree<const char*, index_t> t;
     fill_tree(t.root());
     BOOST_CHECK(t.size() == 5);
     BOOST_CHECK(t.item_count() == 6);
 }
 
-BOOST_AUTO_TEST_CASE(split_flat_tree)
-{
+
+BOOST_AUTO_TEST_CASE(split_flat_tree) {
     const index_t count = 30;
     Tree<const char*, index_t> t;
     auto r = t.root();
@@ -120,7 +216,7 @@ BOOST_AUTO_TEST_CASE(split_flat_tree)
     auto i = r.items_begin();
     for (index_t j = 0; j < count; ++j, ++i) {
         index_t b = *i;
-        BOOST_REQUIRE(i == i);
+        BOOST_REQUIRE(b == b);
     }
     
     // add a single child:
@@ -141,6 +237,8 @@ BOOST_AUTO_TEST_CASE(split_flat_tree)
     //   / \
     //  s   c
     auto s = c.split(compare, 0, "doot");
+    // parent has one more child?
+    BOOST_REQUIRE(r.node_count() == 2);
     // is the new node's value as specified?
     BOOST_CHECK(strcmp(*s, "doot") == 0);
     // is the new node still a child of its parent?
@@ -160,8 +258,8 @@ BOOST_AUTO_TEST_CASE(split_flat_tree)
     print_subtree(r);
 }
 
-BOOST_AUTO_TEST_CASE(copy_deep_tree)
-{
+
+BOOST_AUTO_TEST_CASE(copy_deep_tree) {
     Tree<const char*, index_t> t;
     *(t.root()) = "zoinks";
     populate_tree(t.root(), 30);
@@ -170,5 +268,12 @@ BOOST_AUTO_TEST_CASE(copy_deep_tree)
     Tree<const char*, index_t> t2(t);
     BOOST_CHECK(t2 == t);
 }
+
+
+BOOST_AUTO_TEST_CASE(search_tree) {
+    Tree<Rect<index_t, 1>, index_t> t;
+    populate_search_tree(t, 130);
+}
+
 
 BOOST_AUTO_TEST_SUITE_END()

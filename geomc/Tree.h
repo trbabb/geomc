@@ -38,6 +38,11 @@
 //       all this is complicated, so editing while using a range for() is
 //       just all around a bad idea.
 
+// todo: it is bad that Subtree has a default constructor. we currently have that
+//       so that a circular buffer of them can be constructed. can we avoid this,
+//       e.g. by filling or placement-new`ing with a supplied default value ala std::vector?
+//       std::array might be the only way to do this.
+
 // xxx: how to subclass?
 //   > subclass Tree and call it, e.g. AssociativeTree and/or RTree
 //   > subclass the two iterators
@@ -395,6 +400,7 @@ protected:
  * @brief Base class for all iterators into Trees.
  * 
  * A Subtree's lifetime is valid no longer than the Tree from which it came.
+ * Think of a Subtree like an iterator-- it is a window into the parent tree.
  *
  * Mutations to the source Tree generally invalidate end() iterators.
  *
@@ -419,6 +425,8 @@ protected:
     StorageRef _storage;
     NodeRef    _root;
     
+    
+    SubtreeBase() {}
     
     // construct an iterator to a particular node
     SubtreeBase(const NodeRef& root, StorageRef storage):
@@ -474,74 +482,106 @@ public:
      * @brief A forward iterator over this type of Subtree, which visits 
      * all the nodes which pass the supplied `TestFn`.
      *
+     * QueryIterator extends `iterator_facade` and is a forward iterator;
+     * as such it supports standard forward iterator semantics and operators
+     * like `++i`, `i->xxx`, and `*i`.
+     *
      * @tparam I The type of Subtree to visit.
      * @tparam BoundingFn A callable object which accepts an `I` and
      * returns `true` if that Subtree may contain items which pass `TestFn`.
      * @tparam TestFn A callable object which accepts an `I` and returns
      * `true` if that Subtree should be visited by this `QueryIterator`.
      */
-    template <typename I, typename BoundingFn, typename TestFn>
+    template <typename I, typename Key, typename BoundingFn, typename TestFn>
     class QueryIterator : public boost::iterator_facade<
-            QueryIterator<I, BoundingFn, TestFn>, // curiously recurring!
-            I,                                    // type referred to
-            boost::forward_traversal_tag> {       // forward-only iterator (for now)
+            QueryIterator<I, Key, BoundingFn, TestFn>, // curiously recurring!
+            I,                                         // type referred to
+            boost::forward_traversal_tag,              // forward-only iterator (for now)
+            const I&> {                                // reference type- const because we don't
+                                                       // want the user doing ++i on a deref'd value
+                                                       // and changing where this iterator points!
+                                                       // (also it causes compile errors to not be const)
         
         friend class boost::iterator_core_access;
         
-        I _item;
-        I _end;
+        I          _item;
+        I          _end;
+        Key        _key;
         BoundingFn _bound;
         TestFn     _test;
         
     public:
         
         /// Construct a new QueryIterator.
-        QueryIterator(const I& start, BoundingFn bound, TestFn test):
+        QueryIterator(const I& start, const Key& key, BoundingFn bound, TestFn test):
                 _item(start),
-                _end(_item.subtree_end()), 
+                _end(_item.subtree_end()),
+                _key(key),
                 _bound(bound),
                 _test(test) {
-            if (not _bound(_item)) {
-                _item = _end;
-            } else if (not _test(_item)) {
-                increment();
-            }
+            find_result();
         }
         
-        /// Return true if this iterator points at the subtree at `other`.
+        /// Return true if this iterator points to the subtree at `other`.
         bool operator==(const I& other) const {
             return other == _item;
+        }
+        
+        /// Return true if this iterator does not point to the subtree at `other`.
+        bool operator!=(const I& other) const {
+            return other != _item;
+        }
+        
+        /// Find the next result at or beyond the Subtree `other`.
+        QueryIterator& operator=(const I& other) {
+            _item = other;
+            find_result();
         }
     
     private:
         
-        void increment() {
-            ++_item;
-            while (_item != _end and not _test(_item)) {
-                if (_bound(_item)) {
-                    // descend into tree
-                    _item = _item.begin();
-                } else {
-                    // jump over tree
-                    _item = _item.subtree_end();
+        void next_candidate() {
+            if (_item.node_count() > 0 and _bound(_item, _key)) {
+                // descend into tree
+                _item = _item.begin();
+            } else {
+                // nothing further for us here. pop back out.
+                while (_item != _end and _item == std::prev(_item.parent().end())) {
+                    _item = _item.parent();
                 }
+                ++_item;
             }
+        }
+        
+        void find_result() {
+            while (_item != _end and _item != _item.tree().end() and not _test(_item, _key)) {
+                next_candidate();
+            }
+        }
+        
+        // iterator_facade:
+        
+        void increment() {
+            next_candidate();
+            find_result();
         }
         
         bool equal(const QueryIterator& other) const {
             return _item == other._item;
         }
         
-        I& dereference() const {
+        const I& dereference() const {
             return _item;
         }
         
     };
     
     /// Convenience test function for `query()` which returns `true` on all nodes.
-    static bool visit_all_nodes(const self_t& s)  { return true; }
+    template <typename Key>
+    static bool visit_all_nodes(const self_t& s, const Key& k)  { return true; }
     /// Convenience test function for `query()` which returns `true` on all nodes with zero child nodes.
-    static bool visit_all_leaf_nodes(const self_t& s) { return s.node_count() == 0; }
+    template <typename Key>
+    static bool visit_all_leaf_nodes(const self_t& s, const Key& k) { return s.node_count() == 0; }
     
     
     /************************************
@@ -554,7 +594,7 @@ public:
     /// Obtain the tree into which this iterator points.
     inline typename std::conditional<Const, const tree_t&, tree_t&>::type
     tree() const {
-        return _storage;
+        return *_storage;
     }
     
     /**
@@ -681,7 +721,7 @@ public:
      * below this node.
      */
     inline self_t subtree_end() const {
-        return this->node_successor(_root);
+        return self_t(this->node_successor(_root), _storage);
     }
     
     
@@ -722,7 +762,7 @@ public:
                 }
             }
         }
-        return self_t(_storage->_nodes.end(), _storage);
+        return this->end();
     }
     
     
@@ -764,30 +804,41 @@ public:
                 cur_root = node_successor(cur_root);
             }
         }
-        return self_t(_storage->_nodes.end(), _storage);
+        return this->end();;
     }
     
     
     /**
-     * @brief Return an iterator over all the subtrees for which `test(subtree)` returns
+     * @brief Return an iterator over all the subtrees for which `test(*subtree, key)` returns
      * true. The iterator dereferences to `self_t`.
      *
      * The iterator's sequence finishes on (and excludes) this node's `subtree_end()` node.
      * `QueryIterator`s and `Subtree` nodes can be compared directly.
      *
      * `visit_all_nodes()` and `visit_all_leaf_nodes()` are convenience static member
-     * functions of this class which can be passed to `test`.
+     * functions of this class which can be passed to `test()`.
      *
-     * @param bound A callable object which accepts a `self_t` and returns `true` if 
-     * that Subtree might contain objects which pass `test()`. Children of Subtrees
-     * which do not pass `bound()` will be skipped.
-     * @param test A callable object which accepts a `self_t` and returns `true` if
-     * that Subtree should be visited by the iterator. If omitted, all nodes which 
-     * pass `bound()` will be visited.
+     * @param bound A callable object which accepts a Subtree as its first argument, and 
+     * a `Key` as its second, and returns `true` if that Subtree might contain objects 
+     * which pass `test()` for that key. Children of Subtrees which do not pass `bound()` will be skipped.
+     * @param test A callable object which accepts a Subtree as its first argument and
+     * a `Key` as its second, and returns `true` if that Subtree should be visited 
+     * by the iterator. If omitted, all nodes which pass `bound()` will be visited.
      */
-    template <typename BoundingFn, typename TestFn>
-    inline QueryIterator<self_t, BoundingFn, TestFn> query(BoundingFn bound, TestFn test=visit_all_nodes) const {
-        return QueryIterator<self_t, BoundingFn, TestFn>(*this, bound, test);
+    template <typename Key, typename BoundingFn, typename TestFn>
+    inline QueryIterator<self_t, Key, BoundingFn, TestFn> query(
+            const Key& key, 
+            BoundingFn bound, 
+            TestFn test=visit_all_nodes<Key>) const {
+        // todo: bound/test functions that accept Subtrees are ugly and less general/modular.
+        //      but we need them for things like counting children, or inspecting the first
+        //      and last items/children.
+        //      could we provide a simpler interface which is more agnostic and
+        //      only compares LeafItems + Keys?
+        // todo: the template type of this function can't be auto-deduced when the last
+        //      argument is default. this seems like a language hole.
+        // xxx: this is stuck indefinitely
+        return QueryIterator<self_t, Key, BoundingFn, TestFn>(*this, key, bound, test);
     }
     
 protected:
@@ -834,11 +885,12 @@ protected:
         for (NodeRef parent = node->parent; 
                 parent != _storage->_nodes.end(); 
                 node = parent, parent = node->parent) {
-            NodeRef end_c = parent->child_last;
-            if (parent->n_children != 0) ++end_c;
-            for (NodeRef c = node; c != end_c; ++c) {
-                if (c->n_items > 0) {
-                    return c->items_first;
+            if (parent->n_children != 0) {
+                NodeRef end_c = parent->child_last; ++end_c;
+                for (NodeRef c = node; c != end_c; ++c) {
+                    if (c->n_items > 0) {
+                        return c->items_first;
+                    }
                 }
             }
         }
@@ -864,6 +916,8 @@ protected:
     // allow myself to construct myself.
     // curiously recurring pattern is weird :[
     ConstSubtree(const base_t& other):base_t(other) {}
+    
+    ConstSubtree() {}
     
 public:
     
@@ -915,6 +969,8 @@ public:
     
     /// Construct a duplicate iterator to the same node of the same tree.
     Subtree(const Subtree<NodeItem, LeafItem>& other) = default;
+    
+    Subtree() {}
     
     /// @name Mutation functions
     /// @{
@@ -1118,6 +1174,7 @@ public:
             Args&& ... args) const {
         // todo: it would be great if we could efficiently protect against 
         //   the user providing an insert_pt that doesn't belong to the parent
+        //   (this would be trivial in the array version)
         
         // must insert to a leaf node
         if (this->node_count() > 0) {
@@ -1136,7 +1193,7 @@ public:
         
         // figure out the new begin/end items
         ItemRef new_begin, new_end;
-        if (insert_before == n->items_first) {
+        if (insert_pt == n->items_first or n->n_items == 0) {
             new_begin = new_item;
         } else {
             new_begin = n->items_first;
@@ -1323,9 +1380,9 @@ public:
      * the item will be moved to the left (new) node. Otherwise, it will
      * remain in the right (existing) node.
      *
-     * The split node must not be the root and must have no children.
-     * If either is the case, the tree will not be changed and the off-end
-     * node will be returned.
+     * The split node must not be the root, must have no children, and must contain
+     * at least two items. If any of these is the case, the tree will not be changed 
+     * and the off-end node will be returned.
      *
      * All iterators to the items under this node are invalidated
      * by this operation, as well as potentially any `end()` `item_iterator`s.
@@ -1342,7 +1399,9 @@ public:
      */
     template <typename Func, typename P, typename ... Args>
     self_t split(Func compare, P pivot, Args&& ... args) const {
-        if (this->_root == this->_storage->_nodes.begin() or this->node_count() > 0) {
+        if (this->_root == this->_storage->_nodes.begin() 
+                or this->node_count() > 0
+                or this->item_count() < 2) {
             return this->end();
         }
         
@@ -1358,7 +1417,6 @@ public:
         // boundary between `lo` and `hi` and swapping the contents of the iterators.
         // we traverse backwards so that our swapping does not unsort our items.
         
-        // corner case: hi is / becomes empty
         for (ItemRef i = hi->items_last; i != std::prev(hi->items_first); ) {
             if (compare(*i, pivot) < 0) {
                 // move the item to the lower node
@@ -1394,8 +1452,8 @@ public:
             hi->items_first = hi->items_last = this->_storage->_items.end();
         }
         
-        // we didn't delete/add any LeafItems, so we don't need to
-        // update the boundary items.
+        // we didn't delete/add/move any LeafItems (only their contents), 
+        // so we don't need to update the boundary items.
         
         return new_node;
     }
@@ -1479,14 +1537,11 @@ public:
         NodeRef n = this->_root;
         
         if (n->n_items > 0) {
-            // remember deleted references so they can be removed from ancestors
-            ItemRef del_first_item = n->items_first;
-            ItemRef del_last_item  = n->items_last;
             ItemRef endpt = n->items_last; ++endpt;
             
             // delete the items
             ItemRef next_item;
-            index_t n_deleted;
+            index_t n_deleted = 0;
             for (next_item = n->items_first; next_item != endpt; ++next_item) {
                 this->_storage->_items.erase(next_item);
                 ++n_deleted;

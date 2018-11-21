@@ -75,14 +75,16 @@ public:
      */
     Rect<T,N> bounds() {
         Rect<T,N> b;
-        T* mins = point_t::iterator(b.mins);
-        T* maxs = point_t::iterator(b.maxs);
+        T* mins = PointType<T,N>::iterator(b.min());
+        T* maxs = PointType<T,N>::iterator(b.max());
         for (index_t i = 0; i < N; ++i) {
-            point_t axis;
-            point_t::iterator(axis)[i] =  1;
-            maxs[i] = convexSupport(axis)[i];
-            point_t::iterator(axis)[i] = -1;
-            mins[i] = convexSupport(axis)[i];
+            point_t axis, x;
+            PointType<T,N>::iterator(axis)[i] =  1;
+            x = convexSupport(axis);
+            maxs[i] = PointType<T,N>::iterator(x)[i];
+            PointType<T,N>::iterator(axis)[i] = -1;
+            x = convexSupport(axis);
+            mins[i] = PointType<T,N>::iterator(x)[i];
         }
         return b;
     }
