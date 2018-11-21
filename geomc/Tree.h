@@ -505,7 +505,7 @@ public:
         friend class boost::iterator_core_access;
         
         I          _item;
-        I          _end;
+        I          _root;
         Key        _key;
         BoundingFn _bound;
         TestFn     _test;
@@ -515,7 +515,7 @@ public:
         /// Construct a new QueryIterator.
         QueryIterator(const I& start, const Key& key, BoundingFn bound, TestFn test):
                 _item(start),
-                _end(_item.subtree_end()),
+                _root(start),
                 _key(key),
                 _bound(bound),
                 _test(test) {
@@ -544,9 +544,12 @@ public:
             if (_item.node_count() > 0 and _bound(_item, _key)) {
                 // descend into tree
                 _item = _item.begin();
+            } else if (_item == _root) {
+                _item = _root.end();
             } else {
                 // nothing further for us here. pop back out.
-                while (_item != _end and _item == std::prev(_item.parent().end())) {
+                // while item is the last child of its parent, ascend:
+                while (_item._root == _item.parent()._root->child_last and _item.parent() != _root) {
                     _item = _item.parent();
                 }
                 ++_item;
@@ -554,7 +557,7 @@ public:
         }
         
         void find_result() {
-            while (_item != _end and _item != _item.tree().end() and not _test(_item, _key)) {
+            while (_item != _root.end() and _item != _item.tree().end() and not _test(_item, _key)) {
                 next_candidate();
             }
         }
@@ -812,8 +815,8 @@ public:
      * @brief Return an iterator over all the subtrees for which `test(*subtree, key)` returns
      * true. The iterator dereferences to `self_t`.
      *
-     * The iterator's sequence finishes on (and excludes) this node's `subtree_end()` node.
-     * `QueryIterator`s and `Subtree` nodes can be compared directly.
+     * The iterator's sequence finishes on this node's `end()` node.
+     * (`QueryIterator`s and `Subtree` nodes can be compared directly).
      *
      * `visit_all_nodes()` and `visit_all_leaf_nodes()` are convenience static member
      * functions of this class which can be passed to `test()`.
@@ -837,7 +840,6 @@ public:
         //      only compares LeafItems + Keys?
         // todo: the template type of this function can't be auto-deduced when the last
         //      argument is default. this seems like a language hole.
-        // xxx: this is stuck indefinitely
         return QueryIterator<self_t, Key, BoundingFn, TestFn>(*this, key, bound, test);
     }
     

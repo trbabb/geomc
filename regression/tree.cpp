@@ -7,6 +7,11 @@
 #include <geomc/CircularBuffer.h>
 #include <geomc/shape/Rect.h>
 
+// xxx: this unit test uses randomness. 
+// that is bad. we need to be able to repro a fail consistently.
+// instrument a random seed.
+// also: repeat tests with different seeds to fuzz the code better.
+
 using namespace geom;
 using namespace std;
 
@@ -179,12 +184,12 @@ bool visit_all(Subtree<Rect<index_t, 1>, index_t>& t, index_t s) {
 void populate_search_tree(Tree<Rect<index_t, 1>, index_t>& tree, index_t n) {
     auto r = tree.root();
     *r = Rect<index_t, 1>();
-    fill_leaf_with_items(r, 130);
+    fill_leaf_with_items(r, n);
     // split ourselves
     split_subtree(r);
-    const index_t query_pt = 100;
+    const index_t query_pt = geom::getRandom()->rand<index_t>();
     index_t ct = 0;
-    for (auto i = r.query(query_pt, bound, bound); i != r.subtree_end() and ct < 130; ++i, ++ct) {
+    for (auto i = r.query(query_pt, bound, bound); i != r.end() and ct < n; ++i, ++ct) {
         auto bnd = **i;
         BOOST_CHECK(bnd.contains(query_pt));
     }
