@@ -12,6 +12,17 @@
 // instrument a random seed.
 // also: repeat tests with different seeds to fuzz the code better.
 
+// check different sizes of tree
+// multiple random queries
+// queries that are likely to succeed
+// queries that are likely to fail
+// check that item count actually matches item count
+//   same with node count
+//   (wrap that into an integrity_check())
+// try removing random nodes
+// try emptying a tree by removing random nodes one at a time.
+
+
 using namespace geom;
 using namespace std;
 
@@ -187,11 +198,14 @@ void populate_search_tree(Tree<Rect<index_t, 1>, index_t>& tree, index_t n) {
     fill_leaf_with_items(r, n);
     // split ourselves
     split_subtree(r);
-    const index_t query_pt = geom::getRandom()->rand<index_t>();
-    index_t ct = 0;
-    for (auto i = r.query(query_pt, bound, bound); i != r.end() and ct < n; ++i, ++ct) {
-        auto bnd = **i;
-        BOOST_CHECK(bnd.contains(query_pt));
+    // test a buncha queries
+    for (index_t j = 0; j < 200; ++j) {
+        const index_t query_pt = geom::getRandom()->rand<index_t>();
+        index_t ct = 0;
+        for (auto i = r.query(query_pt, bound, bound); i != r.end() and ct < n; ++i, ++ct) {
+            auto bnd = **i;
+            BOOST_CHECK(bnd.contains(query_pt));
+        }
     }
 }
 
@@ -277,7 +291,14 @@ BOOST_AUTO_TEST_CASE(copy_deep_tree) {
 
 BOOST_AUTO_TEST_CASE(search_tree) {
     Tree<Rect<index_t, 1>, index_t> t;
-    populate_search_tree(t, 130);
+    Random* rng = geom::getRandom();
+    // fuzz this baby
+    for (index_t i = 0; i < 1024; ++i) {
+        populate_search_tree(t, rng->rand<index_t>(200));
+        t.root().clear();
+        BOOST_CHECK_EQUAL(t.size(), 1);
+        BOOST_CHECK_EQUAL(t.item_count(), 0);
+    }
 }
 
 

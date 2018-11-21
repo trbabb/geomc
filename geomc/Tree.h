@@ -1551,7 +1551,7 @@ public:
             ItemRef prev_item = next_item; --prev_item;
             
             // update item boundaries / counts
-            this->_storage->update_boundary_items(n, next_item, prev_item, n_deleted);
+            this->_storage->update_boundary_items(n, next_item, prev_item, -n_deleted);
         }
     }
     
