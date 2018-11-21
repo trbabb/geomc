@@ -67,6 +67,7 @@ $(function() {
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classgeom_1_1_const_subtree-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">ConstSubtree&lt; NodeItem, LeafItem &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__storage.html">Storage</a></div></div>  </div>
@@ -243,6 +244,20 @@ index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:a0a04d0384e97e2e26d1fb2d4c0d40945"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_subtree_base.html#a20332cb6a90a1f49b19c1f5795a8b11f">self_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_subtree_base.html#a0a04d0384e97e2e26d1fb2d4c0d40945">find_parent</a> (const <a class="el" href="classgeom_1_1_const_subtree.html#a3951804461d164a1dd2e7dd74721ff42">const_item_iterator</a> &amp;i) const</td></tr>
 <tr class="memdesc:a0a04d0384e97e2e26d1fb2d4c0d40945"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for the direct parent node of item <code>i</code> in this subtree, using <code>BoundingFn</code> to exclude subtrees which cannot contain <code>i</code>.  <a href="#a0a04d0384e97e2e26d1fb2d4c0d40945">More...</a><br /></td></tr>
 <tr class="separator:a0a04d0384e97e2e26d1fb2d4c0d40945"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4eae992e69b06cae3fac97c8190de068"><td class="memItemLeft" align="right" valign="top">QueryIterator&lt; <a class="el" href="classgeom_1_1_subtree_base.html#a20332cb6a90a1f49b19c1f5795a8b11f">self_t</a>, Key, BoundingFn, TestFn &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_subtree_base.html#a4eae992e69b06cae3fac97c8190de068">query</a> (const Key &amp;key, BoundingFn bound, TestFn test=<a class="el" href="classgeom_1_1_subtree_base.html#a91a30c04b434e85965c2de87da51da1e">visit_all_nodes</a>&lt; Key &gt;) const</td></tr>
+<tr class="memdesc:a4eae992e69b06cae3fac97c8190de068"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return an iterator over all the subtrees for which <code>test(*subtree, key)</code> returns true. The iterator dereferences to <code>self_t</code>.  <a href="#a4eae992e69b06cae3fac97c8190de068">More...</a><br /></td></tr>
+<tr class="separator:a4eae992e69b06cae3fac97c8190de068"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a91a30c04b434e85965c2de87da51da1e"><td class="memItemLeft" align="right" valign="top"><a id="a91a30c04b434e85965c2de87da51da1e"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_subtree_base.html#a91a30c04b434e85965c2de87da51da1e">visit_all_nodes</a> (const <a class="el" href="classgeom_1_1_subtree_base.html#a20332cb6a90a1f49b19c1f5795a8b11f">self_t</a> &amp;s, const Key &amp;k)</td></tr>
+<tr class="memdesc:a91a30c04b434e85965c2de87da51da1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience test function for <code><a class="el" href="classgeom_1_1_subtree_base.html#a4eae992e69b06cae3fac97c8190de068" title="Return an iterator over all the subtrees for which test(*subtree, key) returns true. The iterator dereferences to self_t. ">query()</a></code> which returns <code>true</code> on all nodes. <br /></td></tr>
+<tr class="separator:a91a30c04b434e85965c2de87da51da1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3b5378b3df842051b627d640ca0a75e"><td class="memItemLeft" align="right" valign="top"><a id="af3b5378b3df842051b627d640ca0a75e"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_subtree_base.html#af3b5378b3df842051b627d640ca0a75e">visit_all_leaf_nodes</a> (const <a class="el" href="classgeom_1_1_subtree_base.html#a20332cb6a90a1f49b19c1f5795a8b11f">self_t</a> &amp;s, const Key &amp;k)</td></tr>
+<tr class="memdesc:af3b5378b3df842051b627d640ca0a75e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience test function for <code><a class="el" href="classgeom_1_1_subtree_base.html#a4eae992e69b06cae3fac97c8190de068" title="Return an iterator over all the subtrees for which test(*subtree, key) returns true. The iterator dereferences to self_t. ">query()</a></code> which returns <code>true</code> on all nodes with zero child nodes. <br /></td></tr>
+<tr class="separator:af3b5378b3df842051b627d640ca0a75e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename NodeItem, typename LeafItem&gt;<br />
@@ -405,13 +420,66 @@ class geom::ConstSubtree&lt; NodeItem, LeafItem &gt;</h3>
 
 </div>
 </div>
+<a id="a4eae992e69b06cae3fac97c8190de068"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4eae992e69b06cae3fac97c8190de068">&#9670;&nbsp;</a></span>query()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QueryIterator&lt;<a class="el" href="classgeom_1_1_subtree_base.html#a20332cb6a90a1f49b19c1f5795a8b11f">self_t</a>, Key, BoundingFn, TestFn&gt; query </td>
+          <td>(</td>
+          <td class="paramtype">const Key &amp;&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">BoundingFn&#160;</td>
+          <td class="paramname"><em>bound</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TestFn&#160;</td>
+          <td class="paramname"><em>test</em> = <code><a class="el" href="classgeom_1_1_subtree_base.html#a91a30c04b434e85965c2de87da51da1e">visit_all_nodes</a>&lt;Key&gt;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return an iterator over all the subtrees for which <code>test(*subtree, key)</code> returns true. The iterator dereferences to <code>self_t</code>. </p>
+<p>The iterator's sequence finishes on this node's <code><a class="el" href="classgeom_1_1_subtree_base.html#a3e9e0a2b53534bc10d67ab581c1231bb" title="Get last (off-end) child. ">end()</a></code> node. (<code>QueryIterator</code>s and <code><a class="el" href="classgeom_1_1_subtree.html" title="A non-const iterator to a subtree. ">Subtree</a></code> nodes can be compared directly).</p>
+<p><code><a class="el" href="classgeom_1_1_subtree_base.html#a91a30c04b434e85965c2de87da51da1e" title="Convenience test function for query() which returns true on all nodes. ">visit_all_nodes()</a></code> and <code><a class="el" href="classgeom_1_1_subtree_base.html#af3b5378b3df842051b627d640ca0a75e" title="Convenience test function for query() which returns true on all nodes with zero child nodes...">visit_all_leaf_nodes()</a></code> are convenience static member functions of this class which can be passed to <code>test()</code>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bound</td><td>A callable object which accepts a <a class="el" href="classgeom_1_1_subtree.html" title="A non-const iterator to a subtree. ">Subtree</a> as its first argument, and a <code>Key</code> as its second, and returns <code>true</code> if that <a class="el" href="classgeom_1_1_subtree.html" title="A non-const iterator to a subtree. ">Subtree</a> might contain objects which pass <code>test()</code> for that key. Children of Subtrees which do not pass <code>bound()</code> will be skipped. </td></tr>
+    <tr><td class="paramname">test</td><td>A callable object which accepts a <a class="el" href="classgeom_1_1_subtree.html" title="A non-const iterator to a subtree. ">Subtree</a> as its first argument and a <code>Key</code> as its second, and returns <code>true</code> if that <a class="el" href="classgeom_1_1_subtree.html" title="A non-const iterator to a subtree. ">Subtree</a> should be visited by the iterator. If omitted, all nodes which pass <code>bound()</code> will be visited. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>geomc/<a class="el" href="_tree_8h_source.html">Tree.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 14 2018 01:20:23 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 21 2018 13:29:18 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

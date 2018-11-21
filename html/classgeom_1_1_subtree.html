@@ -67,6 +67,7 @@ $(function() {
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classgeom_1_1_subtree-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Subtree&lt; NodeItem, LeafItem &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__storage.html">Storage</a></div></div>  </div>
@@ -236,6 +237,10 @@ index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:a0a04d0384e97e2e26d1fb2d4c0d40945"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_subtree_base.html#a20332cb6a90a1f49b19c1f5795a8b11f">self_t</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_subtree_base.html#a0a04d0384e97e2e26d1fb2d4c0d40945">find_parent</a> (const <a class="el" href="classgeom_1_1_subtree_base.html#a3951804461d164a1dd2e7dd74721ff42">const_item_iterator</a> &amp;i) const</td></tr>
 <tr class="memdesc:a0a04d0384e97e2e26d1fb2d4c0d40945"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for the direct parent node of item <code>i</code> in this subtree, using <code>BoundingFn</code> to exclude subtrees which cannot contain <code>i</code>.  <a href="#a0a04d0384e97e2e26d1fb2d4c0d40945">More...</a><br /></td></tr>
 <tr class="separator:a0a04d0384e97e2e26d1fb2d4c0d40945"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4eae992e69b06cae3fac97c8190de068"><td class="memTemplParams" colspan="2">template&lt;typename Key , typename BoundingFn , typename TestFn &gt; </td></tr>
+<tr class="memitem:a4eae992e69b06cae3fac97c8190de068"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_subtree_base_1_1_query_iterator.html">QueryIterator</a>&lt; <a class="el" href="classgeom_1_1_subtree_base.html#a20332cb6a90a1f49b19c1f5795a8b11f">self_t</a>, Key, BoundingFn, TestFn &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_subtree_base.html#a4eae992e69b06cae3fac97c8190de068">query</a> (const Key &amp;key, BoundingFn bound, TestFn test=<a class="el" href="classgeom_1_1_subtree_base.html#a91a30c04b434e85965c2de87da51da1e">visit_all_nodes</a>&lt; Key &gt;) const</td></tr>
+<tr class="memdesc:a4eae992e69b06cae3fac97c8190de068"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return an iterator over all the subtrees for which <code>test(*subtree, key)</code> returns true. The iterator dereferences to <code>self_t</code>.  <a href="#a4eae992e69b06cae3fac97c8190de068">More...</a><br /></td></tr>
+<tr class="separator:a4eae992e69b06cae3fac97c8190de068"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Mutation functions</div></td></tr>
 <tr class="memitem:ad43bcd0c6dc2c358fa5dffa45eba0784"><td class="memTemplParams" colspan="2">template&lt;typename ... Args&gt; </td></tr>
 <tr class="memitem:ad43bcd0c6dc2c358fa5dffa45eba0784"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_subtree_base.html#a20332cb6a90a1f49b19c1f5795a8b11f">self_t</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_subtree.html#ad43bcd0c6dc2c358fa5dffa45eba0784">insert_child_node</a> (const <a class="el" href="classgeom_1_1_subtree_base.html#a20332cb6a90a1f49b19c1f5795a8b11f">self_t</a> &amp;insert_before, Args &amp;&amp;... args) const</td></tr>
@@ -291,6 +296,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_subtree.html#ada96bbb426ada24e24e6960972f3cdaf">flatten</a> () const</td></tr>
 <tr class="memdesc:ada96bbb426ada24e24e6960972f3cdaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recursively remove all the children of this node, and take ownership of all items beneath them. <br /></td></tr>
 <tr class="separator:ada96bbb426ada24e24e6960972f3cdaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a91a30c04b434e85965c2de87da51da1e"><td class="memTemplParams" colspan="2"><a id="a91a30c04b434e85965c2de87da51da1e"></a>
+template&lt;typename Key &gt; </td></tr>
+<tr class="memitem:a91a30c04b434e85965c2de87da51da1e"><td class="memTemplItemLeft" align="right" valign="top">static bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_subtree_base.html#a91a30c04b434e85965c2de87da51da1e">visit_all_nodes</a> (const <a class="el" href="classgeom_1_1_subtree_base.html#a20332cb6a90a1f49b19c1f5795a8b11f">self_t</a> &amp;s, const Key &amp;k)</td></tr>
+<tr class="memdesc:a91a30c04b434e85965c2de87da51da1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience test function for <code><a class="el" href="classgeom_1_1_subtree_base.html#a4eae992e69b06cae3fac97c8190de068" title="Return an iterator over all the subtrees for which test(*subtree, key) returns true. The iterator dereferences to self_t. ">query()</a></code> which returns <code>true</code> on all nodes. <br /></td></tr>
+<tr class="separator:a91a30c04b434e85965c2de87da51da1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3b5378b3df842051b627d640ca0a75e"><td class="memTemplParams" colspan="2"><a id="af3b5378b3df842051b627d640ca0a75e"></a>
+template&lt;typename Key &gt; </td></tr>
+<tr class="memitem:af3b5378b3df842051b627d640ca0a75e"><td class="memTemplItemLeft" align="right" valign="top">static bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_subtree_base.html#af3b5378b3df842051b627d640ca0a75e">visit_all_leaf_nodes</a> (const <a class="el" href="classgeom_1_1_subtree_base.html#a20332cb6a90a1f49b19c1f5795a8b11f">self_t</a> &amp;s, const Key &amp;k)</td></tr>
+<tr class="memdesc:af3b5378b3df842051b627d640ca0a75e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience test function for <code><a class="el" href="classgeom_1_1_subtree_base.html#a4eae992e69b06cae3fac97c8190de068" title="Return an iterator over all the subtrees for which test(*subtree, key) returns true. The iterator dereferences to self_t. ">query()</a></code> which returns <code>true</code> on all nodes with zero child nodes. <br /></td></tr>
+<tr class="separator:af3b5378b3df842051b627d640ca0a75e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename NodeItem, typename LeafItem&gt;<br />
@@ -847,6 +865,59 @@ class geom::Subtree&lt; NodeItem, LeafItem &gt;</h3>
 
 </div>
 </div>
+<a id="a4eae992e69b06cae3fac97c8190de068"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4eae992e69b06cae3fac97c8190de068">&#9670;&nbsp;</a></span>query()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_subtree_base_1_1_query_iterator.html">QueryIterator</a>&lt;<a class="el" href="classgeom_1_1_subtree_base.html#a20332cb6a90a1f49b19c1f5795a8b11f">self_t</a>, Key, BoundingFn, TestFn&gt; query </td>
+          <td>(</td>
+          <td class="paramtype">const Key &amp;&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">BoundingFn&#160;</td>
+          <td class="paramname"><em>bound</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TestFn&#160;</td>
+          <td class="paramname"><em>test</em> = <code><a class="el" href="classgeom_1_1_subtree_base.html#a91a30c04b434e85965c2de87da51da1e">visit_all_nodes</a>&lt;Key&gt;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Return an iterator over all the subtrees for which <code>test(*subtree, key)</code> returns true. The iterator dereferences to <code>self_t</code>. </p>
+<p>The iterator's sequence finishes on this node's <code><a class="el" href="classgeom_1_1_subtree_base.html#a3e9e0a2b53534bc10d67ab581c1231bb" title="Get last (off-end) child. ">end()</a></code> node. (<code>QueryIterator</code>s and <code><a class="el" href="classgeom_1_1_subtree.html" title="A non-const iterator to a subtree. ">Subtree</a></code> nodes can be compared directly).</p>
+<p><code><a class="el" href="classgeom_1_1_subtree_base.html#a91a30c04b434e85965c2de87da51da1e" title="Convenience test function for query() which returns true on all nodes. ">visit_all_nodes()</a></code> and <code><a class="el" href="classgeom_1_1_subtree_base.html#af3b5378b3df842051b627d640ca0a75e" title="Convenience test function for query() which returns true on all nodes with zero child nodes...">visit_all_leaf_nodes()</a></code> are convenience static member functions of this class which can be passed to <code>test()</code>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bound</td><td>A callable object which accepts a <a class="el" href="classgeom_1_1_subtree.html" title="A non-const iterator to a subtree. ">Subtree</a> as its first argument, and a <code>Key</code> as its second, and returns <code>true</code> if that <a class="el" href="classgeom_1_1_subtree.html" title="A non-const iterator to a subtree. ">Subtree</a> might contain objects which pass <code>test()</code> for that key. Children of Subtrees which do not pass <code>bound()</code> will be skipped. </td></tr>
+    <tr><td class="paramname">test</td><td>A callable object which accepts a <a class="el" href="classgeom_1_1_subtree.html" title="A non-const iterator to a subtree. ">Subtree</a> as its first argument and a <code>Key</code> as its second, and returns <code>true</code> if that <a class="el" href="classgeom_1_1_subtree.html" title="A non-const iterator to a subtree. ">Subtree</a> should be visited by the iterator. If omitted, all nodes which pass <code>bound()</code> will be visited. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a8d86fc897b16f394375e92efbe5c873b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8d86fc897b16f394375e92efbe5c873b">&#9670;&nbsp;</a></span>split()</h2>
 
@@ -889,8 +960,8 @@ class geom::Subtree&lt; NodeItem, LeafItem &gt;</h3>
 
 <p>Split this node into two sibling nodes. </p>
 <p>A new node will be created just before this one, under the same parent, and this node's items will be split between them according to the result of <code>compare(item, pivot)</code>: If the comparison is less than zero, the item will be moved to the left (new) node. Otherwise, it will remain in the right (existing) node.</p>
-<p>The split node must not be the root and must have no children. If either is the case, the tree will not be changed and the off-end node will be returned.</p>
-<p>All iterators to the items under this node are invalidated by this operation, as well as all <code><a class="el" href="classgeom_1_1_subtree_base.html#a3e9e0a2b53534bc10d67ab581c1231bb" title="Get last (off-end) child. ">end()</a></code> <code>item_iterator</code>s.</p>
+<p>The split node must not be the root, must have no children, and must contain at least two items. If any of these is the case, the tree will not be changed and the off-end node will be returned.</p>
+<p>All iterators to the items under this node are invalidated by this operation, as well as potentially any <code><a class="el" href="classgeom_1_1_subtree_base.html#a3e9e0a2b53534bc10d67ab581c1231bb" title="Get last (off-end) child. ">end()</a></code> <code>item_iterator</code>s.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">compare</td><td>A callable object <code>compare(a,b)</code> which accepts a <code>LeafItem</code> as its left argument and a <code>P</code> as its right argument, and returns a signed number (negative for <code>a &lt; b</code>, positive for <code>a &gt; b</code>, zero for equality). </td></tr>
@@ -908,7 +979,7 @@ class geom::Subtree&lt; NodeItem, LeafItem &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 14 2018 01:20:24 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 21 2018 13:29:19 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

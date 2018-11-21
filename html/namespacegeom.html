@@ -200,9 +200,6 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_unique_storage.html">UniqueStorage</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array storage with templated static or dynamic size, and without reference counting.  <a href="structgeom_1_1_unique_storage.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_user_owned_storage.html">UserOwnedStorage</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array storage with templated static or dynamic size, acting as a thin, templated wrapper around a user-owned array.  <a href="structgeom_1_1_user_owned_storage.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_vec.html">Vec</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A tuple of <code>N</code> elements of type <code>T</code>.  <a href="classgeom_1_1_vec.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -214,6 +211,9 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_vec_3_01_t_00_014_01_4.html">Vec&lt; T, 4 &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">4D specialization of vector class.  <a href="classgeom_1_1_vec_3_01_t_00_014_01_4.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_wrapped_storage.html">WrappedStorage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array storage with templated static or dynamic size, acting as a thin, templated wrapper around a bare array which is memory managed by the caller.  <a href="structgeom_1_1_wrapped_storage.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_zonal_harmonics.html">ZonalHarmonics</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a function on the N-sphere with axial symmetry.  <a href="classgeom_1_1_zonal_harmonics.html#details">More...</a><br /></td></tr>
@@ -257,7 +257,7 @@ Enumerations</h2></td></tr>
 <tr class="separator:ga83ac62dcb1fe341318ed1bd351a8ad83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1fe6a0f4b7ba39c90d3d765ca72c3097"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__storage.html#ga1fe6a0f4b7ba39c90d3d765ca72c3097">StoragePolicy</a> { <a class="el" href="group__storage.html#gga1fe6a0f4b7ba39c90d3d765ca72c3097adafde15a161a69ddaf9d3adf0dce835a">STORAGE_SHARED</a>, 
 <a class="el" href="group__storage.html#gga1fe6a0f4b7ba39c90d3d765ca72c3097abd5f1e54776e44d27c9236631b20efbb">STORAGE_UNIQUE</a>, 
-<a class="el" href="group__storage.html#gga1fe6a0f4b7ba39c90d3d765ca72c3097a29deb9cf05b2518c148c18b4b9411c10">STORAGE_USER_OWNED</a>
+<a class="el" href="group__storage.html#gga1fe6a0f4b7ba39c90d3d765ca72c3097a301a2d73dd5ba92eced695a4c51ad94b">STORAGE_WRAPPED</a>
  }</td></tr>
 <tr class="separator:ga1fe6a0f4b7ba39c90d3d765ca72c3097"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
@@ -590,7 +590,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 14 2018 01:20:23 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 21 2018 13:29:18 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

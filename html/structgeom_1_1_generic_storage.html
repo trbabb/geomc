@@ -93,7 +93,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:abd67406f987dc33227c44e9deefd3567"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad535c6cc3957203634cac14b8d553a72"><td class="memItemLeft" align="right" valign="top"><a id="ad535c6cc3957203634cac14b8d553a72"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_generic_storage.html#ad535c6cc3957203634cac14b8d553a72">GenericStorage</a> (index_t n)</td></tr>
-<tr class="memdesc:ad535c6cc3957203634cac14b8d553a72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new array of size <code>n</code>. Not available for user-owned specializations. <br /></td></tr>
+<tr class="memdesc:ad535c6cc3957203634cac14b8d553a72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new array of size <code>n</code>. Not available for wrapped specializations. <br /></td></tr>
 <tr class="separator:ad535c6cc3957203634cac14b8d553a72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac051b2568208e363ae2dffb23c0ad9ba"><td class="memItemLeft" align="right" valign="top"><a id="ac051b2568208e363ae2dffb23c0ad9ba"></a>
 T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_generic_storage.html#ac051b2568208e363ae2dffb23c0ad9ba">get</a> ()</td></tr>
@@ -134,7 +134,7 @@ If the ownership policy is <code>STORAGE_SHARED</code>, then dynamically-sized a
 <li>
 If the ownership policy is <code>STORAGE_UNIQUE</code>, then dynamically-sized arrays will allocate their own memory, and the underlying arrays will be duplicated on copy or assignment. </li>
 <li>
-If the ownership is <code>STORAGE_USER_OWNED</code>, then the array will simply wrap a pointer to user-owned memory, which must be valid for the lifetime of this object, and must contain the minimum number of elements. Duplicates will refer to the same backing memory. No attempt will be made to free the pointer upon destruction. </li>
+If the ownership is <code>STORAGE_WRAPPED</code>, then the array will simply wrap a pointer to caller-managed memory, which must be valid for the lifetime of this object, and must contain the minimum number of elements. Duplicates will refer to the same backing memory. No attempt will be made to free the pointer upon destruction. </li>
 </ul>
 <p><code>#include &lt;<a class="el" href="_storage_8h_source.html">geomc/Storage.h</a>&gt;</code> </p>
 </div><hr/>The documentation for this struct was generated from the following file:<ul>
@@ -143,7 +143,7 @@ If the ownership is <code>STORAGE_USER_OWNED</code>, then the array will simply 
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 14 2018 01:20:24 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 21 2018 13:29:18 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -91,8 +91,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_generic_storage.html">GenericStorage&lt; T, N, P &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array storage with templated static or dynamic size, and template-selectable ownership policy.  <a href="structgeom_1_1_generic_storage.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_user_owned_storage.html">UserOwnedStorage&lt; T, N &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array storage with templated static or dynamic size, acting as a thin, templated wrapper around a user-owned array.  <a href="structgeom_1_1_user_owned_storage.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_wrapped_storage.html">WrappedStorage&lt; T, N &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array storage with templated static or dynamic size, acting as a thin, templated wrapper around a bare array which is memory managed by the caller.  <a href="structgeom_1_1_wrapped_storage.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_small_storage.html">SmallStorage&lt; T, N &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array storage which does not allocate from the heap unless the requested size is larger than a threshhold, <code>N</code>.  <a href="classgeom_1_1_small_storage.html#details">More...</a><br /></td></tr>
@@ -114,7 +114,7 @@ Classes</h2></td></tr>
 Enumerations</h2></td></tr>
 <tr class="memitem:ga1fe6a0f4b7ba39c90d3d765ca72c3097"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__storage.html#ga1fe6a0f4b7ba39c90d3d765ca72c3097">StoragePolicy</a> { <a class="el" href="group__storage.html#gga1fe6a0f4b7ba39c90d3d765ca72c3097adafde15a161a69ddaf9d3adf0dce835a">STORAGE_SHARED</a>, 
 <a class="el" href="group__storage.html#gga1fe6a0f4b7ba39c90d3d765ca72c3097abd5f1e54776e44d27c9236631b20efbb">STORAGE_UNIQUE</a>, 
-<a class="el" href="group__storage.html#gga1fe6a0f4b7ba39c90d3d765ca72c3097a29deb9cf05b2518c148c18b4b9411c10">STORAGE_USER_OWNED</a>
+<a class="el" href="group__storage.html#gga1fe6a0f4b7ba39c90d3d765ca72c3097a301a2d73dd5ba92eced695a4c51ad94b">STORAGE_WRAPPED</a>
  }</td></tr>
 <tr class="separator:ga1fe6a0f4b7ba39c90d3d765ca72c3097"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -137,7 +137,7 @@ Enumerations</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="gga1fe6a0f4b7ba39c90d3d765ca72c3097abd5f1e54776e44d27c9236631b20efbb"></a>STORAGE_UNIQUE&#160;</td><td class="fielddoc"><p>Dynamically-sized storage is assumed to have a single owner, and the underlying array will be duplicated on copy or assignment. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga1fe6a0f4b7ba39c90d3d765ca72c3097a29deb9cf05b2518c148c18b4b9411c10"></a>STORAGE_USER_OWNED&#160;</td><td class="fielddoc"><p>Backing storage is provided and managed by the user. </p>
+<tr><td class="fieldname"><a id="gga1fe6a0f4b7ba39c90d3d765ca72c3097a301a2d73dd5ba92eced695a4c51ad94b"></a>STORAGE_WRAPPED&#160;</td><td class="fielddoc"><p>Backing storage is provided and managed by the caller. </p>
 </td></tr>
 </table>
 
@@ -146,7 +146,7 @@ Enumerations</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 14 2018 01:20:23 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 21 2018 13:29:18 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

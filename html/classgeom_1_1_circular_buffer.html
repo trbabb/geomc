@@ -85,8 +85,13 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a0e64240b5b67c286d3a190407ec3adf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16dcf5ae4a0e4f87e6613c0fb0bdd6b0"><td class="memItemLeft" align="right" valign="top"><a id="a16dcf5ae4a0e4f87e6613c0fb0bdd6b0"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_circular_buffer.html#a16dcf5ae4a0e4f87e6613c0fb0bdd6b0">CircularBuffer</a> (index_t <a class="el" href="classgeom_1_1_circular_buffer.html#a0596b876ff48c08b565dbf152e720f4d">capacity</a>)</td></tr>
-<tr class="memdesc:a16dcf5ae4a0e4f87e6613c0fb0bdd6b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new empty circular buffer, with space for at least <code>capacity</code> items. <br /></td></tr>
+<tr class="memdesc:a16dcf5ae4a0e4f87e6613c0fb0bdd6b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new empty circular buffer, with space  at least <code>capacity</code> items. <br /></td></tr>
 <tr class="separator:a16dcf5ae4a0e4f87e6613c0fb0bdd6b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7ff84e380dd834a1227ea0120603add"><td class="memTemplParams" colspan="2"><a id="ab7ff84e380dd834a1227ea0120603add"></a>
+template&lt;typename InputIterator &gt; </td></tr>
+<tr class="memitem:ab7ff84e380dd834a1227ea0120603add"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_circular_buffer.html#ab7ff84e380dd834a1227ea0120603add">CircularBuffer</a> (InputIterator begin, InputIterator end, index_t count)</td></tr>
+<tr class="memdesc:ab7ff84e380dd834a1227ea0120603add"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new circular buffer containing the items in the range <code>[begin, end)</code>. <br /></td></tr>
+<tr class="separator:ab7ff84e380dd834a1227ea0120603add"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a14e40c6368c6fe921ca0e2e48d68cd27"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_circular_buffer.html#a14e40c6368c6fe921ca0e2e48d68cd27">operator[]</a> (index_t i) const</td></tr>
 <tr class="memdesc:a14e40c6368c6fe921ca0e2e48d68cd27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <code>i</code>th element in the buffer.  <a href="#a14e40c6368c6fe921ca0e2e48d68cd27">More...</a><br /></td></tr>
 <tr class="separator:a14e40c6368c6fe921ca0e2e48d68cd27"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -106,7 +111,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memdesc:ab32da790af34509a87008eacf308e3f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an element to the end of the buffer. <br /></td></tr>
 <tr class="separator:ab32da790af34509a87008eacf308e3f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29596880b19bbfdf89abcf0169cf6201"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_circular_buffer.html#a29596880b19bbfdf89abcf0169cf6201">push_front</a> (const T &amp;t)</td></tr>
-<tr class="memdesc:a29596880b19bbfdf89abcf0169cf6201"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an element to the front of the buffer.  <a href="#a29596880b19bbfdf89abcf0169cf6201">More...</a><br /></td></tr>
+<tr class="memdesc:a29596880b19bbfdf89abcf0169cf6201"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an element to the beginning of the buffer.  <a href="#a29596880b19bbfdf89abcf0169cf6201">More...</a><br /></td></tr>
 <tr class="separator:a29596880b19bbfdf89abcf0169cf6201"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ba3e2ed440bc373fb80e339a2272dff"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_circular_buffer.html#a5ba3e2ed440bc373fb80e339a2272dff">pop_front</a> ()</td></tr>
 <tr class="memdesc:a5ba3e2ed440bc373fb80e339a2272dff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the first element in the buffer.  <a href="#a5ba3e2ed440bc373fb80e339a2272dff">More...</a><br /></td></tr>
@@ -115,6 +120,22 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_circular_buffer.html#a73649441c9e19846aa9da9a2b214e03e">pop_back</a> ()</td></tr>
 <tr class="memdesc:a73649441c9e19846aa9da9a2b214e03e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the element at the end of the buffer. <br /></td></tr>
 <tr class="separator:a73649441c9e19846aa9da9a2b214e03e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55d9a449187445866021859f0cf708d0"><td class="memItemLeft" align="right" valign="top"><a id="a55d9a449187445866021859f0cf708d0"></a>
+T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_circular_buffer.html#a55d9a449187445866021859f0cf708d0">front</a> ()</td></tr>
+<tr class="memdesc:a55d9a449187445866021859f0cf708d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a reference to the item at the beginning of the buffer. <br /></td></tr>
+<tr class="separator:a55d9a449187445866021859f0cf708d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaaf5b079244f03b54d16063ddb010a8f"><td class="memItemLeft" align="right" valign="top"><a id="aaaf5b079244f03b54d16063ddb010a8f"></a>
+const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_circular_buffer.html#aaaf5b079244f03b54d16063ddb010a8f">front</a> () const</td></tr>
+<tr class="memdesc:aaaf5b079244f03b54d16063ddb010a8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a const reference to the item at the beginning of the buffer. <br /></td></tr>
+<tr class="separator:aaaf5b079244f03b54d16063ddb010a8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94c484819f66b605343298653d4b1d07"><td class="memItemLeft" align="right" valign="top"><a id="a94c484819f66b605343298653d4b1d07"></a>
+T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_circular_buffer.html#a94c484819f66b605343298653d4b1d07">back</a> ()</td></tr>
+<tr class="memdesc:a94c484819f66b605343298653d4b1d07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a reference to the item at the end of the buffer. <br /></td></tr>
+<tr class="separator:a94c484819f66b605343298653d4b1d07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b64d468ac7adcedf648ff16ba766b71"><td class="memItemLeft" align="right" valign="top"><a id="a3b64d468ac7adcedf648ff16ba766b71"></a>
+const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_circular_buffer.html#a3b64d468ac7adcedf648ff16ba766b71">back</a> () const</td></tr>
+<tr class="memdesc:a3b64d468ac7adcedf648ff16ba766b71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a const reference to the item at the end of the buffer. <br /></td></tr>
+<tr class="separator:a3b64d468ac7adcedf648ff16ba766b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8bb3912a3ce86b15842e79d0b421204"><td class="memItemLeft" align="right" valign="top"><a id="ac8bb3912a3ce86b15842e79d0b421204"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_circular_buffer.html#ac8bb3912a3ce86b15842e79d0b421204">clear</a> ()</td></tr>
 <tr class="memdesc:ac8bb3912a3ce86b15842e79d0b421204"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty the buffer of all items. <br /></td></tr>
@@ -126,6 +147,7 @@ class geom::CircularBuffer&lt; T, N &gt;</h3>
 
 <p>A lightweight circular buffer. </p>
 <p>A circular buffer can accommodate adding elements to either the front or the back of the list in constant time.</p>
+<p>Furthermore, indexing off the end of the circular buffer wraps around to the beginning again. This works in both directions.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td>Element type. </td></tr>
@@ -159,7 +181,7 @@ class geom::CircularBuffer&lt; T, N &gt;</h3>
 </div><div class="memdoc">
 
 <p>Get the <code>i</code>th element in the buffer. </p>
-<p>Indicies beyond the end of the buffer will wrap around again to the beginning. Negative indices are permitted and count from the end of the buffer. -1 denotes the last element in the buffer. </p>
+<p>Indicies beyond the end of the buffer will wrap around again to the beginning. Negative indices are permitted and count from the end of the buffer, with -1 denoting the last element in the buffer. </p>
 
 </div>
 </div>
@@ -188,7 +210,7 @@ class geom::CircularBuffer&lt; T, N &gt;</h3>
 </div><div class="memdoc">
 
 <p>Get the <code>i</code>th element in the buffer. </p>
-<p>Indicies beyond the end of the buffer will wrap around again to the beginning. Negative indices are permitted and count from the end of the buffer. -1 denotes the last element in the buffer. </p>
+<p>Indicies beyond the end of the buffer will wrap around again to the beginning. Negative indices are permitted and count from the end of the buffer, with -1 denoting the last element in the buffer. </p>
 
 </div>
 </div>
@@ -244,7 +266,7 @@ class geom::CircularBuffer&lt; T, N &gt;</h3>
 </table>
 </div><div class="memdoc">
 
-<p>Add an element to the front of the buffer. </p>
+<p>Add an element to the beginning of the buffer. </p>
 <p>This increases the indices of all the existing elements by one. The new element will have index zero. </p>
 
 </div>
@@ -255,7 +277,7 @@ class geom::CircularBuffer&lt; T, N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 14 2018 01:20:23 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Nov 21 2018 13:29:18 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

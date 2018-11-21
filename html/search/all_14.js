@@ -7,5 +7,7 @@ var searchData=
   ['vec_3c_20t_2c_203_20_3e',['Vec&lt; T, 3 &gt;',['../classgeom_1_1_vec_3_01_t_00_013_01_4.html',1,'geom']]],
   ['vec_3c_20t_2c_204_20_3e',['Vec&lt; T, 4 &gt;',['../classgeom_1_1_vec_3_01_t_00_014_01_4.html',1,'geom']]],
   ['vectorpart',['vectorPart',['../classgeom_1_1_quat.html#a9aedecffef325cf7ed85c8d9d495b1cb',1,'geom::Quat']]],
+  ['visit_5fall_5fleaf_5fnodes',['visit_all_leaf_nodes',['../classgeom_1_1_subtree_base.html#af3b5378b3df842051b627d640ca0a75e',1,'geom::SubtreeBase']]],
+  ['visit_5fall_5fnodes',['visit_all_nodes',['../classgeom_1_1_subtree_base.html#a91a30c04b434e85965c2de87da51da1e',1,'geom::SubtreeBase']]],
   ['volume',['volume',['../classgeom_1_1_rect.html#a4ed7714934c91dbf15da96f2c7d68241',1,'geom::Rect']]]
 ];
