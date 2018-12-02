@@ -23,6 +23,6 @@ var searchData=
   ['projection_5fcontains',['projection_contains',['../classgeom_1_1_simplex.html#a1e53fb0ef759bc0911addbe6f6b6b261',1,'geom::Simplex']]],
   ['pt',['pt',['../classgeom_1_1_grid_iterator.html#a6557d66a1f4b24281a12de0d4e5d9ecd',1,'geom::GridIterator']]],
   ['pts',['pts',['../classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f',1,'geom::Simplex']]],
-  ['push_5fback',['push_back',['../classgeom_1_1_circular_buffer.html#ab32da790af34509a87008eacf308e3f6',1,'geom::CircularBuffer']]],
-  ['push_5ffront',['push_front',['../classgeom_1_1_circular_buffer.html#a29596880b19bbfdf89abcf0169cf6201',1,'geom::CircularBuffer']]]
+  ['push_5fback',['push_back',['../classgeom_1_1_circular_buffer.html#a9de242eb70ab8748d71b1afb6d3d16b8',1,'geom::CircularBuffer']]],
+  ['push_5ffront',['push_front',['../classgeom_1_1_circular_buffer.html#aa5bbba97eb04128ccc28018dda60bef5',1,'geom::CircularBuffer']]]
 ];
