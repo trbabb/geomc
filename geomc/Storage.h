@@ -409,26 +409,32 @@ public:
 #if __cplusplus >= 201103L
     
     /// Move the contents of `other` to a new `SmallStorage`.
-    SmallStorage(SmallStorage<T,N>&& other) : sz(other.sz) {
+    SmallStorage(SmallStorage<T,N>&& other) noexcept : sz(other.sz) {
         if (sz > N) {
             data = other.data;
         } else {
             data = buf;
-            std::copy(other.data, other.data + sz, data);
+            std::copy(
+                std::make_move_iterator(other.data), 
+                std::make_move_iterator(other.data + sz),
+                data);
         }
         other.data = NULL;
         other.sz = 0;
     }
     
     /// Move the contents of `other` to this `SmallStorage`.
-    SmallStorage<T,N>& operator=(SmallStorage<T,N>&& other) {
+    SmallStorage<T,N>& operator=(SmallStorage<T,N>&& other) noexcept {
         if (sz > N and data) delete [] data;
         sz = other.sz;
         if (sz > N) {
             data = other.data;
         } else {
             data = buf;
-            std::copy(other.data, other.data + sz, data);
+            std::copy(
+                std::make_move_iterator(other.data), 
+                std::make_move_iterator(other.data + sz), 
+                data);
         }
         other.data = NULL;
         other.sz = 0;

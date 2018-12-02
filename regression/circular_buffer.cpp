@@ -8,6 +8,9 @@ using namespace geom;
 using namespace std;
 
 
+// todo: validate objects with copy/move/resource destruction semantics
+
+
 template <typename T, index_t N>
 void validate_stepfill(CircularBuffer<T, N>& buf, index_t ct) {
     BOOST_CHECK(buf.size() == ct);

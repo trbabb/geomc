@@ -3,15 +3,11 @@
 
 #include <boost/test/unit_test.hpp>
 #include <geomc/Tree.h>
-#include <geomc/random/RandomTools.h>
+#include <geomc/random/MTRand.h>
 #include <geomc/CircularBuffer.h>
 #include <geomc/shape/Rect.h>
 
-// xxx: this unit test uses randomness. 
-// that is bad. we need to be able to repro a fail consistently.
-// instrument a random seed.
-// also: repeat tests with different seeds to fuzz the code better.
-
+// todo:
 // check different sizes of tree
 // multiple random queries
 // queries that are likely to succeed
@@ -19,12 +15,18 @@
 // check that item count actually matches item count
 //   same with node count
 //   (wrap that into an integrity_check())
+//   rm tree-printing
 // try removing random nodes
 // try emptying a tree by removing random nodes one at a time.
+// try with heap memory objects (e.g. behind a shared_ptr)
 
 
 using namespace geom;
 using namespace std;
+
+#define RANDOM_SEED 493866457312
+
+MTRand rng = MTRand(RANDOM_SEED);
 
 
 inline index_t compare(index_t a, index_t b) {
@@ -52,20 +54,19 @@ void fill_tree(const Subtree<const char*, index_t>& t) {
 
 template <typename T>
 void fill_leaf_with_items(Subtree<T, index_t> subtree, index_t n) {
-    Random* rng = geom::getRandom();
     for (index_t i = 0; i < n; ++i) {
         auto b = subtree.items_begin();
         if (subtree.item_count() > 0) {
-            index_t j = rng->rand(subtree.item_count()); // xxx need to be able to insert at end
+            index_t j = rng.rand(subtree.item_count()); // xxx need to be able to insert at end
             std::advance(b, j);
         }
-        subtree.insert_item(b, rng->rand<index_t>());
+        subtree.insert_item(b, rng.rand<index_t>());
     }
 }
 
 
-char* random_name(Random* rng) {
-    unsigned char i = rng->rand<int>() & 0xff;
+char* random_name() {
+    unsigned char i = rng.rand<int>() & 0xff;
     std::string name = std::to_string(i);
     size_t l = name.length();
     char* s = new char[l + 1];
@@ -76,21 +77,20 @@ char* random_name(Random* rng) {
 
 
 void randomly_place_item(const Subtree<const char*, index_t>& tree) {
-    Random* rng = geom::getRandom();
     if (tree.node_count() > 0) {
         // descend into a random child
         auto child = tree.begin();
-        std::advance(child, rng->rand(tree.node_count()));
+        std::advance(child, rng.rand(tree.node_count()));
         randomly_place_item(child);
     } else if (tree.item_count() > 8) {
         index_t piv  = (*tree.items_end() + *tree.items_begin()) / 2;
-        auto left_c  = tree.insert_child_node(random_name(rng));
-        auto right_c = left_c.split(compare, piv, random_name(rng));
+        auto left_c  = tree.insert_child_node(random_name());
+        auto right_c = left_c.split(compare, piv, random_name());
         // try again
         randomly_place_item(tree);
     } else {
         // place it here.
-        tree.insert_item(rng->rand<index_t>());
+        tree.insert_item(rng.rand<index_t>());
     }
 }
 
@@ -187,10 +187,6 @@ bool bound(Subtree<Rect<index_t, 1>, index_t>& t, index_t s) {
     return t->contains(s);
 }
 
-bool visit_all(Subtree<Rect<index_t, 1>, index_t>& t, index_t s) {
-    return true;
-}
-
 
 void populate_search_tree(Tree<Rect<index_t, 1>, index_t>& tree, index_t n) {
     auto r = tree.root();
@@ -200,7 +196,7 @@ void populate_search_tree(Tree<Rect<index_t, 1>, index_t>& tree, index_t n) {
     split_subtree(r);
     // test a buncha queries
     for (index_t j = 0; j < 200; ++j) {
-        const index_t query_pt = geom::getRandom()->rand<index_t>();
+        const index_t query_pt = rng.rand<index_t>();
         index_t ct = 0;
         for (auto i = r.query(query_pt, bound, bound); i != r.end() and ct < n; ++i, ++ct) {
             auto bnd = **i;
@@ -291,10 +287,9 @@ BOOST_AUTO_TEST_CASE(copy_deep_tree) {
 
 BOOST_AUTO_TEST_CASE(search_tree) {
     Tree<Rect<index_t, 1>, index_t> t;
-    Random* rng = geom::getRandom();
     // fuzz this baby
     for (index_t i = 0; i < 1024; ++i) {
-        populate_search_tree(t, rng->rand<index_t>(200));
+        populate_search_tree(t, rng.rand<index_t>(200));
         t.root().clear();
         BOOST_CHECK_EQUAL(t.size(), 1);
         BOOST_CHECK_EQUAL(t.item_count(), 0);
