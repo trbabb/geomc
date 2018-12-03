@@ -250,7 +250,7 @@ public:
     
     template <typename Md>
     static bool inv(Md *into, const geom::DiagMatrix<T,M,N>& m) {
-        into->setZero(); // for newly allocated matrices, redundant. oh well.
+        into->set_zero(); // for newly allocated matrices, redundant. oh well.
         T *p = m.diagonal_begin();
         for (index_t i = 0; p != m.diagonal_end(); ++i, ++p) {
             T elem = *p;

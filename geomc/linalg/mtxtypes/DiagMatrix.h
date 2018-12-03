@@ -64,7 +64,7 @@ public:
                      data(diag) {
         Dimension<M>::set(n_rows, nrows);
         Dimension<N>::set(n_cols, ncols);
-        setIdentity(); 
+        set_identity(); 
     }
 #endif
     
@@ -103,11 +103,11 @@ public:
         return (r == c) ? data.get()[r] : (T(0));
     }
 
-    void setIdentity() {
+    void set_identity() {
         std::fill(data.get(), data.get() + diag, 1);
     }
     
-    inline void setZero() {
+    inline void set_zero() {
         std::fill(data.get(), data.get() + diag, 0);
     }
     

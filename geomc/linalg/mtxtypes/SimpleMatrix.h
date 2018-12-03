@@ -244,7 +244,7 @@ protected:
             data(nrows * ncols) {
         Dimension<M>::set(n_rows, nrows);
         Dimension<N>::set(n_cols, ncols);
-        setIdentity();
+        set_identity();
     }
 
 public:
@@ -388,8 +388,8 @@ public:
     /**
      * Clear this matrix and set its elements to the identity matrix.
      */
-    void setIdentity() {
-        setZero();
+    void set_identity() {
+        set_zero();
         T *last = end();
         for (T *p = begin(); p < last; p += cols() + 1) {
             *p = 1;
@@ -399,7 +399,7 @@ public:
     /**
      * Set all the elements of this matrix to zero.
      */
-    inline void setZero() {
+    inline void set_zero() {
         std::fill(begin(), end(), 0);
     }
     

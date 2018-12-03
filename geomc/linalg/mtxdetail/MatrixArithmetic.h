@@ -69,7 +69,7 @@ struct _ImplMatrixAdd < DiagMatrix<T,M,N>, DiagMatrix<S,J,K> > {
     
     template <typename Md>
     static void add(Md *dest, const Ma &a, const Mb &b) {
-        dest->setZero();
+        dest->set_zero();
         const index_t diag = std::min(a.rows(), a.cols());
         
         const T *a_i = a.diagonal_begin();
@@ -81,7 +81,7 @@ struct _ImplMatrixAdd < DiagMatrix<T,M,N>, DiagMatrix<S,J,K> > {
     
     template <typename Md>
     static void sub(Md *dest, const Ma &a, const Mb &b) {
-        dest->setZero();
+        dest->set_zero();
         const index_t diag = std::min(a.rows(), a.cols());
         
         const T *a_i = a.diagonal_begin();
@@ -92,7 +92,7 @@ struct _ImplMatrixAdd < DiagMatrix<T,M,N>, DiagMatrix<S,J,K> > {
     }
     
     // diagonal destination
-    // (save a setZero, and use bare pointers).
+    // (save a set_zero, and use bare pointers).
     
     template <typename U, index_t P, index_t Q>
     static void add(DiagMatrix<U,P,Q> *dest, const Ma &a, const Mb &b) {
@@ -169,7 +169,7 @@ struct _ImplMatrixScale < DiagMatrix<T,M,N> > {
     
     template <typename Md, typename U>
     static void scale(Md *d, U k, const DiagMatrix<T,M,N> &m) {
-        d->setZero();
+        d->set_zero();
         const index_t diag = std::min(m.rows(), m.cols());
         const T *m_i = m.diagonal_begin();
         for (index_t i = 0; i < diag; ++i, ++m_i) {

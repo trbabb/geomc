@@ -104,7 +104,7 @@ public:
      * Construct a new identity permutation matrix.
      */
     PermutationMatrix() {
-        setIdentity();
+        set_identity();
     }
     
     /**
@@ -112,7 +112,7 @@ public:
      * (Dynamic only).
      */
     explicit PermutationMatrix(index_t n):parent_t(n) {
-        setIdentity();
+        set_identity();
     }
     
     //////////// methods ////////////
@@ -356,7 +356,7 @@ public:
     /**
      * Reset this matrix to the identity permutation. 
      */
-    void setIdentity() {
+    void set_identity() {
         index_t *i0 = parent_t::getSrcData();
         index_t *i1 = parent_t::getDstData();
         for (index_t i = 0; i < rows(); i++) {

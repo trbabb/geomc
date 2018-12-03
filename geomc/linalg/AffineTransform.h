@@ -336,7 +336,7 @@ namespace geom {
         
         // handle poles
         if (std::abs(c) == 1) {
-            into->setIdentity();
+            into->set_identity();
             if (c < 0) { into->set(0,0,-1); into->set(2,2,-1); }
             return;
         }
@@ -361,7 +361,7 @@ namespace geom {
         
         // handle poles
         if (std::abs(c) == 1) {
-            into->setIdentity();
+            into->set_identity();
             if (c < 0) { into->set(0,0,-1); into->set(2,2,-1); }
             return;
         }

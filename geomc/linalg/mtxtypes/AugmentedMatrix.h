@@ -101,16 +101,16 @@ public:
         return reference(this, r, c);
     }
 
-    void setIdentity() {
-        setZero();
+    void set_identity() {
+        set_zero();
         for (index_t i = 0; i < std::min(rows(), cols()); i++) {
             set(i,i,1);
         }
     }
     
-    inline void setZero() {
-        mtx_a->setZero();
-        mtx_b->setZero();
+    inline void set_zero() {
+        mtx_a->set_zero();
+        mtx_b->set_zero();
     }
     
     inline void getStorageIDs(storage_id_t *buf) const {

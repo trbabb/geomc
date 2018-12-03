@@ -53,8 +53,8 @@ public:
     virtual index_t   cols() const = 0;
     virtual T         get(index_t r, index_t c) const = 0;
     virtual reference set(index_t r, index_t c, T val) = 0;
-    virtual void      setIdentity() = 0;
-    virtual void      setZero() = 0;
+    virtual void      set_identity() = 0;
+    virtual void      set_zero() = 0;
     
     virtual void      getStorageIDs(storage_id_t *buf) const = 0;
     virtual index_t   getStorageIDCount() const = 0;
@@ -85,12 +85,12 @@ public:
         return reference(this,r,c);
     }
     
-    virtual void setIdentity() {
-        m->setIdentity();
+    virtual void set_identity() {
+        m->set_identity();
     }
     
-    virtual void setZero() {
-        m->setZero();
+    virtual void set_zero() {
+        m->set_zero();
     }
     
     virtual index_t rows() const {

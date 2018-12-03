@@ -39,8 +39,8 @@ class CircularBuffer {
     // We manage our own static/dynamic buffer instead of delegating to SmallStorage
     // because we need to manage the liveness of the elements in the buffer.
     // A SmallStorage<storage_t> won't properly call move, copy, or assignment
-    // operators because storage_t hides the overlying class, and of course does
-    // not know which items are live.
+    // operators because storage_t hides the overlying class, and of course 
+    // SmallStorage does not know which items are live.
     
     storage_t  _buf[N];
     storage_t* _data;
@@ -119,7 +119,7 @@ public:
         for (index_t i = 0; i < size(); ++i) {
             item(i)->~T();
         }
-        if (_capacity > N) {
+        if (_capacity > N and _capacity > 0) {
             delete [] _data;
             _capacity = 0;
             _data = nullptr;

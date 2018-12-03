@@ -119,7 +119,7 @@ public:
     static void mul(Md *d, const geom::DiagMatrix<T,L,M1> &a, const geom::DiagMatrix<T,M2,N> &b) {
         T *pa = a.diagonal_begin();
         T *pb = b.diagonal_begin();
-        d->setZero();
+        d->set_zero();
         //xxx I think this is right? do this on paper.
         for (index_t i = 0; i < a.rows(); ++i, ++pa, ++pb) {
             d->set(i, i, (*pa) * (*pb));
@@ -246,7 +246,7 @@ public:
         const index_t *d_a = a.getRowDestinations();
         const index_t *d_b = b.getRowDestinations();
         
-        d->setZero();
+        d->set_zero();
         for (index_t i = 0; i < a.rows(); i++) {
             d->set(i, d_a[d_b[i]], 1);
         }
