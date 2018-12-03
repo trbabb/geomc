@@ -39,7 +39,8 @@ class CircularBuffer {
     // We manage our own static/dynamic buffer instead of delegating to SmallStorage
     // because we need to manage the liveness of the elements in the buffer.
     // A SmallStorage<storage_t> won't properly call move, copy, or assignment
-    // operators because storage_t hides the overlying class.
+    // operators because storage_t hides the overlying class, and of course does
+    // not know which items are live.
     
     storage_t  _buf[N];
     storage_t* _data;
@@ -91,7 +92,7 @@ public:
     }
     
     /// Move the contents of `other` to a new CircularBuffer
-    CircularBuffer(const CircularBuffer<T,N>&& other):
+    CircularBuffer(CircularBuffer<T,N>&& other):
             _data((other._capacity > N) ? other._data : _buf),
             _capacity(other._capacity),
             _head((other._capacity > N) ? other._head : 0),
@@ -113,7 +114,7 @@ public:
         other._head = 0;
     }
     
-    /// Destroy this buffer and all the items within.
+    // Destroy this buffer and all the items within.
     virtual ~CircularBuffer() {
         for (index_t i = 0; i < size(); ++i) {
             item(i)->~T();
@@ -131,21 +132,24 @@ public:
         index_t old_size = size();
         index_t new_size = other.size();
         index_t n = std::min(old_size, new_size);
-        ensure_capacity(n);
+        ensure_capacity(other._size);
         // delegate assignment to T
         for (index_t i = 0; i < n; ++i) {
             this->operator[](i) = other[i];
         }
-        // copy-construct
-        for (index_t i = n; i < new_size - n; ++i) {
-            T* p = get() + (_head + i) % capacity();
+        // copy-construct new items
+        for (index_t i = n; i < new_size; ++i) {
+            T* p = item(i);
             new (p) T(other[i]);
         }
-        // destroy extras
+        // destroy extra items
         for (index_t i = n; i < old_size; ++i) {
-            T* p = get() + (_head + i) % capacity();
+            T* p = item(i);
             p->~T();
         }
+        _size = other._size;
+        
+        return *this;
     }
     
     /// Move the contents of `other` to this buffer
@@ -164,7 +168,7 @@ public:
             _data     = other._data;
             _capacity = other._capacity;
             // turn `other` back into a static buffer
-            other._data = other._buf;
+            other._data     = other._buf;
             other._capacity = N;
         } else {
             // `other`'s array cannot be moved; copy items instead.
@@ -178,9 +182,12 @@ public:
                 other.operator[](i).~T();
             }
         }
+        
         _size = other._size;
         other._size = 0;
         other._head = 0;
+        
+        return *this;
     }
     
     /**
@@ -324,10 +331,9 @@ protected:
     
     // check if a memory reallocation is necessary, and do so if needed.
     void ensure_capacity(index_t new_size) {
-        const index_t n = capacity();
-        if (new_size >= n) {
-            index_t resize_to = std::max(n * 2, new_size);
-            storage_t* array = new storage_t[resize_to];
+        if (new_size > _capacity) {
+            index_t resize_to = std::max(_capacity * 2, new_size);
+            storage_t* array  = new storage_t[resize_to];
             
             // move the items into the new array
             for (index_t i = 0; i < _size; ++i) {
