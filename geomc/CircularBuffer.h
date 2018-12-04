@@ -344,6 +344,10 @@ protected:
                 item(i)->~T();
             }
             
+            if (_capacity > N) {
+                delete [] _data;
+            }
+            
             _data = array;
             _head = 0;
             _capacity = resize_to;
