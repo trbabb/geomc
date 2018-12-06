@@ -225,11 +225,12 @@ public:
     }
     
     /// Add an element to the end of the buffer.
-    inline void push_back(T&& t) {
+    template <typename U> // templated so that we can deduce and collapse lvalues
+    inline void push_back(U&& t) {
         ensure_capacity(_size + 1);
         T* p = item(_size);
         // placement new, using move semantics if applicable:
-        new (p) T(std::forward<T>(t));
+        new (p) T(std::forward<U>(t));
         _size += 1;
     }
     
@@ -239,12 +240,13 @@ public:
      * This increases the indices of all the existing elements by one.
      * The new element will have index zero.
      */
-    inline void push_front(T&& t) {
+    template <typename U> // templated so that we can deduce and collapse lvalues
+    inline void push_front(U&& t) {
         ensure_capacity(_size + 1);
         const index_t n = capacity();
         _head = (_head + n - 1) % n; 
         // placement new, using move semantics if applicable:
-        new (get() + _head) T(std::forward<T>(t));
+        new (get() + _head) T(std::forward<U>(t));
         _size += 1;
     }
     
