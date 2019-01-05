@@ -82,7 +82,7 @@ public:
     CircularBuffer(const CircularBuffer<T,N>& other):
             _data((other._size > N) ? (new storage_t[other._capacity]) : _buf),
             _capacity(std::max(other._capacity, N)),
-            _head(other._head),
+            _head(0),
             _size(other._size) {
         // copy-construct the populated items:
         for (index_t i = 0; i < _size; ++i) {
@@ -158,7 +158,6 @@ public:
         for (index_t i = 0; i < _size; ++i) {
             item(i)->~T();
         }
-        _head = 0;
         if (other._capacity > N) {
             // `other` has a dynamic array, just take ownership of it
             if (_capacity > N) {
@@ -167,6 +166,7 @@ public:
             }
             _data     = other._data;
             _capacity = other._capacity;
+            _head     = other._head;
             // turn `other` back into a static buffer
             other._data     = other._buf;
             other._capacity = N;
@@ -174,6 +174,7 @@ public:
             // `other`'s array cannot be moved; copy items instead.
             // we do not need to ensure_capacity(), obviously, because _size < N.
             // if we have space for more than N, that's fine too.
+            _head = 0;
             for (index_t i = 0; i < other._size; ++i) {
                 T* p = get() + i;
                 // move-construct a new item in our own buffer

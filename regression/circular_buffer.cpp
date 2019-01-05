@@ -11,8 +11,6 @@ using namespace std;
 
 
 // todo: validate item objects with copy/move/resource destruction semantics
-// todo: validate that this class itself is a good citizen when it comes to 
-//       destruction/move/copy.
 
 
 template <typename T, index_t N>
@@ -61,12 +59,21 @@ void exercise(CircularBuffer<T, N>& buf, index_t ct) {
     BOOST_CHECK_EQUAL(removed, ct);
 }
 
+
 template <typename T, index_t N>
 void exercise_copy_and_move(index_t ct) {
     CircularBuffer<T, N> buf0;
     CircularBuffer<T, N> buf1;
     
     // stepfill
+    for (index_t i = 0; i < ct; ++i) {
+        buf0.push_back((i + 1) * 10);
+    }
+    validate_stepfill(buf0, ct);
+    
+    // manually empty it
+    while (buf0.size() > 0) { buf0.pop_front(); }
+    // stepfill again, but with the head somewhere in the middle
     for (index_t i = 0; i < ct; ++i) {
         buf0.push_back((i + 1) * 10);
     }
