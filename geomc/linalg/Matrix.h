@@ -803,7 +803,6 @@ typename boost::enable_if_c<
 >::type 
 scale(Md *d, U k, const Mx &m) {
     typedef detail::_ImplMatrixScale<Mx> scale_t;
-    typedef typename scale_t::return_t return_t;
 #ifdef GEOMC_MTX_CHECK_DIMS
     detail::MatrixDimensionMatch<Mx,Md>::check(m,*d);
 #endif
@@ -928,6 +927,39 @@ template <typename Ma, typename Mb>
 inline typename detail::MatrixMultReturnType<Ma,Mb>::return_t
 operator*(const Ma &a, const Mb &b) {
     return mul<Ma,Mb>(a, b);
+}
+
+
+/**
+ * matrix *= diagonal matrix
+ *
+ * A matrix `m` is multiplied by diagonal matrix `d`.
+ *
+ * In this case, multiplication is efficient and memory allocation is avoided,
+ * even in the case where `m` and `d` alias.
+ */
+#ifdef PARSING_DOXYGEN
+template <typename Matix, T, M, N>
+Matrix& operator*=(Matrix& m, const DiagMatrix<T,M,N>& d) {}
+#endif
+template <typename Mx, typename T, index_t M, index_t N>
+typename boost::enable_if_c<
+        detail::MatrixMultipliable< Mx, DiagMatrix<T,M,N> >::val,
+        Mx&>::type
+operator*=(Mx& m, const DiagMatrix<T,M,N>& d) {
+    
+    // check dims, if required
+#ifdef GEOMC_MTX_CHECK_DIMS
+    if ((Mx::COLDIM == 0 or M == 0) and (m.cols() != d.rows())) {
+        throw DimensionMismatchException(m.rows(), m.cols(), d.rows(), d.cols());
+    }
+#endif
+    
+    // diagonal matrixes don't care if they alias; there is
+    // no simultaneous element access.
+    // if `m` is also a diagmatrix, this is just an efficient elementwise mult.
+    detail::_ImplMtxMul< Mx, DiagMatrix<T,M,N> >::mul(&m, m, d);
+    return m;
 }
 
 /**

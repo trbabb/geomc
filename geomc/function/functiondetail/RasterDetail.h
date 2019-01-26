@@ -66,8 +66,7 @@ public:
 // perform the simple substitution transformtaion
 // applied here. therefore we make a fuckton of 
 // opaque helper classes, one for pretty much every 
-// single member function. fuck me. 
-// fuck c++. fuck bjarne stroustrup.
+// single member function.
 
 /*************************
  * Sampling behaviors    *
@@ -105,7 +104,7 @@ public:
         coord_t s = pt - ((coord_t)gridPt);
         
         // copy surrounding 2^N sample pts into a contiguous buffer
-        r->template copy<Edge>(buf, Rect<int,N>(gridPt, gridPt + grid_t(1)));
+        r->template copy<Edge>(buf, Rect<typename grid_t::elem_t, N>(gridPt, gridPt + grid_t(1)));
         
         return interp_linear(PointType<I,N>::iterator(s), buf, N);
     }
@@ -124,7 +123,7 @@ public:
         coord_t s = pt - ((coord_t)gridPt);
         
         // copy surrounding 4^N sample pts into a contiguous buffer
-        r->template copy<Edge>(buf, Rect<int,N>(gridPt - grid_t(1), gridPt + grid_t(2)));
+        r->template copy<Edge>(buf, Rect<typename grid_t::elem_t, N>(gridPt - grid_t(1), gridPt + grid_t(2)));
         
         return interp_cubic(PointType<I,N>::iterator(s), buf, N);
     }
@@ -141,7 +140,7 @@ public:
     static inline index_t index(const grid_t &extent, const grid_t &c) {
         index_t dim = 1;
         index_t idx = 0;
-        for (int i = 0; i < N; i++){
+        for (index_t i = 0; i < N; i++){
             index_t x = detail::_ImplEdge<Edge>::coord(c[i], extent[i]);
             idx += x*dim;
             dim *= extent[i];

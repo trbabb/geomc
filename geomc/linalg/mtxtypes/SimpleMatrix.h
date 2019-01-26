@@ -484,7 +484,7 @@ public:
                 parent_t(nrows, ncols, src_data) {}
 
 
-};  // class SimpleMatrix <..., USER_OWNER>
+};  // class SimpleMatrix <..., STORAGE_WRAPPED>
 
 
 #endif

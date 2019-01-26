@@ -31,9 +31,8 @@
 // todo: min() and max() were functions returning point_t and I don't know why.
 //       refactor to expose member vars?
 // todo: add specializations with c calls to permit nextafter() to work in <= c++03
-// done: Consider making the comparison be >= and <= in all cases.
 
-// using <= and >= is inconsistent with half-open interval convention, but
+// using <= and >= is inconsistent with half-open interval convention, but:
 // - union of rect with a point should thereafter contain the point
 // - with a half-open interval, we'd need to "increment" the upper bound
 //   to contain p

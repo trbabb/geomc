@@ -131,6 +131,15 @@ namespace geom {
             return *this;
         }
         
+        /// Cast elements to a different type.
+        template <typename U>
+        explicit operator AffineTransform<U,N>() const {
+            AffineTransform<U,N> xf;
+            std::copy(mat.begin(), mat.end(), xf.mat.begin());
+            std::copy(inv.begin(), inv.end(), xf.inv.begin());
+            return xf;
+        }
+        
 #ifdef GEOMC_LINALG_USE_STREAMS
         friend std::ostream &operator<<(std::ostream &stream, const AffineTransform<T,N> xf) {
             stream << xf.mat;
@@ -245,8 +254,8 @@ namespace geom {
 
     template <typename T> 
     void rotmat(SimpleMatrix<T,4,4> *into, T x, T y, T z, T theta) {
-        T c = cos(theta);
-        T s = sin(theta);
+        T c = std::cos(theta);
+        T s = std::sin(theta);
         T oneMcos = 1 - c;
         T m[4][4] = {
                 {c + oneMcos*x*x,        oneMcos*x*y - s*z,      oneMcos*x*z + s*y, 0},
@@ -300,8 +309,8 @@ namespace geom {
                 T x,  T y,  T z, 
                 T px, T py, T pz, 
                 T theta) {
-        T c = cos(theta);
-        T s = sin(theta);
+        T c = std::cos(theta);
+        T s = std::sin(theta);
         T oneMcos = 1 - c;
         T x2 = x*x;
         T y2 = y*y;
@@ -383,8 +392,8 @@ namespace geom {
                 T x,  T y,  T z, 
                 T px, T py, T pz, 
                 T theta) {
-        T c = cos(theta);
-        T s = sin(theta);
+        T c = std::cos(theta);
+        T s = std::sin(theta);
         T oneMcos = 1 - c;
         T x2 = x*x;
         T y2 = y*y;
@@ -494,8 +503,8 @@ namespace geom {
     template <typename T> 
     AffineTransform<T,2> rotation(T radians) {
         AffineTransform<T,2> xfnew;
-        T s = sin(radians);
-        T c = cos(radians);
+        T s = std::sin(radians);
+        T c = std::cos(radians);
         
         xfnew.mat.set(0,0, c);
         xfnew.mat.set(0,1,-s);

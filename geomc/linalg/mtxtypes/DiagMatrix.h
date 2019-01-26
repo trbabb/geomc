@@ -79,7 +79,8 @@ public:
 #else
     DiagMatrix(const T src[], 
                index_t n=detail::DefinedIf<M * N != DYNAMIC_DIM, (M < N ? M : N)>::value) :
-                   diag(n) {
+                   diag(n),
+                   data(diag) {
         Dimension<M>::set(n_rows, n);
         Dimension<N>::set(n_cols, n);
         std::copy(src, src + n, data.get());
@@ -165,6 +166,7 @@ public:
         return 1;
     }
 };
+
 
 }; // end namespace geom
 

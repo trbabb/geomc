@@ -445,7 +445,8 @@ namespace detail {
          * 
          * @return A new vector with all elements cast to type `U`.
          */
-        template <typename U> operator Vec<U,N>() const {
+        template <typename U> 
+        explicit operator Vec<U,N>() const {
             Vec<U,N> r;
             for (index_t i = 0; i < N; i++) {
                 r[i] = (U)(this->get(i));
