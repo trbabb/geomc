@@ -193,6 +193,10 @@ namespace detail {
         static inline T mag(const point_t &p) {
             return p.mag();
         }
+        
+        static inline T dot(const point_t& p0, const point_t& p1) {
+            return p0.dot(p1);
+        }
     };
 
     template <typename T>
@@ -221,6 +225,10 @@ namespace detail {
         
         static inline T mag(const point_t &p) {
             return p;
+        }
+        
+        static inline T dot(const point_t& p0, const point_t& p1) {
+            return p0 * p1;
         }
     };
     

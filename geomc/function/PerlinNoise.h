@@ -35,9 +35,10 @@ public:
     
     // define the grid type to be at least large enough to represent all
     // the integral values that can be represented by point_t.
-    // typedef typename PointType<typename boost::int_t<std::numeric_limits<T>::digits>::fast,N>::point_t grid_t;
-    typedef typename PointType<index_t,N>::point_t grid_t;
-    typedef typename PointType<T,N>::point_t point_t;
+    typedef PointType<index_t,N>        gridtype;
+    typedef PointType<T,N>              pointtype;
+    typedef typename gridtype::point_t  grid_t;
+    typedef typename pointtype::point_t point_t;
     
     /**********************************
      * Structors                      *
@@ -78,10 +79,10 @@ public:
         for (index_t c = 0; c < corners; c++) {
             grid_t cPt;
             for (index_t axis = 0; axis < N; axis++) {
-                cPt[axis] = (c & (1 << axis)) != 0;
+                gridtype::iterator(cPt)[axis] = (c & (1 << axis)) != 0;
             }
             const point_t &grid_grad = get_grid_gradient(p0 + cPt);
-            planeVals[c] = (p_modulus - (point_t)cPt).dot(grid_grad);
+            planeVals[c] = pointtype::dot((p_modulus - (point_t)cPt), grid_grad);
         }
         
         for (index_t axis = 0; axis < N; axis++) {
@@ -110,8 +111,8 @@ public:
         //central difference method
         for (index_t axis = 0; axis < N; axis++) {
             point_t dx;
-            dx[axis] = PERLIN_EPSILON;
-            g[axis] = eval(pt + dx) - eval(pt - dx);
+            pointtype::iterator(dx)[axis] = PERLIN_EPSILON;
+            pointtype::iterator(g)[axis]  = eval(pt + dx) - eval(pt - dx);
         }
         return g;
     }
@@ -121,7 +122,7 @@ protected:
     inline const point_t& get_grid_gradient(const grid_t &pt) {
         index_t idx = 0;
         for (index_t axis = 0; axis < N; axis++) {
-            idx = p[(idx + pt[axis]) & ((index_t)PERLIN_MODULO_MASK)];
+            idx = p[(idx + gridtype::iterator(pt)[axis]) & ((index_t)PERLIN_MODULO_MASK)];
         }
         return gradients[idx];
     }

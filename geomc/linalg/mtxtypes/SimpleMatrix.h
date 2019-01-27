@@ -20,6 +20,7 @@
 #define SIMPLEMATRIX_H_
 
 #include <boost/utility/enable_if.hpp>
+#include <geomc/Storage.h>
 #include <geomc/linalg/mtxdetail/MatrixBase.h>
 #include <geomc/linalg/mtxdetail/MatrixCopy.h>
 
@@ -375,13 +376,40 @@ public:
     }
     
     /**
-     * In-place transpose this matrix.
+     * Transpose this matrix.
+     *
+     * If this is a square matrix, the transpose happens in-place.
+     *
+     * If this is a nonsquare matrix, the matrix is transposed using a temporary buffer. In this case,
+     * both dimensions must be dynamic.
+     *
+     * If this matrix has static dimensions which are unequal, the matrix cannot be transposed and
+     * this function has no effect.
      */
     void transpose() {
-        for (int r = 0; r < rows(); r++) {
-            for (int c = 0; c < r; c++) {
-                std::swap(get(r,c), get(c,r));
+        if (M == N or rows() == cols()) {
+            for (index_t r = 0; r < rows(); r++) {
+                for (index_t c = 0; c < r; c++) {
+                    std::swap(get(r,c), get(c,r));
+                }
             }
+        } else if (M == 0 and N == 0) {
+            // todo: someday: there are nonsquare matrix in-place transpose algorithms
+            
+            // here we use stack memory for matrices 6x6 and smaller:
+            SmallStorage<T,36> buf(rows() * cols());
+            WrapperMatrix<T,N,M> tmp(buf.get(), cols(), rows());
+            
+            // transpose
+            for (index_t r = 0; r < rows(); ++r) {
+                for (index_t c = 0; c < cols(); ++c) {
+                    tmp.set(c, r, get(r,c));
+                }
+            }
+            // copy back and adjust our dimensions:
+            std::copy(tmp.begin(), tmp.end(), begin());
+            Dimension<M>::set(n_rows, tmp.rows());
+            Dimension<N>::set(n_cols, tmp.cols());
         }
     }
 
