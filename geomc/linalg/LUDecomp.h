@@ -12,34 +12,6 @@
 
 namespace geom {
 
-namespace detail {
-
-    template <typename T, bool RowMajor>
-    struct MxWrap {
-
-        T* m;
-        index_t rows;
-        index_t cols;
-
-        inline T& elem(index_t r, index_t c) {
-            return m[cols * r + c];
-        }
-    };
-
-    template <typename T>
-    struct MxWrap<T, false> {
-
-        T* m;
-        index_t rows;
-        index_t cols;
-
-        inline T& elem(index_t r, index_t c) {
-            return m[rows * c + r];
-        }
-    };
-    
-}
-
 
 /** @ingroup linalg
  *  @{
@@ -74,7 +46,7 @@ index_t decompLUP(T* m, index_t rows, index_t cols, index_t* reorder, bool* swap
     for (index_t i = 0; i < cols; i++){
         reorder[i] = i;
     }
-
+    
     detail::MxWrap<T,RowMajor> mx = {m, rows, cols};
     
     for (index_t i = 0; i < n - 1; i++) {
@@ -110,11 +82,13 @@ index_t decompLUP(T* m, index_t rows, index_t cols, index_t* reorder, bool* swap
         T a = mx.elem(i,i);
         for (index_t r = i + 1; r < rows; r++) {
             T b = mx.elem(r,i) / a;
-            for (index_t c = i + 1; c < cols; c++) {
-                // R_r = R_r - b * R_i
-                T src_elem = mx.elem(i,c);
-                T dst_elem = mx.elem(r,c);
-                mx.elem(r,c) = dst_elem - b * src_elem;
+            if (b != 0) {
+                for (index_t c = i + 1; c < cols; c++) {
+                    // R_r = R_r - b * R_i
+                    T src_elem = mx.elem(i,c);
+                    T dst_elem = mx.elem(r,c);
+                    mx.elem(r,c) = dst_elem - b * src_elem;
+                }
             }
             // set the lower matrix
             mx.elem(r,i) = b;
@@ -185,11 +159,13 @@ index_t decompPLU(T* m, index_t rows, index_t cols, index_t* reorder, bool* swap
         T a = mx.elem(i,i);
         for (index_t r = i + 1; r < rows; r++) {
             T b = mx.elem(r,i) / a;
-            for (index_t c = i + 1; c < cols; c++) {
-                // R_r = R_r - b * R_i
-                T src_elem = mx.elem(i,c);
-                T dst_elem = mx.elem(r,c);
-                mx.elem(r,c) = dst_elem - b * src_elem;
+            if (b != 0) {
+                for (index_t c = i + 1; c < cols; c++) {
+                    // R_r = R_r - b * R_i
+                    T src_elem = mx.elem(i,c);
+                    T dst_elem = mx.elem(r,c);
+                    mx.elem(r,c) = dst_elem - b * src_elem;
+                }
             }
             // set the lower matrix
             mx.elem(r,i) = b;

@@ -23,6 +23,38 @@ typedef Rect<index_t,2> MatrixRegion;
 typedef Vec<index_t,2>  MatrixCoord;
 
 namespace detail {
+    
+/****************************************************
+ * Matrix indexing helper                           *
+ *                                                  *
+ * Indexes (row, col) into a bare array, statically *
+ * assuming either row or column major arrangement. *
+ ****************************************************/
+    
+template <typename T, bool RowMajor>
+struct MxWrap {
+
+    T* m;
+    index_t rows;
+    index_t cols;
+
+    inline T& elem(index_t r, index_t c) {
+        return m[cols * r + c];
+    }
+};
+
+template <typename T>
+struct MxWrap<T, false> {
+
+    T* m;
+    index_t rows;
+    index_t cols;
+
+    inline T& elem(index_t r, index_t c) {
+        return m[rows * c + r];
+    }
+};
+
 
 /****************************************************
  * Conditional template helper                      *

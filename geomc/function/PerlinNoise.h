@@ -86,7 +86,8 @@ public:
         }
         
         for (index_t axis = 0; axis < N; axis++) {
-            T t = fade(p_modulus[axis]); //interpolation parameter
+            T z = pointtype::iterator(p_modulus)[axis];
+            T t = fade(z); //interpolation parameter
             for (index_t pair = 0; pair < (1 << (N-axis-1)); pair++) {
                 planeVals[pair] = mix(t, planeVals[pair*2], planeVals[pair*2+1]);
             }
