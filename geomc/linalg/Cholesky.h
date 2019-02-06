@@ -7,6 +7,7 @@
 //   also optimize addition / multiplication / inversion / det / etc.
 //   also author a square(&symm, mtx) function to compute M * M^T into a symm. mtx
 //     (and work all of the above into Kalman filter).
+// todo: consider also a Triangular matrix class.
 
 namespace geom {
 
@@ -19,7 +20,7 @@ namespace geom {
  * producing a lower-triangular matrix `M` such that `(M * M`<sup>T</sup>`) = A`.
  *
  * @tparam T Element type.
- * @tparam RowMajor Whether the elements in `m` are arranged in row-major or column-major order.
+ * @tparam RowMajor Whether the elements in `m` are arranged in row-major (true) or column-major (false) order.
  * @param m The elements of the matrix to be decomposed.
  * @param n The number of rows/columns in the matrix to be decomposed.
  * @return True if the decomposition could be completed; false if the matrix was ill-conditioned.
@@ -31,7 +32,7 @@ bool cholesky(T* m, index_t n) {
     for (index_t r = 0; r < n; ++r) {
         for (index_t c = 0; c <= r; ++c) {
             T s = mx.elem(r, c);
-            for (index_t k = 0; k < r; ++k) {
+            for (index_t k = 0; k < c; ++k) {
                 s -= mx.elem(r, k) * mx.elem(c, k);
             }
             if (r == c) {
@@ -63,10 +64,10 @@ bool cholesky(SimpleMatrix<T,M,N>* m);
 template <typename T, index_t M, index_t N, StoragePolicy P>
 inline typename boost::enable_if_c<M == N or M * N == 0, bool>::type
 cholesky(SimpleMatrix<T,M,N,P>* m) {
-    if (M * N == 0 and m.rows() != m.cols()) {
+    if (M * N == 0 and m->rows() != m->cols()) {
         return false;
     }
-    return cholesky<T,true>(m.begin(), m.rows());
+    return cholesky<T,true>(m->begin(), m->rows());
 }
 #endif
 

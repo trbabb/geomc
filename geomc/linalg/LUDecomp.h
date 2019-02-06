@@ -312,13 +312,14 @@ inline bool linearSolve(Vec<T,N>* bases, Vec<T,N>* x, const Vec<T,N>& b, index_t
     if (N < 5) {
         // matrix inv is empirically faster than solve() for N < 5.
 
-        // m is row major, but our bases should be columns.
+        // m is row major, but our bases would be columns.
         // m and its inverse are thus transposed.
         WrapperMatrix<T,N,N> m(bases[0].begin());
         SimpleMatrix<T,N,N>  m_inv_txpose;
         if (!inv(&m_inv_txpose, m)) return false;
         // reverse mult order to get mul by txpose:
         *x = b * m_inv_txpose;
+        return true;
     } else {
         index_t p[N];
         T* const m = bases[0].begin();
