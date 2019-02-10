@@ -116,7 +116,7 @@ public:
      * generator as the source of random bits.
      * @param rng A (pseudo-) random number generator.
      */
-    Sampler(Random *rng):rng(rng) {
+    Sampler(Random* rng):rng(rng) {
         //do nothing else
     }
     
@@ -129,7 +129,8 @@ public:
      * @return A random vector of unit length. Distribution is uniform over
      * the surface of the `R`<sup>`N`</sup> sphere.
      */
-    template <index_t N> Vec<T,N> unit() {
+    template <index_t N> 
+    Vec<T,N> unit() {
         Vec<T,N> v;
         do {
             for (index_t i = 0; i < N; i++) {
@@ -147,7 +148,8 @@ public:
      * @return A random vector with length `radius`. Distribution is uniform over
      * the surface of the `R`<sup>`N`</sup> sphere.
      */
-    template <index_t N> inline Vec<T,N> unit(T radius) {
+    template <index_t N> 
+    inline Vec<T,N> unit(T radius) {
         return unit<N>() * radius;
     }
     
@@ -156,7 +158,8 @@ public:
      * @return A random vector inside the unit sphere. Samples are uniformly distributed
      * throughout the volume.
      */
-    template <index_t N> Vec<T,N> solidball() {
+    template <index_t N> 
+    Vec<T,N> solidball() {
         Vec<T,N> v;
         do {
             for (index_t i = 0; i < N; i++) {
@@ -172,7 +175,8 @@ public:
      * @return A random vector inside the sphere of radius `radius`. Samples
      * are uniformly distributed throughout the volume.
      */
-    template <index_t N> inline Vec<T,N> solidball(T radius) {
+    template <index_t N> 
+    inline Vec<T,N> solidball(T radius) {
         T r = std::pow(this->rng->template rand<T>(), ((T)1)/N);
         return solidball<N>() * r * radius;
     }
@@ -186,7 +190,8 @@ public:
      * co-centric spheres of differing radius. Samples are uniformly distributed
      * throughout the volume.
      */
-    template <index_t N> Vec<T,N> shell(T minradius, T maxradius) {
+    template <index_t N> 
+    Vec<T,N> shell(T minradius, T maxradius) {
         T radius = std::pow(this->rng->template rand<T>(minradius/maxradius, 1), ((T)1)/N);
         return this->unit<N>() * radius * maxradius;
     }
@@ -195,7 +200,8 @@ public:
      * @tparam N Dimension of generated sample.
      * @return A random vector inside the box `(0, 1)`<sup>`N`</sup>.
      */
-    template <index_t N> Vec<T,N> box() {
+    template <index_t N> 
+    Vec<T,N> box() {
         Vec<T,N> v;
         for (index_t i = 0; i < N; i++) {
             v[i] = this->rng->template rand<T>();
@@ -209,7 +215,8 @@ public:
      * @param hi Maximum coordinates of sample.
      * @return A random vector inside the rectangle bounded by `lo` and `hi`.
      */
-    template <index_t N> Vec<T,N> box(Vec<T,N> lo, Vec<T,N> hi) {
+    template <index_t N> 
+    Vec<T,N> box(Vec<T,N> lo, Vec<T,N> hi) {
         Vec<T,N> v;
         for (index_t i = 0; i < N; i++) {  
             v[i] = this->rng->template rand<T>(lo[i], hi[i]);
@@ -222,7 +229,8 @@ public:
      * @param box Region to sample.
      * @return A random vector inside the provided region.
      */
-    template <index_t N> Vec<T,N> box(const Rect<T,N> &box) {
+    template <index_t N> 
+    Vec<T,N> box(const Rect<T,N> &box) {
         Vec<T,N> v;
         for (index_t i = 0; i < N; i++) {
             v[i] = this->rng->template rand<T>(box.min()[i], box.max()[i]);

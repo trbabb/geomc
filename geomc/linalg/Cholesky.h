@@ -23,7 +23,7 @@ namespace geom {
  * @tparam RowMajor Whether the elements in `m` are arranged in row-major (true) or column-major (false) order.
  * @param m The elements of the matrix to be decomposed.
  * @param n The number of rows/columns in the matrix to be decomposed.
- * @return True if the decomposition could be completed; false if the matrix was ill-conditioned.
+ * @return True if the decomposition could be completed; false if the matrix was not positive-definite or ill-conditioned.
  */
 template <typename T, bool RowMajor>
 bool cholesky(T* m, index_t n) {
@@ -54,8 +54,8 @@ bool cholesky(T* m, index_t n) {
  * producing a lower-triangular matrix `M` such that `(M * M`<sup>T</sup>`) = A`.
  * 
  * @param m A square positive-definite matrix.
- * @return False if the matrix is not square, or could not be decomposed due to ill-conditioning; 
- * `true` if the decomposition was completed successfully.
+ * @return False if the matrix is not square, not positive-definite, or could not be decomposed 
+ * due to ill-conditioning; `true` if the decomposition was completed successfully.
  */
 #ifdef PARSING_DOXYGEN
 template <typename T, index_t M, index_t N>
