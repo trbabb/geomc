@@ -297,7 +297,7 @@ template <typename T, index_t N> double profile_perlin_hard_grad(index_t iters) 
     index_t idx = 0;
     clock_t start = clock();
     for (index_t i = 0; i < iters; i++) {
-        dest_vals[idx] = perlin.gradient(vecs_src[n]);
+        dest_vals[idx] = perlin.gradient(vecs_src[n]).second;
         idx = (idx + 1) % n;
     }
     clock_t end = clock();
@@ -751,11 +751,11 @@ template <typename T, index_t N> index_t test_gjkIntersect(index_t iters) {
 #ifdef EMIT_GJK_ALL
         print = true;
 #endif
-        bool gjk = gjk_intersect(b0, n_corners, b1, n_corners, &d, print);
+        bool gjk = gjk_intersect(b0, n_corners, b1, n_corners, &d); //, print);
         bool SAT = boxes[i0].intersects(boxes[i1]);
         if (gjk != SAT) {
 #ifdef EMIT_GJK_ERRS
-            gjk_intersect(b0, n_corners, b1, n_corners, &d, true);
+            gjk_intersect(b0, n_corners, b1, n_corners, &d); //, true);
             std::cout << ".\n";
 #endif
             failures++;
