@@ -40,7 +40,7 @@ class _ImplPerlinInit<T,1> {
 public:
     static void init(PerlinNoise<T,1> *pln, Random *rng, index_t n) {
         for (index_t i = 0; i < n; i++){
-            pln->gradients[i] = rng->rand(-1,1); //that the right range? 
+            pln->gradients[i] = rng->rand<T>(-1,1); //that the right range? 
             pln->p[i] = i;
         }
         permute<index_t>(pln->p.get(), n, *rng);
