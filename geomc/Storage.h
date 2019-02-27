@@ -291,13 +291,14 @@ struct UniqueStorage<T, DYNAMIC_DIM> {
 #endif
 
     UniqueStorage& operator=(const UniqueStorage<T,0>& other) {
-        if (&other == this) return;
+        if (&other == this) return *this;
         if (sz != other.sz) {
             if (data) delete [] data;
             data = new T[other.sz];
         }
         sz = other.sz;
         std::copy(other.data, other.data + sz, data);
+        return *this;
     }
     
     inline       T* get()       { return data; }

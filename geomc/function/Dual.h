@@ -417,7 +417,7 @@ namespace std {
         T sr = sqrt(d.x);
         return geom::Dual<T>(
                 sr,
-                d.dx / (2*sr));
+                d.dx / (2 * sr));
     }
     
     

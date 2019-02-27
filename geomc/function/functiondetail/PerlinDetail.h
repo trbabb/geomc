@@ -25,9 +25,9 @@ namespace detail {
 template <typename T, int N>
 class _ImplPerlinInit {
 public:
-    static void init(PerlinNoise<T,N> *pln, Random *rng, index_t n) {
+    static void init(PerlinNoise<T,N>* pln, Random* rng, index_t n) {
         Sampler<T> rndVecs = Sampler<T>(rng);
-        for (index_t i = 0; i < n; i++){
+        for (index_t i = 0; i < n; i++) {
             pln->gradients[i] = rndVecs.template unit<N>();
             pln->p[i] = i;
         }
@@ -38,12 +38,10 @@ public:
 template <typename T>
 class _ImplPerlinInit<T,1> {
 public:
-    static void init(PerlinNoise<T,1> *pln, Random *rng, index_t n) {
-        for (index_t i = 0; i < n; i++){
-            pln->gradients[i] = rng->rand<T>(-1,1); //that the right range? 
-            pln->p[i] = i;
+    static void init(PerlinNoise<T,1>* pln, Random* rng, index_t n) {
+        for (index_t i = 0; i < n; i++) {
+            pln->gradients[i] = rng->rand<T>(-1, 1);
         }
-        permute<index_t>(pln->p.get(), n, *rng);
     }
 };
 

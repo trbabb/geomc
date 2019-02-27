@@ -40,8 +40,9 @@ public:
     
     friend class detail::_ImplPerlinInit<T,N>;
     
-    // xxx use Storage instead?
     boost::shared_array<point_t> gradients;
+    // permutation array. 
+    // Not needed / used if N = 1, since we're using a linear congruential randomizer in this case.
     boost::shared_array<index_t> p;
     
     /**********************************
@@ -53,7 +54,7 @@ public:
      */
     PerlinNoise():
             gradients(new point_t[PERLIN_NUM_GRADIENTS]),
-            p(new index_t[PERLIN_NUM_GRADIENTS]) {
+            p(N > 1 ? new index_t[PERLIN_NUM_GRADIENTS] : nullptr) {
         detail::_ImplPerlinInit<T,N>::init(this, getRandom(), PERLIN_NUM_GRADIENTS);
     }
     
@@ -63,7 +64,7 @@ public:
      */
     PerlinNoise(Random* rng):
             gradients(new point_t[PERLIN_NUM_GRADIENTS]),
-            p(new index_t[PERLIN_NUM_GRADIENTS]) {
+            p(N > 1 ? new index_t[PERLIN_NUM_GRADIENTS] : nullptr) {
         detail::_ImplPerlinInit<T,N>::init(this, rng, PERLIN_NUM_GRADIENTS);
     }
     
@@ -133,7 +134,7 @@ public:
         // d/db mix(t, a, b) = t
         
         // the multivariate chain rule:
-        // d/ft f(a(t), b(t), c(t)) = 
+        // df/dt f(a(t), b(t), c(t)) = 
         //         df_da(a(t), ...)      * da_dt(t) + 
         //         df_db(..., b(t), ...) * db_dt(t) + ...
         
@@ -149,7 +150,8 @@ public:
         for (index_t axis = 0; axis < N; axis++) {
             T     x = pointtype::iterator(p_mod)[axis];
             T     t = fade(x);
-            T dt_dx = dfade_dt(x); // (1) note that this is zero along other axes
+            T dt_dx = dfade_dt(x); // (1) note that this is zero along other axes,
+                                   // as this is only a fuction of x[axis].
             
             // as in `eval()`, we begin by interpolating pairs of points along the x axis
             // and reducing the number of values by half with successive interpolations.
@@ -165,12 +167,14 @@ public:
                 
                 // apply the multivariate chain rule:
                 point_t w;
-                //         dmix_dt(t, ...) * dt/dx
-                w[axis] += (b - a) * dt_dx; // see (1) above
-                //         dmix_da(..., a, ...) * da/dx
-                w       += (1 - t) * da_dx;
-                //         dmix_db(..., b) * db/dx
-                w       += t * db_dx;
+                // dt/dx is only nonzero along the current axis:
+                T* w_i  = pointtype::iterator(w) + axis;
+                //        dmix_dt(t, ...) * dt/dx
+                *w_i   += (b - a) * dt_dx;
+                //        dmix_da(..., a, ...) * da/dx
+                w      += (1 - t) * da_dx;
+                //        dmix_db(..., b) * db/dx
+                w      += t * db_dx;
                 df_dx[pair] = w;
             }
         }
@@ -182,7 +186,7 @@ protected:
     
     inline const point_t& get_grid_gradient(const grid_t& pt) const {
         index_t idx = 0;
-        if (N > 0) {
+        if (N > 1) {
             // iterate on the permutation table, offsetting with each coordinate.
             for (index_t axis = 0; axis < N; axis++) {
                 idx = p[positive_mod(idx + gridtype::iterator(pt)[axis], (index_t)PERLIN_NUM_GRADIENTS)];
