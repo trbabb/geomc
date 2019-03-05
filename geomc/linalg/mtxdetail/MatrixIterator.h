@@ -52,14 +52,14 @@ public:
                           mtx(m),
                           p(region) {}
     
-    MtxSubsetIterator(M *m, const MatrixRegion &region, const MatrixCoord &pt):
+    MtxSubsetIterator(M *m, const MatrixRegion &region, const Vec<index_t,2> &pt):
                           mtx(m),
                           p(region, pt) {}
     
-    MtxSubsetIterator(M *m, MatrixCoord pt=MatrixCoord::zeros):
+    MtxSubsetIterator(M *m, Vec<index_t,2> pt=Vec<index_t,2>::zeros):
                           mtx(m),
-                          p(MatrixRegion(MatrixCoord::zeros,
-                                         MatrixCoord(m->rows()-1, m->cols()-1)),
+                          p(MatrixRegion(Vec<index_t,2>::zeros,
+                                         Vec<index_t,2>(m->rows()-1, m->cols()-1)),
                             pt) {}
     
     MtxSubsetIterator(M *m, const GridIterator<index_t,2,ARRAYORDER_LAST_DIM_CONSECUTIVE> &p):
@@ -67,7 +67,7 @@ public:
                           p(p) {}
 public:
     
-    MatrixCoord point() {
+    Vec<index_t,2> point() {
         return *p;
     }
     
@@ -101,11 +101,11 @@ private:
     }
     
     inline index_t distance_to(const MtxSubsetIterator<M,RefType> &other) const {
-        return other.p - p; //this right?
+        return other.p - p;
     }
     
     inline RefType dereference() const {
-        MatrixCoord pt = *p;
+        Vec<index_t,2> pt = *p;
         return mtx->get(pt.row, pt.col); //make sure this is calling the function with the right const-ness!
     }
     
@@ -126,12 +126,12 @@ public:
     typedef RefType ref_t;
 
     M *mtx;
-    MatrixCoord pt;
+    Vec<index_t,2> pt;
     
-    MtxColIterator(M *m, const MatrixCoord &pt):
+    MtxColIterator(M* m, const Vec<index_t,2>& pt):
                          mtx(m),
                          pt(pt) {}
-    MtxColIterator(M *m, index_t col):
+    MtxColIterator(M* m, index_t col):
                          mtx(m),
                          pt(0,col) {}
     
@@ -139,8 +139,8 @@ private:
     
     friend class boost::iterator_core_access;
     
-    inline bool equal(const MtxColIterator<M,RefType> &other) const {
-        return (other.mtx == mtx) && (other.pt == pt);
+    inline bool equal(const MtxColIterator<M,RefType>& other) const {
+        return (other.mtx == mtx) and (other.pt == pt);
     }
     
     inline void increment() {
@@ -155,7 +155,7 @@ private:
         pt.row += n;
     }
     
-    inline index_t distance_to(const MtxColIterator<M,RefType> &other) const {
+    inline index_t distance_to(const MtxColIterator<M,RefType>& other) const {
         return other.pt.row - pt.row;
     }
     
@@ -181,12 +181,12 @@ public:
     typedef RefType ref_t;
 
     M *mtx;
-    MatrixCoord pt;
+    Vec<index_t,2> pt;
     
-    MtxRowIterator(M *m, const MatrixCoord &pt):
+    MtxRowIterator(M* m, const Vec<index_t,2>& pt):
                          mtx(m),
                          pt(pt) {}
-    MtxRowIterator(M *m, index_t row):
+    MtxRowIterator(M* m, index_t row):
                          mtx(m),
                          pt(row,0) {}
     
@@ -194,8 +194,8 @@ private:
     
     friend class boost::iterator_core_access;
     
-    inline bool equal(const MtxColIterator<M,RefType> &other) const {
-        return (other.mtx == mtx) && (other.pt == pt);
+    inline bool equal(const MtxColIterator<M,RefType>& other) const {
+        return (other.mtx == mtx) and (other.pt == pt);
     }
     
     inline void increment() {
@@ -210,7 +210,7 @@ private:
         pt.col += n;
     }
     
-    inline index_t distance_to(const MtxRowIterator<M,RefType> &other) const {
+    inline index_t distance_to(const MtxRowIterator<M,RefType>& other) const {
         return other.pt.col - pt.col;
     }
     
@@ -244,7 +244,7 @@ public:
     // like a reference, assign through to the pointed object.
     // contrary to convention, we do NOT mirror this action in the copy constructor
     // this is to mirror the behavior of references, whose ptr can only be assigned at construction.
-    inline MtxAssignmentProxy<M,T>& operator=(const MtxAssignmentProxy<M,T> &other) {
+    inline MtxAssignmentProxy<M,T>& operator=(const MtxAssignmentProxy<M,T>& other) {
         if (&other != this) {
             m->set(row, col, other);
         }
@@ -303,11 +303,12 @@ struct _ImplMtxConstRowtype {
 template <typename M, typename T>
 struct _ImplMtxRowtype {
     private:
-    typedef typename _ImplMtxReftype<M, T>::reference impl_reference;
+    typedef typename _ImplMtxReftype<M,T>::reference impl_reference;
     
     public:
     typedef MtxRowIterator<M,impl_reference> row_iterator;
 };
+
 
 }; // namespace detail
 }; // namespace geom

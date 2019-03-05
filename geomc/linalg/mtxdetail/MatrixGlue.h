@@ -20,7 +20,6 @@
 namespace geom {
 
 typedef Rect<index_t,2> MatrixRegion;
-typedef Vec<index_t,2>  MatrixCoord;
 
 namespace detail {
     

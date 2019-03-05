@@ -65,7 +65,7 @@ public:
             for (index_t c = 0; c < b.cols(); c++) {
                 T sum = 0;
                 for (index_t n = 0; n < a.cols(); n++) {
-                    sum += a.get(r, n) * b.get(n, c);
+                    sum += a(r, n) * b(n, c);
                 }
                 d->set(r, c, sum);
             }
@@ -87,7 +87,7 @@ public:
         const T* dp = b.diagonal_begin();
         for (index_t c = 0; c < b.cols(); ++c, ++dp) {
             for (index_t r = 0; r < a.rows(); ++r) {
-                d->set(r,c, (*dp) * a.get(r,c));
+                d->set(r,c, (*dp) * a(r,c));
             }
         }
     }
@@ -107,7 +107,7 @@ public:
         const T* dp = a.diagonal_begin();
         for (index_t r = 0; r < b.rows(); ++r, ++dp) {
             for (index_t c = 0; c < a.cols(); ++c) {
-                d->set(r,c, (*dp) * a.get(r,c));
+                d->set(r,c, (*dp) * a(r,c));
             }
         }
     }
@@ -157,7 +157,7 @@ public:
         for (index_t r = 0; r < M; r++) {
             T x = 0;
             for (index_t c = 0; c < N; c++) {
-                x += a.get(r,c) * b.get(c);
+                x += a(r,c) * b(c);
             }
             (*d)[r] = x;
         }
@@ -168,7 +168,7 @@ public:
         for (index_t r = 0; r < a.rows(); r++) {
             T x = 0;
             for (index_t c = 0; c < N; c++) {
-                x += a.get(r,c) * b.get(c);
+                x += a(r,c) * b(c);
             }
             d->set(r,0,x);
         }
@@ -188,7 +188,7 @@ public:
         for (index_t c = 0; c < N; c++) {
             T x = 0;
             for (index_t r = 0; r < M; r++) {
-                x += a.get(r,c) * b.get(r);
+                x += a(r,c) * b(r);
             }
             (*d)[c] = x;
         }
@@ -199,7 +199,7 @@ public:
         for (index_t c = 0; c < a.cols(); c++) {
             T x = 0;
             for (index_t r = 0; r < M; r++) {
-                x += a.get(r,c) * b.get(r);
+                x += a(r,c) * b(r);
             }
             d->set(0,c,x);
         }

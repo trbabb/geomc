@@ -580,7 +580,7 @@ namespace geom {
         }
         
         inv(&m_inv, mat);
-        MatrixRegion region(MatrixCoord::zeros, MatrixCoord(mat.rows()));
+        Rect<index_t,2> region(Vec<index_t,2>::zeros, Vec<index_t,2>(mat.rows()));
         std::copy(  mat.begin(),   mat.end(), xfnew.mat.region_begin(region));
         std::copy(m_inv.begin(), m_inv.end(), xfnew.inv.region_begin(region));
         return xfnew;

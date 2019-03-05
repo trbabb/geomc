@@ -89,15 +89,6 @@ struct Dimension<DYNAMIC_DIM> {
 };
 
 
-namespace detail {
-
-// because FlatMatrixBase is a friend:
-template <typename T, index_t M, index_t N, StoragePolicy P>
-class FlatMatrixBase;
-
-}
-
-
 //////////////// Storage ////////////////
 
 
@@ -572,12 +563,8 @@ struct GenericStorage<T,N,STORAGE_WRAPPED> : public WrappedStorage<T,N> {
     typedef WrappedStorage<T,N> type;
 
     GenericStorage(index_t n, T* srcdata):type(n, srcdata) {}
-
-private:
-
-    GenericStorage(index_t n):type(0, NULL) {}
-
-    friend class FlatMatrixBase;
+    
+    GenericStorage(index_t n):type(0, nullptr) {}
 
 };
 

@@ -84,6 +84,11 @@ namespace detail {
     };
 }
 
+    enum MatrixLayout {
+        ROW_MAJOR,
+        COL_MAJOR
+    };
+
    typedef const void* storage_id_t;
 
     // data fwd decls
@@ -97,7 +102,7 @@ namespace detail {
 namespace detail {
     template <typename T, index_t M, index_t N, typename Derived> class MatrixBase;
 }
-    template <typename T, index_t M, index_t N, StoragePolicy P=STORAGE_UNIQUE>
+    template <typename T, index_t M, index_t N, MatrixLayout Lyt=ROW_MAJOR, StoragePolicy P=STORAGE_UNIQUE>
                                                 class SimpleMatrix;
     template <typename T, index_t M, index_t N> class DiagMatrix;
     template <typename Ma, typename Mb>         class AugmentedMatrix;
@@ -153,8 +158,8 @@ namespace detail {
 
 #if __cplusplus >= 201103L
 
-    template <typename T, index_t M, index_t N> 
-    using WrapperMatrix = SimpleMatrix<T,M,N,STORAGE_WRAPPED>;
+    template <typename T, index_t M, index_t N, MatrixLayout Lyt=ROW_MAJOR> 
+    using WrapperMatrix = SimpleMatrix<T,M,N,Lyt,STORAGE_WRAPPED>;
 
 #endif
     

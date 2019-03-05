@@ -21,12 +21,11 @@
 
 #include <boost/utility/enable_if.hpp>
 #include <geomc/Storage.h>
+#include <geomc/linalg/mtxdetail/MatrixLayout.h>
 #include <geomc/linalg/mtxdetail/MatrixBase.h>
 #include <geomc/linalg/mtxdetail/MatrixCopy.h>
 
-
-// TODO: templatize across row/col-major layout.
-//       ...or just make a whole new class.
+// todo: we should get rid of augmented matrix. literally no one uses it.
 
 /* 
     what would we need for templated layout?
@@ -56,29 +55,27 @@ namespace geom {
 
 namespace detail {
 
-
     // allow myself to introduce myself:
     // I am a curiously recurring class, and I have to declare myself to declare myself.
-    template <typename T, index_t M, index_t N, StoragePolicy P>
+    template <typename T, index_t M, index_t N, MatrixLayout Lyt, StoragePolicy P>
     class FlatMatrixBase;
 
-
     // specializations of the iterator type helper classes
-    // tell the base class which iterators to use.
+    // tell the base class which iterators to use:
 
-    template <typename T, index_t M, index_t N, StoragePolicy P>
-    struct _ImplMtxReftype<FlatMatrixBase<T,M,N,P>,T> {
+    template <typename T, index_t M, index_t N, MatrixLayout Lyt, StoragePolicy P>
+    struct _ImplMtxReftype<FlatMatrixBase<T,M,N,Lyt,P>,T> {
         typedef T& reference;
     };
     
-    template <typename T, index_t M, index_t N, StoragePolicy P>
-    struct _ImplMtxRowtype<FlatMatrixBase<T,M,N,P>,T> {
-        typedef T* row_iterator;
+    template <typename T, index_t M, index_t N, MatrixLayout Lyt, StoragePolicy P>
+    struct _ImplMtxRowtype<FlatMatrixBase<T,M,N,Lyt,P>,T> {
+        typedef typename FlatMatrixLayout<T,Lyt>::row_iterator row_iterator;
     };
     
-    template <typename T, index_t M, index_t N, StoragePolicy P>
-    struct _ImplMtxConstRowtype<FlatMatrixBase<T,M,N,P>,T> {
-        typedef const T* const_row_iterator;
+    template <typename T, index_t M, index_t N, MatrixLayout Lyt, StoragePolicy P>
+    struct _ImplMtxConstRowtype<FlatMatrixBase<T,M,N,Lyt,P>,T> {
+        typedef typename FlatMatrixLayout<T,Lyt>::const_row_iterator const_row_iterator;
     };
     
 }; // end namespace detail
@@ -138,32 +135,54 @@ namespace detail {
  * 
  * For more on matrices, see the @link matrix matrix module documentation@endlink.
  */
-template <typename T, index_t M, index_t N, StoragePolicy P>
+template <typename T, index_t M, index_t N, MatrixLayout Lyt, StoragePolicy P>
 #ifdef PARSING_DOXYGEN
-class SimpleMatrix : public detail::WriteableMatrixBase<T,M,N, SimpleMatrix<T,M,N,P> > {
+class SimpleMatrix : public detail::WriteableMatrixBase<T,M,N, SimpleMatrix<T,M,N,Lyt,P> > {
 #else
-class FlatMatrixBase : public detail::WriteableMatrixBase<T,M,N, FlatMatrixBase<T,M,N,P> > {
+class FlatMatrixBase : public detail::WriteableMatrixBase<T,M,N, FlatMatrixBase<T,M,N,Lyt,P> > {
 #endif
 
-    typename GenericStorage<T, M*N, P>::type data;
+    typename GenericStorage<T, M * N, P>::type data;
     typename Dimension<M>::storage_t n_rows; // this contortion prevents allocating storage 
     typename Dimension<N>::storage_t n_cols; // for a dimension size when it is not dynamic.
     
 public:
     
     // MatrixBase types
-    /// @brief Read-only row-major iterator over the elements of the matrix.
-    typedef const T* const_iterator;
-    /// @brief Read-only iterator over the elements of a row.
-    typedef const T* const_row_iterator;
+    /**
+     * @brief Read-only row-major iterator over the elements of the matrix.
+     * This is a `T*` if the matrix is row-major; a proxy otherwise.
+     */ 
+    typedef typename FlatMatrixLayout<T,Lyt>::const_row_iterator const_iterator;
+    /**
+     * @brief Read-only iterator over the elements of a row.
+     * This is a `T*` if the matrix is row-major; a proxy otherwise.
+     */
+    typedef typename FlatMatrixLayout<T,Lyt>::const_row_iterator const_row_iterator;
+    /**
+     * @brief Read-only iterator over the elements of a column.
+     * This is a `T*` if the matrix is column-major; a proxy otherwise.
+     */
+    typedef typename FlatMatrixLayout<T,Lyt>::const_col_iterator const_col_iterator;
     
     // WriteableMatrixBase types
     /// @brief Reference to element type.
     typedef T& reference;
-    /// @brief Writeable row-major iterator over matrix elements.
-    typedef T* iterator;
-    /// @brief Writeable iterator over elements of a row.
-    typedef T* row_iterator;
+    /**
+     * @brief Writeable row-major iterator over the elements of the matrix.
+     * This is a `T*` if the matrix is row-major; a proxy otherwise.
+     */ 
+    typedef typename FlatMatrixLayout<T,Lyt>::row_iterator iterator;
+    /**
+     * @brief Writeable iterator over the elements of a row.
+     * This is a `T*` if the matrix is row-major; a proxy otherwise.
+     */
+    typedef typename FlatMatrixLayout<T,Lyt>::row_iterator row_iterator;
+    /**
+     * @brief Writeable iterator over the elements of a column.
+     * This is a `T*` if the matrix is column-major; a proxy otherwise.
+     */
+    typedef typename FlatMatrixLayout<T,Lyt>::col_iterator col_iterator;
 
 #ifdef PARSING_DOXYGEN
 
@@ -266,13 +285,13 @@ public:
     template <typename U> SimpleMatrix<T,M,N>& operator*=(U k) {}
 #else
     template <typename U>
-    typename boost::enable_if<boost::is_scalar<U>, SimpleMatrix<T,M,N,P>&>::type
+    typename boost::enable_if<boost::is_scalar<U>, SimpleMatrix<T,M,N,Lyt,P>&>::type
     operator*=(U k) {
         T *p = data.get();
         for (index_t i = 0; i < rows() * cols(); i++) {
             p[i] *= k;
         }
-        return *(static_cast<SimpleMatrix<T,M,N,P>*>(this));
+        return *(static_cast<SimpleMatrix<T,M,N,Lyt,P>*>(this));
     }
 #endif
     
@@ -299,7 +318,7 @@ public:
      * @return A read-only iterator over the elements of row `i`.
      */
     inline const_row_iterator row(index_t i) const {
-        return data.get() + (cols() * i);
+        return FlatMatrixLayout<T,Lyt>::template row<true>(data.get(), 0, rows(), cols());
     }
     
     /**
@@ -307,7 +326,7 @@ public:
      * @return A writeable iterator over the elements of row `i`.
      */
     inline row_iterator row(index_t i) {
-        return data.get() + (cols() * i);
+        return FlatMatrixLayout<T,Lyt>::template row<false>(data.get(), 0, rows(), cols());
     }
     
     /**
@@ -315,7 +334,7 @@ public:
      * pointing to the element at (0,0).
      */
     inline const_iterator begin() const {
-        return data.get();
+        return FlatMatrixLayout<T,Lyt>::template row<true>(data.get(), 0, rows(), cols());
     }
     
     /**
@@ -323,7 +342,7 @@ public:
      * pointing to the just beyond the last element in the matrix.
      */
     inline const_iterator end() const {
-        return data.get() + (rows() * cols());
+        return FlatMatrixLayout<T,Lyt>::template row<true>(data.get(), cols(), rows(), cols());
     }
     
     /**
@@ -331,7 +350,7 @@ public:
      * pointing to the element at (0,0).
      */
     inline iterator begin() {
-        return data.get();
+        return FlatMatrixLayout<T,Lyt>::template row<false>(data.get(), 0, rows(), cols());
     }
     
     /**
@@ -339,8 +358,23 @@ public:
      * pointing to the element just beyond the last element in the matrix.
      */
     inline iterator end() {
+        return FlatMatrixLayout<T,Lyt>::template row<false>(data.get(), cols(), rows(), cols());
+    }
+    
+    /**
+     * @return A pointer to the bare data array, in the layout policy of this matrix.
+     */
+    inline T* data_begin() {
+        return data.get();
+    }
+    
+    /**
+     * @return A pointer to the end of the bare data array.
+     */
+    inline T* data_end() {
         return data.get() + (rows() * cols());
     }
+    
     
     /**
      * Get the element at `(row, col)`.
@@ -348,8 +382,9 @@ public:
      * @param c Zero-indexed column coordinate
      * @return The element at `(row, col)`
      */
-    inline T get(index_t r, index_t c) const {
-        return data.get()[r * cols() + c];
+    inline T operator()(index_t r, index_t c) const {
+        const index_t i = FlatMatrixLayout<T,Lyt>::index(r, c, rows(), cols());
+        return data.get()[i];
     }
     
     /**
@@ -358,8 +393,9 @@ public:
      * @param c Zero-indexed column coordinate
      * @return A reference to the element at `(row, col)`
      */
-    inline reference get(index_t r, index_t c) {
-        return data.get()[r * cols() + c];
+    inline reference operator()(index_t r, index_t c) {
+        const index_t i = FlatMatrixLayout<T,Lyt>::index(r, c, rows(), cols());
+        return data.get()[i];
     }
     
     /**
@@ -370,56 +406,33 @@ public:
      * @return A reference to the element at `(row, col)`, for convenience.
      */
     inline reference set(index_t r, index_t c, T val) {
-        T* elem = data.get() + r * cols() + c;
+        const index_t i = FlatMatrixLayout<T,Lyt>::index(r, c, rows(), cols());
+        T* elem = data.get() + i;
         *elem = val;
         return *elem;
     }
     
     /**
-     * Transpose this matrix.
+     * Return a transposed, thin wrapper of this matrix.
      *
-     * If this is a square matrix, the transpose happens in-place.
+     * The returned matrix is backed by this matrix's underlying memory. As such, its 
+     * lifetime must not be longer than that of this matrix.
      *
-     * If this is a nonsquare matrix, the matrix is transposed using a temporary buffer. In this case,
-     * both dimensions must be dynamic.
-     *
-     * If this matrix has static dimensions which are unequal, the matrix cannot be transposed and
-     * this function has no effect.
+     * This operation is O(1), and fuctions by constructing a new `WrapperMatrix` with opposite
+     * layout (i.e., column-major if this matrix is row-major, or row-major if this matrix is
+     * column-major).
      */
-    void transpose() {
-        if (M == N or rows() == cols()) {
-            for (index_t r = 0; r < rows(); r++) {
-                for (index_t c = 0; c < r; c++) {
-                    std::swap(get(r,c), get(c,r));
-                }
-            }
-        } else if (M == 0 and N == 0) {
-            // todo: someday: there are nonsquare matrix in-place transpose algorithms
-            
-            // here we use stack memory for matrices 6x6 and smaller:
-            SmallStorage<T,36> buf(rows() * cols());
-            WrapperMatrix<T,N,M> tmp(buf.get(), cols(), rows());
-            
-            // transpose
-            for (index_t r = 0; r < rows(); ++r) {
-                for (index_t c = 0; c < cols(); ++c) {
-                    tmp.set(c, r, get(r,c));
-                }
-            }
-            // copy back and adjust our dimensions:
-            std::copy(tmp.begin(), tmp.end(), begin());
-            Dimension<M>::set(n_rows, tmp.rows());
-            Dimension<N>::set(n_cols, tmp.cols());
-        }
+    SimpleMatrix<T,N,M, (Lyt == ROW_MAJOR) ? COL_MAJOR : ROW_MAJOR, STORAGE_WRAPPED> transposed() const {
+        return SimpleMatrix<T,N,M, (Lyt == ROW_MAJOR) ? COL_MAJOR : ROW_MAJOR, STORAGE_WRAPPED>(data.get(), rows(), cols());
     }
-
+    
     /**
      * Clear this matrix and set its elements to the identity matrix.
      */
     void set_identity() {
         set_zero();
-        T *last = end();
-        for (T *p = begin(); p < last; p += cols() + 1) {
+        T *last = data_end();
+        for (T *p = data_begin(); p < last; p += cols() + 1) {
             *p = 1;
         }
     }
@@ -428,7 +441,7 @@ public:
      * Set all the elements of this matrix to zero.
      */
     inline void set_zero() {
-        std::fill(begin(), end(), 0);
+        std::fill(data_begin(), data_end(), 0);
     }
     
     inline void getStorageIDs(storage_id_t *buf) const {
@@ -456,12 +469,12 @@ public:
 #ifndef PARSING_DOXYGEN
 
 
-template <typename T, index_t M, index_t N, StoragePolicy P>
-class SimpleMatrix : public detail::FlatMatrixBase<T,M,N,P> {
+template <typename T, index_t M, index_t N, MatrixLayout Lyt, StoragePolicy P>
+class SimpleMatrix : public detail::FlatMatrixBase<T,M,N,Lyt,P> {
 
 private:
 
-    typedef detail::FlatMatrixBase<T,M,N,P> parent_t;
+    typedef detail::FlatMatrixBase<T,M,N,Lyt,P> parent_t;
 
 public:
 
@@ -469,6 +482,7 @@ public:
     // this mandates row, column arguments for dynamic matrices.
     // arguments are basically ignored if matrix is static.
     explicit SimpleMatrix(
+        // xxx test this
             index_t nrows=detail::DefinedIf<M != DYNAMIC_DIM, M>::value, 
             index_t ncols=detail::DefinedIf<N != DYNAMIC_DIM, N>::value) : 
                 parent_t(nrows, ncols) {}
@@ -496,12 +510,12 @@ public:
 ///////////////////// SimpleMatrix "wrapper" specialization /////////////////////
 
 
-template <typename T, index_t M, index_t N>
-class SimpleMatrix<T,M,N,STORAGE_WRAPPED> : public detail::FlatMatrixBase<T,M,N,STORAGE_WRAPPED> {
+template <typename T, index_t M, index_t N, MatrixLayout Lyt>
+class SimpleMatrix<T,M,N,Lyt,STORAGE_WRAPPED> : public detail::FlatMatrixBase<T,M,N,Lyt,STORAGE_WRAPPED> {
 
 private:
 
-    typedef detail::FlatMatrixBase<T,M,N,STORAGE_WRAPPED> parent_t;
+    typedef detail::FlatMatrixBase<T,M,N,Lyt,STORAGE_WRAPPED> parent_t;
 
 public:
 

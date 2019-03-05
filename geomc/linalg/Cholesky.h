@@ -61,9 +61,9 @@ bool cholesky(T* m, index_t n) {
 template <typename T, index_t M, index_t N>
 bool cholesky(SimpleMatrix<T,M,N>* m);
 #else
-template <typename T, index_t M, index_t N, StoragePolicy P>
+template <typename T, index_t M, index_t N, MatrixLayout Lyt, StoragePolicy P>
 inline typename boost::enable_if_c<M == N or M * N == 0, bool>::type
-cholesky(SimpleMatrix<T,M,N,P>* m) {
+cholesky(SimpleMatrix<T,M,N,Lyt,P>* m) {
     if (M * N == 0 and m->rows() != m->cols()) {
         return false;
     }

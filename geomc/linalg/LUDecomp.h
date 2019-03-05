@@ -461,13 +461,13 @@ public:
      */
 #ifdef PARSING_DOXYGEN
     template <typename S, index_t J, index_t K>
-    void getL(SimpleMatrix<S,J,K> *into) const {}
+    void getL(SimpleMatrix<S,J,K>* into) const {}
 #endif
-    template <typename S, index_t J, index_t K, StoragePolicy SP>
+    template <typename S, index_t J, index_t K, MatrixLayout Lyt, StoragePolicy SP>
     inline typename boost::enable_if_c<
             detail::MatrixDimensionMatch<L_t, SimpleMatrix<S,J,K> >::isStaticMatch,
         void>::type 
-    getL(SimpleMatrix<S,J,K,SP> *into) const {
+    getL(SimpleMatrix<S,J,K,Lyt,SP>* into) const {
 #ifdef GEOMC_MTX_CHECK_DIMS
         const index_t diag = diagonal();
         if ((J * L_t::ROWDIM == 0 or J != L_t::ROWDIM or
@@ -495,11 +495,11 @@ public:
     template <typename S, index_t J, index_t K>
     void getU(SimpleMatrix<S,J,K> *into) const {}
 #endif
-    template <typename S, index_t J, index_t K, StoragePolicy SP>
+    template <typename S, index_t J, index_t K, MatrixLayout Lyt, StoragePolicy SP>
     inline typename boost::enable_if_c<
             detail::MatrixDimensionMatch<U_t, SimpleMatrix<S,J,K> >::isStaticMatch,
         void>::type
-    getU(SimpleMatrix<S,J,K,SP> *into) const {
+    getU(SimpleMatrix<S,J,K,Lyt,SP> *into) const {
 #ifdef GEOMC_MTX_CHECK_DIMS
         const index_t diag = diagonal();
         if ((J * U_t::ROWDIM == 0 or J != U_t::ROWDIM or 
@@ -589,8 +589,8 @@ public:
      * @param [out] into Destination matrix; a square matrix with dimensions 
      * equal to `LU`.
      */
-    template <typename S, index_t J, index_t K, StoragePolicy SP>
-    void inverse(SimpleMatrix<S,J,K,SP> *into) const {
+    template <typename S, index_t J, index_t K, MatrixLayout Lyt, StoragePolicy SP>
+    void inverse(SimpleMatrix<S,J,K,Lyt,SP> *into) const {
         
 #ifdef GEOMC_MTX_CHECK_DIMS
         _checkIsSquare();
