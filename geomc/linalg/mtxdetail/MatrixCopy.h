@@ -16,21 +16,31 @@ namespace geom {
 namespace detail {
 
     template <typename Md, typename Mx>
-    inline void _mtxcopy(Md *into, const Mx &src) {
-        std::copy(src.begin(), src.end(), into->begin()); //also works for vectors. neat!
+    inline void _mtxcopy(Md* into, const Mx& src) {
+        std::copy(src.begin(), src.end(), into->begin()); // also works for vectors. neat!
     }
 
 
     template <index_t N>
-    inline void _mtxcopy(geom::PermutationMatrix<N> *into, const geom::PermutationMatrix<N> &src) {
+    inline void _mtxcopy(geom::PermutationMatrix<N>* into, const geom::PermutationMatrix<N>& src) {
         into->setRowSources(src.getRowSources());
     }
 
 
     template <typename Td, index_t Md, index_t Nd, 
               typename Ts, index_t Ms, index_t Ns>
-    void _mtxcopy(geom::DiagMatrix<Td, Md, Nd> *into, const geom::DiagMatrix<Ts, Ms, Ns> &src) {
+    void _mtxcopy(geom::DiagMatrix<Td, Md, Nd>* into, const geom::DiagMatrix<Ts, Ms, Ns>& src) {
         std::copy(src.diagonal_begin(), src.diagonal_end(), into->diagonal_begin());
+    }
+    
+    // SimpleMatrixes with the same layout can copy via bare pointers.
+    template <typename T, typename S, 
+        index_t M0, index_t N0, 
+        index_t M1, index_t N1, 
+        MatrixLayout Lyt, 
+        StoragePolicy P0, StoragePolicy P1>
+    void _mtxcopy(geom::SimpleMatrix<T,M0,N0,Lyt,P0>* into, const geom::SimpleMatrix<S,M1,N1,Lyt,P1>& src) {
+        std::copy(src.data_begin(), src.data_end(), into->data_begin());
     }
 
 
@@ -66,7 +76,7 @@ namespace detail {
 template <typename Matrix, typename Matrix1> void mtxcopy(Matrix *into, const Matrix1 &src) {}
 #endif
 template <typename Md, typename Ms>
-void mtxcopy(Md *into, const Ms &src,
+void mtxcopy(Md* into, const Ms& src,
                 typename boost::enable_if_c<
                      detail::LinalgDimensionMatch<Md,Ms>::val and
                      (detail::_ImplVecOrient<Md,Ms>::orient != detail::ORIENT_VEC_UNKNOWN), 
@@ -88,7 +98,7 @@ void mtxcopy(Md *into, const Ms &src,
 
 // unknown vector orientation case (dynamic matrix <-> vector) 
 template <typename Md, typename Ms>
-void mtxcopy(Md *into, const Ms &src,
+void mtxcopy(Md* into, const Ms& src,
                  typename boost::enable_if_c<
                     detail::_ImplVecOrient<Md,Ms>::orient == detail::ORIENT_VEC_UNKNOWN, 
                  int>::type dummy=0) {

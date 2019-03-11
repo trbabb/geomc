@@ -15,7 +15,7 @@
  * 
  * Design
  * ======
- * There are currently six distinct matrix template classes.
+ * There are currently four distinct matrix template classes.
  * They are all interoperable, and provide iterators which
  * are functionally interchangeable with each other and
  * with pointers (row iterators, column iterators, region
@@ -96,7 +96,7 @@
  * Some matrices (e.g. DiagMatrix) may not support `std::copy()`, but do support `mtxcopy()` 
  * with sensible arguments.
  * 
- * Unless otherwise noted, all operations on matrices are guaranteed to return 
+ * Unless otherwise noted, all operations on matrices should be expected to return 
  * correct results, even if the destination matrix aliases storage of an operand 
  * (though calling operations in this way may incur a performance and/or memory 
  * overhead).
@@ -107,17 +107,17 @@
  * Matrix operations often place restrictions on the dimensions of their matrix 
  * operands. For example, matrix addition requires that both operands have the 
  * same dimensions (in other words, a 3 x 4 matrix can only be added to another 
- * 3 x 4 matrix). 
+ * 3 x 4 matrix).
  * 
  * When matrices with static dimensions are involved, the library can often prove
  * at compile time that an argument's dimensions are correct or incorrect. If proven
  * correct, run-time dimension checks can be skipped (by relying on compiler elimination
- * of constructs like `if (0) {...}`), resulting in slightly faster
+ * of constructs like `if (false) {...}`), resulting in moderately faster
  * code. If incorrect, the compiler will error, catching program correctness problems
  * early. Compile-time dimension mismatches / requirement failures will generally
  * manifest as `"template argument deduction/substitution failed"` errors (a more
  * informative message would be desirable, but c++ does not provide the functionality
- * to produce one). 
+ * to produce one).
  * 
  * This code will prove its dimension-correctness at compile time:
  * 
@@ -184,7 +184,9 @@
  * Indexing:
  * 
  *     double x = m1[1][2];
- *     m[0][1] = 2.718;
+ *     double y = m(2, 2);
+ *     m[0][1]  = 2.718;
+ *     m(0, 2)  = 1.618;
  * 
  * Accessing elements
  * ------------------
@@ -192,15 +194,15 @@
  * Indexing:
  * 
  *     // equivalent:
- *     float f1 = m.get(2, 3);
- *     float f2 = m[2][3]; 
+ *     float f1 = m(2, 3);
+ *     float f2 = m[2][3];
  * 
  * Assignment:
  *     
  *     // all equivalent:    
  *     m.set(2, 3, val);
  *     m[2][3] = val;
- *     m.get(2, 3) = val;
+ *     m(2, 3) = val;
  * 
  * Matrix body iterators:
  *     
@@ -225,39 +227,28 @@
  * .
  */
 
-//TODO: make exposed templates for the dynamically-chosen return types.
-//TODO: add parameters to all the docs
-//TODO: document:
-//      x matrix static/dynamic dims
-//      x matrix allowed operators
-//      x document inter-operation / dim checking
-//TODO: error reporting templates
-//      x not fixing. c++ is too broken to support this (extremely basic) feature.
-//TODO: rename Matrix (and SimpleMatrix?)
-//TODO: rename MatrixRegion to vec2i, rect2i, etc.
-//TODO: create a 'subregion' matrix.
-//TODO: change 'scale' to 'mul'.
-//TODO: get 'intersection/intersects/overlap/union/etc' terminology in Rect consistent.
+// TODO: make exposed templates for the dynamically-chosen return types.
+// TODO: add parameters to all the docs
+// TODO: rename Matrix (and SimpleMatrix?)
+// TODO: rename MatrixRegion to vec2i, rect2i, etc.
+// TODO: create a 'subregion' matrix.
+// TODO: change 'scale' to 'mul'.
 
 
-//TODO: templatize memory layout choice?
-//TODO: reduce bloat, particularly in matrix inv case.
-//TODO: determinant
-//TODO: matrix kernel (ND normal-finder)
-//TODO: clean arbitrary Matrix handle construction
-//TODO: verify correct matrix template function resolution.
+// TODO: reduce bloat, particularly in matrix inv case.
+// TODO: determinant
+// TODO: clean arbitrary Matrix handle construction
+// TODO: verify correct matrix template function resolution.
 
-//future: look for ways to keep object code bloat down.
-//future: mechanism for col-major mtxs? (iterator based wrapper?) 
-//        (could clutter code, because then other classes must be similarly templated).
+// future: look for ways to keep object code bloat down.
+// future: mechanism for col-major mtxs? (iterator based wrapper?)
+//         (could clutter code, because then other classes must be similarly templated).
 
-//refactoring:
+// refactoring:
 
-//TODO: there should be a diagonal iterator.
-//      this should be the only writeable iterator belonging to the diagMatrix.
-//TODO: iterators for nonzero entries.
-//TODO: set() should return reference to (or value of) new element, so that `z = (mtx[x][y] = foo)` can
-//      evaluate properly with proxy references.
+// TODO: there should be a diagonal iterator.
+//       this should be the only writeable iterator belonging to the diagMatrix.
+// TODO: iterators for nonzero entries.
 
 #ifndef MATRIX_H_
 #define MATRIX_H_

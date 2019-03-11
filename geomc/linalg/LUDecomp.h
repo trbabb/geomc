@@ -612,7 +612,7 @@ public:
             // that we will be solving for the inverse transpose, one column at a time.
             // these columns will be (contiguous) rows in the destination after transpose.
             // by simply writing to them directly, this un-transpose happens implicitly.
-            
+                
             // (in the case where the destination is already column-major, no such trickery
             // is necessary, and so we do not lie to linearSolve() about LU's layout.)
             geom::linearSolveLU<T, Lyt == COL_MAJOR>(LU.begin(), LU.rows(), dest, dest);

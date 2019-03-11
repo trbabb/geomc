@@ -375,6 +375,20 @@ public:
         return data.get() + (rows() * cols());
     }
     
+    /**
+     * @return A pointer to the read-only bare data array, in the layout policy of this matrix.
+     */
+    inline const T* data_begin() const {
+        return data.get();
+    }
+    
+    /**
+     * @return A pointer to the end of the read-only bare data array.
+     */
+    inline const T* data_end() const {
+        return data.get() + (rows() * cols());
+    }
+    
     
     /**
      * Get the element at `(row, col)`.
@@ -413,16 +427,17 @@ public:
     }
     
     /**
-     * Return a transposed, thin wrapper of this matrix.
+     * Reinterpret this matrix as a transposed version of itself.
      *
      * The returned matrix is backed by this matrix's underlying memory. As such, its 
-     * lifetime must not be longer than that of this matrix.
+     * lifetime must not be longer than that of this matrix. Changes to the elements of this
+     * matrix will also be reflected in the resultant matrix.
      *
      * This operation is O(1), and fuctions by constructing a new `WrapperMatrix` with opposite
      * layout (i.e., column-major if this matrix is row-major, or row-major if this matrix is
      * column-major).
      */
-    SimpleMatrix<T,N,M, (Lyt == ROW_MAJOR) ? COL_MAJOR : ROW_MAJOR, STORAGE_WRAPPED> transposed() const {
+    SimpleMatrix<T,N,M, (Lyt == ROW_MAJOR) ? COL_MAJOR : ROW_MAJOR, STORAGE_WRAPPED> as_transpose() const {
         return SimpleMatrix<T,N,M, (Lyt == ROW_MAJOR) ? COL_MAJOR : ROW_MAJOR, STORAGE_WRAPPED>(data.get(), rows(), cols());
     }
     
