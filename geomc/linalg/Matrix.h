@@ -274,7 +274,6 @@
 // each includes matrixdetail and matrixglue
 
 #include <geomc/linalg/mtxtypes/SimpleMatrix.h>
-#include <geomc/linalg/mtxtypes/AugmentedMatrix.h>
 #include <geomc/linalg/mtxtypes/DiagMatrix.h>
 #include <geomc/linalg/mtxtypes/MatrixHandle.h>
 #include <geomc/linalg/mtxtypes/PermutationMatrix.h>
@@ -1025,12 +1024,12 @@ template <typename Matrix> std::ostream& operator<< (std::ostream &s, const Matr
 template <typename Mx>
 typename boost::enable_if_c<detail::IsMatrix<Mx>::val, std::ostream &>::type
 operator<<(std::ostream &s, const Mx &mtx) {
-    s << std::setfill(' '); //xxx statefulness bad
+    s << std::setfill(' '); // xxx statefulness bad
     s << "[ ";
     for (int r = 0; r < mtx.rows(); r++){
         if (r != 0) s << "  ";
         for (int c = 0; c < mtx.cols(); c++){
-            s << std::setw(12) << std::right << std::setprecision(5) << mtx.get(r,c) << " ";
+            s << std::setw(12) << std::right << std::setprecision(5) << mtx(r,c) << " ";
         }
         if (r == mtx.rows() - 1){
             // last row, close the matrix.

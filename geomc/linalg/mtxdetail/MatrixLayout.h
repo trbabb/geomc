@@ -27,39 +27,19 @@ public:
         stride(stride),
         len(len) {}
     
-  // -10
-  // -6
-  // -2
-    
-      // -10
-      // -6
-      // -2
-    
-    //-12-11-10-9
-    //-8 -7 -6 -5
-    //-4 -3 -2 -1
-    
-    // 0  1  2  3
-    // 4  5  6  7
-    // 8  9  10 11
-    
-      // 12
-      // 16
-      // 20
-        
-          // 24
-          // 28
-          // 32
-    
     template <bool K>
     inline bool equal(const StrideIterator<T,K>& other) const {
         return other.base == base and other.i == i;
     }
     
+    inline bool equal(const T* other) const {
+        return base + i == other;
+    }
+    
     inline void increment() {
         // we don't call advance(1) because handling the negative offset case
-        // requires several extra operations (including a branch), 
-        // and this is very inner-loop code.
+        // requires a few extra operations (including a branch), and this is
+        // very inner-loop code.
         index_t i_1 = i + stride;
         i = i_1 % len + i_1 / len;
     }
@@ -70,13 +50,16 @@ public:
     
     inline void advance(index_t dx) {
         index_t i_1 = i + stride * dx;
-        i = i_1 % len + i_1 / len; // needs floor(i/len) not truncate(i/len).
-        if (i_1 < 0) --i; // C and C++ integer division truncate towards zero 
-                          // instead of rounding to negative infinity.
-                          // this is arguably a deep design flaw in C and C++. 
-                          // Guido explains why Python took the high road:
-                          // http://python-history.blogspot.com/2010/08/why-pythons-integer-division-floors.html
-        i = positive_mod(i, len);
+        i = i_1 % len + i_1 / len; // needs floor(i/len), not truncate(i/len).
+        if (i_1 < 0) {
+            // C and C++ integer division truncate towards zero 
+            // instead of rounding to negative infinity, hence the `-1`.
+            // (this is arguably a deep design flaw in C and C++. 
+            // Guido explains why Python took the high road:
+            // http://python-history.blogspot.com/2010/08/why-pythons-integer-division-floors.html)
+            // Is there a branchless / caseless way to handle this? I'd love to know.
+            i += len - 1;
+        }
     }
     
     inline typename std::conditional<Const,const T&, T&>::type dereference() const {

@@ -20,7 +20,7 @@ namespace detail {
  * happens in row-major order.                      *
  ****************************************************/
 
-//PONDER: can we factor common stuff out somehow?
+// PONDER: can we factor common stuff out somehow?
 //        > consider a unified matrix template which implements
 //          its functionality by operating with iterators.
 //          it could be templated over the type of the iterator.
@@ -28,10 +28,10 @@ namespace detail {
 //          (mtx returns separate iterators row/col iteration, some of which
 //          may be native ptrs, e.g.)
 
-//TODO: diagonal iterators.
-//TODO: nonzero iterators?
-//TODO: make a special randaccess iterator for contiguous types, such that i[x] is a bit faster? 
-//      i.e. use a ptr rather than a point.
+// TODO: diagonal iterators.
+// TODO: nonzero iterators?
+// TODO: make a special randaccess iterator for contiguous types, such that i[x] is a bit faster? 
+//       i.e. use a ptr rather than a point.
 
 template <typename M, typename RefType>
 class MtxSubsetIterator : public boost::iterator_facade<MtxSubsetIterator<M,RefType>, // self type
@@ -45,7 +45,7 @@ public:
     
     typedef RefType ref_t;
 
-    M *mtx;
+    M* mtx;
     GridIterator<index_t,2,ARRAYORDER_LAST_DIM_CONSECUTIVE> p;
     
     MtxSubsetIterator(M *m, const MatrixRegion &region):
@@ -106,7 +106,7 @@ private:
     
     inline RefType dereference() const {
         Vec<index_t,2> pt = *p;
-        return mtx->get(pt.row, pt.col); //make sure this is calling the function with the right const-ness!
+        return (*mtx)(pt.row, pt.col); // make sure this is calling the function with the right const-ness!
     }
     
 };
@@ -161,7 +161,7 @@ private:
     
     inline RefType dereference() const {
         // make sure this is calling the function with the right const-ness!
-        return mtx->get(pt.row, pt.col);
+        return (*mtx)(pt.row, pt.col);
     }
     
 };

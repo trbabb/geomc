@@ -349,7 +349,7 @@ public:
      * @param col Zero-indexed column coordinate
      * @return The element at `(row, col)`; either 0 or 1.
      */
-    inline bool get(index_t row, index_t col) const {
+    inline bool operator()(index_t row, index_t col) const {
         return parent_t::getSrcData()[row] == col;
     }
     

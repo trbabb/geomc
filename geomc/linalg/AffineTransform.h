@@ -167,7 +167,7 @@ namespace geom {
             Vec<T,N> o;
             for (index_t r = 0; r < N; r++) {
                 for (index_t c = 0; c < N; c++) {
-                    o[r] += mat.get(r,c) * v[c];
+                    o[r] += mat(r,c) * v[c];
                 }
             }
             return o;
@@ -182,7 +182,7 @@ namespace geom {
             Vec<T,N> o;
             for (index_t r = 0; r < N; r++) {
                 for (index_t c = 0; c < N; c++) {
-                    o[r] += inv.get(c,r) * n[c];
+                    o[r] += inv(c,r) * n[c];
                 }
             }
             return o;
@@ -204,7 +204,7 @@ namespace geom {
             Vec<T,N> o;
             for (index_t r = 0; r < N; r++) {
                 for (index_t c = 0; c < N; c++) {
-                    o[r] += inv.get(r,c) * v[c];
+                    o[r] += inv(r,c) * v[c];
                 }
             }
             return o;
@@ -218,7 +218,7 @@ namespace geom {
             Vec<T,N> o;
             for (index_t r = 0; r < N; r++) {
                 for (index_t c = 0; c < N; c++) {
-                    o[r] += mat.get(c,r) * n[c];
+                    o[r] += mat(c,r) * n[c];
                 }
             }
             return o;
@@ -570,8 +570,8 @@ namespace geom {
      * @return A transformation by `mat`
      * @related AffineTransform
      */
-    template <typename T, index_t N, StoragePolicy P> 
-    AffineTransform<T,N> transformation(const SimpleMatrix<T,N,N,P> &mat) {
+    template <typename T, index_t N, MatrixLayout Lyt, StoragePolicy P> 
+    AffineTransform<T,N> transformation(const SimpleMatrix<T,N,N,Lyt,P> &mat) {
         SimpleMatrix<T,N,N>  m_inv;
         AffineTransform<T,N> xfnew;
         
@@ -586,7 +586,7 @@ namespace geom {
         return xfnew;
     }
     
-    //2D & 3D convenience:
+    // 2D & 3D convenience:
     
     /**
      * Per-axis 3D scale

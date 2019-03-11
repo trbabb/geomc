@@ -51,7 +51,7 @@ public:
     
     virtual index_t   rows() const = 0;
     virtual index_t   cols() const = 0;
-    virtual T         get(index_t r, index_t c) const = 0;
+    virtual T         operator()(index_t r, index_t c) const = 0;
     virtual reference set(index_t r, index_t c, T val) = 0;
     virtual void      set_identity() = 0;
     virtual void      set_zero() = 0;
@@ -76,8 +76,8 @@ public:
     
     //////////// methods ////////////
     
-    virtual elem_t get(index_t r, index_t c) const {
-        return m->get(r, c);
+    virtual elem_t operator()(index_t r, index_t c) const {
+        return (*m)(r, c);
     }
     
     virtual reference set(index_t r, index_t c, elem_t val) {

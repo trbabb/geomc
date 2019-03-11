@@ -534,7 +534,7 @@ template <typename M> double profile_mtxRegionCopy(index_t iters) {
     }
     clock_t start = clock();
     for (index_t i = 0; i < iters; i++) {
-        MatrixRegion region(MatrixCoord(1,1), MatrixCoord(rows-1, cols-1));
+        MatrixRegion region(Vec<index_t,2>(1,1), Vec<index_t,2>(rows-1, cols-1));
         std::copy(m.region_begin(region), m.region_end(region), ary);
     }
     clock_t end = clock();
@@ -950,27 +950,6 @@ template <index_t M, index_t N> void test_simpleMatrix() {
     cout << q << endl;
 }
 
-void test_matrixOrder() {
-    SimpleMatrix<double,3,3> m0;
-    SimpleMatrix<double,3,4> m1;
-    AugmentedMatrix<SimpleMatrix<double,3,3>,
-                    SimpleMatrix<double,3,4> > mtx(&m0, &m1);
-    
-    double ct = 0;
-    for (auto it = mtx.begin(); it != mtx.end(); it++) {
-        *it = ct++;
-    }
-    
-    std::cout << "[";
-    for (index_t r = 0; r < mtx.rows(); r++) {
-        for (index_t c = 0; c < mtx.cols()    ; c++) {
-            std::cout << mtx.get(r,c) << " ";
-        }
-        std::cout << std::endl;
-    }
-    std::cout << "]" << std::endl;
-}
-
 void profile(std::string name, double (*fnc)(index_t), index_t iterations) {
     double t = fnc(iterations);
     std::cout << name << " (" << iterations << " iters): " << t << " secs; " << iterations/t << " ops/sec"  << std::endl;
@@ -1012,8 +991,6 @@ int main(int argc, char** argv) {
     //test_gjkNearest<double,3>(1000);
     
     index_t iters = 10000000;
-    
-    test_matrixOrder();
     
     assert(&a2d.get(0) == &a2d.x && &a2d.get(1) == &a2d.y);
     assert(&a3d.get(0) == &a3d.x && &a3d.get(1) == &a3d.y && &a3d.get(2) == &a3d.z);

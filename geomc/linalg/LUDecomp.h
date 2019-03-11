@@ -581,27 +581,42 @@ public:
     /**
      * Compute the matrix inverse of the decomposed matrix `M`, and copy it
      * to `into`. `M` must be square.
-     * 
-     * @tparam S Element type of destination matrix.
+     *
      * @tparam J Row dimension of destination matrix. Must be 0 (dynamic) or `LU.rows()`.
      * @tparam K Column dimension of destination matrix. Must be 0 or `LU.cols()`.
      *  
      * @param [out] into Destination matrix; a square matrix with dimensions 
      * equal to `LU`.
      */
-    template <typename S, index_t J, index_t K, MatrixLayout Lyt, StoragePolicy SP>
-    void inverse(SimpleMatrix<S,J,K,Lyt,SP> *into) const {
+    template <index_t J, index_t K, MatrixLayout Lyt, StoragePolicy SP>
+    void inverse(SimpleMatrix<T,J,K,Lyt,SP> *into) const {
         
 #ifdef GEOMC_MTX_CHECK_DIMS
         _checkIsSquare();
         // destination is valid?
-        if ((J*K == 0 or J != M or K != N) and 
+        if ((J * K == 0 or J != M or K != N) and 
             (into->rows() != LU.rows() or into->cols() != LU.cols())) {
             throw DimensionMismatchException(into->rows(), into->cols(), LU.rows(), LU.cols());
         }
 #endif
-        _inverseTranspose(into->begin());
-        into->transpose();
+        T* dest = into->data_begin();
+        
+        // Set LUx = PI and solve for x, choosing columns of PI one at a time.
+        const index_t* p = P.getColSources();
+        const index_t  n = LU.rows();
+        std::fill(dest, dest + (n * n), 0);
+        for (index_t i = 0; i < n; i++, dest += n) {
+            dest[p[i]] = 1;
+            // if the destination matrix is row-major, then its columns are not contiguous.
+            // therefore we ask linearSolve() to treat LU as a column-major matrix, such
+            // that we will be solving for the inverse transpose, one column at a time.
+            // these columns will be (contiguous) rows in the destination after transpose.
+            // by simply writing to them directly, this un-transpose happens implicitly.
+            
+            // (in the case where the destination is already column-major, no such trickery
+            // is necessary, and so we do not lie to linearSolve() about LU's layout.)
+            geom::linearSolveLU<T, Lyt == COL_MAJOR>(LU.begin(), LU.rows(), dest, dest);
+        }
     }
     
     /**
@@ -611,7 +626,7 @@ public:
         const index_t n = LU.rows();
         T k = getParity();
         for (index_t i = 0; i < n; i++) {
-            k *= LU.get(i,i);
+            k *= LU(i,i);
         }
         return k;
     }
@@ -638,7 +653,7 @@ protected:
             for (index_t c = 0; c < LU.cols(); c++) {
                 T v;
                 if (c < r) {
-                    v = LU.get(r,c);
+                    v = LU(r,c);
                 } else if (c == r) {
                     v = 1;
                 } else {
@@ -655,7 +670,7 @@ protected:
             for (index_t c = 0; c < LU.cols(); c++) {
                 T v;
                 if (c >= r) {
-                    v = LU.get(r,c);
+                    v = LU(r,c);
                 } else {
                     v = 0;
                 }
@@ -667,23 +682,6 @@ protected:
     inline void _checkIsSquare() const {
         if ((M * N == 0 or M != N) and LU.rows() != LU.cols()) {
             throw NonsquareMatrixException(LU.rows(), LU.cols());
-        }
-    }
-    
-    
-    template <typename S>
-    void _inverseTranspose(S *dest) const {
-        // Set LUx = PI and solve for x, choosing columns of PI one at a time.
-        // Here, we use the rows of our destination matrix as though they are
-        // column vectors, and the caller will transpose.
-        // todo: we can now call the templated solver and treat 
-        //       the input matrix as column-major directly.
-        const index_t *p = P.getColSources();
-        const index_t n = LU.rows();
-        std::fill(dest, dest + (n*n), 0);
-        for (index_t i = 0; i < n; i++, dest += n) {
-            dest[p[i]] = 1;
-            geom::linearSolveLU(LU.begin(), LU.rows(), dest, dest);
         }
     }
     

@@ -155,7 +155,7 @@ struct _ImplMatrixScale {
     static void scale(Md *d, U k, const Mx &m) {
         for (index_t r = 0; r < m.rows(); ++r) {
             for (index_t c = 0; c < m.cols(); ++c) {
-                d->set(r, c, k * m.get(r,c));
+                d->set(r, c, k * m(r,c));
             }
         }
     }

@@ -153,22 +153,22 @@ public:
     typedef typename _ImplVectorLikeMatrix<T,Mat::ROWDIM,ORIENT_VEC_COL>::type return_t; // Vec<T,M>, unless dynamic.
     
     template <index_t M>
-    static void mul(geom::Vec<T,M>* d, const Mat& a, geom::Vec<T,N> b) {
+    static void mul(geom::Vec<T,M>* d, const Mat& a, const geom::Vec<T,N>& b) {
         for (index_t r = 0; r < M; r++) {
             T x = 0;
             for (index_t c = 0; c < N; c++) {
-                x += a(r,c) * b(c);
+                x += a(r,c) * b[c];
             }
             (*d)[r] = x;
         }
     }
     
     template <typename Md>
-    static void mul(Md* d, const Mat& a, geom::Vec<T,N> b, REQUIRE_MATRIX_T(Md)* dummy=0) {
+    static void mul(Md* d, const Mat& a, const geom::Vec<T,N>& b, REQUIRE_MATRIX_T(Md)* dummy=0) {
         for (index_t r = 0; r < a.rows(); r++) {
             T x = 0;
             for (index_t c = 0; c < N; c++) {
-                x += a(r,c) * b(c);
+                x += a(r,c) * b[c];
             }
             d->set(r,0,x);
         }
@@ -188,7 +188,7 @@ public:
         for (index_t c = 0; c < N; c++) {
             T x = 0;
             for (index_t r = 0; r < M; r++) {
-                x += a(r,c) * b(r);
+                x += a(r,c) * b[r];
             }
             (*d)[c] = x;
         }
@@ -199,7 +199,7 @@ public:
         for (index_t c = 0; c < a.cols(); c++) {
             T x = 0;
             for (index_t r = 0; r < M; r++) {
-                x += a(r,c) * b(r);
+                x += a(r,c) * b[r];
             }
             d->set(0,c,x);
         }

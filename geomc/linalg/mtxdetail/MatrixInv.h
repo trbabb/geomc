@@ -192,10 +192,10 @@ struct _ImplMtxInvRaw<T,2>{
     template <typename Md, typename Mx>
     static bool inv(Md *into, const Mx &m) {
         // inverse 2x2 matrix by cramer's rule
-        T a = m.get(0,0);
-        T b = m.get(0,1);
-        T c = m.get(1,0);
-        T d = m.get(1,1);
+        T a = m(0,0);
+        T b = m(0,1);
+        T c = m(1,0);
+        T d = m(1,1);
         return _inv(into->begin(), a, b, c, d);
     }
     

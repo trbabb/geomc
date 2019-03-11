@@ -105,7 +105,6 @@ namespace detail {
     template <typename T, index_t M, index_t N, MatrixLayout Lyt=ROW_MAJOR, StoragePolicy P=STORAGE_UNIQUE>
                                                 class SimpleMatrix;
     template <typename T, index_t M, index_t N> class DiagMatrix;
-    template <typename Ma, typename Mb>         class AugmentedMatrix;
     template <index_t N>                        class PermutationMatrix;
     template <typename T>                       class MatrixHandle;
 

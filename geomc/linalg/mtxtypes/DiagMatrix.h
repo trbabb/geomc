@@ -48,7 +48,7 @@ public:
     
     typedef typename detail::_ImplMtxReftype<DiagMatrix<T,M,N>,T>::reference reference;
     
-    using detail::MatrixBase<T,M,N, DiagMatrix<T,M,N> >::get;
+    using detail::MatrixBase<T,M,N, DiagMatrix<T,M,N> >::operator();
     
     /**
      * Construct a new diagonal matrix.
@@ -95,7 +95,7 @@ public:
         return Dimension<N>::get(n_cols);
     }
     
-    inline T get(index_t r, index_t c) const {
+    inline T operator()(index_t r, index_t c) const {
 #ifdef GEOMC_MTX_CHECK_BOUNDS
             if (r < 0 or r >= rows() or c < 0 or c >= cols()) {
                 throw std::out_of_range("matrix coordinates");
