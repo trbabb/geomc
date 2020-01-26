@@ -11,12 +11,43 @@
 #include <cmath>
 #include <algorithm>
 
+#include <geomc/function/functiondetail/UtilDetail.h>
+
 namespace geom {
     
     /**
      * @ingroup function
      * @{
      */
+    
+    /**
+     * A high-precision method for computing (a * b) - (c * d). In cases
+     * where the two products are large and close in value, the result can be
+     * wildly wrong due to catastrophic cancellation when using the "naive" method.
+     * This function will return a result within 1.5 ULP of the exact answer.
+     *
+     * A high-precision method is available for float, double, and long double.
+     * Other types will fall back to the "naive" method.
+     */
+    template <typename T> 
+    inline T diff_of_products(T a, T b, T c, T d) {
+        return detail::_ImplFMADot<T>::diff_of_products(a,b,c,d);
+    }
+    
+    /**
+     * A high-precision method for computing (a * b) + (c * d). In cases
+     * where the two products are large and similar in magnitude but opposite in sign, 
+     * the result can be wildly wrong due to catastrophic cancellation when using 
+     * the "naive" method. This function will return a result within 1.5 ULP of the 
+     * exact answer.
+     *
+     * A high-precision method is available for float, double, and long double.
+     * Other types will fall back to the "naive" method.
+     */
+    template <typename T>
+    inline T sum_of_products(T a, T b, T c, T d) {
+        return detail::_ImplFMADot<T>::sum_of_products(a,b,c,d);
+    }
 
     /**
      * Clamp `v` between `lo` and `hi`.
@@ -25,7 +56,7 @@ namespace geom {
      * @param hi Maximum value of `v`.
      */
     template <typename T>
-    inline T clamp(const T &v, const T &lo, const T &hi){
+    inline T clamp(const T &v, const T &lo, const T &hi) {
         return std::max(lo, std::min(hi, v));
     }
     
@@ -37,8 +68,8 @@ namespace geom {
      * @return Interpolated value.
      */
     template <typename S, typename T>
-    inline T mix(S t, T a, T b){
-        return (1-t)*a + t*b;
+    inline T mix(S t, T a, T b) {
+        return sum_of_products(1 - t, a, t, b);
     }
     
     /**
@@ -49,7 +80,7 @@ namespace geom {
      * @return Interpolated value.
      */
     template <typename S, typename T>
-    T interp_linear(const S s[], const T p[], int dim){
+    T interp_linear(const S s[], const T p[], int dim) {
         if (dim <= 1){
             return mix<S,T>(*s, p[0], p[1]);
         } else {
@@ -68,7 +99,7 @@ namespace geom {
      * @return Interpolated value.
      */
     template <typename S, typename T>
-    T interp_cubic(S s, const T p[4]){
+    T interp_cubic(S s, const T p[4]) {
         return p[1] + 0.5 * s*(p[2] - p[0] + s*(2.0*p[0] - 5.0*p[1] + 4.0*p[2] - p[3] + s*(3.0*(p[1] - p[2]) + p[3] - p[0])));
     }
     
@@ -80,7 +111,7 @@ namespace geom {
      * @return Interpolated value.
      */
     template <typename S, typename T>
-    T interp_cubic(const S s[], const T p[], int dim){
+    T interp_cubic(const S s[], const T p[], int dim) {
         if (dim <= 1){
             return interp_cubic(*s, p);
         } else {
@@ -107,11 +138,11 @@ namespace geom {
      * the contents of `results` will be unaltered).
      */
     template <typename T> bool quadratic_solve(T results[2], T a, T b, T c){
-        T descr = b*b - 4*a*c;
+        T descr = diff_of_products(b, b, 4 * a, c);
         if (descr < 0) return false; //no real solution
         T q = -0.5 * (b + copysign(sqrt(descr), b));
-        results[0] = q/a;
-        results[1] = c/q;
+        results[0] = q / a;
+        results[1] = c / q;
         return true;
     }
     
