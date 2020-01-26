@@ -10,6 +10,7 @@
 
 #include <cctype>
 #include <geomc/linalg/vecdetail/VecBase.h>
+#include <geomc/function/Utils.h>
 
 
 namespace geom {
@@ -174,9 +175,15 @@ namespace geom {
         
         /// @return Cross product of `this` by `v`, in the order shown.
         Vec<T,3> cross(Vec<T,3> v) const {
-            T newX = (detail::VecBase<T,3>::y * v.z) - (detail::VecBase<T,3>::z * v.y);
-            T newY = (detail::VecBase<T,3>::z * v.x) - (detail::VecBase<T,3>::x * v.z);
-            T newZ = (detail::VecBase<T,3>::x * v.y) - (detail::VecBase<T,3>::y * v.x);
+            T newX = diff_of_products(
+                detail::VecBase<T,3>::y, v.z,
+                detail::VecBase<T,3>::z, v.y);
+            T newY = diff_of_products(
+                detail::VecBase<T,3>::z, v.x,
+                detail::VecBase<T,3>::x, v.z);
+            T newZ = diff_of_products(
+                detail::VecBase<T,3>::x, v.y,
+                detail::VecBase<T,3>::y, v.x);
 
             return Vec<T,3>(newX, newY, newZ);
         }
@@ -219,24 +226,45 @@ namespace geom {
 
         /// @return A copy of this vector rotated by angle `radians` about the axis `(u, v, w)`.
         Vec<T,3> rotate(T u, T v, T w, T radians) const {
-            T u2 = u*u;
-            T v2 = v*v;
-            T w2 = w*w;
-            T uxvywz = u*detail::VecBase<T,3>::x+v*detail::VecBase<T,3>::y+w*detail::VecBase<T,3>::z;
-            T uvw2 = u2+v2+w2;
-            T rsin = std::sqrt(uvw2)*std::sin(radians);
+            const T& x = detail::VecBase<T,3>::x;
+            const T& y = detail::VecBase<T,3>::y;
+            const T& z = detail::VecBase<T,3>::z;
+            T u2 = u * u;
+            T v2 = v * v;
+            T w2 = w * w;  // likely to become an FMA, which will keep precision ↙︎
+            T uxvywz = sum_of_products(u, x, v, y) + w * z;
+            T uvw2 = u2 + v2 + w2;
+            T rsin = std::sqrt(uvw2) * std::sin(radians);
             T c    = std::cos(radians);
-
+            
+            // intermediate sums, using a safe high-precision formula
+            // (expected to be within 5% of "naïve" performance)
+            T p0 = sum_of_products(v, y, w, z);
+            T p1 = sum_of_products(u, x, w, z);
+            T p2 = sum_of_products(u, z, v, y);
+            
+            T q0 = diff_of_products(v, z, w, y);
+            T q1 = diff_of_products(w, x, u, z);
+            T q2 = diff_of_products(u, y, v, x);
+            
+            T s0 = diff_of_products(x, v2 + w2, u, p0);
+            T s1 = diff_of_products(y, u2 + w2, v, p1);
+            T s2 = diff_of_products(z, u2 + v2, w, p2);
+            
+            T t0 = sum_of_products(u, uxvywz, s0, c);
+            T t1 = sum_of_products(v, uxvywz, s1, c);
+            T t2 = sum_of_products(w, uxvywz, s2, c);
+            
             return Vec<T,3>(
-                    (u*uxvywz+(detail::VecBase<T,3>::x*(v2 + w2)-u*(v*detail::VecBase<T,3>::y+w*detail::VecBase<T,3>::z))*c+rsin*(-w*detail::VecBase<T,3>::y+v*detail::VecBase<T,3>::z))/uvw2,
-                    (v*uxvywz+(detail::VecBase<T,3>::y*(u2 + w2)-v*(u*detail::VecBase<T,3>::x+w*detail::VecBase<T,3>::z))*c+rsin*( w*detail::VecBase<T,3>::x-u*detail::VecBase<T,3>::z))/uvw2,
-                    (w*uxvywz+(detail::VecBase<T,3>::z*(u2 + v2)-w*(u*detail::VecBase<T,3>::x+v*detail::VecBase<T,3>::y))*c+rsin*(-v*detail::VecBase<T,3>::x+u*detail::VecBase<T,3>::y))/uvw2);
+                    (t0 + rsin * q0) / uvw2,  // <- also likely to become FMA
+                    (t1 + rsin * q1) / uvw2,
+                    (t2 + rsin * q2) / uvw2);
         }
         
         /** @return A copy of this vector rotated by angle `radians` about 
          * rotation axis `axis` and centerpoint `center`.
          */
-        Vec<T,3> rotate(Vec<T,3> axis, Vec<T,3> center, T radians){
+        inline Vec<T,3> rotate(Vec<T,3> axis, Vec<T,3> center, T radians){
             return rotate(axis.x, axis.y, axis.z, center.x, center.y, center.z, radians);
         }
         
@@ -245,9 +273,9 @@ namespace geom {
          * the axis `(u, v, w)`, and centerpoint `(a, b, c)`.
          */
         Vec<T,3> rotate(T u, T v, T w, T a, T b, T c, T radians){
-            T x = detail::VecBase<T,3>::x;
-            T y = detail::VecBase<T,3>::y;
-            T z = detail::VecBase<T,3>::z;
+            const T& x = detail::VecBase<T,3>::x;
+            const T& y = detail::VecBase<T,3>::y;
+            const T& z = detail::VecBase<T,3>::z;
             
             T cc = std::cos(radians);
             T ss = std::sin(radians);
@@ -256,13 +284,19 @@ namespace geom {
             T u2 = u*u;
             T v2 = v*v;
             T w2 = w*w;
+            T uxvywz = diff_of_products(u, x, v, y) - (w * z);
             
-            T uxvywz = u*x - v*y - w*z;
+            T p0 = sum_of_products(b, v, c, w);
+            T p1 = sum_of_products(a, u, c, w);
+            T p2 = sum_of_products(a, u, b, v);
+            T q0 = diff_of_products(a, v2 + w2, u, p0 - uxvywz);
+            T q1 = diff_of_products(b, u2 + w2, v, p1 - uxvywz);
+            T q2 = diff_of_products(c, u2 + v2, w, p2 - uxvywz);
             
             return Vec<T,3>(
-                    (a*(v2 + w2) - u*(b*v + c*w - uxvywz))*oneMcos + x*cc + (-c*v + b*w - w*y + v*z)*ss,
-                    (b*(u2 + w2) - v*(a*u + c*w - uxvywz))*oneMcos + y*cc + ( c*u - a*w + w*x - u*z)*ss,
-                    (c*(u2 + v2) - w*(a*u + b*v - uxvywz))*oneMcos + z*cc + (-b*u + a*v - v*x + u*y)*ss);
+                    q0 * oneMcos + x * cc + (-c*v + b*w - w*y + v*z) * ss,
+                    q1 * oneMcos + y * cc + ( c*u - a*w + w*x - u*z) * ss,
+                    q2 * oneMcos + z * cc + (-b*u + a*v - v*x + u*y) * ss);
         }
         
         /**

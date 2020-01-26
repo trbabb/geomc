@@ -12,12 +12,16 @@
 
 #include <geomc/linalg/LinalgTypes.h>
 #include <geomc/linalg/LUDecomp.h>
+#include <geomc/function/Utils.h>
 
 namespace geom {
 namespace detail {
 
 
-#define DET2x2(a,b,c,d) ((a)*(d) - (c)*(b))
+// #define DET2x2(a,b,c,d) ((a)*(d) - (c)*(b))
+#define DET2x2(a, b, c, d) diff_of_products(a, d, c, b)
+// shorthand:
+#define D(a,b,c,d)         diff_of_products(a,b,c,d)
 
 /*************************************************
  * General matrix inversion                      *
@@ -52,7 +56,7 @@ struct _ImplMtxInvRaw {
 
 // dynamic matrix inverse
 template <typename T>
-struct _ImplMtxInvRaw<T,DYNAMIC_DIM> {
+struct _ImplMtxInvRaw<T, DYNAMIC_DIM> {
     
     template <typename Md, typename Mx>
     static bool inv(Md *into, const Mx &m) {
@@ -105,7 +109,7 @@ struct _ImplMtxInvRaw<T,4>{
     // and one outside).
     
     template <typename iter_out>
-    static bool _inv(iter_out into, const _buf &s) {
+    static bool _inv(iter_out into, const _buf& s) {
         T s0 = DET2x2(s.a00, s.a01, s.a10, s.a11);
         T s1 = DET2x2(s.a00, s.a02, s.a10, s.a12);
         T s2 = DET2x2(s.a00, s.a03, s.a10, s.a13);
@@ -146,7 +150,7 @@ struct _ImplMtxInvRaw<T,4>{
                  ( s.a20*s3 - s.a21*s1 + s.a22*s0) / det}
         };
         
-        T *inv_ptr = inv[0];
+        T* inv_ptr = inv[0];
         std::copy(inv_ptr, inv_ptr+16, into);
         return true;
     }
@@ -173,13 +177,19 @@ struct _ImplMtxInvRaw<T,3> {
     template <typename iter_out>
     static bool _inv(iter_out into, const _buf &s) {
         // inverse 3x3 matrix by cramer's rule
-        T det = s.a*(s.i*s.e - s.h*s.f) - s.d*(s.i*s.b - s.h*s.c) + s.g*(s.f*s.b - s.e*s.c);
+        T p0  = diff_of_products(s.i, s.e, s.h, s.f);
+        T p1  = diff_of_products(s.i, s.b, s.h, s.c);
+        T p2  = diff_of_products(s.f, s.b, s.e, s.c);
+        T det = diff_of_products(s.a, p0, s.d, p1) + s.g * p2;
         if (det == 0) return false;
-        T inv[3][3] = {{ (s.i*s.e - s.h*s.f)/det, (s.h*s.c - s.i*s.b)/det, (s.f*s.b - s.e*s.c)/det },
-                       { (s.g*s.f - s.i*s.d)/det, (s.i*s.a - s.g*s.c)/det, (s.d*s.c - s.f*s.a)/det },
-                       { (s.h*s.d - s.g*s.e)/det, (s.g*s.b - s.h*s.a)/det, (s.e*s.a - s.d*s.b)/det }};
-        T *from = &(inv[0][0]);
-        std::copy(from, from+9, into);
+        
+        T inv[3][3] = 
+          {{ D(s.i, s.e, s.h, s.f) / det, D(s.h, s.c, s.i, s.b) / det, D(s.f, s.b, s.e, s.c) / det },
+           { D(s.g, s.f, s.i, s.d) / det, D(s.i, s.a, s.g, s.c) / det, D(s.d, s.c, s.f, s.a) / det },
+           { D(s.h, s.d, s.g, s.e) / det, D(s.g, s.b, s.h, s.a) / det, D(s.e, s.a, s.d, s.b) / det }};
+        
+        T* from = &(inv[0][0]);
+        std::copy(from, from + 9, into);
         return true;
     }
 };
@@ -208,12 +218,12 @@ struct _ImplMtxInvRaw<T,2>{
     
     template <typename iter_out>
     static bool _inv(iter_out into, T a, T b, T c, T d) {
-        T det = a*d - c*b;
+        T det = DET2x2(a, b, c, d);
         if (det == 0) return false;
-        T inv[2][2] = {{ d/det, -b/det},
-                       {-c/det,  a/det}};
-        T *from = inv[0];
-        std::copy(from, from+4, into);
+        T inv[2][2] = {{ d / det, -b / det},
+                       {-c / det,  a / det}};
+        T* from = inv[0];
+        std::copy(from, from + 4, into);
         return true;
     }
 };
@@ -285,6 +295,7 @@ class _ImplMtxInv<T*> {
 };
 
 #undef DET2x2
+#undef D
 
 }; // namespace detail
 }; // namespace geom
