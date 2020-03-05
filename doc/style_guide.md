@@ -6,9 +6,9 @@ Braces and indents
 
 **Never** indent with tabs; use four spaces.
 
-K&R indent style. 
+K&R indent style.
 
-* Single space between braces and parens. 
+* Single space between braces and parens.
 * Single space after `if` and `else`.
 * No spaces on the inside of parens.
 * Single space after commas.
@@ -23,7 +23,7 @@ Example:
 
 Only single-line `if`s can be without braces:
 
-    if (test > 0) do_code(x);
+    if (test > 0) short_expr(x);
 
 Blank lines
 -----------
@@ -120,13 +120,14 @@ Long or complicatedly-nested function calls should break each top-level argument
                 anotherFunctionCall(5, z, 22),
                 K_NUM_DOLPHINS);
 
-Complicated function signatures should obey the same rule: Long argument lists are broken into one per line, though closely-related sets of arguments may share a line. Wrapped arguments should be indented one block beyond the function body:
+Complicated function signatures should obey the same rule: Long argument lists are broken into one per line. Wrapped arguments should be indented one block beyond the function body:
 
     int someFunction(
             int arg1,
             int arg2,
             char** thingies,
-            float x, float y,    // x, y are a pair
+            float x,
+            float y,
             SomeClass* myFoo) {
         // body goes here
         // ...
@@ -160,6 +161,35 @@ Double line breaks between functions, single line breaks to break up logical blo
         int d = do_something_else_with(z);
         return h(d, z * z + 1);
     }
+
+Pointers and references
+-----------------------
+
+Pointer and reference decorations are part of the type. Therefore, they should be visually grouped with the type. There is **no whitespace** between a `*` or `&` type decoration and the pointee type:
+
+    // "*" and "&" are grouped with the type:
+    int*      one;
+    Vec<T,N>& two;
+    
+    void f(const AffineTransform<T,N>& xf, T* v) {
+        ...
+    }
+
+The opposite is true for "dereference" and "addressof" operators: Those operate on the object, and should be grouped with its name:
+
+    int* foo_p = &bar;
+
+There is one case where this policy becomes misleading (and it is the most commonly cited reason for grouping pointer decorations with the variable instead of the type), and that is in the context of comma-separated variable declarations:
+
+    int* a, b;  // xxx: incorrect style; DO NOT DO THIS
+   
+This misleadingly declares as `a` as an `int*`, and `b` as an `int`. This is a mistake in the design of the C++'s operator associativity/precedence, but there is a simple solution: *do not declare variables this way.*
+
+Variables should never be declared with comma separation syntax; each variable should be **declared on its own line:**
+
+    // this is correct style:
+    int* a;
+    int* b;
 
 Classes
 -------
@@ -214,7 +244,7 @@ Memory allocation
 
 Assume wherever possible that code will be called in an inner loop. Consider heap memory allocations to be expensive, and prefer using stack variables and (small) arrays over dynamic allocations wherever it is reasonable. 
 
-Where large temporary buffers are needed, consider allowing the user to provide them, or encapsulate the operation and its buffers in a class that can be re-used.
+Where large temporary buffers are needed, consider allowing the user to provide them, or encapsulate the operation and its buffers in a class that can be re-used across multiple calculations.
 
 Precision
 ---------
@@ -243,6 +273,8 @@ Loop variables should be type `index_t`, which will be 64-bit on 64-bit platform
         v[i] += k[i];
     }
 
+Unlike `size_t`, `index_t` is signed, which will prevent warnings when used in with other signed numbers in arithmetic.
+
 While it is true that some loops will not require the extra bit depth, it is better to maintain consistency, and the choice of `index_t` is unlikely to have any negative impact on performance.
 
 Argument passing style
@@ -250,13 +282,13 @@ Argument passing style
 
 Objects that are modified by a function should be passed as pointers:
     
-    void foo(Object *out, int in) {
+    void foo(Object* out, int in) {
         out->x = some_function(n);
     }
 
 Objects that are passed by reference should be *always* declared const:
 
-    int bar(const Object &obj, int k) {
+    int bar(const Object& obj, int k) {
         return (obj.x + k) / obj.z;
     }
 
