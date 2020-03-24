@@ -2,6 +2,7 @@
 #include <utility>
 #include <geomc/Storage.h>
 
+
 namespace geom {
 
 
@@ -213,6 +214,24 @@ public:
     inline const T& operator[](index_t i) const {
         i = positive_mod(i, _size);
         return *item(i);
+    }
+    
+    /**
+     * @brief Equality operator.
+     *
+     * Two CircularBuffers are equal iff they contain equal elements in equal order.
+     */
+    bool operator==(const CircularBuffer<T>& other) {
+        if (_size != other._size) return false;
+        for (index_t i = 0; i < _size; ++i) {
+            if ((*this)[i] != other[i]) return false;
+        }
+        return true;
+    }
+    
+    /// Inequality operator.
+    inline bool operator!=(const CircularBuffer<T>& other) {
+        return not ((*this) == other);
     }
     
     /// Return the number of items in the buffer.
