@@ -1,8 +1,6 @@
 /*
  * LinalgTypes.h
  *
- *  This file shall not include any other files
- *
  *  Created on: Nov 11, 2010
  *      Author: tbabb
  */
@@ -168,7 +166,7 @@ namespace detail {
     // this can be user-specialized, if need be, for interesting
     // types of T.
     
-    // TODO: move me to the eventual matrix traits header.
+    // todo: should I live in Vec.h?
 
     template <typename T, index_t N>
     struct PointType {

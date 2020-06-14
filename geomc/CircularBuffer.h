@@ -221,7 +221,7 @@ public:
      *
      * Two CircularBuffers are equal iff they contain equal elements in equal order.
      */
-    bool operator==(const CircularBuffer<T>& other) {
+    bool operator==(const CircularBuffer<T, N>& other) {
         if (_size != other._size) return false;
         for (index_t i = 0; i < _size; ++i) {
             if ((*this)[i] != other[i]) return false;
@@ -230,7 +230,7 @@ public:
     }
     
     /// Inequality operator.
-    inline bool operator!=(const CircularBuffer<T>& other) {
+    inline bool operator!=(const CircularBuffer<T, N>& other) {
         return not ((*this) == other);
     }
     

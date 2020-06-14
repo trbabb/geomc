@@ -9,14 +9,15 @@ using namespace geom;
 using namespace std;
 
 namespace std {
+    
     template <typename T, bool Const>
-    std::ostream& operator<<(std::ostream& o, const geom::StrideIterator<T,Const>& i) {
-        o << "<" << i.base << "[" << i.i << "]>";
+    std::ostream& operator<<(std::ostream& o, const geom::TransposeIterator<T,Const>& i) {
+        o << "<" << i.base << "[" << (i.p - i.base) << "] = " << (*i) << ">";
         return o;
     }
 }
 
-#define TEST_ROWS 15
+#define TEST_ROWS 13
 #define TEST_COLS  7
 
 

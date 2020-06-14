@@ -96,6 +96,7 @@ namespace detail {
  * @tparam T Element type.
  * @tparam M Row dimension.
  * @tparam N Column dimension.
+ * @tparam Lyt Layout of the underlying array (ROW_MAJOR or COL_MAJOR). ROW_MAJOR is the default.
  * @tparam P Policy for memory ownership of the backing array.
  *
  * Example:
@@ -318,7 +319,7 @@ public:
      * @return A read-only iterator over the elements of row `i`.
      */
     inline const_row_iterator row(index_t i) const {
-        return FlatMatrixLayout<T,Lyt>::template row<true>(data.get(), 0, rows(), cols());
+        return FlatMatrixLayout<T,Lyt>::template row<true>(data.get(), i, rows(), cols());
     }
     
     /**
@@ -326,7 +327,23 @@ public:
      * @return A writeable iterator over the elements of row `i`.
      */
     inline row_iterator row(index_t i) {
-        return FlatMatrixLayout<T,Lyt>::template row<false>(data.get(), 0, rows(), cols());
+        return FlatMatrixLayout<T,Lyt>::template row<false>(data.get(), i, rows(), cols());
+    }
+    
+    /**
+     * @param i Index of column (zero-indexed)
+     * @return A read-only iterator over the elements of row `i`.
+     */
+    inline const_col_iterator col(index_t i) const {
+        return FlatMatrixLayout<T,Lyt>::template col<true>(data.get(), i, rows(), cols());
+    }
+    
+    /**
+     * @param i Index of column (zero-indexed)
+     * @return A writeable iterator over the elements of row `i`.
+     */
+    inline col_iterator col(index_t i) {
+        return FlatMatrixLayout<T,Lyt>::template col<false>(data.get(), i, rows(), cols());
     }
     
     /**
@@ -342,7 +359,7 @@ public:
      * pointing to the just beyond the last element in the matrix.
      */
     inline const_iterator end() const {
-        return FlatMatrixLayout<T,Lyt>::template row<true>(data.get(), cols(), rows(), cols());
+        return begin() + (rows() * cols());
     }
     
     /**
@@ -358,7 +375,7 @@ public:
      * pointing to the element just beyond the last element in the matrix.
      */
     inline iterator end() {
-        return FlatMatrixLayout<T,Lyt>::template row<false>(data.get(), cols(), rows(), cols());
+        return begin() + (rows() * cols());
     }
     
     /**
@@ -431,14 +448,23 @@ public:
      *
      * The returned matrix is backed by this matrix's underlying memory. As such, its 
      * lifetime must not be longer than that of this matrix. Changes to the elements of this
-     * matrix will also be reflected in the resultant matrix.
+     * matrix will also be reflected in the resultant matrix, and vice versa.
      *
      * This operation is O(1), and fuctions by constructing a new `WrapperMatrix` with opposite
      * layout (i.e., column-major if this matrix is row-major, or row-major if this matrix is
      * column-major).
      */
-    SimpleMatrix<T,N,M, (Lyt == ROW_MAJOR) ? COL_MAJOR : ROW_MAJOR, STORAGE_WRAPPED> as_transpose() const {
-        return SimpleMatrix<T,N,M, (Lyt == ROW_MAJOR) ? COL_MAJOR : ROW_MAJOR, STORAGE_WRAPPED>(data.get(), rows(), cols());
+#ifdef PARSING_DOXYGEN
+    WrapperMatrix<T,N,M, (Lyt == ROW_MAJOR) ? COL_MAJOR : ROW_MAJOR> 
+    as_transpose() const {
+#else
+    SimpleMatrix<T,N,M, (Lyt == ROW_MAJOR) ? COL_MAJOR : ROW_MAJOR, STORAGE_WRAPPED> 
+    as_transpose() const {
+#endif
+        return 
+        SimpleMatrix<T,N,M, (Lyt == ROW_MAJOR) ? COL_MAJOR : ROW_MAJOR, STORAGE_WRAPPED>(
+            data.get(), cols(), rows()
+        );
     }
     
     /**

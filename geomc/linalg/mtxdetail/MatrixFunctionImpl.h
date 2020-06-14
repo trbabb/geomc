@@ -175,6 +175,23 @@ bool mtxequal(const Ma& a, const Mb& b) {
     return true;
 }
 
+// two flat matrices with the same layout can compare bare arrays
+template <typename T, typename S, 
+          index_t M0, index_t N0, 
+          index_t M1, index_t N1, 
+          MatrixLayout Lyt, 
+          StoragePolicy P0, StoragePolicy P1>
+bool mtxequal(
+        const SimpleMatrix<T,M0,N0,Lyt,P0>& a,
+        const SimpleMatrix<T,M1,N1,Lyt,P1>& b) {
+    const T* ai = a.data_begin();
+    const T* bi = b.data_begin();
+    for (; ai != a.data_end(); ++ai, ++bi) {
+        if (*ai != *bi) return false;
+    }
+    return true;
+}
+
 template <typename T, index_t M1, index_t N1, index_t M2, index_t N2>
 bool mtxequal(const geom::DiagMatrix<T,M1,N1>& a, const geom::DiagMatrix<T,M2,N2>& b) {
     const T* pa = a.diagonal_begin();
@@ -207,31 +224,6 @@ bool mtxequal(const geom::PermutationMatrix<N>& a, const geom::PermutationMatrix
 }
 
 
-// TODO: a permutation matrix
-//       x elem_t == bool
-//         x specialized mult for mtxes 
-//         x and vecs 
-//         x and other permute mtxes
-//       x exposure for 
-//         x mul(), 
-//         x xpose(), 
-//         x inv() 
-//         x which respect static vs. dynamic nature.
-//       x specialized inverse (transpose is inverse)
-//         x short-circuit copy if src==dest
-//         x make sure the short circuit is not subverted by an alloc/copy within
-//           the outer, default exposed function.
-//         x basically, make explicit global inv()s and transpose()es for permutationmtxes
-//           x this may not be necessary, but you should be sure to skip the aliasing
-//             dance for permute matrices, which can invert in-place.
-//             > technically this is true of 2x2 matrices as well.
-//             > actually, the aliasing handling should be pushed down into the invert
-//               implementation, since many/most cases will not need it.
-//       x specialized transpose (swap row, col indirection tables)
-//       X creation function in PermutedMatrix
-//         x PermutedMatrix deprecated
-//       - specialized determinant (1 or -1)
-//       x flatten() in PermutedMatrix
 // TODO: in wrapper, allow case where src == upper_dest
 
 

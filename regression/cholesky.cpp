@@ -21,7 +21,7 @@ SimpleMatrix<T,0,0> random_matrix(index_t sz, rng_t* rng) {
     
     for (index_t r = 0; r < sz; ++r) {
         for (index_t c = 0; c < sz; ++c) {
-            mx[r][c] = N(*rng);
+            mx(r,c) = N(*rng);
         }
     }
     return mx;

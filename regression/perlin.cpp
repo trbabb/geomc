@@ -1,9 +1,6 @@
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_MODULE Perlin
 
-// xxx debug
-#include <iostream>
-
 #include <boost/test/unit_test.hpp>
 #include <geomc/function/PerlinNoise.h>
 #include <geomc/random/MTRand.h>

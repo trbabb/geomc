@@ -1,75 +1,88 @@
 #include <geomc/linalg/LinalgTypes.h>
 
-// todo: is the StrideIterator faster or slower than the Matrix{Row,Col}Iterators?
-
 namespace geom {
 
+
 template <typename T, bool Const>
-class StrideIterator : 
-        public boost::iterator_facade<
-            StrideIterator<T,Const>,                               // self type
-            T,                                                     // value (pointed to) type
-            std::random_access_iterator_tag,                       // implemented concepts (all)
-            typename std::conditional<Const,const T&, T&>::type> { // reference to elem type
+struct TransposeIterator :
+        public boost::iterator_facade
+        <
+            TransposeIterator<T,Const>,      // self_t
+            T,                               // pointed-to type
+            std::random_access_iterator_tag, // implemented concepts
+                                             // ↓ elem type
+            typename std::conditional<Const, const T&, T&>::type
+        >
+{
     
-    typedef typename std::conditional<Const,const T*,T*>::type pointer_t;
+    typedef typename std::conditional<Const, const T*, T*>::type pointer_t;
+    typedef typename std::conditional<Const, const T&, T&>::type ref_t;
     
-public:
+    /*
+        maj--->         min
+         0  1  2  3  4  |
+         5  6  7  8  9  v
+        10 11 12 13 14
+        [] <-- "end"
+    */
     
-    pointer_t base;
-    index_t   i;
-    index_t   stride;
-    index_t   len;
+    const pointer_t base;
+    const index_t   major; // # elements along major (consecutive) axis
+    const index_t   minor; // # elements along minor axis
+          index_t   i;     // ordinal of this iterator
+          pointer_t p;     // pointed memory location
     
-    StrideIterator(pointer_t base, index_t i, index_t stride, index_t len):
+    TransposeIterator(pointer_t base, index_t major, index_t minor, index_t i=0):
         base(base),
+        major(major),
+        minor(minor),
         i(i),
-        stride(stride),
-        len(len) {}
+        p(offs()) {}
     
-    template <bool K>
-    inline bool equal(const StrideIterator<T,K>& other) const {
-        return other.base == base and other.i == i;
+    // compute the new memory location
+    inline pointer_t offs() const {
+        // handle "off-end" correctly:
+        index_t s = major * minor;
+        index_t j = i % s;
+        index_t k = i / s;
+        // compute transposed offset:
+        return base + (j % minor) * major + (j / minor) + k * s;
     }
     
     inline bool equal(const T* other) const {
-        return base + i == other;
-    }
-    
-    inline void increment() {
-        // we don't call advance(1) because handling the negative offset case
-        // requires a few extra operations (including a branch), and this is
-        // very inner-loop code.
-        index_t i_1 = i + stride;
-        i = i_1 % len + i_1 / len;
-    }
-    
-    inline void decrement() {
-        advance(-1);
-    }
-    
-    inline void advance(index_t dx) {
-        index_t i_1 = i + stride * dx;
-        i = i_1 % len + i_1 / len; // needs floor(i/len), not truncate(i/len).
-        if (i_1 < 0) {
-            // C and C++ integer division truncate towards zero 
-            // instead of rounding to negative infinity, hence the `-1`.
-            // (this is arguably a deep design flaw in C and C++. 
-            // Guido explains why Python took the high road:
-            // http://python-history.blogspot.com/2010/08/why-pythons-integer-division-floors.html)
-            // Is there a branchless / caseless way to handle this? I'd love to know.
-            i += len - 1;
-        }
-    }
-    
-    inline typename std::conditional<Const,const T&, T&>::type dereference() const {
-        return *(base + i);
+        return this->p == other;
     }
     
     template <bool K>
-    inline index_t distance_to(const StrideIterator<T,K>& other) const {
-        return (other.i % stride - i % stride) * (len / stride) + 
-               (other.i / stride - i / stride);
+    inline bool equal(const TransposeIterator<T,K>& other) const {
+        return this->p == other.p;
+    }
+    
+    inline void increment() {
+        this->i += 1;
+        this->p  = offs();
+    }
+    
+    inline void decrement() {
+        this->i -= 1;
+        this->p  = offs();
+    }
+    
+    inline void advance(index_t dx) {
+        this->i += dx;
+        this->p  = offs();
+    }
+    
+    inline ref_t dereference() const {
+        return *p;
+    }
+    
+    template <bool K>
+    inline index_t distance_to(const TransposeIterator<T,K>& other) const {
+        index_t   j = other.p - other.base;
+        index_t o_i = (j % major) * minor + (j / major);
+        
+        return o_i - i;
     }
     
 };
@@ -79,25 +92,35 @@ template <typename T, MatrixLayout L>
 class FlatMatrixLayout {
 public:
     
-    typedef                const T* const_row_iterator;
-    typedef  StrideIterator<T,true> const_col_iterator;
-    typedef                      T* row_iterator;
-    typedef StrideIterator<T,false> col_iterator;
+    typedef                   const T* const_row_iterator;
+    typedef TransposeIterator<T, true> const_col_iterator;
+    typedef                         T* row_iterator;
+    typedef TransposeIterator<T,false> col_iterator;
     
     static inline index_t index(index_t r, index_t c, index_t rows, index_t cols) {
         return r * cols + c;
     }
     
     template <bool Const>
-    static inline typename std::conditional<Const, const T*, T*>::type row(
-            typename std::conditional<Const, const T*, T*>::type base, index_t r, index_t rows, index_t cols) {
+    static inline typename std::conditional<Const, const T*, T*>::type 
+        row(
+            typename std::conditional<Const, const T*, T*>::type base, 
+            index_t r,
+            index_t rows,
+            index_t cols)
+    {
         return base + r * cols;
     }
     
     template <bool Const>
-    static inline StrideIterator<T,Const> col(
-            typename std::conditional<Const, const T*, T*>::type base, index_t c, index_t rows, index_t cols) {
-        return StrideIterator<T,Const>(base, c, cols, rows * cols);
+    static inline TransposeIterator<T,Const> col(
+            typename std::conditional<Const, const T*, T*>::type base, 
+            index_t c, 
+            index_t rows, 
+            index_t cols)
+    
+    {
+        return TransposeIterator<T,Const>(base, cols, rows, c * rows);
     }
     
 };
@@ -107,27 +130,37 @@ template <typename T>
 class FlatMatrixLayout<T, COL_MAJOR> {
 public:
     
-    typedef  StrideIterator<T,true> const_row_iterator;
-    typedef                const T* const_col_iterator;
-    typedef StrideIterator<T,false> row_iterator;
-    typedef                      T* col_iterator;
+    typedef TransposeIterator<T, true> const_row_iterator;
+    typedef                   const T* const_col_iterator;
+    typedef TransposeIterator<T,false> row_iterator;
+    typedef                         T* col_iterator;
     
     static inline index_t index(index_t r, index_t c, index_t rows, index_t cols) {
         return c * rows + r;
     }
     
     template <bool Const>
-    static inline typename std::conditional<Const, const T*, T*>::type col(
-            typename std::conditional<Const, const T*, T*>::type base, index_t c, index_t rows, index_t cols) {
+    static inline typename std::conditional<Const, const T*, T*>::type 
+        col(
+            typename std::conditional<Const, const T*, T*>::type base,
+            index_t c,
+            index_t rows,
+            index_t cols)
+    {
         return base + c * rows;
     }
     
     template <bool Const>
-    static inline StrideIterator<T,Const> row(
-            typename std::conditional<Const, const T*, T*>::type base, index_t r, index_t rows, index_t cols) {
-        return StrideIterator<T,Const>(base, r, rows, rows * cols);
+    static inline TransposeIterator<T,Const> 
+        row(
+            typename std::conditional<Const, const T*, T*>::type base,
+            index_t r,
+            index_t rows,
+            index_t cols)
+    {
+        return TransposeIterator<T,Const>(base, rows, cols, r * cols);
     }
     
 };
 
-};
+} // namespace geom

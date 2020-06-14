@@ -60,7 +60,7 @@ struct _ImplMatrixAdd < DiagMatrix<T,M,N>, DiagMatrix<S,J,K> > {
     typedef DiagMatrix<S,J,K> Mb;
     
     //TODO: use decltype(T+S)
-    typedef DiagMatrix<T, 
+    typedef DiagMatrix<T,
                        M * J == 0 ? 0 : M,
                        N * K == 0 ? 0 : N>
             return_t;

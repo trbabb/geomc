@@ -68,7 +68,7 @@ class GridIterator : public boost::iterator_facade<GridIterator<T,N,Order>,     
     
 public:
     /// Array order (row-major or column-major)
-    const static ArrayOrder order; //for cxx11: use constexpr
+    const static ArrayOrder order; // for cxx11: use constexpr
     /// Type of coordinate to be iterated over.
     typedef typename PointType<T,N>::point_t point_t;
     

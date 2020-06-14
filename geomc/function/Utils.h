@@ -69,7 +69,7 @@ namespace geom {
      */
     template <typename S, typename T>
     inline T mix(S t, T a, T b) {
-        return sum_of_products(1 - t, a, t, b);
+        return (1 - t) * a + t * b;
     }
     
     /**

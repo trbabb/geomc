@@ -144,6 +144,8 @@ public:
     }
 };
 
+// xxx todo: vectors should be wrapped as matrices, so that they delegate to the proper optimal functions.
+//     (verify that this doesn't harm the more straightforward impls).
 
 // mtx * vec
 // (row x col) * (col x 1) = (row x 1)
