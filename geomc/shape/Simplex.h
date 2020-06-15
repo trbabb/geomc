@@ -155,7 +155,7 @@ public:
                 // its nullspace bases. (but don't bother actually solving for 
                 // the nullpsace coords; we don't use them).
                 Vec<T,N> x;
-                if (not linearSolve(bases, &x, p - pts[0], n_null)) return false;
+                if (not linear_solve(bases, &x, p - pts[0], n_null)) return false;
                 
                 // check that the coordinates of `p` are inside the simplex
                 T sum = 0;

@@ -35,11 +35,14 @@ namespace detail {
     
     // SimpleMatrixes with the same layout can copy via bare pointers.
     template <typename T, typename S, 
-        index_t M0, index_t N0, 
-        index_t M1, index_t N1, 
-        MatrixLayout Lyt, 
+        index_t M0, index_t N0,
+        index_t M1, index_t N1,
+        MatrixLayout Lyt,
         StoragePolicy P0, StoragePolicy P1>
-    void _mtxcopy(geom::SimpleMatrix<T,M0,N0,Lyt,P0>* into, const geom::SimpleMatrix<S,M1,N1,Lyt,P1>& src) {
+    void _mtxcopy(
+            geom::SimpleMatrix<T,M0,N0,Lyt,P0>* into, 
+            const geom::SimpleMatrix<S,M1,N1,Lyt,P1>& src)
+    {
         std::copy(src.data_begin(), src.data_end(), into->data_begin());
     }
 

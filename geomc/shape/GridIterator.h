@@ -56,10 +56,15 @@ namespace geom {
  *     // etc. 
  */
 template <typename T, index_t N, ArrayOrder Order>
-class GridIterator : public boost::iterator_facade<GridIterator<T,N,Order>,            // self type
-                                            typename PointType<T,N>::point_t,          // value (pointed to) type
-                                            std::random_access_iterator_tag,           // implemented concepts (all)
-                                            const typename PointType<T,N>::point_t&> { // reference to elem type (may be a proxy)
+class GridIterator : 
+    public boost::iterator_facade
+    <
+        GridIterator<T,N,Order>,                 // self type
+        typename PointType<T,N>::point_t,        // value (pointed to) type
+        std::random_access_iterator_tag,         // implemented concepts (all)
+        const typename PointType<T,N>::point_t&  // reference to elem type (may be a proxy)
+    >
+{
     
     const static index_t dim_first     = detail::_ImplArrayOrder<Order,N>::dim_first;
     const static index_t dim_last      = detail::_ImplArrayOrder<Order,N>::dim_last;
@@ -195,11 +200,16 @@ private:
 // conversion operator or constructor.
 
 template <typename T, ArrayOrder Order>
-class GridIterator<T,1,Order> : public boost::iterator_facade<GridIterator<T,1,Order>,      // self type
-                                                 typename PointType<T,1>::point_t,          // value (pointed to) type
-                                                 std::random_access_iterator_tag,           // implemented concepts (all)
-                                                 const typename PointType<T,1>::point_t&> {    // reference to elem type (may be a proxy)
-    
+class GridIterator<T,1,Order> : 
+    public boost::iterator_facade
+    <
+        GridIterator<T,1,Order>,                 // self type
+        typename PointType<T,1>::point_t,        // value (pointed to) type
+        std::random_access_iterator_tag,         // implemented concepts (all)
+        const typename PointType<T,1>::point_t&  // reference to elem type (may be a proxy)
+    >
+{
+
 public:
 
     static const ArrayOrder order;

@@ -7,6 +7,10 @@
 #include <boost/test/floating_point_comparison.hpp>
 #include <geomc/linalg/Matrix.h>
 
+// xxx: todo: unfuck the matrix inversion code
+// xxx: todo: make begin() and end() iterate over memory, not rows.
+//            if you want row or column iterators specifically, use row() or col().
+
 // because macros can't be made to not eat the comma in
 // constructs like MACRO(Thing<A,B>).
 // macros are very silly in general and this is silly too
@@ -33,8 +37,10 @@ void randomize_matrix(SimpleMatrix<T,M,N,L>* mx, rng_t* rng) {
 
 template <index_t M, index_t N>
 struct LayoutFixture {
-    SimpleMatrix<float,M,N,ROW_MAJOR> m_a;
-    SimpleMatrix<float,M,N,COL_MAJOR> m_b;
+    typedef SimpleMatrix<float,M,N,ROW_MAJOR> rmaj_t;
+    typedef SimpleMatrix<float,M,N,COL_MAJOR> cmaj_t;
+    rmaj_t m_a;
+    cmaj_t m_b;
     
     LayoutFixture() {
         index_t i = 0;
@@ -93,6 +99,15 @@ BOOST_AUTO_TEST_CASE(verify_matrix_copy) {
     BOOST_CHECK(m_a == m_b);
 }
 
+BOOST_AUTO_TEST_CASE(verify_matrix_copy_init) {
+    float x = 3.2;
+    for (auto i = m_a.begin(); i != m_a.end(); ++i, x *= 1.07) {
+        *i = x;
+    }
+    cmaj_t m_c(m_a);
+    BOOST_CHECK(m_a == m_c);
+}
+
 // xxx fails on end-of-array case
 BOOST_AUTO_TEST_CASE(verify_col_iterator_offend) {
     float* base = m_a.data_begin();
@@ -110,7 +125,6 @@ BOOST_AUTO_TEST_CASE(verify_col_iterator_offend) {
     }
 }
 
-// xxx fails on the end-of-array case
 BOOST_AUTO_TEST_CASE(verify_row_iterator_offend) {
     float* base = m_b.data_begin();
     for (index_t i = 0; i < m_b.rows(); ++i) {
@@ -160,16 +174,12 @@ BOOST_AUTO_TEST_CASE(verify_matrix_add) {
 BOOST_AUTO_TEST_SUITE_END()
 
 
-
-BOOST_AUTO_TEST_SUITE(matrix_inv)
-
-// todo: iterate this guy over sizes 2, 3, 4, 5, 6
-BOOST_AUTO_TEST_CASE(verify_matrix_inv) {
-    rng_t rng(17581355241LL);
-    SimpleMatrix<double,3,3,ROW_MAJOR> m0r;
-    SimpleMatrix<double,3,3,ROW_MAJOR> m1r;
-    SimpleMatrix<double,3,3,COL_MAJOR> m0c;
-    SimpleMatrix<double,3,3,COL_MAJOR> m1c;
+template <typename T, index_t N>
+void test_inv(rng_t& rng) {
+    SimpleMatrix<T,N,N,ROW_MAJOR> m0r;
+    SimpleMatrix<T,N,N,ROW_MAJOR> m1r;
+    SimpleMatrix<T,N,N,COL_MAJOR> m0c;
+    SimpleMatrix<T,N,N,COL_MAJOR> m1c;
     
     randomize_matrix(&m0r, &rng);
     
@@ -182,8 +192,8 @@ BOOST_AUTO_TEST_CASE(verify_matrix_inv) {
     mul(&m0c, m0r, m1r);
     for (index_t r = 0; r < m0r.rows(); ++r) {
         for (index_t c = 0; c < m0r.cols(); ++c) {
-            if (r == c) BOOST_CHECK_CLOSE(m0r(r,c), 1, 0.0001);
-            else BOOST_CHECK_SMALL(m0r(r,c), 1e-6);
+            if (r == c) BOOST_CHECK_CLOSE(m0c(r,c), 1, 0.0001);
+            else BOOST_CHECK_SMALL(m0c(r,c), 1e-6);
         }
     }
     
@@ -193,7 +203,6 @@ BOOST_AUTO_TEST_CASE(verify_matrix_inv) {
     inv(&m1r, m0c);
     BOOST_CHECK(m1r == m1c);
     
-    
     // verify correctness
     mul(&m0r, m0c, m1c);
     for (index_t r = 0; r < m0r.rows(); ++r) {
@@ -202,6 +211,19 @@ BOOST_AUTO_TEST_CASE(verify_matrix_inv) {
             else BOOST_CHECK_SMALL(m0r(r,c), 1e-6);
         }
     }
+}
+
+
+BOOST_AUTO_TEST_SUITE(matrix_inv)
+
+
+BOOST_AUTO_TEST_CASE(verify_matrix_inv) {
+    rng_t rng(17581355241LL);
+    test_inv<double,2>(rng);
+    test_inv<double,3>(rng);
+    test_inv<double,4>(rng);
+    test_inv<double,5>(rng);
+    test_inv<double,6>(rng);
 }
 
 

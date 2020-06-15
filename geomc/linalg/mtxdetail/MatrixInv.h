@@ -18,10 +18,10 @@ namespace geom {
 namespace detail {
 
 
-// #define DET2x2(a,b,c,d) ((a)*(d) - (c)*(b))
-#define DET2x2(a, b, c, d) diff_of_products(a, d, c, b)
-// shorthand:
-#define D(a,b,c,d)         diff_of_products(a,b,c,d)
+#define DET2x2(a,b,c,d)  ((a) * (d) - (c) * (b))
+#define      D(a,b,c,d)  ((a) * (b) - (c) * (d))
+// #define DET2x2(a, b, c, d) diff_of_products(a, d, c, b)
+// #define D(a,b,c,d)         diff_of_products(a, b, c, d)
 
 /*************************************************
  * General matrix inversion                      *
@@ -44,10 +44,17 @@ namespace detail {
 template <typename T, index_t N>
 struct _ImplMtxInvRaw {
     
-    template <typename S, index_t J, index_t K, MatrixLayout Lyt, StoragePolicy P, typename Mx>
-    static inline bool inv(SimpleMatrix<S,J,K,Lyt,P> *into, const Mx &m) {
+    template <
+        typename      S,
+        index_t       J,
+        index_t       K,
+        MatrixLayout  Lyt,
+        StoragePolicy P,
+        typename      Mx
+    >
+    static inline bool inv(SimpleMatrix<S,J,K,Lyt,P>* into, const Mx& m) {
         PLUDecomposition<typename Mx::elem_t, Mx::ROWDIM, Mx::COLDIM> plu(m);
-        if (plu.isSingular()) return false;
+        if (plu.is_singular()) return false;
         plu.inverse(into);
         return true;
     }
@@ -59,7 +66,7 @@ template <typename T>
 struct _ImplMtxInvRaw<T, DYNAMIC_DIM> {
     
     template <typename Md, typename Mx>
-    static bool inv(Md *into, const Mx &m) {
+    static bool inv(Md* into, const Mx& m) {
         switch(m.rows()) {
             case 2:
                 return geom::detail::_ImplMtxInvRaw<T,2>::inv(into, m);
@@ -69,7 +76,7 @@ struct _ImplMtxInvRaw<T, DYNAMIC_DIM> {
                 return geom::detail::_ImplMtxInvRaw<T,4>::inv(into, m);
             default:
                 PLUDecomposition<typename Mx::elem_t, Mx::ROWDIM, Mx::COLDIM> plu(m);
-                if (plu.isSingular()) return false;
+                if (plu.is_singular()) return false;
                 plu.inverse(into);
                 return true;
         }
@@ -91,7 +98,7 @@ struct _ImplMtxInvRaw<T,4>{
     };
     
     template <typename Md, typename Mx>
-    static bool inv(Md *into, const Mx &m) {
+    static bool inv(Md* into, const Mx& m) {
         _buf b;
         std::copy(m.begin(), m.end(), &b.a00);
         if (_inv(into->begin(), b)) {
@@ -168,25 +175,34 @@ struct _ImplMtxInvRaw<T,3> {
     };
     
     template <typename Md, typename Mx>
-    static bool inv(Md *into, const Mx &m) {
+    static bool inv(Md* into, const Mx& m) {
         _buf b;
         std::copy(m.begin(), m.end(), &b.a);
         return _inv(into->begin(), b);
     }
     
     template <typename iter_out>
-    static bool _inv(iter_out into, const _buf &s) {
+    static bool _inv(iter_out into, const _buf& s) {
         // inverse 3x3 matrix by cramer's rule
-        T p0  = diff_of_products(s.i, s.e, s.h, s.f);
-        T p1  = diff_of_products(s.i, s.b, s.h, s.c);
-        T p2  = diff_of_products(s.f, s.b, s.e, s.c);
-        T det = diff_of_products(s.a, p0, s.d, p1) + s.g * p2;
+        T p0  = D(s.i, s.e, s.h, s.f);
+        T p1  = D(s.i, s.b, s.h, s.c);
+        T p2  = D(s.f, s.b, s.e, s.c);
+        T det = D(s.a, p0, s.d, p1) + s.g * p2;
         if (det == 0) return false;
         
-        T inv[3][3] = 
-          {{ D(s.i, s.e, s.h, s.f) / det, D(s.h, s.c, s.i, s.b) / det, D(s.f, s.b, s.e, s.c) / det },
-           { D(s.g, s.f, s.i, s.d) / det, D(s.i, s.a, s.g, s.c) / det, D(s.d, s.c, s.f, s.a) / det },
-           { D(s.h, s.d, s.g, s.e) / det, D(s.g, s.b, s.h, s.a) / det, D(s.e, s.a, s.d, s.b) / det }};
+        T inv[3][3] = {
+          { D(s.i, s.e, s.h, s.f) / det,
+            D(s.h, s.c, s.i, s.b) / det,
+            D(s.f, s.b, s.e, s.c) / det },
+        
+          { D(s.g, s.f, s.i, s.d) / det,
+            D(s.i, s.a, s.g, s.c) / det,
+            D(s.d, s.c, s.f, s.a) / det },
+        
+          { D(s.h, s.d, s.g, s.e) / det,
+            D(s.g, s.b, s.h, s.a) / det,
+            D(s.e, s.a, s.d, s.b) / det }
+        };
         
         T* from = &(inv[0][0]);
         std::copy(from, from + 9, into);
@@ -200,7 +216,7 @@ template <typename T>
 struct _ImplMtxInvRaw<T,2>{
     
     template <typename Md, typename Mx>
-    static bool inv(Md *into, const Mx &m) {
+    static bool inv(Md* into, const Mx& m) {
         // inverse 2x2 matrix by cramer's rule
         T a = m(0,0);
         T b = m(0,1);
@@ -242,13 +258,20 @@ template <typename Mx>
 class _ImplMtxInv {
 public:
     
-    typedef geom::SimpleMatrix<typename Mx::elem_t, 
-                              (Mx::ROWDIM != DYNAMIC_DIM ? Mx::ROWDIM : Mx::COLDIM), 
-                              (Mx::ROWDIM != DYNAMIC_DIM ? Mx::ROWDIM : Mx::COLDIM)> return_t;
+    typedef geom::SimpleMatrix
+    <
+        typename Mx::elem_t,
+        (Mx::ROWDIM != DYNAMIC_DIM ? Mx::ROWDIM : Mx::COLDIM),
+        (Mx::ROWDIM != DYNAMIC_DIM ? Mx::ROWDIM : Mx::COLDIM)
+    > return_t;
     
     template <typename Md>
-    static inline bool inv(Md *into, const Mx& m) {
-        return geom::detail::_ImplMtxInvRaw<typename Md::elem_t, (Mx::ROWDIM != DYNAMIC_DIM ? Mx::ROWDIM : Mx::COLDIM)>::inv(into, m);
+    static inline bool inv(Md* into, const Mx& m) {
+        return geom::detail::_ImplMtxInvRaw
+        <
+            typename Md::elem_t, 
+            (Mx::ROWDIM != DYNAMIC_DIM ? Mx::ROWDIM : Mx::COLDIM)
+        >::inv(into, m);
     }
 };
 

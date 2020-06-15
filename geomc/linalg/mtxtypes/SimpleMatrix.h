@@ -25,7 +25,6 @@
 #include <geomc/linalg/mtxdetail/MatrixBase.h>
 #include <geomc/linalg/mtxdetail/MatrixCopy.h>
 
-// todo: we should get rid of augmented matrix. literally no one uses it.
 
 /* 
     what would we need for templated layout?
@@ -266,6 +265,14 @@ protected:
         Dimension<M>::set(n_rows, nrows);
         Dimension<N>::set(n_cols, ncols);
         set_identity();
+    }
+    
+    // copy from another matrix without setting identity first.
+    template <typename Mx>
+    FlatMatrixBase(const Mx& m) {
+        Dimension<M>::set(n_rows, m.rows());
+        Dimension<N>::set(n_cols, m.cols());
+        detail::_mtxcopy(this, m);
     }
 
 public:
@@ -535,13 +542,14 @@ public:
                 parent_t(nrows, ncols, src_data) {}
 
     template <typename Mx>
-    SimpleMatrix(const Mx &mtx,
-                 typename boost::enable_if_c<
-                    (detail::LinalgDimensionMatch<SimpleMatrix<T,M,N>, Mx>::val),
-                    void*>::type dummy=0):
-                        parent_t(mtx.rows(), mtx.cols()) {
-        detail::_mtxcopy(this, mtx);
-    }
+    SimpleMatrix(
+        const Mx &mtx,
+        typename boost::enable_if_c
+        <
+            (detail::LinalgDimensionMatch<SimpleMatrix<T,M,N>, Mx>::val),
+            void*
+        >::type dummy=0):
+            parent_t(mtx) {}
 
 
 };  // class SimpleMatrix <...>
@@ -552,7 +560,9 @@ public:
 
 
 template <typename T, index_t M, index_t N, MatrixLayout Lyt>
-class SimpleMatrix<T,M,N,Lyt,STORAGE_WRAPPED> : public detail::FlatMatrixBase<T,M,N,Lyt,STORAGE_WRAPPED> {
+class SimpleMatrix<T,M,N,Lyt,STORAGE_WRAPPED>: 
+    public detail::FlatMatrixBase<T,M,N,Lyt,STORAGE_WRAPPED>
+{
 
 private:
 

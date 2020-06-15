@@ -30,15 +30,18 @@ namespace detail {
 
 // TODO: diagonal iterators.
 // TODO: nonzero iterators?
-// TODO: make a special randaccess iterator for contiguous types, such that i[x] is a bit faster? 
-//       i.e. use a ptr rather than a point.
 
 template <typename M, typename RefType>
-class MtxSubsetIterator : public boost::iterator_facade<MtxSubsetIterator<M,RefType>, // self type
-                                             typename M::elem_t,                      // value (pointed to) type
-                                             std::random_access_iterator_tag,         // implemented concepts (all)
-                                             RefType> {                               // reference to elem type (may be a proxy)
-    
+class MtxSubsetIterator : 
+    public boost::iterator_facade
+    <
+        MtxSubsetIterator<M,RefType>,    // self type
+        typename M::elem_t,              // value (pointed to) type
+        std::random_access_iterator_tag, // implemented concepts (all)
+        RefType                          // reference to elem type (may be a proxy)
+    >
+{
+
 public:
     
     // TODO: optimize this class. maybe counter math is faster?
@@ -48,21 +51,21 @@ public:
     M* mtx;
     GridIterator<index_t,2,ARRAYORDER_LAST_DIM_CONSECUTIVE> p;
     
-    MtxSubsetIterator(M *m, const MatrixRegion &region):
+    MtxSubsetIterator(M* m, const MatrixRegion& region):
                           mtx(m),
                           p(region) {}
     
-    MtxSubsetIterator(M *m, const MatrixRegion &region, const Vec<index_t,2> &pt):
+    MtxSubsetIterator(M* m, const MatrixRegion& region, const Vec<index_t,2>& pt):
                           mtx(m),
                           p(region, pt) {}
     
-    MtxSubsetIterator(M *m, Vec<index_t,2> pt=Vec<index_t,2>::zeros):
+    MtxSubsetIterator(M* m, Vec<index_t,2> pt=Vec<index_t,2>::zeros):
                           mtx(m),
                           p(MatrixRegion(Vec<index_t,2>::zeros,
                                          Vec<index_t,2>(m->rows()-1, m->cols()-1)),
                             pt) {}
     
-    MtxSubsetIterator(M *m, const GridIterator<index_t,2,ARRAYORDER_LAST_DIM_CONSECUTIVE> &p):
+    MtxSubsetIterator(M* m, const GridIterator<index_t,2,ARRAYORDER_LAST_DIM_CONSECUTIVE>& p):
                           mtx(m),
                           p(p) {}
 public:
@@ -84,7 +87,7 @@ private:
     
     friend class boost::iterator_core_access;
     
-    inline bool equal(const MtxSubsetIterator<M,RefType> &other) const {
+    inline bool equal(const MtxSubsetIterator<M,RefType>& other) const {
         return (other.mtx == mtx) && (other.p == p);
     }
     
@@ -100,13 +103,14 @@ private:
         p += n;
     }
     
-    inline index_t distance_to(const MtxSubsetIterator<M,RefType> &other) const {
+    inline index_t distance_to(const MtxSubsetIterator<M,RefType>& other) const {
         return other.p - p;
     }
     
     inline RefType dereference() const {
         Vec<index_t,2> pt = *p;
-        return (*mtx)(pt.row, pt.col); // make sure this is calling the function with the right const-ness!
+        // make sure this is calling the function with the right const-ness!
+        return (*mtx)(pt.row, pt.col);
     }
     
 };
@@ -116,16 +120,21 @@ private:
  *****************************************************/
 
 template <typename M, typename RefType>
-class MtxColIterator : public boost::iterator_facade<MtxColIterator<M,RefType>, // self type
-                                             typename M::elem_t,                // value (pointed to) type
-                                             std::random_access_iterator_tag,   // implemented concepts (all)
-                                             RefType> {                         // reference to elem type (may be a proxy)
-    
+class MtxColIterator : 
+    public boost::iterator_facade
+    <
+        MtxColIterator<M,RefType>,       // self type
+        typename M::elem_t,              // value (pointed to) type
+        std::random_access_iterator_tag, // implemented concepts (all)
+        RefType                          // reference to elem type (may be a proxy)
+    >
+{
+
 public:
     
     typedef RefType ref_t;
 
-    M *mtx;
+    M* mtx;
     Vec<index_t,2> pt;
     
     MtxColIterator(M* m, const Vec<index_t,2>& pt):
@@ -171,16 +180,21 @@ private:
  *****************************************************/
 
 template <typename M, typename RefType>
-class MtxRowIterator : public boost::iterator_facade<MtxRowIterator<M,RefType>,    // self type
-                                                  typename M::elem_t,              // value (pointed to) type
-                                                  std::random_access_iterator_tag, // implemented concepts (all)
-                                                  RefType> {                       // reference to elem type (may be a proxy)
-    
+class MtxRowIterator : 
+    public boost::iterator_facade
+    <
+        MtxRowIterator<M,RefType>,       // self type
+        typename M::elem_t,              // value (pointed to) type
+        std::random_access_iterator_tag, // implemented concepts (all)
+        RefType                          // reference to elem type (may be a proxy)
+    >
+{
+
 public:
     
     typedef RefType ref_t;
 
-    M *mtx;
+    M* mtx;
     Vec<index_t,2> pt;
     
     MtxRowIterator(M* m, const Vec<index_t,2>& pt):
@@ -215,7 +229,8 @@ private:
     }
     
     inline RefType dereference() const {
-        return mtx->get(pt.row, pt.col); // always make sure this is calling the function with the right const-ness!
+        // always make sure this is calling the function with the right const-ness!
+        return mtx->get(pt.row, pt.col);
     }
     
 };
@@ -234,16 +249,17 @@ private:
  *****************************************************/
 
 template <typename M, typename T> class MtxAssignmentProxy {
-    M *m;
+    M* m;
     index_t row, col;
 public:
     
-    MtxAssignmentProxy(M *m, index_t row, index_t col):m(m), row(row), col(col) {}
+    MtxAssignmentProxy(M* m, index_t row, index_t col):m(m), row(row), col(col) {}
     
     // copy assignment
     // like a reference, assign through to the pointed object.
     // contrary to convention, we do NOT mirror this action in the copy constructor
-    // this is to mirror the behavior of references, whose ptr can only be assigned at construction.
+    // this is to mirror the behavior of references, whose ptr can only be assigned 
+    // at construction.
     inline MtxAssignmentProxy<M,T>& operator=(const MtxAssignmentProxy<M,T>& other) {
         if (&other != this) {
             m->set(row, col, other);
@@ -251,12 +267,13 @@ public:
         return *this;
     }
     
-    inline const typename M::elem_t operator=(typename M::elem_t val) { //return const T& for some mtxs, T for those which use temporaries?
+    // return const T& for some mtxs, T for those which use temporaries?
+    inline const typename M::elem_t operator=(typename M::elem_t val) {
         m->set(row, col, val);
         return val;
     }
     
-    //TODO: this should be a reference?
+    // TODO: this should be a reference?
     inline operator T() const {
         return ((const M*)m)->get(row, col);
     }

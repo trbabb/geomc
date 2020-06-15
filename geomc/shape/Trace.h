@@ -166,7 +166,7 @@ bool trace_simplex(const Vec<T,N> verts[N], const Ray<T,N>& ray, Vec<T,N-1>* uv,
     // linear solve
     Vec<T,N> x;
     Vec<T,N> b = ray.origin - verts[0];
-    if (not linearSolve(bases, &x, b)) return false;
+    if (not linear_solve(bases, &x, b)) return false;
     
     // inside simplex?
     T sum = 0;

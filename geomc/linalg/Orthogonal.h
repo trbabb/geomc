@@ -56,7 +56,7 @@ namespace geom {
         std::copy(v[0].begin(), v[0].begin() + N * (N-1), m);
         bool parity_swap = false;
         
-        if (decompLUP(m, N-1, N, P, &parity_swap)) {
+        if (decomp_lup(m, N-1, N, P, &parity_swap)) {
             // matrix is singular; nullity is > 1. return 0 vector.
             return Vec<T,N>();
         }
@@ -115,7 +115,7 @@ namespace geom {
         std::fill(m1, m1 + (N-n)*N, (T)0);
         bool parity_swap = false;
         
-        decompLUP(m0, n, N, P, &parity_swap);
+        decomp_lup(m0, n, N, P, &parity_swap);
         
         // todo: handle extra degenerate bases.
         // todo: refactor this to use a mtx wrapper.

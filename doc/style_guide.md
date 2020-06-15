@@ -4,9 +4,9 @@ Code Style
 Braces and indents
 ------------------
 
-**Never** indent with tabs; use four spaces.
+**Never** indent with tabs; use four spaces. (Almost all editors can be configured to insert spaces when the `tab` key is pressed).
 
-K&R indent style.
+K&R indent style (except for wrapped lines; explained in the section on that topic). 
 
 * Single space between braces and parens.
 * Single space after `if` and `else`.
@@ -15,15 +15,87 @@ K&R indent style.
 
 Example:
 
-    if (var < 1) {
-        do_code(var, var2);
-    } else {
-        do_something_else(var, var3);
+    int some_function(int var, int var2, int var3) {
+        if (var < 1) {
+            do_code(var, var2);
+        } else {
+            do_something_else(var, var3);
+        }
     }
 
-Only single-line `if`s can be without braces:
+Only a single-line block body can be without braces:
 
     if (test > 0) short_expr(x);
+    
+    while (*i) i++;
+
+Naming style
+------------
+
+Class names are `UpperCamelCase`; variables, methods, and function names are `snake_case`:
+
+    class ThingDoer {
+        void do_thing();
+    };
+    
+    int do_a_different_thing() {
+        int thing_the_first  =  1;
+        int thing_the_second = 99;
+        // ...
+    }
+
+Member typedefs and typedefs of POD data types are `snake_case` ending with `_t`:
+
+    typedef std::make_signed<size_t>::type index_t;
+    
+    template <typename T>
+    class SomeContainer {
+        typedef T elem_t;
+        
+        // ...
+    }
+
+Wrapping lines
+--------------
+
+It is best for lines to be 95 columns or fewer.
+
+Long or complicatedly-nested function calls should break each top-level argument onto its own line, having an indent at least one block deeper than the beginning of the fuction name. It is preferable to wrap the line before the first argument (rather than indent more deeply to align with it).
+
+    int x = some_fn_call(
+                1,
+                myVariable,
+                anotherFunctionCall(5, z, 22),
+                NUM_DOLPHINS);
+
+Complicated function signatures should obey the same rule: Long argument lists are broken into one per line. Wrapped arguments should be indented one block beyond the function body, and whenever a block-opening expression is line-wrapped, the opening brace goes on its own line:
+
+    int some_function(
+            int arg1,
+            int arg2,
+            char** thingies,
+            float x,
+            float y,
+            SomeClass* myFoo)
+    {
+        // body goes here
+        // ...
+    }
+
+Simpler function signatures which fit onto a single line should be kept that way:
+
+    // simple function definition stays on one line:
+    Matrix mult(const Matrix& a, const Matrix& b) {
+        //...
+    }
+
+Complicated `if` expressions can be wrapped, and as with wrapped function signatures, the opening brace gets its own line:
+
+    if (complicated_predicate(some_expression(a)) and 
+        complicated_predicate(some_other_expr(b)))
+    {
+        // ...
+    }
 
 Blank lines
 -----------
@@ -104,46 +176,43 @@ These keywords are completely portable and standards-compliant, and have been [s
 Ternary "if":
 -------------
 
-Enclose each branch of a ternary "if" in parentheses unless it is a single token, and surround the `?` and `:` with spaces:
+Enclose each branch of a ternary "if" in parentheses unless it is a single token or function call, and surround the `?` and `:` with spaces:
 
     int x = (a or b) ? (y + 1) : z;
 
+If the sub-expressions are long, then each clause may be on its own (parenthesized) line, with the delimiting character on the beginning of the line:
 
-Wrapping lines
---------------
+    int x = (complicated_predicate_of(x, y) and z > 0)
+                ? expression_if_true(x, z, x * y * z)
+                : expression_if_false(x, x * x);
 
-Long or complicatedly-nested function calls should break each top-level argument onto its own line, having an indent at least one block deeper than beginning of the fuction name. It is preferable to wrap the line before the first argument (rather than indent more deeply to align with it).
+This makes it easier to read which sub-expressions belong to the true and false branches.
 
-    int x = someFunctionCall(
-                1,
-                myVariable,
-                anotherFunctionCall(5, z, 22),
-                K_NUM_DOLPHINS);
+Standard guidelines about wrapping and indenting apply.
 
-Complicated function signatures should obey the same rule: Long argument lists are broken into one per line. Wrapped arguments should be indented one block beyond the function body:
+Defines
+-------
 
-    int someFunction(
-            int arg1,
-            int arg2,
-            char** thingies,
-            float x,
-            float y,
-            SomeClass* myFoo) {
-        // body goes here
-        // ...
-    }
+All `#define`s which are not single tokens must be parenthesized:
 
-Simpler function signatures which fit onto a single line should be kept that way:
+    #define NUM_DOLPHINS (INT_MAX / 2)
 
-    // simple function definition stays on one line:
-    Matrix mult(const Matrix& a, const Matrix& b) {
-        //...
-    }
+All macros must parenthesize their arguments as well as their entire body expression:
+
+    #define FOO(a, b) ((a) * (b))
+
+This is because unexpected things may happen once tokens are substituted:
+
+    // xxx: bad style:
+    #define FOO(a, b) a * b
+    
+    // expands to `100 * 2 + 3 * 2`— not what you expected!
+    100 * FOO(2 + 3, 2)
 
 Line breaks
 -----------
 
-Double line breaks between functions, single line breaks to break up logical blocks within a function:
+Double line breaks between class and functions; single line breaks to break up logical blocks within a function:
 
     float f(int a) {
         int z;
@@ -181,7 +250,7 @@ The opposite is true for "dereference" and "addressof" operators: Those operate 
 
 There is one case where this policy becomes misleading (and it is the most commonly cited reason for grouping pointer decorations with the variable instead of the type), and that is in the context of comma-separated variable declarations:
 
-    int* a, b;  // xxx: incorrect style; DO NOT DO THIS
+    int* a, b;  // xxx: incorrect (confusing) style!
    
 This misleadingly declares as `a` as an `int*`, and `b` as an `int`. This is a mistake in the design of the C++'s operator associativity/precedence, but there is a simple solution: *do not declare variables this way.*
 
@@ -208,11 +277,12 @@ Classes list member variables first, followed by constructors and destructors, f
         }
     }
 
-Initializer lists have one init per line. There is no space between the function definition and the inciting colon. Like long function definitions, inits are indented one deeper than the function body:
+Initializer lists have one init per line. There is no space between the function definition and the inciting colon. Like long function definitions, inits are indented one deeper than the function body, and line wrapping bumps the opening brace to its own line:
 
     Foo::Foo(int a, int b):
             member_one(a),
-            member_two(b) {
+            member_two(b)
+    {
         // body goes here
         // ...
     }
@@ -242,7 +312,7 @@ Programming
 Memory allocation
 -----------------
 
-Assume wherever possible that code will be called in an inner loop. Consider heap memory allocations to be expensive, and prefer using stack variables and (small) arrays over dynamic allocations wherever it is reasonable. 
+Assume wherever possible that code will be called in an inner loop. Consider heap memory allocations to be expensive, and prefer using stack variables and (small) arrays over dynamic allocations wherever it is reasonable.
 
 Where large temporary buffers are needed, consider allowing the user to provide them, or encapsulate the operation and its buffers in a class that can be re-used across multiple calculations.
 
@@ -267,7 +337,7 @@ There is one (uncommon) exception, which is when choosing between two strategies
 Loops
 ------
 
-Loop variables should be type `index_t`, which will be 64-bit on 64-bit platforms, allowing for traversal of large arrays:
+Loop counters should be type `index_t`, which will be 64-bit on 64-bit platforms, allowing for traversal of large arrays:
 
     for (index_t i = 0; i < n; i++) {
         v[i] += k[i];

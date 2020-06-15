@@ -18,19 +18,20 @@ struct TransposeIterator :
     typedef typename std::conditional<Const, const T*, T*>::type pointer_t;
     typedef typename std::conditional<Const, const T&, T&>::type ref_t;
     
-    /*
-        maj--->         min
-         0  1  2  3  4  |
-         5  6  7  8  9  v
-        10 11 12 13 14
-        [] <-- "end"
-    */
-    
     const pointer_t base;
     const index_t   major; // # elements along major (consecutive) axis
     const index_t   minor; // # elements along minor axis
           index_t   i;     // ordinal of this iterator
           pointer_t p;     // pointed memory location
+    
+    /*
+    Numbers increase with memory address:
+        major-->      minor
+         0  1  2  3  4  |
+         5  6  7  8  9  v
+        10 11 12 13 14
+        XX <-- "end"
+    */
     
     TransposeIterator(pointer_t base, index_t major, index_t minor, index_t i=0):
         base(base),
@@ -79,8 +80,13 @@ struct TransposeIterator :
     
     template <bool K>
     inline index_t distance_to(const TransposeIterator<T,K>& other) const {
-        index_t   j = other.p - other.base;
-        index_t o_i = (j % major) * minor + (j / major);
+        // note the symmetry: this is the same as offs(), but major & minor are swapped.
+        // that scans: to invert a transpose, transpose again!
+        index_t   s = major * minor;
+        index_t   q = other.p - base;
+        index_t   j = q % s;
+        index_t   k = q / s;
+        index_t o_i = (j % major) * minor + (j / major) + k * s;
         
         return o_i - i;
     }

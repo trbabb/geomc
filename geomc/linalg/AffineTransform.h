@@ -22,6 +22,8 @@
 #include <iostream>
 #endif
 
+// todo: implement {sum,diff}_of_products() in all the rotmat methods
+
 namespace geom {
     
 /** @ingroup linalg
@@ -256,12 +258,12 @@ namespace geom {
     void rotmat(SimpleMatrix<T,4,4> *into, T x, T y, T z, T theta) {
         T c = std::cos(theta);
         T s = std::sin(theta);
-        T oneMcos = 1 - c;
+        T c_1 = 1 - c;
         T m[4][4] = {
-                {c + oneMcos*x*x,        oneMcos*x*y - s*z,      oneMcos*x*z + s*y, 0},
-                {oneMcos*y*x + s*z,  c + oneMcos*y*y,            oneMcos*y*z - s*x, 0},
-                {oneMcos*z*x - s*y,      oneMcos*z*y + s*x,  c + oneMcos*z*z,       0},
-                {0,                      0,                      0,                 1}
+                {c + c_1*x*x,        c_1*x*y - s*z,      c_1*x*z + s*y, 0},
+                {c_1*y*x + s*z,  c + c_1*y*y,            c_1*y*z - s*x, 0},
+                {c_1*z*x - s*y,      c_1*z*y + s*x,  c + c_1*z*z,       0},
+                {0,                  0,                  0,             1}
         };
         T *from = m[0];
         std::copy(from, from+16, into->begin());
@@ -309,17 +311,31 @@ namespace geom {
                 T x,  T y,  T z, 
                 T px, T py, T pz, 
                 T theta) {
-        T c = std::cos(theta);
-        T s = std::sin(theta);
-        T oneMcos = 1 - c;
-        T x2 = x*x;
-        T y2 = y*y;
-        T z2 = z*z;
+        T   c = std::cos(theta);
+        T   s = std::sin(theta);
+        T c_1 = 1 - c;
+        T  x2 = x*x;
+        T  y2 = y*y;
+        T  z2 = z*z;
+        
+        const T q0 = diff_of_products(py, z, pz, y);
+        const T q1 = diff_of_products(pz, x, px, z);
+        const T q2 = diff_of_products(px, y, py, x);
+        const T s0 = sum_of_products( py, y, pz, z);
+        const T s1 = sum_of_products( px, x, pz, z);
+        const T s2 = sum_of_products( px, x, py, y);
+        const T t0 = diff_of_products(px, y2 + z2, x, s0);
+        const T t1 = diff_of_products(py, x2 + z2, y, s1);
+        const T t2 = diff_of_products(pz, x2 + y2, z, s2);
+        const T u0 = sum_of_products( t0, c_1, q0, s);
+        const T u1 = sum_of_products( t1, c_1, q1, s);
+        const T u2 = sum_of_products( t2, c_1, q2, s);
+        
         T m[4][4] = {
-                {x2 + c*(y2 + z2),   x*y*oneMcos - z*s,  x*z*oneMcos + y*s,  (px*(y2 + z2) - x*(py*y + pz*z))*oneMcos + (py*z - pz*y)*s},
-                {x*y*oneMcos + z*s,  y2 + c*(x2 + z2),   y*z*oneMcos - x*s,  (py*(x2 + z2) - y*(px*x + pz*z))*oneMcos + (pz*x - px*z)*s},
-                {x*z*oneMcos - y*s,  y*z*oneMcos + x*s,  z2 + c*(x2 + y2),   (pz*(x2 + y2) - z*(px*x + py*y))*oneMcos + (px*y - py*x)*s},
-                {0,                  0,                  0,                  1}
+                {x2 + c*(y2 + z2), x*y*c_1 - z*s,     x*z*c_1 + y*s,    u0},
+                {x*y*c_1 + z*s,    y2 + c*(x2 + z2), y*z*c_1 - x*s,     u1},
+                {x*z*c_1 - y*s,    y*z*c_1 + x*s,     z2 + c*(x2 + y2), u2},
+                {0,                0,                0,                 1}
         };
         T *from = m[0];
         std::copy(from, from+16, into->begin());
@@ -394,15 +410,15 @@ namespace geom {
                 T theta) {
         T c = std::cos(theta);
         T s = std::sin(theta);
-        T oneMcos = 1 - c;
-        T x2 = x*x;
-        T y2 = y*y;
-        T z2 = z*z;
+        T c_1 = 1 - c;
+        T  x2 = x*x;
+        T  y2 = y*y;
+        T  z2 = z*z;
         T fac[4][4] = {
-                {x2 + c*(y2 + z2),   x*y*oneMcos,  x*z*oneMcos,  (px*(y2 + z2) - x*(py*y + pz*z))*oneMcos},
-                {x*y*oneMcos,  y2 + c*(x2 + z2),   y*z*oneMcos,  (py*(x2 + z2) - y*(px*x + pz*z))*oneMcos},
-                {x*z*oneMcos,  y*z*oneMcos,  z2 + c*(x2 + y2),   (pz*(x2 + y2) - z*(px*x + py*y))*oneMcos},
-                {0,                  0,                  0,                  1}
+                {x2 + c*(y2 + z2), x*y*c_1,          x*z*c_1,          (px*(y2 + z2) - x*(py*y + pz*z))*c_1},
+                {x*y*c_1,          y2 + c*(x2 + z2), y*z*c_1,          (py*(x2 + z2) - y*(px*x + pz*z))*c_1},
+                {x*z*c_1,          y*z*c_1,          z2 + c*(x2 + y2), (pz*(x2 + y2) - z*(px*x + py*y))*c_1},
+                {0,                0,                0,                1}
         };
         T sterms[3][4] = {
                 {0, -z*s, y*s, (py*z - pz*y)*s},

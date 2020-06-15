@@ -86,19 +86,25 @@ template <typename Ma, typename Mb, typename Enable> class _ImplMtxMul;
  * two permutation matrices is _O(n)_.
  */
 template <index_t N>
-class PermutationMatrix : public detail::MatrixBase<bool,N,N, PermutationMatrix<N> >, public detail::PermuteMatrixBase<N> {
+class PermutationMatrix : 
+    public detail::MatrixBase<bool,N,N, PermutationMatrix<N> >, 
+    public detail::PermuteMatrixBase<N> 
+{
 private:
     typedef detail::PermuteMatrixBase<N> parent_t;
     
-    index_t sign; // 0 means "not computed yet".
-                  // could possibly compute on construction.
-                  // (or don't store at all).
-                  // disadvantage: duplicated code; computeSign() is non-const. :(
+    index_t _sign; // 0 means "not computed yet".
+                   // could possibly compute on construction.
+                   // (or don't store at all).
+                   // disadvantage: duplicated code; computeSign() is non-const. :(
     
 public:
     
     template <typename Md, typename Ma, typename Mb>
     friend class detail::_ImplMtxMul;
+    
+    template <typename T, index_t Q, index_t R>
+    friend class PLUDecomposition;
     
     /**
      * Construct a new identity permutation matrix.
@@ -125,19 +131,19 @@ public:
      * @return -1 if the number of transpositions in this permutation is odd, 1 otherwise.
      */
     index_t getSign() {
-        if (sign == 0) {
+        if (_sign == 0) {
             index_t n = detail::PermuteMatrixBase<N>::_rows();
             index_t *row_src = parent_t::getSrcData();
             index_t *row_dst = parent_t::getDstData();
             
-            sign = computeSign(row_src, row_dst, n) ? -1 : 1;
+            _sign = computeSign(row_src, row_dst, n) ? -1 : 1;
             
             // we just destroyed our dst data. recompute.
             for (index_t i = 0; i < n; i++) {
                 row_dst[row_src[i]] = i;
             }
         } else {
-            return sign;
+            return _sign;
         }
     }
     
@@ -231,15 +237,15 @@ public:
      * 
      * @param p Array of indecies.
      */
-    void setRowSources(const index_t *p) {
+    void setRowSources(const index_t* p) {
         index_t n = detail::PermuteMatrixBase<N>::_rows();
         index_t *row_src = parent_t::getSrcData();
         index_t *row_dst = parent_t::getDstData();
-        std::copy(p, p + n, row_src);
+        if (p != row_src) std::copy(p, p + n, row_src);
         for (index_t i = 0; i < n; i++) {
             row_dst[row_src[i]] = i;
         }
-        sign = 0;
+        _sign = 0;
     }
     
     /**
@@ -258,11 +264,11 @@ public:
         index_t n = detail::PermuteMatrixBase<N>::_cols();
         index_t *row_src = parent_t::getSrcData();
         index_t *row_dst = parent_t::getDstData();
-        std::copy(p, p + n, row_dst);
+        if (p != row_dst) std::copy(p, p + n, row_dst);
         for (index_t i = 0; i < n; i++) {
             row_src[row_dst[i]] = i;
         }
-        sign = 0;
+        _sign = 0;
     }
     
     /**
@@ -321,7 +327,7 @@ public:
         dst[src[b]] = a;
         // swap a/b
         std::swap(src[a], src[b]);
-        sign *= -1;
+        _sign *= -1;
     }
     
     /**
@@ -340,7 +346,7 @@ public:
         src[dst[b]] = a;
         // swap a/b
         std::swap(dst[a], dst[b]);
-        sign *= -1;
+        _sign *= -1;
     }
     
     /**
@@ -363,7 +369,7 @@ public:
             *i0++ = i;
             *i1++ = i;
         }
-        sign = 1;
+        _sign = 1;
     }
     
     /**
