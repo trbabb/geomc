@@ -22,7 +22,6 @@
 #include <iostream>
 #endif
 
-// todo: implement {sum,diff}_of_products() in all the rotmat methods
 
 namespace geom {
     

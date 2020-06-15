@@ -23,13 +23,16 @@ namespace geom {
 //       > note: You can't just transpose LU; that changes its meaning
 //         (because multiplication/decomposition does not commute with a transpose)
 //       > yes, we might be able to do this, if we break out inverse().
-//         the time to lie about the layout of LU is before you decompose—
-//         copy into LU in the native layout of the src matrix, then 
-//         lie about LU's layout ever after (at zero expense).
-//         (we'll have both the src and dst matrix in hand, so this is
-//         feasible). Then I think we also flip PI (so that we are solving
-//         for the ultimate rows of PI instead of its cols). That way,
-//         LU will be the decomposition of the transpose.
+//         we can pre-transpose M before decomposing, by flipping M's layout just
+//         before we decompose it. a layout flip can be zero-cost because it
+//         is simply a template parameter on the decompose & solve funtions.
+//         we'll have both the src and dst matrix in hand, so we'll have enough
+//         information do choose the flips correctly. That way, LU will be the 
+//         decomposition of the transpose (instead of the erroneous transpose of the 
+//         decompostion).
+//         I think we must also flip PI (so that we are solving for the ultimate rows 
+//         of PI instead of its cols)— we can get this with our choice of P's 
+//         internal indexing array.
 
 /** @ingroup linalg
  *  @{
