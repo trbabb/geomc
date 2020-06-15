@@ -13,6 +13,7 @@ var searchData=
   ['applynormal',['applyNormal',['../classgeom_1_1_affine_transform.html#ab5019508929bd3586ee39a48c695ac9b',1,'geom::AffineTransform']]],
   ['applyvector',['applyVector',['../classgeom_1_1_affine_transform.html#a5a67bcff39e747d4e723ae7c67ea1bb2',1,'geom::AffineTransform']]],
   ['arc',['arc',['../classgeom_1_1_sampler.html#a9ab0f796c427f76cc036cb452453bf4d',1,'geom::Sampler']]],
+  ['as_5ftranspose',['as_transpose',['../classgeom_1_1_simple_matrix.html#a09010ab4a8eb0ca355839c52177a6d18',1,'geom::SimpleMatrix']]],
   ['asin',['asin',['../classgeom_1_1_dual.html#a3e88d444be28c99cb9aecf2f1acc45aa',1,'geom::Dual']]],
   ['atan',['atan',['../classgeom_1_1_dual.html#a8634bb9b47632602ae199aea90f83f58',1,'geom::Dual']]]
 ];

@@ -117,6 +117,13 @@ template&lt;typename InputIterator &gt; </td></tr>
 <tr class="memitem:a14e40c6368c6fe921ca0e2e48d68cd27"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_circular_buffer.html#a14e40c6368c6fe921ca0e2e48d68cd27">operator[]</a> (index_t i) const</td></tr>
 <tr class="memdesc:a14e40c6368c6fe921ca0e2e48d68cd27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <code>i</code>th (const) element in the buffer.  <a href="#a14e40c6368c6fe921ca0e2e48d68cd27">More...</a><br /></td></tr>
 <tr class="separator:a14e40c6368c6fe921ca0e2e48d68cd27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4ea21e096245338f61659518c343694"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_circular_buffer.html#af4ea21e096245338f61659518c343694">operator==</a> (const <a class="el" href="classgeom_1_1_circular_buffer.html">CircularBuffer</a>&lt; T, N &gt; &amp;other)</td></tr>
+<tr class="memdesc:af4ea21e096245338f61659518c343694"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality operator.  <a href="#af4ea21e096245338f61659518c343694">More...</a><br /></td></tr>
+<tr class="separator:af4ea21e096245338f61659518c343694"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1835f8c6ab774619f2c07b6fc63b0b95"><td class="memItemLeft" align="right" valign="top"><a id="a1835f8c6ab774619f2c07b6fc63b0b95"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_circular_buffer.html#a1835f8c6ab774619f2c07b6fc63b0b95">operator!=</a> (const <a class="el" href="classgeom_1_1_circular_buffer.html">CircularBuffer</a>&lt; T, N &gt; &amp;other)</td></tr>
+<tr class="memdesc:a1835f8c6ab774619f2c07b6fc63b0b95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inequality operator. <br /></td></tr>
+<tr class="separator:a1835f8c6ab774619f2c07b6fc63b0b95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b678238a21dd0a25a3d8a67c11abb45"><td class="memItemLeft" align="right" valign="top"><a id="a7b678238a21dd0a25a3d8a67c11abb45"></a>
 index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_circular_buffer.html#a7b678238a21dd0a25a3d8a67c11abb45">size</a> () const</td></tr>
 <tr class="memdesc:a7b678238a21dd0a25a3d8a67c11abb45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of items in the buffer. <br /></td></tr>
@@ -177,6 +184,35 @@ class geom::CircularBuffer&lt; T, N &gt;</h3>
   </dd>
 </dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="af4ea21e096245338f61659518c343694"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4ea21e096245338f61659518c343694">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_circular_buffer.html">CircularBuffer</a>&lt; T, N &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Equality operator. </p>
+<p>Two CircularBuffers are equal iff they contain equal elements in equal order. </p>
+
+</div>
+</div>
 <a id="ab13e0a27ac92f24cb28362b194c16e48"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab13e0a27ac92f24cb28362b194c16e48">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[1/2]</span></h2>
 
@@ -298,7 +334,7 @@ class geom::CircularBuffer&lt; T, N &gt;</h3>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 6 2019 00:44:08 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jun 14 2020 19:06:39 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

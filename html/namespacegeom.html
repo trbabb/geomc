@@ -80,9 +80,6 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Affine transformation class.  <a href="classgeom_1_1_affine_transform.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_augmented_matrix.html">AugmentedMatrix</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A matrix which wraps two side-by-side sub-matrices.  <a href="classgeom_1_1_augmented_matrix.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_bounded.html">Bounded</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual class describing shapes with finite extents in N dimensions.  <a href="classgeom_1_1_bounded.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -383,15 +380,15 @@ Functions</h2></td></tr>
 <tr class="memitem:gaa74a4ab39a947c769e8f19ed082d5597"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:gaa74a4ab39a947c769e8f19ed082d5597"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__random.html#gaa74a4ab39a947c769e8f19ed082d5597">permute</a> (std::vector&lt; T &gt; &amp;objs, <a class="el" href="classgeom_1_1_random.html">Random</a> &amp;rng=*<a class="el" href="group__random.html#gaafd702a26c7914707002c7066da808e4">getRandom</a>())</td></tr>
 <tr class="separator:gaa74a4ab39a947c769e8f19ed082d5597"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6e5ab5662ce01a33da5ea5d5c397f56a"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
-<tr class="memitem:ga6e5ab5662ce01a33da5ea5d5c397f56a"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#ga6e5ab5662ce01a33da5ea5d5c397f56a">gjk_intersect</a> (const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;shape_a, const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;shape_b, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *overlap_axis=nullptr, <a class="el" href="classgeom_1_1_simplex.html">Simplex</a>&lt; T, N &gt; *simplex=nullptr)</td></tr>
-<tr class="separator:ga6e5ab5662ce01a33da5ea5d5c397f56a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1a9c3639e7998d9ea93d79a494439c4b"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:ga1a9c3639e7998d9ea93d79a494439c4b"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#ga1a9c3639e7998d9ea93d79a494439c4b">gjk_intersect</a> (const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;shape_a, const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;shape_b, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *overlap_axis=NULL)</td></tr>
+<tr class="separator:ga1a9c3639e7998d9ea93d79a494439c4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4ffe9e2cfdfbcb384543364b779db4ff"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:ga4ffe9e2cfdfbcb384543364b779db4ff"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#ga4ffe9e2cfdfbcb384543364b779db4ff">minimal_separation_axis</a> (const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;shape_a, const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;shape_b, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *overlap_axis, double fractional_tolerance=0.001, index_t iteration_limit=-1, bool emit_debug=false)</td></tr>
+<tr class="separator:ga4ffe9e2cfdfbcb384543364b779db4ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae6a7299cdadee88e7fea6a903a9d7a5f"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
 <tr class="memitem:gae6a7299cdadee88e7fea6a903a9d7a5f"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#gae6a7299cdadee88e7fea6a903a9d7a5f">gjk_intersect</a> (const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;shape_a, const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;shape_b, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *overlap_axis=NULL, bool emit_debug=false)</td></tr>
 <tr class="separator:gae6a7299cdadee88e7fea6a903a9d7a5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa2aa68593baf6e21dfeddc950f7de472"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
-<tr class="memitem:gaa2aa68593baf6e21dfeddc950f7de472"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#gaa2aa68593baf6e21dfeddc950f7de472">minimal_separation_axis</a> (const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;shape_a, const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, N &gt; &amp;shape_b, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *overlap_axis, double fractional_tolerance=0.001, index_t iteration_limit=-1, bool emit_debug=false)</td></tr>
-<tr class="separator:gaa2aa68593baf6e21dfeddc950f7de472"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1dd9da1915651b5bfa798463a796c320"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
 <tr class="memitem:a1dd9da1915651b5bfa798463a796c320"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacegeom.html#a1dd9da1915651b5bfa798463a796c320">trace_sphere</a> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; &amp;ray, T *s0, T *s1, const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;center, T r)</td></tr>
 <tr class="separator:a1dd9da1915651b5bfa798463a796c320"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -405,6 +402,12 @@ Functions</h2></td></tr>
 <tr class="memitem:gaf3d91572058f9454062fed9b7a08d159"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#gaf3d91572058f9454062fed9b7a08d159">trace_simplex</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; verts[N], const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; &amp;ray, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N-1 &gt; *uv, T *s)</td></tr>
 <tr class="separator:gaf3d91572058f9454062fed9b7a08d159"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr class="memitem:ga78fc62f0e6316a7fab8f437584a29189"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga78fc62f0e6316a7fab8f437584a29189"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__function.html#ga78fc62f0e6316a7fab8f437584a29189">diff_of_products</a> (T a, T b, T c, T d)</td></tr>
+<tr class="separator:ga78fc62f0e6316a7fab8f437584a29189"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7c75c5b4477c7490dc3d1614cf8a70da"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga7c75c5b4477c7490dc3d1614cf8a70da"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__function.html#ga7c75c5b4477c7490dc3d1614cf8a70da">sum_of_products</a> (T a, T b, T c, T d)</td></tr>
+<tr class="separator:ga7c75c5b4477c7490dc3d1614cf8a70da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafbda519a671cae9db99fef6c4c305eff"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:gafbda519a671cae9db99fef6c4c305eff"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__function.html#gafbda519a671cae9db99fef6c4c305eff">clamp</a> (const T &amp;v, const T &amp;lo, const T &amp;hi)</td></tr>
 <tr class="separator:gafbda519a671cae9db99fef6c4c305eff"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -431,24 +434,24 @@ Functions</h2></td></tr>
 <tr class="memitem:gad6cd9834a4c2f34896398e215733f9e5"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gad6cd9834a4c2f34896398e215733f9e5">cholesky</a> (<a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; T, M, N &gt; *m)</td></tr>
 <tr class="separator:gad6cd9834a4c2f34896398e215733f9e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
-<tr class="memitem:ga91ab5ecfc9ad48d99101a7fd29345574"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
-<tr class="memitem:ga91ab5ecfc9ad48d99101a7fd29345574"><td class="memTemplItemLeft" align="right" valign="top">index_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga91ab5ecfc9ad48d99101a7fd29345574">decompLUP</a> (T *m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity)</td></tr>
-<tr class="separator:ga91ab5ecfc9ad48d99101a7fd29345574"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga17f7fa328f09732cc04bc2ef35bd20fb"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
-<tr class="memitem:ga17f7fa328f09732cc04bc2ef35bd20fb"><td class="memTemplItemLeft" align="right" valign="top">index_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga17f7fa328f09732cc04bc2ef35bd20fb">decompPLU</a> (T *m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity)</td></tr>
-<tr class="separator:ga17f7fa328f09732cc04bc2ef35bd20fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9624e71da2de028a9ebcac0052cab672"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
-<tr class="memitem:ga9624e71da2de028a9ebcac0052cab672"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga9624e71da2de028a9ebcac0052cab672">linearSolveLUP</a> (const T *lup, const index_t *p, index_t n, T *x, const T *b, index_t skip=0)</td></tr>
-<tr class="separator:ga9624e71da2de028a9ebcac0052cab672"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacf11b62b5a89c5da231e4884ee9c0b9a"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
-<tr class="memitem:gacf11b62b5a89c5da231e4884ee9c0b9a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gacf11b62b5a89c5da231e4884ee9c0b9a">linearSolveLU</a> (const T *lu, index_t n, T *x, const T *b, index_t skip=0)</td></tr>
-<tr class="separator:gacf11b62b5a89c5da231e4884ee9c0b9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad5360f5909cfd510e964575c042bfe8a"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
-<tr class="memitem:gad5360f5909cfd510e964575c042bfe8a"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gad5360f5909cfd510e964575c042bfe8a">linearSolve</a> (T *m, index_t n, T *x, const T *b, index_t skip=0)</td></tr>
-<tr class="separator:gad5360f5909cfd510e964575c042bfe8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad7fcc088b1764542650552620648a476"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
-<tr class="memitem:gad7fcc088b1764542650552620648a476"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gad7fcc088b1764542650552620648a476">linearSolve</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *bases, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *x, const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;b, index_t skip=0)</td></tr>
-<tr class="separator:gad7fcc088b1764542650552620648a476"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae44a35d89fa24199ace1e157f0cd3961"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
+<tr class="memitem:gae44a35d89fa24199ace1e157f0cd3961"><td class="memTemplItemLeft" align="right" valign="top">index_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gae44a35d89fa24199ace1e157f0cd3961">decomp_lup</a> (T *m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity)</td></tr>
+<tr class="separator:gae44a35d89fa24199ace1e157f0cd3961"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga13c6c7a476d476978a2bc55e52c83634"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
+<tr class="memitem:ga13c6c7a476d476978a2bc55e52c83634"><td class="memTemplItemLeft" align="right" valign="top">index_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga13c6c7a476d476978a2bc55e52c83634">decomp_plu</a> (T *m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity)</td></tr>
+<tr class="separator:ga13c6c7a476d476978a2bc55e52c83634"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4a1050f12083b401f536781017151ee8"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
+<tr class="memitem:ga4a1050f12083b401f536781017151ee8"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga4a1050f12083b401f536781017151ee8">linear_solve_lup</a> (const T *lup, const index_t *p, index_t n, T *x, const T *b, index_t skip=0)</td></tr>
+<tr class="separator:ga4a1050f12083b401f536781017151ee8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9881e913e0cfae528ed593459966240b"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
+<tr class="memitem:ga9881e913e0cfae528ed593459966240b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga9881e913e0cfae528ed593459966240b">linear_solve_lu</a> (const T *lu, index_t n, T *x, const T *b, index_t skip=0)</td></tr>
+<tr class="separator:ga9881e913e0cfae528ed593459966240b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadd350d4fbaac325634ebd55a2c196251"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
+<tr class="memitem:gadd350d4fbaac325634ebd55a2c196251"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gadd350d4fbaac325634ebd55a2c196251">linear_solve</a> (T *m, index_t n, T *x, const T *b, index_t skip=0)</td></tr>
+<tr class="separator:gadd350d4fbaac325634ebd55a2c196251"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa5d2e86bccb2b6a30001a6e29c4a4b59"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:gaa5d2e86bccb2b6a30001a6e29c4a4b59"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gaa5d2e86bccb2b6a30001a6e29c4a4b59">linear_solve</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *bases, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *x, const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;b, index_t skip=0)</td></tr>
+<tr class="separator:gaa5d2e86bccb2b6a30001a6e29c4a4b59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Namespace of all <code>geomc</code> functions and classes. </p>
@@ -603,7 +606,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 6 2019 00:44:08 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jun 14 2020 19:06:39 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

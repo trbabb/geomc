@@ -1,13 +1,16 @@
 var searchData=
 [
+  ['data_5fbegin',['data_begin',['../classgeom_1_1_simple_matrix.html#ac7fc83e6371389a4f9b425718e48439a',1,'geom::SimpleMatrix::data_begin()'],['../classgeom_1_1_simple_matrix.html#a05e73578ff1606c701190967a8d82d85',1,'geom::SimpleMatrix::data_begin() const']]],
+  ['data_5fend',['data_end',['../classgeom_1_1_simple_matrix.html#a46a7f14bd531f37ffebfcb26ae8a8afc',1,'geom::SimpleMatrix::data_end()'],['../classgeom_1_1_simple_matrix.html#a822b7dd80e7cd357cc5ee661d866875d',1,'geom::SimpleMatrix::data_end() const']]],
   ['dataextents',['dataExtents',['../classgeom_1_1_raster.html#adbedc1b2c4c1888f0498dfaffb89a592',1,'geom::Raster']]],
-  ['decomplup',['decompLUP',['../group__linalg.html#ga91ab5ecfc9ad48d99101a7fd29345574',1,'geom']]],
-  ['decompplu',['decompPLU',['../group__linalg.html#ga17f7fa328f09732cc04bc2ef35bd20fb',1,'geom']]],
+  ['decomp_5flup',['decomp_lup',['../group__linalg.html#gae44a35d89fa24199ace1e157f0cd3961',1,'geom']]],
+  ['decomp_5fplu',['decomp_plu',['../group__linalg.html#ga13c6c7a476d476978a2bc55e52c83634',1,'geom']]],
   ['det',['det',['../classgeom_1_1_p_l_u_decomposition.html#a9f7456d70abd64fe4f99c07b23207043',1,'geom::PLUDecomposition']]],
   ['diagmatrix',['DiagMatrix',['../classgeom_1_1_diag_matrix.html#ad4475ee6bbf662eaa1749772e9e5d712',1,'geom::DiagMatrix::DiagMatrix(index_t nrows, index_t ncols)'],['../classgeom_1_1_diag_matrix.html#a8ff9dc869cf1535d94c09d0b43d43d63',1,'geom::DiagMatrix::DiagMatrix(const T src[], index_t n)']]],
   ['diagonal',['diagonal',['../classgeom_1_1_p_l_u_decomposition.html#aa5467bd1f1873c5181c1b8ff1f963fc9',1,'geom::PLUDecomposition::diagonal()'],['../classgeom_1_1_diag_matrix.html#a91c7cff026b243ee8e37f72735031c0e',1,'geom::DiagMatrix::diagonal(index_t i) const'],['../classgeom_1_1_diag_matrix.html#acc7f51b53f359863743fc1e90c23ca6f',1,'geom::DiagMatrix::diagonal(index_t i)']]],
   ['diagonal_5fbegin',['diagonal_begin',['../classgeom_1_1_diag_matrix.html#a15c7a0bee09a1b09f2a4de66b0245eb6',1,'geom::DiagMatrix::diagonal_begin()'],['../classgeom_1_1_diag_matrix.html#a099e32dbd8a96be2677f78a15ad80cbb',1,'geom::DiagMatrix::diagonal_begin() const']]],
   ['diagonal_5fend',['diagonal_end',['../classgeom_1_1_diag_matrix.html#a40fe7cfc97934b7de5ae3ddeddd4e487',1,'geom::DiagMatrix::diagonal_end()'],['../classgeom_1_1_diag_matrix.html#ab03f2997313e2f0b8b6b2905137c42d5',1,'geom::DiagMatrix::diagonal_end() const']]],
+  ['diff_5fof_5fproducts',['diff_of_products',['../group__function.html#ga78fc62f0e6316a7fab8f437584a29189',1,'geom']]],
   ['diffuse',['diffuse',['../classgeom_1_1_zonal_harmonics.html#a632b21962df88d389d3dd972ad6f0a66',1,'geom::ZonalHarmonics']]],
   ['direction_5falign',['direction_align',['../classgeom_1_1_affine_transform.html#ac55b0dcc50c94c4bf7e7f2d23829c25a',1,'geom::AffineTransform']]],
   ['disk',['disk',['../classgeom_1_1_sampler.html#a09d8545103cce1e7e5126f99d85f0b24',1,'geom::Sampler::disk()'],['../classgeom_1_1_sampler.html#af5d4b97b2e68d18e1b17ab880f430cba',1,'geom::Sampler::disk(T radius)']]],

@@ -164,9 +164,9 @@ Related Functions</h2></td></tr>
 <tr class="memitem:a80d048b60e50ae32e9319386c2f65955"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
 <tr class="memitem:a80d048b60e50ae32e9319386c2f65955"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_affine_transform.html#a80d048b60e50ae32e9319386c2f65955">scale</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;sx)</td></tr>
 <tr class="separator:a80d048b60e50ae32e9319386c2f65955"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adcba19e52a0be4488abe38fcb23581b1"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N, StoragePolicy P&gt; </td></tr>
-<tr class="memitem:adcba19e52a0be4488abe38fcb23581b1"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_affine_transform.html#adcba19e52a0be4488abe38fcb23581b1">transformation</a> (const <a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; T, N, N, P &gt; &amp;<a class="el" href="classgeom_1_1_affine_transform.html#a787773472ebe58ae9d5c43b6589386aa">mat</a>)</td></tr>
-<tr class="separator:adcba19e52a0be4488abe38fcb23581b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2fa891ee8681cf5002cd37fde29f16c"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N, MatrixLayout Lyt, StoragePolicy P&gt; </td></tr>
+<tr class="memitem:af2fa891ee8681cf5002cd37fde29f16c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_affine_transform.html#af2fa891ee8681cf5002cd37fde29f16c">transformation</a> (const <a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; T, N, N, Lyt, P &gt; &amp;<a class="el" href="classgeom_1_1_affine_transform.html#a787773472ebe58ae9d5c43b6589386aa">mat</a>)</td></tr>
+<tr class="separator:af2fa891ee8681cf5002cd37fde29f16c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3bca52ab62b3c240966865dee9984f6e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a3bca52ab62b3c240966865dee9984f6e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, 3 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classgeom_1_1_affine_transform.html#a3bca52ab62b3c240966865dee9984f6e">scale</a> (T sx, T sy, T sz)</td></tr>
 <tr class="separator:a3bca52ab62b3c240966865dee9984f6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -974,8 +974,8 @@ xf *= transformation(mat3x3);
 
 </div>
 </div>
-<a id="adcba19e52a0be4488abe38fcb23581b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adcba19e52a0be4488abe38fcb23581b1">&#9670;&nbsp;</a></span>transformation()</h2>
+<a id="af2fa891ee8681cf5002cd37fde29f16c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2fa891ee8681cf5002cd37fde29f16c">&#9670;&nbsp;</a></span>transformation()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -986,7 +986,7 @@ xf *= transformation(mat3x3);
         <tr>
           <td class="memname"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; transformation </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; T, N, N, P &gt; &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; T, N, N, Lyt, P &gt; &amp;&#160;</td>
           <td class="paramname"><em>mat</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1120,7 +1120,7 @@ xf *= transformation(mat3x3);
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 6 2019 00:44:08 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jun 14 2020 19:06:39 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

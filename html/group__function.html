@@ -126,6 +126,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga90fb9cc4df73b617838a5c11c3e028ec"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ga90fb9cc4df73b617838a5c11c3e028ec"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__function.html#ga90fb9cc4df73b617838a5c11c3e028ec">spherical_harmonic_coeff</a> (index_t l, index_t m, T cos_alt, T azi)</td></tr>
 <tr class="separator:ga90fb9cc4df73b617838a5c11c3e028ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga78fc62f0e6316a7fab8f437584a29189"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga78fc62f0e6316a7fab8f437584a29189"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__function.html#ga78fc62f0e6316a7fab8f437584a29189">diff_of_products</a> (T a, T b, T c, T d)</td></tr>
+<tr class="separator:ga78fc62f0e6316a7fab8f437584a29189"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7c75c5b4477c7490dc3d1614cf8a70da"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga7c75c5b4477c7490dc3d1614cf8a70da"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__function.html#ga7c75c5b4477c7490dc3d1614cf8a70da">sum_of_products</a> (T a, T b, T c, T d)</td></tr>
+<tr class="separator:ga7c75c5b4477c7490dc3d1614cf8a70da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafbda519a671cae9db99fef6c4c305eff"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:gafbda519a671cae9db99fef6c4c305eff"><td class="memTemplItemLeft" align="right" valign="top">T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__function.html#gafbda519a671cae9db99fef6c4c305eff">clamp</a> (const T &amp;v, const T &amp;lo, const T &amp;hi)</td></tr>
 <tr class="separator:gafbda519a671cae9db99fef6c4c305eff"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -289,6 +295,56 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ga78fc62f0e6316a7fab8f437584a29189"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga78fc62f0e6316a7fab8f437584a29189">&#9670;&nbsp;</a></span>diff_of_products()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T geom::diff_of_products </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>d</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>A high-precision method for computing (a * b) - (c * d). In cases where the two products are large and close in value, the result can be wildly wrong due to catastrophic cancellation when using the "naive" method. This function will return a result within 1.5 ULP of the exact answer.</p>
+<p>A high-precision method is available for float, double, and long double. Other types will fall back to the "naive" method. </p>
 
 </div>
 </div>
@@ -681,10 +737,60 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ga7c75c5b4477c7490dc3d1614cf8a70da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7c75c5b4477c7490dc3d1614cf8a70da">&#9670;&nbsp;</a></span>sum_of_products()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T geom::sum_of_products </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>d</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>A high-precision method for computing (a * b) + (c * d). In cases where the two products are large and similar in magnitude but opposite in sign, the result can be wildly wrong due to catastrophic cancellation when using the "naive" method. This function will return a result within 1.5 ULP of the exact answer.</p>
+<p>A high-precision method is available for float, double, and long double. Other types will fall back to the "naive" method. </p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 6 2019 00:44:08 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jun 14 2020 19:06:39 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

@@ -23,7 +23,7 @@ var searchData=
   ['shape',['Shape',['../group__shape.html',1,'']]],
   ['shell',['shell',['../classgeom_1_1_sampler.html#a4dcb870f7ef1284bec1a22864170eb7e',1,'geom::Sampler']]],
   ['side',['side',['../classgeom_1_1_hit.html#a8ea75572cc715a357bacad8863b209ad',1,'geom::Hit']]],
-  ['simplematrix',['SimpleMatrix',['../classgeom_1_1_simple_matrix.html',1,'SimpleMatrix&lt; T, M, N, P &gt;'],['../classgeom_1_1_simple_matrix.html#ac1d7026402effa87a698492603365e6f',1,'geom::SimpleMatrix::SimpleMatrix(index_t nrows, index_t ncols)'],['../classgeom_1_1_simple_matrix.html#a81071c0bf3e7d532945f0dde4ef3c28a',1,'geom::SimpleMatrix::SimpleMatrix(T *src_data, index_t nrows, index_t ncols)'],['../classgeom_1_1_simple_matrix.html#a043f7d9b13b1d3a145dac346abfac10a',1,'geom::SimpleMatrix::SimpleMatrix(const Mx &amp;mtx)']]],
+  ['simplematrix',['SimpleMatrix',['../classgeom_1_1_simple_matrix.html',1,'SimpleMatrix&lt; T, M, N, Lyt, P &gt;'],['../classgeom_1_1_simple_matrix.html#ac1d7026402effa87a698492603365e6f',1,'geom::SimpleMatrix::SimpleMatrix(index_t nrows, index_t ncols)'],['../classgeom_1_1_simple_matrix.html#a81071c0bf3e7d532945f0dde4ef3c28a',1,'geom::SimpleMatrix::SimpleMatrix(T *src_data, index_t nrows, index_t ncols)'],['../classgeom_1_1_simple_matrix.html#a043f7d9b13b1d3a145dac346abfac10a',1,'geom::SimpleMatrix::SimpleMatrix(const Mx &amp;mtx)']]],
   ['simplematrix_3c_20t_2c_20m_2c_20n_20_3e',['SimpleMatrix&lt; T, M, N &gt;',['../classgeom_1_1_simple_matrix.html',1,'geom']]],
   ['simplematrix_3c_20t_2c_20n_2b1_2c_20n_2b1_20_3e',['SimpleMatrix&lt; T, N+1, N+1 &gt;',['../classgeom_1_1_simple_matrix.html',1,'geom']]],
   ['simplex',['Simplex',['../classgeom_1_1_simplex.html',1,'Simplex&lt; T, N &gt;'],['../classgeom_1_1_simplex.html#a2441fd16c237dc735fbf4860f82cea2e',1,'geom::Simplex::Simplex()'],['../classgeom_1_1_simplex.html#a14ba4e1283fa3f684d68b4c8d3c05c99',1,'geom::Simplex::Simplex(const Vec&lt; T, N &gt; *verts, index_t n)']]],
@@ -55,6 +55,7 @@ var searchData=
   ['subtreebase',['SubtreeBase',['../classgeom_1_1_subtree_base.html',1,'geom']]],
   ['subtreebase_3c_20nodeitem_2c_20leafitem_2c_20false_20_3e',['SubtreeBase&lt; NodeItem, LeafItem, false &gt;',['../classgeom_1_1_subtree_base.html',1,'geom']]],
   ['subtreebase_3c_20nodeitem_2c_20leafitem_2c_20true_20_3e',['SubtreeBase&lt; NodeItem, LeafItem, true &gt;',['../classgeom_1_1_subtree_base.html',1,'geom']]],
+  ['sum_5fof_5fproducts',['sum_of_products',['../group__function.html#ga7c75c5b4477c7490dc3d1614cf8a70da',1,'geom']]],
   ['swap_5fcols',['swap_cols',['../classgeom_1_1_permutation_matrix.html#a319b436521ffef3ca422966868933d8d',1,'geom::PermutationMatrix']]],
   ['swap_5frows',['swap_rows',['../classgeom_1_1_permutation_matrix.html#ad70c3a3cc903645bd3353e718019ff84',1,'geom::PermutationMatrix']]]
 ];

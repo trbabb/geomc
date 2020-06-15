@@ -79,9 +79,6 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_p_l_u_decomposition.html">PLUDecomposition&lt; T, M, N &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the PLU decompostion for a matrix <code>A</code>, such that <code>PA = LU</code>.  <a href="classgeom_1_1_p_l_u_decomposition.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_augmented_matrix.html">AugmentedMatrix&lt; Ma, Mb &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A matrix which wraps two side-by-side sub-matrices.  <a href="classgeom_1_1_augmented_matrix.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_diag_matrix.html">DiagMatrix&lt; T, M, N &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A matrix with nonzero elements only along the main diagonal.  <a href="classgeom_1_1_diag_matrix.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -91,7 +88,7 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_permutation_matrix.html">PermutationMatrix&lt; N &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A matrix which, by multiplication, permutes the rows or columns of another matrix.  <a href="classgeom_1_1_permutation_matrix.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix&lt; T, M, N, P &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix&lt; T, M, N, Lyt, P &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A basic matrix with <code>M x N</code> elements.  <a href="classgeom_1_1_simple_matrix.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -169,7 +166,7 @@ Functions</h2></td></tr>
 <h1>Include </h1>
 <p><code>#include &lt;<a class="el" href="_matrix_8h_source.html">geomc/linalg/Matrix.h</a>&gt;</code></p>
 <h1>Design </h1>
-<p>There are currently six distinct matrix template classes. They are all interoperable, and provide iterators which are functionally interchangeable with each other and with pointers (row iterators, column iterators, region iterators, and row-major matrix body iterators).</p>
+<p>There are currently four distinct matrix template classes. They are all interoperable, and provide iterators which are functionally interchangeable with each other and with pointers (row iterators, column iterators, region iterators, and row-major matrix body iterators).</p>
 <p>These iterators are compatible with std::copy(). Some of them are not writeable (or may possibly throw an error upon writing) in the case where a matrix element does not have a corresponding memory location (DiagonalMatrix is one such case, for example; off-diagonals are not stored).</p>
 <p>In general, this scheme was designed to satisfy the following requirements:</p>
 <ul>
@@ -198,10 +195,10 @@ Functions</h2></td></tr>
 <p>To check if two matrices share any common storage: </p><pre class="fragment">if (mtx_aliases_storage(m1, m2)) { ... }
 </pre><p>To copy the elements from one matrix to another, without referencing, and regardless of matrix type or static/dynamic setting: </p><pre class="fragment">mtxcopy(&amp;dst_mtx, src_mtx);
 </pre><p>This method is often optimized over using std::copy() directly on the matrices' iterators. Some matrices (e.g. <a class="el" href="classgeom_1_1_diag_matrix.html" title="A matrix with nonzero elements only along the main diagonal.">DiagMatrix</a>) may not support <code>std::copy()</code>, but do support <code><a class="el" href="group__matrix.html#ga18aa4cc96039ea7bf54d7d9fb25defe4">mtxcopy()</a></code> with sensible arguments.</p>
-<p>Unless otherwise noted, all operations on matrices are guaranteed to return correct results, even if the destination matrix aliases storage of an operand (though calling operations in this way may incur a performance and/or memory overhead).</p>
+<p>Unless otherwise noted, all operations on matrices should be expected to return correct results, even if the destination matrix aliases storage of an operand (though calling operations in this way may incur a performance and/or memory overhead).</p>
 <h2><a class="el" href="structgeom_1_1_dimension.html" title="Defines a type for storing a length or element count.">Dimension</a> checking </h2>
 <p>Matrix operations often place restrictions on the dimensions of their matrix operands. For example, matrix addition requires that both operands have the same dimensions (in other words, a 3 x 4 matrix can only be added to another 3 x 4 matrix).</p>
-<p>When matrices with static dimensions are involved, the library can often prove at compile time that an argument's dimensions are correct or incorrect. If proven correct, run-time dimension checks can be skipped (by relying on compiler elimination of constructs like <code>if (0) {...}</code>), resulting in slightly faster code. If incorrect, the compiler will error, catching program correctness problems early. Compile-time dimension mismatches / requirement failures will generally manifest as <code>"template argument deduction/substitution failed"</code> errors (a more informative message would be desirable, but c++ does not provide the functionality to produce one).</p>
+<p>When matrices with static dimensions are involved, the library can often prove at compile time that an argument's dimensions are correct or incorrect. If proven correct, run-time dimension checks can be skipped (by relying on compiler elimination of constructs like <code>if (false) {...}</code>), resulting in moderately faster code. If incorrect, the compiler will error, catching program correctness problems early. Compile-time dimension mismatches / requirement failures will generally manifest as <code>"template argument deduction/substitution failed"</code> errors (a more informative message would be desirable, but c++ does not provide the functionality to produce one).</p>
 <p>This code will prove its dimension-correctness at compile time: </p><pre class="fragment">SimpleMatrix&lt;double, 4, 4&gt; mat4x4;
 DiagMatrix&lt;double, 4, 4&gt;  dmat4x4;
 SimpleMatrix&lt;double, 3, 2&gt; mat3x2;
@@ -229,15 +226,17 @@ m1 - m1
 </pre><p>Equality test: </p><pre class="fragment">m1 == m1
 m1 != m2
 </pre><p>Indexing: </p><pre class="fragment">double x = m1[1][2];
-m[0][1] = 2.718;
+double y = m(2, 2);
+m[0][1]  = 2.718;
+m(0, 2)  = 1.618;
 </pre><h2>Accessing elements </h2>
 <p>Indexing: </p><pre class="fragment">// equivalent:
-float f1 = m.get(2, 3);
-float f2 = m[2][3]; 
+float f1 = m(2, 3);
+float f2 = m[2][3];
 </pre><p>Assignment: </p><pre class="fragment">// all equivalent:    
 m.set(2, 3, val);
 m[2][3] = val;
-m.get(2, 3) = val;
+m(2, 3) = val;
 </pre><p>Matrix body iterators: </p><pre class="fragment">typedef SimpleMatrix&lt;double,3,3&gt; mat3;
 mat3 m;
 // iterate over the matrix body in row-major order:
@@ -1033,7 +1032,7 @@ for (mat3::region_iterator i = m.region_begin(r); i != m.region_end(r); i++) {
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 6 2019 00:44:08 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jun 14 2020 19:06:39 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

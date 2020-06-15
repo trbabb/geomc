@@ -39,6 +39,7 @@ var searchData=
   ['subtree',['subtree',['../classgeom_1_1_tree.html#ad4483ebfa9a6350d75d4b2eab56c8967',1,'geom::Tree::subtree()'],['../classgeom_1_1_subtree.html#a27fbff87cc12f43330d1b4c48e93b0bd',1,'geom::Subtree::Subtree()']]],
   ['subtree_5fbegin',['subtree_begin',['../classgeom_1_1_subtree_base.html#a2ce68055059abc27305a4c0d8c80e485',1,'geom::SubtreeBase']]],
   ['subtree_5fend',['subtree_end',['../classgeom_1_1_subtree_base.html#adf4eca147d4c57d0c431fa440d8f98be',1,'geom::SubtreeBase']]],
+  ['sum_5fof_5fproducts',['sum_of_products',['../group__function.html#ga7c75c5b4477c7490dc3d1614cf8a70da',1,'geom']]],
   ['swap_5fcols',['swap_cols',['../classgeom_1_1_permutation_matrix.html#a319b436521ffef3ca422966868933d8d',1,'geom::PermutationMatrix']]],
   ['swap_5frows',['swap_rows',['../classgeom_1_1_permutation_matrix.html#ad70c3a3cc903645bd3353e718019ff84',1,'geom::PermutationMatrix']]]
 ];

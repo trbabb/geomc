@@ -128,24 +128,24 @@ Functions</h2></td></tr>
 <tr class="memitem:gad6cd9834a4c2f34896398e215733f9e5"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t M, index_t N&gt; </td></tr>
 <tr class="memitem:gad6cd9834a4c2f34896398e215733f9e5"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gad6cd9834a4c2f34896398e215733f9e5">cholesky</a> (<a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; T, M, N &gt; *m)</td></tr>
 <tr class="separator:gad6cd9834a4c2f34896398e215733f9e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga91ab5ecfc9ad48d99101a7fd29345574"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
-<tr class="memitem:ga91ab5ecfc9ad48d99101a7fd29345574"><td class="memTemplItemLeft" align="right" valign="top">index_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga91ab5ecfc9ad48d99101a7fd29345574">decompLUP</a> (T *m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity)</td></tr>
-<tr class="separator:ga91ab5ecfc9ad48d99101a7fd29345574"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga17f7fa328f09732cc04bc2ef35bd20fb"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
-<tr class="memitem:ga17f7fa328f09732cc04bc2ef35bd20fb"><td class="memTemplItemLeft" align="right" valign="top">index_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga17f7fa328f09732cc04bc2ef35bd20fb">decompPLU</a> (T *m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity)</td></tr>
-<tr class="separator:ga17f7fa328f09732cc04bc2ef35bd20fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga9624e71da2de028a9ebcac0052cab672"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
-<tr class="memitem:ga9624e71da2de028a9ebcac0052cab672"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga9624e71da2de028a9ebcac0052cab672">linearSolveLUP</a> (const T *lup, const index_t *p, index_t n, T *x, const T *b, index_t skip=0)</td></tr>
-<tr class="separator:ga9624e71da2de028a9ebcac0052cab672"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacf11b62b5a89c5da231e4884ee9c0b9a"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
-<tr class="memitem:gacf11b62b5a89c5da231e4884ee9c0b9a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gacf11b62b5a89c5da231e4884ee9c0b9a">linearSolveLU</a> (const T *lu, index_t n, T *x, const T *b, index_t skip=0)</td></tr>
-<tr class="separator:gacf11b62b5a89c5da231e4884ee9c0b9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad5360f5909cfd510e964575c042bfe8a"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
-<tr class="memitem:gad5360f5909cfd510e964575c042bfe8a"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gad5360f5909cfd510e964575c042bfe8a">linearSolve</a> (T *m, index_t n, T *x, const T *b, index_t skip=0)</td></tr>
-<tr class="separator:gad5360f5909cfd510e964575c042bfe8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad7fcc088b1764542650552620648a476"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
-<tr class="memitem:gad7fcc088b1764542650552620648a476"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gad7fcc088b1764542650552620648a476">linearSolve</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *bases, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *x, const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;b, index_t skip=0)</td></tr>
-<tr class="separator:gad7fcc088b1764542650552620648a476"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae44a35d89fa24199ace1e157f0cd3961"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
+<tr class="memitem:gae44a35d89fa24199ace1e157f0cd3961"><td class="memTemplItemLeft" align="right" valign="top">index_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gae44a35d89fa24199ace1e157f0cd3961">decomp_lup</a> (T *m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity)</td></tr>
+<tr class="separator:gae44a35d89fa24199ace1e157f0cd3961"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga13c6c7a476d476978a2bc55e52c83634"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
+<tr class="memitem:ga13c6c7a476d476978a2bc55e52c83634"><td class="memTemplItemLeft" align="right" valign="top">index_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga13c6c7a476d476978a2bc55e52c83634">decomp_plu</a> (T *m, index_t rows, index_t cols, index_t *reorder, bool *swap_parity)</td></tr>
+<tr class="separator:ga13c6c7a476d476978a2bc55e52c83634"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4a1050f12083b401f536781017151ee8"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
+<tr class="memitem:ga4a1050f12083b401f536781017151ee8"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga4a1050f12083b401f536781017151ee8">linear_solve_lup</a> (const T *lup, const index_t *p, index_t n, T *x, const T *b, index_t skip=0)</td></tr>
+<tr class="separator:ga4a1050f12083b401f536781017151ee8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9881e913e0cfae528ed593459966240b"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
+<tr class="memitem:ga9881e913e0cfae528ed593459966240b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga9881e913e0cfae528ed593459966240b">linear_solve_lu</a> (const T *lu, index_t n, T *x, const T *b, index_t skip=0)</td></tr>
+<tr class="separator:ga9881e913e0cfae528ed593459966240b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadd350d4fbaac325634ebd55a2c196251"><td class="memTemplParams" colspan="2">template&lt;typename T , bool RowMajor = true&gt; </td></tr>
+<tr class="memitem:gadd350d4fbaac325634ebd55a2c196251"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gadd350d4fbaac325634ebd55a2c196251">linear_solve</a> (T *m, index_t n, T *x, const T *b, index_t skip=0)</td></tr>
+<tr class="separator:gadd350d4fbaac325634ebd55a2c196251"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa5d2e86bccb2b6a30001a6e29c4a4b59"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:gaa5d2e86bccb2b6a30001a6e29c4a4b59"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gaa5d2e86bccb2b6a30001a6e29c4a4b59">linear_solve</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *bases, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *x, const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;b, index_t skip=0)</td></tr>
+<tr class="separator:gaa5d2e86bccb2b6a30001a6e29c4a4b59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Linear algebra functions and classes. </p>
@@ -190,7 +190,7 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the decomposition could be completed; false if the matrix was ill-conditioned. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the decomposition could be completed; false if the matrix was not positive-definite or ill-conditioned. </dd></dl>
 
 </div>
 </div>
@@ -216,18 +216,18 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>False if the matrix is not square, or could not be decomposed due to ill-conditioning; <code>true</code> if the decomposition was completed successfully. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>False if the matrix is not square, not positive-definite, or could not be decomposed due to ill-conditioning; <code>true</code> if the decomposition was completed successfully. </dd></dl>
 
 </div>
 </div>
-<a id="ga91ab5ecfc9ad48d99101a7fd29345574"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga91ab5ecfc9ad48d99101a7fd29345574">&#9670;&nbsp;</a></span>decompLUP()</h2>
+<a id="gae44a35d89fa24199ace1e157f0cd3961"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae44a35d89fa24199ace1e157f0cd3961">&#9670;&nbsp;</a></span>decomp_lup()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">index_t geom::decompLUP </td>
+          <td class="memname">index_t geom::decomp_lup </td>
           <td>(</td>
           <td class="paramtype">T *&#160;</td>
           <td class="paramname"><em>m</em>, </td>
@@ -285,14 +285,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ga17f7fa328f09732cc04bc2ef35bd20fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga17f7fa328f09732cc04bc2ef35bd20fb">&#9670;&nbsp;</a></span>decompPLU()</h2>
+<a id="ga13c6c7a476d476978a2bc55e52c83634"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga13c6c7a476d476978a2bc55e52c83634">&#9670;&nbsp;</a></span>decomp_plu()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">index_t geom::decompPLU </td>
+          <td class="memname">index_t geom::decomp_plu </td>
           <td>(</td>
           <td class="paramtype">T *&#160;</td>
           <td class="paramname"><em>m</em>, </td>
@@ -350,8 +350,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="gad5360f5909cfd510e964575c042bfe8a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gad5360f5909cfd510e964575c042bfe8a">&#9670;&nbsp;</a></span>linearSolve() <span class="overload">[1/2]</span></h2>
+<a id="gadd350d4fbaac325634ebd55a2c196251"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadd350d4fbaac325634ebd55a2c196251">&#9670;&nbsp;</a></span>linear_solve() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -360,7 +360,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool geom::linearSolve </td>
+          <td class="memname">bool geom::linear_solve </td>
           <td>(</td>
           <td class="paramtype">T *&#160;</td>
           <td class="paramname"><em>m</em>, </td>
@@ -423,8 +423,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="gad7fcc088b1764542650552620648a476"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gad7fcc088b1764542650552620648a476">&#9670;&nbsp;</a></span>linearSolve() <span class="overload">[2/2]</span></h2>
+<a id="gaa5d2e86bccb2b6a30001a6e29c4a4b59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa5d2e86bccb2b6a30001a6e29c4a4b59">&#9670;&nbsp;</a></span>linear_solve() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -433,7 +433,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool geom::linearSolve </td>
+          <td class="memname">bool geom::linear_solve </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; *&#160;</td>
           <td class="paramname"><em>bases</em>, </td>
@@ -482,14 +482,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="gacf11b62b5a89c5da231e4884ee9c0b9a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gacf11b62b5a89c5da231e4884ee9c0b9a">&#9670;&nbsp;</a></span>linearSolveLU()</h2>
+<a id="ga9881e913e0cfae528ed593459966240b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9881e913e0cfae528ed593459966240b">&#9670;&nbsp;</a></span>linear_solve_lu()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void geom::linearSolveLU </td>
+          <td class="memname">void geom::linear_solve_lu </td>
           <td>(</td>
           <td class="paramtype">const T *&#160;</td>
           <td class="paramname"><em>lu</em>, </td>
@@ -546,14 +546,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ga9624e71da2de028a9ebcac0052cab672"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga9624e71da2de028a9ebcac0052cab672">&#9670;&nbsp;</a></span>linearSolveLUP()</h2>
+<a id="ga4a1050f12083b401f536781017151ee8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4a1050f12083b401f536781017151ee8">&#9670;&nbsp;</a></span>linear_solve_lup()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void geom::linearSolveLUP </td>
+          <td class="memname">void geom::linear_solve_lup </td>
           <td>(</td>
           <td class="paramtype">const T *&#160;</td>
           <td class="paramname"><em>lup</em>, </td>
@@ -606,7 +606,7 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">lup</td><td>An <code>n x n</code> LUP-decomposed matrix. </td></tr>
-    <tr><td class="paramname">p</td><td>The permutation array filled by <code><a class="el" href="group__linalg.html#ga91ab5ecfc9ad48d99101a7fd29345574">decompLUP()</a></code>. </td></tr>
+    <tr><td class="paramname">p</td><td>The permutation array filled by <code><a class="el" href="group__linalg.html#gae44a35d89fa24199ace1e157f0cd3961">decomp_lup()</a></code>. </td></tr>
     <tr><td class="paramname">n</td><td>The number of rows and columns in the matrix. </td></tr>
     <tr><td class="paramname">x</td><td>The solution vector of <code>n</code> elements to be filled. </td></tr>
     <tr><td class="paramname">b</td><td>A vector of <code>n</code> elements. </td></tr>
@@ -761,7 +761,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 6 2019 00:44:08 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jun 14 2020 19:06:39 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>

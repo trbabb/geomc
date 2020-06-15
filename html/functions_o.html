@@ -96,7 +96,7 @@ $(function() {
 , <a class="el" href="classgeom_1_1_oriented_rect.html#ad088eaf0659c0aea2898b6428f1f65d5">OrientedRect&lt; T, N &gt;</a>
 , <a class="el" href="classgeom_1_1_plane.html#ad739d0fb1c3696217349e4b431dcccae">Plane&lt; T, N &gt;</a>
 , <a class="el" href="classgeom_1_1_rect.html#ab395919d449f26024a4e3ee538f735e7">Rect&lt; T, N &gt;</a>
-, <a class="el" href="classgeom_1_1_simple_matrix.html#aaa642e6341cedd3c54199fe16ce2d7e3">SimpleMatrix&lt; T, M, N, P &gt;</a>
+, <a class="el" href="classgeom_1_1_simple_matrix.html#aaa642e6341cedd3c54199fe16ce2d7e3">SimpleMatrix&lt; T, M, N, Lyt, P &gt;</a>
 , <a class="el" href="classgeom_1_1_spherical_harmonics.html#a283c5b189de51de9ad27133b4626d2d4">SphericalHarmonics&lt; T, Bands &gt;</a>
 </li>
 <li>operator AffineTransform&lt; U, N &gt;()
@@ -106,7 +106,8 @@ $(function() {
 : <a class="el" href="classgeom_1_1_rect.html#a7c8ffdd260ed76d7632ff78b4ce7f124">Rect&lt; T, N &gt;</a>
 </li>
 <li>operator!=()
-: <a class="el" href="classgeom_1_1_dual.html#acfff4ddd69df4eb3581092db21ed751f">Dual&lt; T &gt;</a>
+: <a class="el" href="classgeom_1_1_circular_buffer.html#a1835f8c6ab774619f2c07b6fc63b0b95">CircularBuffer&lt; T, N &gt;</a>
+, <a class="el" href="classgeom_1_1_dual.html#acfff4ddd69df4eb3581092db21ed751f">Dual&lt; T &gt;</a>
 , <a class="el" href="classgeom_1_1_rect.html#a34f915fd129284530b966808aed30b1d">Rect&lt; T, N &gt;</a>
 , <a class="el" href="classgeom_1_1_simplex.html#ae9bc02fe49e6894b6faf561fd6a90f12">Simplex&lt; T, N &gt;</a>
 , <a class="el" href="classgeom_1_1_subtree_base.html#a0ce3fb428e8320ee1801b8ef9e5a12e7">SubtreeBase&lt; NodeItem, LeafItem, Const &gt;</a>
@@ -115,6 +116,10 @@ $(function() {
 </li>
 <li>operator&amp;=()
 : <a class="el" href="classgeom_1_1_rect.html#a839b10159b4838a731e66621e9c96ce8">Rect&lt; T, N &gt;</a>
+</li>
+<li>operator()()
+: <a class="el" href="classgeom_1_1_permutation_matrix.html#a7ca58b4e76861fd4b889f4b69cf3a64e">PermutationMatrix&lt; N &gt;</a>
+, <a class="el" href="classgeom_1_1_simple_matrix.html#a741aa7dd962601ea0ebd45d8a4ab124d">SimpleMatrix&lt; T, M, N, Lyt, P &gt;</a>
 </li>
 <li>operator+
 : <a class="el" href="classgeom_1_1_dual.html#a7597ac32a30a70e236a97e26313ed521">Dual&lt; T &gt;</a>
@@ -142,7 +147,7 @@ $(function() {
 , <a class="el" href="classgeom_1_1_subtree_base.html#a5909e8467eba46aa9dd40e5064e0c970">SubtreeBase&lt; NodeItem, LeafItem, Const &gt;</a>
 </li>
 <li>operator--()
-: <a class="el" href="classgeom_1_1_k_d_tree_1_1_k_d_node_iterator.html#a11e0fdeec319750cf8ecbcf888624394">KDTree&lt; T, N, Object, NodeData &gt;::KDNodeIterator&lt; Const &gt;</a>
+: <a class="el" href="classgeom_1_1_k_d_tree_1_1_k_d_node_iterator.html#af989be7495fbf97878b6e2dbdb72276f">KDTree&lt; T, N, Object, NodeData &gt;::KDNodeIterator&lt; Const &gt;</a>
 , <a class="el" href="classgeom_1_1_subtree_base.html#af989be7495fbf97878b6e2dbdb72276f">SubtreeBase&lt; NodeItem, LeafItem, Const &gt;</a>
 </li>
 <li>operator-=()
@@ -176,12 +181,13 @@ $(function() {
 : <a class="el" href="classgeom_1_1_dual.html#ad85ab2bfba8b9459a5d395d1fcddb68a">Dual&lt; T &gt;</a>
 </li>
 <li>operator=()
-: <a class="el" href="classgeom_1_1_circular_buffer.html#a08527d6513d6c338c5ff6b291859a010">CircularBuffer&lt; T, N &gt;</a>
+: <a class="el" href="classgeom_1_1_circular_buffer.html#aede64249024cad14892f7b09aae3753f">CircularBuffer&lt; T, N &gt;</a>
 , <a class="el" href="classgeom_1_1_small_storage.html#ab5dcce77f4e7aa2d5ee67f8f6b0b0911">SmallStorage&lt; T, N &gt;</a>
 , <a class="el" href="classgeom_1_1_subtree_base_1_1_query_iterator.html#a98e367b03efca928d206498fac9526ac">SubtreeBase&lt; NodeItem, LeafItem, Const &gt;::QueryIterator&lt; I, Key, BoundingFn, TestFn &gt;</a>
 </li>
 <li>operator==()
-: <a class="el" href="classgeom_1_1_dual.html#a9a4f9ec9266e338bcb7b99d4383b29b6">Dual&lt; T &gt;</a>
+: <a class="el" href="classgeom_1_1_circular_buffer.html#af4ea21e096245338f61659518c343694">CircularBuffer&lt; T, N &gt;</a>
+, <a class="el" href="classgeom_1_1_dual.html#a9a4f9ec9266e338bcb7b99d4383b29b6">Dual&lt; T &gt;</a>
 , <a class="el" href="classgeom_1_1_rect.html#a50710bb8cc5a660f169bc84506ab1712">Rect&lt; T, N &gt;</a>
 , <a class="el" href="classgeom_1_1_simplex.html#ad2e9f8f6645d5e3637c7f2fe868ddf1c">Simplex&lt; T, N &gt;</a>
 , <a class="el" href="classgeom_1_1_subtree_base.html#a644ab76d5f1dffea15710a549a80e378">SubtreeBase&lt; NodeItem, LeafItem, Const &gt;</a>
@@ -197,10 +203,10 @@ $(function() {
 <li>operator[]()
 : <a class="el" href="classgeom_1_1_circular_buffer.html#ab13e0a27ac92f24cb28362b194c16e48">CircularBuffer&lt; T, N &gt;</a>
 , <a class="el" href="classgeom_1_1_dual.html#ac5e9aa80640939fe5e07a445bf16710d">Dual&lt; T &gt;</a>
-, <a class="el" href="structgeom_1_1_generic_storage.html#ac5e9aa80640939fe5e07a445bf16710d">GenericStorage&lt; T, N, P &gt;</a>
-, <a class="el" href="classgeom_1_1_simplex.html#a24616e14c2018d54a3be95b11b053d3c">Simplex&lt; T, N &gt;</a>
+, <a class="el" href="structgeom_1_1_generic_storage.html#ab3d7e89644303828e6a8be9d8ed1dbaf">GenericStorage&lt; T, N, P &gt;</a>
+, <a class="el" href="classgeom_1_1_simplex.html#acb29c2644c6af39b7109a86c49a99cb9">Simplex&lt; T, N &gt;</a>
 , <a class="el" href="classgeom_1_1_small_storage.html#ab13e0a27ac92f24cb28362b194c16e48">SmallStorage&lt; T, N &gt;</a>
-, <a class="el" href="structgeom_1_1_storage.html#ab13e0a27ac92f24cb28362b194c16e48">Storage&lt; T, N &gt;</a>
+, <a class="el" href="structgeom_1_1_storage.html#a029975b32f3ffc1a4ae750ec32ef4b3d">Storage&lt; T, N &gt;</a>
 , <a class="el" href="structgeom_1_1_unique_storage.html#a029975b32f3ffc1a4ae750ec32ef4b3d">UniqueStorage&lt; T, N &gt;</a>
 , <a class="el" href="structgeom_1_1_wrapped_storage.html#ac5e9aa80640939fe5e07a445bf16710d">WrappedStorage&lt; T, N &gt;</a>
 </li>
@@ -208,10 +214,10 @@ $(function() {
 : <a class="el" href="classgeom_1_1_vec_3_01_t_00_013_01_4.html#a938b493d7e533cd9a82a3cc7f041e798">Vec&lt; T, 3 &gt;</a>
 </li>
 <li>operator|()
-: <a class="el" href="classgeom_1_1_rect.html#a57637efadde2a54c481fdc47189bbc55">Rect&lt; T, N &gt;</a>
+: <a class="el" href="classgeom_1_1_rect.html#ad5e6f9dcd177d12c0b2fe1d108aadda0">Rect&lt; T, N &gt;</a>
 </li>
 <li>operator|=()
-: <a class="el" href="classgeom_1_1_rect.html#af686c00136a41c3f36ea1494cb844a52">Rect&lt; T, N &gt;</a>
+: <a class="el" href="classgeom_1_1_rect.html#a93f3e2b0596745e35eec2094315a6eb3">Rect&lt; T, N &gt;</a>
 </li>
 <li>order
 : <a class="el" href="classgeom_1_1_grid_iterator.html#a40effeea71956a56cef974061a706194">GridIterator&lt; T, N, Order &gt;</a>
@@ -220,7 +226,7 @@ $(function() {
 : <a class="el" href="classgeom_1_1_sampler.html#a898949dcf7e7ef5b812526f52943ac9b">Sampler&lt; T &gt;</a>
 </li>
 <li>OrientedRect()
-: <a class="el" href="classgeom_1_1_oriented_rect.html#a8497b09d5f165122db3fa7766c879ed1">OrientedRect&lt; T, N &gt;</a>
+: <a class="el" href="classgeom_1_1_oriented_rect.html#a7ecfd168841bcc4ea3c4e5367782af2c">OrientedRect&lt; T, N &gt;</a>
 </li>
 <li>origin()
 : <a class="el" href="classgeom_1_1_plane.html#a53550c8b4f409d57bdd203305af41e9c">Plane&lt; T, N &gt;</a>
@@ -232,7 +238,7 @@ $(function() {
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 6 2019 00:44:09 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jun 14 2020 19:06:39 for geomc by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.15
 </small></address>
