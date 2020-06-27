@@ -133,7 +133,7 @@ public:
         index_t old_size = size();
         index_t new_size = other.size();
         index_t n = std::min(old_size, new_size);
-        ensure_capacity(other._size);
+        reserve(other._size);
         // delegate assignment to T
         for (index_t i = 0; i < n; ++i) {
             this->operator[](i) = other[i];
@@ -173,7 +173,7 @@ public:
             other._capacity = N;
         } else {
             // `other`'s array cannot be moved; copy items instead.
-            // we do not need to ensure_capacity(), obviously, because _size < N.
+            // we do not need to reserve(), obviously, because _size < N.
             // if we have space for more than N, that's fine too.
             _head = 0;
             for (index_t i = 0; i < other._size; ++i) {
@@ -247,7 +247,7 @@ public:
     /// Add an element to the end of the buffer.
     template <typename U> // templated so that we can deduce and collapse lvalues
     inline void push_back(U&& t) {
-        ensure_capacity(_size + 1);
+        reserve(_size + 1);
         T* p = item(_size);
         // placement new, using move semantics if applicable:
         new (p) T(std::forward<U>(t));
@@ -262,7 +262,7 @@ public:
      */
     template <typename U> // templated so that we can deduce and collapse lvalues
     inline void push_front(U&& t) {
-        ensure_capacity(_size + 1);
+        reserve(_size + 1);
         const index_t n = capacity();
         _head = (_head + n - 1) % n; 
         // placement new, using move semantics if applicable:
@@ -326,6 +326,35 @@ public:
         _head = 0;
         _size = 0;
     }
+    
+    /** 
+     * @brief Increase the capacity of the circular buffer to a value that's
+     * greater or equal to `new_cap`. If `new_cap` is greater than the current
+     * capacity, then new storage is allocated; otherwise the method does nothing.
+     */
+    void reserve(index_t new_cap) {
+        if (new_cap > _capacity) {
+            index_t resize_to = std::max(_capacity * 2, new_cap);
+            storage_t* array  = new storage_t[resize_to];
+            
+            // move the items into the new array
+            for (index_t i = 0; i < _size; ++i) {
+                T* p = reinterpret_cast<T*>(array + i);
+                // move-construct
+                new (p) T(std::move(*item(i)));
+                // destroy the source
+                item(i)->~T();
+            }
+            
+            if (_capacity > N) {
+                delete [] _data;
+            }
+            
+            _data = array;
+            _head = 0;
+            _capacity = resize_to;
+        }
+    }
         
 
     
@@ -349,31 +378,6 @@ protected:
     // get the place for the `i`th const item
     inline const T* item(index_t i) const {
         return get() + (_head + i) % capacity();
-    }
-    
-    // check if a memory reallocation is necessary, and do so if needed.
-    void ensure_capacity(index_t new_size) {
-        if (new_size > _capacity) {
-            index_t resize_to = std::max(_capacity * 2, new_size);
-            storage_t* array  = new storage_t[resize_to];
-            
-            // move the items into the new array
-            for (index_t i = 0; i < _size; ++i) {
-                T* p = reinterpret_cast<T*>(array + i);
-                // move-construct
-                new (p) T(std::move(*item(i)));
-                // destroy the source
-                item(i)->~T();
-            }
-            
-            if (_capacity > N) {
-                delete [] _data;
-            }
-            
-            _data = array;
-            _head = 0;
-            _capacity = resize_to;
-        }
     }
     
 };
