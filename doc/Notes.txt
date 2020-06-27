@@ -5,8 +5,9 @@ what if:
 TODO:
   x fix free function docs
   - switch to scons
-  - fix dual docs
+  - fix Dual docs
   - fix tracing
+  - everything in deployment_blockers.txt
   x fix matrices
     - window
     x wrapper
@@ -23,7 +24,7 @@ MATRIX:
   x make a matrix which can wrap a client-owned array
   - make a SubMatrix
   x kill SparseMatrix
-  - kill Augmented or templatize over direction
+  x kill Augmented or templatize over direction
   - fix mtx multiplication for SimpleMtx to operate on T* rather than the matrix, to prevent code bloat
   - remove writeable iterator from diagmatrix
   x in-place LU solving (collapse L and U storage to one matrix). 
@@ -80,25 +81,34 @@ MATRIX:
     - backwards grid iterators are definitely broken.
 
 GENERAL CLEANUP/MAJOR TODOS:
-  - decide and enforce a consistent naming style 
-    (under_score(), camelCase(), or CapitalCase()?)
+  - fix naming style (snake_case for fns/vars/typedefs; UpperCamelCase for classes)
   - fix Random 
     - or kill Random in favor of c++11 <random>; reduce to sampler and better float selector.
     - to partially specialize rand<T>()
-    - implement Ziggurat; use gaussian blob strategy for picking high
+    X implement Ziggurat; use gaussian blob strategy for picking high
       dimensional spheres.
   x fix Quaternion ops to return Quat<T>
     x note that a branch with this exists using the curiously recurring pattern,
       but it makes the docs ugly. stupid doxygen
   - open / closed interval logic on rect?
   - make more spatial partitions
+  - fix shapes:
+    - generalized Frustum base shape
+      - (admits Cone naturally)
+    - generalized Oriented shape
+      - no orientation mtx in any other class
+      - OrientedRect a partial specialization of Oriented
+  - add to shapes:
+    - sdf()
+    - nearest_to(Vec p)
   x more basic shapes
     x frustum
     x cylinder
     x oriented box
-    - cone
+    X cone
   x remove vector swizzling
   - fix hash functions
+    - rm Hash cpp file
   x put sources back in with headers; remove redundant /include dir
     and fix up makefile to work with it.
   x fix include path to use geomc/ prefix.

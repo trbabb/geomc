@@ -8,6 +8,9 @@
 //   also author a square(&symm, mtx) function to compute M * M^T into a symm. mtx
 //     (and work all of the above into Kalman filter).
 // todo: consider also a Triangular matrix class.
+// todo: there is no need to template MatrixLayout— square symmetric matrices
+//       can be safely transposed.
+// todo: use data_begin() and data_end() for the matrix.
 
 namespace geom {
 

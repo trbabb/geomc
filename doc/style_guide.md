@@ -6,7 +6,7 @@ Braces and indents
 
 **Never** indent with tabs; use four spaces. (Almost all editors can be configured to insert spaces when the `tab` key is pressed).
 
-K&R indent style (except for wrapped lines; explained in the section on that topic). 
+K&R indent style, with an exception for the case of wrapped long lines (explained later). 
 
 * Single space between braces and parens.
 * Single space after `if` and `else`.
@@ -44,7 +44,7 @@ Class names are `UpperCamelCase`; variables, methods, and function names are `sn
         // ...
     }
 
-Member typedefs and typedefs of POD data types are `snake_case` ending with `_t`:
+*Member typedefs* and *typedefs of POD data* types are `snake_case` ending with `_t`:
 
     typedef std::make_signed<size_t>::type index_t;
     
@@ -68,7 +68,11 @@ Long or complicatedly-nested function calls should break each top-level argument
                 anotherFunctionCall(5, z, 22),
                 NUM_DOLPHINS);
 
-Complicated function signatures should obey the same rule: Long argument lists are broken into one per line. Wrapped arguments should be indented one block beyond the function body, and whenever a block-opening expression is line-wrapped, the opening brace goes on its own line:
+Complicated function signatures follow this pattern: 
+
+* Long argument lists are broken into one argument per line. 
+* Wrapped arguments should be indented one block beyond the function body.
+* Whenever a block-opening expression is line-wrapped, the opening brace goes on its own line.
 
     int some_function(
             int arg1,
@@ -188,6 +192,8 @@ If the sub-expressions are long, then each clause may be on its own (parenthesiz
 
 This makes it easier to read which sub-expressions belong to the true and false branches.
 
+If a ternary "if" doesn't fit into three lines as above, it is usually better to use an ordinary "if/else" block statement.
+
 Standard guidelines about wrapping and indenting apply.
 
 Defines
@@ -206,7 +212,8 @@ This is because unexpected things may happen once tokens are substituted:
     // xxx: bad style:
     #define FOO(a, b) a * b
     
-    // expands to `100 * 2 + 3 * 2`— not what you expected!
+    // expands to `206`, not `1000`!
+    // this substitutes to `100 * 2 + 3 * 2`— not what you expected!
     100 * FOO(2 + 3, 2)
 
 Line breaks
