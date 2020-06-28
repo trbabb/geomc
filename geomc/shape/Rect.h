@@ -759,7 +759,7 @@ public:
      * Inherited Methods         *
      *****************************/
 
-    Rect<T,N> bounds() {
+    Rect<T,N> bounds() const {
         return *this;
     }
 

@@ -91,7 +91,7 @@ class Extrusion : public virtual Convex<typename Shape::elem_t, Shape::N + 1> {
             return Vec<T,N>(p0, (d[N-1] > 0) ? height.hi : height.lo);
         }
         
-        Rect<T,N> bounds() {
+        Rect<T,N> bounds() const {
             return shape.bounds() * height;
         }
 

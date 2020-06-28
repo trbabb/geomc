@@ -74,7 +74,7 @@ namespace geom {
              * @return An axis-aligned bounding box completely containing this
              * cylinder.
              */
-            Rect<T,N> bounds() {
+            Rect<T,N> bounds() const {
                 // construct two bounding boxes, one for each disk cap.
                 // we do this by finding the extent of the cap along each axis.
                 Vec<T,N> v  = p1 - p0;

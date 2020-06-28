@@ -36,7 +36,7 @@ public:
     /**
      * @return An axis-aligned box completely enclosing this shape.
      */
-    virtual Rect<T,N> bounds() = 0;
+    virtual Rect<T,N> bounds() const = 0;
 };
 
 
@@ -79,18 +79,18 @@ public:
      * The default implementation calls `convex_support()` along each of the 
      * principal axes to find the extents.
      */
-    Rect<T,N> bounds() {
+    Rect<T,N> bounds() const {
         Rect<T,N> b;
-        T* mins = PointType<T,N>::iterator(b.lo);
-        T* maxs = PointType<T,N>::iterator(b.hi);
+        T* lo = PointType<T,N>::iterator(b.lo);
+        T* hi = PointType<T,N>::iterator(b.hi);
         for (index_t i = 0; i < N; ++i) {
             point_t axis, x;
             PointType<T,N>::iterator(axis)[i] =  1;
             x = convex_support(axis);
-            maxs[i] = PointType<T,N>::iterator(x)[i];
+            hi[i] = PointType<T,N>::iterator(x)[i];
             PointType<T,N>::iterator(axis)[i] = -1;
             x = convex_support(axis);
-            mins[i] = PointType<T,N>::iterator(x)[i];
+            lo[i] = PointType<T,N>::iterator(x)[i];
         }
         return b;
     }

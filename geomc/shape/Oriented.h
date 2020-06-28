@@ -64,7 +64,9 @@ public:
         return xf * p;
     }
     
-    Rect<T,N> bounds() {
+    Rect<T,N> bounds() const {
+        // the base class implementation would work; but we specialize
+        // here for a little extra performance (avoid stupidly re-computing `d`).
         Rect<T,N> r;
         for (index_t axis = 0; axis < N; ++axis) {
             // we want to test along a world cardinal axis in shape-space coordinates.

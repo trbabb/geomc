@@ -45,7 +45,7 @@ namespace geom {
          * @return An axis-aligned bounding box completely containing this
          * sphere.
          */
-        Rect<T,N> bounds() {
+        Rect<T,N> bounds() const {
             Vec<T,N> rvec = Vec<T,N>(r);
             return Rect<T,N>(center-rvec, center+rvec);
         }

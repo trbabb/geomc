@@ -93,8 +93,12 @@ class Frustum : public virtual Convex<typename Shape::T, Shape::N + 1> {
             return w * p;
         }
         
-        Rect<T,N> bounds() {
-            return base.bounds() * clipped_height();
+        Rect<T,N> bounds() const {
+            Rect<T,N-1> b0 = base.bounds();
+            Rect<T,1> h    = clipped_height();
+            // make two rects for the top and bottom faces;
+            // union them; extend by the height:
+            return ((b0 * h.lo) | (b0 * h.hi)) * h; // purdy!!
         }
         
         /// Return the height range of this Frustum after it has been clipped by the origin.

@@ -21,7 +21,7 @@ struct ShapeIndexHelper {
     typedef Rect<T,N> bound_t;
     
     static inline Vec<T,N> getPoint(const D& obj) {
-        return obj.getCenter();
+        return obj.center();
     }
     
     static inline T dist2(const D& obj, const Vec<T,N>& p) {
@@ -106,7 +106,7 @@ struct ShapeIndexHelper< T, N, Bounded<T,N> > {
     typedef Rect<T,N> bound_t;
     
     inline Vec<T,N> getPoint(const Bounded<T,N>& r) {
-        return r.bounds().getCenter();
+        return r.bounds().center();
     }
     
     static inline T dist2(const Bounded<T,N>& r, const Vec<T,N>& p) {

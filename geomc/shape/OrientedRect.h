@@ -44,7 +44,7 @@ class OrientedRect : virtual public Convex<T,N> {
         
         
         /// Obtain an axis-aligned bounding box for this region.
-        Rect<T,N> bounds() {
+        Rect<T,N> bounds() const {
             // faster than using convex_support, somewhat surprisingly.
             Vec<T,N> pts[2] = {box.lo, box.hi};
             Vec<T,N> lo = xf * box.lo;
@@ -95,7 +95,7 @@ class OrientedRect : virtual public Convex<T,N> {
         
         
         /// Returns true if and only if `p` is inside or on the surface of this OrientedRect.
-        inline bool contains(Vec<T,N> p) {
+        inline bool contains(Vec<T,N> p) const {
             p = p / xf; // world coord to object coord
             return box.contains(p);
         }

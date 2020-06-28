@@ -105,7 +105,7 @@ public:
 
 
     /**
-     * @brief Project the point to the simplex along its orthoginal basis
+     * @brief Project the point to the simplex along its orthogonal basis
      * (if there is one) and test for containment.
      * 
      * @param p A point.
@@ -160,7 +160,7 @@ public:
                 // check that the coordinates of `p` are inside the simplex
                 T sum = 0;
                 for (index_t i = n_null; i < N; ++i) {
-                    if (x[i] < 0) return false;
+                    if (x[i] < 0 or sum > 1) return false;
                     sum += x[i];
                 }
                 
@@ -176,7 +176,7 @@ public:
             }
         }
 
-        // for pickier compilers:
+        // statically unreachable, but some less-clever compilers may complain without:
         return false;
     }
     
