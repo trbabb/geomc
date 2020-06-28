@@ -125,8 +125,8 @@ public:
                 grid(grid),
                 cellblock(region),
                 off_end(false){
-            cur_cell_iter = grid->_cells.find(region.min());
-            if (cur_cell_iter == grid->_cells.end() and !gotoNextNonemptyCell(region.min())){
+            cur_cell_iter = grid->_cells.find(region.lo);
+            if (cur_cell_iter == grid->_cells.end() and !gotoNextNonemptyCell(region.lo)){
                 off_end = true;
             }
         }
@@ -200,10 +200,10 @@ public:
                 // increment cell within block
                 bool cellWithinRegion = false;
                 for (index_t inc_coord = 0; inc_coord < N; inc_coord++){
-                    if (thisCellCoords[inc_coord] + 1 >= cellblock.max()[inc_coord]){
+                    if (thisCellCoords[inc_coord] + 1 >= cellblock.hi[inc_coord]){
                         // don't exceeded maximum along this axis; can't increment.
                         // rollover this axis and attempt to increment the next.
-                        thisCellCoords[inc_coord] = cellblock.min()[inc_coord];
+                        thisCellCoords[inc_coord] = cellblock.lo[inc_coord];
                     } else {
                         thisCellCoords[inc_coord]++;
                         cellWithinRegion = true; // successfully incremented cell w/o going off edge
@@ -306,8 +306,8 @@ public:
     inline Rect<index_t,N> binRegion(Rect<T,N> r){
         //high coordinate is, as always, one beyond the maximum cell to check
         return Rect<index_t,N>(
-                (bin_t)((r.min() / _cellsize).floor()),
-                (bin_t)((r.max() / _cellsize).ceil())
+                (bin_t)((r.lo / _cellsize).floor()),
+                (bin_t)((r.hi / _cellsize).ceil())
         );
     }
 

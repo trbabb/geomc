@@ -134,11 +134,11 @@ T worst_case_nearest2(const Vec<T,N>& p, const Rect<T,N>& r) {
     Vec<T,N> near_extremes;
     
     for (index_t axis = 0; axis < N; axis++) {
-        T lodist = std::abs(p[axis] - r.min()[axis]);
-        T hidist = std::abs(p[axis] - r.max()[axis]);
+        T lodist = std::abs(p[axis] - r.lo[axis]);
+        T hidist = std::abs(p[axis] - r.hi[axis]);
         
-        far_extremes[axis]  = lodist > hidist ? r.min()[axis] : r.max()[axis];
-        near_extremes[axis] = lodist > hidist ? r.max()[axis] : r.min()[axis];
+        far_extremes[axis]  = lodist > hidist ? r.lo[axis] : r.hi[axis];
+        near_extremes[axis] = lodist > hidist ? r.hi[axis] : r.lo[axis];
     }
     
     for (index_t axis = 0; axis < N; axis++) {

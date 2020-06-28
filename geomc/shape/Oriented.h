@@ -76,8 +76,8 @@ public:
             Vec<T,N> p_hi = xf * shape.convex_support( basis);
             Vec<T,N> p_lo = xf * shape.convex_support(-basis);
             // update the extremes along the test axis
-            r.maxs[axis]  = p_hi[axis];
-            r.mins[axis]  = p_lo[axis];
+            r.hi[axis]  = p_hi[axis];
+            r.lo[axis]  = p_lo[axis];
         }
         return r;
     }

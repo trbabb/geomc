@@ -87,7 +87,7 @@ public:
      */
     GridIterator(const Rect<T,N> &r):
                 region(r),
-                pt(region.min()) {}
+                pt(region.lo) {}
     /**
      * Construct an interator over the region `r` pointing at the point given by `p`.
      * @param r A region
@@ -112,7 +112,7 @@ public:
      */
     inline GridIterator<T,N,Order> begin() const {
         GridIterator<T,N,Order> other = *this;
-        other.pt = region.min();
+        other.pt = region.lo;
         return other;
     }
     
@@ -122,10 +122,10 @@ public:
      */
     inline GridIterator<T,N,Order> end() const {
         GridIterator<T,N,Order> other = *this;
-        other.pt = region.min();
+        other.pt = region.lo;
         // one beyond the highest cell. i.e. first cell in
         // (N-1)D block just beyond the end of this region. 
-        other.pt[dim_last] = region.max()[dim_last] + 1;
+        other.pt[dim_last] = region.hi[dim_last] + 1;
         return other;
     }
     
@@ -139,17 +139,17 @@ private:
     
     inline void increment() { 
         for (index_t i = dim_first; 
-                i != dim_end and ++(pt[i]) > region.max()[i]; 
+                i != dim_end and ++(pt[i]) > region.hi[i]; 
                 i += dim_increment) {
-            if (i != dim_last) pt[i] = region.min()[i];
+            if (i != dim_last) pt[i] = region.lo[i];
         }
     }
     
     inline void decrement() {
         for (index_t i = dim_first;
-                i != dim_end and --(pt[i]) < region.min()[i];
+                i != dim_end and --(pt[i]) < region.lo[i];
                 i += dim_increment) {
-            if (i != dim_last) pt[i] = region.max()[i] - 1;
+            if (i != dim_last) pt[i] = region.hi[i] - 1;
         }
     }
     
@@ -220,20 +220,20 @@ public:
     
     GridIterator(const Rect<T,1> &r):
             region(r),
-            pt(region.min()) {}
+            pt(region.lo) {}
     GridIterator(const point_t &lo, const point_t &hi):
             region(lo, hi + 1),
             pt(lo) {}
     
     inline GridIterator<T,1,Order> begin() const {
         GridIterator<T,1> other = *this;
-        other.pt = region.min();
+        other.pt = region.lo;
         return other;
     }
     
     inline GridIterator<T,1,Order> end() const {
         GridIterator<T,1,Order> other = *this;
-        other.pt = region.max() + 1;
+        other.pt = region.hi + 1;
         return other;
     }
     

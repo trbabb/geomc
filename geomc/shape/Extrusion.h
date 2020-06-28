@@ -77,9 +77,6 @@ class Extrusion : public virtual Convex<typename Shape::elem_t, Shape::N + 1> {
         Vec<T,N> convex_support(Vec<T,N> d) const {
             typedef PointType<T,N-1> Pt;
             
-            T hmax = height.max();
-            T hmin = height.min();
-            
             Vec<T,N-1> d_ = d.template resized<N-1>();
             
             if (d_.isZero()) {
@@ -91,7 +88,7 @@ class Extrusion : public virtual Convex<typename Shape::elem_t, Shape::N + 1> {
             Vec<T,N-1> p0 = base.convex_support(d_);
             
             // top or bottom face?
-            return Vec<T,N>(p0, (d[N-1] > 0) ? hmax : hmin);
+            return Vec<T,N>(p0, (d[N-1] > 0) ? height.hi : height.lo);
         }
         
         Rect<T,N> bounds() {

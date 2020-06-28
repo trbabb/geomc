@@ -104,7 +104,7 @@ void populate_tree(const Subtree<const char*, index_t>& tree, index_t n) {
 
 template <typename T, index_t N>
 std::ostream& operator<<(std::ostream& s, const Rect<T,N>& r) {
-    s << "[" << r.min() << " : " << r.max() << "]";
+    s << "[" << r.lo << " : " << r.hi << "]";
     return s;
 } 
 

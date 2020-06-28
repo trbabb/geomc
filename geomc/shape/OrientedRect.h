@@ -46,8 +46,8 @@ class OrientedRect : virtual public Convex<T,N> {
         /// Obtain an axis-aligned bounding box for this region.
         Rect<T,N> bounds() {
             // faster than using convex_support, somewhat surprisingly.
-            Vec<T,N> pts[2] = {box.min(), box.max()};
-            Vec<T,N> lo = xf * box.min();
+            Vec<T,N> pts[2] = {box.lo, box.hi};
+            Vec<T,N> lo = xf * box.lo;
             Vec<T,N> hi = lo;
             
             // for each corner
@@ -70,7 +70,7 @@ class OrientedRect : virtual public Convex<T,N> {
             Vec<T,N> d_body = xf.applyInverseNormal(d);
             Vec<T,N> o;
             for (index_t i = 0; i < N; i++) {
-                o[i] = ((d_body[i] < 0) ? box.min() : box.max())[i];
+                o[i] = ((d_body[i] < 0) ? box.lo : box.hi)[i];
             }
             return xf * o;
         }
@@ -83,7 +83,7 @@ class OrientedRect : virtual public Convex<T,N> {
          */
         void getCorners(Vec<T,N> out[1 << N]) {
             const static index_t n_corners = 1 << N;
-            Vec<T,N> extreme[2] = { box.min(), box.max() };
+            Vec<T,N> extreme[2] = { box.lo, box.hi };
             for (index_t c = 0; c < n_corners; c++) {
                 Vec<T,N> pt;
                 for (index_t i = 0; i < N; i++) {

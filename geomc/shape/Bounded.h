@@ -81,8 +81,8 @@ public:
      */
     Rect<T,N> bounds() {
         Rect<T,N> b;
-        T* mins = PointType<T,N>::iterator(b.min());
-        T* maxs = PointType<T,N>::iterator(b.max());
+        T* mins = PointType<T,N>::iterator(b.lo);
+        T* maxs = PointType<T,N>::iterator(b.hi);
         for (index_t i = 0; i < N; ++i) {
             point_t axis, x;
             PointType<T,N>::iterator(axis)[i] =  1;

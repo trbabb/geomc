@@ -710,7 +710,7 @@ template <typename T, index_t N> double profile_OBB_bounds(index_t iters) {
         clock_t start = clock();
         for (index_t j = 0; j < nn; j++) {
             r  = boxes[j].bounds();
-            z += r.max();
+            z += r.hi;
         }
         clock_t end = clock();
         

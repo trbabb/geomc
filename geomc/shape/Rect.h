@@ -29,7 +29,7 @@
 
 
 // todo: min() and max() are functions. this is probably a holdover
-//       from before empty intervals were allowed. rename mins and maxs
+//       from before empty intervals were allowed. rename lo and hi
 //       to `lo` and `hi` and make them public, cause this design is hella dumb
 
 // using <= and >= is inconsistent with half-open interval convention, but:
@@ -83,12 +83,11 @@ protected:
 public:
     /// Type of object confined by this Rect
     typedef typename PointType<T,N>::point_t point_t;
-
-protected:
+    
     /// Lower extremes
-    point_t mins;
+    point_t lo;
     /// Upper extremes
-    point_t maxs;
+    point_t hi;
     
     static const point_t endpoint_measure;
 
@@ -101,13 +100,13 @@ public:
      * @param lo Lower extreme
      * @param hi Upper extreme
      */
-    Rect(point_t lo, point_t hi):mins(lo),maxs(hi) {}
+    Rect(point_t lo, point_t hi):lo(lo),hi(hi) {}
     
     
     /**
      * @brief Construct a rect containing only the point `p`.
      */
-    Rect(point_t p):mins(p),maxs(p) {}
+    Rect(point_t p):lo(p),hi(p) {}
 
     
     /**
@@ -118,12 +117,12 @@ public:
      * A union between this Rect and any finite shape is an identity operation.
      */
     Rect():
-        mins(std::numeric_limits<T>::max()),
+        lo(std::numeric_limits<T>::max()),
 #if __cplusplus >= 201103L
-        maxs(std::numeric_limits<T>::lowest()) {
+        hi(std::numeric_limits<T>::lowest()) {
 #else
         // c++03, you make me sad.
-        maxs(  std::numeric_limits<T>::is_integer ? 
+        hi(  std::numeric_limits<T>::is_integer ? 
                std::numeric_limits<T>::min() : 
               -std::numeric_limits<T>::max()) {
 #endif
@@ -233,8 +232,8 @@ public:
      */
     Rect<T,N>& operator|=(const Rect<T,N> &b) {
         //box union
-        maxs = std::max(b.maxs, maxs);
-        mins = std::min(b.mins, mins);
+        hi = std::max(b.hi, hi);
+        lo = std::min(b.lo, lo);
         return *this;
     }
     
@@ -246,8 +245,8 @@ public:
     Rect<T,N> operator|(const point_t& p) {
         // point union
         return Rect<T,N>(
-            std::min(mins, p),
-            std::max(maxs, p)
+            std::min(lo, p),
+            std::max(hi, p)
         );
     }
     
@@ -259,8 +258,8 @@ public:
      */
     Rect<T,N>& operator|=(const point_t& p) {
         // point union
-        mins = std::min(mins, p);
-        maxs = std::max(maxs, p);
+        lo = std::min(lo, p);
+        hi = std::max(hi, p);
         return *this;
     }
     
@@ -280,8 +279,8 @@ public:
      * @return A reference to `this` for convenience.
      */
     Rect<T,N>& operator&=(const Rect<T,N> &b) {
-        mins = std::max(mins, b.mins);
-        maxs = std::min(maxs, b.maxs);
+        lo = std::max(lo, b.lo);
+        hi = std::min(hi, b.hi);
     }
 
     /**
@@ -292,7 +291,7 @@ public:
      * @return A translated Rect.
      */
     inline Rect<T,N> operator+(point_t dx) const {
-        return Rect<T,N>(mins + dx, maxs + dx);
+        return Rect<T,N>(lo + dx, hi + dx);
     }
     
     /**
@@ -303,7 +302,7 @@ public:
      * @return A translated Rect.
      */
     inline Rect<T,N> operator-(point_t dx) const {
-        return Rect<T,N>(mins - dx, maxs - dx);
+        return Rect<T,N>(lo - dx, hi - dx);
     }
     
 
@@ -315,8 +314,8 @@ public:
      * @return  A reference to `this`, for convenience.
      */
     inline Rect<T,N>& operator+=(point_t dx) {
-        maxs += dx;
-        mins += dx;
+        hi += dx;
+        lo += dx;
         return *this;
     }
     
@@ -329,8 +328,8 @@ public:
      * @return  A reference to `this`, for convenience.
      */
     inline Rect<T,N>& operator-=(point_t dx) {
-        maxs -= dx;
-        mins -= dx;
+        hi -= dx;
+        lo -= dx;
         return *this;
     }
     
@@ -343,8 +342,8 @@ public:
      */
     inline Rect<T,N> operator-(const Rect<T,N>& other) {
         return Rect<T,N>(
-            std::max(mins,other.maxs),
-            std::min(maxs,other.mins));
+            std::max(lo,other.hi),
+            std::min(hi,other.lo));
     }
     
     
@@ -355,8 +354,8 @@ public:
      * @return A reference to `this`, for convenience.
      */
     inline Rect<T,N>& operator-=(const Rect<T,N>& other) {
-        mins = std::max(mins, other.maxs);
-        maxs = std::min(maxs, other.mins);
+        lo = std::max(lo, other.hi);
+        hi = std::min(hi, other.lo);
         return *this;
     }
     
@@ -367,7 +366,7 @@ public:
      * @return `true` if and only if all the corresponding extremes of `b` are the same.
      */
     inline bool operator==(Rect<T,N> b) const {
-        return (maxs == b.maxs) and (mins == b.mins);
+        return (hi == b.hi) and (lo == b.lo);
     }
     
     /**
@@ -377,7 +376,7 @@ public:
      * the corresponding extreme in `this`.
      */
     inline bool operator!=(Rect<T,N> b) const {
-        return (maxs != b.maxs) or (mins != b.mins);
+        return (hi != b.hi) or (lo != b.lo);
     }
 
     /**
@@ -387,7 +386,7 @@ public:
      * @return A new Rect, scaled about the origin by factor `a`.
      */
     inline Rect<T,N> operator*(point_t a) const {
-        return Rect<T,N>(mins * a, maxs * a);
+        return Rect<T,N>(lo * a, hi * a);
     }
 
     /**
@@ -399,8 +398,8 @@ public:
      * @return A reference to `this`, for convenience.
      */
     inline Rect<T,N>& operator*=(point_t a) {
-        mins *= a;
-        maxs *= a;
+        lo *= a;
+        hi *= a;
         return *this;
     }
 
@@ -411,7 +410,7 @@ public:
      * @return A new Rect, scaled about the origin by multiple `1 / a`.
      */
     inline Rect<T,N> operator/(point_t a) const {
-        return Rect<T,N>(mins / a, maxs / a);
+        return Rect<T,N>(lo / a, hi / a);
     }
 
     /**
@@ -422,8 +421,8 @@ public:
      * @return A reference to `this`, for convenience.
      */
     inline Rect<T,N>& operator/=(point_t a) {
-        mins /= a;
-        maxs /= a;
+        lo /= a;
+        hi /= a;
         return *this;
     }
     
@@ -440,10 +439,10 @@ public:
     inline Rect<T,M + N> operator*(const Rect<T,M>& r) const {
         Rect<T,M+N> o;
         
-        std::copy(ptype::iterator(mins),   ptype::iterator(mins)   + N, o.mins.begin());
-        std::copy(ptype::iterator(maxs),   ptype::iterator(maxs)   + N, o.maxs.begin());
-        std::copy(ptype::iterator(r.mins), ptype::iterator(r.mins) + M, o.mins.begin() + N);
-        std::copy(ptype::iterator(r.mins), ptype::iterator(r.maxs) + M, o.maxs.begin() + N);
+        std::copy(ptype::iterator(lo),   ptype::iterator(lo)   + N, o.lo.begin());
+        std::copy(ptype::iterator(hi),   ptype::iterator(hi)   + N, o.hi.begin());
+        std::copy(ptype::iterator(r.lo), ptype::iterator(r.lo) + M, o.lo.begin() + N);
+        std::copy(ptype::iterator(r.lo), ptype::iterator(r.hi) + M, o.hi.begin() + N);
         
         return o;
     }
@@ -454,8 +453,8 @@ public:
      * @return A new Rect, with elements all of type `U`.
      */
     template <typename U, index_t M> operator Rect<U,M>() const {
-        return Rect<U,M>((typename Rect<U,M>::point_t) mins,
-                         (typename Rect<U,M>::point_t) maxs);
+        return Rect<U,M>((typename Rect<U,M>::point_t) lo,
+                         (typename Rect<U,M>::point_t) hi);
     }
 
 
@@ -470,7 +469,7 @@ public:
     bool contains(point_t pt) const {
         for (index_t axis = 0; axis < N; axis++) {
             T v = ptype::iterator(pt)[axis];
-            if (v < ptype::iterator(mins)[axis] or v >= ptype::iterator(maxs)[axis]) {
+            if (v < ptype::iterator(lo)[axis] or v >= ptype::iterator(hi)[axis]) {
                 return false;
             }
         }
@@ -483,47 +482,19 @@ public:
     bool intersects(const Rect<T,N> &box) const {
         for (index_t axis = 0; axis < N; axis++) {
             // disjoint on this axis?
-            if (ptype::iterator(maxs)[axis]     <= ptype::iterator(box.mins)[axis] or 
-                ptype::iterator(box.maxs)[axis] <= ptype::iterator(mins)[axis]) {
+            if (ptype::iterator(hi)[axis]     <= ptype::iterator(box.lo)[axis] or 
+                ptype::iterator(box.hi)[axis] <= ptype::iterator(lo)[axis]) {
                 return false;
             }
         }
         return true;
-    }
-
-    /**
-     * @return The lower extremes of this region.
-     */
-    inline const point_t& min() const {
-        return mins;
-    }
-    
-    /**
-     * @return The lower extremes of this region.
-     */
-    inline point_t& min() {
-        return mins;
-    }
-
-    /** 
-     * @return The upper extremes of this region. 
-     */
-    inline const point_t& max() const {
-        return maxs;
-    }
-    
-    /** 
-     * @return The upper extremes of this region. 
-     */
-    inline point_t& max() {
-        return maxs;
     }
     
     /**
      * @return The center point of this region.
      */
     point_t getCenter() const {
-        return (maxs + mins + endpoint_measure) / 2;
+        return (hi + lo + endpoint_measure) / 2;
     }
 
     /**
@@ -533,7 +504,7 @@ public:
      * the length along each axis is `max - min + 1`.
      */
     inline point_t getDimensions() const {
-        return maxs - mins + endpoint_measure;
+        return hi - lo + endpoint_measure;
     }
 
     /**
@@ -559,16 +530,16 @@ public:
         // xxx fixme for int types
         dim = std::abs(dim);
         point_t diff = (dim - getDimensions()) / 2;
-        mins = mins - diff;
-        maxs = maxs + diff;
+        lo = lo - diff;
+        hi = hi + diff;
     }
 
     /**
      * Re-configure this region to exactly contain the two given points.
      */
     void setCorners(point_t corner1, point_t corner2) {
-        maxs = std::max(corner1, corner2);
-        mins = std::min(corner1, corner2);
+        hi = std::max(corner1, corner2);
+        lo = std::min(corner1, corner2);
     }
     
     /**
@@ -578,8 +549,8 @@ public:
      */
     void setCenter(point_t center) {
         point_t tx = center - getCenter();
-        maxs += tx;
-        mins += tx;
+        hi += tx;
+        lo += tx;
     }
 
     /**
@@ -587,8 +558,8 @@ public:
      * @param tx Amount by which to translate this region.
      */
     void translate(point_t tx) {
-        maxs += tx;
-        mins += tx;
+        hi += tx;
+        lo += tx;
     }
     
     /**
@@ -612,9 +583,9 @@ public:
      */
     bool isEmpty() const {
         for (index_t axis = 0; axis < N; axis++) {
-            T hi = ptype::iterator(maxs)[axis];
-            T lo = ptype::iterator(mins)[axis];
-            if (hi < lo) {
+            T hi_i = ptype::iterator(hi)[axis];
+            T lo_i = ptype::iterator(lo)[axis];
+            if (hi_i < lo_i) {
                 return true;
             }
         }
@@ -625,16 +596,16 @@ public:
      * @return A new Rect representing the area overlapped by both `this` and `b`.
      */
     Rect<T,N> rangeIntersection(const Rect<T,N> &b) const {
-        return Rect<T,N>(std::max(mins, b.mins),
-                         std::min(maxs, b.maxs));
+        return Rect<T,N>(std::max(lo, b.lo),
+                         std::min(hi, b.hi));
     }
 
     /**
      * @return A new Rect completely containing both `this` and `b`.
      */
     Rect<T,N> rangeUnion(const Rect<T,N> &b) const {
-        return Rect<T,N>(std::min(mins, b.mins),
-                         std::max(maxs, b.maxs));
+        return Rect<T,N>(std::min(lo, b.lo),
+                         std::max(hi, b.hi));
     }
     
     /**
@@ -643,7 +614,7 @@ public:
      * Result can be considered the point nearest to `p` contained in this `Rect`.
      */
     inline point_t clamp(point_t p) const {
-        return std::min(maxs, std::max(mins, p));
+        return std::min(hi, std::max(lo, p));
     }
     
     
@@ -666,7 +637,7 @@ public:
      */
     point_t remap(point_t s) const {
         // todo: template for integer type? beware endpoint measure.
-       return (point_t(1) - s) * mins + s * maxs;
+       return (point_t(1) - s) * lo + s * hi;
     }
     
     /**
@@ -675,14 +646,14 @@ public:
      * Inverse operation of `remap()`.
      */
     point_t unmap(point_t p) const {
-        return (p - mins) / (maxs - mins);
+        return (p - lo) / (hi - lo);
     }
     
     point_t convex_support(point_t d) const {
         point_t o;
         for (index_t i = 0; i < N; i++) {
             T a = ptype::iterator(d)[i];
-            ptype::iterator(o)[i] = ptype::iterator(a < 0 ? mins : maxs)[i];
+            ptype::iterator(o)[i] = ptype::iterator(a < 0 ? lo : hi)[i];
         }
         return o;
     }
@@ -713,14 +684,14 @@ public:
         for (index_t axis = 0; axis < N; axis++) {
             if (r.direction[axis] == 0) {
                 // ray direction tangent to test planes, no intersection along this axis
-                if (r.origin[axis] < mins[axis] || r.origin[axis] > maxs[axis]) {
+                if (r.origin[axis] < lo[axis] || r.origin[axis] > hi[axis]) {
                     // origin outside of test slab; miss
                     return hit;
                 }
             } else {
                 // coordinate of hit, along tested axis
-                T c1 = maxs[axis];
-                T c2 = mins[axis];
+                T c1 = hi[axis];
+                T c2 = lo[axis];
                 // ray multiple of hit
                 T s1 = (c1 - r.origin[axis]) / r.direction[axis];
                 T s2 = (c2 - r.origin[axis]) / r.direction[axis];

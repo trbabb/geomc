@@ -75,13 +75,13 @@ class Frustum : public virtual Convex<typename Shape::T, Shape::N + 1> {
             // find the appropriate direction to check in shape-space
             Vec<T,N-1> d_s = d.template resized<N-1>();
             if      (d_s.isZero()) v[0] =  1;   // ← pick an arbitrary direction
-            else if (h.mins < 0)   d_s  = -d_s; // ← shape is flipped when below origin
+            else if (h.lo < 0)     d_s  = -d_s; // ← shape is flipped when below origin
             
             // find the relevant point on the base shape, and place it on the h=1 plane
             Vec<T,N> p(base.convex_support(d_s), 1);
             
             // top or bottom face?
-            T w = p.dot(d) > 0 ? h.maxs : h.mins;
+            T w = p.dot(d) > 0 ? h.hi : h.lo;
             
             // rescale the point appropriately:
             return w * p;
@@ -93,9 +93,8 @@ class Frustum : public virtual Convex<typename Shape::T, Shape::N + 1> {
         
         /// Return the height range of this Frustum after it has been clipped by the origin.
         inline Rect<T,1> clipped_height() const {
-            T hi = height.max();
-            T lo = height.min();
-            return Rect<T,1>((lo < 0 and hi > 1) ? 0 : lo, hi);
+            const Rect<T,1>& h = height; // shorthand
+            return Rect<T,1>((h.lo < 0 and h.hi > 1) ? 0 : h.lo, h.hi);
         }
 
 }; // class Frustum

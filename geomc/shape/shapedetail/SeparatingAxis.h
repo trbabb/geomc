@@ -169,8 +169,8 @@ namespace detail {
             const static index_t n_corners = 1 << N;
             Vec<T,N> b0_pts[n_corners];
             Vec<T,N> b1_pts[n_corners];
-            Vec<T,N> b0_body_extreme[2] = { b0.box.min(), b0.box.max() };
-            Vec<T,N> b1_body_extreme[2] = {     b1.min(),     b1.max() };
+            Vec<T,N> b0_body_extreme[2] = { b0.box.lo, b0.box.hi };
+            Vec<T,N> b1_body_extreme[2] = {     b1.lo,     b1.hi };
             
             // compute world-space points
             for (index_t c = 0; c < n_corners; c++) {
@@ -192,7 +192,7 @@ namespace detail {
                     hi = std::max(hi, b0_pts[j][i]);
                 }
                 // if no overlap on this axis, we've found a separating axis.
-                if (lo >= b1.max()[i] or hi < b1.min()[i]) return false;
+                if (lo >= b1.hi[i] or hi < b1.lo[i]) return false;
             }
             
             // now test all the remaining axes. For N=2, this is simply
