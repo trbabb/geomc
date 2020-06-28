@@ -36,6 +36,8 @@ BOOST_AUTO_TEST_CASE(orient_simple_shape) {
     Oriented<Cylinder<double,3>> ocyl = xf * Cylinder<double,3>();
     // confirm the created wrapper applies the xf:
     BOOST_CHECK(ocyl.contains(Vec3d(-4.5, 0, 0)));
+    // verify inheritance
+    Convex<double,3>* s = &ocyl;
 }
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -64,6 +64,29 @@ public:
         return xf * p;
     }
     
+    Rect<T,N> bounds() {
+        Rect<T,N> r;
+        for (index_t axis = 0; axis < N; ++axis) {
+            // we want to test along a world cardinal axis in shape-space coordinates.
+            // but this direction is a normal, which is transformed
+            // with the inverse transpose. so we take a row of xf.mat instead of 
+            // a col from xf.inv:
+            Vec<T,N> basis(xf.mat.row(axis));
+            // find the body-space extreme and transform it to world space:
+            Vec<T,N> p_hi = xf * shape.convex_support( basis);
+            Vec<T,N> p_lo = xf * shape.convex_support(-basis);
+            // update the extremes along the test axis
+            r.maxs[axis]  = p_hi[axis];
+            r.mins[axis]  = p_lo[axis];
+        }
+        return r;
+    }
+    
+    /// Return an Oriented Rect containing the shape.
+    inline Oriented<Rect<T,N>> oriented_bounds() const {
+        return xf * shape.bounds();
+    }
+    
     
     Oriented<Shape>& operator*=(const AffineTransform<T,N>& xf1) {
         xf *= xf1;
@@ -75,6 +98,7 @@ public:
         xf /= xf1;
         return *this;
     }
+    
     
 }; // class Oriented
 

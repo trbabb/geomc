@@ -25,7 +25,9 @@ namespace geom {
 template <typename T, index_t _N> class Bounded {
 public:
     
+    /// The coordinate type of this shape.
     typedef T elem_t;
+    /// The dimension of this shape.
     static constexpr size_t N = _N;
     
     Bounded() {}

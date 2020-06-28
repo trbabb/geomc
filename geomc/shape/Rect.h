@@ -28,9 +28,9 @@
 #include <geomc/shape/shapedetail/Hit.h>
 
 
-// todo: min() and max() were functions returning point_t and I don't know why.
-//       refactor to expose member vars?
-// todo: add specializations with c calls to permit nextafter() to work in <= c++03
+// todo: min() and max() are functions. this is probably a holdover
+//       from before empty intervals were allowed. rename mins and maxs
+//       to `lo` and `hi` and make them public, cause this design is hella dumb
 
 // using <= and >= is inconsistent with half-open interval convention, but:
 // - union of rect with a point should thereafter contain the point
@@ -426,13 +426,34 @@ public:
         maxs /= a;
         return *this;
     }
+    
+    /**
+     * @brief Interval cartesian product. 
+     *
+     * Extrude this Rect into a higher dimension, by treating the extents of 
+     * `r` as the extents along the new dimensions. In other words, concatenate 
+     * the coordinates of `this` and `r` into a new Rect.
+     *
+     * @tparam M Dimensionality of `r`.
+     */
+    template <index_t M>
+    inline Rect<T,M + N> operator*(const Rect<T,M>& r) const {
+        Rect<T,M+N> o;
+        
+        std::copy(ptype::iterator(mins),   ptype::iterator(mins)   + N, o.mins.begin());
+        std::copy(ptype::iterator(maxs),   ptype::iterator(maxs)   + N, o.maxs.begin());
+        std::copy(ptype::iterator(r.mins), ptype::iterator(r.mins) + M, o.mins.begin() + N);
+        std::copy(ptype::iterator(r.mins), ptype::iterator(r.maxs) + M, o.maxs.begin() + N);
+        
+        return o;
+    }
 
     /**
      * @brief Element-wise typecast.
      * 
      * @return A new Rect, with elements all of type `U`.
      */
-    template <typename U, index_t M> operator Rect<U,M>() {
+    template <typename U, index_t M> operator Rect<U,M>() const {
         return Rect<U,M>((typename Rect<U,M>::point_t) mins,
                          (typename Rect<U,M>::point_t) maxs);
     }
@@ -627,7 +648,8 @@ public:
     
     
     /**
-     * @return The square of the distance to the nearest point contained by this `Rect`; zero if `p` is inside.
+     * @return The square of the distance to the nearest point contained by this `Rect`; 
+     * zero if `p` is inside.
      */
     inline T dist2(point_t p) const {
         return ptype::mag2(p - clamp(p));
@@ -635,7 +657,8 @@ public:
     
     /**
      * Remap `s` on the `[0,1]` interval to the extents of this Rect. 
-     * In other words, interpolate the corners of this Rect using s as an interpolation parameter.
+     * In other words, interpolate the corners of this Rect using s as an interpolation 
+     * parameter.
      *
      * Inverse operation of `unmap()`.
      * 
@@ -673,12 +696,16 @@ public:
      * as well as the normal, side hit, and ray parameter.
      */
     Hit<T,N> trace(const Ray<T,N> &r, HitSide sides) const {
-        T near_root = std::numeric_limits<T>::lowest(); // non-denormal extremes, for speed (as opposed to inf).
-        T far_root  = std::numeric_limits<T>::max();    // besides, infinity may not be defined for T.
+        // use non-denormal extremes, for speed (as opposed to inf).
+        // (also, infinity may not be defined for T).
+        T near_root = std::numeric_limits<T>::lowest();
+        T far_root  = std::numeric_limits<T>::max();
         index_t near_axis = 0;
         index_t far_axis  = 0;
-        T near_coord  = 0; // for guaranteeing that the hit point is exactly on the rect surface,
-        T far_coord   = 0; // regardless of precision and rounding error in the ray arithmetic.
+        // for guaranteeing that the hit point is exactly on the rect surface,
+        // regardless of precision and rounding error in the ray arithmetic:
+        T near_coord  = 0;
+        T far_coord   = 0;
         Hit<T,N> hit  = Hit<T,N>(r, sides); // defaults to miss
         
         // test ray intersection with an infinite slab along each axis
@@ -755,7 +782,8 @@ public:
 
 // static members
 template <typename T, index_t N>
-const typename Rect<T,N>::point_t Rect<T,N>::endpoint_measure = std::numeric_limits<T>::is_integer ? 1 : (T)0;
+const typename Rect<T,N>::point_t Rect<T,N>::endpoint_measure = 
+    std::numeric_limits<T>::is_integer ? 1 : (T)0;
 
 
 } // end namespace geom

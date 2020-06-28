@@ -29,7 +29,7 @@ namespace geom {
  *     auto cylinder = Extrusion<Sphere<double,2>>(Sphere<double,2>(), Rect<double,1>(0,1));
  */
 template <typename Shape>
-class Extrusion : public virtual Convex<typename Shape::T, Shape::N> {
+class Extrusion : public virtual Convex<typename Shape::elem_t, Shape::N + 1> {
     public:
         /// The coordinate type of this Shape
         typedef typename Shape::elem_t T;
@@ -93,6 +93,10 @@ class Extrusion : public virtual Convex<typename Shape::T, Shape::N> {
             // top or bottom face?
             return Vec<T,N>(p0, (d[N-1] > 0) ? hmax : hmin);
         }
+        
+        Rect<T,N> bounds() {
+            return shape.bounds() * height;
+        }
 
         // todo: trace()
 
@@ -102,12 +106,16 @@ class Extrusion : public virtual Convex<typename Shape::T, Shape::N> {
 
 /**
  * @brief Convenience function to extrude the shape `s` between heights `h0` and `h1` by
- * wrapping `s` in an `Extrusion` class.
+ * wrapping `s` in the `Extrusion` template.
  *
  * @related Extrusion
  */
 template <typename Shape>
-inline Extrusion<Shape> extrude(const Shape& s, typename Shape::T h0, typename Shape::T h1) {
+inline Extrusion<Shape> extrude(
+        const    Shape& s,
+        typename Shape::elem_t h0,
+        typename Shape::elem_t h1)
+{
     return Extrusion<Shape>(s, h0, h1);
 }
     
