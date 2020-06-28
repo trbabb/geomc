@@ -52,7 +52,7 @@ namespace geom {
  ****************************/
 
 /** @ingroup shape
- *  @brief An N-dimensional axis-aligned box.
+ *  @brief An N-dimensional axis-aligned interval.
  *
  * This class works naturally with both 1D and multi-dimensional ranges.
  * 1D ranges have point type `T`, while multi-dimensional ranges have point
@@ -65,7 +65,7 @@ namespace geom {
  * * `Rect<double,4>::point_t` is `Vec<double,4>`; `lo` and `hi` are `Vec4d`.
  * * `Rect<double,1>::point_t` is `double`; `lo` and `hi` are `double`.
  * 
- * Rect boundaries are inclusive. The points `lo` and `hi` are guaranteed
+ * Rect boundaries are inclusive. The points `lo` and `hi` are considered
  * to be inside the Rect. Therefore, "degenerate" Rects (like those that contain only
  * a single point, edge, or face), are considered non-empty.
  *
@@ -74,6 +74,9 @@ namespace geom {
  * to make all the faces of a Rect symmetrical, and avoid special cases or conditional
  * increments. To iterate over the range within an integer Rect, consider using a GridIterator
  * object, which abstracts away the boundary logic for you.
+ *
+ * If any coordinate of `lo` is greater than the same coordinate of `hi`, then
+ * the `Rect` is empty.
  */
 template <typename T, index_t N> 
 class Rect : virtual public Convex<T,N> {
@@ -106,7 +109,7 @@ public:
     
     
     /**
-     * @brief Construct a rect containing only the point `p`.
+     * @brief Construct a Rect containing only the point `p`.
      */
     Rect(point_t p):
         lo(p),
@@ -114,7 +117,7 @@ public:
     
     
     /**
-     * Construct an empty rectangle.
+     * @brief Construct an empty interval.
      *
      * Sets lower and upper bounds to the maximum and minimum values of `T`, respectively.
      *
@@ -228,7 +231,7 @@ public:
      *****************************/
 
     /**
-     * @brief Box union.
+     * @brief Interval union.
      * 
      * @return A Rect fully containing `this` and box `b`.
      */
@@ -237,7 +240,7 @@ public:
     }
     
     /**
-     * @brief Box union.
+     * @brief Interval union.
      * 
      * Extend `this` to fully contain `b`.
      * @return A reference to `this`, for convenience.
@@ -276,7 +279,7 @@ public:
     }
     
     /**
-     * @brief Box intersection.
+     * @brief Interval intersection.
      * 
      * @return A Rect representing the area overlapped by both `this` and `b`.
      */
@@ -285,7 +288,7 @@ public:
     }
     
     /**
-     * @brief Box intersection.
+     * @brief Interval intersection.
      * 
      * Confine this Rect to the area overlapping `b`.
      * @return A reference to `this` for convenience.
@@ -347,7 +350,7 @@ public:
     
     
     /**
-     * @brief Range exclusion.
+     * @brief Interval exclusion.
      *
      * @param other Range to be excluded from the range of this `Rect`.
      * @return A new `Rect` whose range does not overlap `other`.
@@ -360,7 +363,7 @@ public:
     
     
     /**
-     * @brief Range exclusion.
+     * @brief Interval exclusion.
      *
      * @param other Range to remove from this `Rect`.
      * @return A reference to `this`, for convenience.
@@ -471,7 +474,7 @@ public:
 
 
     /*****************************
-     * Public Methods              *
+     * Public Methods            *
      *****************************/
 
     /**
@@ -591,7 +594,8 @@ public:
     }
     
     /**
-     * @return `true` if and only if this region contains no points.
+     * @return `true` if and only if this region contains no points; which
+     * will be the case if `lo[i] > hi[i]` for any axis `i`.
      */
     bool is_empty() const {
         for (index_t axis = 0; axis < N; axis++) {

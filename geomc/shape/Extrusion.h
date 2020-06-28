@@ -17,7 +17,7 @@ namespace geom {
 
 /**
  * @ingroup shape
- * @brief An N-dimensional extrusion of an arbitrary N-1 dimensional convex shape.
+ * @brief An N-dimensional extrusion of an arbitrary N-1 dimensional Convex shape.
  * 
  * The first N-1 dimensions have cross-sections which are `Shape`s
  * (e.g., `Rect`, `Sphere`, `Frustum`...). The shape is lofted "vertically" into 
@@ -25,7 +25,7 @@ namespace geom {
  *
  * Example:
  * 
- *     // initialize a cylinder of length and radius 1, centered at the origin:
+ *     // initialize a cylinder of length and radius 1:
  *     auto cylinder = Extrusion<Sphere<double,2>>(Sphere<double,2>(), Rect<double,1>(0,1));
  */
 template <typename Shape>

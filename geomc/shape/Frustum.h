@@ -16,16 +16,22 @@ namespace geom {
 
 /**
  * @ingroup shape
- * @brief An N-dimensional frustum (truncated pyramid).
+ * @brief An N-dimensional frustum (truncated pyramid) with an arbitrary
+ * Convex shape as its base, and its (possibly excluded) point at the origin.
  * 
- * The first N-1 dimensions have cross-sections which are rectangles. The last
- * dimension is considered the "height" of the frustum. 
- * 
- * Frustums need not be symmetrical about the origin. The extents of the cross
- * section are described by an N-1 rectangle lying on the `height = 1` plane.
+ * The first N-1 dimensions have cross-sections which are `Shape`s. The last
+ * dimension is the "height" of the frustum. The base `Shape` is specified 
+ * lying on the `h = 1` plane. (Note that below the origin, the base shape
+ * will be flipped due to the change of sign).
  *  
- * If the height range spans `height = 0`, the minimum height is effectively 
- * clamped to 0.
+ * If the height range spans `height = 0`, then the height extending below the 
+ * origin is excluded from the shape. Use `clipped_height()` to obtain the 
+ * height range actually spanned by the shape. (A frustum spanning the origin
+ * would not be convex).
+ *
+ * Oriented, Rect-based Frustums are very commonly needed to represent
+ * viewing frustums; for these consider using `ViewFrustum`, which is a
+ * type alias for `Oriented<Frustum<Rect>>`. 
  */
 template <typename Shape>
 class Frustum : public virtual Convex<typename Shape::T, Shape::N + 1> {
@@ -114,7 +120,10 @@ inline Frustum<Shape> frustum(
     return Frustum<Shape>(s, h0, h1);
 }
 
-/// Convenience typedef for oriented, rectangular, N-dimensional Frustums
+/**
+ * @brief Convenience typedef for oriented, rectangular, N-dimensional Frustums
+ * @related Frustum
+ */
 template <typename T, index_t N>
 using ViewFrustum = Oriented< Frustum< Rect<T,N-1> > >;
 

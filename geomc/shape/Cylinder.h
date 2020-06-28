@@ -19,7 +19,7 @@ namespace geom {
     
     /** 
      * @ingroup shape
-     * @brief An N-dimensional cylinder.
+     * @brief An N-dimensional cylinder, given by its radius and endpoints.
      * 
      * Represents an extrusion of an N-2 sphere. In other words, an extrusion of 
      * a disk in 3D; an extrusion of a sphere in 4D; and an extrusion of a line 

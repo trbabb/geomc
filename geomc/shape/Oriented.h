@@ -19,7 +19,7 @@ namespace geom {
 
 /**
  * @ingroup shape
- * @brief A wrapper shape which orients another shape with an AffineTransform.
+ * @brief A wrapper shape which orients another arbitrary shape with an AffineTransform.
  * 
  * Oriented shapes can be constructed simply by applying an AffineTransform to an
  * ordinary shape:
@@ -29,8 +29,8 @@ namespace geom {
  *
  * Transforming an Oriented results in another Oriented of the same type:
  *
- *     Oriented<Cylinder<double,3>> ocyl1 = xf * Cylinder<double,3>();
- *     Oriented<Cylinder<double,3>> ocyl2 = xf * ocyl1;
+ *     Oriented<Cylinder<double,3>> ocyl_a = xf * Cylinder<double,3>();
+ *     Oriented<Cylinder<double,3>> ocyl_b = xf * ocyl_a;
  * 
  */
 template <typename Shape>
@@ -88,14 +88,16 @@ public:
     }
     
     
-    Oriented<Shape>& operator*=(const AffineTransform<T,N>& xf1) {
-        xf *= xf1;
+    /// Transform this `Oriented` by `xf`
+    Oriented<Shape>& operator*=(const AffineTransform<T,N>& xf) {
+        this->xf *= xf;
         return *this;
     }
     
     
-    Oriented<Shape>& operator/=(const AffineTransform<T,N>& xf1) {
-        xf /= xf1;
+    /// Transform this `Oriented` by the inverse of `xf`.
+    Oriented<Shape>& operator/=(const AffineTransform<T,N>& xf) {
+        this->xf /= xf;
         return *this;
     }
     
