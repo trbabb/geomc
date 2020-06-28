@@ -2,6 +2,8 @@
 #include <utility>
 #include <geomc/Storage.h>
 
+// todo: this guy wants an iterator
+
 
 namespace geom {
 
@@ -23,7 +25,8 @@ namespace geom {
  * @tparam T Element type.
  * @tparam N Static capacity of the buffer. Adding more than this number of elements
  * to the buffer will incur a heap memory allocation. To always use heap allocation, 
- * pass zero to this parameter.
+ * pass zero to this parameter, in which case memory will be allocated when the first
+ * element is added.
  */
 template <typename T, index_t N>
 class CircularBuffer {
@@ -51,7 +54,7 @@ class CircularBuffer {
     
 public:
     
-    /// Construct a new empty circular buffer.
+    /// Construct a new empty circular buffer, with capacity for `N` items.
     CircularBuffer():
             _data(_buf),
             _capacity(N),
