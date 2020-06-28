@@ -25,7 +25,7 @@ namespace geom {
     template <typename Ms, typename Md>
     inline void copyMatrixRegion(const Ms& src, Md& dst, const MatrixRegion& src_region, const Vec<index_t,2>& dst_begin){
         std::pair<typename Ms::region_iterator, typename Ms::region_iterator> p = src.region(src_region);
-        MatrixRegion dst_region = MatrixRegion(dst_begin, dst_begin + src_region.getDimensions());
+        MatrixRegion dst_region = MatrixRegion(dst_begin, dst_begin + src_region.dimensions());
         std::copy(p[0], p[1], dst.region(dst_region));
     }
     

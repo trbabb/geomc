@@ -74,8 +74,8 @@ class Frustum : public virtual Convex<typename Shape::T, Shape::N + 1> {
             
             // find the appropriate direction to check in shape-space
             Vec<T,N-1> d_s = d.template resized<N-1>();
-            if      (d_s.isZero()) v[0] =  1;   // ← pick an arbitrary direction
-            else if (h.lo < 0)     d_s  = -d_s; // ← shape is flipped when below origin
+            if      (d_s.isZero()) d_s[0] =  1;   // ← pick an arbitrary direction
+            else if (h.lo < 0)     d_s    = -d_s; // ← shape is flipped when below origin
             
             // find the relevant point on the base shape, and place it on the h=1 plane
             Vec<T,N> p(base.convex_support(d_s), 1);
@@ -88,7 +88,7 @@ class Frustum : public virtual Convex<typename Shape::T, Shape::N + 1> {
         }
         
         Rect<T,N> bounds() {
-            return shape.bounds() * clipped_height();
+            return base.bounds() * clipped_height();
         }
         
         /// Return the height range of this Frustum after it has been clipped by the origin.
@@ -113,6 +113,10 @@ inline Frustum<Shape> frustum(
 {
     return Frustum<Shape>(s, h0, h1);
 }
+
+/// Convenience typedef for oriented, rectangular, N-dimensional Frustums
+template <typename T, index_t N>
+using ViewFrustum = Oriented< Frustum< Rect<T,N-1> > >;
 
 
 } // namespace geom

@@ -723,7 +723,7 @@ private:
         // choose a split axis
         switch (params.axis) {
             case KDAxisChoice::AXIS_LONGEST:
-                dim = split_child->bounds.getDimensions();
+                dim = split_child->bounds.dimensions();
                 goto CHOOSE_BIGGEST_AXIS;
             case KDAxisChoice::AXIS_CYCLICAL:
                 split_axis = depth % N;
@@ -859,7 +859,7 @@ private:
                         break;
                 }
                 if (metric == 0) {
-                    metric = -1 / i->bounds.getCenter().dist2(ctr);
+                    metric = -1 / i->bounds.center().dist2(ctr);
                 }
                 if (metric < best_metric) {
                     best = i;

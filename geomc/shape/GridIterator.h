@@ -155,7 +155,7 @@ private:
     
     inline void advance(index_t n) {
         point_t dest = point_t(0);
-        point_t dim  = region.getDimensions();
+        point_t dim  = region.dimensions();
         index_t vol  = region.volume();
         
         for (index_t i = dim_last; i != dim_first - dim_increment; i -= dim_increment) {
@@ -170,7 +170,7 @@ private:
     inline index_t distance_to(const GridIterator<T,N,Order> &other) const {
         // TODO: xxx: test this. handling of volume's sign is suspicious.
         // TODO: xxx: handling of reverse case is suspicious too.
-        point_t dim  = region.getDimensions(); 
+        point_t dim  = region.dimensions(); 
         point_t jump = other.pt - pt;
         index_t dist = 0;
         index_t vol  = 1;
