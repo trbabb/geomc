@@ -45,7 +45,7 @@ class OrientedRect : virtual public Convex<T,N> {
         
         /// Obtain an axis-aligned bounding box for this region.
         Rect<T,N> bounds() {
-            // faster than using convexSupport, somewhat surprisingly.
+            // faster than using convex_support, somewhat surprisingly.
             Vec<T,N> pts[2] = {box.min(), box.max()};
             Vec<T,N> lo = xf * box.min();
             Vec<T,N> hi = lo;
@@ -66,7 +66,7 @@ class OrientedRect : virtual public Convex<T,N> {
         }
         
         
-        Vec<T,N> convexSupport(Vec<T,N> d) const {
+        Vec<T,N> convex_support(Vec<T,N> d) const {
             Vec<T,N> d_body = xf.applyInverseNormal(d);
             Vec<T,N> o;
             for (index_t i = 0; i < N; i++) {

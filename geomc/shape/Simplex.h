@@ -286,7 +286,7 @@ public:
     }
     
     
-    Vec<T,N> convexSupport(Vec<T,N> d) const {
+    Vec<T,N> convex_support(Vec<T,N> d) const {
         T best    = pts[0].dot(d);
         index_t k = 0;
         for (index_t i = 1; i < n; ++i) {

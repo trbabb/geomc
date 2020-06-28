@@ -91,7 +91,7 @@ namespace geom {
                 return b0 | b1;
             }
             
-            Vec<T,N> convexSupport(Vec<T,N> d) const {
+            Vec<T,N> convex_support(Vec<T,N> d) const {
                 Vec<T,N> v = p1 - p0;
                 Vec<T,N> perp = (d - d.projectOn(v)).unit() * radius;
                 return (d.dot(v) > 0 ? p1 : p0) + perp;
@@ -131,8 +131,8 @@ namespace geom {
                 T roots[2];
                 if (quadratic_solve(roots, a, b, c)) {
                     // trace endcaps
-                    T pl_0 = trace_plane(p0, -axis, r);
-                    T pl_1 = trace_plane(p1,  axis, r);
+                    T pl_0 = trace_plane(p0, -axis, ray);
+                    T pl_1 = trace_plane(p1,  axis, ray);
                     T n_sign = 1;
                     
                     // order roots low -> hi
@@ -158,9 +158,9 @@ namespace geom {
                     // update the hit with P, N
                     // (csg_intersect took care of the others)
                     if (h.hit) {
-                        h.p = r.atMultiple(h.s);
+                        h.p = ray.atMultiple(h.s);
                         if (hit_cylinder) {
-                            h.n = Ray<T,N>(p0, axis).directionFromAxisTo(h.p).unit()
+                            h.n = Ray<T,N>(p0, axis).directionFromAxisTo(h.p).unit();
                         } else {
                             h.n = (((hit_near ? -1 : 1) * n_sign) * axis).unit();
                         }

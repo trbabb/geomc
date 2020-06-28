@@ -22,8 +22,12 @@ namespace geom {
 
 
 /// Virtual class describing shapes with finite extents in N dimensions.
-template <typename T, index_t N> class Bounded {
+template <typename T, index_t _N> class Bounded {
 public:
+    
+    typedef T elem_t;
+    static constexpr size_t N = _N;
+    
     Bounded() {}
     virtual ~Bounded() {}
 
@@ -52,7 +56,7 @@ public:
      * @param d Direction along which to find a support plane.
      * @return A point on the surface of this convex shape.
      */
-    virtual point_t convexSupport(point_t d) const = 0;
+    virtual point_t convex_support(point_t d) const = 0;
     
     /**
      * @return True if and only if this convex shape overlaps `other`; false otherwise.
@@ -70,7 +74,7 @@ public:
     /**
      * @brief Returns an axis-aligned box completely enclosing this shape.
      *
-     * The default implementation calls `convexSupport()` along each of the 
+     * The default implementation calls `convex_support()` along each of the 
      * principal axes to find the extents.
      */
     Rect<T,N> bounds() {
@@ -80,10 +84,10 @@ public:
         for (index_t i = 0; i < N; ++i) {
             point_t axis, x;
             PointType<T,N>::iterator(axis)[i] =  1;
-            x = convexSupport(axis);
+            x = convex_support(axis);
             maxs[i] = PointType<T,N>::iterator(x)[i];
             PointType<T,N>::iterator(axis)[i] = -1;
-            x = convexSupport(axis);
+            x = convex_support(axis);
             mins[i] = PointType<T,N>::iterator(x)[i];
         }
         return b;

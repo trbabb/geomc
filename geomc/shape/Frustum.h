@@ -62,7 +62,7 @@ class Frustum : public virtual Convex<T,N> {
         }
         
         
-        Vec<T,N> convexSupport(Vec<T,N> d) const {
+        Vec<T,N> convex_support(Vec<T,N> d) const {
             typedef PointType<T,N-1> Pt;
             
             d = xf.applyInverseNormal(d);

@@ -124,7 +124,7 @@ public:
      * (i.e. on the side opposite the normal); false otherwise.
      */
     inline bool contains(const Convex<T,N> &shape) const {
-        return shape.convexSupport(normal).dot(normal) <= -d;
+        return shape.convex_support(normal).dot(normal) <= -d;
     }
     
     /**
@@ -168,8 +168,8 @@ public:
      * @return `true` if and only if this plane passes through `shape`.
      */
     inline bool intersects(const Convex<T,N> &shape) const {
-        return shape.convexSupport( normal).dot(normal) + d  > 0 and
-               shape.convexSupport(-normal).dot(normal) + d <= 0;
+        return shape.convex_support( normal).dot(normal) + d  > 0 and
+               shape.convex_support(-normal).dot(normal) + d <= 0;
     }
     
     /**

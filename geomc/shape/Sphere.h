@@ -69,7 +69,7 @@ namespace geom {
             return s.center.dist2(center) <= r*r;
         }
         
-        Vec<T,N> convexSupport(Vec<T,N> d) const {
+        Vec<T,N> convex_support(Vec<T,N> d) const {
             return center + d.unit() * r;
         }
         

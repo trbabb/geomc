@@ -68,13 +68,13 @@ class Extrusion : public virtual Convex<T,N> {
          * @return `true` if `p` is on or inside this extrusion; `false` otherwise.
          */
         bool contains(Vec<T,N> p) const {
-            p /= xf;
+            p = p / xf;
             if (not height.contains(p[N-1])) return false;
             return base.contains(p.template resized<N-1>());
         }
         
         
-        Vec<T,N> convexSupport(Vec<T,N> d) const {
+        Vec<T,N> convex_support(Vec<T,N> d) const {
             typedef PointType<T,N-1> Pt;
             
             d = xf.applyInverseNormal(d);
@@ -90,7 +90,7 @@ class Extrusion : public virtual Convex<T,N> {
                 d_[0] = 1;
             }
             
-            Vec<T,N-1> p0 = base.convexSupport(d_);
+            Vec<T,N-1> p0 = base.convex_support(d_);
             
             // top or bottom face?
             Vec<T,N> p1 = Vec<T,N>(p0, (d[N-1] > 0) ? hmax : hmin);

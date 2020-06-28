@@ -655,7 +655,7 @@ public:
         return (p - mins) / (maxs - mins);
     }
     
-    point_t convexSupport(point_t d) const {
+    point_t convex_support(point_t d) const {
         point_t o;
         for (index_t i = 0; i < N; i++) {
             T a = ptype::iterator(d)[i];
