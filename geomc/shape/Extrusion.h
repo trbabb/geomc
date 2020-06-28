@@ -17,7 +17,7 @@ namespace geom {
 
 /**
  * @ingroup shape
- * @brief An N-dimensional extrusion of an arbitrary N-1 dimensional Convex shape.
+ * @brief An axis-aligned extrusion of an arbitrary N-1 dimensional Convex shape.
  * 
  * The first N-1 dimensions have cross-sections which are `Shape`s
  * (e.g., `Rect`, `Sphere`, `Frustum`...). The shape is lofted "vertically" into 

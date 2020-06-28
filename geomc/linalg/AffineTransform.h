@@ -22,6 +22,11 @@
 #include <iostream>
 #endif
 
+// xxx: this whole class needs an overhaul:
+// - rename AffineTransform to "Xf"
+// - rename .mat to .mtx
+// - fix naming convention
+// - fix operators
 
 namespace geom {
     
@@ -105,8 +110,23 @@ namespace geom {
          * @return A transformation representing an application of `xf2` followed by
          * `xf1`.
          */
-        friend AffineTransform<T,N> operator*(const AffineTransform<T,N> &xf1, const AffineTransform<T,N> &xf2) {
+        friend AffineTransform<T,N> operator*(
+                const AffineTransform<T,N> &xf1, 
+                const AffineTransform<T,N> &xf2)
+        {
             return xf2.apply(xf1);
+        }
+        
+        /**
+         * Inverse transform application.
+         * @return A transformation representing an application of `xf1` followed by
+         * the inverse of `xf2`.
+         */
+        friend AffineTransform<T,N> operator/(
+                const AffineTransform<T,N> &xf1, 
+                const AffineTransform<T,N> &xf2)
+        {
+            return xf1.applyInverse(xf2);
         }
         
         /**
@@ -234,6 +254,18 @@ namespace geom {
             AffineTransform xfnew;
             xfnew.mat = xf.mat * mat;
             xfnew.inv = inv * xf.inv;
+            return xfnew;
+        }
+        
+        /**
+         * Application of inverse.
+         * @return A transformation representing a transform by `this` followed by
+         * the inverse of `xf`.
+         */
+        const AffineTransform<T,N> applyInverse(const AffineTransform<T,N>& xf) const {
+            AffineTransform xfnew;
+            xfnew.mat = xf.inv * mat;
+            xfnew.inv = inv * xf.mat;
             return xfnew;
         }
         

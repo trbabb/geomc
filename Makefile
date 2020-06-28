@@ -38,7 +38,7 @@ profile : lib build/Profile.o
 regression : $(addprefix bin/regression/, $(REGRESSIONS))
 	echo "Built regressions."
 
-test : regression
+test : $(addprefix bin/regression/, $(REGRESSIONS)) 
 	$(foreach x, $(addprefix bin/regression/, $(REGRESSIONS)), $(x);)
 
 test-%: bin/regression/%

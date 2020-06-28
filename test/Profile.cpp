@@ -23,7 +23,7 @@
 #include <geomc/function/SphericalHarmonics.h>
 #include <geomc/shape/BinLatticePartition.h>
 #include <geomc/shape/Trace.h>
-#include <geomc/shape/OrientedRect.h>
+#include <geomc/shape/Oriented.h>
 #include <geomc/shape/Intersect.h>
 #include <geomc/shape/Frustum.h>
 
@@ -610,7 +610,7 @@ void randomBox(OrientedRect<T,N> *r) {
     r->xf *= translation(smp.template unit<N>());
     Vec<T,N> b0 = smp.box(Vec<T,N>(-1), Vec<T,N>(1));
     Vec<T,N> b1 = smp.box(Vec<T,N>(-1), Vec<T,N>(1));
-    r->box = Rect<T,N>::spanning_corners(b0,b1);
+    r->shape = Rect<T,N>::spanning_corners(b0,b1);
 }
 
 template <typename T, index_t N>
@@ -635,6 +635,19 @@ void getCorners(const ViewFrustum<T,N>& f, Vec<T,N> p[1 << N]) {
             pt  = f.xf * pt;
             p[c + ((k > 0) ? (1 <<(N-1)) : 0)] = pt;
         }
+    }
+}
+
+template <typename T, index_t N>
+void getCorners(const OrientedRect<T,N>& r, Vec<T,N> p[1 << N]) {
+    Vec<T,N> extreme[2] = { r.shape.lo, r.shape.hi };
+    
+    for (index_t i = 0; i < (1 << N); ++i) {
+        Vec<T,N> v;
+        for (index_t axis = 0; axis < N; ++axis) {
+            v[axis] = extreme[((i >> axis) & 1)][axis];
+        }
+        p[i] = r.xf * v;
     }
 }
 
@@ -770,8 +783,8 @@ template <typename T, index_t N> index_t test_gjkIntersect(index_t iters) {
         if (i0 == 0) i1 = (i1 + 1) % n;
         Vec<T,N> b0[n_corners];
         Vec<T,N> b1[n_corners];
-        boxes[i0].getCorners(b0);
-        boxes[i1].getCorners(b1);
+        getCorners(boxes[i0], b0);
+        getCorners(boxes[i1], b1);
         bool print = false;
 #ifdef EMIT_GJK_ALL
         print = true;

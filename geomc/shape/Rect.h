@@ -27,12 +27,7 @@
 #include <geomc/linalg/Vec.h>
 #include <geomc/shape/shapedetail/Hit.h>
 
-
-// todo: min() and max() are functions. this is probably a holdover
-//       from before empty intervals were allowed. rename lo and hi
-//       to `lo` and `hi` and make them public, cause this design is hella dumb
-
-// using <= and >= is inconsistent with half-open interval convention, but:
+// all boundaries are inclusive. this is inconsistent with half-open interval convention, but:
 // - union of rect with a point should thereafter contain the point
 // - with a half-open interval, we'd need to "increment" the upper bound
 //   to contain p
@@ -40,10 +35,9 @@
 // - the upper and lower bounds now mean different things, and
 //   that means you need to increment and decrement
 //   Sometimes And Not Other Times. 
-// compare to "both endpoints are symmetrical and the same logic applies everywhere"
-// * BEWARE the meaning of dim(). it is one less than the "length" for integer types.
-//   maybe just hide it with a type-conditional increment?
-//   > don't forget volume() also.
+// - compare to: "both endpoints are symmetrical and the same logic applies everywhere"
+// - the biggest downside: ownership of points on the faces of abutting Rects
+//   is ambiguous (for Rects with real-valued coordinates).
 
 namespace geom {
 
@@ -142,7 +136,7 @@ public:
      ****************************/
 
     /**
-     * Construct a Rect from a center point and extent.
+     * @brief Construct a Rect from a center point and extent.
      * @param c Center of the new Rect
      * @param dims Lengths of each axis; may be negative.
      * @return A new Rect with its center at `c`.
@@ -157,7 +151,7 @@ public:
     }
     
     /**
-     * Construct a Rect from a corner point and an extent.
+     * @brief Construct a Rect from a corner point and an extent.
      * @param corner Arbitrary corner point.
      * @param dims Lengths of each axis relative to given corner. Lengths may be negative.
      * @return A new Rect with one corner at `corner`.
@@ -172,7 +166,7 @@ public:
     }
     
     /**
-     * Construct a Rect containing the two corners `c1` and `c2`. 
+     * @brief Construct a Rect containing the two corners `c1` and `c2`. 
      * @param c1 A corner of the Rect 
      * @param c2 The corner opposite `c1`
      * @return A new Rect with corners at `c1` and `c2`.
@@ -187,7 +181,7 @@ public:
     }
     
     /**
-     * Construct a Rect containing all the points in the sequence
+     * @brief Construct a Rect containing all the points in the sequence
      * between `begin` and `end`.
      * @tparam PointIterator An iterator to a `point_t`.
      * @param begin Iterator to the first point.
@@ -204,7 +198,7 @@ public:
     }
 
     /**
-     * Test whether a point is in the N-dimensional range `[lo, hi]`.
+     * @brief Test whether a point is in the N-dimensional range `[lo, hi]`.
      *
      * If `lo` > `hi` along any axis, then the range is empty and the 
      * function returns `false`.
@@ -447,6 +441,10 @@ public:
      * Extrude this Rect into a higher dimension, by treating the extents of 
      * `r` as the extents along the new dimensions. In other words, concatenate 
      * the coordinates of `this` and `r` into a new Rect.
+     *
+     * For example, the product of a 2D rectangle with a 1D range is a 3D box.
+     * If multiplied in that order, the product will have the extents of the rectangle 
+     * along its first two axes and the extents of the 1D range along its third axis.
      *
      * @tparam M Dimensionality of `r`.
      */

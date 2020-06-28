@@ -1,9 +1,6 @@
 /*
  * Bounded.h
  *
- * A <Bounded> is a thing which can bound its dimensions with an axis-aligned bounding box
- * via RectBound.
- *
  *  Created on: Oct 7, 2010
  *      Author: tbabb
  */
@@ -22,8 +19,9 @@ namespace geom {
 
 
 /// Virtual class describing shapes with finite extents in N dimensions.
-template <typename T, index_t _N> class Bounded {
-public:
+template <typename T, index_t _N>
+class Bounded {
+    public:
     
     /// The coordinate type of this shape.
     typedef T elem_t;
@@ -41,8 +39,9 @@ public:
 
 
 /// Virtual class describing convex shapes in N-dimensional space.
-template <typename T, index_t N> class Convex : virtual public Bounded<T,N> {
-public:
+template <typename T, index_t N>
+class Convex : virtual public Bounded<T,N> {
+    public:
     typedef typename PointType<T,N>::point_t point_t;
     
     Convex() {}

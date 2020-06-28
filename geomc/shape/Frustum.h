@@ -31,7 +31,7 @@ namespace geom {
  *
  * Oriented, Rect-based Frustums are very commonly needed to represent
  * viewing frustums; for these consider using `ViewFrustum`, which is a
- * type alias for `Oriented<Frustum<Rect>>`. 
+ * templated type alias for `Oriented<Frustum<Rect>>`. 
  */
 template <typename Shape>
 class Frustum : public virtual Convex<typename Shape::T, Shape::N + 1> {
@@ -93,6 +93,7 @@ class Frustum : public virtual Convex<typename Shape::T, Shape::N + 1> {
             return w * p;
         }
         
+        
         Rect<T,N> bounds() const {
             Rect<T,N-1> b0 = base.bounds();
             Rect<T,1> h    = clipped_height();
@@ -100,6 +101,7 @@ class Frustum : public virtual Convex<typename Shape::T, Shape::N + 1> {
             // union them; extend by the height:
             return ((b0 * h.lo) | (b0 * h.hi)) * h; // purdy!!
         }
+        
         
         /// Return the height range of this Frustum after it has been clipped by the origin.
         inline Rect<T,1> clipped_height() const {
@@ -127,6 +129,7 @@ inline Frustum<Shape> frustum(
 /**
  * @brief Convenience typedef for oriented, rectangular, N-dimensional Frustums
  * @related Frustum
+ * @related Oriented
  */
 template <typename T, index_t N>
 using ViewFrustum = Oriented< Frustum< Rect<T,N-1> > >;
