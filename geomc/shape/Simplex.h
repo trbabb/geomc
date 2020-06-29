@@ -64,10 +64,10 @@ public:
         // overridden because there may be garbage in the 
         // unused vertices which shouldn't count as a difference.
         if (other.n != n) return false;
-        for (index_t = 0; i < n; ++i) {
+        for (index_t i = 0; i < n; ++i) {
             if (other.pts[i] != pts[i]) return false;
         }
-        return truel
+        return true;
     }
     
     

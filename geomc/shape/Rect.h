@@ -482,7 +482,7 @@ public:
     bool contains(point_t pt) const {
         for (index_t axis = 0; axis < N; axis++) {
             T v = ptype::iterator(pt)[axis];
-            if (v < ptype::iterator(lo)[axis] or v >= ptype::iterator(hi)[axis]) {
+            if (v < ptype::iterator(lo)[axis] or v > ptype::iterator(hi)[axis]) {
                 return false;
             }
         }
