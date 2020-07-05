@@ -1,75 +1,80 @@
-CC = clang++
-AR = ar
-PREFIX      = /opt/local
-INCLUDES    = .
-CFLAGS      = -std=c++11 -O3 -Wall -fmessage-length=0 -Wno-unused-local-typedef
-IFLAGS      = $(addprefix -I, $(INCLUDES))
-MODULES     = function linalg random shape
-SOURCES     = $(wildcard geomc/*.cpp) \
-           $(foreach m, $(MODULES), $(wildcard geomc/$(m)/*.cpp))
+CC        = clang++
+AR        = ar
+PREFIX    = /opt/local
+INCLUDES  = .
+CFLAGS    = -std=c++11 -O3 -Wall -fmessage-length=0 -Wno-unused-local-typedef
+IFLAGS    = $(addprefix -I, $(INCLUDES))
 
-OBJECTS     = $(addprefix build/, $(notdir $(SOURCES:.cpp=.o)))
-REGRESSIONS = $(notdir $(basename $(wildcard regression/*cpp)))
-LIBNAME     = libgeomc.a
-LITELIB     = libgeomc_lite.a
-LIB         = lib/$(LIBNAME)
-INCDIR      = $(PREFIX)/include
-LIBDIR      = $(PREFIX)/lib
+LIB_SRC   = $(wildcard geomc/*.cpp) $(wildcard geomc/*/*.cpp)
+TEST_SRC  = $(wildcard regression/*cpp)
+ALL_SRC   = $(LIB_SRC) $(TEST_SRC) test/Profile.cpp
 
-all : lib liblite
+TEST_BINS = $(addprefix bin/, $(basename $(TEST_SRC)))
+LIB_OBJS  = $(addprefix build/, $(LIB_SRC:.cpp=.o))
 
-docs :
+LIBNAME   = libgeomc.a
+LIB       = lib/$(LIBNAME)
+LITELIB   = geomc_lite.a
+INSTALL_INC_DIR = $(PREFIX)/include
+INSTALL_LIB_DIR = $(PREFIX)/lib
+
+
+all: lib liblite test
+
+docs:
 	mkdir -p doc/gen
 	doxygen
 
-lib : $(OBJECTS)
-	mkdir -p lib
-	$(AR) rs $(LIB) $(OBJECTS)
-	@echo
-	@echo Done building library.
-
-liblite : build/GeomException.o build/Hash.o
-	$(AR) rs lib/$(LITELIB) build/GeomException.o build/Hash.o
-
-profile : lib build/Profile.o
-	mkdir -p bin
-	$(CC) -g build/Profile.o $(LIB) -o bin/profile
-
-regression : $(addprefix bin/regression/, $(REGRESSIONS))
-	echo "Built regressions."
-
-test : $(addprefix bin/regression/, $(REGRESSIONS)) 
-	$(foreach x, $(addprefix bin/regression/, $(REGRESSIONS)), $(x);)
-
-test-%: bin/regression/%
-	$<
-
-bin/regression/% : regression/%.cpp lib
-	test -e bin/regression || mkdir -p bin/regression
-	$(CC) $(CFLAGS) $(IFLAGS) -lgeomc -lboost_unit_test_framework $< -o $@
-
-build/Profile.o : test/Profile.cpp
-	$(CC) -c -g $(CFLAGS) $(IFLAGS) -o build/Profile.o test/Profile.cpp 
-
-build/%.o : geomc/random/%.cpp
-	$(CC) -c $(CFLAGS) $(IFLAGS) -o $@ $<
-
-build/%.o : geomc/%.cpp
-	$(CC) -c $(CFLAGS) $(IFLAGS) -o $@ $<
-
-install : all
-	mkdir -p $(INCDIR)
-	cp -rf ./geomc $(INCDIR)
-	cp -rf $(LIB) $(LIBDIR)
-	cp -rf lib/$(LITELIB) $(LIBDIR)
-
-clean :
-	rm -f  ./build/*.o
+clean:
+	rm -rf ./build/*
 	rm -f  ./lib/*.a
 	rm -rf ./doc/gen/html
 
-uninstall :
-	rm -rf $(INCDIR)/geomc
-	rm -f $(LIBDIR)/$(LIBNAME)
-	rm -f $(LIBDIR)/$(LITELIB)
+install: all
+	mkdir -p $(INSTALL_INC_DIR)
+	cp -rf ./geomc $(INSTALL_INC_DIR)
+	cp -rf $(LIB) $(INSTALL_INC_DIR)
+	cp -rf lib/$(LITELIB) $(INSTALL_LIB_DIR)
 
+uninstall:
+	rm -rf $(INSTALL_INC_DIR)/geomc
+	rm -f $(INSTALL_LIB_DIR)/$(LIBNAME)
+	rm -f $(INSTALL_LIB_DIR)/$(LITELIB)
+
+
+# dependencies
+DEP = $(patsubst %.cpp, build/%.d, $(ALL_SRC))
+
+-include $(DEP)
+
+
+build/%.o: %.cpp build/%.d
+	$(CC) -c $(CFLAGS) $(IFLAGS) -o $@ $<
+
+build/%.d: %.cpp
+	@mkdir -p build/$(dir $<)
+	$(CC) $(CFLAGS) $(IFLAGS) $< -MM -MT $(@:.d=.o) > $@
+
+lib: $(LIB_OBJS)
+	@mkdir -p lib
+	$(AR) rs $(LIB) $(LIB_OBJS)
+
+liblite : build/geomc/GeomException.o build/geomc/Hash.o
+	$(AR) rs lib/$(LITELIB) build/geomc/GeomException.o build/geomc/Hash.o
+
+bin/regression/%: regression/%.cpp lib build/regression/%.d
+	@test -e bin/regression || mkdir -p bin/regression
+	$(CC) $(CFLAGS) $(IFLAGS) -lgeomc -lboost_unit_test_framework $< -o $@
+
+bin/%: build/%.o
+	@mkdir -p bin
+	$(CC) -g $< $(LIB) -o $@
+
+test: $(TEST_BINS)
+	$(TEST_BINS)
+
+runtest:
+	$(TEST_BINS)
+
+test-%: bin/regression/%
+	$<
