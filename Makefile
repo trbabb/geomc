@@ -41,12 +41,7 @@ uninstall:
 	rm -f  $(INSTALL_LIB_DIR)/$(LIBNAME)
 	rm -f  $(INSTALL_LIB_DIR)/$(LITELIB)
 
-# `test` is out of date if a test binary is out of date
 test: $(TEST_BINS)
-	$(foreach x, $(TEST_BINS), $(x);)
-
-# target to run the tests unconditionally
-runtest:
 	$(foreach x, $(TEST_BINS), $(x);)
 
 test-%: bin/regression/%
