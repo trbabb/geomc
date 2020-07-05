@@ -73,11 +73,11 @@ lib: $(LIB_OBJS)
 liblite : build/geomc/GeomException.o build/geomc/Hash.o
 	$(AR) rs lib/$(LITELIB) build/geomc/GeomException.o build/geomc/Hash.o
 
-bin/regression/%: regression/%.cpp lib build/regression/%.d
-	@test -e bin/regression || mkdir -p bin/regression
-	$(CC) $(CFLAGS) $(IFLAGS) -lgeomc -lboost_unit_test_framework $< -o $@
+bin/regression/%: build/regression/%.o lib
+	@mkdir -p $(dir $@)
+	$(CC) -g -lgeomc -lboost_unit_test_framework $< -o $@
 
-bin/%: build/%.o
+bin/%: build/%.o lib
 	@mkdir -p $(dir $(patsubst build/%, bin/%, $<))
 	$(CC) -g $< $(LIB) -o $@
 
