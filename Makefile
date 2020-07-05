@@ -38,8 +38,8 @@ install: all
 
 uninstall:
 	rm -rf $(INSTALL_INC_DIR)/geomc
-	rm -f $(INSTALL_LIB_DIR)/$(LIBNAME)
-	rm -f $(INSTALL_LIB_DIR)/$(LITELIB)
+	rm -f  $(INSTALL_LIB_DIR)/$(LIBNAME)
+	rm -f  $(INSTALL_LIB_DIR)/$(LITELIB)
 
 
 # dependencies
@@ -67,12 +67,14 @@ bin/regression/%: regression/%.cpp lib build/regression/%.d
 	$(CC) $(CFLAGS) $(IFLAGS) -lgeomc -lboost_unit_test_framework $< -o $@
 
 bin/%: build/%.o
-	@mkdir -p bin
+	@mkdir -p $(dir $(patsubst build/%, bin/%, $<))
 	$(CC) -g $< $(LIB) -o $@
 
+# rerun the tests any time the tests change
 test: $(TEST_BINS)
 	$(TEST_BINS)
 
+# run the tests unconditionally
 runtest:
 	$(TEST_BINS)
 

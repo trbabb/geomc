@@ -4,3 +4,4 @@ doc/gen
 *.log
 bin
 test
+build
