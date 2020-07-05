@@ -270,7 +270,7 @@ BOOST_AUTO_TEST_CASE(split_flat_tree) {
     BOOST_REQUIRE(r.items_begin() == s.items_begin());
     BOOST_REQUIRE(r.items_end() == c.items_end());
     
-    print_subtree(r);
+    // print_subtree(r);
 }
 
 
@@ -278,7 +278,7 @@ BOOST_AUTO_TEST_CASE(copy_deep_tree) {
     Tree<const char*, index_t> t;
     *(t.root()) = "zoinks";
     populate_tree(t.root(), 30);
-    print_subtree(t.root());
+    // print_subtree(t.root());
     
     Tree<const char*, index_t> t2(t);
     BOOST_CHECK(t2 == t);
