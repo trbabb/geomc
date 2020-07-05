@@ -41,6 +41,17 @@ uninstall:
 	rm -f  $(INSTALL_LIB_DIR)/$(LIBNAME)
 	rm -f  $(INSTALL_LIB_DIR)/$(LITELIB)
 
+# `test` is out of date if a test binary is out of date
+test: $(TEST_BINS)
+	$(TEST_BINS)
+
+# target to run the tests unconditionally
+runtest:
+	$(TEST_BINS)
+
+test-%: bin/regression/%
+	$<
+
 
 # dependencies
 DEP = $(patsubst %.cpp, build/%.d, $(ALL_SRC))
@@ -70,13 +81,3 @@ bin/%: build/%.o
 	@mkdir -p $(dir $(patsubst build/%, bin/%, $<))
 	$(CC) -g $< $(LIB) -o $@
 
-# rerun the tests any time the tests change
-test: $(TEST_BINS)
-	$(TEST_BINS)
-
-# run the tests unconditionally
-runtest:
-	$(TEST_BINS)
-
-test-%: bin/regression/%
-	$<
