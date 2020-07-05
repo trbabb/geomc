@@ -1,4 +1,4 @@
-CC        = clang++
+CC        = g++
 AR        = ar
 PREFIX    = /opt/local
 INCLUDES  = .
@@ -43,11 +43,11 @@ uninstall:
 
 # `test` is out of date if a test binary is out of date
 test: $(TEST_BINS)
-	$(TEST_BINS)
+	$(foreach x, $(TEST_BINS), $(x);)
 
 # target to run the tests unconditionally
 runtest:
-	$(TEST_BINS)
+	$(foreach x, $(TEST_BINS), $(x);)
 
 test-%: bin/regression/%
 	$<
