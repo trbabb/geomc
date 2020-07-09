@@ -40,7 +40,6 @@ dx + ey + fz + g = 0
            etc.
  */
 
-#define _MxElem(m,r,c) m[N*r + c]
 
 namespace geom {
     
@@ -68,6 +67,7 @@ namespace geom {
         index_t P[N];
         T       m[N * (N-1)];
         std::copy(v[0].begin(), v[0].begin() + N * (N-1), m);
+        detail::MxWrap<T,true> mx = {m, N-1, N};
         bool parity_swap = false;
         
         if (decomp_plu(m, N-1, N, P, &parity_swap) > 0) {
@@ -78,9 +78,9 @@ namespace geom {
         for (index_t r = N-2; r >= 0; r--) {
             // back substitute.
             for (index_t c = N-1; c > r; c--) {
-                o[r] -= o[c] * _MxElem(m,r,c);
+                o[r] -= o[c] * mx(r,c);
             }
-            o[r] /= _MxElem(m,r,r);
+            o[r] /= mx(r,r);
         }
         
         return o;
@@ -124,12 +124,12 @@ namespace geom {
             return;
         }
         
-        T       m[N * (N-2)]; // <--  N-2 = max # bases
+        T       m[N * (N-2)]; // <--  N-2 is the max # bases
         index_t P[N - 2];     //     (N-1 case handled above)
               T* n0 = null_basis[0].begin();
         const T* b0 = bases[0].begin();
         
-        // copy the bases to new storage
+        // copy the bases to temporary storage
         std::copy(b0, b0 + N * n, m);
         // zero-init the results
         std::fill(n0, n0 + N * (N - n), 0);
@@ -207,7 +207,6 @@ namespace geom {
     
 } // namespace geom
 
-#undef _MxElem
 
 #endif	/* ORTHOGONAL_H */
 

@@ -103,7 +103,6 @@ void exercise_orthogonalize(rng_t* rng, index_t trials) {
 }
 
 
-// xxx: broken
 template <typename T, index_t N>
 void exercise_nullspace(rng_t* rng, index_t trials) {
     auto urnd = std::uniform_int_distribution<index_t>(1, N - 1);
@@ -115,6 +114,7 @@ void exercise_nullspace(rng_t* rng, index_t trials) {
         
         // verify that each of the null bases have
         // zero dot product with the source bases.
+        // (they are not guaranteed to be orthogonal to each other)
         for (index_t j = 0; j < n; ++j) {
             for (index_t k = n; k < N; ++k) {
                 BOOST_CHECK_SMALL(bases[j].dot(bases[k]), 1e-5);

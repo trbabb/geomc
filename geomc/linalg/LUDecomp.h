@@ -271,7 +271,7 @@ void linear_solve_plu(
  * @tparam RowMajor Whether the layout of the matrix is row-major (`true`) 
  * or column-major (`false`).
  *
- * @param lup An `n x n` LU-decomposed matrix.
+ * @param lu An `n x n` LU-decomposed matrix.
  * @param n The number of rows and columns in the matrix.
  * @param x The solution vector of `n` elements to be filled.
  * @param b A vector of `n` elements.
