@@ -2,7 +2,7 @@ CC        = g++
 AR        = ar
 PREFIX    = /opt/local
 INCLUDES  = .
-CFLAGS    = -std=c++11 -O3 -Wall -fmessage-length=0 -Wno-unused-local-typedef
+CFLAGS    = -g -std=c++11 -O3 -Wall -fmessage-length=0 -Wno-unused-local-typedef
 IFLAGS    = $(addprefix -I, $(INCLUDES))
 
 LIB_SRC   = $(wildcard geomc/*.cpp) $(wildcard geomc/*/*.cpp)
@@ -48,11 +48,13 @@ test-%: bin/regression/%
 	$<
 
 
-# dependencies
+# auto-dependencies:
 DEP = $(patsubst %.cpp, build/%.d, $(ALL_SRC))
 
 -include $(DEP)
 
+
+# build rules:
 
 build/%.o: %.cpp build/%.d
 	$(CC) -c $(CFLAGS) $(IFLAGS) -o $@ $<

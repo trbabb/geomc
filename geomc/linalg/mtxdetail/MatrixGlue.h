@@ -34,11 +34,15 @@ template <typename T, bool RowMajor>
 struct MxWrap {
 
     T* m;
-    index_t rows;
-    index_t cols;
+    const index_t rows;
+    const index_t cols;
 
     inline T& elem(index_t r, index_t c) {
         return m[cols * r + c];
+    }
+    
+    inline T& operator()(index_t r, index_t c) {
+        return elem(r,c);
     }
 };
 
@@ -46,11 +50,15 @@ template <typename T>
 struct MxWrap<T, false> {
 
     T* m;
-    index_t rows;
-    index_t cols;
+    const index_t rows;
+    const index_t cols;
 
     inline T& elem(index_t r, index_t c) {
         return m[rows * c + r];
+    }
+    
+    inline T& operator()(index_t r, index_t c) {
+        return elem(r,c);
     }
 };
 
