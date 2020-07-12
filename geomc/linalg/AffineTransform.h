@@ -618,7 +618,7 @@ namespace geom {
      * @related AffineTransform
      */
     template <typename T, index_t N, MatrixLayout Lyt, StoragePolicy P> 
-    AffineTransform<T,N> transformation(const SimpleMatrix<T,N,N,Lyt,P> &mat) {
+    AffineTransform<T,N> transformation(const SimpleMatrix<T,N,N,Lyt,P>& mat) {
         SimpleMatrix<T,N,N>  m_inv;
         AffineTransform<T,N> xfnew;
         
@@ -626,10 +626,17 @@ namespace geom {
             throw NonsquareMatrixException(mat.rows(), mat.cols());
         }
         
+        // calculate the inverse
         inv(&m_inv, mat);
-        Rect<index_t,2> region(Vec<index_t,2>::zeros, Vec<index_t,2>(mat.rows()));
-        std::copy(  mat.begin(),   mat.end(), xfnew.mat.region_begin(region));
-        std::copy(m_inv.begin(), m_inv.end(), xfnew.inv.region_begin(region));
+        
+        // copy the sub-matrices
+        for (index_t r = 0; r < mat.rows(); ++r) {
+            for (index_t c = 0; c < mat.cols(); ++c) {
+                xfnew.inv(r,c) = m_inv(r,c);
+                xfnew.mat(r,c) =   mat(r,c);
+            }
+        }
+        
         return xfnew;
     }
     

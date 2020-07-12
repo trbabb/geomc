@@ -27,6 +27,8 @@
 #include <geomc/linalg/Vec.h>
 #include <geomc/shape/shapedetail/Hit.h>
 
+// todo: remove redundant fn names.
+
 // all boundaries are inclusive. this is inconsistent with half-open interval convention, but:
 // - union of rect with a point should thereafter contain the point
 // - with a half-open interval, we'd need to "increment" the upper bound
@@ -230,7 +232,8 @@ public:
      * @return A Rect fully containing `this` and box `b`.
      */
     inline Rect<T,N> operator|(const Rect<T,N> &b) const {
-        return range_union(b);
+        return Rect<T,N>(std::min(lo, b.lo),
+                         std::max(hi, b.hi));
     }
     
     /**
@@ -278,7 +281,8 @@ public:
      * @return A Rect representing the area overlapped by both `this` and `b`.
      */
     inline Rect<T,N> operator&(const Rect<T,N> &b) const {
-        return range_intersection();
+        return Rect<T,N>(std::max(lo, b.lo),
+                         std::min(hi, b.hi));
     }
     
     /**
@@ -568,15 +572,6 @@ public:
         hi += tx;
         lo += tx;
     }
-
-    /**
-     * Translation
-     * @param tx Amount by which to translate this region.
-     */
-    void translate(point_t tx) {
-        hi += tx;
-        lo += tx;
-    }
     
     /**
      * Compute the N-dimensional volume of this region as the product of its
@@ -607,22 +602,6 @@ public:
             }
         }
         return false;
-    }
-    
-    /**
-     * @return A new Rect representing the area overlapped by both `this` and `b`.
-     */
-    Rect<T,N> range_intersection(const Rect<T,N> &b) const {
-        return Rect<T,N>(std::max(lo, b.lo),
-                         std::min(hi, b.hi));
-    }
-
-    /**
-     * @return A new Rect completely containing both `this` and `b`.
-     */
-    Rect<T,N> range_union(const Rect<T,N> &b) const {
-        return Rect<T,N>(std::min(lo, b.lo),
-                         std::max(hi, b.hi));
     }
     
     /**

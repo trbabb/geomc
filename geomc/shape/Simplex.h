@@ -95,7 +95,7 @@ public:
      *
      * If this simplex already has `N + 1` points, a copy of this simplex is returned.
      */
-    Simplex<T,N> operator+(const Vec<T,N>& p) const {
+    Simplex<T,N> operator|(const Vec<T,N>& p) const {
         Simplex<T,N> s = *this;
         if (n < N + 1) {
             s.n += 1;
@@ -106,9 +106,11 @@ public:
 
 
     /**
-     * @brief Add a new vertex to this simplex at `p`.
+     * @brief Extend this simplex to include `p` by adding `p` as a vertex.
+     *
+     * If this Simplex already has `N+1` vertices, then this operator has no effect.
      */
-    Simplex<T,N>& operator+=(const Vec<T,N>& p) {
+    Simplex<T,N>& operator|=(const Vec<T,N>& p) {
         if (n < N + 1) {
             pts[n] = p;
             n += 1;
@@ -116,6 +118,25 @@ public:
         return *this;
     }
     
+    /**
+     * @brief Apply a transformation to the points of this Simplex.
+     */
+    Simplex<T,N>& operator*=(const AffineTransform<T,N>& xf) {
+        for (index_t i = 0; i < n; ++i) {
+            pts[i] = xf * pts[i];
+        }
+        return *this;
+    }
+    
+    /**
+     * @brief Apply an inverse transformation to the points of this Simplex.
+     */
+    Simplex<T,N>& operator/=(const AffineTransform<T,N>& xf) {
+        for (index_t i = 0; i < n; ++i) {
+            pts[i] = pts[i] / xf;
+        }
+        return *this;
+    }
     
     /**
      * @brief Project the point to the simplex along its orthogonal basis
@@ -311,7 +332,7 @@ public:
             }
             Vec<T,N> p_in_basis = p - s.pts[0];
             for (index_t i = 0; i < proj_dims; ++i) {
-                out += p_in_basis.projectOn(proj_basis[i]);
+                out |= p_in_basis.projectOn(proj_basis[i]);
             }
         }
         
@@ -323,7 +344,7 @@ public:
         } else {
             // `out` is the direction from s's corner to the projected point.
             // add s's corner to get the absolute point.
-            out += s.pts[0];
+            out |= s.pts[0];
         }
         
         if (onto) *onto = s;
@@ -437,7 +458,9 @@ private:
 
 
 }; // class simplex
-    
+
+
+
 } // namespace geom
 
 #endif	/* SIMPLEX_H */

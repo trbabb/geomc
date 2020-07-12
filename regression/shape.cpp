@@ -11,6 +11,7 @@
 #include <geomc/shape/Simplex.h>
 #include <geomc/shape/Sphere.h>
 #include <geomc/shape/Extrusion.h>
+#include <geomc/shape/Frustum.h>
 
 
 using namespace geom;
@@ -171,12 +172,13 @@ struct ShapeSampler<Frustum<Shape>> {
         // i am not sure this logic is right, but at worst
         // we just have a skewed sampling of our frustum
         std::uniform_real_distribution<T> u(0,1);
-        Vec<T,N-1> p = ShapeSampler<Shape>(shape.shape)(rng);
+        Vec<T,N-1> p = ShapeSampler<Shape>(shape.base)(rng);
         auto c_h = shape.clipped_height();
         T lo = std::sqrt(std::abs(c_h.lo));
         T hi = std::sqrt(std::abs(c_h.hi));
         T h = (hi - lo) * u(*rng) + lo;
-        return Vec<T,N>(p, h * h * (c_h.lo < 0 ? -1 : 1));
+        h = h * h * (c_h.lo < 0 ? -1 : 1);
+        return Vec<T,N>(h * p, h);
     }
 };
 
@@ -239,7 +241,7 @@ struct RandomShape<Simplex<T,N>> {
         Simplex<T,N> s;
         Vec<T,N> tx = 15 * rnd<T,N>(rng);
         for (index_t i = 0; i <= N; ++i) {
-            s += 5 * rnd<T,N>(rng) + tx;
+            s |= 5 * rnd<T,N>(rng) + tx;
         }
         return s;
     }
@@ -268,7 +270,7 @@ struct RandomShape<Frustum<Shape>> {
     static Frustum<Shape> rnd_shape(rng_t* rng) {
         return Frustum<Shape>(
             RandomShape<Shape>::rnd_shape(rng),
-            Rect<T,N>::spanning_corners(
+            Rect<T,1>::spanning_corners(
                 5 * rnd<T>(rng),
                 5 * rnd<T>(rng)
             ));
@@ -428,6 +430,14 @@ BOOST_AUTO_TEST_CASE(validate_sphere) {
 
 BOOST_AUTO_TEST_CASE(validate_extrusion) {
     explore_compound_shape<Extrusion, double>(&rng, 250);
+}
+
+BOOST_AUTO_TEST_CASE(validate_oriented) {
+    explore_compound_shape<Oriented, double>(&rng, 250);
+}
+
+BOOST_AUTO_TEST_CASE(validate_frustum) {
+    // explore_compound_shape<Frustum, double>(&rng, 250); //xxx failing
 }
 
 BOOST_AUTO_TEST_CASE(create_oriented_cylinder) {

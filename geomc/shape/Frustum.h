@@ -34,7 +34,7 @@ namespace geom {
  * templated type alias for `Oriented<Frustum<Rect>>`. 
  */
 template <typename Shape>
-class Frustum : public virtual Convex<typename Shape::T, Shape::N + 1> {
+class Frustum : public virtual Convex<typename Shape::elem_t, Shape::N + 1> {
     public:
         /// The coordinate type of this Shape
         typedef typename Shape::elem_t T;
@@ -62,13 +62,21 @@ class Frustum : public virtual Convex<typename Shape::T, Shape::N + 1> {
                     height(std::min(h0,h1), std::max(h0,h1)) {}
         
         /**
+         * @brief Construct a new Frustum having `base` as a cross section,
+         * and spanning the height range `h`.
+         */
+        Frustum(const Shape& base, const Rect<T,1>& h):
+            base(base),
+            height(h) {}
+        
+        /**
          * Frustum-point intersection test.
          * 
          * @param p A point.
          * @return `true` if `p` is on or inside this frustum; `false` otherwise.
          */
         bool contains(Vec<T,N> p) const {
-            if (not height.contains(p[N-1])) return false;
+            if (not clipped_height().contains(p[N-1])) return false;
             p /= p[N-1];
             return base.contains(p.template resized<N-1>());
         }
@@ -98,7 +106,7 @@ class Frustum : public virtual Convex<typename Shape::T, Shape::N + 1> {
             Rect<T,N-1> b0 = base.bounds();
             Rect<T,1> h    = clipped_height();
             // make two rects for the top and bottom faces;
-            // union them; extend by the height:
+            // union them; extrude by the height:
             return ((b0 * h.lo) | (b0 * h.hi)) * h; // purdy!!
         }
         
