@@ -12,12 +12,12 @@
 
 namespace geom {
 
-// todo: We should be able to always pre- or post-permute a vector cheaply.
-//       One of those will be cheap, since they are inverses of each other.
 // todo: we compute the inverse of P as part of matrix inversion.
 //       I suspect in some circumstances (i.e. certain matrix layout
 //       combinations) the inverse isn't needed. Can we avoid computing
 //       P's inverse?
+//       Generally, we should always be able to pre- or post-permute a 
+//       vector cheaply, since they are inverses of each other.
 
 // todo: we do a final transpose as part of matrix inversion when
 //       the destination is row-major. is there a way we can eliminate
@@ -645,7 +645,7 @@ public:
      */
     template <index_t J, index_t K, MatrixLayout Lyt, StoragePolicy SP>
     void inverse(SimpleMatrix<T,J,K,Lyt,SP>* into) const {
-        
+        // todo: this can all probably be cleaner/cheaper
 #ifdef GEOMC_MTX_CHECK_DIMS
         _check_is_square();
         // destination is valid?

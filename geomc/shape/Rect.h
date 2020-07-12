@@ -60,19 +60,19 @@ namespace geom {
  * 
  * * `Rect<double,4>::point_t` is `Vec<double,4>`; `lo` and `hi` are `Vec4d`.
  * * `Rect<double,1>::point_t` is `double`; `lo` and `hi` are `double`.
- * 
- * Rect boundaries are inclusive. The points `lo` and `hi` are considered
- * to be inside the Rect. Therefore, "degenerate" Rects (like those that contain only
- * a single point, edge, or face), are considered non-empty.
- *
- * Note that this convention differs slightly from conventional "interval" logic
- * on integers, wherein the upper boundary is excluded. This convention was chosen
- * to make all the faces of a Rect symmetrical, and avoid special cases or conditional
- * increments. To iterate over the range within an integer Rect, consider using a GridIterator
- * object, which abstracts away the boundary logic for you.
  *
  * If any coordinate of `lo` is greater than the same coordinate of `hi`, then
  * the `Rect` is empty.
+ *
+ * Rect boundaries are inclusive. The points `lo` and `hi` are considered
+ * to be inside the Rect. Therefore, `Rect`s that contain only a single point, edge, 
+ * or face are considered non-empty.
+ *
+ * Note that this convention differs slightly from conventional "interval" logic
+ * on integers, wherein the upper boundary is excluded. This convention was chosen
+ * so that adding any point to a Rect as a vertex ensures that the Rect thereafter 
+ * includes that point. To iterate over the range within an integer Rect, consider 
+ * using a GridIterator object, which abstracts away the boundary logic for you.
  */
 template <typename T, index_t N> 
 class Rect : virtual public Convex<T,N> {

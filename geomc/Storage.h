@@ -357,7 +357,7 @@ struct WrappedStorage {
  * upper bound on the possible size. This allows the stack to be used in the majority
  * case, only deferring to heap allocation when unusually large buffers are needed.
  *
- * On assignment or copy, reallocations we be avoided if the existing buffer is already 
+ * On assignment or copy, reallocations will be avoided if the existing buffer is already 
  * the correct size. Move semantics will also avoid an allocation in c++11 or later.
  *
  * This buffer will *always* stack-allocate a buffer of size `N` (it will simply not be used
