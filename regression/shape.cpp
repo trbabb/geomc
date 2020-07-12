@@ -327,6 +327,7 @@ void exercise_shape(rng_t* rng, const Shape& s, index_t trials) {
     // shrink the blob so that more of it falls inside the bbox:
     Vec<T,N>  dims = bbox.dimensions() / 4;
     Vec<T,N>     c = bbox.center();
+    
     for (index_t i = 0; i < trials; ++i) {
         // validate a point near the shape's bbox
         validate_point<Shape>(rng, s, rnd<T,N>(rng) * dims + c);
@@ -414,9 +415,8 @@ BOOST_AUTO_TEST_CASE(validate_simplex) {
     explore_shape<Simplex<double, 4>>(&rng, 1000);
     explore_shape<Simplex<double, 5>>(&rng, 1000);
     explore_shape<Simplex<double, 7>>(&rng, 1000);
-    // todo: also check that contains(), projection_contains(),
-    //       and a manual barycentric solve all agree about
-    //       pt containment.
+    // todo: also check that contains() and projection_contains(),
+    //       all agree about pt containment.
 }
 
 BOOST_AUTO_TEST_CASE(validate_sphere) {
@@ -427,8 +427,7 @@ BOOST_AUTO_TEST_CASE(validate_sphere) {
 
 
 BOOST_AUTO_TEST_CASE(validate_extrusion) {
-    // xxx: crashy crash:
-    // explore_compound_shape<Extrusion, double>(&rng, 250);
+    explore_compound_shape<Extrusion, double>(&rng, 250);
 }
 
 BOOST_AUTO_TEST_CASE(create_oriented_cylinder) {

@@ -449,13 +449,14 @@ public:
      * @tparam M Dimensionality of `r`.
      */
     template <index_t M>
-    inline Rect<T,M + N> operator*(const Rect<T,M>& r) const {
+    inline Rect<T,M+N> operator*(const Rect<T,M>& r) const {
+        typedef PointType<T,M> r_ptype;
         Rect<T,M+N> o;
         
-        std::copy(ptype::iterator(lo),   ptype::iterator(lo)   + N, o.lo.begin());
-        std::copy(ptype::iterator(hi),   ptype::iterator(hi)   + N, o.hi.begin());
-        std::copy(ptype::iterator(r.lo), ptype::iterator(r.lo) + M, o.lo.begin() + N);
-        std::copy(ptype::iterator(r.lo), ptype::iterator(r.hi) + M, o.hi.begin() + N);
+        std::copy(  ptype::iterator(lo),     ptype::iterator(lo)   + N, o.lo.begin());
+        std::copy(  ptype::iterator(hi),     ptype::iterator(hi)   + N, o.hi.begin());
+        std::copy(r_ptype::iterator(r.lo), r_ptype::iterator(r.lo) + M, o.lo.begin() + N);
+        std::copy(r_ptype::iterator(r.hi), r_ptype::iterator(r.hi) + M, o.hi.begin() + N);
         
         return o;
     }
