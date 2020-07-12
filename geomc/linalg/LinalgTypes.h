@@ -172,11 +172,11 @@ namespace detail {
     struct PointType {
         typedef Vec<T,N> point_t;
         
-        static inline T* iterator(point_t &p) {
+        static inline T* iterator(point_t& p) {
             return p.begin();
         }
         
-        static inline const T* iterator(const point_t &p) {
+        static inline const T* iterator(const point_t& p) {
             return p.begin();
         }
         
@@ -184,15 +184,15 @@ namespace detail {
             return point_t(p);
         }
         
-        static inline point_t from_larger_vector(const Vec<T,N+1> &v) {
+        static inline point_t from_larger_vector(const Vec<T,N+1>& v) {
             return v.template resized<N>();
         }
         
-        static inline T mag2(const point_t &p) {
+        static inline T mag2(const point_t& p) {
             return p.mag2();
         }
         
-        static inline T mag(const point_t &p) {
+        static inline T mag(const point_t& p) {
             return p.mag();
         }
         
@@ -205,11 +205,11 @@ namespace detail {
     struct PointType<T,1> {
         typedef T point_t;
         
-        static inline T* iterator(point_t &p) {
+        static inline T* iterator(point_t& p) {
             return &p;
         }
         
-        static inline const T* iterator(const point_t &p) {
+        static inline const T* iterator(const point_t& p) {
             return &p;
         }
         
@@ -217,15 +217,15 @@ namespace detail {
             return *p;
         }
         
-        static inline point_t from_larger_vector(const Vec<T,2> &v) {
+        static inline point_t from_larger_vector(const Vec<T,2>& v) {
             return v[0];
         }
         
-        static inline T mag2(const point_t &p) {
+        static inline T mag2(const point_t& p) {
             return p * p;
         }
         
-        static inline T mag(const point_t &p) {
+        static inline T mag(const point_t& p) {
             return p;
         }
         
