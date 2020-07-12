@@ -25,7 +25,7 @@
 // xxx: this whole class needs an overhaul:
 // - rename AffineTransform to "Xf"
 // - rename .mat to .mtx
-// - fix naming convention
+// - fix naming convention to snake_case
 // - fix operators
 
 namespace geom {
@@ -80,28 +80,28 @@ namespace geom {
         /**
          * Transformation of a ray.
          */
-        friend Ray<T,N> operator*(const AffineTransform<T,N> &xf, Ray<T,N> r) {
+        friend Ray<T,N> operator*(const AffineTransform<T,N>& xf, Ray<T,N> r) {
             return Ray<T,N>(xf.apply(r.origin), xf.applyVector(r.direction));
         }
         
         /**
          * Inverse transformation of a ray (`xf`<sup>`-1`</sup>` * ray`)
          */
-        friend Ray<T,N> operator/(Ray<T,N> r, const AffineTransform<T,N> &xf) {
+        friend Ray<T,N> operator/(Ray<T,N> r, const AffineTransform<T,N>& xf) {
             return Ray<T,N>(xf.applyInverse(r.origin), xf.applyInverseVector(r.direction));
         }
         
         /**
          * Transformation of a point.
          */
-        friend Vec<T,N> operator*(const AffineTransform<T,N> &xf, Vec<T,N> p) {
+        friend Vec<T,N> operator*(const AffineTransform<T,N>& xf, Vec<T,N> p) {
             return xf.apply(p);
         }
         
         /**
          * Inverse transformation of a point (`xf`<sup>`-1`</sup>` * pt`)
          */
-        friend Vec<T,N> operator/(Vec<T,N> p, const AffineTransform<T,N> &xf) {
+        friend Vec<T,N> operator/(Vec<T,N> p, const AffineTransform<T,N>& xf) {
             return xf.applyInverse(p);
         }
         
@@ -111,8 +111,8 @@ namespace geom {
          * `xf1`.
          */
         friend AffineTransform<T,N> operator*(
-                const AffineTransform<T,N> &xf1, 
-                const AffineTransform<T,N> &xf2)
+                const AffineTransform<T,N>& xf1, 
+                const AffineTransform<T,N>& xf2)
         {
             return xf2.apply(xf1);
         }
@@ -123,8 +123,8 @@ namespace geom {
          * the inverse of `xf2`.
          */
         friend AffineTransform<T,N> operator/(
-                const AffineTransform<T,N> &xf1, 
-                const AffineTransform<T,N> &xf2)
+                const AffineTransform<T,N>& xf1, 
+                const AffineTransform<T,N>& xf2)
         {
             return xf1.applyInverse(xf2);
         }
@@ -134,7 +134,7 @@ namespace geom {
          * 
          * Assign a transform representing an application of `this` followed by `xf`.
          */
-        AffineTransform<T,N>& operator*=(const AffineTransform<T,N> &xf) {
+        AffineTransform<T,N>& operator*=(const AffineTransform<T,N>& xf) {
             mat = xf.mat * mat;
             inv = inv * xf.inv;
             return (*this);
@@ -146,7 +146,7 @@ namespace geom {
          * Assign a transform representing an application of `this` followed by
          * the inverse of `xf`.
          */
-        AffineTransform<T,N>& operator/=(const AffineTransform<T,N> &xf) {
+        AffineTransform<T,N>& operator/=(const AffineTransform<T,N>& xf) {
             mat = xf.inv * mat;
             inv = inv * xf.mat;
             return *this;
@@ -162,7 +162,7 @@ namespace geom {
         }
         
 #ifdef GEOMC_LINALG_USE_STREAMS
-        friend std::ostream &operator<<(std::ostream &stream, const AffineTransform<T,N> xf) {
+        friend std::ostream &operator<<(std::ostream& stream, const AffineTransform<T,N> xf) {
             stream << xf.mat;
             return stream;
         }
@@ -175,7 +175,7 @@ namespace geom {
         /**
          * Transformation of a point.
          */
-        const Vec<T,N> apply(const Vec<T,N> &p) const {
+        const Vec<T,N> apply(const Vec<T,N>& p) const {
             Vec<T,N+1> p_hom(p,1);
             p_hom = mat * p_hom;
             return p_hom.template resized<N>(); //c++ is awful
@@ -184,7 +184,7 @@ namespace geom {
         /**
          * Transformation of a direction vector; ignores any translation.
          */
-        const Vec<T,N> applyVector(const Vec<T,N> &v) const {
+        const Vec<T,N> applyVector(const Vec<T,N>& v) const {
             Vec<T,N> o;
             for (index_t r = 0; r < N; r++) {
                 for (index_t c = 0; c < N; c++) {
@@ -198,7 +198,7 @@ namespace geom {
          * Transformation of a normal. Preserves surface direction
          * of geometry transformed by `this`. 
          */
-        const Vec<T,N> applyNormal(const Vec<T,N> &n) const {
+        const Vec<T,N> applyNormal(const Vec<T,N>& n) const {
             // normal matrix = txpose of inverse.
             Vec<T,N> o;
             for (index_t r = 0; r < N; r++) {
@@ -212,7 +212,7 @@ namespace geom {
         /**
          * Inverse transformation of a point.
          */
-        const Vec<T,N> applyInverse(const Vec<T,N> &p) const {
+        const Vec<T,N> applyInverse(const Vec<T,N>& p) const {
             Vec<T,N+1> p_hom(p,1);
             p_hom = inv * p_hom; // this is returning a dynamic matrix for some reason.
             return p_hom.template resized<N>();
@@ -221,7 +221,7 @@ namespace geom {
         /**
          * Inverse transformation of a direction vector; ignores any translation.
          */
-        const Vec<T,N> applyInverseVector(const Vec<T,N> &v) const {
+        const Vec<T,N> applyInverseVector(const Vec<T,N>& v) const {
             Vec<T,N> o;
             for (index_t r = 0; r < N; r++) {
                 for (index_t c = 0; c < N; c++) {
@@ -234,7 +234,7 @@ namespace geom {
         /**
          * Inverse transformation of a normal.
          */
-        const Vec<T,N> applyInverseNormal(const Vec<T,N> &n) const {
+        const Vec<T,N> applyInverseNormal(const Vec<T,N>& n) const {
             // txpose of inverse of inverse.
             Vec<T,N> o;
             for (index_t r = 0; r < N; r++) {
@@ -250,7 +250,7 @@ namespace geom {
          * @return A transformation representing a transform by `this` followed by
          * a transform by `xf`.
          */
-        const AffineTransform<T,N> apply(const AffineTransform<T,N> &xf) const {
+        const AffineTransform<T,N> apply(const AffineTransform<T,N>& xf) const {
             AffineTransform xfnew;
             xfnew.mat = xf.mat * mat;
             xfnew.inv = inv * xf.inv;
@@ -286,7 +286,7 @@ namespace geom {
      *******************************/
 
     template <typename T> 
-    void rotmat(SimpleMatrix<T,4,4> *into, T x, T y, T z, T theta) {
+    void rotmat(SimpleMatrix<T,4,4>* into, T x, T y, T z, T theta) {
         T c = std::cos(theta);
         T s = std::sin(theta);
         T c_1 = 1 - c;
@@ -302,30 +302,30 @@ namespace geom {
     
     // rotation about an axis
     template <typename T>
-    inline void rotmat(SimpleMatrix<T,4,4> *into, const Vec<T,3> &axis, T theta) {
+    inline void rotmat(SimpleMatrix<T,4,4> *into, const Vec<T,3>& axis, T theta) {
         rotmat(into, axis.x, axis.y, axis.z, theta);
     }
 
     // rotation from a quaternion
     template <typename T> 
-    void rotmat(SimpleMatrix<T,4,4> *into, const Quat<T> &q) {
-        T x = q.x; //for convenience
-        T y = q.y;
-        T z = q.z;
-        T w = q.w;
-        T x2 = x*x; // for speed
-        T y2 = y*y; // ...
-        T z2 = z*z;
-        T w2 = w*w;
+    void rotmat(SimpleMatrix<T,4,4>* into, const Quat<T>& q) {
+        T x    = q.x; //for convenience
+        T y    = q.y;
+        T z    = q.z;
+        T w    = q.w;
+        T x2   = x*x; // for speed
+        T y2   = y*y; // ...
+        T z2   = z*z;
+        T w2   = w*w;
         T twox = 2*x;
         T twoy = 2*y;
         T twoz = 2*z;
-        T xy = twox * y;
-        T xz = twox * z;
-        T xw = twox * w;
-        T yz = twoy * z;
-        T yw = twoy * w;
-        T zw = twoz * w;
+        T xy   = twox * y;
+        T xz   = twox * z;
+        T xw   = twox * w;
+        T yz   = twoy * z;
+        T yw   = twoy * w;
+        T zw   = twoz * w;
         T m[4][4] = {
                 {w2 + x2 - y2 - z2, xy - zw, xz + yw, 0},
                 {xy + zw, w2 - x2 + y2 - z2, yz - xw, 0},
@@ -338,10 +338,12 @@ namespace geom {
 
     // rotation about an arbitrary point
     template <typename T> 
-    void rotmat(SimpleMatrix<T,4,4> *into, 
-                T x,  T y,  T z, 
-                T px, T py, T pz, 
-                T theta) {
+    void rotmat(
+            SimpleMatrix<T,4,4>* into, 
+            T x,  T y,  T z, 
+            T px, T py, T pz, 
+            T theta)
+    {
         T   c = std::cos(theta);
         T   s = std::sin(theta);
         T c_1 = 1 - c;
@@ -374,19 +376,23 @@ namespace geom {
     
     // rotation about an arbitrary point
     template <typename T>
-    inline void rotmat(SimpleMatrix<T,4,4> *into,
-                       Vec<T,3> axis,
-                       Vec<T,3> ctr,
-                       T theta) {
+    inline void rotmat(
+            SimpleMatrix<T,4,4>* into,
+            Vec<T,3> axis,
+            Vec<T,3> ctr,
+            T theta)
+    {
         rotmat(into, axis.x, axis.y, axis.z, ctr.x, ctr.y, ctr.z, theta);
     }
     
     // rotation aligning `dir` with `alignWith`.
     // modified from http://www.iquilezles.org/www/articles/noacos/noacos.htm
     template <typename T>
-    inline void rotmat_direction_align(SimpleMatrix<T,4,4> *into, 
-                                       const Vec<T,3> &dir, 
-                                       const Vec<T,3> &alignWith) {
+    inline void rotmat_direction_align(
+            SimpleMatrix<T,4,4>* into, 
+            const Vec<T,3>& dir, 
+            const Vec<T,3>& alignWith)
+    {
         const Vec<T,3> v = dir ^ alignWith;
         const T c = dir.dot(alignWith);
         
@@ -409,9 +415,11 @@ namespace geom {
     
     
     template <typename T>
-    inline void rotmat_direction_align(SimpleMatrix<T,3,3> *into, 
-                                       const Vec<T,3> &dir, 
-                                       const Vec<T,3> &alignWith) {
+    inline void rotmat_direction_align(
+            SimpleMatrix<T,3,3>* into, 
+            const Vec<T,3>& dir, 
+            const Vec<T,3>& alignWith)
+    {
         const Vec<T,3> v = dir ^ alignWith;
         const T c = dir.dot(alignWith);
         
@@ -434,36 +442,45 @@ namespace geom {
     
     // rotation about an arbitrary point (with inverse)
     template <typename T>
-    void rotmat(SimpleMatrix<T,4,4> *out_mat, 
-                SimpleMatrix<T,4,4> *out_inv, 
-                T x,  T y,  T z, 
-                T px, T py, T pz, 
-                T theta) {
-        T c = std::cos(theta);
-        T s = std::sin(theta);
+    void rotmat(
+            SimpleMatrix<T,4,4> *out_mat, 
+            SimpleMatrix<T,4,4> *out_inv, 
+            T x,  T y,  T z, 
+            T px, T py, T pz, 
+            T theta) 
+    {
+        T   c = std::cos(theta);
+        T   s = std::sin(theta);
         T c_1 = 1 - c;
         T  x2 = x*x;
         T  y2 = y*y;
         T  z2 = z*z;
+        T xyc = x*y*c_1;
+        T xzc = x*z*c_1;
+        T yzc = y*z*c_1;
+        T da  = x2 + c*(y2 + z2);
+        T db  = y2 + c*(x2 + z2);
+        T dc  = z2 + c*(x2 + y2);
+        
         T fac[4][4] = {
-                {x2 + c*(y2 + z2), x*y*c_1,          x*z*c_1,          (px*(y2 + z2) - x*(py*y + pz*z))*c_1},
-                {x*y*c_1,          y2 + c*(x2 + z2), y*z*c_1,          (py*(x2 + z2) - y*(px*x + pz*z))*c_1},
-                {x*z*c_1,          y*z*c_1,          z2 + c*(x2 + y2), (pz*(x2 + y2) - z*(px*x + py*y))*c_1},
-                {0,                0,                0,                1}
+            {da,  xyc, xzc, (px*(y2 + z2) - x*(py*y + pz*z))*c_1},
+            {xyc, db,  yzc, (py*(x2 + z2) - y*(px*x + pz*z))*c_1},
+            {xzc, yzc, dc,  (pz*(x2 + y2) - z*(px*x + py*y))*c_1},
+            {0,   0,   0,   1}
         };
         T sterms[3][4] = {
-                {0, -z*s, y*s, (py*z - pz*y)*s},
-                {z*s, 0, -x*s, (pz*x - px*z)*s},
-                {-y*s, x*s, 0, (px*y - py*x)*s}
+            {0,   -z*s, y*s, (py*z - pz*y)*s},
+            {z*s,  0,  -x*s, (pz*x - px*z)*s},
+            {-y*s, x*s, 0,   (px*y - py*x)*s}
         };
         
         // pre-fill output matrices.
-        T *from  = fac[0];
-        T *sfrom = sterms[0];
-        T *mat = out_mat->begin();
-        T *inv = out_inv->begin();
-        std::copy(from, from+16, mat);
-        std::copy(from, from+16, inv);
+        T* from  = fac[0];
+        T* sfrom = sterms[0];
+        T* mat   = out_mat->begin();
+        T* inv   = out_inv->begin();
+        std::copy(from, from + 16, mat);
+        std::copy(from, from + 16, inv);
         
         // add sine terms in.
         for (index_t i = 0; i < 12; i++, mat++, inv++, sfrom++) {
@@ -474,11 +491,13 @@ namespace geom {
     
     // rotation about an arbitrary point (with inverse)
     template <typename T>
-    inline void rotmat(SimpleMatrix<T,4,4> *out_mat,
-                       SimpleMatrix<T,4,4> *out_inv,
-                       const Vec<T,3> &axis,
-                       const Vec<T,3> &ctr,
-                       T theta) {
+    inline void rotmat(
+            SimpleMatrix<T,4,4>* out_mat,
+            SimpleMatrix<T,4,4>* out_inv,
+            const Vec<T,3>& axis,
+            const Vec<T,3>& ctr,
+            T theta)
+    {
         rotmat(out_mat, out_inv, axis.x, axis.y, axis.z, ctr.x, ctr.y, ctr.z, theta);
     }
     
@@ -498,7 +517,7 @@ namespace geom {
         AffineTransform<T,3> xfnew;
         axis = axis.unit();
         rotmat(&xfnew.mat, axis.x, axis.y, axis.z, radians);
-        transpose(&xfnew.inv, xfnew.mat); //dst,src. Transpose of a rotation matrix is its inverse
+        transpose(&xfnew.inv, xfnew.mat); // tanspose of a rotation matrix is its inverse
         return xfnew;
     }
     
@@ -516,13 +535,19 @@ namespace geom {
      * @related AffineTransform
      */
     template <typename T> 
-    AffineTransform<T,3> rotation(Vec<T,3> axis, const Vec<T,3> &center, T radians) {
+    AffineTransform<T,3> rotation(Vec<T,3> axis, const Vec<T,3>& center, T radians) {
         AffineTransform<T,3> xfnew;
         axis = axis.unit();
         
         // this is five times faster than translate * rotate * translate
         // and barely faster (3-6%) than calling rotmat() twice with -radians.
-        rotmat(&xfnew.mat, &xfnew.inv, axis.x, axis.y, axis.z, center.x, center.y, center.z, radians);
+        rotmat(
+            &xfnew.mat, 
+            &xfnew.inv, 
+            axis.x,   axis.y,   axis.z, 
+            center.x, center.y, center.z, 
+            radians);
+        
         return xfnew;
     }
     
@@ -574,7 +599,7 @@ namespace geom {
      * @related AffineTransform
      */
     template <typename T>
-    AffineTransform<T,3> direction_align(const Vec<T,3> &dir, const Vec<T,3> &align_with) {
+    AffineTransform<T,3> direction_align(const Vec<T,3>& dir, const Vec<T,3>& align_with) {
         AffineTransform<T,3> xfnew; 
         rotmat_direction_align(&xfnew.mat, dir, align_with);
         transpose(&xfnew.inv, xfnew.mat);
@@ -586,7 +611,7 @@ namespace geom {
      * @related AffineTransform
      */
     template <typename T, index_t N> 
-    AffineTransform<T,N> translation(const Vec<T,N> &tx) {
+    AffineTransform<T,N> translation(const Vec<T,N>& tx) {
         AffineTransform<T,N> xfnew;
         for (index_t i = 0; i < N; i++) {
             xfnew.mat[i][N] =  tx[i];
@@ -602,7 +627,7 @@ namespace geom {
      * @related AffineTransform
      */
     template <typename T, index_t N> 
-    AffineTransform<T,N> scale(const Vec<T,N> &sx) {
+    AffineTransform<T,N> scale(const Vec<T,N>& sx) {
         AffineTransform<T,N> xfnew;
         for (index_t i = 0; i < N; i++) {
             xfnew.mat[i][i] = sx[i];
