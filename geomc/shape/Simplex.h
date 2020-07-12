@@ -18,15 +18,16 @@
 //       Probably the best way to do QR is with Householder transformations; the algorithm
 //       can be found complete here: http://people.inf.ethz.ch/gander/papers/qrneu.pdf
 //       
-//       this should probably be exposed as orthogonal_project(basis[], n, P) in
-//       Orthogonal.h, and invoked here by projection_contains().
+//       the above should probably be exposed as orthogonal_project(basis[], n, P) in
+//       Orthogonal.h, and invoked here by projection_contains(). Also consider adding
+//       subspace_projection(bases[], n) -> Mtx, which can amortize the QR bidness.
 //
 //       right now we are running two LUP decompositions, and this is likely
 //       inefficient/unstable.
 
 // todo: handle degeneracy. GJK can make use of it.
 // todo: performance check old GJK vs new
-// todo: performance check projectionContains() vs. project() == this
+// todo: performance check projection_contains() vs. project() == this
 
 
 namespace geom {
@@ -167,9 +168,7 @@ public:
                 // its nullspace bases. (but don't bother actually solving for 
                 // the nullpsace coords; we don't use them).
                 Vec<T,N> x;
-                if (not linear_solve(bases, &x, p - pts[0], 1)) return false;
-                // ^ xxx: this `skip` part of this is highly suspect, given
-                //   the involvement of permutation
+                if (not linear_solve(bases, &x, p - pts[0], n_null)) return false;
                 
                 // check that the coordinates of `p` are inside the simplex
                 T sum = 0;
@@ -222,6 +221,7 @@ public:
         std::copy(p.begin(), p.end(), b + 1);
         
         linear_solve<T,false>(m, K, x, b, 1);
+        // ^^ skip solving for the sum of the weights; we know it's 1.
         
         T sum = 0;
         for (index_t i = 1; i < K; ++i) {
@@ -246,8 +246,6 @@ public:
     }
 
     
-    // todo: see if you can manage a smarter projection without
-    //       using nullspace.
     /**
      * @brief Project `p` to the nearest point on the simplex.
      *
@@ -261,6 +259,14 @@ public:
     Vec<T,N> project(const Vec<T,N>& p, Simplex<T,N>* onto=nullptr) const {
         Vec<T,N> buffer[N];
         Simplex<T,N> s;
+        
+        // why the recursion? why not project as in projection_contains(),
+        // obtaining two surface parameters, and then clip them?
+        // A: Because in general, the subspace of the simplex will not
+        //    be orthogonal, so clipping the coordinates to the unit triangle
+        //    will project the point non-orthogonally along the bases of 
+        //    that subspace. Instead we have to first find the sub-simplex 
+        //    which is closest, and then project down its nullspace.
         
         // initialize the nullspace, if necessary
         if (n - 1 < N) {

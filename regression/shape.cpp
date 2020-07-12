@@ -28,6 +28,9 @@ typedef std::mt19937_64 rng_t;
 //   - test that op(xf * shape, p) == op(shape, p / xf) for all {xf, p, shape, op}
 
 
+rng_t rng(18374691138699945602ULL);
+
+
 /****************************
  * random number generation *
  ****************************/
@@ -392,7 +395,6 @@ BOOST_AUTO_TEST_SUITE(shape)
 
 
 BOOST_AUTO_TEST_CASE(validate_rect) {
-    rng_t rng(3197900652316295587ULL);
     explore_shape<Rect<double, 2>>(&rng, 1000);
     explore_shape<Rect<double, 3>>(&rng, 1000);
     explore_shape<Rect<double, 4>>(&rng, 1000);
@@ -400,7 +402,6 @@ BOOST_AUTO_TEST_CASE(validate_rect) {
 }
 
 BOOST_AUTO_TEST_CASE(validate_cylinder) {
-    rng_t rng(1548107991650531738ULL);
     explore_shape<Cylinder<double, 3>>(&rng, 1000);
     explore_shape<Cylinder<double, 4>>(&rng, 1000);
     explore_shape<Cylinder<double, 5>>(&rng, 1000);
@@ -408,7 +409,6 @@ BOOST_AUTO_TEST_CASE(validate_cylinder) {
 }
 
 BOOST_AUTO_TEST_CASE(validate_simplex) {
-    rng_t rng(11028474705866095763ULL);
     explore_shape<Simplex<double, 2>>(&rng, 1000);
     explore_shape<Simplex<double, 3>>(&rng, 1000);
     explore_shape<Simplex<double, 4>>(&rng, 1000);
@@ -420,7 +420,6 @@ BOOST_AUTO_TEST_CASE(validate_simplex) {
 }
 
 BOOST_AUTO_TEST_CASE(validate_sphere) {
-    rng_t rng(18374691138699945602ULL);
     explore_shape<Sphere<double, 2>>(&rng, 1000);
     explore_shape<Sphere<double, 3>>(&rng, 1000);
     explore_shape<Sphere<double, 4>>(&rng, 1000);
@@ -428,7 +427,7 @@ BOOST_AUTO_TEST_CASE(validate_sphere) {
 
 
 BOOST_AUTO_TEST_CASE(validate_extrusion) {
-    rng_t rng(3790089757951833256ULL);
+    // xxx: crashy crash:
     // explore_compound_shape<Extrusion, double>(&rng, 250);
 }
 
