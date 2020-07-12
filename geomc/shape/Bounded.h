@@ -85,10 +85,10 @@ class Convex : virtual public Bounded<T,N> {
         for (index_t i = 0; i < N; ++i) {
             point_t axis, x;
             PointType<T,N>::iterator(axis)[i] =  1;
-            x = convex_support(axis);
+            x = this->convex_support(axis);
             hi[i] = PointType<T,N>::iterator(x)[i];
             PointType<T,N>::iterator(axis)[i] = -1;
-            x = convex_support(axis);
+            x = this->convex_support(axis);
             lo[i] = PointType<T,N>::iterator(x)[i];
         }
         return b;
