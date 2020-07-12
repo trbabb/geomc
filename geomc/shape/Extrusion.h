@@ -60,7 +60,7 @@ class Extrusion : public virtual Convex<typename Shape::elem_t, Shape::N + 1> {
          */     
         Extrusion(const Shape& base, T h0, T h1):
             base(base),
-            height(std::min(h0, h1), std::max(lo, h1)) {}
+            height(std::min(h0, h1), std::max(h0, h1)) {}
         
         /**
          * Extrusion-point intersection test.
@@ -92,7 +92,7 @@ class Extrusion : public virtual Convex<typename Shape::elem_t, Shape::N + 1> {
         }
         
         Rect<T,N> bounds() const {
-            return shape.bounds() * height;
+            return base.bounds() * height;
         }
 
         // todo: trace()

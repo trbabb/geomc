@@ -112,16 +112,16 @@ class Oriented< Rect<T,N> >: virtual public Convex<T,N> {
     /// Un-transformed extents.
     Rect<T,N> shape;
     /// Transformation orienting `shape`.
-    AffineTransform<T,N> xf; // transforms object points to world
+    AffineTransform<T,N> xf; // moves object points to world positions
     
-    /// Construct an axis-aligned box of size 1, with one corner at the origin.
+    /// Construct an empty axis-aligned box.
     Oriented() {}
     
     /// Construct an axis-aligned box from the given Rect.
-    Oriented(const Rect<T,N> &box):shape(box) {}
+    Oriented(const Rect<T,N>& box):shape(box) {}
     
     /// Construct an oriented box from the given Rect and object-to-world transformation.
-    Oriented(const Rect<T,N> &box, const AffineTransform<T,N> &xf):
+    Oriented(const Rect<T,N>& box, const AffineTransform<T,N>& xf):
             shape(box),
             xf(xf) {}
     
@@ -140,7 +140,7 @@ class Oriented< Rect<T,N> >: virtual public Convex<T,N> {
             for (index_t j = 0; j < N; j++) {
                 p[j] = pts[(i & (1 << j)) != 0][j];
             }
-            p = xf * p;
+            p  = xf * p;
             lo = std::min(lo, p);
             hi = std::max(hi, p);
         }
@@ -149,7 +149,7 @@ class Oriented< Rect<T,N> >: virtual public Convex<T,N> {
     }
 
     /// Return `this`.
-    inline Oriented<Rect<T,N>> oriented_bounds() const {
+    inline Oriented< Rect<T,N> > oriented_bounds() const {
         return *this;
     }
     
@@ -179,7 +179,7 @@ class Oriented< Rect<T,N> >: virtual public Convex<T,N> {
      * @param b1 OritentedRect to test against.
      * @return `true` if and only if `this` overlaps with `b1`; `false` otherwise.
      */
-    inline bool intersects(Rect<T,N> r) {
+    inline bool intersects(const Rect<T,N>& r) {
         return detail::RectIntersector<T,N>::intersect(*this, r);
     }
     
@@ -189,12 +189,12 @@ class Oriented< Rect<T,N> >: virtual public Convex<T,N> {
      * @param b1 OritentedRect to test against.
      * @return `true` if and only if `this` overlaps with `b1`; `false` otherwise.
      */
-    inline bool intersects(const Oriented<Rect<T,N>>& b1) {
+    inline bool intersects(const Oriented< Rect<T,N> >& b1) {
         // we will make ourselves axis-aligned; this is the same as applying
         // the inverse of our xf. We apply the inverse of xf to b1 too,
         // to preserve the relationhip between the us. From this, we
         // fallback to an ORect <-> Rect test.
-        Oriented<Rect<T,N>> b1_in_b0 = b1 / xf;
+        Oriented< Rect<T,N> > b1_in_b0 = b1 / xf;
         
         return b1_in_b0.intersects(shape);
     }
@@ -263,7 +263,7 @@ Oriented<Shape> operator*(
 
 
 /**
- * @brief Transform the oriented shape `s` by `xf`.
+ * @brief In-place transform the oriented shape `s` by `xf`.
  * @related AffineTransform
  * @related Oriented
  */
@@ -306,7 +306,7 @@ Oriented<Shape> operator/(
 
 
 /**
- * @brief Transform the oriented shape `s` by the inverse of `xf`.
+ * @brief In-place transform the oriented shape `s` by the inverse of `xf`.
  * @related AffineTransform
  * @related Oriented
  */

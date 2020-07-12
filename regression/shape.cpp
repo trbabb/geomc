@@ -9,6 +9,8 @@
 #include <geomc/shape/Oriented.h>
 #include <geomc/shape/Cylinder.h>
 #include <geomc/shape/Simplex.h>
+#include <geomc/shape/Sphere.h>
+#include <geomc/shape/Extrusion.h>
 
 
 using namespace geom;
@@ -17,13 +19,19 @@ using namespace std;
 
 typedef std::mt19937_64 rng_t;
 
-// todo: test all the shapes.
+// todo: test all the compound shapes.
 
 // todo: tests:
 //   - test that random convex_support() also test true for `contains()`.
 //   - test that the interpolation of two random `convex_support()` pass `contains()`.
 //   - test that all such points are contained by bounds().
 //   - test that op(xf * shape, p) == op(shape, p / xf) for all {xf, p, shape, op}
+
+
+/****************************
+ * random number generation *
+ ****************************/
+
 
 template <typename T, index_t N>
 Vec<T,N> rnd(rng_t* rng) {
@@ -42,6 +50,153 @@ inline T rnd(rng_t* rng) {
 }
 
 
+/****************************
+ * point sampling of shapes *
+ ****************************/
+
+
+template <typename Shape>
+struct ShapeSampler {};
+
+
+template <typename T, index_t N>
+struct ShapeSampler<Simplex<T,N>> {
+    Simplex<T,N> shape;
+    
+    ShapeSampler(const Simplex<T,N>& s):shape(s) {}
+    
+    Vec<T,N> operator()(rng_t* rng) {
+        // algorithm from: https://projecteuclid.org/download/pdf_1/euclid.pjm/1102911301
+        // we pick barycentric coordinates and then normalize so they sum to 1.
+        std::exponential_distribution<T> e(1);
+        T s[N + 1];
+        T sum = 0;
+        for (index_t i = 0; i < N + 1; ++i) {
+            T xi = e(*rng);
+            s[i] = xi;
+            sum += xi;
+        }
+        Vec<T,N> p;
+        for (index_t i = 0; i < N + 1; ++i) {
+            T xi = s[i] / sum;
+            p += xi * shape.pts[i];
+        }
+        return p;
+    }
+};
+
+
+template <typename T, index_t N>
+struct ShapeSampler<Rect<T,N>> {
+    Rect<T,N> shape;
+    ShapeSampler(const Rect<T,N>& s):shape(s) {}
+    
+    Vec<T,N> operator()(rng_t* rng) {
+        std::uniform_real_distribution<T> u(0, 1);
+        Vec<T,N> p;
+        for (index_t i = 0; i < N; ++i) {
+            p[i] = shape.lo[i] + u(*rng) * (shape.hi[i] - shape.lo[i]);
+        }
+        return p;
+    }
+};
+
+
+template <typename T, index_t N>
+struct ShapeSampler<Sphere<T,N>> {
+    Sphere<T,N> shape;
+    ShapeSampler(const Sphere<T,N>& s):shape(s) {}
+    
+    Vec<T,N> operator()(rng_t* rng) {
+        std::uniform_real_distribution<T> u(0,1);
+        Vec<T,N> p = rnd<T,N>(rng).unit();
+        p = p * shape.r * std::pow(u(*rng), 1/(T)N) + shape.center;
+        return p;
+    }
+};
+
+
+template <typename T, index_t N>
+struct ShapeSampler<Cylinder<T,N>> {
+    Cylinder<T,N> shape;
+    Vec<T,N> bases[N];
+    
+    ShapeSampler(const Cylinder<T,N>& s):shape(s) {
+        bases[0] = s.p1 - s.p0;
+        nullspace(bases, 1, bases + 1);
+        orthonormalize(bases, N);
+    }
+    
+    Vec<T,N> operator()(rng_t* rng) {
+        std::uniform_real_distribution<T> u(0,1);
+        Vec<T,N-1> px = ShapeSampler<Sphere<T,N-1>>(Sphere<T,N-1>(shape.radius))(rng);
+        Vec<T,N> p = mix(u(*rng), shape.p0, shape.p1);
+        for (index_t i = 0; i < N - 1; ++i) {
+            p += bases[i + 1] * px[i];
+        }
+        return p;
+    }
+};
+
+
+template <typename Shape>
+struct ShapeSampler<Extrusion<Shape>> {
+    typedef typename Shape::elem_t T;
+    static constexpr size_t N = Shape::N + 1;
+    
+    Extrusion<Shape> shape;
+    ShapeSampler(const Extrusion<Shape>& s):shape(s) {}
+    
+    Vec<T,N> operator()(rng_t* rng) {
+        std::uniform_real_distribution<T> u(0,1);
+        Vec<T,N-1> p = ShapeSampler<Shape>(shape.base)(rng);
+        T h = (shape.height.hi - shape.height.lo) * u(*rng) + shape.height.lo;
+        return Vec<T,N>(p, h);
+    }
+};
+
+
+template <typename Shape>
+struct ShapeSampler<Frustum<Shape>> {
+    typedef typename Shape::elem_t T;
+    static constexpr size_t N = Shape::N + 1;
+    
+    Frustum<Shape> shape;
+    ShapeSampler(const Frustum<Shape>& s):shape(s) {}
+    
+    Vec<T,N> operator()(rng_t* rng) {
+        // i am not sure this logic is right, but at worst
+        // we just have a skewed sampling of our frustum
+        std::uniform_real_distribution<T> u(0,1);
+        Vec<T,N-1> p = ShapeSampler<Shape>(shape.shape)(rng);
+        auto c_h = shape.clipped_height();
+        T lo = std::sqrt(std::abs(c_h.lo));
+        T hi = std::sqrt(std::abs(c_h.hi));
+        T h = (hi - lo) * u(*rng) + lo;
+        return Vec<T,N>(p, h * h * (c_h.lo < 0 ? -1 : 1));
+    }
+};
+
+
+template <typename Shape>
+struct ShapeSampler<Oriented<Shape>> {
+    typedef typename Shape::elem_t T;
+    static constexpr size_t N = Shape::N;
+    
+    Oriented<Shape> shape;
+    ShapeSampler(const Oriented<Shape>& s):shape(s) {}
+    
+    Vec<T,N> operator()(rng_t* rng) {
+        return shape.xf * ShapeSampler<Shape>(shape.shape)(rng);
+    }
+};
+
+
+/****************************
+ * random shape generation  *
+ ****************************/
+
+
 template <typename Shape>
 struct RandomShape {};
 
@@ -55,19 +210,22 @@ struct RandomShape<Sphere<T,N>> {
 template <typename T, index_t N>
 struct RandomShape<Cylinder<T,N>> {
     static Cylinder<T,N> rnd_shape(rng_t* rng) {
+        // try not to be consistently centered on the origin:
+        Vec<T,N> tx = 10 * rnd<T,N>(rng);
         return Cylinder<T,N>(
-            10 * rnd<T,N>(rng),
-            10 * rnd<T,N>(rng),
-            5 * std::abs(rnd<T>(rng)));
+            5 * rnd<T,N>(rng) + tx,
+            5 * rnd<T,N>(rng) + tx,
+            2 * std::abs(rnd<T>(rng)));
     }
 };
 
 template <typename T, index_t N>
 struct RandomShape<Rect<T,N>> {
     static Rect<T,N> rnd_shape(rng_t* rng) {
+        Vec<T,N> tx = 10* rnd<T,N>(rng);
         return Rect<T,N>::spanning_corners(
-            10 * rnd<T,N>(rng),
-            10 * rnd<T,N>(rng)
+            5 * rnd<T,N>(rng) + tx,
+            5 * rnd<T,N>(rng) + tx
         );
     }
 };
@@ -76,8 +234,9 @@ template <typename T, index_t N>
 struct RandomShape<Simplex<T,N>> {
     static Simplex<T,N> rnd_shape(rng_t* rng) {
         Simplex<T,N> s;
+        Vec<T,N> tx = 15 * rnd<T,N>(rng);
         for (index_t i = 0; i <= N; ++i) {
-            s += 10 * rnd<T,N>(rng);
+            s += 5 * rnd<T,N>(rng) + tx;
         }
         return s;
     }
@@ -121,7 +280,7 @@ struct RandomShape<Extrusion<Shape>> {
     static Extrusion<Shape> rnd_shape(rng_t* rng) {
         return Extrusion<Shape>(
                 RandomShape<Shape>::rnd_shape(rng),
-                Rect<T,N>::spanning_corners(
+                Rect<T,1>::spanning_corners(
                     5 * rnd<T>(rng),
                     5 * rnd<T>(rng)
                 )
@@ -130,23 +289,48 @@ struct RandomShape<Extrusion<Shape>> {
 };
 
 
-// xxx: this fails because interpolating verticies with themselves
-// results in precision weirdness and failures.
+/****************************
+ * shape calisthenics       *
+ ****************************/
+
+
+template <typename Shape>
+bool validate_point(
+        rng_t* rng, 
+        const Shape& s, 
+        const Vec<typename Shape::elem_t,Shape::N>& p) {
+    typedef typename Shape::elem_t T;
+    constexpr index_t N = Shape::N;
+    if (s.contains(p)) {
+        // if the pt is in the shape, it should definitely be in the bbox.
+        BOOST_CHECK(s.bounds().contains(p));
+        // pick a random support direction. the point should be inside
+        // the bounds of the resultant plane.
+        Vec<T,N>    n = rnd<T,N>(rng);
+        Plane<T,N> pl = Plane<T,N>(n, s.convex_support(n));
+        BOOST_CHECK(pl.contains(p));
+        return true;
+    }
+    return false;
+}
+
+
 template <typename Shape>
 void exercise_shape(rng_t* rng, const Shape& s, index_t trials) {
     typedef typename Shape::elem_t T;
     constexpr index_t N = Shape::N;
-    const T eps = 1e-5;
-    std::uniform_real_distribution<T> interval(eps, 1 - eps);
-    Vec<T,N> p0 = s.convex_support(rnd<T,N>(rng).unit());
+    auto sampler   = ShapeSampler<Shape>(s);
+    Rect<T,N> bbox = s.bounds();
+    // shrink the blob so that more of it falls inside the bbox:
+    Vec<T,N>  dims = bbox.dimensions() / 4;
+    Vec<T,N>     c = bbox.center();
     for (index_t i = 0; i < trials; ++i) {
-        Vec<T,N> p1 = s.convex_support(rnd<T,N>(rng).unit());
-        Vec<T,N>  p = mix(interval(*rng), p0, p1);
-        // a random pt inside the shape should be contained by it:
-        BOOST_CHECK(s.contains(p));
-        // the convex support pts themselves should also be contained by the shape:
-        BOOST_CHECK(s.contains(p1));
-        p0 = p1;
+        // validate a point near the shape's bbox
+        validate_point<Shape>(rng, s, rnd<T,N>(rng) * dims + c);
+        // validate a point definitely in the shape
+        BOOST_CHECK(validate_point<Shape>(rng, s, sampler(rng)));
+        // validate a point near the origin
+        validate_point<Shape>(rng, s, rnd<T,N>(rng));
     }
 }
 
@@ -155,21 +339,98 @@ template <typename Shape>
 void explore_shape(rng_t* rng, index_t shapes) {
     for (index_t i = 0; i < shapes; ++i) {
         Shape s = RandomShape<Shape>::rnd_shape(rng);
-        exercise_shape<Shape>(rng, s, 10);
+        exercise_shape<Shape>(rng, s, 50);
     }
 }
+
+
+template <typename T, index_t N>
+void explore_simplex(rng_t* rng, index_t shapes) {
+    for (index_t i = 0; i < shapes; ++i) {
+        Simplex<T,N> splx = RandomShape<Simplex<T,N>>::rnd_shape(rng);
+        ShapeSampler<Simplex<T,N>> smp(splx);
+        for (index_t j = 0; j < 100; ++j) {
+            Vec<T,N> p = smp(rng);
+            BOOST_CHECK(splx.contains(p));
+        }
+    }
+}
+
+
+template <template <typename> class Outer, typename T>
+void explore_compound_shape(rng_t* rng, index_t shapes) {
+    explore_shape<Outer<Rect<T, 2>>>(rng, shapes);
+    explore_shape<Outer<Rect<T, 3>>>(rng, shapes);
+    explore_shape<Outer<Rect<T, 4>>>(rng, shapes);
+    explore_shape<Outer<Rect<T, 5>>>(rng, shapes);
+    
+    explore_shape<Outer<Cylinder<T, 3>>>(rng, shapes);
+    explore_shape<Outer<Cylinder<T, 4>>>(rng, shapes);
+    explore_shape<Outer<Cylinder<T, 5>>>(rng, shapes);
+    explore_shape<Outer<Cylinder<T, 7>>>(rng, shapes);
+    
+    explore_shape<Outer<Sphere<T, 2>>>(rng, shapes);
+    explore_shape<Outer<Sphere<T, 3>>>(rng, shapes);
+    explore_shape<Outer<Sphere<T, 4>>>(rng, shapes);
+    explore_shape<Outer<Sphere<T, 5>>>(rng, shapes);
+    explore_shape<Outer<Sphere<T, 7>>>(rng, shapes);
+    
+    explore_shape<Outer<Simplex<T, 2>>>(rng, shapes);
+    explore_shape<Outer<Simplex<T, 3>>>(rng, shapes);
+    explore_shape<Outer<Simplex<T, 4>>>(rng, shapes);
+    explore_shape<Outer<Simplex<T, 5>>>(rng, shapes);
+    explore_shape<Outer<Simplex<T, 7>>>(rng, shapes);
+}
+
+
+/****************************
+ * test cases               *
+ ****************************/
+
 
 BOOST_AUTO_TEST_SUITE(shape)
 
 
 BOOST_AUTO_TEST_CASE(validate_rect) {
-    rng_t rng(17581355241LL);
-    
-    // explore_shape<Rect<double, 2>>(&rng, 10);
-    // explore_shape<Rect<double, 3>>(&rng, 10);
-    // explore_shape<Rect<double, 4>>(&rng, 10);
+    rng_t rng(3197900652316295587ULL);
+    explore_shape<Rect<double, 2>>(&rng, 1000);
+    explore_shape<Rect<double, 3>>(&rng, 1000);
+    explore_shape<Rect<double, 4>>(&rng, 1000);
+    explore_shape<Rect<double, 5>>(&rng, 1000);
 }
 
+BOOST_AUTO_TEST_CASE(validate_cylinder) {
+    rng_t rng(1548107991650531738ULL);
+    explore_shape<Cylinder<double, 3>>(&rng, 1000);
+    explore_shape<Cylinder<double, 4>>(&rng, 1000);
+    explore_shape<Cylinder<double, 5>>(&rng, 1000);
+    explore_shape<Cylinder<double, 7>>(&rng, 1000);
+}
+
+BOOST_AUTO_TEST_CASE(validate_simplex) {
+    rng_t rng(11028474705866095763ULL);
+    explore_shape<Simplex<double, 2>>(&rng, 1000);
+    explore_shape<Simplex<double, 3>>(&rng, 1000);
+    explore_shape<Simplex<double, 4>>(&rng, 1000);
+    explore_shape<Simplex<double, 5>>(&rng, 1000);
+    explore_shape<Simplex<double, 7>>(&rng, 1000);
+    // todo: also check that contains(), projection_contains(),
+    //       and a manual barycentric solve all agree about
+    //       pt containment.
+}
+
+BOOST_AUTO_TEST_CASE(validate_sphere) {
+    rng_t rng(18374691138699945602ULL);
+    explore_shape<Sphere<double, 2>>(&rng, 1000);
+    explore_shape<Sphere<double, 3>>(&rng, 1000);
+    explore_shape<Sphere<double, 4>>(&rng, 1000);
+}
+
+
+BOOST_AUTO_TEST_CASE(validate_extrusion) {
+    rng_t rng(3790089757951833256ULL);
+    // explore_compound_shape<Extrusion, double>(&rng, 250);
+}
 
 BOOST_AUTO_TEST_CASE(create_oriented_cylinder) {
     // make a null-transformed oriented cylinder.

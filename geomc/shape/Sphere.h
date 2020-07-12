@@ -32,14 +32,20 @@ namespace geom {
         /**
          * Construct a sphere at the origin with radius 1.
          */
-        Sphere():center(Vec<T,N>::zeros),r(1) {}
+        Sphere():r(1) {}
+        
+        /**
+         * Construct a sphere with center at the origin, having radius `r`.
+         * @param r Radius of spehre.
+         */
+        Sphere(T r):r(r) {}
         
         /**
          * Construct a sphere with center at the point `c`, having radius `r`.
          * @param c Center of sphere.
          * @param r Radius of spehre.
          */
-        Sphere(Vec<T,N> c, T r):center(c),r(r) {}
+        Sphere(const Vec<T,N>& c, T r):center(c),r(r) {}
         
         /**
          * @return An axis-aligned bounding box completely containing this

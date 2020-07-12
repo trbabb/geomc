@@ -19,7 +19,7 @@ get to row-echelon form, and solve:
  d e f g   x   0
  0 h i j * y = 0 
  0 0 k l   z   0
-           w   1
+       1   w   1
 
        ↓   ↓
  d e f # g #   x   0
@@ -29,10 +29,10 @@ get to row-echelon form, and solve:
                w   1   │
                -   0  ←┘
 
-dx + ey + fz + g = 0
-0x + hy + iz + j = 0
-0x + 0y + kz + l = 0
-0x + 0y + 0z + w = 1
+dx + ey + fz + gw = 0
+0x + hy + iz + jw = 0
+0x + 0y + kz + lw = 0
+0x + 0y + 0z + 1w = 1
 --
           kz = -l
            z = -l / k
@@ -52,7 +52,7 @@ namespace geom {
      */
     
     /**
-     * Return a vector orthogonal to the given `N-1` vectors.
+     * @brief Return a vector orthogonal to the given `N-1` vectors.
      * 
      * If any of the given basis vectors are linearly dependent,
      * the function returns the 0 vector.
@@ -63,18 +63,20 @@ namespace geom {
     template <typename T, index_t N>
     Vec<T,N> orthogonal(const Vec<T,N> v[N-1]) {
         Vec<T,N> o;
-        o[N-1] = 1;
-        index_t P[N];
-        T       m[N * (N-1)];
-        std::copy(v[0].begin(), v[0].begin() + N * (N-1), m);
+        index_t  P[N];
+        T        m[N * (N-1)];
+        const T* v0 = v[0].begin();
         detail::MxWrap<T,true> mx = {m, N-1, N};
-        bool parity_swap = false;
         
+        std::copy(v0, v0 + N * (N-1), m);
+        
+        bool parity_swap = false;
         if (decomp_plu(m, N-1, N, P, &parity_swap) > 0) {
             // matrix is singular; nullity is > 1. return 0 vector.
             return Vec<T,N>();
         }
         
+        o[N-1] = 1;
         for (index_t r = N-2; r >= 0; r--) {
             // back substitute.
             for (index_t c = N-1; c > r; c--) {
@@ -99,8 +101,13 @@ namespace geom {
     }
     
     
+    // todo: a different formulation could handle degeneracy in `bases` if
+    //       `bases` is specified to have N vectors; then the null bases
+    //       could fill the unused space, however many there are.
+    //       rn we bail if there is degeneracy, because it's excessive
+    //       to demand that `null_basis` always have space for N vectors.
     /**
-     * Compute the null space of a vector basis. 
+     * @brief Compute the null space of a vector basis. 
      * 
      * The computed null bases will not necessarily be orthogonal to each other.
      * Use `orthogonalize()` after computing `nullspace()` if an orthogonal basis
@@ -108,7 +115,7 @@ namespace geom {
      * 
      * `bases` and `null_basis` may alias each other.
      *
-     * If the any bases are linearly dependent, the resultant `null_basis` will be
+     * If any of the bases are linearly dependent, `null_basis` will be
      * filled with `N - n` zero vectors.
      * 
      * @param bases Array of `n` linearly independent basis vectors.
@@ -118,14 +125,14 @@ namespace geom {
      */
     template <typename T, index_t N>
     void nullspace(const Vec<T,N> bases[], index_t n, Vec<T,N> null_basis[]) {
-        if (n >= N) return;
+        if (n >= N) return;   // nothing to do
         if (N - n == 1) {
             null_basis[0] = orthogonal(bases);
             return;
         }
         
         T       m[N * (N-2)]; // <--  N-2 is the max # bases
-        index_t P[N - 2];     //     (N-1 case handled above)
+        index_t P[N - 2];     //     (N-1 and N cases handled above)
               T* n0 = null_basis[0].begin();
         const T* b0 = bases[0].begin();
         
@@ -159,10 +166,11 @@ namespace geom {
         
         return;
     }
-
-
+    
+    
     /**
-     * Use the Gram-Schmidt process to orthogonalize a set of basis vectors. 
+     * @brief Use the Gram-Schmidt process to orthogonalize a set of basis vectors.
+     * 
      * The first basis vector will not change. The remaining vectors may be
      * of arbitrary magnitude, but will be mutually orthogonal to each
      * other and to the first vector.
@@ -182,7 +190,8 @@ namespace geom {
     }
     
     /**
-     * Use the Gram-Schmidt process to orthonormalize a set of basis vectors. 
+     * @brief Use the Gram-Schmidt process to orthonormalize a set of basis vectors.
+     * 
      * The first basis vector will not change direction. All vectors will
      * be made mutually orthogonal and unit length.
      * 
