@@ -91,25 +91,6 @@ public:
     static const point_t endpoint_measure;
 
 public:
-
-    /**
-     * @brief Construct a Rect with extremes `lo` and `hi`. 
-     * If for any axis `lo > hi`, the Rect is empty.
-     * 
-     * @param lo Lower extreme
-     * @param hi Upper extreme
-     */
-    Rect(point_t lo, point_t hi):
-        lo(lo),
-        hi(hi) {}
-    
-    
-    /**
-     * @brief Construct a Rect containing only the point `p`.
-     */
-    Rect(point_t p):
-        lo(p),
-        hi(p) {}
     
     
     /**
@@ -131,6 +112,24 @@ public:
 #endif
         //do nothing else
     }
+
+    /**
+     * @brief Construct a Rect with extremes `lo` and `hi`. 
+     * If for any axis `lo > hi`, the Rect is empty.
+     * 
+     * @param lo Lower extreme
+     * @param hi Upper extreme
+     */
+    Rect(point_t lo, point_t hi):
+        lo(lo),
+        hi(hi) {}
+    
+    /**
+     * @brief Construct a Rect containing only the point `p`.
+     */
+    explicit Rect(point_t p):
+        lo(p),
+        hi(p) {}
 
 
     /****************************
@@ -177,9 +176,9 @@ public:
             point_t c1,
             point_t c2)
     {
-        typename Rect<T,N>::point_t lo = std::min(c1, c2);
-        typename Rect<T,N>::point_t hi = std::max(c1, c2);
-        return Rect<T,N>(lo, hi);
+        return Rect<T,N>(
+            std::min(c1, c2),
+            std::max(c1, c2));
     }
     
     /**
@@ -399,7 +398,11 @@ public:
      * @return A new Rect, scaled about the origin by factor `a`.
      */
     inline Rect<T,N> operator*(point_t a) const {
-        return Rect<T,N>(lo * a, hi * a);
+        point_t lo_a = lo * a;
+        point_t hi_a = hi * a;
+        return Rect<T,N>(
+            std::min(lo_a, hi_a),
+            std::max(lo_a, hi_a));
     }
 
     /**
@@ -411,8 +414,10 @@ public:
      * @return A reference to `this`, for convenience.
      */
     inline Rect<T,N>& operator*=(point_t a) {
-        lo *= a;
-        hi *= a;
+        point_t lo_a = lo * a;
+        point_t hi_a = hi * a;
+        lo = std::min(lo_a, hi_a);
+        hi = std::max(lo_a, hi_a);
         return *this;
     }
 
