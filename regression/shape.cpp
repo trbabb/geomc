@@ -23,9 +23,9 @@ typedef std::mt19937_64 rng_t;
 // todo: test all the compound shapes.
 
 // todo: tests:
-//   - test that random convex_support() also test true for `contains()`.
-//   - test that the interpolation of two random `convex_support()` pass `contains()`.
-//   - test that all such points are contained by bounds().
+//   - test convex_support against all the cardinal directions
+//   - move a small distance away from a support point, both toward and away
+//     from the object, and check for expected result of shape.contains()
 //   - test that op(xf * shape, p) == op(shape, p / xf) for all {xf, p, shape, op}
 
 
@@ -169,15 +169,14 @@ struct ShapeSampler<Frustum<Shape>> {
     ShapeSampler(const Frustum<Shape>& s):shape(s) {}
     
     Vec<T,N> operator()(rng_t* rng) {
-        // i am not sure this logic is right, but at worst
+        // i am not positive this logic is right, but at worst
         // we just have a skewed sampling of our frustum
         std::uniform_real_distribution<T> u(0,1);
         Vec<T,N-1> p = ShapeSampler<Shape>(shape.base)(rng);
         auto c_h = shape.clipped_height();
-        T lo = std::sqrt(std::abs(c_h.lo));
-        T hi = std::sqrt(std::abs(c_h.hi));
-        T h = (hi - lo) * u(*rng) + lo;
-        h = h * h * (c_h.lo < 0 ? -1 : 1);
+        T v = std::sqrt(u(*rng));
+          v = (c_h.lo < 0) ? (1 - v) : v;
+        T h = (c_h.hi - c_h.lo) * v + c_h.lo;
         return Vec<T,N>(h * p, h);
     }
 };
@@ -437,7 +436,7 @@ BOOST_AUTO_TEST_CASE(validate_oriented) {
 }
 
 BOOST_AUTO_TEST_CASE(validate_frustum) {
-    // explore_compound_shape<Frustum, double>(&rng, 250); //xxx failing
+    explore_compound_shape<Frustum, double>(&rng, 250);
 }
 
 BOOST_AUTO_TEST_CASE(create_oriented_cylinder) {

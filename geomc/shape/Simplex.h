@@ -282,12 +282,12 @@ public:
         Simplex<T,N> s;
         
         // why the recursion? why not project as in projection_contains(),
-        // obtaining two surface parameters, and then clip them?
+        // obtaining surface parameters, and then clip them?
         // A: Because in general, the subspace of the simplex will not
         //    be orthogonal, so clipping the coordinates to the unit triangle
         //    will project the point non-orthogonally along the bases of 
         //    that subspace. Instead we have to first find the sub-simplex 
-        //    which is closest, and then project down its nullspace.
+        //    which is closest, and then project orthogonally down its nullspace.
         
         // initialize the nullspace, if necessary
         if (n - 1 < N) {
@@ -332,7 +332,7 @@ public:
             }
             Vec<T,N> p_in_basis = p - s.pts[0];
             for (index_t i = 0; i < proj_dims; ++i) {
-                out |= p_in_basis.projectOn(proj_basis[i]);
+                out += p_in_basis.projectOn(proj_basis[i]);
             }
         }
         
@@ -344,7 +344,7 @@ public:
         } else {
             // `out` is the direction from s's corner to the projected point.
             // add s's corner to get the absolute point.
-            out |= s.pts[0];
+            out += s.pts[0];
         }
         
         if (onto) *onto = s;

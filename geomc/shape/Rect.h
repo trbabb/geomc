@@ -398,6 +398,8 @@ public:
      * @return A new Rect, scaled about the origin by factor `a`.
      */
     inline Rect<T,N> operator*(point_t a) const {
+        // a sign change can swap lo and hi for any coordinate.
+        // we have to do max and min again after the multiply:
         point_t lo_a = lo * a;
         point_t hi_a = hi * a;
         return Rect<T,N>(

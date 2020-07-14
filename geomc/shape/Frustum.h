@@ -77,28 +77,31 @@ class Frustum : public virtual Convex<typename Shape::elem_t, Shape::N + 1> {
          */
         bool contains(Vec<T,N> p) const {
             if (not clipped_height().contains(p[N-1])) return false;
+            if (p[N-1] == 0) return p.isZero();
             p /= p[N-1];
             return base.contains(p.template resized<N-1>());
         }
         
         
         Vec<T,N> convex_support(Vec<T,N> d) const {
-            typedef PointType<T,N-1> Pt;
             Rect<T,1> h = clipped_height();
+            T sign = h.lo < 0 ? -1 : 1; // ← the shape is flipped below the origin
             
-            // find the appropriate direction to check in shape-space
-            Vec<T,N-1> d_s = d.template resized<N-1>();
-            if      (d_s.isZero()) d_s[0] =  1;   // ← pick an arbitrary direction
-            else if (h.lo < 0)     d_s    = -d_s; // ← shape is flipped when below origin
+            // find the appropriate direction to check in shape-space.
+            Vec<T,N-1> d_s = sign * d.template resized<N-1>();
+            if (d_s.isZero()) d_s[0] = 1;  // ← pick an arbitrary direction
             
             // find the relevant point on the base shape, and place it on the h=1 plane
             Vec<T,N> p(base.convex_support(d_s), 1);
             
             // top or bottom face?
-            T w = p.dot(d) > 0 ? h.hi : h.lo;
+            // the support point definitely lies on the line passing through 
+            // the origin and `p`. which of the two vertices on that line is the 
+            // point? the one in the +p direction, or the -p direction?
+            T z = (p.dot(d) > 0) ? h.hi : h.lo;
             
             // rescale the point appropriately:
-            return w * p;
+            return z * p;
         }
         
         
@@ -114,7 +117,7 @@ class Frustum : public virtual Convex<typename Shape::elem_t, Shape::N + 1> {
         /// Return the height range of this Frustum after it has been clipped by the origin.
         inline Rect<T,1> clipped_height() const {
             const Rect<T,1>& h = height; // shorthand
-            return Rect<T,1>((h.lo < 0 and h.hi > 1) ? 0 : h.lo, h.hi);
+            return Rect<T,1>((h.lo < 0 and h.hi > 0) ? 0 : h.lo, h.hi);
         }
 
 }; // class Frustum
