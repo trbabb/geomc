@@ -53,14 +53,18 @@ public:
      * Construct a plane with normal `n`.
      * @param n Normal direction. 
      */
-    Plane(Vec<T,N> n):normal(n.unit()),d(0) {}
+    Plane(Vec<T,N> n):
+        normal(n.unit()),
+        d(0) {}
     
     /**
      * Construct a plane with normal `n` passing through the point `pt`.
      * @param n Normal direction.
      * @param pt A point on the plane.
      */
-    Plane(Vec<T,N> n, Vec<T,N> pt):normal(n.unit()),d(-pt.dot(normal)) {}
+    Plane(Vec<T,N> n, Vec<T,N> pt):
+        normal(n.unit()),
+        d(-pt.dot(normal)) {}
     
     /**
      * Construct a plane spanning the given basis vectors. 

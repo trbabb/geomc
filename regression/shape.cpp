@@ -23,7 +23,6 @@ typedef std::mt19937_64 rng_t;
 // todo: test all the compound shapes.
 
 // todo: tests:
-//   - test convex_support against all the cardinal directions
 //   - move a small distance away from a support point, both toward and away
 //     from the object, and check for expected result of shape.contains()
 //   - test that op(xf * shape, p) == op(shape, p / xf) for all {xf, p, shape, op}
@@ -298,6 +297,13 @@ struct RandomShape<Extrusion<Shape>> {
  ****************************/
 
 
+template <typename Shape, typename T, index_t N>
+void validate_plane(const Shape& s, const Vec<T,N>& p, const Vec<T,N>& n) {
+    Plane<T,N> pl = Plane<T,N>(n, s.convex_support(n));
+    BOOST_CHECK(pl.contains(p));
+}
+
+
 template <typename Shape>
 bool validate_point(
         rng_t* rng, 
@@ -310,9 +316,20 @@ bool validate_point(
         BOOST_CHECK(s.bounds().contains(p));
         // pick a random support direction. the point should be inside
         // the bounds of the resultant plane.
-        Vec<T,N>    n = rnd<T,N>(rng);
-        Plane<T,N> pl = Plane<T,N>(n, s.convex_support(n));
-        BOOST_CHECK(pl.contains(p));
+        validate_plane(s, p, rnd<T,N>(rng));
+        
+        // test all the cardinal axes as support directions. a valid point
+        // should come back, and the plane through it should still contain p.
+        // (sometimes cardinal axes can be perfectly aligned with faces
+        // and this degeneracy might be handled poorly).
+        Vec<T,N> a;
+        for (index_t i = 0; i < N; ++i) {
+            a[i] = 1;
+            validate_plane(s, p, a);
+            a[i] = -1;
+            validate_plane(s, p, a);
+            a[i] =  0;
+        }
         return true;
     }
     return false;
