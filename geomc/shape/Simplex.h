@@ -27,7 +27,7 @@
 
 // todo: another possible tool is to project the simplex to a lower dimension
 //       (by dropping coordinates) and barycentric-solving in that lower space.
-//       this amounts to projecting the simplex to an axial (hyper-)plane (or an axis).
+//       this amounts to projecting the simplex to an axial (hyper-)plane or an axis.
 //       the weightings of the verticies will not be different if you add back in
 //       the missing coordinates, so the barycentric solution from this lower space
 //       is still valid. (This also explains how keep the linear system square).
@@ -205,8 +205,8 @@ public:
                 // check that the coordinates of `p` are inside the simplex
                 T sum = 0;
                 for (index_t i = n_null; i < n_bases; ++i) {
-                    if (x[i] < 0 or sum > 1) return false;
                     sum += x[i];
+                    if (x[i] < 0 or sum > 1) return false;
                 }
                 
                 // provide surface parameters to caller, e.g. so they can perform
@@ -217,7 +217,7 @@ public:
                     }
                 }
                 
-                return (sum <= 1);
+                return true;
             }
         }
 
@@ -397,15 +397,14 @@ private:
     // where `normal` remains to be computed.
     // in the base case (not is_sub), all nullspace axes are provided.
     bool _find_nearest_face(
-            Vec<T,N> p, 
-            Vec<T,N> all_bases[], 
-            bool is_sub,
-            Vec<T,N> inward_basis,
+            Vec<T,N>      p,
+            Vec<T,N>      all_bases[], 
+            bool          is_sub,
+            Vec<T,N>      inward_basis,
             Simplex<T,N>* onto) const
     {
         if (n == 1) {
             if ((p - pts[0]).dot(inward_basis) > 0) return false;
-            
             // projection onto a single point is trivial
             // note: we leave `all_bases` in a garbage state,
             // but we don't use it, since we don't need it!
