@@ -14,39 +14,65 @@
 
 namespace geom {
 
+// todo: for this and other compound shapes, allow the inner shape 
+//       to be 1d by using the `point_t` mechanism.
+//       consider making .template resized<N>() return a point_t instead of
+//       a vec— this will vastly simplify the implementation.
+
 /**
  * @ingroup shape
- * @brief An N-dimensional frustum (truncated pyramid).
+ * @brief An N-dimensional frustum (truncated pyramid) with an arbitrary
+ * Convex shape as its base, and its (possibly excluded) point at the origin.
  * 
- * The first N-1 dimensions have cross-sections which are rectangles. The last
- * dimension is considered the "height" of the frustum. 
- * 
- * Frustums need not be symmetrical about the origin. The extents of the cross
- * section are described by an N-1 rectangle lying on the `height = 1` plane.
+ * The first N-1 dimensions have cross-sections which are `Shape`s. The last
+ * dimension is the "height" of the frustum. The base `Shape` is specified 
+ * lying on the `h = 1` plane. (Note that below the origin, the base shape
+ * will be flipped due to the change of sign).
  *  
- * If the height range spans `height = 0`, the minimum height is effectively 
- * clamped to 0.
+ * If the height range spans `height = 0`, then the height extending below the 
+ * origin is excluded from the shape. Use `clipped_height()` to obtain the 
+ * height range actually spanned by the shape. (A frustum spanning the origin
+ * would not be convex).
+ *
+ * Oriented, Rect-based Frustums are very commonly needed to represent
+ * viewing frustums; for these consider using `ViewFrustum`, which is a
+ * templated type alias for `Oriented<Frustum<Rect>>`. 
  */
-template <typename T, index_t N>
-class Frustum : public virtual Convex<T,N> {
+template <typename Shape>
+class Frustum : public virtual Convex<typename Shape::elem_t, Shape::N + 1> {
     public:
-        /// Tranform orienting this frustum.
-        AffineTransform<T,N> xf;
-        /// Extent of this frustum at the `h = 1` plane.
-        Rect<T,N-1> base;
+        /// The coordinate type of this Shape
+        typedef typename Shape::elem_t T;
+        /// The dimension of this Shape
+        static constexpr size_t N = Shape::N + 1;
+        
+        /// Cross-section of this frustum at the `h = 1` plane.
+        Shape base;
         /// Height range spanned by this frustum.
         Rect<T,1> height;
         
         
-        /// Construct a new frustum, spanning the unit rectange and heights between 1 and 2.
-        Frustum(): base(typename Rect<T,N-1>::point_t(-1), 
-                        typename Rect<T,N-1>::point_t( 1)), 
-                   height(1,2) {}
+        /**
+         * @brief Construct a pyramid with its tip at the origin
+         * and a default-constructed cross-sectional base at h=1.
+         */
+        Frustum():height(0,1) {}
         
-        /// Construct a new frustum spanning the rectangle given by `base` and the height range between `h0` and `h1`.
-        Frustum(Rect<T,N-1> base, T h0, T h1):
+        /**
+         * @brief Construct a new Frustum having `base` as a cross section,
+         * and spanning heights between `h0` and `h1`.
+         */
+        Frustum(const Shape& base, T h0, T h1):
                     base(base), 
                     height(std::min(h0,h1), std::max(h0,h1)) {}
+        
+        /**
+         * @brief Construct a new Frustum having `base` as a cross section,
+         * and spanning the height range `h`.
+         */
+        Frustum(const Shape& base, const Rect<T,1>& h):
+            base(base),
+            height(h) {}
         
         /**
          * Frustum-point intersection test.
@@ -55,69 +81,76 @@ class Frustum : public virtual Convex<T,N> {
          * @return `true` if `p` is on or inside this frustum; `false` otherwise.
          */
         bool contains(Vec<T,N> p) const {
-            p /= xf;
-            if (not height.contains(p[N-1])) return false;
+            if (not clipped_height().contains(p[N-1])) return false;
+            if (p[N-1] == 0) return p.isZero();
             p /= p[N-1];
             return base.contains(p.template resized<N-1>());
         }
         
         
-        Vec<T,N> convexSupport(Vec<T,N> d) const {
-            typedef PointType<T,N-1> Pt;
+        Vec<T,N> convex_support(Vec<T,N> d) const {
+            Rect<T,1> h = clipped_height();
+            T sign = h.lo < 0 ? -1 : 1; // ← the shape is flipped below the origin
             
-            d = xf.applyInverseNormal(d);
+            // find the appropriate direction to check in shape-space.
+            Vec<T,N-1> d_s = sign * d.template resized<N-1>();
+            if (d_s.isZero()) d_s[0] = 1;  // ← pick an arbitrary direction
             
-            T hmax = height.max();
-            T hmin = height.min();
-            T sign = (hmax < 0) ? -1 : 1;
+            // find the relevant point on the base shape, and place it on the h=1 plane
+            Vec<T,N> p(base.convex_support(d_s), 1);
             
-            // find the base corner
-            Vec<T,N> p;
-            for (index_t i = 0; i < N-1; i++) {
-                if (sign * d[i] > 0) p[i] = Pt::iterator(base.max())[i];
-                else                 p[i] = Pt::iterator(base.min())[i];
-            }
-            p[N-1] = 1;
+            // top or bottom face?
+            // the support point definitely lies on the line passing through 
+            // the origin and `p`. which of the two vertices on that line is the 
+            // point? the one in the +p direction, or the -p direction?
+            T z = (p.dot(d) > 0) ? h.hi : h.lo;
             
-            // top or bottom corner?
-            p *= (p.dot(d) > 0) ? hmax : ((hmax > 0 and hmin < 0) ? 0 : hmin);
-            
-            return xf * p;
+            // rescale the point appropriately:
+            return z * p;
         }
         
-        /**
-         * Fill `p` with the positions of the 2<sup>N</sup> corners of
-         * this frustum.
-         * @param p Array to receive 2<sup>N</sup> corner positions.
-         */
-        void getCorners(Vec<T,N> p[1 << N]) const {
-            typedef PointType<T,N-1> Pt;
-            typename Pt::point_t extreme[2] = { base.min(), base.max() };
-            
-            const T hmax = height.max();
-            T hmin = height.min();
-            hmin = (hmax > 0 and hmin < 0) ? 0 : hmin;
-            
-            for (index_t k = 0; k < 2; k++) {
-                // for lower and upper extents
-                T h = k == 0 ? hmin : hmax;
-                for (index_t c = 0; c < (1 << (N-1)); c++) {
-                    // for each corner of the base rect
-                    Vec<T,N> pt;
-                    for (index_t i = 0; i < N-1; i++) {
-                        // for each coordinate of the corner point
-                        pt[i] = Pt::iterator(extreme[(c & (1 << i)) != 0])[i];
-                    }
-                    pt[N-1] = 1;
-                    pt *= h;
-                    pt  = xf * pt;
-                    p[c + ((k > 0) ? (1 <<(N-1)) : 0)] = pt;
-                }
-            }
+        
+        Rect<T,N> bounds() const {
+            Rect<T,N-1> b0 = base.bounds();
+            Rect<T,1> h    = clipped_height();
+            // make two rects for the top and bottom faces;
+            // union them; extrude by the height:
+            return ((b0 * h.lo) | (b0 * h.hi)) * h; // purdy!!
+        }
+        
+        
+        /// Return the height range of this Frustum after it has been clipped by the origin.
+        inline Rect<T,1> clipped_height() const {
+            const Rect<T,1>& h = height; // shorthand
+            return Rect<T,1>((h.lo < 0 and h.hi > 0) ? 0 : h.lo, h.hi);
         }
 
-}; // class frustum
-    
+}; // class Frustum
+
+/**
+ * @brief Convenience function to raise the shape `s` into a frustum between 
+ * heights `h0` and `h1`, by wrapping `s` in the `Frustum` template.
+ *
+ * @related Frustum
+ */
+template <typename Shape>
+inline Frustum<Shape> frustum(
+        const Shape& s,
+        typename Shape::elem_t h0,
+        typename Shape::elem_t h1)
+{
+    return Frustum<Shape>(s, h0, h1);
+}
+
+/**
+ * @brief Convenience typedef for oriented, rectangular, N-dimensional Frustums
+ * @related Frustum
+ * @related Oriented
+ */
+template <typename T, index_t N>
+using ViewFrustum = Oriented< Frustum< Rect<T,N-1> > >;
+
+
 } // namespace geom
 
 #endif	/* FRUSTUM_H */

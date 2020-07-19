@@ -12,10 +12,34 @@
 #include <geomc/linalg/Vec.h>
 #include <geomc/linalg/Orthogonal.h>
 
+// todo: orthogonal projection to a subspace is a very general linalg operation,
+//       and projection_contains() makes use of it. The operation that does this is
+//       the pseudoinverse, which can be computed efficiently using a QR decomposition.
+//       Probably the best way to do QR is with Householder transformations; the algorithm
+//       can be found complete here: http://people.inf.ethz.ch/gander/papers/qrneu.pdf
+//       
+//       the above should probably be exposed as orthogonal_project(basis[], n, P) in
+//       Orthogonal.h, and invoked here by projection_contains(). Also consider adding
+//       subspace_projection(bases[], n) -> Mtx, which can amortize the QR bidness.
+//
+//       right now we are running two LUP decompositions, and this is likely
+//       inefficient/unstable.
+
+// todo: another possible tool is to project the simplex to a lower dimension
+//       (by dropping coordinates) and barycentric-solving in that lower space.
+//       this amounts to projecting the simplex to an axial (hyper-)plane or an axis.
+//       the weightings of the verticies will not be different if you add back in
+//       the missing coordinates, so the barycentric solution from this lower space
+//       is still valid. (This also explains how keep the linear system square).
+//       generally you want to project to the axial plane wherein the simplex
+//       has the largest projected area. overall this might be more numerically robust.
+//       note that you have to find the coordinates of the projected point `p`
+//       in the axial plane; this is sort of a double-projection.
 
 // todo: handle degeneracy. GJK can make use of it.
 // todo: performance check old GJK vs new
-// todo: performance check projectionContains() vs. project() == this
+// todo: performance check projection_contains() vs. project() == this
+
 
 namespace geom {
 
@@ -64,10 +88,10 @@ public:
         // overridden because there may be garbage in the 
         // unused vertices which shouldn't count as a difference.
         if (other.n != n) return false;
-        for (index_t = 0; i < n; ++i) {
+        for (index_t i = 0; i < n; ++i) {
             if (other.pts[i] != pts[i]) return false;
         }
-        return truel
+        return true;
     }
     
     
@@ -82,7 +106,7 @@ public:
      *
      * If this simplex already has `N + 1` points, a copy of this simplex is returned.
      */
-    Simplex<T,N> operator+(const Vec<T,N>& p) const {
+    Simplex<T,N> operator|(const Vec<T,N>& p) const {
         Simplex<T,N> s = *this;
         if (n < N + 1) {
             s.n += 1;
@@ -93,19 +117,40 @@ public:
 
 
     /**
-     * @brief Add a new vertex to this simplex at `p`.
+     * @brief Extend this simplex to include `p` by adding `p` as a vertex.
+     *
+     * If this Simplex already has `N+1` vertices, then this operator has no effect.
      */
-    Simplex<T,N>& operator+=(const Vec<T,N>& p) {
+    Simplex<T,N>& operator|=(const Vec<T,N>& p) {
         if (n < N + 1) {
             pts[n] = p;
             n += 1;
         }
         return *this;
     }
-
-
+    
     /**
-     * @brief Project the point to the simplex along its orthoginal basis
+     * @brief Apply a transformation to the points of this Simplex.
+     */
+    Simplex<T,N>& operator*=(const AffineTransform<T,N>& xf) {
+        for (index_t i = 0; i < n; ++i) {
+            pts[i] = xf * pts[i];
+        }
+        return *this;
+    }
+    
+    /**
+     * @brief Apply an inverse transformation to the points of this Simplex.
+     */
+    Simplex<T,N>& operator/=(const AffineTransform<T,N>& xf) {
+        for (index_t i = 0; i < n; ++i) {
+            pts[i] = pts[i] / xf;
+        }
+        return *this;
+    }
+    
+    /**
+     * @brief Project the point to the simplex along its orthogonal basis
      * (if there is one) and test for containment.
      * 
      * @param p A point.
@@ -126,9 +171,9 @@ public:
             
             case 2: {
                 Vec<T,N> v = pts[1] - pts[0];
-                T d = v.dot(p - pts[0]) / v.mag();
+                T d = v.dot(p - pts[0]) / v.mag2();
                 if (params) (*params)[0] = d;
-                return d > 0 and d < 1;
+                return d >= 0 and d <= 1;
             } break;
             
             default: {
@@ -139,7 +184,7 @@ public:
                 // nullspace comes first (cause we won't solve for its coords),
                 // followed by the simplex basis.
                 const index_t n_bases = n - 1;
-                const index_t n_null  = N - n + 1;
+                const index_t n_null  = N - n_bases;
                 Vec<T,N> null_bases[N];
                 Vec<T,N>* const bases = null_bases + n_null; 
                 
@@ -155,13 +200,13 @@ public:
                 // its nullspace bases. (but don't bother actually solving for 
                 // the nullpsace coords; we don't use them).
                 Vec<T,N> x;
-                if (not linear_solve(bases, &x, p - pts[0], n_null)) return false;
+                if (not linear_solve(null_bases, &x, p - pts[0], n_null)) return false;
                 
                 // check that the coordinates of `p` are inside the simplex
                 T sum = 0;
-                for (index_t i = n_null; i < N; ++i) {
-                    if (x[i] < 0) return false;
+                for (index_t i = n_null; i < n_bases; ++i) {
                     sum += x[i];
+                    if (x[i] < 0 or sum > 1) return false;
                 }
                 
                 // provide surface parameters to caller, e.g. so they can perform
@@ -172,11 +217,11 @@ public:
                     }
                 }
                 
-                return (sum <= 1);
+                return true;
             }
         }
 
-        // for pickier compilers:
+        // statically unreachable, but some less-clever compilers may complain without:
         return false;
     }
     
@@ -190,7 +235,34 @@ public:
      * @return `true` if `p` is on or inside this simplex; `false` otherwise.
      */
     bool contains(const Vec<T,N>& p) const {
-        return (n - 1 == N) ? projection_contains(p) : false;
+        if (n < N + 1) return false;
+        // todo: test performance + stability over projection_contains
+        
+        // solve for barycentric coordinates x:
+        // Σ (1, v[i]) * x[i] = (1, p)
+        
+        const index_t K = N + 1;
+        T m[K * K];
+        T x[K];
+        T b[K];
+        for (index_t i = 0; i < K; ++i) {
+            const T* v = pts[i].begin();
+            m[i * K] = 1;
+            std::copy(v, v + N, m + i * K + 1);
+        }
+        b[0] = 1;
+        std::copy(p.begin(), p.end(), b + 1);
+        
+        linear_solve<T,false>(m, K, x, b, 1);
+        // ^^ skip solving for the sum of the weights.
+        //    we don't need it, and we know it's 1.
+        
+        T sum = 0;
+        for (index_t i = 1; i < K; ++i) {
+            sum += x[i];
+            if (x[i] < 0 or sum > 1) return false;
+        }
+        return true;
     }
 
 
@@ -207,20 +279,30 @@ public:
         return s;
     }
 
-
+    
     /**
      * @brief Project `p` to the nearest point on the simplex.
      *
      * The point is unchanged if `p` is already inside the simplex.
-     *
+     * 
      * @param p The point to project onto the surface of this simplex.
      * @param onto Optional output parameter to receive the sub-simplex
      * onto which `p` was projected. It is permissible for `onto` to 
      * alias `this`.
+     *
+     * @return The location of `p`'s projection.
      */
     Vec<T,N> project(const Vec<T,N>& p, Simplex<T,N>* onto=nullptr) const {
         Vec<T,N> buffer[N];
         Simplex<T,N> s;
+        
+        // why the recursion? why not project as in projection_contains(),
+        // obtaining surface parameters, and then clip them?
+        // A: Because in general, the subspace of the simplex will not
+        //    be orthogonal, so clipping the coordinates to the unit triangle
+        //    will project the point non-orthogonally along the bases of 
+        //    that subspace. Instead we have to first find the sub-simplex 
+        //    which is closest, and then project orthogonally down its nullspace.
         
         // initialize the nullspace, if necessary
         if (n - 1 < N) {
@@ -234,7 +316,7 @@ public:
         
         // this puts the simplex which faces `p` into `s`, and
         // leaves `buffer` containing its nullspace and spanning space.
-        this->_find_nearest(p, buffer, false, Vec<T,N>::zeros, &s);
+        this->_find_nearest_face(p, buffer, false, Vec<T,N>(), &s);
         
         // choose the smaller basis to project on
         index_t   n_bases = s.n - 1;
@@ -246,16 +328,16 @@ public:
         if (n_bases < n_null) {
             proj_dims    = n_bases;
             proj_basis   = buffer + n_null;
-            proj_to_null = true;
+            proj_to_null = false;
         } else {
             proj_dims    = n_null;
             proj_basis   = buffer;
-            proj_to_null = false;
+            proj_to_null = true;
         }
         
         // project to the relevant subspace
         if (proj_dims > 0) {
-            if (N > 3 and (not proj_to_null or N - n > 0) and proj_dims > 1) {
+            if (N > 3 and proj_dims > 1 and (N - n > 0 or not proj_to_null)) {
                 // if we're projecting to the nullspace, it's already orthogonal,
                 // unless the nullspace started with > 1 dimension (in which case 
                 // it was made by `nullspace` above; orthogonalize it now). 
@@ -286,12 +368,24 @@ public:
     }
     
     
-    Vec<T,N> convexSupport(Vec<T,N> d) const {
+    Rect<T,N> bounds() const {
+        Rect<T,N> bb;
+        for (index_t i = 0; i < n; ++i) {
+            bb |= pts[i];
+        }
+        return bb;
+    }
+    
+    
+    Vec<T,N> convex_support(Vec<T,N> d) const {
         T best    = pts[0].dot(d);
         index_t k = 0;
         for (index_t i = 1; i < n; ++i) {
             T a = pts[i].dot(d);
-            if (a > best) k = i;
+            if (a > best) {
+                best = a;
+                k = i;
+            }
         }
         return pts[k];
     }
@@ -302,13 +396,15 @@ private:
     //   [normal] [parent null basis] [spanning basis]
     // where `normal` remains to be computed.
     // in the base case (not is_sub), all nullspace axes are provided.
-    bool _find_nearest(
-            Vec<T,N> p, 
-            Vec<T,N> all_bases[], 
-            bool is_sub,
-            Vec<T,N> missing_basis,
-            Simplex<T,N>* onto) const {
+    bool _find_nearest_face(
+            Vec<T,N>      p,
+            Vec<T,N>      all_bases[], 
+            bool          is_sub,
+            Vec<T,N>      inward_basis,
+            Simplex<T,N>* onto) const
+    {
         if (n == 1) {
+            if ((p - pts[0]).dot(inward_basis) > 0) return false;
             // projection onto a single point is trivial
             // note: we leave `all_bases` in a garbage state,
             // but we don't use it, since we don't need it!
@@ -316,7 +412,6 @@ private:
             return true;
         } else {
             // orthogonally project p onto this simplex along its nullspace.
-            const index_t n_bases      = n - 1;
             const index_t n_null       = N - n + 1;
             Vec<T,N>* const bases      = all_bases + n_null;
             Vec<T,N>* const null_bases = all_bases + 1;
@@ -339,10 +434,9 @@ private:
                     normal = (p - pts[0]).projectOn(all_bases[0]);
                     
                     // might `p` be on the "inside" of the parent simplex?
-                    if (normal.dot(missing_basis) > 0) {
-                        // `p` falls "inward" of the boundary space spanned
-                        // by this simplex. `p` therefore does not project to this
-                        // simplex; instead it projects to some other simplex,
+                    if (normal.dot(inward_basis) > 0) {
+                        // `p` falls "inward" of this face. `p` therefore does not project
+                        // to this simplex; instead it projects to some other simplex,
                         // possibly a parent of this, which *does* face (or envelop) `p`.
                         return false;
                     }
@@ -357,7 +451,7 @@ private:
             // try each sub-simplex.
             for (index_t i = 0; i < n; ++i) {
                 Simplex<T,N> sub = this->exclude(i);
-                if (sub._find_nearest(p, all_bases, true, pts[i] - sub[0], onto)) {
+                if (sub._find_nearest_face(p, all_bases, true, pts[i] - sub[0], onto)) {
                     // some sub-simplex of us both faces `p` and contains
                     // its projection. `all_bases` and `onto` now reflect that sub-simplex.
                     return true;
@@ -367,9 +461,9 @@ private:
             // restore the state of `all_bases`
             // nobody messed with the normal because it was in their null space.
             // and the simplex which just filled in its basis was the one that 
-            // excluded vertex `n`.
+            // excluded vertex `n - 1`.
             all_bases[0] = bases[0];
-            bases[0]     = pts[1] - pts[n];
+            bases[0]     = pts[n - 1] - pts[0];
             
             // no sub-simplex claimed `p` was "beyond" it and took the projection.
             // therefore, this is the simplex onto which `p` projects.
@@ -380,7 +474,9 @@ private:
 
 
 }; // class simplex
-    
+
+
+
 } // namespace geom
 
 #endif	/* SIMPLEX_H */

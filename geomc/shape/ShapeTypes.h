@@ -52,8 +52,10 @@ namespace geom {
     template <typename T, index_t N> class Convex;
     template <typename T, index_t N> class Rect;
     template <typename T, index_t N> class Hit;
-    template <typename T, index_t N> class OrientedRect;
     template <typename T, index_t N> class Cylinder;
+    template <typename Shape>        class Extrusion;
+    template <typename Shape>        class Oriented;
+    template <typename Shape>        class Frustum;
     
     template <typename T, index_t N, typename Object, typename NodeData=void*>          class KDTree;
     template <typename T, index_t N, ArrayOrder Order=ARRAYORDER_FIRST_DIM_CONSECUTIVE> class GridIterator;

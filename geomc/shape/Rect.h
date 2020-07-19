@@ -27,12 +27,9 @@
 #include <geomc/linalg/Vec.h>
 #include <geomc/shape/shapedetail/Hit.h>
 
+// todo: remove redundant fn names.
 
-// todo: min() and max() were functions returning point_t and I don't know why.
-//       refactor to expose member vars?
-// todo: add specializations with c calls to permit nextafter() to work in <= c++03
-
-// using <= and >= is inconsistent with half-open interval convention, but:
+// all boundaries are inclusive. this is inconsistent with half-open interval convention, but:
 // - union of rect with a point should thereafter contain the point
 // - with a half-open interval, we'd need to "increment" the upper bound
 //   to contain p
@@ -40,10 +37,9 @@
 // - the upper and lower bounds now mean different things, and
 //   that means you need to increment and decrement
 //   Sometimes And Not Other Times. 
-// compare to "both endpoints are symmetrical and the same logic applies everywhere"
-// * BEWARE the meaning of dim(). it is one less than the "length" for integer types.
-//   maybe just hide it with a type-conditional increment?
-//   > don't forget volume() also.
+// - compare to: "both endpoints are symmetrical and the same logic applies everywhere"
+// - the biggest downside: ownership of points on the faces of abutting Rects
+//   is ambiguous (for Rects with real-valued coordinates).
 
 namespace geom {
 
@@ -52,7 +48,7 @@ namespace geom {
  ****************************/
 
 /** @ingroup shape
- *  @brief An N-dimensional axis-aligned box.
+ *  @brief An N-dimensional axis-aligned interval.
  *
  * This class works naturally with both 1D and multi-dimensional ranges.
  * 1D ranges have point type `T`, while multi-dimensional ranges have point
@@ -62,18 +58,21 @@ namespace geom {
  *
  * Example: 
  * 
- * * `Rect<double,4>::point_t` is `Vec<double,4>`;  `min()` returns a `Vec4d`.
- * * `Rect<double,1>::point_t` is `double`; `min()` returns a `double`.
- * 
- * Rect boundaries are inclusive. The points `min()` and `max()` are guaranteed
- * to be inside the Rect. Therefore, "degenerate" Rects (like those that contain only
- * a single point, edge, or face), are considered non-empty.
+ * * `Rect<double,4>::point_t` is `Vec<double,4>`; `lo` and `hi` are `Vec4d`.
+ * * `Rect<double,1>::point_t` is `double`; `lo` and `hi` are `double`.
+ *
+ * If any coordinate of `lo` is greater than the same coordinate of `hi`, then
+ * the `Rect` is empty.
+ *
+ * Rect boundaries are inclusive. The points `lo` and `hi` are considered
+ * to be inside the Rect. Therefore, `Rect`s that contain only a single point, edge, 
+ * or face are considered non-empty.
  *
  * Note that this convention differs slightly from conventional "interval" logic
  * on integers, wherein the upper boundary is excluded. This convention was chosen
- * to make all the faces of a Rect symmetrical, and avoid special cases or conditional
- * increments. To iterate over the range within an integer Rect, consider using a GridIterator
- * object, which abstracts away the boundary logic for you.
+ * so that adding any point to a Rect as a vertex ensures that the Rect thereafter 
+ * includes that point. To iterate over the range within an integer Rect, consider 
+ * using a GridIterator object, which abstracts away the boundary logic for you.
  */
 template <typename T, index_t N> 
 class Rect : virtual public Convex<T,N> {
@@ -83,16 +82,36 @@ protected:
 public:
     /// Type of object confined by this Rect
     typedef typename PointType<T,N>::point_t point_t;
-
-protected:
+    
     /// Lower extremes
-    point_t mins;
+    point_t lo;
     /// Upper extremes
-    point_t maxs;
+    point_t hi;
     
     static const point_t endpoint_measure;
 
 public:
+    
+    
+    /**
+     * @brief Construct an empty interval.
+     *
+     * Sets lower and upper bounds to the maximum and minimum values of `T`, respectively.
+     *
+     * A union between this Rect and any finite shape is an identity operation.
+     */
+    Rect():
+        lo(std::numeric_limits<T>::max()),
+#if __cplusplus >= 201103L
+        hi(std::numeric_limits<T>::lowest()) {
+#else
+        // c++03, you make me sad.
+        hi(  std::numeric_limits<T>::is_integer ? 
+               std::numeric_limits<T>::min() : 
+              -std::numeric_limits<T>::max()) {
+#endif
+        //do nothing else
+    }
 
     /**
      * @brief Construct a Rect with extremes `lo` and `hi`. 
@@ -101,34 +120,16 @@ public:
      * @param lo Lower extreme
      * @param hi Upper extreme
      */
-    Rect(point_t lo, point_t hi):mins(lo),maxs(hi) {}
-    
-    
-    /**
-     * @brief Construct a rect containing only the point `p`.
-     */
-    Rect(point_t p):mins(p),maxs(p) {}
-
+    Rect(point_t lo, point_t hi):
+        lo(lo),
+        hi(hi) {}
     
     /**
-     * Construct an empty rectangle.
-     *
-     * Sets lower and upper bounds to the maximum and minimum values of `T`, respectively.
-     *
-     * A union between this Rect and any finite shape is an identity operation.
+     * @brief Construct a Rect containing only the point `p`.
      */
-    Rect():
-        mins(std::numeric_limits<T>::max()),
-#if __cplusplus >= 201103L
-        maxs(std::numeric_limits<T>::lowest()) {
-#else
-        // c++03, you make me sad.
-        maxs(  std::numeric_limits<T>::is_integer ? 
-               std::numeric_limits<T>::min() : 
-              -std::numeric_limits<T>::max()) {
-#endif
-        //do nothing else
-    }
+    explicit Rect(point_t p):
+        lo(p),
+        hi(p) {}
 
 
     /****************************
@@ -136,46 +137,52 @@ public:
      ****************************/
 
     /**
-     * Construct a Rect from a center point and extent.
-     * @param center Center of the new Rect
+     * @brief Construct a Rect from a center point and extent.
+     * @param c Center of the new Rect
      * @param dims Lengths of each axis; may be negative.
-     * @return A new Rect with its center at `center`.
+     * @return A new Rect with its center at `c`.
      */
-    inline static Rect<T,N> fromCenter(typename Rect<T,N>::point_t center,
-                                       typename Rect<T,N>::point_t dims) {
-        return Rect<T,N>::spanningCorners(
-            center -  dims / 2, 
-            center + (dims - endpoint_measure) / 2);
+    inline static Rect<T,N> from_center(
+            typename Rect<T,N>::point_t c,
+            typename Rect<T,N>::point_t dims)
+    {
+        return Rect<T,N>::spanning_corners(
+            c -  dims / 2, 
+            c + (dims - endpoint_measure) / 2);
     }
     
     /**
-     * Construct a Rect from a corner point and an extent.
+     * @brief Construct a Rect from a corner point and an extent.
      * @param corner Arbitrary corner point.
      * @param dims Lengths of each axis relative to given corner. Lengths may be negative.
      * @return A new Rect with one corner at `corner`.
      */
-    inline static Rect<T,N> fromCorner(typename Rect<T,N>::point_t corner,
-                                       typename Rect<T,N>::point_t dims) {
-        return Rect<T,N>::spanningCorners(
+    inline static Rect<T,N> from_corner(
+            typename Rect<T,N>::point_t corner,
+            typename Rect<T,N>::point_t dims)
+    {
+        return Rect<T,N>::spanning_corners(
             corner, 
             corner + dims - endpoint_measure);
     }
     
     /**
-     * Construct a Rect containing the two corners `c1` and `c2`. 
+     * @brief Construct a Rect containing the two corners `c1` and `c2`. 
      * @param c1 A corner of the Rect 
      * @param c2 The corner opposite `c1`
      * @return A new Rect with corners at `c1` and `c2`.
      */
-    inline static Rect<T,N> spanningCorners(point_t c1,
-                                            point_t c2) {
-        typename Rect<T,N>::point_t lo = std::min(c1, c2);
-        typename Rect<T,N>::point_t hi = std::max(c1, c2);
-        return Rect<T,N>(lo, hi);
+    inline static Rect<T,N> spanning_corners(
+            point_t c1,
+            point_t c2)
+    {
+        return Rect<T,N>(
+            std::min(c1, c2),
+            std::max(c1, c2));
     }
     
     /**
-     * Construct a Rect containing all the points in the sequence
+     * @brief Construct a Rect containing all the points in the sequence
      * between `begin` and `end`.
      * @tparam PointIterator An iterator to a `point_t`.
      * @param begin Iterator to the first point.
@@ -183,7 +190,7 @@ public:
      * @return A new Rect containing all the points in the given sequence.
      */
     template <typename PointIterator>
-    inline static Rect<T,N> fromPoints(PointIterator begin, PointIterator end) {
+    inline static Rect<T,N> from_points(PointIterator begin, PointIterator end) {
         Rect<T,N> r;
         for (PointIterator i = begin; i != end; ++i) {
             r |= *i;
@@ -192,17 +199,19 @@ public:
     }
 
     /**
-     * Test whether a point is in the N-dimensional range `[min, max]`.
-     * @param min Lower extreme
-     * @param max Upper extreme
+     * @brief Test whether a point is in the N-dimensional range `[lo, hi]`.
+     *
+     * If `lo` > `hi` along any axis, then the range is empty and the 
+     * function returns `false`.
+     * 
+     * @param lo Lower extreme
+     * @param hi Upper extreme
      * @param pt Test point
      * @return `true` if `pt` is inside the exremes
      */
     static bool contains(typename Rect<T,N>::point_t lo,
                          typename Rect<T,N>::point_t hi,
                          typename Rect<T,N>::point_t pt) {
-        lo = std::min(lo, hi);
-        hi = std::max(lo, hi);
         for (index_t axis = 0; axis < N; axis++) {
             T v = ptype::iterator(pt)[axis];
             if (v < ptype::iterator(lo)[axis] or v > ptype::iterator(hi)[axis]) {
@@ -217,24 +226,25 @@ public:
      *****************************/
 
     /**
-     * @brief Box union.
+     * @brief Interval union.
      * 
      * @return A Rect fully containing `this` and box `b`.
      */
     inline Rect<T,N> operator|(const Rect<T,N> &b) const {
-        return rangeUnion(b);
+        return Rect<T,N>(std::min(lo, b.lo),
+                         std::max(hi, b.hi));
     }
     
     /**
-     * @brief Box union.
+     * @brief Interval union.
      * 
      * Extend `this` to fully contain `b`.
      * @return A reference to `this`, for convenience.
      */
     Rect<T,N>& operator|=(const Rect<T,N> &b) {
         //box union
-        maxs = std::max(b.maxs, maxs);
-        mins = std::min(b.mins, mins);
+        hi = std::max(b.hi, hi);
+        lo = std::min(b.lo, lo);
         return *this;
     }
     
@@ -246,8 +256,8 @@ public:
     Rect<T,N> operator|(const point_t& p) {
         // point union
         return Rect<T,N>(
-            std::min(mins, p),
-            std::max(maxs, p)
+            std::min(lo, p),
+            std::max(hi, p)
         );
     }
     
@@ -259,29 +269,30 @@ public:
      */
     Rect<T,N>& operator|=(const point_t& p) {
         // point union
-        mins = std::min(mins, p);
-        maxs = std::max(maxs, p);
+        lo = std::min(lo, p);
+        hi = std::max(hi, p);
         return *this;
     }
     
     /**
-     * @brief Box intersection.
+     * @brief Interval intersection.
      * 
      * @return A Rect representing the area overlapped by both `this` and `b`.
      */
     inline Rect<T,N> operator&(const Rect<T,N> &b) const {
-        return rangeIntersection();
+        return Rect<T,N>(std::max(lo, b.lo),
+                         std::min(hi, b.hi));
     }
     
     /**
-     * @brief Box intersection.
+     * @brief Interval intersection.
      * 
      * Confine this Rect to the area overlapping `b`.
      * @return A reference to `this` for convenience.
      */
     Rect<T,N>& operator&=(const Rect<T,N> &b) {
-        mins = std::max(mins, b.mins);
-        maxs = std::min(maxs, b.maxs);
+        lo = std::max(lo, b.lo);
+        hi = std::min(hi, b.hi);
     }
 
     /**
@@ -292,7 +303,7 @@ public:
      * @return A translated Rect.
      */
     inline Rect<T,N> operator+(point_t dx) const {
-        return Rect<T,N>(mins + dx, maxs + dx);
+        return Rect<T,N>(lo + dx, hi + dx);
     }
     
     /**
@@ -303,7 +314,7 @@ public:
      * @return A translated Rect.
      */
     inline Rect<T,N> operator-(point_t dx) const {
-        return Rect<T,N>(mins - dx, maxs - dx);
+        return Rect<T,N>(lo - dx, hi - dx);
     }
     
 
@@ -315,8 +326,8 @@ public:
      * @return  A reference to `this`, for convenience.
      */
     inline Rect<T,N>& operator+=(point_t dx) {
-        maxs += dx;
-        mins += dx;
+        hi += dx;
+        lo += dx;
         return *this;
     }
     
@@ -329,34 +340,34 @@ public:
      * @return  A reference to `this`, for convenience.
      */
     inline Rect<T,N>& operator-=(point_t dx) {
-        maxs -= dx;
-        mins -= dx;
+        hi -= dx;
+        lo -= dx;
         return *this;
     }
     
     
     /**
-     * @brief Range exclusion.
+     * @brief Interval exclusion.
      *
      * @param other Range to be excluded from the range of this `Rect`.
      * @return A new `Rect` whose range does not overlap `other`.
      */
     inline Rect<T,N> operator-(const Rect<T,N>& other) {
         return Rect<T,N>(
-            std::max(mins,other.maxs),
-            std::min(maxs,other.mins));
+            std::max(lo,other.hi),
+            std::min(hi,other.lo));
     }
     
     
     /**
-     * @brief Range exclusion.
+     * @brief Interval exclusion.
      *
      * @param other Range to remove from this `Rect`.
      * @return A reference to `this`, for convenience.
      */
     inline Rect<T,N>& operator-=(const Rect<T,N>& other) {
-        mins = std::max(mins, other.maxs);
-        maxs = std::min(maxs, other.mins);
+        lo = std::max(lo, other.hi);
+        hi = std::min(hi, other.lo);
         return *this;
     }
     
@@ -367,7 +378,7 @@ public:
      * @return `true` if and only if all the corresponding extremes of `b` are the same.
      */
     inline bool operator==(Rect<T,N> b) const {
-        return (maxs == b.maxs) and (mins == b.mins);
+        return (hi == b.hi) and (lo == b.lo);
     }
     
     /**
@@ -377,7 +388,7 @@ public:
      * the corresponding extreme in `this`.
      */
     inline bool operator!=(Rect<T,N> b) const {
-        return (maxs != b.maxs) or (mins != b.mins);
+        return (hi != b.hi) or (lo != b.lo);
     }
 
     /**
@@ -387,7 +398,13 @@ public:
      * @return A new Rect, scaled about the origin by factor `a`.
      */
     inline Rect<T,N> operator*(point_t a) const {
-        return Rect<T,N>(mins * a, maxs * a);
+        // a sign change can swap lo and hi for any coordinate.
+        // we have to do max and min again after the multiply:
+        point_t lo_a = lo * a;
+        point_t hi_a = hi * a;
+        return Rect<T,N>(
+            std::min(lo_a, hi_a),
+            std::max(lo_a, hi_a));
     }
 
     /**
@@ -399,8 +416,10 @@ public:
      * @return A reference to `this`, for convenience.
      */
     inline Rect<T,N>& operator*=(point_t a) {
-        mins *= a;
-        maxs *= a;
+        point_t lo_a = lo * a;
+        point_t hi_a = hi * a;
+        lo = std::min(lo_a, hi_a);
+        hi = std::max(lo_a, hi_a);
         return *this;
     }
 
@@ -411,7 +430,7 @@ public:
      * @return A new Rect, scaled about the origin by multiple `1 / a`.
      */
     inline Rect<T,N> operator/(point_t a) const {
-        return Rect<T,N>(mins / a, maxs / a);
+        return Rect<T,N>(lo / a, hi / a);
     }
 
     /**
@@ -422,9 +441,35 @@ public:
      * @return A reference to `this`, for convenience.
      */
     inline Rect<T,N>& operator/=(point_t a) {
-        mins /= a;
-        maxs /= a;
+        lo /= a;
+        hi /= a;
         return *this;
+    }
+    
+    /**
+     * @brief Interval cartesian product. 
+     *
+     * Extrude this Rect into a higher dimension, by treating the extents of 
+     * `r` as the extents along the new dimensions. In other words, concatenate 
+     * the coordinates of `this` and `r` into a new Rect.
+     *
+     * For example, the product of a 2D rectangle with a 1D range is a 3D box.
+     * If multiplied in that order, the product will have the extents of the rectangle 
+     * along its first two axes and the extents of the 1D range along its third axis.
+     *
+     * @tparam M Dimensionality of `r`.
+     */
+    template <index_t M>
+    inline Rect<T,M+N> operator*(const Rect<T,M>& r) const {
+        typedef PointType<T,M> r_ptype;
+        Rect<T,M+N> o;
+        
+        std::copy(  ptype::iterator(lo),     ptype::iterator(lo)   + N, o.lo.begin());
+        std::copy(  ptype::iterator(hi),     ptype::iterator(hi)   + N, o.hi.begin());
+        std::copy(r_ptype::iterator(r.lo), r_ptype::iterator(r.lo) + M, o.lo.begin() + N);
+        std::copy(r_ptype::iterator(r.hi), r_ptype::iterator(r.hi) + M, o.hi.begin() + N);
+        
+        return o;
     }
 
     /**
@@ -432,14 +477,14 @@ public:
      * 
      * @return A new Rect, with elements all of type `U`.
      */
-    template <typename U, index_t M> operator Rect<U,M>() {
-        return Rect<U,M>((typename Rect<U,M>::point_t) mins,
-                         (typename Rect<U,M>::point_t) maxs);
+    template <typename U, index_t M> operator Rect<U,M>() const {
+        return Rect<U,M>((typename Rect<U,M>::point_t) lo,
+                         (typename Rect<U,M>::point_t) hi);
     }
 
 
     /*****************************
-     * Public Methods              *
+     * Public Methods            *
      *****************************/
 
     /**
@@ -449,7 +494,9 @@ public:
     bool contains(point_t pt) const {
         for (index_t axis = 0; axis < N; axis++) {
             T v = ptype::iterator(pt)[axis];
-            if (v < ptype::iterator(mins)[axis] or v >= ptype::iterator(maxs)[axis]) {
+            if (v < ptype::iterator(lo)[axis] or 
+                v > ptype::iterator(hi)[axis])
+            {
                 return false;
             }
         }
@@ -462,64 +509,36 @@ public:
     bool intersects(const Rect<T,N> &box) const {
         for (index_t axis = 0; axis < N; axis++) {
             // disjoint on this axis?
-            if (ptype::iterator(maxs)[axis]     <= ptype::iterator(box.mins)[axis] or 
-                ptype::iterator(box.maxs)[axis] <= ptype::iterator(mins)[axis]) {
+            if (ptype::iterator(hi)[axis]     <= ptype::iterator(box.lo)[axis] or 
+                ptype::iterator(box.hi)[axis] <= ptype::iterator(lo)[axis]) {
                 return false;
             }
         }
         return true;
     }
-
-    /**
-     * @return The lower extremes of this region.
-     */
-    inline const point_t& min() const {
-        return mins;
-    }
-    
-    /**
-     * @return The lower extremes of this region.
-     */
-    inline point_t& min() {
-        return mins;
-    }
-
-    /** 
-     * @return The upper extremes of this region. 
-     */
-    inline const point_t& max() const {
-        return maxs;
-    }
-    
-    /** 
-     * @return The upper extremes of this region. 
-     */
-    inline point_t& max() {
-        return maxs;
-    }
     
     /**
      * @return The center point of this region.
      */
-    point_t getCenter() const {
-        return (maxs + mins + endpoint_measure) / 2;
+    point_t center() const {
+        return (hi + lo + endpoint_measure) / 2;
     }
 
     /**
      * @return The size of this region along each axis.
      *
-     * Note that for integer type Rects, since this includes both the high and low boundaries,
-     * the length along each axis is `max - min + 1`.
+     * Note that for integer type Rects, since both the high and low boundaries are included,
+     * the length along each axis is `hi - lo + 1`.
      */
-    inline point_t getDimensions() const {
-        return maxs - mins + endpoint_measure;
+    inline point_t dimensions() const {
+        return hi - lo + endpoint_measure;
     }
 
     /**
      * Change the size of this region, adjusting about its center.
      * @param dim New lengths along each axis.
      */
-    void setDimensions(point_t dim) {
+    void set_dimensions(point_t dim) {
         // rule: preserve the center point.
         //       for odd-length boxes, this is the center element.
         //       for even-length boxes, it is the middle zero-indexed "fencepost".
@@ -537,37 +556,28 @@ public:
         
         // xxx fixme for int types
         dim = std::abs(dim);
-        point_t diff = (dim - getDimensions()) / 2;
-        mins = mins - diff;
-        maxs = maxs + diff;
+        point_t diff = (dim - dimensions()) / 2;
+        lo = lo - diff;
+        hi = hi + diff;
     }
 
     /**
      * Re-configure this region to exactly contain the two given points.
      */
-    void setCorners(point_t corner1, point_t corner2) {
-        maxs = std::max(corner1, corner2);
-        mins = std::min(corner1, corner2);
+    void set_corners(point_t corner1, point_t corner2) {
+        hi = std::max(corner1, corner2);
+        lo = std::min(corner1, corner2);
     }
     
     /**
      * Preserving its size, translate the center of this region to the point
      * given by `center`.
-     * @param center New center point.
+     * @param c New center point.
      */
-    void setCenter(point_t center) {
-        point_t tx = center - getCenter();
-        maxs += tx;
-        mins += tx;
-    }
-
-    /**
-     * Translation
-     * @param tx Amount by which to translate this region.
-     */
-    void translate(point_t tx) {
-        maxs += tx;
-        mins += tx;
+    void center_on(point_t c) {
+        point_t tx = c - center();
+        hi += tx;
+        lo += tx;
     }
     
     /**
@@ -579,7 +589,7 @@ public:
      */
     T volume() const {
         T vol = 1;
-        point_t dim = getDimensions();
+        point_t dim = dimensions();
         for (index_t axis = 0; axis < N; axis++) {
             vol *= std::max(ptype::iterator(dim)[axis], (T)0);
         }
@@ -587,33 +597,18 @@ public:
     }
     
     /**
-     * @return `true` if and only if this region contains no points.
+     * @return `true` if and only if this region contains no points; which
+     * will be the case if `lo[i] > hi[i]` for any axis `i`.
      */
-    bool isEmpty() const {
+    bool is_empty() const {
         for (index_t axis = 0; axis < N; axis++) {
-            T hi = ptype::iterator(maxs)[axis];
-            T lo = ptype::iterator(mins)[axis];
-            if (hi < lo) {
+            T hi_i = ptype::iterator(hi)[axis];
+            T lo_i = ptype::iterator(lo)[axis];
+            if (hi_i < lo_i) {
                 return true;
             }
         }
         return false;
-    }
-    
-    /**
-     * @return A new Rect representing the area overlapped by both `this` and `b`.
-     */
-    Rect<T,N> rangeIntersection(const Rect<T,N> &b) const {
-        return Rect<T,N>(std::max(mins, b.mins),
-                         std::min(maxs, b.maxs));
-    }
-
-    /**
-     * @return A new Rect completely containing both `this` and `b`.
-     */
-    Rect<T,N> rangeUnion(const Rect<T,N> &b) const {
-        return Rect<T,N>(std::min(mins, b.mins),
-                         std::max(maxs, b.maxs));
     }
     
     /**
@@ -622,12 +617,13 @@ public:
      * Result can be considered the point nearest to `p` contained in this `Rect`.
      */
     inline point_t clamp(point_t p) const {
-        return std::min(maxs, std::max(mins, p));
+        return std::min(hi, std::max(lo, p));
     }
     
     
     /**
-     * @return The square of the distance to the nearest point contained by this `Rect`; zero if `p` is inside.
+     * @return The square of the distance to the nearest point contained by this `Rect`; 
+     * zero if `p` is inside.
      */
     inline T dist2(point_t p) const {
         return ptype::mag2(p - clamp(p));
@@ -635,7 +631,8 @@ public:
     
     /**
      * Remap `s` on the `[0,1]` interval to the extents of this Rect. 
-     * In other words, interpolate the corners of this Rect using s as an interpolation parameter.
+     * In other words, interpolate the corners of this Rect using s as an interpolation 
+     * parameter.
      *
      * Inverse operation of `unmap()`.
      * 
@@ -643,7 +640,7 @@ public:
      */
     point_t remap(point_t s) const {
         // todo: template for integer type? beware endpoint measure.
-       return (point_t(1) - s) * mins + s * maxs;
+       return (point_t(1) - s) * lo + s * hi;
     }
     
     /**
@@ -652,14 +649,14 @@ public:
      * Inverse operation of `remap()`.
      */
     point_t unmap(point_t p) const {
-        return (p - mins) / (maxs - mins);
+        return (p - lo) / (hi - lo);
     }
     
-    point_t convexSupport(point_t d) const {
+    point_t convex_support(point_t d) const {
         point_t o;
         for (index_t i = 0; i < N; i++) {
             T a = ptype::iterator(d)[i];
-            ptype::iterator(o)[i] = ptype::iterator(a < 0 ? mins : maxs)[i];
+            ptype::iterator(o)[i] = ptype::iterator(a < 0 ? lo : hi)[i];
         }
         return o;
     }
@@ -673,12 +670,16 @@ public:
      * as well as the normal, side hit, and ray parameter.
      */
     Hit<T,N> trace(const Ray<T,N> &r, HitSide sides) const {
-        T near_root = std::numeric_limits<T>::lowest(); // non-denormal extremes, for speed (as opposed to inf).
-        T far_root  = std::numeric_limits<T>::max();    // besides, infinity may not be defined for T.
+        // use non-denormal extremes, for speed (as opposed to inf).
+        // (also, infinity may not be defined for T).
+        T near_root = std::numeric_limits<T>::lowest();
+        T far_root  = std::numeric_limits<T>::max();
         index_t near_axis = 0;
         index_t far_axis  = 0;
-        T near_coord  = 0; // for guaranteeing that the hit point is exactly on the rect surface,
-        T far_coord   = 0; // regardless of precision and rounding error in the ray arithmetic.
+        // for guaranteeing that the hit point is exactly on the rect surface,
+        // regardless of precision and rounding error in the ray arithmetic:
+        T near_coord  = 0;
+        T far_coord   = 0;
         Hit<T,N> hit  = Hit<T,N>(r, sides); // defaults to miss
         
         // test ray intersection with an infinite slab along each axis
@@ -686,14 +687,14 @@ public:
         for (index_t axis = 0; axis < N; axis++) {
             if (r.direction[axis] == 0) {
                 // ray direction tangent to test planes, no intersection along this axis
-                if (r.origin[axis] < mins[axis] || r.origin[axis] > maxs[axis]) {
+                if (r.origin[axis] < lo[axis] || r.origin[axis] > hi[axis]) {
                     // origin outside of test slab; miss
                     return hit;
                 }
             } else {
                 // coordinate of hit, along tested axis
-                T c1 = maxs[axis];
-                T c2 = mins[axis];
+                T c1 = hi[axis];
+                T c2 = lo[axis];
                 // ray multiple of hit
                 T s1 = (c1 - r.origin[axis]) / r.direction[axis];
                 T s2 = (c2 - r.origin[axis]) / r.direction[axis];
@@ -745,7 +746,7 @@ public:
      * Inherited Methods         *
      *****************************/
 
-    Rect<T,N> bounds() {
+    Rect<T,N> bounds() const {
         return *this;
     }
 
@@ -755,7 +756,8 @@ public:
 
 // static members
 template <typename T, index_t N>
-const typename Rect<T,N>::point_t Rect<T,N>::endpoint_measure = std::numeric_limits<T>::is_integer ? 1 : (T)0;
+const typename Rect<T,N>::point_t Rect<T,N>::endpoint_measure = 
+    std::numeric_limits<T>::is_integer ? 1 : (T)0;
 
 
 } // end namespace geom

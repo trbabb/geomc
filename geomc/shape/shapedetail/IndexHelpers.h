@@ -21,7 +21,7 @@ struct ShapeIndexHelper {
     typedef Rect<T,N> bound_t;
     
     static inline Vec<T,N> getPoint(const D& obj) {
-        return obj.getCenter();
+        return obj.center();
     }
     
     static inline T dist2(const D& obj, const Vec<T,N>& p) {
@@ -106,7 +106,7 @@ struct ShapeIndexHelper< T, N, Bounded<T,N> > {
     typedef Rect<T,N> bound_t;
     
     inline Vec<T,N> getPoint(const Bounded<T,N>& r) {
-        return r.bounds().getCenter();
+        return r.bounds().center();
     }
     
     static inline T dist2(const Bounded<T,N>& r, const Vec<T,N>& p) {
@@ -134,11 +134,11 @@ T worst_case_nearest2(const Vec<T,N>& p, const Rect<T,N>& r) {
     Vec<T,N> near_extremes;
     
     for (index_t axis = 0; axis < N; axis++) {
-        T lodist = std::abs(p[axis] - r.min()[axis]);
-        T hidist = std::abs(p[axis] - r.max()[axis]);
+        T lodist = std::abs(p[axis] - r.lo[axis]);
+        T hidist = std::abs(p[axis] - r.hi[axis]);
         
-        far_extremes[axis]  = lodist > hidist ? r.min()[axis] : r.max()[axis];
-        near_extremes[axis] = lodist > hidist ? r.max()[axis] : r.min()[axis];
+        far_extremes[axis]  = lodist > hidist ? r.lo[axis] : r.hi[axis];
+        near_extremes[axis] = lodist > hidist ? r.hi[axis] : r.lo[axis];
     }
     
     for (index_t axis = 0; axis < N; axis++) {

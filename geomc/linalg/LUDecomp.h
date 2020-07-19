@@ -16,6 +16,8 @@ namespace geom {
 //       I suspect in some circumstances (i.e. certain matrix layout
 //       combinations) the inverse isn't needed. Can we avoid computing
 //       P's inverse?
+//       Generally, we should always be able to pre- or post-permute a 
+//       vector cheaply, since they are inverses of each other.
 
 // todo: we do a final transpose as part of matrix inversion when
 //       the destination is row-major. is there a way we can eliminate
@@ -46,7 +48,10 @@ namespace geom {
  ************************************************/
 
 /**
- * LU decomposition, pivoting columns.
+ * @brief LU decomposition, pivoting columns.
+ *
+ * Solve `LU = MP` for the lower- and upper-triangular matrices L and U
+ * and a permutation matrix P.
  *
  * @tparam T The element type of the matrix.
  * @tparam RowMajor Whether the layout of the matrix is row-major 
@@ -121,9 +126,11 @@ index_t decomp_lup(T* m, index_t rows, index_t cols, index_t* reorder, bool* swa
     return degenerate_ct;
 }
 
-
 /**
- * LU decomposition, pivoting rows.
+ * @brief LU decomposition, pivoting rows.
+ * 
+ * Solve `LU = PM` for the lower- and upper-triangular matrices L and U
+ * and a permutation matrix P.
  *
  * @tparam T The element type of the matrix.
  * @tparam RowMajor Whether the layout of the matrix is row-major 
@@ -162,8 +169,7 @@ index_t decomp_plu(T* m, index_t rows, index_t cols, index_t* reorder, bool* swa
         }
         
         if (biggest == 0) {
-            // singular matrix
-            // could test against an epsilon to 
+            // singular matrix. could test against an epsilon to 
             // find ill-conditioned matrices
             degenerate_ct += 1;
             continue;
@@ -199,7 +205,6 @@ index_t decomp_plu(T* m, index_t rows, index_t cols, index_t* reorder, bool* swa
 }
 
 
-
 /**
  * Solve a system of linear equations `LUx = Pb`.
  *
@@ -207,8 +212,8 @@ index_t decomp_plu(T* m, index_t rows, index_t cols, index_t* reorder, bool* swa
  * @tparam RowMajor Whether the layout of the matrix is row-major (`true`) 
  * or column-major (`false`).
  *
- * @param lup An `n x n` LUP-decomposed matrix. 
- * @param p The permutation array filled by `decomp_lup()`.
+ * @param plu An `n x n` PLU-decomposed matrix. 
+ * @param p The permutation array of row-sources filled by `decomp_plu()`.
  * @param n The number of rows and columns in the matrix.
  * @param x The solution vector of `n` elements to be filled.
  * @param b A vector of `n` elements.
@@ -216,15 +221,20 @@ index_t decomp_plu(T* m, index_t rows, index_t cols, index_t* reorder, bool* swa
  * If greater than 0, the corresponding variables within `x` will contain nonsense values.
  */
 template <typename T, bool RowMajor=true>
-void linear_solve_lup(
-        const T* lup,
+void linear_solve_plu(
+        const T* plu,
         const index_t* p,
         index_t n,
         T* x,
         const T* b,
         index_t skip=0)
 {
-    detail::MxWrap<const T, RowMajor> mx = {lup, n, n};
+    detail::MxWrap<const T, RowMajor> mx = {plu, n, n};
+    
+    //       LU   = PM
+    //       LU x = Pb  <-- our equation.
+    // (P^-1)LU x = b
+    //        M x = b   <-- same `x`.
     
     // <y> and <x>'s elements are used such that
     // y[i] is never read after x[i] is written.
@@ -236,7 +246,7 @@ void linear_solve_lup(
     // Ly  = Pb
     y[0] = b[p[0]];
     for (index_t r = 1; r < n; r++) {
-        y[r] = b[p[r]];
+        y[r] = b[p[r]];  // y[r] <- Pb[r]
         for (index_t c = 0; c < r; c++) {
             y[r] -= y[c] * mx.elem(r,c);
         }
@@ -260,7 +270,7 @@ void linear_solve_lup(
  * @tparam RowMajor Whether the layout of the matrix is row-major (`true`) 
  * or column-major (`false`).
  *
- * @param lup An `n x n` LU-decomposed matrix.
+ * @param lu An `n x n` LU-decomposed matrix.
  * @param n The number of rows and columns in the matrix.
  * @param x The solution vector of `n` elements to be filled.
  * @param b A vector of `n` elements.
@@ -313,16 +323,16 @@ void linear_solve_lu(const T* lu, index_t n, T* x, const T* b, index_t skip=0) {
  * @param b A vector of `N` elements. 
  * @param skip How many variables, in order from the first, to skip solving for. If greater 
  * than 0, the corresponding variables within `x` will contain nonsense values.
- * @return `true` if the system is not degenerate.
+ * @return `true` if a solution could be found; `false` if the system is degenerate.
  */
 template <typename T, bool RowMajor=true>
 inline bool linear_solve(T* m, index_t n, T* x, const T* b, index_t skip=0) {
-    SmallStorage<index_t, 32> p(n); // probably will never have to alloc.
+    SmallStorage<index_t, 24> p(n); // unlikely to need an alloc
     bool parity;
     if (decomp_plu<T,RowMajor>(m, n, n, p.get(), &parity) > 0) {
         return false;
     }
-    linear_solve_lup<T,RowMajor>(m, p.get(), n, x, b, skip);
+    linear_solve_plu<T,RowMajor>(m, p.get(), n, x, b, skip);
     return true;
 }
 
@@ -338,7 +348,7 @@ inline bool linear_solve(T* m, index_t n, T* x, const T* b, index_t skip=0) {
  * @param b A vector.
  * @param skip How many variables, in order from the first, to skip solving for. If greater
  * than 0, the corresponding variables within `x` will contain nonsense values.
- * @return `true` if the system is not degenerate.
+ * @return `true` if a solution could be found; `false` if the system is degenerate.
  */
 template <typename T, index_t N>
 inline bool linear_solve(Vec<T,N>* bases, Vec<T,N>* x, const Vec<T,N>& b, index_t skip=0) {
@@ -356,11 +366,14 @@ inline bool linear_solve(Vec<T,N>* bases, Vec<T,N>* x, const Vec<T,N>& b, index_
     } else {
         index_t p[N];
         T* const m = bases[0].begin();
-        bool parity;
-        if (decomp_plu<T,false>(m, N, N, p, &parity) > 0) {
+        bool _parity;
+        // LU = PM (M's rows reordered)
+        if (decomp_plu<T,false>(m, N, N, p, &_parity) > 0) {
             return false;
         }
-        linear_solve_lup<T,false>(m, p, N, x->begin(), b.begin(), skip);
+        // LUx = Pb
+        linear_solve_plu<T,false>(m, p, N, x->begin(), b.begin(), skip);
+        
         return true;
     }
 }
@@ -373,43 +386,59 @@ inline bool linear_solve(Vec<T,N>* bases, Vec<T,N>* x, const Vec<T,N>& b, index_
 
 /** 
  * @ingroup matrix
- * @brief Computes the PLU decompostion for a matrix `A`, such that `PA = LU`.
+ * @brief Computes the PLU decompostion for a matrix `M`, such that `PM = LU`.
  * 
  * `L` and `U` are lower and upper triangular matrices, respectively.
- * `P` has dimension `(LU.rows() x LU.rows())`, and `LU` has the dimension of `A`.
+ * `P` has dimension `(LU.rows() x LU.rows())`, and `LU` has the dimension of `M`.
  */
 template <typename T, index_t M, index_t N>
 class PLUDecomposition {
-public:
-    /**
-     * @brief Dimension of the diagonal of `LU`. 
-     * The minimum of `M` and `N`, or 0 if either dimension is dynamic.
-     */
+protected:
+    
+    // Dimension of the diagonal of `LU`.
     static const index_t DIAG = (M<N)?M:N;
-    /// Matrix type for holding `L`.
+    // Matrix type for holding `L`.
     typedef SimpleMatrix<T,M,DIAG> L_t;
-    /// Matrix type for holding `U`.
+    // Matrix type for holding `U`.
     typedef SimpleMatrix<T,DIAG,N> U_t;
+    
+public:
+
+    /**
+      * @brief The upper and lower triangular matrices L and U, stored superimposed
+      * into each other using a single matrix as storage.
+      *
+      * The elements of `L` fill the lower triangle of `LU`, while the elements of 
+      * `U` fill `LU`'s upper triangle. The diagonal unity elements, which belong 
+      * to `L`, are not stored.
+      *
+      * Note that this is NOT equal to the matrix `L * U` (which will be definition 
+      * simply be a row-permutation of the original matrix `M`). 
+      */
+    SimpleMatrix<T,M,N> LU;
+    
+    /// The matrix `P` such that `P * M = L * U`, where `M` is the matrix decomposed within.
+    PermutationMatrix<M> P;
     
 protected:
     
     // LU stores both the upper and lower triangular parts of the decomposition.
     // The diagonal one elements (which belong to L) are not stored.
-
-    SimpleMatrix<T,M,N> LU;
-    PermutationMatrix<M> P;
     bool singular;
     bool swap_parity;
+
+public:
     
-    PLUDecomposition(index_t n_r, index_t n_c):
-            LU(n_r, n_c),
-            P(n_r),
+    /**
+     * @brief Construct an empty PLU decomposition with dimensions `rows` x `cols`. 
+     */
+    PLUDecomposition(index_t rows, index_t cols):
+            LU(rows, cols),
+            P(rows),
             singular(false),
             swap_parity(false) {}
-    
-public:
     /**
-     * Construct a PLU decompostion of `m`. `Mx` must be a matrix type.
+     * @brief Construct a PLU decompostion of `m`. `Mx` must be a matrix type.
      */
 #ifdef PARSING_DOXYGEN
     template <typename Mx> explicit PLUDecompostion(const Mx &m) {}
@@ -418,7 +447,7 @@ public:
     // what a garbage fire of a function signature :(
     template <typename Mx>
     explicit PLUDecomposition(
-        const Mx& m, 
+        const Mx& mx, 
         typename boost::enable_if_c
         <
             detail::MatrixDimensionMatch
@@ -428,70 +457,46 @@ public:
             >::isStaticMatch,
             int
         >::type dummy=0):
-            LU(m),
-            P(m.rows()),
+            LU(mx.rows(), mx.cols()),
+            P(mx.rows()),
             singular(false),
             swap_parity(false)
     {
-        // we already have a buffer for the permutation, use that:
-        index_t* P_data = P.getSrcData();
-        // do the decomposition
-        bool ok = decomp_plu(
-            LU.begin(),
-            m.rows(),
-            m.cols(),
-            P_data,
-            &swap_parity) == 0;
-
-        if (not ok) singular = true;
-        P.setRowSources(P_data);
+        decompose(mx);
     }
     
-public:
+    
+    /**
+     * @brief Decompose `mx` into this PLUDecomposition.
+     *
+     * Fill this PLU's buffers with the decomposition of `mx`.
+     * 
+     * `mx` must have the same number of rows and colums as `this.LU`.
+     *
+     * @param mx A matrix with dimensions matching `LU`. 
+     * @return The number of degenerate rows in `mx`.
+     */
+    template <typename Mx>
+    bool decompose(const Mx& mx) {
+        // use P's existing buffer:
+        index_t* P_i = P.getSrcData();
+        std::copy(mx.begin(), mx.begin() + mx.rows() * mx.cols(), LU.begin());
+        index_t degenerate_rows = decomp_plu(
+            LU.begin(),
+            LU.rows(),
+            LU.cols(),
+            P_i,
+            &swap_parity);
+        if (degenerate_rows > 0) singular = true;
+        P.setRowSources(P_i);
+        return degenerate_rows;
+    }
     
     /**
      * @return The number of elements in the diagonal of `LU`. 
      */
     inline index_t diagonal() const {
         return std::min(LU.rows(), LU.cols());
-    }
-    
-    /**
-     * @return The row-permutation matrix.
-     */
-    const PermutationMatrix<M>& getP() const {
-        return P;
-    }
-    
-    /**
-     * Get `L` and `U` as superimposed matrices. The elements of `L` fill
-     * the lower triangle, and the elements of `U` fill the upper. The diagonal
-     * unity elements, which belong to `L`, are not stored.
-     */
-    const SimpleMatrix<T,M,N>& getLU() const {
-        return LU;
-    }
-    
-    /**
-     * @return A copy of the lower-triangular matrix.
-     */
-    const SimpleMatrix<T,M,DIAG> getL() const {
-        typedef detail::_ImplMtxInstance< SimpleMatrix<T,M,DIAG> > instancer;
-        const index_t diag = diagonal();
-        SimpleMatrix<T,M,DIAG> out = instancer::instance(LU.rows(), diag);
-        _copyL(&out);
-        return out;
-    }
-    
-    /**
-     * @return A copy of the upper triangular matrix.
-     */
-    const SimpleMatrix<T,DIAG,N> getU() const {
-        typedef detail::_ImplMtxInstance< SimpleMatrix<T,DIAG,N> > instancer;
-        const index_t diag = diagonal();
-        SimpleMatrix<T,DIAG,N> out = instancer::instance(diag, LU.cols());
-        _copyU(&out);
-        return out;
     }
     
     /**
@@ -505,13 +510,13 @@ public:
      */
 #ifdef PARSING_DOXYGEN
     template <typename S, index_t J, index_t K>
-    void getL(SimpleMatrix<S,J,K>* into) const {}
+    void get_L(SimpleMatrix<S,J,K>* into) const {}
 #endif
     template <typename S, index_t J, index_t K, MatrixLayout Lyt, StoragePolicy SP>
     inline typename boost::enable_if_c<
             detail::MatrixDimensionMatch<L_t, SimpleMatrix<S,J,K> >::isStaticMatch,
         void>::type 
-    getL(SimpleMatrix<S,J,K,Lyt,SP>* into) const {
+    get_L(SimpleMatrix<S,J,K,Lyt,SP>* into) const {
 #ifdef GEOMC_MTX_CHECK_DIMS
         const index_t diag = diagonal();
         if ((J * L_t::ROWDIM == 0 or J != L_t::ROWDIM or
@@ -537,13 +542,13 @@ public:
      */
 #ifdef PARSING_DOXYGEN
     template <typename S, index_t J, index_t K>
-    void getU(SimpleMatrix<S,J,K> *into) const {}
+    void get_U(SimpleMatrix<S,J,K> *into) const {}
 #endif
     template <typename S, index_t J, index_t K, MatrixLayout Lyt, StoragePolicy SP>
     inline typename boost::enable_if_c<
             detail::MatrixDimensionMatch<U_t, SimpleMatrix<S,J,K> >::isStaticMatch,
         void>::type
-    getU(SimpleMatrix<S,J,K,Lyt,SP> *into) const {
+    get_U(SimpleMatrix<S,J,K,Lyt,SP> *into) const {
 #ifdef GEOMC_MTX_CHECK_DIMS
         const index_t diag = diagonal();
         if ((J * U_t::ROWDIM == 0 or J != U_t::ROWDIM or 
@@ -581,7 +586,7 @@ public:
             index_t n = LU.rows();
             UniqueStorage<S,M> buf(n);
             std::copy(b, b+n, buf.get());
-            geom::linear_solve_lup(
+            geom::linear_solve_plu(
                 LU.begin(),
                 P.getRowSources(),
                 LU.rows(),
@@ -591,7 +596,7 @@ public:
         }
 #endif
         
-        geom::linear_solve_lup(LU.begin(), P.getRowSources(), LU.rows(), dest, b);
+        geom::linear_solve_plu(LU.begin(), P.getRowSources(), LU.rows(), dest, b);
      }
     
     
@@ -617,7 +622,7 @@ public:
         _check_is_square();
 #endif
         
-        geom::linear_solve_lup(
+        geom::linear_solve_plu(
             LU.begin(), 
             P.getRowSources(), 
             LU.rows(), 
@@ -639,7 +644,7 @@ public:
      */
     template <index_t J, index_t K, MatrixLayout Lyt, StoragePolicy SP>
     void inverse(SimpleMatrix<T,J,K,Lyt,SP>* into) const {
-        
+        // todo: this can all probably be cleaner/cheaper
 #ifdef GEOMC_MTX_CHECK_DIMS
         _check_is_square();
         // destination is valid?
@@ -705,7 +710,7 @@ public:
 protected:
     
     template <typename Mx>
-    void _copyL(Mx *into) const {
+    void _copyL(Mx* into) const {
         for (index_t r = 0; r < LU.rows(); r++) {
             for (index_t c = 0; c < LU.cols(); c++) {
                 T v;
@@ -722,7 +727,7 @@ protected:
     }
     
     template <typename Mx>
-    void _copyU(Mx *into) const {
+    void _copyU(Mx* into) const {
         for (index_t r = 0; r < LU.rows(); r++) {
             for (index_t c = 0; c < LU.cols(); c++) {
                 T v;

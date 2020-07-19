@@ -53,14 +53,18 @@ public:
      * Construct a plane with normal `n`.
      * @param n Normal direction. 
      */
-    Plane(Vec<T,N> n):normal(n.unit()),d(0) {}
+    Plane(Vec<T,N> n):
+        normal(n.unit()),
+        d(0) {}
     
     /**
      * Construct a plane with normal `n` passing through the point `pt`.
      * @param n Normal direction.
      * @param pt A point on the plane.
      */
-    Plane(Vec<T,N> n, Vec<T,N> pt):normal(n.unit()),d(-pt.dot(normal)) {}
+    Plane(Vec<T,N> n, Vec<T,N> pt):
+        normal(n.unit()),
+        d(-pt.dot(normal)) {}
     
     /**
      * Construct a plane spanning the given basis vectors. 
@@ -124,7 +128,7 @@ public:
      * (i.e. on the side opposite the normal); false otherwise.
      */
     inline bool contains(const Convex<T,N> &shape) const {
-        return shape.convexSupport(normal).dot(normal) <= -d;
+        return shape.convex_support(normal).dot(normal) <= -d;
     }
     
     /**
@@ -168,8 +172,8 @@ public:
      * @return `true` if and only if this plane passes through `shape`.
      */
     inline bool intersects(const Convex<T,N> &shape) const {
-        return shape.convexSupport( normal).dot(normal) + d  > 0 and
-               shape.convexSupport(-normal).dot(normal) + d <= 0;
+        return shape.convex_support( normal).dot(normal) + d  > 0 and
+               shape.convex_support(-normal).dot(normal) + d <= 0;
     }
     
     /**

@@ -23,7 +23,7 @@
 #include <geomc/function/SphericalHarmonics.h>
 #include <geomc/shape/BinLatticePartition.h>
 #include <geomc/shape/Trace.h>
-#include <geomc/shape/OrientedRect.h>
+#include <geomc/shape/Oriented.h>
 #include <geomc/shape/Intersect.h>
 #include <geomc/shape/Frustum.h>
 
@@ -610,32 +610,70 @@ void randomBox(OrientedRect<T,N> *r) {
     r->xf *= translation(smp.template unit<N>());
     Vec<T,N> b0 = smp.box(Vec<T,N>(-1), Vec<T,N>(1));
     Vec<T,N> b1 = smp.box(Vec<T,N>(-1), Vec<T,N>(1));
-    r->box = Rect<T,N>::spanningCorners(b0,b1);
+    r->shape = Rect<T,N>::spanning_corners(b0,b1);
+}
+
+template <typename T, index_t N>
+void getCorners(const ViewFrustum<T,N>& f, Vec<T,N> p[1 << N]) {
+    typedef PointType<T,N-1> Pt;
+    const Frustum< Rect<T,N-1> >& f_i = f.shape;
+    typename Pt::point_t extreme[2] = { f_i.base.lo, f_i.base.hi };
+    Rect<T,1> h_clip = f_i.clipped_height();
+    
+    for (index_t k = 0; k < 2; k++) {
+        // for lower and upper extents
+        T h = k == 0 ? h_clip.lo : h_clip.hi;
+        for (index_t c = 0; c < (1 << (N-1)); c++) {
+            // for each corner of the base rect
+            Vec<T,N> pt;
+            for (index_t i = 0; i < N-1; i++) {
+                // for each coordinate of the corner point
+                pt[i] = Pt::iterator(extreme[(c & (1 << i)) != 0])[i];
+            }
+            pt[N-1] = 1;
+            pt *= h;
+            pt  = f.xf * pt;
+            p[c + ((k > 0) ? (1 <<(N-1)) : 0)] = pt;
+        }
+    }
+}
+
+template <typename T, index_t N>
+void getCorners(const OrientedRect<T,N>& r, Vec<T,N> p[1 << N]) {
+    Vec<T,N> extreme[2] = { r.shape.lo, r.shape.hi };
+    
+    for (index_t i = 0; i < (1 << N); ++i) {
+        Vec<T,N> v;
+        for (index_t axis = 0; axis < N; ++axis) {
+            v[axis] = extreme[((i >> axis) & 1)][axis];
+        }
+        p[i] = r.xf * v;
+    }
 }
 
 template <typename T>
-void randomFrustum(Frustum<T,2> *f) {
+void randomFrustum(ViewFrustum<T,2>* f) {
     Sampler<T> smp;
-    f->height = Rect<T,1>::spanningCorners(
-                            getRandom()->rand<T>(-5,5), 
-                            getRandom()->rand<T>(-5,5));
-    f->base = Rect<T,1>::spanningCorners(
-                            getRandom()->rand<T>(-5), 
-                            getRandom()->rand<T>( 5));
+    f->shape.height = Rect<T,1>::spanning_corners(
+                        getRandom()->rand<T>(-5,5), 
+                        getRandom()->rand<T>(-5,5));
+    f->shape.base = Rect<T,1>::spanning_corners(
+                        getRandom()->rand<T>(-5), 
+                        getRandom()->rand<T>( 5));
     randomOrient(&f->xf);
     f->xf *= scale(Vec<T,2>(getRandom()->rand(2,8)));
     f->xf *= translation(smp.template unit<2>());
 }
 
 template <typename T, index_t N>
-void randomFrustum(Frustum<T,N> *f) {
+void randomFrustum(ViewFrustum<T,N>* f) {
     Sampler<T> smp;
-    f->height = Rect<T,1>::spanningCorners(
-                            getRandom()->rand<T>(-5,5), 
-                            getRandom()->rand<T>(-5,5));
+    f->shape.height = Rect<T,1>::spanning_corners(
+                        getRandom()->rand<T>(-5,5), 
+                        getRandom()->rand<T>(-5,5));
     Vec<T,N-1> b0 = smp.box(Vec<T,N-1>(-5), Vec<T,N-1>(5));
     Vec<T,N-1> b1 = smp.box(Vec<T,N-1>(-5), Vec<T,N-1>(5));
-    f->base = Rect<T,N-1>::spanningCorners(b0, b1);
+    f->shape.base = Rect<T,N-1>::spanning_corners(b0, b1);
     randomOrient(&f->xf);
     f->xf *= scale(Vec<T,N>(getRandom()->rand(2,8)));
     f->xf *= translation(smp.template unit<N>());
@@ -710,7 +748,7 @@ template <typename T, index_t N> double profile_OBB_bounds(index_t iters) {
         clock_t start = clock();
         for (index_t j = 0; j < nn; j++) {
             r  = boxes[j].bounds();
-            z += r.max();
+            z += r.hi;
         }
         clock_t end = clock();
         
@@ -745,8 +783,8 @@ template <typename T, index_t N> index_t test_gjkIntersect(index_t iters) {
         if (i0 == 0) i1 = (i1 + 1) % n;
         Vec<T,N> b0[n_corners];
         Vec<T,N> b1[n_corners];
-        boxes[i0].getCorners(b0);
-        boxes[i1].getCorners(b1);
+        getCorners(boxes[i0], b0);
+        getCorners(boxes[i1], b1);
         bool print = false;
 #ifdef EMIT_GJK_ALL
         print = true;
@@ -831,10 +869,10 @@ template <typename T, index_t N> index_t test_frustumSupport(index_t iters) {
     
     index_t failures = 0;
     for (index_t j = 0; j < iters/100; j++) {
-        Frustum<T,N> f;
+        ViewFrustum<T,N> f;
         randomFrustum(&f);
         Vec<T,N> pts[n_corners];
-        f.getCorners(pts);
+        getCorners(f, pts);
         for (index_t k = 0; k < 100; k++) {
             Vec<T,N> d = smp.template unit<N>();
             Vec<T,N> p0 = f.convexSupport(d);

@@ -32,20 +32,26 @@ namespace geom {
         /**
          * Construct a sphere at the origin with radius 1.
          */
-        Sphere():center(Vec<T,N>::zeros),r(1) {}
+        Sphere():r(1) {}
+        
+        /**
+         * Construct a sphere with center at the origin, having radius `r`.
+         * @param r Radius of spehre.
+         */
+        Sphere(T r):r(r) {}
         
         /**
          * Construct a sphere with center at the point `c`, having radius `r`.
          * @param c Center of sphere.
          * @param r Radius of spehre.
          */
-        Sphere(Vec<T,N> c, T r):center(c),r(r) {}
+        Sphere(const Vec<T,N>& c, T r):center(c),r(r) {}
         
         /**
          * @return An axis-aligned bounding box completely containing this
          * sphere.
          */
-        Rect<T,N> bounds() {
+        Rect<T,N> bounds() const {
             Vec<T,N> rvec = Vec<T,N>(r);
             return Rect<T,N>(center-rvec, center+rvec);
         }
@@ -69,7 +75,7 @@ namespace geom {
             return s.center.dist2(center) <= r*r;
         }
         
-        Vec<T,N> convexSupport(Vec<T,N> d) const {
+        Vec<T,N> convex_support(Vec<T,N> d) const {
             return center + d.unit() * r;
         }
         

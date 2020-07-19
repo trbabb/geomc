@@ -411,7 +411,7 @@ namespace detail {
         
         UnstructuredPointcloud(const Vec<T,N> *pts, index_t n):pts(pts),n(n) {}
         
-        Vec<T,N> convexSupport(Vec<T,N> d) const {
+        Vec<T,N> convex_support(Vec<T,N> d) const {
             T largest_dot = std::numeric_limits<T>::lowest();
             Vec<T,N> pt;
             for (index_t i = 0; i < n; i++) {
@@ -438,8 +438,8 @@ namespace detail {
         else 
             initial[0] = 1;
         
-        Vec<T,N> a = shape_a.convexSupport( initial) - 
-                     shape_b.convexSupport(-initial);
+        Vec<T,N> a = shape_a.convex_support( initial) - 
+                     shape_b.convex_support(-initial);
         Vec<T,N> d = -a;
         s->n = 0;
         s->insert(a);
@@ -449,8 +449,8 @@ namespace detail {
         index_t i = 0;
         
         while (true) {
-            a = shape_a.convexSupport( d) - 
-                shape_b.convexSupport(-d);
+            a = shape_a.convex_support( d) - 
+                shape_b.convex_support(-d);
             s->insert(a);
             if (a.dot(d) < 0) {
                 if (overlap_axis) *overlap_axis = -a.projectOn(d);
@@ -590,8 +590,8 @@ void explode_simplex(const Convex<T,N>& shape_a,
             index_t ii = i % n_null;
             T      sgn = (i / n_null) ? ((T)-1) : ((T)1);
             Vec<T,N> n = sgn * s_initial.nullspace()[ii];
-            Vec<T,N> a = shape_a.convexSupport( n) - 
-                         shape_b.convexSupport(-n);
+            Vec<T,N> a = shape_a.convex_support( n) - 
+                         shape_b.convex_support(-n);
             // do not insert a duplicate vtx.
             bool dupe = false;
             for (index_t j = 0; j < splex->n; j++) {
@@ -671,8 +671,8 @@ void disjoint_separation_axis(const Convex<T,N>& shape_a,
         gjk_simplex_nearest_origin(splex, &d);
         
         // search in the direction of the "best" normal
-        Vec<T,N> a = shape_a.convexSupport( d) -
-                     shape_b.convexSupport(-d);
+        Vec<T,N> a = shape_a.convex_support( d) -
+                     shape_b.convex_support(-d);
         
         // project the origin onto the simplex, down along its normal
         new_proj = ((*splex)[0]).projectOn(d);
@@ -832,8 +832,8 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
         
         // look in a direction normal to that face
         // and find a new point on the minkowski difference.
-        Vec<T,N> minkowski_pt = shape_a.convexSupport( best_face->n) - 
-                                shape_b.convexSupport(-best_face->n);
+        Vec<T,N> minkowski_pt = shape_a.convex_support( best_face->n) - 
+                                shape_b.convex_support(-best_face->n);
         
         // finish if we add a duplicate point (possible for polytopes).
         // such a point would produce a degenerate face, i.e. we aren't going

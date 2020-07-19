@@ -241,7 +241,7 @@ protected:
     explicit FlatMatrixBase(
                  index_t nrows, 
                  index_t ncols,
-                 const T* src_data) : 
+                 const T* src_data): 
                      data(nrows * ncols, src_data) {
         Dimension<M>::set(n_rows, nrows);
         Dimension<N>::set(n_cols, ncols);
@@ -252,7 +252,7 @@ protected:
     explicit FlatMatrixBase(
                  index_t nrows, 
                  index_t ncols,
-                 T* src_data) : 
+                 T* src_data): 
                      data(nrows * ncols, src_data) {
         Dimension<M>::set(n_rows, nrows);
         Dimension<N>::set(n_cols, ncols);
@@ -260,7 +260,7 @@ protected:
 
     // Undefined behavior if storage backing is user-owned. However,
     // SimpleMatrices with user-owned storage will never try to call this.
-    FlatMatrixBase(index_t nrows, index_t ncols) :
+    FlatMatrixBase(index_t nrows, index_t ncols):
             data(nrows * ncols) {
         Dimension<M>::set(n_rows, nrows);
         Dimension<N>::set(n_cols, ncols);
@@ -269,7 +269,8 @@ protected:
     
     // copy from another matrix without setting identity first.
     template <typename Mx>
-    FlatMatrixBase(const Mx& m) {
+    FlatMatrixBase(const Mx& m):
+            data(m.rows() * m.cols()) {
         Dimension<M>::set(n_rows, m.rows());
         Dimension<N>::set(n_cols, m.cols());
         detail::_mtxcopy(this, m);

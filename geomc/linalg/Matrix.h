@@ -525,6 +525,56 @@ mul(const Ma &a, const Mb &b) {
  * Matrix transpose              *
  *********************************/
 
+
+// allow txpose in-place
+template <typename T, index_t M, index_t N, MatrixLayout Lyt, StoragePolicy P>
+typename boost::enable_if_c<M * N == 0 or M == N, void>::type
+transpose(SimpleMatrix<T,M,N,Lyt,P>* into, const SimpleMatrix<T,M,N,Lyt,P>& m) {
+    if (into == &m and (M * N > 0 or m.rows() == m.cols())) {
+        
+        // txpose in place
+        for (index_t r = 0; r < m.rows(); r++) {
+            for (index_t c = 0; c < r; c++) {
+                std::swap((*into)(r,c), (*into)(c,r));
+            }
+        }
+    } else {
+#ifdef GEOMC_MTX_CHECK_DIMS
+        if (M * N == 0 and (m.rows() != into->cols() or m.cols() != into->rows())) {
+            throw DimensionMismatchException(
+                into->rows(), into->cols(),
+                m.cols(),     m.rows());
+        }
+#endif
+#ifdef GEOMC_MTX_CHECK_ALIASING
+        if (mtx_aliases_storage(*into, m)) {
+            // matrices alias each other; mutating one will affect the other,
+            // in such a way as to prohibit a clean in-place transpose.
+            // (e.g., matrices are different objects but have shared storage,
+            // and/or they are nonsquare). copy aside the source
+            index_t rows = m.rows();
+            index_t cols = m.cols();
+            UniqueStorage<T,M*N> buf(rows * cols, m.data_begin());
+            detail::MxWrap<T,Lyt == ROW_MAJOR> mx = {buf.get(), rows, cols};
+            for (index_t r = 0; r < rows; ++r) {
+                for (index_t c = 0; c < cols; ++c) {
+                    (*into)(c,r) = mx(r,c);
+                }
+            }
+        } else {
+#else
+        {
+#endif
+            // ordinary case: two unrelated matrices; txpose by copying
+            for (index_t r = 0; r < m.rows(); ++r) {
+                for (index_t c = 0; c < m.cols(); ++c) {
+                    (*into)(c,r) = m(r,c);
+                }
+            }
+        }
+    }
+}
+
 /**
  * Matrix transpose.
  * 

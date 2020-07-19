@@ -17,49 +17,50 @@ namespace geom {
 
 /**
  * @ingroup shape
- * @brief An N-dimensional extrusion of an arbitrary N-1 dimensional convex shape.
+ * @brief An axis-aligned extrusion of an arbitrary N-1 dimensional Convex shape.
  * 
- * The first N-1 dimensions have cross-sections which are `ConvexShape`s
- * (e.g., `Rect`, `Sphere`, `Frustum`...). The shape is lofted "vertically" into the last dimension.
+ * The first N-1 dimensions have cross-sections which are `Shape`s
+ * (e.g., `Rect`, `Sphere`, `Frustum`...). The shape is lofted "vertically" into 
+ * the last dimension.
  *
  * Example:
  * 
- *     // initialize a cylinder of length and radius 1, centered at the origin:
- *     Extrusion<double, 3, Sphere> cylinder(Sphere<double,2>(), Rect<double,1>(0,1));
+ *     // initialize a cylinder of length and radius 1:
+ *     auto cylinder = Extrusion<Sphere<double,2>>(Sphere<double,2>(), Rect<double,1>(0,1));
  */
-template <typename T, index_t N, template <typename, index_t, typename... Args> ConvexShape>
-class Extrusion : public virtual Convex<T,N> {
+template <typename Shape>
+class Extrusion : public virtual Convex<typename Shape::elem_t, Shape::N + 1> {
     public:
-        /// Tranform orienting this extrusion.
-        AffineTransform<T,N> xf;
+        /// The coordinate type of this Shape
+        typedef typename Shape::elem_t T;
+        /// The dimension of this Shape
+        static constexpr size_t N = Shape::N + 1;
+        
         /// Cross-section of this extrusion at the h = 0 plane.
-        ConvexShape<T,N-1,Args...> base;
+        Shape base;
         /// Height range of this extrusion.
         Rect<T,1> height;
         
         
-        /// Construct a new extrusion, with unit length directly along the final ("height") axis.
+        /// Construct a new extrusion with unit height.
         Extrusion():height(0,1) {}
         
+        /// Construct a new extrusion with cross section `base` and unit height.
+        explicit Extrusion(const Shape& base):
+            base(base),
+            height(0,1) {}
+        
         /// Construct an extrusion with cross section `base` and height range `height`.
-        Extrusion(const ConvexShape<T,N-1,Args...>& base, const Rect<T,1>& height):
+        Extrusion(const Shape& base, const Rect<T,1>& height):
                 base(base), 
                 height(height) {}
-
-        /// Construct an extrusion with cross section `base`, sheared axis `axis`, and height range `height`.
-        Extrusion(const ConvexShape<T,N-1,Args...>& base, const Vec<T,N>& axis, const Rect<T,1>& height):
-                base(base), 
-                height(height) {
-            // make it a pure shear:
-            axis /= axis[N-1];
-            // inverse of a shear is a shear in the opposite direction:
-            Vec<T,N> inv = -axis;
-            inv[N-1] = 1;
-            for (index_t i = 0; i < N; ++i) {
-                xf.mat[N-1][i] = axis[i];
-                xf.inv[N-1][i] = inv[i];
-            }
-        }
+        
+        /** @brief Construct an extrusion with cross section `base`, and height 
+         * ranging between `h0` and `h1`.
+         */     
+        Extrusion(const Shape& base, T h0, T h1):
+            base(base),
+            height(std::min(h0, h1), std::max(h0, h1)) {}
         
         /**
          * Extrusion-point intersection test.
@@ -68,40 +69,52 @@ class Extrusion : public virtual Convex<T,N> {
          * @return `true` if `p` is on or inside this extrusion; `false` otherwise.
          */
         bool contains(Vec<T,N> p) const {
-            p /= xf;
             if (not height.contains(p[N-1])) return false;
             return base.contains(p.template resized<N-1>());
         }
         
         
-        Vec<T,N> convexSupport(Vec<T,N> d) const {
+        Vec<T,N> convex_support(Vec<T,N> d) const {
             typedef PointType<T,N-1> Pt;
             
-            d = xf.applyInverseNormal(d);
-            
-            T hmax = height.max();
-            T hmin = height.min();
-
             Vec<T,N-1> d_ = d.template resized<N-1>();
-
+            
             if (d_.isZero()) {
                 // support is normal to the endcap
                 // pick an arbitrary point on the endcap
                 d_[0] = 1;
             }
             
-            Vec<T,N-1> p0 = base.convexSupport(d_);
+            Vec<T,N-1> p0 = base.convex_support(d_);
             
             // top or bottom face?
-            Vec<T,N> p1 = Vec<T,N>(p0, (d[N-1] > 0) ? hmax : hmin);
-            
-            return xf * p1;
+            return Vec<T,N>(p0, (d[N-1] > 0) ? height.hi : height.lo);
+        }
+        
+        Rect<T,N> bounds() const {
+            return base.bounds() * height;
         }
 
         // todo: trace()
 
 
 }; // class extrusion
+
+
+/**
+ * @brief Convenience function to extrude the shape `s` between heights `h0` and `h1` by
+ * wrapping `s` in the `Extrusion` template.
+ *
+ * @related Extrusion
+ */
+template <typename Shape>
+inline Extrusion<Shape> extrude(
+        const    Shape& s,
+        typename Shape::elem_t h0,
+        typename Shape::elem_t h1)
+{
+    return Extrusion<Shape>(s, h0, h1);
+}
     
 } // namespace geom
 

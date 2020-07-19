@@ -233,7 +233,7 @@ public:
     Vec<T,N> box(const Rect<T,N> &box) {
         Vec<T,N> v;
         for (index_t i = 0; i < N; i++) {
-            v[i] = this->rng->template rand<T>(box.min()[i], box.max()[i]);
+            v[i] = this->rng->template rand<T>(box.lo[i], box.hi[i]);
         }
         return v;
     }

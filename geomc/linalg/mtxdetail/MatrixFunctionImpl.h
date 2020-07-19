@@ -25,7 +25,7 @@ namespace geom {
     template <typename Ms, typename Md>
     inline void copyMatrixRegion(const Ms& src, Md& dst, const MatrixRegion& src_region, const Vec<index_t,2>& dst_begin){
         std::pair<typename Ms::region_iterator, typename Ms::region_iterator> p = src.region(src_region);
-        MatrixRegion dst_region = MatrixRegion(dst_begin, dst_begin + src_region.getDimensions());
+        MatrixRegion dst_region = MatrixRegion(dst_begin, dst_begin + src_region.dimensions());
         std::copy(p[0], p[1], dst.region(dst_region));
     }
     
@@ -97,20 +97,24 @@ struct _ImplMtxTxpose<geom::SimpleMatrix<T,M,N,Lyt,P> > {
     typedef geom::SimpleMatrix<T,N,M,Lyt,P> return_t;
     
     
+    // xxx: this is masked by alias checking, which will duplicate
+    //      the src matrix before we even ask this implementation
+    //      how to transpose. this conspires to ensure `d != &m`.
+    //      this is instead handled in a specialized function in Matrix.h.
     // In-place transpose a matrix, if we can.
     // This is possible iff the matrix is square.
-    static void transpose(return_t* d, Mx& m) {
-        if (&m == d and m.rows() == m.cols()) {
-            for (index_t r = 0; r < m.rows(); r++) {
-                for (index_t c = 0; c < r; c++) {
-                    std::swap(m(r,c), m(c,r));
-                }
-            }
-        } else {
-            // not in-place; fall back
-            mtx_copy_txpose(d, m);
-        }
-    }
+    // static void transpose(return_t* d, Mx& m) {
+    //     if (&m == d and m.rows() == m.cols()) {
+    //         for (index_t r = 0; r < m.rows(); r++) {
+    //             for (index_t c = 0; c < r; c++) {
+    //                 std::swap(m(r,c), m(c,r));
+    //             }
+    //         }
+    //     } else {
+    //         // not in-place; fall back
+    //         mtx_copy_txpose(d, m);
+    //     }
+    // }
     
     // not the same type of matrix; therefore not the same matrix.
     // fall back to ordinary copy-transpose.
