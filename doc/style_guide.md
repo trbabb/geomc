@@ -89,7 +89,7 @@ Simpler function signatures which fit onto a single line should be kept that way
         //...
     }
 
-Complicated `if` expressions can be wrapped, and as with wrapped function signatures, the opening brace gets its own line:
+Complicated `if` expressions can be line-wrapped, and as with wrapped function signatures, the opening brace gets its own line:
 
     if (complicated_predicate(some_expression(a)) and 
         complicated_predicate(some_other_expr(b)))
