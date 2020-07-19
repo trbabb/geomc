@@ -20,13 +20,12 @@ using namespace std;
 
 typedef std::mt19937_64 rng_t;
 
-// todo: test all the compound shapes.
-
 // todo: tests:
 //   - move a small distance away from a support point, both toward and away
 //     from the object, and check for expected result of shape.contains()
 //   - test that op(xf * shape, p) == op(shape, p / xf) for all {xf, p, shape, op}
 
+// todo: test Frustum<Rect<T,1>>
 
 rng_t rng(18374691138699945602ULL);
 
@@ -421,7 +420,7 @@ void exercise_simplex_projection(rng_t* rng, index_t trials) {
     for (index_t i = 0; i < trials; ++i) {
         Simplex<T,N> s = RandomShape<Simplex<T,N>>::rnd_shape(rng);
         std::uniform_int_distribution<> d(1,N+1);
-        s.n = d(*rng); // make the simplex a random number of verts
+        s.n = d(*rng); // make the simplex have a random number of verts
         test_simplex_projection(rng, s, 10);
     }
 }
@@ -434,6 +433,7 @@ void explore_compound_shape(rng_t* rng, index_t shapes) {
     explore_shape<Outer<Rect<T, 4>>>(rng, shapes);
     explore_shape<Outer<Rect<T, 5>>>(rng, shapes);
     
+    // explore_shape<Outer<Cylinder<T, 2>>>(rng, shapes); // [1]
     explore_shape<Outer<Cylinder<T, 3>>>(rng, shapes);
     explore_shape<Outer<Cylinder<T, 4>>>(rng, shapes);
     explore_shape<Outer<Cylinder<T, 5>>>(rng, shapes);
@@ -450,6 +450,12 @@ void explore_compound_shape(rng_t* rng, index_t shapes) {
     explore_shape<Outer<Simplex<T, 4>>>(rng, shapes);
     explore_shape<Outer<Simplex<T, 5>>>(rng, shapes);
     explore_shape<Outer<Simplex<T, 7>>>(rng, shapes);
+    
+    // [1] A valid construction, but not currently tested
+    // because the sampling code for Cylinder needs to
+    // draw from an N-1 sphere. When N=2, this is a line,
+    // which degenerates to a different point_t, and Sphere
+    // is not set up to work with N=1.
 }
 
 

@@ -43,6 +43,11 @@ dx + ey + fz + gw = 0
 
 namespace geom {
     
+    // todo: we do not need to compute L for most of this. 
+    // amend decomp_lup() and friends to accept `bool compute_l` defaulting to `true`,
+    // which does not operate on the lower triangular matrix if `false`.
+    // should improve performance by slightly less than a factor of 2.
+    
     // todo: orthogonal() does not respect winding.
     // the wedge product is maybe something you need.
     

@@ -25,6 +25,17 @@
 //       right now we are running two LUP decompositions, and this is likely
 //       inefficient/unstable.
 
+// todo: another possible tool is to project the simplex to a lower dimension
+//       (by dropping coordinates) and barycentric-solving in that lower space.
+//       this amounts to projecting the simplex to an axial (hyper-)plane (or an axis).
+//       the weightings of the verticies will not be different if you add back in
+//       the missing coordinates, so the barycentric solution from this lower space
+//       is still valid. (This also explains how keep the linear system square).
+//       generally you want to project to the axial plane wherein the simplex
+//       has the largest projected area. overall this might be more numerically robust.
+//       note that you have to find the coordinates of the projected point `p`
+//       in the axial plane; this is sort of a double-projection.
+
 // todo: handle degeneracy. GJK can make use of it.
 // todo: performance check old GJK vs new
 // todo: performance check projection_contains() vs. project() == this

@@ -28,6 +28,19 @@
 // - fix naming convention to snake_case
 // - fix operators
 
+// todo: We've picked a bad convention. xf3 * xf2 * xf1 * v is counterintuitive.
+//       We should have v * xf1 * xf2 * xf3, with v as a row vector; then
+//       the operations read in order from left to right.
+//       This also means that *= and /= operators will preserve ordering, and
+//       things like `v / xf` will be more consistent.
+//       It's also consistent with left-to-right function application:
+//       thing.apply(xf1).apply(xf2).apply(xf3) aligns with xf1 * xf2 * xf3.
+//       It also means that basis vectors will be rows, which means an array
+//       of basis vectors can be directly cast to a matrix, without copying,
+//       transposing, or tricks with layout templates.
+//       >> Can we change or template this choice so that at the very least, 
+//          the user has the capability to choose their desired convention?
+
 namespace geom {
     
 /** @ingroup linalg

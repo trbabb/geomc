@@ -14,6 +14,11 @@
 
 namespace geom {
 
+// todo: for this and other compound shapes, allow the inner shape 
+//       to be 1d by using the `point_t` mechanism.
+//       consider making .template resized<N>() return a point_t instead of
+//       a vec— this will vastly simplify the implementation.
+
 /**
  * @ingroup shape
  * @brief An N-dimensional frustum (truncated pyramid) with an arbitrary
