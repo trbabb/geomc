@@ -220,7 +220,6 @@ index_t decomp_plu(T* m, index_t rows, index_t cols, index_t* reorder, bool* swa
  * @param skip How many variables, in order from the first, to skip solving for. 
  * If greater than 0, the corresponding variables within `x` will contain nonsense values.
  */
-// xxx: `skip` probably does not work as expected.
 template <typename T, bool RowMajor=true>
 void linear_solve_plu(
         const T* plu,

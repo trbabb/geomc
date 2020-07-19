@@ -378,6 +378,54 @@ void explore_simplex(rng_t* rng, index_t shapes) {
     }
 }
 
+template <typename T, index_t N>
+void test_simplex_projection(rng_t* rng, const Simplex<T,N>& s, index_t trials) {
+    auto bb   = s.bounds();
+    auto dims = bb.dimensions();
+    auto ctr  = bb.center();
+    // no degenerate boxes pls
+    for (index_t i = 0; i < N; ++i) {
+        if (dims[i] == 0) dims[i] = 1;
+    }
+    for (index_t i = 0; i < trials; ++i) {
+        Simplex<T,N> ss;
+        Vec<T,N> p  = rnd<T,N>(rng) * dims + ctr;
+        Vec<T,N> pp = s.project(p, &ss);
+        if (ss.n == N + 1) {
+            // `p` is inside a full-volume simplex.
+            // no points should have been excluded; 
+            // the "projected-to" simplex should be the same as the original
+            BOOST_CHECK(ss == s);
+            // if the point projected to the simplex volume, it should definitely 
+            // be contained by the simplex
+            BOOST_CHECK(ss.contains(p));
+            // the "projected" point should be precisely the original point
+            BOOST_CHECK_EQUAL(p, pp);
+        } else {
+            // the direction from the surface pt to the original point
+            // should be orthogonal to the simplex face
+            Vec<T,N> v = p - pp;
+            for (index_t j = 1; j < ss.n; ++j) {
+                Vec<T,N> b = ss.pts[j] - ss.pts[0];
+                BOOST_CHECK_SMALL(b.dot(v), 1e-5);
+            }
+            // the projected point should fall inside the face's bounds
+            BOOST_CHECK(ss.projection_contains(p));
+        }
+    }
+}
+
+
+template <typename T, index_t N>
+void exercise_simplex_projection(rng_t* rng, index_t trials) {
+    for (index_t i = 0; i < trials; ++i) {
+        Simplex<T,N> s = RandomShape<Simplex<T,N>>::rnd_shape(rng);
+        std::uniform_int_distribution<> d(1,N+1);
+        s.n = d(*rng); // make the simplex a random number of verts
+        test_simplex_projection(rng, s, 10);
+    }
+}
+
 
 template <template <typename> class Outer, typename T>
 void explore_compound_shape(rng_t* rng, index_t shapes) {
@@ -479,6 +527,14 @@ BOOST_AUTO_TEST_CASE(orient_simple_shape) {
     // verify inheritance
     Convex<double,3>* s = &ocyl;
     s->convex_support(Vec3d(0.2,0.4,0.1));
+}
+
+BOOST_AUTO_TEST_CASE(simplex_projection) {
+    exercise_simplex_projection<double,2>(&rng, 1000);
+    exercise_simplex_projection<double,3>(&rng, 1000);
+    exercise_simplex_projection<double,4>(&rng, 1000);
+    exercise_simplex_projection<double,5>(&rng, 1000);
+    exercise_simplex_projection<double,7>(&rng, 1000);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
