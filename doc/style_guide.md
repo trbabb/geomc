@@ -74,6 +74,8 @@ Complicated function signatures follow this pattern:
 * Wrapped arguments should be indented one block beyond the function body.
 * Whenever a block-opening expression is line-wrapped, the opening brace goes on its own line.
 
+<b></b>
+
     int some_function(
             int arg1,
             int arg2,
