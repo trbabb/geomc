@@ -53,6 +53,7 @@ namespace geom {
     template <typename T, index_t N> class Rect;
     template <typename T, index_t N> class Hit;
     template <typename T, index_t N> class Cylinder;
+    template <typename T, index_t N> class Simplex;
     template <typename Shape>        class Extrusion;
     template <typename Shape>        class Oriented;
     template <typename Shape>        class Frustum;

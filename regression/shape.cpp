@@ -172,7 +172,7 @@ struct ShapeSampler<Frustum<Shape>> {
         std::uniform_real_distribution<T> u(0,1);
         Vec<T,N-1> p = ShapeSampler<Shape>(shape.base)(rng);
         auto c_h = shape.clipped_height();
-        T v = std::sqrt(u(*rng));
+        T v = std::pow(u(*rng), 1/(T)N);
           v = (c_h.lo < 0) ? (1 - v) : v;
         T h = (c_h.hi - c_h.lo) * v + c_h.lo;
         return Vec<T,N>(h * p, h);
@@ -536,11 +536,12 @@ BOOST_AUTO_TEST_CASE(orient_simple_shape) {
 }
 
 BOOST_AUTO_TEST_CASE(simplex_projection) {
-    exercise_simplex_projection<double,2>(&rng, 1000);
-    exercise_simplex_projection<double,3>(&rng, 1000);
-    exercise_simplex_projection<double,4>(&rng, 1000);
-    exercise_simplex_projection<double,5>(&rng, 1000);
-    exercise_simplex_projection<double,7>(&rng, 1000);
+    const index_t iters = 10000;
+    exercise_simplex_projection<double,2>(&rng, iters);
+    exercise_simplex_projection<double,3>(&rng, iters);
+    exercise_simplex_projection<double,4>(&rng, iters);
+    exercise_simplex_projection<double,5>(&rng, iters);
+    exercise_simplex_projection<double,7>(&rng, iters);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

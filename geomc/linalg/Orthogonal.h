@@ -129,11 +129,11 @@ namespace geom {
      * products with the inputs will all be zero.
      */
     template <typename T, index_t N>
-    void nullspace(const Vec<T,N> bases[], index_t n, Vec<T,N> null_basis[]) {
-        if (n >= N) return;   // nothing to do
-        if (N - n == 1) {
+    bool nullspace(const Vec<T,N> bases[], index_t n, Vec<T,N> null_basis[]) {
+        if (n >= N) return true;   // nothing to do
+        if (n == N - 1) {
             null_basis[0] = orthogonal(bases);
-            return;
+            return true;
         }
         
         T       m[N * (N-2)]; // <--  N-2 is the max # bases
@@ -153,7 +153,7 @@ namespace geom {
         
         // get V to row-echelon form
         bool parity_swap = false;
-        if (decomp_plu(m, n, N, P, &parity_swap) > 0) return;
+        if (decomp_plu(m, n, N, P, &parity_swap) > 0) return false;
         
         // foreach null space basis
         for (index_t b = 0; b < N - n; b++) {
@@ -169,7 +169,7 @@ namespace geom {
             }
         }
         
-        return;
+        return true;
     }
     
     

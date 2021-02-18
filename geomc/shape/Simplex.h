@@ -11,6 +11,7 @@
 #include <geomc/shape/Bounded.h>
 #include <geomc/linalg/Vec.h>
 #include <geomc/linalg/Orthogonal.h>
+#include <geomc/shape/shapedetail/SimplexDetail.h>
 
 // todo: orthogonal projection to a subspace is a very general linalg operation,
 //       and projection_contains() makes use of it. The operation that does this is
@@ -163,13 +164,16 @@ public:
     bool projection_contains(const Vec<T,N>& p, Vec<T,N>* params=nullptr) const {
         switch (n) {
             case 0:
+                // cannot project to empty simplex
                 return false;
             
             case 1: {
+                // can always project to a point
                 return true;
             } break;
             
             case 2: {
+                // projection to a line segment
                 Vec<T,N> v = pts[1] - pts[0];
                 T d = v.dot(p - pts[0]) / v.mag2();
                 if (params) (*params)[0] = d;
@@ -292,7 +296,7 @@ public:
      *
      * @return The location of `p`'s projection.
      */
-    Vec<T,N> project(const Vec<T,N>& p, Simplex<T,N>* onto=nullptr) const {
+    Vec<T,N> project_old(const Vec<T,N>& p, Simplex<T,N>* onto=nullptr) const {
         Vec<T,N> buffer[N];
         Simplex<T,N> s;
         
@@ -363,6 +367,137 @@ public:
         }
         
         if (onto) *onto = s;
+        
+        return out;
+    }
+    
+    template <bool enable_backface=true>
+    Vec<T,N> project(const Vec<T,N>& p, Simplex<T,N>* onto=nullptr) const {
+        Vec<T,N+1> buffer[N+1];
+        
+        // why the recursion? why not project as in projection_contains(),
+        // obtaining surface parameters, and then clip them?
+        // A: Because in general, the subspace of the simplex will not
+        //    be orthogonal, so clipping the coordinates to the unit triangle
+        //    will project the point non-orthogonally along the bases of 
+        //    that subspace. Instead we have to first find the sub-simplex 
+        //    which is closest, and then project orthogonally down its nullspace.
+        
+        // initialize the homogeneous basis
+        Vec<T,N+1>* const verts   = buffer;
+        Vec<T,N+1>* const normals = buffer + n;
+        for (index_t i = 0; i < n; ++i) {
+            verts[i] = Vec<T,N+1>(pts[i], 1);
+        }
+        // initialize the nullspace, if necessary
+        if (n <= N) {
+            nullspace(verts, n, normals);
+            buffer[N][N] = 0;
+        }
+        
+        Vec<T,N+1> x;
+        index_t n_pts = detail::find_nearest_face_barycentric<T,N,enable_backface>(
+            n,
+            buffer,
+            Vec<T,N+1>(p, 1),
+            &x,
+            Vec<T,N+1>());
+        
+        if (n_pts == N + 1) {
+            // P is in the interior of a full-volume simplex
+            if (onto) *onto = *this;
+            return p;
+        }
+        
+        Vec<T,N> p_proj;
+        for (index_t i = 0; i < n_pts; ++i) {
+            Vec<T,N> v_i = buffer[i].template resized<N>();
+            p_proj      += x[i] * v_i;
+            if (onto) onto->pts[i] = v_i;
+        }
+        if (onto) onto->n = n_pts;
+        
+        return p_proj;
+    }
+    
+    template <bool enable_backface=true>
+    Vec<T,N> project_fucky(const Vec<T,N>& p, Simplex<T,N>* onto=nullptr) const {
+        Vec<T,N>      buffer[N];
+        Simplex<T,N>  s_buffer;
+        Simplex<T,N>& s = onto ? (*onto) : s_buffer;
+        
+        // why the recursion? why not project as in projection_contains(),
+        // obtaining surface parameters, and then clip them?
+        // A: Because in general, the subspace of the simplex will not
+        //    be orthogonal, so clipping the coordinates to the unit triangle
+        //    will project the point non-orthogonally along the bases of 
+        //    that subspace. Instead we have to first find the sub-simplex 
+        //    which is closest, and then project orthogonally down its nullspace.
+        
+        // initialize the basis
+        Vec<T,N>* const basis      = buffer;
+        Vec<T,N>* const null_basis = buffer + n - 1;
+        for (index_t i = 0; i < n - 1; ++i) {
+            basis[i] = pts[i] - pts[n - 1];
+        }
+        // initialize the nullspace, if necessary
+        if (n - 1 < N) {
+            nullspace(basis, n - 1, null_basis);
+        }
+        
+        // this puts the simplex which faces `p` into `s`, and
+        // leaves `buffer` containing its spanning space and nullspace.
+        detail::find_nearest_face<T,N,enable_backface>(
+            detail::SubSimplex<T,N>(this),
+            p - pts[n - 1],
+            buffer,
+            Vec<T,N>(),
+            true,
+            &s);
+        
+        // choose the smaller basis to project on
+        index_t   n_bases = s.n - 1;
+        index_t   n_null  = N - n_bases;
+        index_t   proj_dims;
+        Vec<T,N>* proj_basis;
+        Vec<T,N>  out;
+        bool proj_to_null;
+        if (n_bases < n_null) {
+            proj_dims    = n_bases;
+            proj_basis   = buffer;
+            proj_to_null = false;
+        } else {
+            proj_dims    = n_null;
+            proj_basis   = buffer + n_bases;
+            proj_to_null = true;
+        }
+        
+        // project to the relevant subspace
+        if (proj_dims > 0) {
+            if (N > 3 and proj_dims > 1 and (N - n > 0 or not proj_to_null)) {
+                // if we're projecting to the nullspace, it's already orthogonal,
+                // unless the nullspace started with > 1 dimension (in which case 
+                // it was made by `nullspace` above; orthogonalize it now). 
+                // this will never happen in 3D because there is always a projection
+                // space of dim <= 1 to choose.
+                orthogonalize(proj_basis, proj_dims);
+            }
+            Vec<T,N> p_in_basis = p - s.pts[0];
+            for (index_t i = 0; i < proj_dims; ++i) {
+                out += p_in_basis.projectOn(proj_basis[i]);
+            }
+        }
+        
+        // offset the subspace projection so it lies on the simplex surface
+        if (proj_to_null) {
+            // `out` is the direction away from the simplex toward `p`.
+            // travel backwards in that direction from `p` to get to the simplex.
+            out = p - out;
+        } else {
+            // `out` is the direction from s's corner to the projected point.
+            // add s's corner to get the absolute point.
+            out += s.pts[0];
+        }
         
         return out;
     }
