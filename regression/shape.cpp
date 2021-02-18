@@ -4,6 +4,8 @@
 // #include <iostream>
 
 #include <random>
+#include <chrono>
+
 #include <boost/test/unit_test.hpp>
 #include <geomc/function/Utils.h>
 #include <geomc/shape/Oriented.h>
@@ -16,6 +18,7 @@
 
 using namespace geom;
 using namespace std;
+using namespace std::chrono;
 
 
 typedef std::mt19937_64 rng_t;
@@ -417,12 +420,16 @@ void test_simplex_projection(rng_t* rng, const Simplex<T,N>& s, index_t trials) 
 
 template <typename T, index_t N>
 void exercise_simplex_projection(rng_t* rng, index_t trials) {
+    auto t0 = high_resolution_clock::now();
     for (index_t i = 0; i < trials; ++i) {
         Simplex<T,N> s = RandomShape<Simplex<T,N>>::rnd_shape(rng);
         std::uniform_int_distribution<> d(1,N+1);
         s.n = d(*rng); // make the simplex have a random number of verts
         test_simplex_projection(rng, s, 10);
     }
+    auto t1 = high_resolution_clock::now();
+    auto secs = duration_cast<duration<double>>(t1 - t0);
+    std::cout << "N = " << N << " s = " << secs.count() << "\n";
 }
 
 
