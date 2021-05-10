@@ -58,7 +58,7 @@ Class names are `UpperCamelCase`; variables, methods, and function names are `sn
 Wrapping lines
 --------------
 
-It is best for lines to be 95 columns or fewer.
+It is best for lines to be 90 columns or fewer.
 
 Long or complicatedly-nested function calls should break each top-level argument onto its own line, having an indent at least one block deeper than the beginning of the fuction name. It is preferable to wrap the line before the first argument (rather than indent more deeply to align with it).
 
@@ -372,4 +372,69 @@ Objects that are passed by reference should be *always* declared const:
 The above makes it obvious at the call site whether a function will modify an argument:
 
     invert(&dst, src);
+
+
+### Retained pointers
+
+Functions that retain a persistent view into an argument's memory should declare those arguments as pointers:
+
+    class Buffer {
+        T data[N];
+        // ...
+    }
+
+    class SubBuffer {
+        T* data;
+        index_t n;
+        
+        // A view into `b`'s memory is retained;
+        // `b` should therefore be passed as a pointer:
+        SubBuffer(Buffer* b, index_t n):
+            data(b->data),
+            n(n) {}
+    };
+    
+This makes it detectable at the call site that `Buffer()` potentially has a view of `another_buffer`'s memory:
+    
+    SubBuffer b = SubBuffer(&another_buffer, another_buffer.n - 1);
+
+If the first argument had instead been declared as a value or a const reference, then this kind of error would be possible:
+
+    // xxx: possible use-after-free error!
+    SubBuffer b = SubBuffer(something_returning_buffer(), n);
+
+The object returned by `something_returning_buffer()` will be destroyed the moment `Buffer`'s constructor returns, but `Buffer` will retain a pointer into its memory! Using pointer-passing mandates this construction:
+
+    SubBuffer b0 = something_returning_buffer();
+    SubBuffer b1 = SubBuffer(&b0, n);
+
+...thus requiring the programmer to consider the lifetime of `b0`.
+
+When a function or an object retains a view into the memory of another object, this fact and the lifetime requirements *must* be clearly documented.
+
+Iterators
+---------
+
+In the case of iterator classes, a pre-increment can be slightly cheaper, because post-increment requires making a copy:
+
+    // pre-increment
+    self_t& operator++() {
+        this->counter += 1;
+        return *this;
+    }
+    
+    // post-increment
+    self_t operator++(int) {
+        self_t prev(*this);  // extra duplication
+        this->counter += 1;
+        return prev;
+    }
+
+Therefore, if the value of the incremented iterator is not used in an expression, it is preferable to use pre-increment:
+
+    for (iterator i = begin(); i != end(); ++i) {
+        // ...
+    }
+
+For consistency, it is preferable style to use this convention everywhere, including plain old data types.
 

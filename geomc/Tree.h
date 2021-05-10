@@ -4,6 +4,8 @@
 #include <list>
 #include <type_traits>
 
+// xxx: todo: stuff is missing fron the docs (SubtreeBase, e.g.)
+// todo: update naming conventions for typedefs (use "snake_case_t" style).
 // todo: t.query<Key, BoundingFn(k,node), MatchingFn(k,item)>(Key k) -> item_iterator (derived)
 //       - or t.visit(visitor)
 //         - visitor has visit(node)

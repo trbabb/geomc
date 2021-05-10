@@ -372,7 +372,7 @@ public:
     }
     
     template <bool enable_backface=true>
-    Vec<T,N> project(const Vec<T,N>& p, Simplex<T,N>* onto=nullptr) const {
+    Vec<T,N> project_bary(const Vec<T,N>& p, Simplex<T,N>* onto=nullptr) const {
         Vec<T,N+1> buffer[N+1];
         
         // why the recursion? why not project as in projection_contains(),
@@ -384,15 +384,18 @@ public:
         //    which is closest, and then project orthogonally down its nullspace.
         
         // initialize the homogeneous basis
-        Vec<T,N+1>* const verts   = buffer;
-        Vec<T,N+1>* const normals = buffer + n;
+        const index_t     n_null  = N - n + 1;
+        Vec<T,N+1>* const normals = buffer;
+        Vec<T,N+1>* const verts   = buffer + n_null;
         for (index_t i = 0; i < n; ++i) {
             verts[i] = Vec<T,N+1>(pts[i], 1);
         }
         // initialize the nullspace, if necessary
         if (n <= N) {
             nullspace(verts, n, normals);
-            buffer[N][N] = 0;
+            for (index_t i = 0; i < n_null; ++i) {
+                normals[i][N] = 0;
+            }
         }
         
         Vec<T,N+1> x;
@@ -409,10 +412,13 @@ public:
             return p;
         }
         
+        // perform the projection onto the face
         Vec<T,N> p_proj;
+        const index_t null_proj = N - n_pts + 1;
         for (index_t i = 0; i < n_pts; ++i) {
-            Vec<T,N> v_i = buffer[i].template resized<N>();
-            p_proj      += x[i] * v_i;
+            index_t    j = null_proj + i;
+            Vec<T,N> v_i = buffer[j].template resized<N>();
+            p_proj      += x[j] * v_i;
             if (onto) onto->pts[i] = v_i;
         }
         if (onto) onto->n = n_pts;
@@ -420,8 +426,9 @@ public:
         return p_proj;
     }
     
+    
     template <bool enable_backface=true>
-    Vec<T,N> project_fucky(const Vec<T,N>& p, Simplex<T,N>* onto=nullptr) const {
+    Vec<T,N> project(const Vec<T,N>& p, Simplex<T,N>* onto=nullptr) const {
         Vec<T,N>      buffer[N];
         Simplex<T,N>  s_buffer;
         Simplex<T,N>& s = onto ? (*onto) : s_buffer;

@@ -7,6 +7,10 @@
 namespace geom {
 namespace detail {
 
+
+// todo: I think we need to try again and use the Intersect formulation as a template,
+//   but make it recursive (or iterative unrolled).
+
 /**
  * Keep a view into a Simplex which consists of a subset of its vertices.
  * 
@@ -59,33 +63,41 @@ struct SubSimplex {
 };
 
 
-// todo: rearrange the buffer so we can skip solving nullspace vectors
+// works, but marginally slower than existing Simplex implementation :(
+//   - simpler, but requires a matrix solve of larger size, so probably not the right
+//     formulation.
+//   - also: a previous checkin has [vtxs] and [normals] flipped. it's about the same
+//     speed but it's simpler.
 template <typename T, index_t N, bool test_root_vtx>
 index_t find_nearest_face_barycentric(
         index_t     n,          // number of pts in the simplex
-        Vec<T,N+1>  basis[N+1], // homogeneous vectors, laid out like: [vtxs] [normals]
+        Vec<T,N+1>  basis[N+1], // homogeneous vectors, laid out like: [normals] [vtxs]
         Vec<T,N+1>  P,          // homogeneous point to test for containment
         Vec<T,N+1>* solution,   // output variable for the solution
         Vec<T,N+1>  v_inward,   // a vector pointing "inward" from the face
         bool        is_root=true)
 {
+    const index_t n_null = N - n + 1;
     if (n == 1) {
-        if (v_inward.dot(P - basis[0]) > 0) {
+        if (v_inward.dot(P - basis[N]) > 0) {
             // P is on the "interior" side of this point
             return 0;
         }
         // projection to a point is trivial.
         *solution      = Vec<T,N+1>();
-        (*solution)[0] = 1;
+        (*solution)[N] = 1;
         return n;
+    } else if (n == 2) {
+        
     } else {
         T sign = 1;
+        // the root simplex has had its nullspace solved already
         if (not is_root) {
-            const Vec<T,N+1>& normal = basis[N] = orthogonal(basis);
+            Vec<T,N+1>& normal = basis[0] = orthogonal(basis + 1);
             // make the normal into a direction vector.
             // algorithmically this is okay because we know the other points are
             // on the projective plane. (Less sure if this numerically okay).
-            basis[N][N] = 0;
+            normal[N] = 0;
             // if the calculated normal faces toward the interior of this simplex, 
             // perform a sign flip.
             sign = (normal.dot(v_inward) > 0) ? -1 : 1;
@@ -96,10 +108,11 @@ index_t find_nearest_face_barycentric(
         // of the basis because linear_solve() screws with the contents).
         Vec<T,N+1> buffer[N + 1];
         std::copy(basis, basis + N + 1, buffer);
-        bool ok = linear_solve(buffer, solution, P);
+        bool ok = linear_solve(buffer, solution, P, n_null - 1);
         Vec<T,N+1>& x = *solution;
+        
         // all of the barycentric coords must lie inside the simplex
-        for (index_t i = 0; ok and i < n; ++i) {
+        for (index_t i = n_null; ok and i <= N; ++i) {
             if (x[i] < 0 or x[i] > 1) {
                 ok = false;
             }
@@ -107,7 +120,7 @@ index_t find_nearest_face_barycentric(
         
         if (ok) {
             // P projects to the interior of this face.
-            if (n <= N and sign * x[N] < 0 and not is_root) {
+            if (n <= N and sign * x[0] < 0 and not is_root) {
                 // P is on the "backside" of this face; this face does not own it.
                 return 0;
             } else {
@@ -120,14 +133,14 @@ index_t find_nearest_face_barycentric(
         // faces it, so it must belong to one of the sub-faces.
         // try excluding verts from this simplex until we find it.
         
-        // basis[N] will be clobbered by the sub-simplex's normal, so
+        // basis[0] will be clobbered by the sub-simplex's normal, so
         // use it to replace the first excluded vertex. if it's a normal,
         // it becomes part of the nullspace. if not, it's ignored.
-        Vec<T,N+1> prev_excluded = basis[N];
+        Vec<T,N+1> prev_excluded = basis[0];
         const index_t skip = test_root_vtx ? 0 : 1;
-        for (index_t i = n - 1 - skip; i >= 0; --i) {
+        for (index_t i = n_null; i <= N - skip; ++i) {
             std::swap(basis[i], prev_excluded);
-            Vec<T,N+1> inward_dir = basis[0] - prev_excluded;
+            Vec<T,N+1> inward_dir = basis[N] - prev_excluded;
             index_t sub_n = find_nearest_face_barycentric<T,N,test_root_vtx>(
                     n - 1, basis, P, solution, inward_dir, false);
             if (sub_n > 0) {
@@ -137,20 +150,21 @@ index_t find_nearest_face_barycentric(
         }
         
         // P did not belong to us, somehow. probably a degeneracy
-        // todo: just return self?
+        // xxx todo: just return self
         return n;
     }
 }
 
 
+// xxx: switched off
 template <typename T, index_t N, bool test_root_vtx>
 bool find_nearest_face(
-        SubSimplex<T,N> s,           // sub-simplex to test for projection containment
-        Vec<T,N>        to_p,        // vec from a pt on the simplex to `p`
-        Vec<T,N>        all_bases[], // [spanning basis] [null basis]
-        Vec<T,N>        outward_dir, // a vector pointing "away" from the sub-simplex
-        bool            is_root,     // is the sub-simplex the root simplex?
-        Simplex<T,N>*   out)         // output simplex
+        SubSimplex<T,N> s,            // sub-simplex to test for projection containment
+        Vec<T,N>        to_p,         // vec from a pt on the simplex to `p`
+        Vec<T,N>        all_bases[N], // [spanning basis] [null basis]
+        Vec<T,N>        outward_dir,  // a vector pointing "away" from the sub-simplex
+        bool            is_root,      // is the sub-simplex the root simplex?
+        Simplex<T,N>*   out)          // output simplex
 {
     const index_t n_bases = s.n - 1;
     if (s.n == 1) {
@@ -164,12 +178,11 @@ bool find_nearest_face(
         Vec<T,N> normal;
         if (not is_root) {
             // if this simplex is a face, is P inside or outside of it?
-            // (the root simplex does not have an "inside" or an "outside"!)
+            // (the root simplex does not have an "inside" or an "outside")
             normal = orthogonal(all_bases);
             if ((to_p.dot(normal) < 0) == (normal.dot(outward_dir)) > 0) {
                 // `p` falls "inward" of this face. `p` therefore does not project
-                // to this simplex; instead it projects to some other simplex,
-                // possibly a parent of this, which *does* face (or envelop) `p`.
+                // to this simplex; instead it projects to some sibling sub-simplex.
                 return false;
             }
         } else {
