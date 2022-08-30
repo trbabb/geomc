@@ -12,7 +12,6 @@
 #define PLANE_H_
 
 #include <geomc/linalg/AffineTransform.h>
-#include <geomc/shape/Trace.h>
 #include <geomc/linalg/Orthogonal.h>
 
 namespace geom {
@@ -24,7 +23,7 @@ namespace geom {
  * A Euclidean subspace of R<sup>N</sup> with dimension N-1.
  */
 template <typename T, index_t N>
-class Plane {
+class Plane: public SdfEvaluable<T, N, Plane<T,N>> {
 public:
     
     // plane equation: ax + by + cz + d = 0
@@ -109,8 +108,15 @@ public:
      * @return The distance from `p` along the normal direction to the surface
      * of the plane. Negative if `p` is on the backfacing side of the plane.
      */
-    inline T distance(const Vec<T,N> &p) const {
+    inline T distance(const Vec<T,N> p) const {
         return normal.dot(p) + d;
+    }
+    
+    /**
+     * Return the signed distance to the surface of the shape.
+     */
+    inline T sdf(Vec<T,N> p) const {
+        return distance(p);
     }
 
     /**
@@ -118,7 +124,7 @@ public:
      * @return `true` if `p` is on or below the surface of the plane (i.e. on
      * the side opposite the normal); `false` otherwise.
      */
-    inline bool contains(const Vec<T,N> &p) const {
+    inline bool contains(const Vec<T,N> p) const {
         return distance(p) <= 0;
     }
     
@@ -127,15 +133,16 @@ public:
      * @return `true` if `shape` is completely on or below the surface of the plane 
      * (i.e. on the side opposite the normal); false otherwise.
      */
-    inline bool contains(const Convex<T,N> &shape) const {
+    template <typename ConvexShape>
+    inline bool contains(const ConvexShape& shape) const {
         return shape.convex_support(normal).dot(normal) <= -d;
     }
     
     /**
      * @return `p` projected onto the plane.
      */
-    inline Vec<T,N> project(const Vec<T,N> &p) const {
-        return -(p.dot(normal) + d) * normal + p; 
+    inline Vec<T,N> project(Vec<T,N> p) const {
+        return p - (p.dot(normal) + d) * normal; 
     }
     
     /**
@@ -152,7 +159,7 @@ public:
     void apply(const AffineTransform<T,N> &xf) {
         Vec<T,N> p0 = normal*d; // a point on the plane
         Vec<T,N> p1 = xf.apply(p0); // the new position of that point
-        normal = xf.applyNormal(normal).unit(); // construct a plane with transformed normal
+        normal = xf.apply_normal(normal).unit(); // construct a plane with transformed normal
         d = p1.dot(normal); // and transformed position
     }
     
@@ -160,10 +167,10 @@ public:
      * Un-transform this plane by `xf`.
      * @param xf An affine transformation.
      */
-    void applyInverse(const AffineTransform<T,N> &xf) {
+    void apply_inverse(const AffineTransform<T,N> &xf) {
         Vec<T,N> p0 = normal*d;
-        Vec<T,N> p1 = xf.applyInverse(p0);
-        normal = xf.applyInverseNormal(normal).unit();
+        Vec<T,N> p1 = xf.apply_inverse(p0);
+        normal = xf.apply_inverse_normal(normal).unit();
         d = p1.dot(normal);
     }
     
@@ -171,7 +178,8 @@ public:
      * Convex shape intersection test.
      * @return `true` if and only if this plane passes through `shape`.
      */
-    inline bool intersects(const Convex<T,N> &shape) const {
+    template <typename ConvexShape>
+    inline bool intersects(const ConvexShape& shape) const {
         return shape.convex_support( normal).dot(normal) + d  > 0 and
                shape.convex_support(-normal).dot(normal) + d <= 0;
     }
@@ -207,29 +215,6 @@ public:
         }
         return false;
     }
-     
-    /**
-     * Ray-plane intersection test.
-     * @param ray A ray.
-     * @param sides Whether to hit-test the front or back sides of this plane.
-     * @return A ray Hit describing whether and where the ray intersects this Plane,
-     * as well as the normal, side hit, and ray parameter.
-     */
-    Hit<T,N> trace(const Ray<T,N> &ray, HitSide sides) const {
-        Hit<T,N> hit(ray, sides);
-        T s;
-        if (!detail::_ImplTracePlane(&s, *this, ray, &sides)) {
-            // miss
-            return hit;
-        }
-        hit.p = ray.atMultiple(s); 
-        hit.n = normal;
-        hit.s = s;
-        hit.side = sides; // set by ImplTracePlane
-        hit.hit = true;
-        
-        return hit;
-    }
     
     /*****************************
      * Operators                 *
@@ -255,7 +240,7 @@ public:
      */
     friend Plane<T,N> operator/(Plane<T,N> p, const AffineTransform<T,N> &tx) {
         Plane<T,N> ret = p;
-        ret.applyInverse(tx);
+        ret.apply_inverse(tx);
         return ret;
     }
     
@@ -275,7 +260,7 @@ public:
      * @param tx An affine transformation to un-apply to this plane.
      */
     Plane<T,N>& operator/=(const AffineTransform<T,N> &tx) {
-        this->applyInverse(tx);
+        this->apply_inverse(tx);
         return *this;
     }
     

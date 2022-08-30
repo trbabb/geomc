@@ -158,11 +158,12 @@ public:
         return data.get()[i];
     }
     
-    inline void getStorageIDs(storage_id_t *buf) const {
-        *buf = data.get();
+    inline void get_storage_tokens(storage_token_t* buf) const {
+        const T* p = data.get();
+        *buf = {p, p + rows()};
     }
     
-    inline index_t getStorageIDCount() const {
+    constexpr index_t storage_token_count() const {
         return 1;
     }
 };

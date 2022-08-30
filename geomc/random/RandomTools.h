@@ -255,7 +255,7 @@ public:
         // we pick a height with uniform probability
         // (because a slice through the sphere with thickness t at height h
         //  has unchanging area regardless of h). 
-        T min_h = cos(half_angle_radians);
+        T min_h = std::cos(half_angle_radians);
         T h = this->rng->template rand<T>(min_h, 1);
         T r = sqrt(1 - h * h);
         T theta = this->rng->template rand<T>(2*M_PI);
@@ -272,7 +272,7 @@ public:
     inline Vec<T,3> cap(Vec<T,3> dir, T half_angle_radians) {
         Vec<T,3> v = this->cap(half_angle_radians);
         Vec<T,3> rotAxis = Vec<T,3>(0,0,1).cross(dir);
-        if (rotAxis.isZero()) return v;
+        if (rotAxis.is_zero()) return v;
         return v.rotate(rotAxis, std::acos(dir.z/dir.mag()));
     }
     
@@ -301,7 +301,7 @@ public:
         //rotate the disk to be aligned with <axis>
         Vec<T,3> raxis = Vec<T,3>(0,0,1).cross(normal);
         Vec<T,3> disk = this->disk(r).template resized<3>();
-        if (raxis.isZero()) return disk;
+        if (raxis.is_zero()) return disk;
         return disk.rotate(raxis, std::acos(normal.z/normal.mag()));
     }
 
@@ -377,7 +377,7 @@ public:
                       T min_radius,  T max_radius) {
         T angle = this->rng->template rand<T>(min_radians, max_radians);
         T len   = max_radius * std::sqrt(this->rng->template rand<T>(min_radius / max_radius, 1));
-        return Vec<T,2>(len,angle).fromPolar();
+        return Vec<T,2>(len,angle).from_polar();
     }
     
     /**

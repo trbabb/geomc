@@ -8,10 +8,7 @@
 #ifndef MATRIXMULT_H_
 #define MATRIXMULT_H_
 
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_base_of.hpp>
-#include <boost/type_traits/is_same.hpp>
-
+#include <type_traits>
 #include <geomc/linalg/LinalgTypes.h>
 #include <geomc/linalg/mtxdetail/MatrixGlue.h>
 
@@ -20,21 +17,21 @@ namespace detail {
     
 // Mt is a type
 #define REQUIRE_MATRIX_T(Mt) \
-    typename boost::enable_if< \
-        boost::is_base_of< \
+    typename std::enable_if< \
+        std::is_base_of< \
             geom::detail::MatrixBase<typename Mt::elem_t, Mt::ROWDIM, Mt::COLDIM, typename Mt::recurring_t>, \
-            Mt> \
+            Mt>::value \
         >::type
 
 // This is necessary because c++ gets confused by all the different matrix mult 
 // implementations which involve permutation matrixes:
 #define REQUIRE_NONPERMUTE_MATRIX_T(Mt) \
-    typename boost::enable_if_c< \
-        boost::is_base_of< \
+    typename std::enable_if< \
+        std::is_base_of< \
             geom::detail::MatrixBase<typename Mt::elem_t, Mt::ROWDIM, Mt::COLDIM, typename Mt::recurring_t>, \
             Mt \
         >::value and not \
-        boost::is_base_of< \
+        std::is_base_of< \
             geom::PermutationMatrix<Mt::ROWDIM>, \
             Mt \
         >::value \

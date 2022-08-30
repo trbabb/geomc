@@ -8,6 +8,8 @@
 #ifndef SEPARATINGAXIS_H
 #define	SEPARATINGAXIS_H
 
+#include <type_traits>
+
 
 /************************************************************
  * For small dimensions, we use the separating axis theorem *
@@ -56,7 +58,7 @@ class RectAxisHelperBase {
         Vec<T,N> _getNormal(index_t j) {
             Vec<T,N> n;
             n[j] = 1;
-            return xf.applyNormal(n);
+            return xf.apply_normal(n);
         }
     
 };
@@ -156,7 +158,7 @@ class RectIntersector {
 
 template <typename T, index_t N>
 class RectIntersector<T, N, 
-        typename boost::enable_if_c<RectAxisHelper<T,N>::SAT_SUPPORTED>::type>
+        typename std::enable_if<RectAxisHelper<T,N>::SAT_SUPPORTED>::type>
 {
     public: 
         

@@ -17,7 +17,6 @@
 #include <geomc/linalg/Vec.h>
 #include <geomc/shape/ShapeTypes.h>
 #include <geomc/shape/Rect.h>
-#include <geomc/shape/shapedetail/GridDetail.h>
 
 #define ENABLEINT_TYPE(T) typename boost::enable_if<boost::is_integral<T>, int>::type
 
@@ -31,6 +30,8 @@ namespace geom {
  ***********************************************/
 
 // TODO: somehow add docs for the inherited operators.
+// xxx: this is apparently broken for negative regions.
+//    (it's probably a truncating division issue)
     
 /**
  * @ingroup shape
@@ -53,7 +54,7 @@ namespace geom {
  *     --i;
  *     i += 10;
  *     i1 - i2;
- *     // etc. 
+ *     // etc.
  */
 template <typename T, index_t N, ArrayOrder Order>
 class GridIterator : 
@@ -66,14 +67,15 @@ class GridIterator :
     >
 {
     
-    const static index_t dim_first     = detail::_ImplArrayOrder<Order,N>::dim_first;
-    const static index_t dim_last      = detail::_ImplArrayOrder<Order,N>::dim_last;
-    const static index_t dim_end       = detail::_ImplArrayOrder<Order,N>::dim_end;
-    const static index_t dim_increment = detail::_ImplArrayOrder<Order,N>::dim_increment;
+    static constexpr bool RowMaj = (Order == ARRAYORDER_FIRST_DIM_CONSECUTIVE);
+    static constexpr index_t dim_first     = RowMaj ?  0      : (N - 1);
+    static constexpr index_t dim_last      = RowMaj ? (N - 1) :  0;
+    static constexpr index_t dim_end       = RowMaj ?  N      : -1;
+    static constexpr index_t dim_increment = RowMaj ?  1      : -1;
     
 public:
     /// Array order (row-major or column-major)
-    const static ArrayOrder order; // for cxx11: use constexpr
+    static constexpr ArrayOrder order = Order;
     /// Type of coordinate to be iterated over.
     typedef typename PointType<T,N>::point_t point_t;
     
@@ -168,8 +170,6 @@ private:
     }
     
     inline index_t distance_to(const GridIterator<T,N,Order> &other) const {
-        // TODO: xxx: test this. handling of volume's sign is suspicious.
-        // TODO: xxx: handling of reverse case is suspicious too.
         point_t dim  = region.dimensions(); 
         point_t jump = other.pt - pt;
         index_t dist = 0;
@@ -266,11 +266,6 @@ private:
     }
     
 };
-
-// static variable for all specializations
-
-template <typename T, index_t N, ArrayOrder Order>
-const ArrayOrder GridIterator<T,N,Order>::order = Order;
 
 } /* namespace geom */
 

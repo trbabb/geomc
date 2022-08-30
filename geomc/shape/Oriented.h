@@ -1,22 +1,24 @@
-/* 
- * File:   Oriented.h
- * Author: tbabb
- */
-
 #ifndef ORIENTED_H
 #define ORIENTED_H
 
 #include <geomc/linalg/AffineTransform.h>
-#include <geomc/shape/Bounded.h>
 #include <geomc/shape/Rect.h>
 #include <geomc/shape/shapedetail/SeparatingAxis.h>
 
 
 namespace geom {
-    
+
+// todo: make Rotor, and with it make SimilarTransform (Rotor + Translate), 
+//    and have Oriented store a SimilarTransform instead of an AffineXf
+//    > possibly internally delegate to Transformed<...> for efficiency?
+//    > allow sdf() and project()
+// todo: rename current Oriented impl to Transformed
+// todo: implement sdf() on Rotor-based Oriented
+//   - (can't work for matrix-based due to shears and scales)
+//   - (until then, user can do it themselves if they know there is no scale)
+// todo: implement project() on Rotor-based Oriented
+//   - (can't work for matrix-based due to shears and scales)
 // todo: use std::forward<X>() on constructors, to allow move-construction
-// todo: implement sdf()
-// todo: implement nearest(), which admits sdf() for compositional shapes
 
 /**
  * @ingroup shape
@@ -35,7 +37,10 @@ namespace geom {
  * 
  */
 template <typename Shape>
-class Oriented: public virtual Convex<typename Shape::elem_t, Shape::N> {
+class Oriented:
+    public Convex          <typename Shape::elem_t, Shape::N, Oriented<Shape>>,
+    public RayIntersectable<typename Shape::elem_t, Shape::N, Oriented<Shape>>
+{
 public:
     /// The coordinate type of this Shape
     typedef typename Shape::elem_t T;
@@ -57,16 +62,15 @@ public:
     Oriented(const Shape& s, const AffineTransform<T,N>& xf):
         shape(s),
         xf(xf) {}
-        
     
+    /// Shape-point overlap test.
     bool contains(Vec<T,N> p) const {
         p = p / xf;
         return shape.contains(p);
     }
     
-    
     Vec<T,N> convex_support(Vec<T,N> d) const {
-        d = xf.applyInverseNormal(d);
+        d = xf.apply_inverse_normal(d);
         Vec<T,N> p = shape.convex_support(d);
         return xf * p;
     }
@@ -91,6 +95,11 @@ public:
         return r;
     }
     
+    /// Ray-shape intersection.
+    Rect<T,1> intersect(const Ray<T,N>& r) const {
+        return shape.intersect(r / xf);
+    }
+    
     /// Return an Oriented Rect containing the shape.
     inline Oriented<Rect<T,N>> oriented_bounds() const {
         return xf * shape.bounds();
@@ -105,9 +114,11 @@ public:
  * @brief Partial specialization of Oriented for Rects.
  */
 template <typename T, index_t N>
-class Oriented< Rect<T,N> >: virtual public Convex<T,N> {
-    
-    public:
+class Oriented<Rect<T,N>>:
+    public Convex<T,N,Oriented<Rect<T,N>>>,
+    public RayIntersectable<T,N,Oriented<Rect<T,N>>>
+{    
+public:
     
     /// Un-transformed extents.
     Rect<T,N> shape;
@@ -153,16 +164,14 @@ class Oriented< Rect<T,N> >: virtual public Convex<T,N> {
         return *this;
     }
     
-    
     Vec<T,N> convex_support(Vec<T,N> d) const {
-        Vec<T,N> d_body = xf.applyInverseNormal(d);
+        Vec<T,N> d_body = xf.apply_inverse_normal(d);
         Vec<T,N> o;
         for (index_t i = 0; i < N; i++) {
             o[i] = ((d_body[i] < 0) ? shape.lo : shape.hi)[i];
         }
         return xf * o;
     }
-    
     
     /**
      * @brief Returns true if and only if `p` is inside or on the surface of 
@@ -199,34 +208,37 @@ class Oriented< Rect<T,N> >: virtual public Convex<T,N> {
         return b1_in_b0.intersects(shape);
     }
     
-    
-    /**
-     * Box-ray intersection test.
-     * 
-     * @param r A ray
-     * @param sides Whether to hit-test the front-facing or back-facing surfaces.
-     * @return A ray Hit describing whether and where the ray intersects this Oriented,
-     * as well as the normal, side hit, and ray parameter.
-     */
-    Hit<T,N> trace(const Ray<T,N> &r, HitSide side) {
-        Ray<T,N> rbody = r / xf;
-        Hit<T,N> h = shape.trace(rbody, side);
-        if (h.hit) {
-            h.p = xf * h.p;
-            h.n = xf.applyNormal(h.n);
-        }
-        return h;
+    /// Ray-shape intersection.
+    Rect<T,1> intersect(const Ray<T,N>& r) const {
+        return shape.intersect(r / xf);
     }
-        
+    
+    /// Compute the volume of this transformed Rect.
+    T volume() const {
+        SimpleMatrix<T,N,N> mx;
+        for (index_t i = 0; i < N; ++i) {
+            // mult this basis vector by the length of the rect along that axis
+            T s = shape.hi[i] - shape.lo[i];
+            for (index_t j = 0; j < N; ++j) {
+                mx(j,i) = s * xf.mat(j,i);
+            }
+        }
+        return det_destructive(mx.data_begin(), N);
+    }
+    
 }; // class Oriented<Rect>
 
+
+/** @addtogroup shape
+ *  @{
+ */
 
 /**
  * @brief Convenience typedef for oriented Rects.
  * @related Oriented
  */
 template <typename T, index_t N>
-using OrientedRect = Oriented< Rect<T,N> >;
+using OrientedRect = Oriented<Rect<T,N>>;
 
 
 /****************************
@@ -319,6 +331,27 @@ Oriented<Shape>& operator/=(
     return s;
 }
 
+/** @addtogroup traits
+ *  @{
+ */
+
+// Oriented shapes inherit concepts
+template <typename Shape>
+struct implements_shape_concept<Oriented<Shape>, RayIntersectable> : 
+    public std::integral_constant<
+        bool,
+        implements_shape_concept<Shape, RayIntersectable>::value>
+{};
+
+template <typename Shape>
+struct implements_shape_concept<Oriented<Shape>, Convex> : 
+    public std::integral_constant<
+        bool,
+        implements_shape_concept<Shape, RayIntersectable>::value>
+{};
+
+/// @} // addtogroup traits
+/// @} // addtogroup shape
 
 } // namespace geom
 

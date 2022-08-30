@@ -12,24 +12,16 @@
 #include <algorithm>
 #include <cmath>
 #include <limits>
+#include <utility>
 
-#if __cplusplus < 201103L
-#include <tr1/functional>
-#else
-#include <functional>
-#endif
-
-#include <boost/utility/enable_if.hpp>
-
-#include <geomc/Hash.h>
-#include <geomc/shape/Bounded.h>
 #include <geomc/linalg/Ray.h>
 #include <geomc/linalg/Vec.h>
-#include <geomc/shape/shapedetail/Hit.h>
+#include <geomc/shape/Shape.h>
 
 // todo: remove redundant fn names.
 
-// all boundaries are inclusive. this is inconsistent with half-open interval convention, but:
+// all boundaries are inclusive. this is inconsistent with half-open interval convention,
+// but:
 // - union of rect with a point should thereafter contain the point
 // - with a half-open interval, we'd need to "increment" the upper bound
 //   to contain p
@@ -75,7 +67,11 @@ namespace geom {
  * using a GridIterator object, which abstracts away the boundary logic for you.
  */
 template <typename T, index_t N> 
-class Rect : virtual public Convex<T,N> {
+class Rect: 
+    public Convex          <T,N,Rect<T,N>>,
+    public Projectable     <T,N,Rect<T,N>>,
+    public RayIntersectable<T,N,Rect<T,N>>
+{
 protected:
     typedef PointType<T,N> ptype;
 
@@ -100,18 +96,9 @@ public:
      *
      * A union between this Rect and any finite shape is an identity operation.
      */
-    Rect():
+    constexpr Rect():
         lo(std::numeric_limits<T>::max()),
-#if __cplusplus >= 201103L
-        hi(std::numeric_limits<T>::lowest()) {
-#else
-        // c++03, you make me sad.
-        hi(  std::numeric_limits<T>::is_integer ? 
-               std::numeric_limits<T>::min() : 
-              -std::numeric_limits<T>::max()) {
-#endif
-        //do nothing else
-    }
+        hi(std::numeric_limits<T>::lowest()) {}
 
     /**
      * @brief Construct a Rect with extremes `lo` and `hi`. 
@@ -120,21 +107,33 @@ public:
      * @param lo Lower extreme
      * @param hi Upper extreme
      */
-    Rect(point_t lo, point_t hi):
+    constexpr Rect(point_t lo, point_t hi):
         lo(lo),
         hi(hi) {}
     
     /**
      * @brief Construct a Rect containing only the point `p`.
      */
-    explicit Rect(point_t p):
+    explicit constexpr Rect(point_t p):
         lo(p),
         hi(p) {}
 
 
     /****************************
-     * Convenience functions    *
+     * Static members           *
      ****************************/
+    
+    /// A Rect covering the range [0, 1] along all axes.
+    static const Rect<T,N> unit_interval;
+    
+    /// A Rect covering the range [-1, 1] along all axes.
+    static const Rect<T,N> signed_unit_interval;
+    
+    /// A Rect that contains all points.
+    static const Rect<T,N> full;
+    
+    /// A Rect that contains no points.
+    static const Rect<T,N> empty;
 
     /**
      * @brief Construct a Rect from a center point and extent.
@@ -190,7 +189,7 @@ public:
      * @return A new Rect containing all the points in the given sequence.
      */
     template <typename PointIterator>
-    inline static Rect<T,N> from_points(PointIterator begin, PointIterator end) {
+    inline static Rect<T,N> from_point_sequence(PointIterator begin, PointIterator end) {
         Rect<T,N> r;
         for (PointIterator i = begin; i != end; ++i) {
             r |= *i;
@@ -242,7 +241,7 @@ public:
      * @return A reference to `this`, for convenience.
      */
     Rect<T,N>& operator|=(const Rect<T,N> &b) {
-        //box union
+        // box union
         hi = std::max(b.hi, hi);
         lo = std::min(b.lo, lo);
         return *this;
@@ -276,8 +275,14 @@ public:
     
     /**
      * @brief Interval intersection.
-     * 
-     * @return A Rect representing the area overlapped by both `this` and `b`.
+     *
+     * Compute a Rect representing the area overlapped by both `this` and `b`.
+     * This is the unsigned intersection, which means that an intersection with an
+     * empty interval yields another empty interval. If empty intervals should
+     * instead subtract from nonempty intervals, use signed_intersection().
+     *
+     * The unsigned intersection is the most common form of interval intersection,
+     * and is the more efficient of the two.
      */
     inline Rect<T,N> operator&(const Rect<T,N> &b) const {
         return Rect<T,N>(std::max(lo, b.lo),
@@ -287,12 +292,19 @@ public:
     /**
      * @brief Interval intersection.
      * 
-     * Confine this Rect to the area overlapping `b`.
+     * Confine this Rect to the area overlapping `b`. This is the unsigned
+     * intersection, which means that an intersection with an empty interval yields
+     * another empty interval. If empty intervals should instead subtract from
+     * nonempty intervals, use signed_intersection().
+     *
+     * The unsigned intersection is the most common form of interval intersection,
+     * and is the more efficient of the two.
      * @return A reference to `this` for convenience.
      */
     Rect<T,N>& operator&=(const Rect<T,N> &b) {
         lo = std::max(lo, b.lo);
         hi = std::min(hi, b.hi);
+        return *this;
     }
 
     /**
@@ -348,26 +360,48 @@ public:
     
     /**
      * @brief Interval exclusion.
+     * 
+     * For any dimension where `this` fully contains `other`, the result is the
+     * empty interval. Any dimension of `other` that is empty has no effect.
      *
      * @param other Range to be excluded from the range of this `Rect`.
      * @return A new `Rect` whose range does not overlap `other`.
      */
     inline Rect<T,N> operator-(const Rect<T,N>& other) {
-        return Rect<T,N>(
-            std::max(lo,other.hi),
-            std::min(hi,other.lo));
+        // todo: instead of returning empty() when an interval is split in two,
+        //   choose the larger
+        // todo: make an exclude_signed() and handle empty-interval case,
+        //   and make it behave sensibly? e.g.:
+        //   •   a  - (-b) =   a + b
+        //   • (-a) -   b  = -(a + b)
+        //   • (-a) - (-b) = -(a - b)
+        Rect<T,N> out;
+        for (index_t i = 0; i < N; ++i) {
+            T b_lo = ptype::iterator(other.lo)[i];
+            T a_lo = ptype::iterator(lo)[i];
+            T a_hi = ptype::iterator(hi)[i];
+            T b_hi = ptype::iterator(other.hi)[i];
+            if (b_lo > b_hi) continue;
+            bool pick_lo = b_lo < a_lo;
+            bool pick_hi = b_hi > a_hi;
+            ptype::iterator(lo)[i] = pick_lo ? a_hi : std::min(a_hi, b_lo);
+            ptype::iterator(hi)[i] = pick_hi ? a_lo : std::max(b_hi, a_lo);
+        }
+        return out;
     }
     
     
     /**
      * @brief Interval exclusion.
+     * 
+     * For any dimension where `this` fully contains `other`, the result is the
+     * empty interval. Any dimension of `other` that is empty has no effect.
      *
      * @param other Range to remove from this `Rect`.
      * @return A reference to `this`, for convenience.
      */
     inline Rect<T,N>& operator-=(const Rect<T,N>& other) {
-        lo = std::max(lo, other.hi);
-        hi = std::min(hi, other.lo);
+        *this = (*this) - other;
         return *this;
     }
     
@@ -488,6 +522,7 @@ public:
      *****************************/
 
     /**
+     * @brief Point containment test.
      * @return `true` if and only if `pt` is inside this rectangle.
      * Points on the surface of the Rect are considered to be contained by it.
      */
@@ -502,11 +537,41 @@ public:
         }
         return true;
     }
+    
+    /**
+     * @brief Box containment.
+     * 
+     * @return `true` if and only if this `Rect` *fully contains* `box`, in other
+     * words that there is no point contained by `box` which is not contained by
+     * `this`.
+     */
+    bool contains(const Rect<T,N>& box) const {
+        for (index_t axis = 0; axis < N; axis++) {
+            // inner box must not protrude along any axis
+            if (ptype::iterator(box.lo)[axis] < ptype::iterator(lo)[axis] or 
+                ptype::iterator(box.hi)[axis] > ptype::iterator(hi)[axis])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * @brief Return the one dimensional range spanned along axis `k`.
+     */
+    Rect<T,1> axis(size_t k) const {
+        return {
+            ptype::iterator(lo)[k],
+            ptype::iterator(hi)[k]
+        };
+    }
  
     /**
+     * @brief Range intersection test.
      * @return `true` if and only if there is a point overlapped by both `Rect`s.
      */
-    bool intersects(const Rect<T,N> &box) const {
+    bool intersects(const Rect<T,N>& box) const {
         for (index_t axis = 0; axis < N; axis++) {
             // disjoint on this axis?
             if (ptype::iterator(hi)[axis]     <= ptype::iterator(box.lo)[axis] or 
@@ -518,6 +583,7 @@ public:
     }
     
     /**
+     * @brief Center point.
      * @return The center point of this region.
      */
     point_t center() const {
@@ -525,17 +591,18 @@ public:
     }
 
     /**
+     * @brief Axial size.
      * @return The size of this region along each axis.
      *
-     * Note that for integer type Rects, since both the high and low boundaries are included,
-     * the length along each axis is `hi - lo + 1`.
+     * Note that for integer type Rects, since both the high and low boundaries
+     * are included, the length along each axis is `hi - lo + 1`.
      */
     inline point_t dimensions() const {
         return hi - lo + endpoint_measure;
     }
 
     /**
-     * Change the size of this region, adjusting about its center.
+     * @brief Change the size of the region, adjusting about its center.
      * @param dim New lengths along each axis.
      */
     void set_dimensions(point_t dim) {
@@ -562,6 +629,8 @@ public:
     }
 
     /**
+     * @brief Reconstruct from corner points.
+     * 
      * Re-configure this region to exactly contain the two given points.
      */
     void set_corners(point_t corner1, point_t corner2) {
@@ -570,20 +639,41 @@ public:
     }
     
     /**
-     * Preserving its size, translate the center of this region to the point
-     * given by `center`.
+     * @brief Place a copy at a new location.
+     * 
+     * Make a new Rect having the same size as this one, but with its center
+     * at `c`.
      * @param c New center point.
      */
-    void center_on(point_t c) {
-        point_t tx = c - center();
-        hi += tx;
-        lo += tx;
+    inline Rect<T,N> centered_on(point_t c) const {
+        return Rect<T,N>::from_center(c, dimensions());
     }
     
     /**
-     * Compute the N-dimensional volume of this region as the product of its
-     * extents. Result measures a length if `N` is 1; an area if `N` is 2; a 
-     * volume if 3; etc. 
+     * @brief Morphological dilation.
+     * 
+     * Return a Rect with the boundary extended coordinate-wise by the amount `c` 
+     * in all directions.
+     */
+    inline Rect<T,N> dilated(point_t c) const {
+        return Rect<T,N>(lo + c, hi - c);
+    }
+    
+    /**
+     * @brief Minkowski sum.
+     * 
+     * Combine this Rect with another using the Minkowski sum.
+     */
+    inline Rect<T,N> minkowski_sum(const Rect<T,N>& other) const {
+        return Rect<T,N>(lo + other.lo, hi + other.hi);
+    }
+    
+    /**
+     * @brief N-dimensional volume.
+     * 
+     * Compute the measure of the region contained by this Rect as the product
+     * of its dimensions. Result measures a length if `N` is 1; an area if `N` is 2; a 
+     * volume if 3; etc.
      * 
      * @return The volume of this region.
      */
@@ -597,6 +687,7 @@ public:
     }
     
     /**
+     * @brief Empty region test.
      * @return `true` if and only if this region contains no points; which
      * will be the case if `lo[i] > hi[i]` for any axis `i`.
      */
@@ -612,24 +703,69 @@ public:
     }
     
     /**
-     * Clamp the coordinates of `p` to lie within this Rect.
+     * @brief Clamp the coordinates of `p` to lie within this Rect.
      *
      * Result can be considered the point nearest to `p` contained in this `Rect`.
      */
-    inline point_t clamp(point_t p) const {
+    inline point_t clip(point_t p) const {
         return std::min(hi, std::max(lo, p));
     }
     
+    /**
+     * @brief Return the point on the surface of the shape which is nearest to `p`.
+     *
+     * Distinct from clip() in that `p` is projected to the boundary of
+     * the Rect, regardless of whether it's inside or outside. By contrast,
+     * `clip()` leaves `p` unchanged if it lies in the Rect's interior.
+     */
+    inline point_t project(point_t p) const {
+        if (contains(p)) {
+            // project to the closest face;
+            // i.e. find the axis along which p is closest to a boundary and 
+            // snap that coordinate to the boundary.
+            index_t best_axis = 0;
+            T winning_coord   = 0;
+            T best_distance   = std::numeric_limits<T>::max();
+            for (index_t i = 0; i < N; ++i) {
+                T   p_i = ptype::iterator(p) [i];
+                T  lo_i = ptype::iterator(lo)[i];
+                T  hi_i = ptype::iterator(hi)[i];
+                T to_lo = std::abs(p_i - lo_i);
+                T to_hi = std::abs(p_i - hi_i);
+                T  dist = std::min(to_lo, to_hi);
+                if (dist < best_distance) {
+                    winning_coord = to_lo < to_hi ? lo_i : hi_i;
+                    best_axis     = i;
+                    best_distance = dist;
+                }
+            }
+            p[best_axis] = winning_coord;
+            return p;
+        } else {
+            return clip(p);
+        }
+    }
     
     /**
+     * @brief Return the signed distance to the surface of the shape.
+     */
+    inline T sdf(point_t p) const {
+        T sign = contains(p) ? -1 : 1;
+        return sign * project(p).dist(p);
+    }
+    
+    /**
+     * @brief Squared distance to the interior of the Rect.
      * @return The square of the distance to the nearest point contained by this `Rect`; 
      * zero if `p` is inside.
      */
     inline T dist2(point_t p) const {
-        return ptype::mag2(p - clamp(p));
+        return ptype::mag2(p - clip(p));
     }
     
     /**
+     * @brief Map the unit interval to the region.
+     * 
      * Remap `s` on the `[0,1]` interval to the extents of this Rect. 
      * In other words, interpolate the corners of this Rect using s as an interpolation 
      * parameter.
@@ -644,12 +780,57 @@ public:
     }
     
     /**
-     * Find `p`'s fractional position within this Rect.
+     * @brief Find `p`'s fractional position within this Rect.
      *
      * Inverse operation of `remap()`.
      */
     point_t unmap(point_t p) const {
         return (p - lo) / (hi - lo);
+    }
+    
+    /**
+     * @brief Return a vector which moves `this` into precise disjoint contact
+     * with `other`, and a boolean indicating whether the two shapes currently
+     * overlap.
+     */
+    std::pair<point_t,bool> contact_vector(const Rect<T,N>& other) const {
+        point_t v;
+        bool overlap[N];
+        bool all_overlap = true;
+        index_t shortest_axis;
+        index_t shortest_val = std::numeric_limits<T>::max();
+        for (index_t i = 0; i < N; ++i) {
+            auto r0 = this->axis(i);
+            auto r1 = other.axis(i);
+            T d0 = r1.lo - r0.hi;
+            T d1 = r1.hi - r0.lo;
+            overlap[i] = r0.intersects(r1);
+            all_overlap = all_overlap and overlap[i];
+            auto s = std::abs(d0) < std::abs(d1) ? d0 : d1;
+            ptype::iterator(v)[i] = s;
+            if (std::abs(s) < std::abs(shortest_val)) {
+                shortest_val  = s;
+                shortest_axis = i;
+            }
+        }
+        if (all_overlap) {
+            // if the two rects overlap, move along the axis that is closest to the
+            // surface. once those ranges are disjoint, it doesn't matter that the
+            // other axes overlap. (and separating other axes will just increase the
+            // displacement distance)
+            v = {};
+            ptype::iterator(v)[shortest_axis] = shortest_val;
+        } else {
+            // if the two rects don't overlap, then close the gap on all
+            // non-overlapping axes
+            for (index_t i = 0; i < N; ++i) {
+                if (overlap[i]) {
+                    // overlap on this axis. 
+                    ptype::iterator(v)[i] = 0;
+                }
+            }
+        }
+        return {v, all_overlap};
     }
     
     point_t convex_support(point_t d) const {
@@ -661,85 +842,27 @@ public:
         return o;
     }
     
-    /**
-     * Box-ray intersection test.
-     * 
-     * @param r A ray
-     * @param sides Whether to hit-test the front-facing or back-facing surfaces.
-     * @return A ray Hit describing whether and where the ray intersects this Rect,
-     * as well as the normal, side hit, and ray parameter.
-     */
-    Hit<T,N> trace(const Ray<T,N> &r, HitSide sides) const {
-        // use non-denormal extremes, for speed (as opposed to inf).
-        // (also, infinity may not be defined for T).
-        T near_root = std::numeric_limits<T>::lowest();
-        T far_root  = std::numeric_limits<T>::max();
-        index_t near_axis = 0;
-        index_t far_axis  = 0;
-        // for guaranteeing that the hit point is exactly on the rect surface,
-        // regardless of precision and rounding error in the ray arithmetic:
-        T near_coord  = 0;
-        T far_coord   = 0;
-        Hit<T,N> hit  = Hit<T,N>(r, sides); // defaults to miss
-        
-        // test ray intersection with an infinite slab along each axis
-        // box intersections are the farthest near hit and nearest far hit
-        for (index_t axis = 0; axis < N; axis++) {
-            if (r.direction[axis] == 0) {
-                // ray direction tangent to test planes, no intersection along this axis
-                if (r.origin[axis] < lo[axis] || r.origin[axis] > hi[axis]) {
-                    // origin outside of test slab; miss
-                    return hit;
+    /// Ray-shape intersection test.
+    Rect<T,1> intersect(const Ray<T,N>& r) const {
+        Rect<T,1> interval = Rect<T,1>::full;
+        for (index_t axis = 0; axis < N; ++axis) {
+            T dx   = ptype::iterator(r.direction)[axis];
+            T o_i  = ptype::iterator(r.origin)[axis];
+            T lo_i = ptype::iterator(lo)[axis];
+            T hi_i = ptype::iterator(hi)[axis];
+            if (dx == 0) {
+                // ray direction is tangent to the test planes; no intersection on this axis.
+                if (o_i < lo_i or o_i > hi_i) {
+                    // origin outside the test slab; miss
+                    return Rect<T,1>();
                 }
             } else {
-                // coordinate of hit, along tested axis
-                T c1 = hi[axis];
-                T c2 = lo[axis];
-                // ray multiple of hit
-                T s1 = (c1 - r.origin[axis]) / r.direction[axis];
-                T s2 = (c2 - r.origin[axis]) / r.direction[axis];
-                
-                // order s1, s2 to (near, far) (aka front, back)
-                if (s2 < s1) {
-                    std::swap(s1,s2);
-                    std::swap(c1,c2);
-                }
-                if (s1 > near_root) {
-                    near_root  = s1;
-                    near_axis  = axis; 
-                    near_coord = c1;
-                }
-                if (s2 < far_root) {
-                    far_root  = s2;
-                    far_axis  = axis;
-                    far_coord = c2;
-                }
+                interval &= Rect<T,1>::spanning_corners(
+                    (hi_i - o_i) / dx,
+                    (lo_i - o_i) / dx);
             }
         }
-        
-        if (near_root > far_root) {
-            // miss
-            return hit;
-        } else if (near_root > 0 and (sides & HIT_FRONT)) {
-            // hit front
-            hit.p = r * near_root;
-            hit.p[near_axis] = near_coord;
-            hit.s = near_root;
-            hit.n[near_axis] = -copysign(1, r.direction[near_axis]);
-            hit.side = HIT_FRONT;
-            hit.hit = true;
-        } else if (far_root > 0 and (sides & HIT_BACK)) {
-            // hit back
-            hit.p = r * far_root;
-            hit.p[far_axis] = far_coord;
-            hit.s = far_root;
-            hit.n[far_axis] = copysign(1, r.direction[far_axis]);
-            hit.side = HIT_BACK;
-            hit.hit = true;
-        }
-        // if encountered cases above; hit.
-        // else miss (box entirely behind ray origin)
-        return hit;
+        return interval;
     }
 
     /*****************************
@@ -753,33 +876,31 @@ public:
 }; // end Rect class
 
 
+// these must be declared outside the class body because
+// the class definition must be complete in order to invoke
+// the constexpr constructor:
 
-// static members
 template <typename T, index_t N>
-const typename Rect<T,N>::point_t Rect<T,N>::endpoint_measure = 
-    std::numeric_limits<T>::is_integer ? 1 : (T)0;
+constexpr Rect<T,N> Rect<T,N>::unit_interval = Rect<T,N>((T)0, (T)1);
+
+template <typename T, index_t N>
+constexpr Rect<T,N> Rect<T,N>::signed_unit_interval = Rect<T,N>((T)-1, (T)1);
+
+template <typename T, index_t N>
+constexpr Rect<T,N> Rect<T,N>::full = Rect<T,N>(
+    -std::numeric_limits<T>::infinity(),
+     std::numeric_limits<T>::infinity());
+
+template <typename T, index_t N>
+constexpr Rect<T,N> Rect<T,N>::empty = Rect<T,N>(
+     std::numeric_limits<T>::infinity(),
+    -std::numeric_limits<T>::infinity());
+
+template <typename T, index_t N>
+constexpr typename Rect<T,N>::point_t Rect<T,N>::endpoint_measure = 
+    std::is_integral<T>::value ? 1 : 0;
 
 
 } // end namespace geom
-
-// allows RectBound<T,N>s to work with std::tr1 hash containers
-namespace std {
-
-#if __cplusplus < 201103L
-namespace tr1 {
-#endif
-
-   template <typename T, index_t N>
-   struct hash< geom::Rect<T,N> > : public unary_function<geom::Rect<T,N>, size_t> {
-       inline size_t operator() (const geom::Rect<T,N>& box) const {
-           return geom::general_hash(&box, sizeof(geom::Rect<T,N>));
-       }
-   };
-
-#if __cplusplus < 201103L
-} // namespace tr1
-#endif
-
-} // namespace std
 
 #endif /* Rect_H_ */

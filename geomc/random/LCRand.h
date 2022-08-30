@@ -44,7 +44,7 @@ public:
     virtual void rseed(uint64_t seed);
 
     /// @return 64 random bits.
-    inline uint64_t rand64(){
+    inline uint64_t rand64() {
         uint64_t A = 6364136223846793005LL;
         uint64_t C = 1442695040888963407LL;
         state = A * state + C;

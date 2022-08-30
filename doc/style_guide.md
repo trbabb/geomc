@@ -267,6 +267,32 @@ Variables should never be declared with comma separation syntax; each variable s
     int* a;
     int* b;
 
+Increments
+----------
+
+"Pythonic" increments are preferred, and increment operators should generally not be used:
+
+    // preferable-- looks like an assignment:
+    popsicles += 1;
+    
+    // discouraged:
+    popsicles++;
+    
+    // also discouraged:
+    put_in_freezer(popsicles++);
+
+It is better if every assignment or change to a variable look like an assignment.
+
+Loops preambles are one place where increment operators are allowed. In this case pre-increment is preferred;
+
+    // loop variable pre-increment operators are ok:
+    for (index_t i = 0; i < n; ++i) {
+        // ...
+    }
+
+In the case where `i` is an iterator class, pre-increments may be slightly more efficient. (Post-increments need to make a copy of their pre-increment state to return). For this reason, it is best to use pre-increment consistently in all cases.
+
+
 Classes
 -------
 

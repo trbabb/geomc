@@ -5,7 +5,6 @@
  *      Author: Tim Babb
  */
 
-#include <boost/static_assert.hpp>
 #include <assert.h>
 #include <algorithm>
 #include <limits>
@@ -107,6 +106,7 @@ template <> long long Random::rand<long long>() {
 }
 
 /* From the unpublished paper by Allen B. Downey.
+ * https://allendowney.com/research/rand/downey07randfloat.pdf
  *
  * The conventional method of dividing a random number
  * by a constant excludes about 93% of the representable
@@ -126,7 +126,7 @@ template <> long long Random::rand<long long>() {
 template <> float Random::rand<float>() {
     // without IEEE754, our bit twiddling will not work.
     // generally this will only fail for "exotic" systems:
-    BOOST_STATIC_ASSERT(std::numeric_limits<float>::is_iec559);
+    static_assert(std::numeric_limits<float>::is_iec559, "floating point must be ieee754");
     
     uint32_t mant;
     int exp, hi_exp, lo_exp;
@@ -155,7 +155,7 @@ template <> float Random::rand<float>() {
 template <> double Random::rand<double>() {
     // without IEEE754, our bit twiddling will not work.
     // generally this will only fail for "exotic" systems:
-    BOOST_STATIC_ASSERT(std::numeric_limits<double>::is_iec559);
+    static_assert(std::numeric_limits<double>::is_iec559, "floating point must be ieee754");
     
     int exp, hi_exp, lo_exp;
     uint64_t mant;

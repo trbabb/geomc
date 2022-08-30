@@ -8,14 +8,11 @@
 #ifndef MATRIXGLUE_H_
 #define MATRIXGLUE_H_
 
-#include <boost/iterator/iterator_facade.hpp>
-#include <boost/iterator/iterator_traits.hpp>
+#include <type_traits>
+
+#include <geomc/GeomException.h>
 #include <geomc/Storage.h>
 #include <geomc/shape/GridIterator.h>
- 
-#if defined(GEOMC_MTX_CHECK_BOUNDS) or defined(GEOMC_MTX_CHECK_DIMS)
-#include <geomc/GeomException.h>
-#endif
 
 namespace geom {
 
@@ -123,8 +120,8 @@ struct IsMatrix {
 
 
 template <typename Mt>
-struct IsMatrix<Mt, typename boost::enable_if_c<
-            boost::is_base_of<
+struct IsMatrix<Mt, typename std::enable_if<
+            std::is_base_of<
                 geom::detail::MatrixBase<typename Mt::elem_t, Mt::ROWDIM, Mt::COLDIM, typename Mt::recurring_t>, 
                 Mt>::value,
             void>::type> {
@@ -152,7 +149,7 @@ struct MatrixDimensionMatch {
 
 template <typename Ma, typename Mb>
 struct MatrixDimensionMatch <Ma, Mb, 
-        typename boost::enable_if_c<
+        typename std::enable_if<
             ((Ma::ROWDIM == Mb::ROWDIM or Ma::ROWDIM * Mb::ROWDIM == 0) and 
              (Ma::COLDIM == Mb::COLDIM or Ma::COLDIM * Mb::COLDIM == 0))
         >::type> {
@@ -226,7 +223,7 @@ struct _ImplMtxAdaptor {
 };
 
 template <typename Mx, VecOrientation O>
-struct _ImplMtxAdaptor <Mx, O, typename boost::enable_if_c<IsMatrix<Mx>::val, void>::type> {
+struct _ImplMtxAdaptor <Mx, O, typename std::enable_if<IsMatrix<Mx>::val, void>::type> {
     static const index_t ROWDIM = Mx::ROWDIM;
     static const index_t COLDIM = Mx::COLDIM;
     
@@ -270,7 +267,7 @@ struct _ImplVecMulOrient {
 };
 
 template <typename Ma, typename Mb, typename Md>
-struct _ImplVecMulOrient <Ma, Mb, Md, typename boost::enable_if_c<
+struct _ImplVecMulOrient <Ma, Mb, Md, typename std::enable_if<
             _ImplMtxAdaptor<Ma, ORIENT_VEC_ROW>::ROWDIM == _ImplMtxAdaptor<Md, ORIENT_VEC_COL>::ROWDIM and 
             _ImplMtxAdaptor<Mb, ORIENT_VEC_COL>::COLDIM == _ImplMtxAdaptor<Md, ORIENT_VEC_COL>::COLDIM, 
             void>::type> {
@@ -278,7 +275,7 @@ struct _ImplVecMulOrient <Ma, Mb, Md, typename boost::enable_if_c<
 };
 
 template <typename Ma, typename Mb, typename Md>
-struct _ImplVecMulOrient <Ma, Mb, Md, typename boost::enable_if_c<
+struct _ImplVecMulOrient <Ma, Mb, Md, typename std::enable_if<
             _ImplMtxAdaptor<Ma, ORIENT_VEC_ROW>::ROWDIM == _ImplMtxAdaptor<Md, ORIENT_VEC_ROW>::ROWDIM and 
             _ImplMtxAdaptor<Mb, ORIENT_VEC_COL>::COLDIM == _ImplMtxAdaptor<Md, ORIENT_VEC_ROW>::COLDIM and not
             /* avoid ambiguity with column orienation template: */
@@ -303,7 +300,7 @@ struct _ImplVecOrient {
 // vec(N x 1) == mtx(N x 1)
 // col vector and matrix
 template <typename T, index_t N, typename Mb>
-struct _ImplVecOrient <Vec<T,N>, Mb, typename boost::enable_if_c<
+struct _ImplVecOrient <Vec<T,N>, Mb, typename std::enable_if<
                 (N == Mb::ROWDIM or Mb::ROWDIM == DYNAMIC_DIM) and
                 (Mb::COLDIM == 1 or Mb::COLDIM == DYNAMIC_DIM) and not
                 (Mb::COLDIM == DYNAMIC_DIM and Mb::ROWDIM == DYNAMIC_DIM),
@@ -314,7 +311,7 @@ struct _ImplVecOrient <Vec<T,N>, Mb, typename boost::enable_if_c<
 // mtx(N x 1) == vec(N x 1)
 // matrix and col vector
 template <typename T, index_t N, typename Mb>
-struct _ImplVecOrient <Mb, Vec<T,N>, typename boost::enable_if_c<
+struct _ImplVecOrient <Mb, Vec<T,N>, typename std::enable_if<
                 (N == Mb::ROWDIM or Mb::ROWDIM == DYNAMIC_DIM) and
                 (Mb::COLDIM == 1 or Mb::COLDIM == DYNAMIC_DIM) and not
                 (Mb::COLDIM == DYNAMIC_DIM and Mb::ROWDIM == DYNAMIC_DIM),
@@ -325,7 +322,7 @@ struct _ImplVecOrient <Mb, Vec<T,N>, typename boost::enable_if_c<
 // vec(1 x N) == mtx(1 x N)
 // row vector and matrix
 template <typename T, index_t N, typename Mb>
-struct _ImplVecOrient <Vec<T,N>, Mb, typename boost::enable_if_c<
+struct _ImplVecOrient <Vec<T,N>, Mb, typename std::enable_if<
                 (N == Mb::COLDIM or Mb::COLDIM == DYNAMIC_DIM) and
                 (Mb::ROWDIM == 1 or Mb::ROWDIM == DYNAMIC_DIM) and not
                 (Mb::COLDIM == DYNAMIC_DIM and Mb::ROWDIM == DYNAMIC_DIM),
@@ -336,7 +333,7 @@ struct _ImplVecOrient <Vec<T,N>, Mb, typename boost::enable_if_c<
 // mtx(1 x N) == vec(1 x N)
 // matrix and row vector
 template <typename T, index_t N, typename Mb>
-struct _ImplVecOrient <Mb, Vec<T,N>, typename boost::enable_if_c<
+struct _ImplVecOrient <Mb, Vec<T,N>, typename std::enable_if<
                 (N == Mb::COLDIM or Mb::COLDIM == DYNAMIC_DIM) and
                 (Mb::ROWDIM == 1 or Mb::ROWDIM == DYNAMIC_DIM) and not
                 (Mb::COLDIM == DYNAMIC_DIM and Mb::ROWDIM == DYNAMIC_DIM),
@@ -353,7 +350,7 @@ struct _ImplVecOrient <Vec<A,N>, Vec<B,N>, void> {
 
 // two matrices
 template <typename Ma, typename Mb>
-struct _ImplVecOrient <Ma, Mb, typename boost::enable_if_c<(IsMatrix<Ma>::val and IsMatrix<Mb>::val), void>::type> {
+struct _ImplVecOrient <Ma, Mb, typename std::enable_if<(IsMatrix<Ma>::val and IsMatrix<Mb>::val), void>::type> {
     // arbitrary
     static const VecOrientation orient = ORIENT_VEC_COL;
 };
@@ -371,7 +368,7 @@ struct LinalgDimensionMatch {
 
 template <typename Ma, typename Mb>
 struct LinalgDimensionMatch <Ma,Mb,
-        typename boost::enable_if_c<
+        typename std::enable_if<
             (((_ImplMtxAdaptor<Ma, _ImplVecOrient<Ma,Mb>::orient>::ROWDIM == _ImplMtxAdaptor<Mb, _ImplVecOrient<Ma,Mb>::orient>::ROWDIM) or 
               (_ImplMtxAdaptor<Ma, _ImplVecOrient<Ma,Mb>::orient>::ROWDIM  * _ImplMtxAdaptor<Mb, _ImplVecOrient<Ma,Mb>::orient>::ROWDIM == 0)) and 
               /* col dimension match */
@@ -392,7 +389,7 @@ struct MatrixMultipliable {
 
 template <typename Ma, typename Mb>
 struct MatrixMultipliable <Ma, Mb, 
-    typename boost::enable_if_c<
+    typename std::enable_if<
             /* at least one arg is a matrix */
             (IsMatrix<Ma>::val or IsMatrix<Mb>::val) and
             /* inner dimension match */
@@ -421,7 +418,7 @@ struct MatrixMultReturnType {
 
 template <typename Ma, typename Mb>
 struct MatrixMultReturnType <Ma, Mb,
-        typename boost::enable_if_c<
+        typename std::enable_if<
             MatrixMultipliable<Ma,Mb>::val, void>::type> {
     typedef typename detail::_ImplMtxMul<Ma,Mb,void>::return_t return_t;
 };
@@ -448,13 +445,13 @@ struct _ImplMtxResult {
 
 template <typename Ma, typename Mb, typename Md>
 struct _ImplMtxResult <Ma, Mb, Md,
-       typename boost::enable_if_c<MATRIX_DEST_MATCH(Ma,Mb,Md) and detail::_ImplVecMulOrient<Ma,Mb,Md>::orient != ORIENT_VEC_UNKNOWN, void>::type> {
+       typename std::enable_if<MATRIX_DEST_MATCH(Ma,Mb,Md) and detail::_ImplVecMulOrient<Ma,Mb,Md>::orient != ORIENT_VEC_UNKNOWN, void>::type> {
     static const MatrixResultAgreement agreement = MTX_RESULT_MATCH;
 };
 
 template <typename Ma, typename Mb, typename Md>
 struct _ImplMtxResult <Ma, Mb, Md,
-       typename boost::enable_if_c<MATRIX_DEST_MATCH(Ma,Mb,Md) and detail::_ImplVecMulOrient<Ma,Mb,Md>::orient == ORIENT_VEC_UNKNOWN, void>::type> {
+       typename std::enable_if<MATRIX_DEST_MATCH(Ma,Mb,Md) and detail::_ImplVecMulOrient<Ma,Mb,Md>::orient == ORIENT_VEC_UNKNOWN, void>::type> {
    static const MatrixResultAgreement agreement = MTX_RESULT_UNKNOWN;
 };
 

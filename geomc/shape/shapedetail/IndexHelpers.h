@@ -110,7 +110,7 @@ struct ShapeIndexHelper< T, N, Bounded<T,N> > {
     }
     
     static inline T dist2(const Bounded<T,N>& r, const Vec<T,N>& p) {
-        return r.bounds().clamp(p).dist2(p);
+        return r.bounds().clip(p).dist2(p);
     }
     
     static inline bound_t bounds(const Bounded<T,N>& r) {

@@ -9,8 +9,8 @@ TODO:
   - fix tracing
   - everything in deployment_blockers.txt
   x fix matrices
-    - window
     x wrapper
+    - window
 
   missing, but not a showstopper:
     - space partitions
@@ -20,25 +20,41 @@ TODO:
     - move GridIterator to storage module
     - have a Raster wrap a Grid
 
+
+SHAPE:
+- add Sampled<Shape> to Shape
+  - template <typename Engine> shape::sample(Engine& e);
+  - or consider moving this to a separate include
+- add Parameterized<Shape> to shape
+  - shape.point(Vec<T,N> s) -> Vec<T,N>;
+    - or maybe shape.operator()(Vec<T,N>)?
+    - or maybe (overloaded) shape.sample(Vec<T,N>)?
+  - shape.jacobian(Mtx<T,N,N>* mx, Vec<T,N> s) -> Vec<T,N>;
+  - construct so that sample points are uniform density
+    (i.e. what you would feed a low discrepancy sequence to)
+
 MATRIX:
-  x make a matrix which can wrap a client-owned array
+  - make PositiveDefiniteMtx or LowerTriangularMtx
+    (PosDefMtx = the square of another mtx)
   - make a SubMatrix
-  x kill SparseMatrix
-  x kill Augmented or templatize over direction
   - fix mtx multiplication for SimpleMtx to operate on T* rather than the matrix, to prevent code bloat
+    - maybe for mtxs with any dim >4?
   - remove writeable iterator from diagmatrix
-  x in-place LU solving (collapse L and U storage to one matrix). 
-      inverse still requires double-alloc for dynamic mtxs;
-      not great for many repeated inversions.
   - determinant.
   - nicer constructors for matrix, particularly simplematrix.
     - diagonal from a vector
     - diagonal from a number?
-    x from another matrix.
   - conversion/assignment operator to SimpleMatrix
   - make a type_traits header for matrix operations
     - use this to clean up the defs of some of the operators
   - test matrix intercompatibility
+  x make a matrix which can wrap a client-owned array
+  x kill SparseMatrix
+  x kill Augmented or templatize over direction
+  x in-place LU solving (collapse L and U storage to one matrix). 
+      inverse still requires double-alloc for dynamic mtxs;
+      not great for many repeated inversions.
+    x from another matrix.
   x matrix generalized iterator is slower
   x end() iterator position needs clear definition
   x matrix +/-/* operators
@@ -92,15 +108,15 @@ GENERAL CLEANUP/MAJOR TODOS:
       but it makes the docs ugly. stupid doxygen
   - open / closed interval logic on rect?
   - make more spatial partitions
-  - fix shapes:
-    - generalized Frustum base shape
+  x fix shapes:
+    x generalized Frustum base shape
       - (admits Cone naturally)
-    - generalized Oriented shape
-      - no orientation mtx in any other class
-      - OrientedRect a partial specialization of Oriented
-  - add to shapes:
-    - sdf()
-    - nearest_to(Vec p)
+    x generalized Oriented shape
+      x no orientation mtx in any other class
+      x OrientedRect a partial specialization of Oriented
+  x add to shapes:
+    x sdf()
+    x nearest_to(Vec p)
   x more basic shapes
     x frustum
     x cylinder
@@ -156,11 +172,12 @@ GENERAL CLEANUP/MAJOR TODOS:
         - add interps for dynamic-length points?
   x test operators on quaternions
   x merge FunctionTypes and ExprTypes headers.
-  - virtualize shapes for trace(), contains(), etc.?
-    - or leave as templated?
-    - namespace-global trace() mechanism? (with templates, gets tricky)
-  - refactor trace() to accept a Hit as an output argument.
-    - rename Hit to RayTest
+  X virtualize shapes for trace(), contains(), etc.?
+    x or leave as templated?
+    x namespace-global trace() mechanism? (with templates, gets tricky)
+    > did: CRTP static polymorph base class for shapes, refactor to intersect(Ray)
+  . refactor trace() to accept a Hit as an output argument.
+    . rename Hit to RayTest
   x expose a dimension-independent NormalFromBasis() type function
     > what you want is the orthogonal complement, or the space of basis vectors that are perpendicular to your N-1 dimensional subspace
     > in the cross product case, you have two equations (b1 . n = 0; b2 . n = 0) and three unknowns (nx, ny, nz).
@@ -174,30 +191,29 @@ GENERAL CLEANUP/MAJOR TODOS:
     x use it to restrict troublesome matrix templates using boost_static_assert/boost::is_base_of().
   - Shapes:
     x implement frustums
-    - define Region<T,N> which simply has contains(Vec<T,N>)
+    . define Region<T,N> which simply has contains(Vec<T,N>)
       can be used for planar shapes, or volumes, etc.
       Rects and Spheres are regions, as are planes, arguably.
-    - refactor trace() to be bool trace(Hit *h, Ray, ...)
-      - this way we can forgo some calculations if h is null, and we only
+    . refactor trace() to be bool trace(Hit *h, Ray, ...)
+      . this way we can forgo some calculations if h is null, and we only
         need a yes/no test.
-      - we might also conditionally compute things based on the subclass of Hit
+      . we might also conditionally compute things based on the subclass of Hit
         that is passed in-- or its flags (u,v,w; normal, surface derivatives, ...)
     x implement planes
     x implement triangles(/quads?)
     x implement cylinders
-    - implement cones/circular frustums (vec p0, vec p1, T r0, T r1)
+    x implement cones/circular frustums (vec p0, vec p1, T r0, T r1)
     x implement oriented bounding boxes
-    - implement orientedShape?
-    - implement PlanarFigure
+    x implement orientedShape?
+    . implement PlanarFigure
     x change Rect to be templated on T,N; not T instanceof Vec
       x specialize for N=1
-    - make a virtual base class Shape<T,N> or Region<T,N>, with `bool contains(Vec<T,N>)`
-      - Shape<T,N> inherits bounded and implements contains()? An unbounded region should
+    . make a virtual base class Shape<T,N> or Region<T,N>, with `bool contains(Vec<T,N>)`
+      . Shape<T,N> inherits bounded and implements contains()? An unbounded region should
         just be an Expr.
-      - make a RegionExpr that implements Expr<Vec<T,N>, bool> and wraps shape.contains()
-        - object ownership will be a Thing, so there's that.
+      . make a RegionExpr that implements Expr<Vec<T,N>, bool> and wraps shape.contains()
+        . object ownership will be a Thing, so there's that.
     x make shapes (box, frustum) traceable.
-      - make a Traceable virtual class.
     x implement lots of `bool intersects(ShapeA a, ShapeB b)`
       x Intersection.h
         - intersection, defined as overlap-- i.e. total containment, and partial intrusion.
@@ -207,7 +223,7 @@ GENERAL CLEANUP/MAJOR TODOS:
     - implement ShapeSet<T,N-1> intersect_surface_solve(ShapeA a, ShapeB b) ?
       - i.e. a plane and a sphere returns a circle, or a plane and a box returns
         a set of line segments, etc.
-    - make AffineTransform<> frustum(...)
+    . make AffineTransform<> frustum(...)
     x change Rect to be a template of <T,N>?
   x implement general mat.Inverse
   x define a clear (signed) index_t with numbits = numbits(size_t)
@@ -215,13 +231,13 @@ GENERAL CLEANUP/MAJOR TODOS:
   x refactor matrices for less virtual indirection
   x add fast, class-specific copy functionality to matrices
   - AffineTransform:
-    - add perspective(Frustum<T,N> f)
+    - add perspective(Frustum<Rect<T,N-1>> f)
     x add transform(Matrix<T,N-1> m)
   x cast operator to other Vec<T,N>?
     x ambiguity problems?
   x work out a better include scheme for all the vector types
-  - intrusive_ptr on Expr
-    - shared_ptrs allocate memory to share among references. storing data on the obj
+  . intrusive_ptr on Expr
+    . shared_ptrs allocate memory to share among references. storing data on the obj
       itself reduces mallocs
   x rename norm() and norm2() to mag() and mag2() for less ambiguity
   x clean up HashCode in vecbase to return size_t

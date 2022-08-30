@@ -19,8 +19,8 @@ namespace geom {
  * A circular buffer can accommodate adding elements to either the front or the back
  * of the list in constant time.
  *
- * Furthermore, indexing off the end of the circular buffer wraps around to the beginning again.
- * This works in both directions.
+ * Furthermore, indexing off the end of the circular buffer wraps around to the 
+ * beginning again. This works in both directions.
  *
  * @tparam T Element type.
  * @tparam N Static capacity of the buffer. Adding more than this number of elements
@@ -68,7 +68,10 @@ public:
             _head(0),
             _size(0) {}
     
-    /// Construct a new circular buffer by copying `count` items in the sequence starting at `begin`.
+    /**
+     * @brief Construct a new circular buffer by copying `count` items in the sequence
+     * starting at `begin`.
+     */
     template <typename InputIterator>
     CircularBuffer(InputIterator begin, index_t count):
             _data((count > N) ? (new storage_t[count]) : _buf),
@@ -199,8 +202,8 @@ public:
      * @brief Get the `i`th element in the buffer. 
      * 
      * Indicies beyond the end of the buffer will wrap around again to the beginning.
-     * Negative indices are permitted and count from the end of the buffer, with -1 denoting the 
-     * last element in the buffer.
+     * Negative indices are permitted and count from the end of the buffer, with -1
+     * denoting the last element in the buffer.
      */
     inline T& operator[](index_t i) {
         i = positive_mod(i, _size);
@@ -211,8 +214,8 @@ public:
      * @brief Get the `i`th (const) element in the buffer. 
      * 
      * Indicies beyond the end of the buffer will wrap around again to the beginning.
-     * Negative indices are permitted and count from the end of the buffer, with -1 denoting the 
-     * last element in the buffer.
+     * Negative indices are permitted and count from the end of the buffer, with -1
+     * denoting the last element in the buffer.
      */
     inline const T& operator[](index_t i) const {
         i = positive_mod(i, _size);
@@ -225,7 +228,8 @@ public:
      * Two CircularBuffers are equal iff they contain equal elements in equal order.
      */
     bool operator==(const CircularBuffer<T, N>& other) {
-        if (_size != other._size) return false;
+        if (this == &other)       return true;  // literally the same object
+        if (_size != other._size) return false; // different number of items; unequal
         for (index_t i = 0; i < _size; ++i) {
             if ((*this)[i] != other[i]) return false;
         }
@@ -242,7 +246,10 @@ public:
         return _size;
     }
     
-    /// Return the total number of items that can be accommodated without an additional memory allocation.
+    /**
+     * @brief Return the total number of items that can be accommodated without an additional
+     * memory allocation.
+     */
     inline index_t capacity() const {
         return _capacity;
     }

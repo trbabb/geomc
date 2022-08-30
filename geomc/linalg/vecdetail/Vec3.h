@@ -19,17 +19,12 @@ namespace geom {
      * Global Functions          *
      *===========================*/
 
-    template <typename T> 
-    inline bool isReal(T d){
-        return !(std::isinf(d) || std::isnan(d));
-    }
-
     /**
      * @return The normal of the triangle formed by `p1`, `p2`, and `p3`.
      */
     template <typename T> 
     Vec<T,3> triangle_normal(const Vec<T,3> p1, const Vec<T,3> p2, const Vec<T,3> p3){
-        return (p2-p1).cross(p3-p1).unit();
+        return (p2 - p1).cross(p3 - p1).unit();
     }
 
     /**
@@ -56,7 +51,7 @@ namespace geom {
      * @return An `(r,g,b)` tuple extracted from `aRGB`.
      */
     template <typename T> 
-    Vec<T,3> fromRGB(int aRGB){
+    Vec<T,3> from_rgb(int aRGB){
         T r = ((aRGB & 0x00ff0000) >> 16) / detail::_RGBChannelConversion<T>::factor;
         T g = ((aRGB & 0x0000ff00) >> 8)  / detail::_RGBChannelConversion<T>::factor;
         T b =  (aRGB & 0x000000ff)        / detail::_RGBChannelConversion<T>::factor;
@@ -93,23 +88,27 @@ namespace geom {
          *===========================*/
 
         /// Construct vector with all elements set to 0.
-        Vec():detail::VecCommon< T, 3, Vec<T,3> >(){}
+        constexpr Vec():detail::VecCommon< T, 3, Vec<T,3> >() {}
         
-        /// Construct a vector with `(x, y)` taken from the 2D vector `xy`, and `z` as the final element.
-        Vec(Vec<T,2> xy, T z){
+        /**
+         * @brief Construct a vector with `(x, y)` taken from the 2D vector `xy`,
+         * and `z` as the final element.
+         */
+        template <typename U>
+        constexpr Vec(Vec<U,2> xy, T z) {
             detail::VecBase<T,3>::x = xy.x;
             detail::VecBase<T,3>::y = xy.y;
             detail::VecBase<T,3>::z = z;
         }
 
         /// Construct a vector with all elements set to `a`.
-        Vec(T a):detail::VecCommon< T, 3, Vec<T,3> >(a){}
+        constexpr Vec(T a):detail::VecCommon< T, 3, Vec<T,3> >(a) {}
 
         /// Construct a vector with elements copied from the 3-element array `v`.
-        Vec(const T v[3]):detail::VecCommon< T, 3, Vec<T,3> >(v){}
+        constexpr Vec(const T v[3]):detail::VecCommon< T, 3, Vec<T,3> >(v) {}
         
         /// Construct a vector with elements `(x, y, z)`.
-        Vec(T x, T y, T z){
+        constexpr Vec(T x, T y, T z) {
             detail::VecBase<T,3>::x = x;
             detail::VecBase<T,3>::y = y;
             detail::VecBase<T,3>::z = z;
@@ -136,37 +135,58 @@ namespace geom {
         
         /// @return `(dx, dy, dz)` added with `this`
         Vec<T,3> add(T dx, T dy, T dz) const {
-            return Vec<T,3>(detail::VecBase<T,3>::x+dx, detail::VecBase<T,3>::y+dy, detail::VecBase<T,3>::z+dz);
+            return Vec<T,3>(
+                detail::VecBase<T,3>::x + dx,
+                detail::VecBase<T,3>::y + dy,
+                detail::VecBase<T,3>::z + dz);
         }
 
         /// @return `(dx, dy, dz)` subtracted from `this`
         Vec<T,3> sub(T dx, T dy, T dz) const {
-            return Vec<T,3>(detail::VecBase<T,3>::x-dx, detail::VecBase<T,3>::y-dy, detail::VecBase<T,3>::z-dz);
+            return Vec<T,3>(
+                detail::VecBase<T,3>::x - dx,
+                detail::VecBase<T,3>::y - dy,
+                detail::VecBase<T,3>::z - dz);
         }
 
         /// @return Element-wise scaled copy
         Vec<T,3> scale(T a, T b, T c) const {
-            return Vec<T,3>(a*detail::VecBase<T,3>::x, b*detail::VecBase<T,3>::y, c*detail::VecBase<T,3>::z);
+            return Vec<T,3>(
+                a*detail::VecBase<T,3>::x,
+                b*detail::VecBase<T,3>::y,
+                c*detail::VecBase<T,3>::z);
         }
         
         /// @return Dot product of `this` with the vector `(xx, yy, zz)`
         T dot(T xx, T yy, T zz) const {
-            return (detail::VecBase<T,3>::x * xx) + (detail::VecBase<T,3>::y*yy) + (detail::VecBase<T,3>::z*zz);
+            return
+                (detail::VecBase<T,3>::x * xx) +
+                (detail::VecBase<T,3>::y * yy) +
+                (detail::VecBase<T,3>::z * zz);
         }
 
         /// @return A copy with the X component negated
-        Vec<T,3> reflectX() const {
-            return Vec<T,3>(-detail::VecBase<T,3>::x, detail::VecBase<T,3>::y, detail::VecBase<T,3>::z);
+        inline Vec<T,3> reflected_x() const {
+            return Vec<T,3>(
+                -detail::VecBase<T,3>::x,
+                 detail::VecBase<T,3>::y,
+                 detail::VecBase<T,3>::z);
         }
 
         /// @return A copy with the Y component negated
-        Vec<T,3> reflectY() const {
-            return Vec<T,3>(detail::VecBase<T,3>::x, -detail::VecBase<T,3>::y, detail::VecBase<T,3>::z);
+        inline Vec<T,3> reflected_y() const {
+            return Vec<T,3>(
+                 detail::VecBase<T,3>::x,
+                -detail::VecBase<T,3>::y,
+                 detail::VecBase<T,3>::z);
         }
 
         /// @return A copy with the Z component negated
-        Vec<T,3> reflectZ() const {
-            return Vec<T,3>(detail::VecBase<T,3>::x, detail::VecBase<T,3>::y, -detail::VecBase<T,3>::z);
+        inline Vec<T,3> reflected_z() const {
+            return Vec<T,3>(
+                 detail::VecBase<T,3>::x,
+                 detail::VecBase<T,3>::y,
+                -detail::VecBase<T,3>::z);
         }
         
         /*===========================*
@@ -196,9 +216,14 @@ namespace geom {
          * 
          * @return This euclidean point converted to spherical coordinates.
          */
-        Vec<T,3> toSpherical() const {
+        Vec<T,3> to_spherical() const {
             T r = this->mag();
-            return Vec<T,3>(r, std::acos(detail::VecBase<T,3>::z/r), std::atan2(detail::VecBase<T,3>::y,detail::VecBase<T,3>::x));
+            return Vec<T,3>(
+                r,
+                std::acos(detail::VecBase<T,3>::z/r),
+                std::atan2(
+                    detail::VecBase<T,3>::y,
+                    detail::VecBase<T,3>::x));
         }
         
         /**
@@ -210,7 +235,7 @@ namespace geom {
          * @return This point described by this vector interpreted as spherical 
          * coordinates as `(x, y, z)` euclidean coordinates.
          */
-        Vec<T,3> fromSpherical() const {
+        Vec<T,3> from_spherical() const {
             Vec<T,3> oot;
             T rsinelev = detail::VecBase<T,3>::x * std::sin(detail::VecBase<T,3>::y);
             oot.x = rsinelev*std::cos(detail::VecBase<T,3>::z);
@@ -224,7 +249,10 @@ namespace geom {
             return rotate(axis.x, axis.y, axis.z, radians);
         }
 
-        /// @return A copy of this vector rotated by angle `radians` about the axis `(u, v, w)`.
+        /**
+         * @return A copy of this vector rotated by angle `radians` about
+         * the axis `(u, v, w)`.
+         */
         Vec<T,3> rotate(T u, T v, T w, T radians) const {
             const T& x = detail::VecBase<T,3>::x;
             const T& y = detail::VecBase<T,3>::y;
@@ -315,8 +343,10 @@ namespace geom {
         }
         
         /// @return `true` if no elements are an infinity or `NaN`.
-        bool isFiniteReal() const {
-            return isReal(detail::VecBase<T,3>::x) && isReal(detail::VecBase<T,3>::y) && isReal(detail::VecBase<T,3>::z);
+        bool is_finite_real() const {
+            return is_real(detail::VecBase<T,3>::x) and
+                   is_real(detail::VecBase<T,3>::y) and
+                   is_real(detail::VecBase<T,3>::z);
         }
 
     private:

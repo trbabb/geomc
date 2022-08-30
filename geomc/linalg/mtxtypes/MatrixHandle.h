@@ -56,8 +56,8 @@ public:
     virtual void      set_identity() = 0;
     virtual void      set_zero() = 0;
     
-    virtual void      getStorageIDs(storage_id_t *buf) const = 0;
-    virtual index_t   getStorageIDCount() const = 0;
+    virtual void      get_storage_tokens(storage_token_t* buf) const = 0;
+    virtual index_t   storage_token_count() const = 0;
     
 };
 
@@ -101,12 +101,12 @@ public:
         return m->cols();
     }
     
-    virtual void getStorageIDs(storage_id_t *buf) const {
-        m->getStorageIDs(buf);
+    virtual void get_storage_tokens(storage_token_t* buf) const {
+        m->get_storage_tokens(buf);
     }
     
-    virtual index_t getStorageIDCount() const {
-        return m->getStorageIDCount();
+    virtual index_t storage_token_count() const {
+        return m->storage_token_count();
     }
 };
 

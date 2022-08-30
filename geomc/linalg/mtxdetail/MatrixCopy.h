@@ -40,7 +40,7 @@ namespace detail {
         MatrixLayout Lyt,
         StoragePolicy P0, StoragePolicy P1>
     void _mtxcopy(
-            geom::SimpleMatrix<T,M0,N0,Lyt,P0>* into, 
+                  geom::SimpleMatrix<T,M0,N0,Lyt,P0>* into, 
             const geom::SimpleMatrix<S,M1,N1,Lyt,P1>& src)
     {
         std::copy(src.data_begin(), src.data_end(), into->data_begin());
@@ -64,7 +64,7 @@ namespace detail {
  * perform better than running `std::copy()` on some matrix types' iterators. It
  * will also succeed in certain situations where `std::copy()` would fail (for
  * example when copying the contents of a diagonal matrix to another, any attempt
- * to write off the diagonal will throw an exception).
+ * to write off the diagonal will cause an error).
  * 
  * `Matrix` and `Matrix1` must be matrix or vector types whose dimensions match.
  * If the dimensions can be determined to mismatch at compile-time, the program
@@ -80,7 +80,7 @@ template <typename Matrix, typename Matrix1> void mtxcopy(Matrix *into, const Ma
 #endif
 template <typename Md, typename Ms>
 void mtxcopy(Md* into, const Ms& src,
-                typename boost::enable_if_c<
+                typename std::enable_if<
                      detail::LinalgDimensionMatch<Md,Ms>::val and
                      (detail::_ImplVecOrient<Md,Ms>::orient != detail::ORIENT_VEC_UNKNOWN), 
                      int>::type dummy=0) {
@@ -102,7 +102,7 @@ void mtxcopy(Md* into, const Ms& src,
 // unknown vector orientation case (dynamic matrix <-> vector) 
 template <typename Md, typename Ms>
 void mtxcopy(Md* into, const Ms& src,
-                 typename boost::enable_if_c<
+                 typename std::enable_if<
                     detail::_ImplVecOrient<Md,Ms>::orient == detail::ORIENT_VEC_UNKNOWN, 
                  int>::type dummy=0) {
 #ifdef GEOMC_MTX_CHECK_DIMS

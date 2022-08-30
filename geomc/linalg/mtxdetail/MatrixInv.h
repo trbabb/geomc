@@ -12,16 +12,11 @@
 
 #include <geomc/linalg/LinalgTypes.h>
 #include <geomc/linalg/LUDecomp.h>
+#include <geomc/linalg/mtxdetail/MatrixDet.h>
 #include <geomc/function/Utils.h>
 
 namespace geom {
-namespace detail {
 
-
-#define DET2x2(a,b,c,d)  ((a) * (d) - (c) * (b))
-#define      D(a,b,c,d)  ((a) * (b) - (c) * (d))
-// #define DET2x2(a, b, c, d) diff_of_products(a, d, c, b)
-// #define D(a,b,c,d)         diff_of_products(a, b, c, d)
 
 /*************************************************
  * General matrix inversion                      *
@@ -29,45 +24,241 @@ namespace detail {
  * Inverts the data in an iterator-like object   *
  *************************************************/
 
-//TODO: These are templated over iterator type, which is good
-//      in that we don't build redundant inversion functions
-//      for all matrices that have raw pointer storage. However,
-//      it would be even better if we could separate out the copy
-//      step and avoid re-instantiating the entire function for all the
-//      myriad matrices that have specialized iterators.
+// todo: for N=3,4 and T in {float,double}, we could implement SSE-optimized 
+//       versions of the matrix inverters. Unclear if that would beat -O3.
+// todo: all of this is untested.
+// todo: it's not currently possible to amortize the allocation of P
+//       for large matrices.
 
-//TODO: for N=3,4 and T in {float,double}, we could implement SSE-optimized 
-//      versions of the matrix inverters. Unclear if that would beat -O3.
+/**
+ * @addtogroup matrix
+ * @{
+ */
+
+/**
+ * @brief 2 × 2 matrix inversion on a flat array.
+ * 
+ * `out` and `m` may alias each other. It is assumed that `m` and `out` have the same
+ * layout.
+ * 
+ * @param out An array with space for four elements to receive the computed inverse.
+ * @param m The 2 × 2 matrix to invert.
+ * @return `true` if the matrix is invertible, false otherwise. If the matrix is not
+ * invertible, then `out` is unchanged.
+ */
+template <typename T>
+bool inv2x2(T* out, const T m[4]) {
+    T a = m[0];
+    T b = m[1];
+    T c = m[2];
+    T d = m[3];
+    T det = det2x2(a, b, c, d);
+    if (det == 0) return false;
+    T inv[4] = { d / det, -b / det,
+                -c / det,  a / det };
+    std::copy(inv, inv + 4, out);
+    return true;
+}
+
+
+/**
+ * @brief 3 × 3 matrix inversion on a flat array.
+ * 
+ * `out` and `m` may alias each other. It is assumed that `m` and `out` have the
+ * same layout.
+ * 
+ * @param out An array with space for nine elements to receive the computed inverse.
+ * @param m The 3 × 3 matrix to invert.
+ * @return `true` if the matrix is invertible, false otherwise. If the matrix is not
+ * invertible, then `out` is unchanged.
+ */
+template <typename T>
+bool inv3x3(T* out, const T m[9]) {
+    const detail::_m3x3<T>& s = *reinterpret_cast<const detail::_m3x3<T>*>(m);
+    // inverse 3x3 matrix by cramer's rule
+    T p0 = det2x2(s.i, s.h, s.f, s.e);
+    T p1 = det2x2(s.i, s.h, s.c, s.b);
+    T p2 = det2x2(s.f, s.e, s.c, s.b);
+    
+    // det = det2x2(s.a, s.d, p1, p0) + s.g * p2;
+    T det = geom::multiply_add(s.g, p2, det2x2(s.a, s.d, p1, p0));
+    if (det == 0) return false;
+    
+    T inv[9] = {
+        det2x2(s.i, s.h, s.f, s.e) / det,
+        det2x2(s.h, s.i, s.b, s.c) / det,
+        det2x2(s.f, s.e, s.c, s.b) / det,
+    
+        det2x2(s.g, s.i, s.d, s.f) / det,
+        det2x2(s.i, s.g, s.c, s.a) / det,
+        det2x2(s.d, s.f, s.a, s.c) / det,
+    
+        det2x2(s.h, s.g, s.e, s.d) / det,
+        det2x2(s.g, s.h, s.a, s.b) / det,
+        det2x2(s.e, s.d, s.b, s.a) / det
+    };
+    
+    std::copy(inv, inv + 9, out);
+    return true;
+}
+
+
+/**
+ * @brief 4 × 4 matrix inversion on a flat array.
+ * 
+ * `out` and `m` may alias each other. It is assumed that `m` and `out` have the
+ * same layout.
+ * 
+ * @param out An array with space for 16 elements to receive the computed inverse.
+ * @param m The 4 × 4 matrix to invert.
+ * @return `true` if the matrix is invertible, false otherwise. If the matrix is not
+ * invertible, then `out` is unchanged.
+ */
+template <typename T>
+bool inv4x4(T* out, const T m[16]) {
+    const detail::_m4x4<T>& s = *reinterpret_cast<const detail::_m4x4<T>*>(m);
+    T s0 = det2x2(s.a, s.b, s.e, s.f);
+    T s1 = det2x2(s.a, s.c, s.e, s.g);
+    T s2 = det2x2(s.a, s.d, s.e, s.h);
+    T s3 = det2x2(s.b, s.c, s.f, s.g);
+    T s4 = det2x2(s.b, s.d, s.f, s.h);
+    T s5 = det2x2(s.c, s.d, s.g, s.h);
+    
+    T c0 = det2x2(s.i, s.j, s.m, s.n);
+    T c1 = det2x2(s.i, s.k, s.m, s.o);
+    T c2 = det2x2(s.i, s.l, s.m, s.p);
+    T c3 = det2x2(s.j, s.k, s.n, s.o);
+    T c4 = det2x2(s.j, s.l, s.n, s.p);
+    T c5 = det2x2(s.k, s.l, s.o, s.p);
+    
+    // det = s0*c5 - s1*c4 + s2*c3 + s3*c2 - s4*c1 + s5*c0;
+    T det = diff_of_products(s0, c5, s1, c4) +
+            diff_of_products(s3, c2, s4, c1) +
+             sum_of_products(s2, c3, s5, c0);
+    
+    if (det == 0) return false;
+    
+    T inv[16] = {
+            // cofac is:   a * b  -  c * d  +  e * f
+            detail::cofac(s.f, c5,  s.g, c4,  s.h, c3) / det,
+           -detail::cofac(s.b, c5,  s.c, c4,  s.d, c3) / det,
+            detail::cofac(s.n, s5,  s.o, s4,  s.p, s3) / det,
+           -detail::cofac(s.j, s5,  s.k, s4,  s.l, s3) / det,
+             
+           -detail::cofac(s.e, c5,  s.g, c2,  s.h, c1) / det,
+            detail::cofac(s.a, c5,  s.c, c2,  s.d, c1) / det,
+           -detail::cofac(s.m, s5,  s.o, s2,  s.p, s1) / det,
+            detail::cofac(s.i, s5,  s.k, s2,  s.l, s1) / det,
+             
+            detail::cofac(s.e, c4,  s.f, c2,  s.h, c0) / det,
+           -detail::cofac(s.a, c4,  s.b, c2,  s.d, c0) / det,
+            detail::cofac(s.m, s4,  s.n, s2,  s.p, s0) / det,
+           -detail::cofac(s.i, s4,  s.j, s2,  s.l, s0) / det,
+             
+           -detail::cofac(s.e, c3,  s.f, c1,  s.g, c0) / det,
+            detail::cofac(s.a, c3,  s.b, c1,  s.c, c0) / det,
+           -detail::cofac(s.m, s3,  s.n, s1,  s.o, s0) / det,
+            detail::cofac(s.i, s3,  s.j, s1,  s.k, s0) / det
+    };
+    
+    std::copy(inv, inv + 16, out);
+    return true;
+}
+
+
+/**
+ * @brief N × N matrix inversion on a flat array.
+ * 
+ * After the inversion, `m` will have undefined contents, regardless of
+ * whether it was invertible.
+ * 
+ * It is assumed that `m` and `out` have the same layout. `m` *must not* alias `out`.
+ * 
+ * This function uses a general inversion algorithm, and the specialized 
+ * dimension-specific algorithms will be preferable when the dimension is known.
+ * 
+ * @param out An array with space for `N`<sup>2</sup> elements to receive the computed inverse.
+ * @param m The N × N matrix to invert.
+ * @param n The dimension `N` of the matrix.
+ * @return `true` if the matrix is invertible, false otherwise. If the matrix is not
+ * invertible, then `out` is unchanged.
+ */
+template <typename T>
+bool invNxN(T* out, T* m, index_t n) {
+    SmallStorage<index_t, 24> p(n);
+    bool parity = false;
+    if (decomp_plu(m, n, n, p.get(), &parity) > 0) return false;
+    std::fill(out, out + n * n, (T)0);
+    // pre-apply the permutation P to the identity matrix:
+    detail::MxWrap<T,true> o = {out, n, n};
+    for (index_t i = 0; i < n; ++i) {
+        o(i, p[i]) = 1;
+    }
+    backsolve_lu(m, n, n, out);
+    return true;
+}
+
+
+/**
+ * @brief N × N matrix inversion.
+ * 
+ * After the inversion, `m` will have undefined contents, regardless of
+ * whether it was invertible. 
+ * 
+ * It is assumed that `m` and `out` have the same layout. `m` *must not* alias `out`.
+ * 
+ * This function uses a general inversion algorithm, and the specialized 
+ * dimension-specific algorithms will be preferable when the dimension is known.
+ * 
+ * @tparam N The dimension `N` of the matrix.
+ * @param out An array with space for `N`<sup>2</sup> elements to receive the computed inverse.
+ * @param m The N × N matrix to invert.
+ * @return `true` if the matrix is invertible, false otherwise. If the matrix is not
+ * invertible, then `out` is unchanged.
+ */
+template <typename T, index_t N>
+bool invNxN(T* out, T* m) {
+    index_t p[N];
+    bool parity = false;
+    if (decomp_plu(m, N, N, p, &parity) > 0) return false;
+    std::fill(out, out + N * N, (T)0);
+    // pre-apply the permutation P to the identity matrix:
+    detail::MxWrap<T,true> o = {out, N, N};
+    for (index_t i = 0; i < N; ++i) {
+        o(i, p[i]) = 1;
+    }
+    backsolve_lu<T,true>(m, N, N, out);
+    return true;
+}
+
+/// @} // addtogroup matrix
+
+
+namespace detail {
 
 
 // NxN static inverse spec
 template <typename T, index_t N>
 struct _ImplMtxInvRaw {
-    
-    template <
-        typename      S,
-        index_t       J,
-        index_t       K,
-        MatrixLayout  Lyt,
-        StoragePolicy P,
-        typename      Mx
-    >
-    static inline bool inv(SimpleMatrix<S,J,K,Lyt,P>* into, const Mx& m) {
-        PLUDecomposition<typename Mx::elem_t, Mx::ROWDIM, Mx::COLDIM> plu(m);
-        if (plu.is_singular()) return false;
-        plu.inverse(into);
-        return true;
+    template <typename Md, typename Mx>
+    static inline bool inv(Md* out, const Mx& m) {
+        // copy to a buffer having the same layout as the destination matrix:
+        SimpleMatrix<T,N,N,Md::Layout> buf(out->rows(), out->rows());
+        detail::_mtxcopy(&buf, m);
+        // do the inverse, destroying the buffer
+        return geom::invNxN<T,N>(out->data_begin(), buf.data_begin());
     }
-    
 };
+
 
 // dynamic matrix inverse
 template <typename T>
-struct _ImplMtxInvRaw<T, DYNAMIC_DIM> {
+struct _ImplMtxInvRaw<T,0> {
     
     template <typename Md, typename Mx>
     static bool inv(Md* into, const Mx& m) {
-        switch(m.rows()) {
+        const index_t n = m.rows();
+        switch(n) {
             case 2:
                 return geom::detail::_ImplMtxInvRaw<T,2>::inv(into, m);
             case 3:
@@ -75,92 +266,35 @@ struct _ImplMtxInvRaw<T, DYNAMIC_DIM> {
             case 4:
                 return geom::detail::_ImplMtxInvRaw<T,4>::inv(into, m);
             default:
-                PLUDecomposition<typename Mx::elem_t, Mx::ROWDIM, Mx::COLDIM> plu(m);
-                if (plu.is_singular()) return false;
-                plu.inverse(into);
-                return true;
+                // make a buffer with the same layout as the output
+                static constexpr MatrixLayout Lyt = Md::Layout;
+                SmallStorage<T,64> buf(n * n); // try not to alloc
+                WrapperMatrix<T,0,0,Lyt> bmx(buf.get(), n, n);
+                detail::_mtxcopy(&bmx, m);
+                return geom::invNxN(into->data_begin(), bmx.data_begin(), n);
         }
     }
 };
 
+
 // 4x4 inverse spec
 template <typename T>
-struct _ImplMtxInvRaw<T,4>{
+struct _ImplMtxInvRaw<T,4> {
     
-    // this allows us to template _inv() for a particular T /only/ over the
-    // output iterator, saving some code bloat. also keeps our matrix
-    // elements syntactically accessible.
-    struct _buf {
-        T a00, a01, a02, a03,
-          a10, a11, a12, a13,
-          a20, a21, a22, a23,
-          a30, a31, a32, a33;
-    };
-    
-    template <typename Md, typename Mx>
-    static bool inv(Md* into, const Mx& m) {
-        _buf b;
-        std::copy(m.begin(), m.end(), &b.a00);
-        if (_inv(into->begin(), b)) {
-            return true;
+    template <
+        index_t M1, index_t N1, MatrixLayout Lyt1, StoragePolicy P1,
+        index_t M2, index_t N2, MatrixLayout Lyt2, StoragePolicy P2>
+    static bool inv(
+                  SimpleMatrix<T,M1,N1,Lyt1,P1>* out, 
+            const SimpleMatrix<T,M2,N2,Lyt2,P2>& m)
+    {
+        if (not geom::inv4x4(out->data_begin(), m.data_begin())) return false;
+        if (Lyt1 != Lyt2) {
+            geom::transpose_square_matrix<T,4>(out->data_begin());
         }
-        return false;
-    }
-    
-    // prevent a little code bloat by templating over iterator type.
-    // this allows all the "contiguous memory" matrices to share the
-    // same inversion function. Would save even more bloat if we could
-    // assign back to <s> inside _inv(), but sadly c++ is dumb
-    // and doesn't allow the array initialization syntax for assignments,
-    // thus mandating two copies instead of one (one inside the function,
-    // and one outside).
-    
-    template <typename iter_out>
-    static bool _inv(iter_out into, const _buf& s) {
-        T s0 = DET2x2(s.a00, s.a01, s.a10, s.a11);
-        T s1 = DET2x2(s.a00, s.a02, s.a10, s.a12);
-        T s2 = DET2x2(s.a00, s.a03, s.a10, s.a13);
-        T s3 = DET2x2(s.a01, s.a02, s.a11, s.a12);
-        T s4 = DET2x2(s.a01, s.a03, s.a11, s.a13);
-        T s5 = DET2x2(s.a02, s.a03, s.a12, s.a13);
-        
-        T c0 = DET2x2(s.a20, s.a21, s.a30, s.a31);
-        T c1 = DET2x2(s.a20, s.a22, s.a30, s.a32);
-        T c2 = DET2x2(s.a20, s.a23, s.a30, s.a33);
-        T c3 = DET2x2(s.a21, s.a22, s.a31, s.a32);
-        T c4 = DET2x2(s.a21, s.a23, s.a31, s.a33);
-        T c5 = DET2x2(s.a22, s.a23, s.a32, s.a33);
-        
-        T det = s0*c5 - s1*c4 + s2*c3 + s3*c2 - s4*c1 + s5*c0;
-        
-        if (det == 0) return false;
-        
-        T inv[4][4] = {
-                {( s.a11*c5 - s.a12*c4 + s.a13*c3) / det,
-                 (-s.a01*c5 + s.a02*c4 - s.a03*c3) / det,
-                 ( s.a31*s5 - s.a32*s4 + s.a33*s3) / det,
-                 (-s.a21*s5 + s.a22*s4 - s.a23*s3) / det},
-                 
-                {(-s.a10*c5 + s.a12*c2 - s.a13*c1) / det,
-                 ( s.a00*c5 - s.a02*c2 + s.a03*c1) / det,
-                 (-s.a30*s5 + s.a32*s2 - s.a33*s1) / det,
-                 ( s.a20*s5 - s.a22*s2 + s.a23*s1) / det},
-                 
-                {( s.a10*c4 - s.a11*c2 + s.a13*c0) / det,
-                 (-s.a00*c4 + s.a01*c2 - s.a03*c0) / det,
-                 ( s.a30*s4 - s.a31*s2 + s.a33*s0) / det,
-                 (-s.a20*s4 + s.a21*s2 - s.a23*s0) / det},
-                 
-                {(-s.a10*c3 + s.a11*c1 - s.a12*c0) / det,
-                 ( s.a00*c3 - s.a01*c1 + s.a02*c0) / det,
-                 (-s.a30*s3 + s.a31*s1 - s.a32*s0) / det,
-                 ( s.a20*s3 - s.a21*s1 + s.a22*s0) / det}
-        };
-        
-        T* inv_ptr = inv[0];
-        std::copy(inv_ptr, inv_ptr+16, into);
         return true;
     }
+    
 };
 
 
@@ -168,44 +302,17 @@ struct _ImplMtxInvRaw<T,4>{
 template <typename T>
 struct _ImplMtxInvRaw<T,3> {
     
-    struct _buf {
-        T a, b, c,
-          d, e, f,
-          g, h, i;
-    };
-    
-    template <typename Md, typename Mx>
-    static bool inv(Md* into, const Mx& m) {
-        _buf b;
-        std::copy(m.begin(), m.end(), &b.a);
-        return _inv(into->begin(), b);
-    }
-    
-    template <typename iter_out>
-    static bool _inv(iter_out into, const _buf& s) {
-        // inverse 3x3 matrix by cramer's rule
-        T p0  = D(s.i, s.e, s.h, s.f);
-        T p1  = D(s.i, s.b, s.h, s.c);
-        T p2  = D(s.f, s.b, s.e, s.c);
-        T det = D(s.a, p0, s.d, p1) + s.g * p2;
-        if (det == 0) return false;
-        
-        T inv[3][3] = {
-          { D(s.i, s.e, s.h, s.f) / det,
-            D(s.h, s.c, s.i, s.b) / det,
-            D(s.f, s.b, s.e, s.c) / det },
-        
-          { D(s.g, s.f, s.i, s.d) / det,
-            D(s.i, s.a, s.g, s.c) / det,
-            D(s.d, s.c, s.f, s.a) / det },
-        
-          { D(s.h, s.d, s.g, s.e) / det,
-            D(s.g, s.b, s.h, s.a) / det,
-            D(s.e, s.a, s.d, s.b) / det }
-        };
-        
-        T* from = &(inv[0][0]);
-        std::copy(from, from + 9, into);
+    template <
+        index_t M1, index_t N1, MatrixLayout Lyt1, StoragePolicy P1,
+        index_t M2, index_t N2, MatrixLayout Lyt2, StoragePolicy P2>
+    static bool inv(
+                  SimpleMatrix<T,M1,N1,Lyt1,P1>* out,
+            const SimpleMatrix<T,M2,N2,Lyt2,P2>& m)
+    {
+        if (not geom::inv3x3(out->data_begin(), m.data_begin())) return false;
+        if (Lyt1 != Lyt2) {
+            geom::transpose_square_matrix<T,3>(out->data_begin());
+        }
         return true;
     }
 };
@@ -214,32 +321,18 @@ struct _ImplMtxInvRaw<T,3> {
 // 2x2 inverse spec
 template <typename T>
 struct _ImplMtxInvRaw<T,2>{
-    
-    template <typename Md, typename Mx>
-    static bool inv(Md* into, const Mx& m) {
-        // inverse 2x2 matrix by cramer's rule
-        T a = m(0,0);
-        T b = m(0,1);
-        T c = m(1,0);
-        T d = m(1,1);
-        return _inv(into->begin(), a, b, c, d);
-    }
-    
-    template <typename iter_out, typename iter_in>
-    static inline bool _inv(iter_out into, iter_in begin, iter_in end) {
-        T a[4];
-        std::copy(begin, end, a);
-        return _inv(into, a[0], a[1], a[2], a[3]);
-    }
-    
-    template <typename iter_out>
-    static bool _inv(iter_out into, T a, T b, T c, T d) {
-        T det = DET2x2(a, b, c, d);
-        if (det == 0) return false;
-        T inv[2][2] = {{ d / det, -b / det},
-                       {-c / det,  a / det}};
-        T* from = inv[0];
-        std::copy(from, from + 4, into);
+    template <
+        index_t M1, index_t N1, MatrixLayout Lyt1, StoragePolicy P1,
+        index_t M2, index_t N2, MatrixLayout Lyt2, StoragePolicy P2>
+    static bool inv(
+                  SimpleMatrix<T,M1,N1,Lyt1,P1>* out,
+            const SimpleMatrix<T,M2,N2,Lyt2,P2>& m)
+    {
+        if (not geom::inv2x2(out->data_begin(), m.data_begin())) return false;
+        if (Lyt1 != Lyt2) {
+            T* v = out->data_begin();
+            std::swap(v[1], v[2]);
+        }
         return true;
     }
 };
@@ -258,23 +351,23 @@ template <typename Mx>
 class _ImplMtxInv {
 public:
     
-    typedef geom::SimpleMatrix
-    <
-        typename Mx::elem_t,
-        (Mx::ROWDIM != DYNAMIC_DIM ? Mx::ROWDIM : Mx::COLDIM),
-        (Mx::ROWDIM != DYNAMIC_DIM ? Mx::ROWDIM : Mx::COLDIM)
-    > return_t;
+    static constexpr index_t N = std::max(Mx::ROWDIM, Mx::COLDIM);
+    typedef typename Mx::elem_t T;
+    typedef geom::SimpleMatrix<T,N,N> return_t;
     
     template <typename Md>
     static inline bool inv(Md* into, const Mx& m) {
-        return geom::detail::_ImplMtxInvRaw
-        <
-            typename Md::elem_t, 
-            (Mx::ROWDIM != DYNAMIC_DIM ? Mx::ROWDIM : Mx::COLDIM)
-        >::inv(into, m);
+        // if any matrix has a static dimension, assume it's been verified to be
+        // the correct dimension for the operation, and use that as the static
+        // dimension for everybody:
+        static constexpr index_t K = std::max(
+            std::max(Md::ROWDIM, Md::COLDIM),
+            N);
+        return geom::detail::_ImplMtxInvRaw<T,K>::inv(into, m);
     }
 };
 
+// diagonal matrices are trivial to invert
 template <typename T, index_t M, index_t N>
 class _ImplMtxInv<geom::DiagMatrix<T,M,N> > {
 public:
@@ -296,7 +389,7 @@ public:
 
 // inverse of permutation matrix is its transpose.
 template <index_t N>
-class _ImplMtxInv<geom::PermutationMatrix<N> > {
+class _ImplMtxInv<geom::PermutationMatrix<N>> {
     typedef geom::PermutationMatrix<N> M;
 public:
     
@@ -313,12 +406,7 @@ public:
 // clang tries to make a bogus template substitution (Matrix for bool)
 // and chokes.
 template <typename T>
-class _ImplMtxInv<T*> {
-    
-};
-
-#undef DET2x2
-#undef D
+class _ImplMtxInv<T*> {};
 
 }; // namespace detail
 }; // namespace geom

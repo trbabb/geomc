@@ -22,7 +22,6 @@
 #include <geomc/function/Raster.h>
 #include <geomc/function/SphericalHarmonics.h>
 #include <geomc/shape/BinLatticePartition.h>
-#include <geomc/shape/Trace.h>
 #include <geomc/shape/Oriented.h>
 #include <geomc/shape/Intersect.h>
 #include <geomc/shape/Frustum.h>
@@ -305,38 +304,6 @@ template <typename T, index_t N> double profile_perlin_hard_grad(index_t iters) 
     delete [] vecs_src;
     delete [] dest_vals;
     
-    return (end-start) / (double)CLOCKS_PER_SEC;
-}
-
-template <typename T> 
-double profile_rayTriangleTest(index_t iters) {
-    Sampler<T> rvs;
-    static const index_t N = 3;
-    index_t n = std::sqrt(iters);
-    Ray<T,N>* rays = new Ray<T,N>[n];
-    Vec<T,N>* pts  = new Vec<T,N>[n*N];
-    
-    // generate n random rays; pts. 
-    for (index_t i = 0; i < n; i++) {
-        rays[i].origin    = rvs.template unit<N>(2.0);
-        rays[i].direction = rvs.template unit<N>();
-        for (index_t j = 0; j < N; ++j) {
-            pts[i*N + j] = rvs.template unit<N>();
-        }
-    }
-    index_t hits = 0;
-
-    clock_t start = clock();
-    for (index_t i = 0; i < n; i++) {
-        Vec<T,N>* verts = pts + N * i;
-        for (index_t j = 0; j < n; ++j) {
-            hits += trace_tri(verts[0], verts[1], verts[2], rays[j], HIT_FRONT).hit;
-        }
-    }
-    clock_t end = clock();
-    
-    delete [] rays;
-
     return (end-start) / (double)CLOCKS_PER_SEC;
 }
 
@@ -1108,11 +1075,9 @@ int main(int argc, char** argv) {
     profile("8d dot", profile_vec_dot<8>, iters);
     std::cout << std::endl;
     
-    profile("ray3f-triangle hit",     profile_rayTriangleTest<float>,       iters/10);
-    profile("ray3d-triangle hit",     profile_rayTriangleTest<double>,      iters/10);
-    profile("ray3d-simplex hit",      profile_raySimplexTest<double,3>,     iters/10);
-    profile("ray4d-simplex hit",      profile_raySimplexTest<double,4>,     iters/10);
-    profile("ray5d-simplex hit",      profile_raySimplexTest<double,5>,     iters/10);
+    profile("ray3d-simplex hit", profile_raySimplexTest<double,3>, iters/10);
+    profile("ray4d-simplex hit", profile_raySimplexTest<double,4>, iters/10);
+    profile("ray5d-simplex hit", profile_raySimplexTest<double,5>, iters/10);
     
     std::cout << std::endl;
     

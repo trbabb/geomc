@@ -8,9 +8,12 @@
 #ifndef SIMPLEX_H
 #define	SIMPLEX_H
 
-#include <geomc/shape/Bounded.h>
+#include <geomc/shape/Shape.h>
 #include <geomc/linalg/Vec.h>
 #include <geomc/linalg/Orthogonal.h>
+
+// todo: distinguish project() and clip(). What we call project() is actually clip()
+//       here. GJK also needs to use clip(). maybe template this?
 
 // todo: orthogonal projection to a subspace is a very general linalg operation,
 //       and projection_contains() makes use of it. The operation that does this is
@@ -25,6 +28,24 @@
 //       right now we are running two LUP decompositions, and this is likely
 //       inefficient/unstable.
 
+// idea:
+//       for the full simplex, solving barycentric coords will give you an implicit
+//       face-orthogonal basis: the weight of the vertex "missing" from a face must be 1
+//       at the vertex, and 0 across the entire opposing face— thus that coordinate must
+//       define isosurfaces parallel to the opposing face!
+//       can we solve once and then inspect the solved coordinate values to figure out
+//       sub-simplex containment?
+//       
+//       the trick is to do this for incomplete simplexes. what constraints can we impose
+//       to make the linear system square again? (guess: certain dot products = 0)
+//       > might also be possible using an O(N) process analogous to gram-schmidt
+//       
+//       also of concern: does this work for arbitrary sub-simplexes? i.e. do you
+//       orthogonally project to an edge by coordinate clipping, or do you have to
+//       re-solve?
+//       > it might be. the trick is to express scaled barycentric coordinates in
+//         terms of un-scaled coordinates.
+
 // todo: another possible tool is to project the simplex to a lower dimension
 //       (by dropping coordinates) and barycentric-solving in that lower space.
 //       this amounts to projecting the simplex to an axial (hyper-)plane or an axis.
@@ -35,13 +56,25 @@
 //       has the largest projected area. overall this might be more numerically robust.
 //       note that you have to find the coordinates of the projected point `p`
 //       in the axial plane; this is sort of a double-projection.
+//  edit: actually, this doesn't make sense. this doesn't do an orthogonal projection
 
 // todo: handle degeneracy. GJK can make use of it.
 // todo: performance check old GJK vs new
+//   perf issues:
+//     - faster when we know it's always the origin we're testing
+//       (can we transform the problem into one where we are checking the origin?)
+//     - faster if we know to avoid checking the final face
+//       (i.e. the one opposing the excluded vtx)
+//     - faster if we indirect the verts
 // todo: performance check projection_contains() vs. project() == this
 
 
 namespace geom {
+
+// fwd decl
+template <typename T, index_t N>
+bool trace_simplex(const Vec<T,N> verts[N], const Ray<T,N>& ray, Vec<T,N-1>* uv, T* s);
+
 
 /**
  * @ingroup shape
@@ -52,8 +85,11 @@ namespace geom {
  * spans a subspace of the space in which it is embedded.
  */
 template <typename T, index_t N>
-class Simplex : public virtual Convex<T,N> {
-
+class Simplex:
+    public Convex          <T,N,Simplex<T,N>>,
+    public RayIntersectable<T,N,Simplex<T,N>>,
+    public SdfEvaluable    <T,N,Simplex<T,N>>
+{
 public:
 
     /// Vertices of this simplex.
@@ -83,7 +119,11 @@ public:
     }
     
     
-    /// Simplex equality check.
+    /**
+     * @brief Simplex equality check.
+     * 
+     * Simplexes are equal if they have identical vertices in identical order.
+     */
     bool operator==(const Simplex<T,N>& other) const {
         // overridden because there may be garbage in the 
         // unused vertices which shouldn't count as a difference.
@@ -150,6 +190,65 @@ public:
     }
     
     /**
+     * @brief Ray-shape intersection.
+     * 
+     * Return the interval over which the ray intersects the simplex.
+     * 
+     * If the simplex is N-1 dimensional (i.e., planar, like a triangle in 3D), then an
+     * intersecting interval will have both of its limits equal to the single value of `s`
+     * for which the ray `o + s*v` intersects the simplex.
+     * 
+     * Simplexes with fewer than N-1 dimensions cannot be intersected, and the interval will
+     * always be empty.
+     */
+    Rect<T,1> intersect(const Ray<T,N>& r) const {
+        if (n == N + 1) {
+            // where are barycentric coords equal to ray coords?
+            // Σ w_i * p_i = o + s * v
+            // Σ w_i       = 1
+            // combined:
+            // Σ (p_i, 1) * w_i = (o, 1) + s * (v, 0)
+            // M * w            = B * (1, s)
+            Vec<T,N+1> m[N+1];
+            Vec<T,N+1> B[2] = {Vec<T,N+1>(r.origin, 1), Vec<T,N+1>(r.direction, 0)};
+            for (index_t i = 0; i < N + 1; i++) {
+                m[i] = Vec<T,N+1>(pts[i], 1);
+            }
+            // todo: handle degenerate simplexes
+            // put the solutions (p_i, k_i) for `w_i = p_i + k_i * s` into B:
+            if (linear_solve(m, 2, B)) {
+                // intersect all the ranges of s for which 0 <= w_i <= 1.
+                Rect<T,1> interval = Rect<T,1>::full;
+                for (index_t i = 0; i < N + 1 and interval.hi > interval.lo; ++i) {
+                    // w_i = p_i + k_i * s
+                    // solve for w_i = 0 and w_i = 1:
+                    T p_i = B[0][i];
+                    T k_i = B[1][i];
+                    if (k_i != 0) {
+                        T s0 =     -p_i  / k_i;
+                        T s1 = (1 - p_i) / k_i;
+                        interval &= Rect<T,1>::spanning_corners(s0, s1);
+                    } else if (p_i < 0 or p_i > 1) {
+                        // if p_i is outside (0, 1) then no value of `s` can solve w_i in
+                        // (0, 1), because with k = 0 there is no dependency on s!
+                        return Rect<T,1>::empty;
+                        // (otherwise, all values of `s` solve w_i in (0, 1) for this w_i;
+                        // no change to the solution interval).
+                    }
+                }
+                return interval;
+            }
+        } else if (n == N) {
+            T s;
+            if (trace_simplex<T,N>(pts, r, nullptr, &s)) {
+                return Rect<T,1>(s, s);
+            }
+        }
+        // no hit
+        return Rect<T,1>();
+    }
+    
+    /**
      * @brief Project the point to the simplex along its orthogonal basis
      * (if there is one) and test for containment.
      * 
@@ -199,8 +298,8 @@ public:
                 // write P as a linear combination of the simplex basis and 
                 // its nullspace bases. (but don't bother actually solving for 
                 // the nullpsace coords; we don't use them).
-                Vec<T,N> x;
-                if (not linear_solve(null_bases, &x, p - pts[0], n_null)) return false;
+                Vec<T,N> x = p - pts[0];
+                if (not linear_solve(null_bases, 1, &x, n_null)) return false;
                 
                 // check that the coordinates of `p` are inside the simplex
                 T sum = 0;
@@ -226,10 +325,30 @@ public:
     }
     
     /**
+     * @brief Compute the volume of the simplex.
+     * 
+     * If the simplex is not a full volume (i.e., the number of vertices is less than `N+1`),
+     * then its volume is zero.
+     */
+    T volume() const {
+        if (n < N + 1) { return 0; }
+        T k = 1;
+        Vec<T,N> vs[N];
+        for (index_t i = 1; i <= N; ++i) {
+            vs[i - 1] = pts[i] - pts[0];
+            k *= i;
+        }
+        return det_destructive(vs[0].begin(), N) / k;
+    }
+    
+    /**
      * @brief Simplex-point intersection test.
      * 
      * If this simplex has fewer than `N + 1` vertices, this simplex
-     * is not a volume, and this function returns `false`. 
+     * is not a volume, and this function returns `false`.
+     * 
+     * If the simplex is degenerate (two or more coincident points),
+     * then it is also considered empty and this function returns `false`.
      * 
      * @param p A point.
      * @return `true` if `p` is on or inside this simplex; `false` otherwise.
@@ -244,18 +363,18 @@ public:
         const index_t K = N + 1;
         T m[K * K];
         T x[K];
-        T b[K];
         for (index_t i = 0; i < K; ++i) {
             const T* v = pts[i].begin();
             m[i * K] = 1;
             std::copy(v, v + N, m + i * K + 1);
         }
-        b[0] = 1;
-        std::copy(p.begin(), p.end(), b + 1);
+        x[0] = 1;
+        std::copy(p.begin(), p.end(), x + 1);
         
-        linear_solve<T,false>(m, K, x, b, 1);
-        // ^^ skip solving for the sum of the weights.
-        //    we don't need it, and we know it's 1.
+        // (no solution means a degenerate simplex, which has zero volume, so empty)
+        if (not linear_solve<T,false>((T*) m, K, 1, (T*) x, 1)) return false;
+        // skip solving for the sum of the weights         ⤴︎
+        // we don't need it, and we know it's 1.
         
         T sum = 0;
         for (index_t i = 1; i < K; ++i) {
@@ -264,8 +383,14 @@ public:
         }
         return true;
     }
-
-
+    
+    
+    /// Return the signed distance to the surface of the shape.
+    inline T sdf(Vec<T,N> p) const {
+        return p.dist(project(p));
+    }
+    
+    
     /**
      * @brief Create a new sub-simplex by excluding the `i`th vertex in this simplex.
      */
@@ -278,7 +403,7 @@ public:
         s.n = n - 1;
         return s;
     }
-
+    
     
     /**
      * @brief Project `p` to the nearest point on the simplex.
@@ -347,7 +472,7 @@ public:
             }
             Vec<T,N> p_in_basis = p - s.pts[0];
             for (index_t i = 0; i < proj_dims; ++i) {
-                out += p_in_basis.projectOn(proj_basis[i]);
+                out += p_in_basis.project_on(proj_basis[i]);
             }
         }
         
@@ -398,7 +523,7 @@ private:
     // in the base case (not is_sub), all nullspace axes are provided.
     bool _find_nearest_face(
             Vec<T,N>      p,
-            Vec<T,N>      all_bases[], 
+            Vec<T,N>      all_bases[],
             bool          is_sub,
             Vec<T,N>      inward_basis,
             Simplex<T,N>* onto) const
@@ -431,7 +556,7 @@ private:
                     // `normal` is the vector pointing to `p` along the new axis
                     // (which will be orthogonal both to this simplex, and
                     // to the nullspace of the parent simplex).
-                    normal = (p - pts[0]).projectOn(all_bases[0]);
+                    normal = (p - pts[0]).project_on(all_bases[0]);
                     
                     // might `p` be on the "inside" of the parent simplex?
                     if (normal.dot(inward_basis) > 0) {
@@ -475,6 +600,55 @@ private:
 
 }; // class simplex
 
+
+/**
+ * Ray trace an N-1 dimensional simplex (e.g. triangle in 3D, tetrahedron in 4D, a line
+ * in 2D etc.), returning the surface parameters of the hit point, given in coordinates
+ * of the basis spanned by the edges radiating from `verts[0]`.
+ * 
+ * @param verts An array of the simplex's N vertices.
+ * @param ray The ray to intersect with the simplex.
+ * @param uv Buffer for the surface coordinates of the hitpoint. (return variable; may
+ * be null).
+ * @param s The ray parameter of the hit point. (return variable)
+ * @return `true` if the ray hit the simplex.
+ */
+template <typename T, index_t N>
+bool trace_simplex(const Vec<T,N> verts[N], const Ray<T,N>& ray, Vec<T,N-1>* uv, T* s) {
+    /* Solve for u,v coordinates along the edges radiating from `verts[0]`:
+    A + u(B-A) + v(C-A)      = o + sV
+        u(B-A) + v(C-A) - sV = o - A
+    Mx = o - A
+    */
+    
+    // todo: cramer's rule might be used in 3d for faster linear solve. 
+    //       (note: is unstable).
+    
+    // compute bases
+    Vec<T,N> bases[N];
+    for (index_t i = 1; i < N; ++i) {
+        bases[i - 1] = verts[i] - verts[0];
+    }
+    bases[N - 1] = -ray.direction;
+    
+    // linear solve
+    Vec<T,N> x = ray.origin - verts[0];
+    index_t skip = uv ? 0 : N - 1;
+    if (not linear_solve(bases, 1, &x, skip)) return false;
+    
+    // inside simplex?
+    T sum = 0;
+    for (index_t i = 0; i < N - 1; ++i) {
+        if (x[i] < 0) return false;
+        sum += x[i];
+    }
+    if (sum > 1) return false;
+    
+    // output result
+    *s  = x[N];
+    if (uv) *uv = x.template resized<N-1>();
+    return true;
+}
 
 
 } // namespace geom

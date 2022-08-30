@@ -94,14 +94,14 @@ public:
      * Transformation of a ray.
      */
     friend Ray<T,N> operator*(const AffineTransform<T,N>& xf, Ray<T,N> r) {
-        return Ray<T,N>(xf.apply(r.origin), xf.applyVector(r.direction));
+        return Ray<T,N>(xf.apply(r.origin), xf.apply_vector(r.direction));
     }
     
     /**
      * Inverse transformation of a ray (`xf`<sup>`-1`</sup>` * ray`)
      */
     friend Ray<T,N> operator/(Ray<T,N> r, const AffineTransform<T,N>& xf) {
-        return Ray<T,N>(xf.applyInverse(r.origin), xf.applyInverseVector(r.direction));
+        return Ray<T,N>(xf.apply_inverse(r.origin), xf.apply_inverse_vector(r.direction));
     }
     
     /**
@@ -115,7 +115,7 @@ public:
      * Inverse transformation of a point (`xf`<sup>`-1`</sup>` * pt`)
      */
     friend Vec<T,N> operator/(Vec<T,N> p, const AffineTransform<T,N>& xf) {
-        return xf.applyInverse(p);
+        return xf.apply_inverse(p);
     }
     
     /**
@@ -139,7 +139,7 @@ public:
             const AffineTransform<T,N>& xf1, 
             const AffineTransform<T,N>& xf2)
     {
-        return xf1.applyInverse(xf2);
+        return xf1.apply_inverse(xf2);
     }
     
     /**
@@ -197,7 +197,7 @@ public:
     /**
      * Transformation of a direction vector; ignores any translation.
      */
-    const Vec<T,N> applyVector(const Vec<T,N>& v) const {
+    const Vec<T,N> apply_vector(const Vec<T,N>& v) const {
         Vec<T,N> o;
         for (index_t r = 0; r < N; r++) {
             for (index_t c = 0; c < N; c++) {
@@ -211,7 +211,7 @@ public:
      * Transformation of a normal. Preserves surface direction
      * of geometry transformed by `this`. 
      */
-    const Vec<T,N> applyNormal(const Vec<T,N>& n) const {
+    const Vec<T,N> apply_normal(const Vec<T,N>& n) const {
         // normal matrix = txpose of inverse.
         Vec<T,N> o;
         for (index_t r = 0; r < N; r++) {
@@ -225,7 +225,7 @@ public:
     /**
      * Inverse transformation of a point.
      */
-    const Vec<T,N> applyInverse(const Vec<T,N>& p) const {
+    const Vec<T,N> apply_inverse(const Vec<T,N>& p) const {
         Vec<T,N+1> p_hom(p,1);
         p_hom = inv * p_hom; // this is returning a dynamic matrix for some reason.
         return p_hom.template resized<N>();
@@ -234,7 +234,7 @@ public:
     /**
      * Inverse transformation of a direction vector; ignores any translation.
      */
-    const Vec<T,N> applyInverseVector(const Vec<T,N>& v) const {
+    const Vec<T,N> apply_inverse_vector(const Vec<T,N>& v) const {
         Vec<T,N> o;
         for (index_t r = 0; r < N; r++) {
             for (index_t c = 0; c < N; c++) {
@@ -247,7 +247,7 @@ public:
     /**
      * Inverse transformation of a normal.
      */
-    const Vec<T,N> applyInverseNormal(const Vec<T,N>& n) const {
+    const Vec<T,N> apply_inverse_normal(const Vec<T,N>& n) const {
         // txpose of inverse of inverse.
         Vec<T,N> o;
         for (index_t r = 0; r < N; r++) {
@@ -275,7 +275,7 @@ public:
      * @return A transformation representing a transform by `this` followed by
      * the inverse of `xf`.
      */
-    const AffineTransform<T,N> applyInverse(const AffineTransform<T,N>& xf) const {
+    const AffineTransform<T,N> apply_inverse(const AffineTransform<T,N>& xf) const {
         AffineTransform xfnew;
         xfnew.mat = xf.inv * mat;
         xfnew.inv = inv * xf.mat;
@@ -530,7 +530,7 @@ AffineTransform<T,3> rotation(Vec<T,3> axis, T radians) {
     AffineTransform<T,3> xfnew;
     axis = axis.unit();
     rotmat(&xfnew.mat, axis.x, axis.y, axis.z, radians);
-    transpose(&xfnew.inv, xfnew.mat); // tanspose of a rotation matrix is its inverse
+    transpose(&xfnew.inv, xfnew.mat); // transpose of a rotation matrix is its inverse
     return xfnew;
 }
 

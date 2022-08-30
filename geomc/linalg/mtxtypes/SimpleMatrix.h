@@ -19,7 +19,7 @@
 #ifndef SIMPLEMATRIX_H_
 #define SIMPLEMATRIX_H_
 
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 #include <geomc/Storage.h>
 #include <geomc/linalg/mtxdetail/MatrixLayout.h>
 #include <geomc/linalg/mtxdetail/MatrixBase.h>
@@ -146,6 +146,9 @@ class FlatMatrixBase : public detail::WriteableMatrixBase<T,M,N, FlatMatrixBase<
     typename Dimension<M>::storage_t n_rows; // this contortion prevents allocating storage 
     typename Dimension<N>::storage_t n_cols; // for a dimension size when it is not dynamic.
     
+    static_assert(M >= 0, "Row dimension must not be negative");
+    static_assert(N >= 0, "Column dimension must not be negative");
+    
 public:
     
     // MatrixBase types
@@ -183,6 +186,9 @@ public:
      * This is a `T*` if the matrix is column-major; a proxy otherwise.
      */
     typedef typename FlatMatrixLayout<T,Lyt>::col_iterator col_iterator;
+    
+    /// The data layout of this matrix.
+    static constexpr MatrixLayout Layout = Lyt;
 
 #ifdef PARSING_DOXYGEN
 
@@ -286,7 +292,7 @@ public:
     
     /**
      * Scalar in-place multiplication.
-     * @tparam U  A type satisfying `boost::is_scalar<>`.
+     * @tparam U  A type satisfying `std::is_scalar<>`.
      * @param  k  Scalar value.
      * @return    A reference to `this`. 
      */
@@ -294,7 +300,10 @@ public:
     template <typename U> SimpleMatrix<T,M,N>& operator*=(U k) {}
 #else
     template <typename U>
-    typename boost::enable_if<boost::is_scalar<U>, SimpleMatrix<T,M,N,Lyt,P>&>::type
+    typename std::enable_if<
+            std::is_scalar<U>::value,
+            SimpleMatrix<T,M,N,Lyt,P>&
+        >::type
     operator*=(U k) {
         T *p = data.get();
         for (index_t i = 0; i < rows() * cols(); i++) {
@@ -493,11 +502,12 @@ public:
         std::fill(data_begin(), data_end(), 0);
     }
     
-    inline void getStorageIDs(storage_id_t *buf) const {
-        *buf = data.get();
+    inline void get_storage_tokens(storage_token_t* buf) const {
+        const T* p = data.get();
+        *buf = {p, p + rows() * cols()};
     }
     
-    inline index_t getStorageIDCount() const {
+    constexpr index_t storage_token_count() const {
         return 1;
     }
 
@@ -541,13 +551,19 @@ public:
             index_t nrows=detail::DefinedIf<M != DYNAMIC_DIM, M>::value, 
             index_t ncols=detail::DefinedIf<N != DYNAMIC_DIM, N>::value) : 
                 parent_t(nrows, ncols, src_data) {}
+    
+    SimpleMatrix(const std::initializer_list<T>& elems):
+            parent_t(M,N,elems.begin())
+    {
+        static_assert(M * N != 0, "initializer list only allowed with static dimensions");
+    }
 
     template <typename Mx>
     SimpleMatrix(
         const Mx &mtx,
-        typename boost::enable_if_c
+        typename std::enable_if
         <
-            (detail::LinalgDimensionMatch<SimpleMatrix<T,M,N>, Mx>::val),
+            detail::LinalgDimensionMatch<SimpleMatrix<T,M,N>, Mx>::val,
             void*
         >::type dummy=0):
             parent_t(mtx) {}
@@ -571,11 +587,27 @@ private:
 
 public:
 
-    explicit SimpleMatrix(
-            T* src_data,
-            index_t nrows=detail::DefinedIf<M != DYNAMIC_DIM, M>::value, 
-            index_t ncols=detail::DefinedIf<N != DYNAMIC_DIM, N>::value) : 
-                parent_t(nrows, ncols, src_data) {}
+    explicit SimpleMatrix(T* src_data):
+            parent_t(M, N, src_data) {
+        static_assert(M * N != 0,
+            "Matrices with dynamic dimensions must specify a runtime size.");
+    }
+    
+    SimpleMatrix(T* src_data, index_t n):
+            parent_t(
+                M == 0 ? n : M, 
+                N == 0 ? n : N, 
+                src_data)
+    {
+        static_assert(std::max(M, N) > 0,
+            "Matrix has two dynamic dimensions, but only one runtime size was specified.");
+    }
+    
+    SimpleMatrix(T* src_data, index_t nrows, index_t ncols):
+            parent_t(nrows, ncols, src_data) {
+        static_assert(N * M != 0,
+            "Matrix has static dimensions, but a runtime dimensions were specified.");
+    }
 
 
 };  // class SimpleMatrix <..., STORAGE_WRAPPED>
