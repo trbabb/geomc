@@ -138,11 +138,12 @@ class Convex : public Bounded<T,N,Derived> {
         T* hi = PointType<T,N>::iterator(b.hi);
         for (index_t i = 0; i < N; ++i) {
             point_t axis, x;
+            const Derived* self = (const Derived*) this;
             PointType<T,N>::iterator(axis)[i] =  1;
-            x = Derived::convex_support(axis);
+            x = self->convex_support(axis);
             hi[i] = PointType<T,N>::iterator(x)[i];
             PointType<T,N>::iterator(axis)[i] = -1;
-            x = Derived::convex_support(axis);
+            x = self->convex_support(axis);
             lo[i] = PointType<T,N>::iterator(x)[i];
         }
         return b;

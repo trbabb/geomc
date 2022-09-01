@@ -405,7 +405,7 @@ namespace detail {
     }
     
     template <typename T, index_t N>
-    struct UnstructuredPointcloud : virtual public Convex<T,N> {
+    struct UnstructuredPointcloud : public Convex<T,N,UnstructuredPointcloud<T,N>> {
         const Vec<T,N> *pts;
         index_t n;
         
@@ -568,12 +568,12 @@ bool gjk_intersect(const AnyConvex<T,N>& shape_a,
 
 
 template <typename T, index_t N>
-inline bool gjk_intersect(const Vec<T,N> *pts_a, index_t n_a,
-                          const Vec<T,N> *pts_b, index_t n_b,
-                          Vec<T,N> *overlap_axis=NULL) {
+inline bool gjk_intersect(const Vec<T,N>* pts_a, index_t n_a,
+                          const Vec<T,N>* pts_b, index_t n_b,
+                          Vec<T,N>* overlap_axis=NULL) {
     detail::UnstructuredPointcloud<T,N> a(pts_a, n_a);
     detail::UnstructuredPointcloud<T,N> b(pts_b, n_b);
-    return gjk_intersect(a, b, overlap_axis);
+    return gjk_intersect(as_any_convex(a), as_any_convex(b), overlap_axis);
 }
 
 
@@ -717,8 +717,8 @@ void disjoint_separation_axis(const AnyConvex<T,N>& shape_a,
  * @return `true` if and only if the two shapes overlap.
  */
 template <typename T, index_t N>
-bool minimal_separation_axis(const Convex<T,N>& shape_a,
-                             const Convex<T,N>& shape_b,
+bool minimal_separation_axis(const AnyConvex<T,N>& shape_a,
+                             const AnyConvex<T,N>& shape_b,
                              Vec<T,N>* overlap_axis,
                              double fractional_tolerance = 0.001,
                              index_t iteration_limit = -1,
@@ -805,9 +805,7 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
             for (auto f : faces) {
                 std::cout << "  " << f.n << "\n";
             }
-            std::cout << "iteration " << k << "\n";            
-            const OrientedRect<T,N>* r0 = dynamic_cast<const OrientedRect<T,N>*>(&shape_a);
-            const OrientedRect<T,N>* r1 = dynamic_cast<const OrientedRect<T,N>*>(&shape_b);
+            std::cout << "iteration " << k << "\n";
             // breakpoint set --file Intersect.h --line 798
             throw "poop train\n";
         }
