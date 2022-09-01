@@ -9,10 +9,6 @@
 #define MATRIXFUNCTIONIMPL_H_
 
 #include <algorithm>
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_base_of.hpp>
-#include <boost/type_traits/is_same.hpp>
-
 #include <geomc/linalg/LinalgTypes.h>
 #include <geomc/linalg/mtxdetail/MatrixGlue.h>
 
@@ -22,13 +18,36 @@
 
 namespace geom {
 
-    template <typename Ms, typename Md>
-    inline void copyMatrixRegion(const Ms& src, Md& dst, const MatrixRegion& src_region, const Vec<index_t,2>& dst_begin){
-        std::pair<typename Ms::region_iterator, typename Ms::region_iterator> p = src.region(src_region);
-        MatrixRegion dst_region = MatrixRegion(dst_begin, dst_begin + src_region.dimensions());
-        std::copy(p[0], p[1], dst.region(dst_region));
+template <typename Ms, typename Md>
+inline void copyMatrixRegion(const Ms& src, Md& dst, const MatrixRegion& src_region, const Vec<index_t,2>& dst_begin){
+    std::pair<typename Ms::region_iterator, typename Ms::region_iterator> p = src.region(src_region);
+    MatrixRegion dst_region = MatrixRegion(dst_begin, dst_begin + src_region.dimensions());
+    std::copy(p[0], p[1], dst.region(dst_region));
+}
+
+/// Transpose a square matrix
+template <typename T>
+void transpose_square_matrix(T* m, index_t n) {
+    detail::MxWrap<T,true> mx = {m, n, n};
+    for (index_t i = 0; i < n; ++i) {
+        for (index_t j = i + 1; j < n; ++j) {
+            std::swap(mx(i,j), mx(j,i));
+        }
     }
-    
+}
+
+
+/// Transpose a square matrix with static dimensions
+template <typename T, index_t N>
+void transpose_square_matrix(T* m) {
+    detail::MxWrap<T,true> mx = {m, N, N};
+    for (index_t i = 0; i < N; ++i) {
+        for (index_t j = i + 1; j < N; ++j) {
+            std::swap(mx(i,j), mx(j,i));
+        }
+    }
+}
+
 };
 
 /*************************************************

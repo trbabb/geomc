@@ -102,7 +102,7 @@ namespace geom {
     
     template <typename T>
     inline Vec<T,2> orthogonal(const Vec<T,2> v[1]) {
-        return v[0].leftPerpendicular();
+        return v[0].left_perpendicular();
     }
     
     
@@ -181,7 +181,7 @@ namespace geom {
      * other and to the first vector.
      * 
      * @param basis Set of `n` bases vectors. 
-     * @param n Number of basis vectors between 0 and `N` inclusive.
+     * @param n Number of basis vectors, between 0 and `N` inclusive.
      */
     template <typename T, index_t N>
     void orthogonalize(Vec<T,N> basis[], index_t n) {
@@ -189,10 +189,18 @@ namespace geom {
             for (index_t j = 0; j < i; j++) {
                 // modified gram-schmidt uses the intermediate basis
                 // for better numerical stability.
-                basis[i] -= basis[i].projectOn(basis[j]);
+                basis[i] -= basis[i].project_on(basis[j]);
             }
         }
     }
+    
+    // simple specialization for T=2
+    template <typename T>
+    void orthogonalize(Vec<T,2> basis[2], index_t _n=2) {
+        if (_n == 2) {
+            basis[1] = basis[0].left_perpendicular();
+        }
+    } 
     
     /**
      * @brief Use the Gram-Schmidt process to orthonormalize a set of basis vectors.
@@ -205,13 +213,7 @@ namespace geom {
      */
     template <typename T, index_t N>
     void orthonormalize(Vec<T,N> basis[], index_t n) {
-        for (index_t i = 1; i < n; i++) {
-            for (index_t j = 0; j < i; j++) {
-                // modified gram-schmidt uses the intermediate basis
-                // for better numerical stability.
-                basis[i] -= basis[i].projectOn(basis[j]);
-            }
-        }
+        orthogonalize(basis, n);
         for (index_t i = 0; i < n; i++) {
             basis[i] /= basis[i].mag();
         }

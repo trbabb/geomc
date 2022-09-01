@@ -66,17 +66,17 @@ public:
         if (sz < 1){
             return Vec<T,N>();
         } else if (t < 0){ 
-            return knots[0].atMultiple(t);
+            return knots[0].at_multiple(t);
         } else if (n >= sz - 1){
             T t_0 = t - sz + 1;
-            return knots[sz - 1].atMultiple(t_0);
+            return knots[sz - 1].at_multiple(t_0);
         }
         
         T t_0 = t - n;
         Ray<T,N> &r0 = knots[n];
         Ray<T,N> &r1 = knots[n+1];
-        Vec<T,N> v0 = r0.atMultiple(t_0);
-        Vec<T,N> v1 = r1.atMultiple(t_0 - 1);
+        Vec<T,N> v0 = r0.at_multiple(t_0);
+        Vec<T,N> v1 = r1.at_multiple(t_0 - 1);
         return v0.mix(v1, ease(t_0));
     }
     

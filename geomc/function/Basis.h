@@ -23,7 +23,7 @@ namespace geom {
  */
     
 // helper function evaluates Legendre polynomials in batch.
-// makes use of recurrent definition of legendre polys to save re-execs
+// makes use of recurrent definition of legendre polys to save re-execs.
 // evaluate a column m and -m of Legendre polynomials and stuff them
 // into the appropriate place in the SphericalHarmonics' coeff table
 template <typename T, index_t N>

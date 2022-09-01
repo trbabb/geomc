@@ -8,8 +8,7 @@
 #ifndef VEC_H_
 #define VEC_H_
 
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_scalar.hpp>
+#include <type_traits>
 
 #include <geomc/linalg/vecdetail/VecBase.h>  // the meat happens in here.
 #include <geomc/linalg/vecdetail/Vec2.h>
@@ -42,7 +41,7 @@ namespace geom {
  * Vector-scalar multiplication
  * 
  * @param v A vector
- * @param d Scalar value of type satisfying `boost::is_scalar`
+ * @param d Scalar value of type satisfying `std::is_scalar`
  * @return A new vector `x` such that `x[i] = v[i] * d`
  * @related Vec
  */
@@ -51,8 +50,8 @@ namespace geom {
     Vec<T,N> operator* (const Vec<T,N> &v, U d) {}
 #endif
 template <typename V, typename U> 
-inline typename boost::enable_if_c<
-            boost::is_scalar<U>::value and detail::IsVector<V>::value,
+inline typename std::enable_if<
+            std::is_scalar<U>::value and detail::IsVector<V>::value,
         V>::type 
 operator* (const V &v, U d) {
     V r;
@@ -65,7 +64,7 @@ operator* (const V &v, U d) {
 /**
  * Vector-scalar multiplication
  * 
- * @param d Scalar value of type satisfying `boost::is_scalar`
+ * @param d Scalar value of type satisfying `std::is_scalar`
  * @param v A vector
  * @return A new vector `x` such that `x[i] = d * v[i]`
  * @related Vec
@@ -75,8 +74,8 @@ operator* (const V &v, U d) {
     Vec<T,N> operator* (U d, const Vec<T,N> &v) {}
 #endif
 template <typename V, typename U> 
-inline typename boost::enable_if_c<
-        boost::is_scalar<U>::value and detail::IsVector<V>::value, 
+inline typename std::enable_if<
+        std::is_scalar<U>::value and detail::IsVector<V>::value, 
         V>::type 
 operator* (U d, const V &v) {
     V r;
@@ -100,7 +99,7 @@ const Vec<T,N> operator* (const Vec<T,N> &a, const Vec<T,N> &b) {}
 #else
 template <typename V>
 inline
-typename boost::enable_if_c<detail::IsVector<V>::value, V>::type 
+typename std::enable_if<detail::IsVector<V>::value, V>::type 
 operator*(const V &a, const V &b) {
     return a.scale(b);
 }
@@ -120,7 +119,7 @@ inline Vec<T,N> operator/ (const Vec<T,N> &v, U d) {}
 #else
 template <typename V, typename U>
 inline
-typename boost::enable_if_c<detail::IsVector<V>::value, V>::type
+typename std::enable_if<detail::IsVector<V>::value, V>::type
 operator/(const V &v, U d) {
     V r;
     for (index_t i = 0; i < V::DIM; i++) {
@@ -144,7 +143,7 @@ inline Vec<T,N> operator/ (const Vec<T,N> &v, U d) {}
 #else
 template <typename V, typename U>
 inline
-typename boost::enable_if_c<detail::IsVector<V>::value, V>::type
+typename std::enable_if<detail::IsVector<V>::value, V>::type
 operator/(U d, const V &v) {
     V r;
     for (index_t i = 0; i < V::DIM; i++) {
@@ -167,7 +166,7 @@ template <typename T, index_t N>
 const Vec<T,N> operator/ (const Vec<T,N> &a, const Vec<T,N> &b) {}
 #else
 template <typename V>
-typename boost::enable_if_c<detail::IsVector<V>::value,V>::type
+typename std::enable_if<detail::IsVector<V>::value,V>::type
 operator/(const V &a, const V &b) {
     V r;
     for (index_t i = 0; i < V::DIM; i++) {
@@ -200,10 +199,11 @@ std::ostream &operator<<(std::ostream &stream, const Quat<T> &q) {
 #endif
 
 
-/* Declare the Vec type that we'll actually use, as a subclass of the hidden base template class.
- * We do this so that all sizes of vector can share common code, since a template that is merely specialized
- * does not implicitly inherit functionality from the base template. With this method, Vec<T,2> can be a specialization
- * of Vec<T,N>, but still keep the functionality of VecBase<T,N>.
+/* Declare the Vec type that we'll actually use, as a subclass of the hidden base template
+ * class. We do this so that all sizes of vector can share common code, since a template that
+ * is merely specialized does not implicitly inherit functionality from the base template.
+ * With this method, Vec<T,2> can be a specialization of Vec<T,N>, but still keep the
+ * functionality of VecBase<T,N>.
  * 
  * All vectors are sizeof(T)*N and can be packed.
  */
@@ -273,20 +273,20 @@ public:
     /**
      * Construct a new vector with all elements set to zero.
      */
-    Vec():detail::VecCommon< T,N,Vec<T,N> >() {}
+    constexpr Vec():detail::VecCommon< T,N,Vec<T,N> >() {}
 
     /**
      * Construct a new vector with all elements set to the value of `a`.
      * 
      * @param a Scalar value
      */
-    Vec(T a):detail::VecCommon< T,N,Vec<T,N> >(a) {}
+    constexpr Vec(T a):detail::VecCommon< T,N,Vec<T,N> >(a) {}
     
     /**
      * Construct a new vector with elements copied from `a`.
      * @param a An array of length `N`. 
      */
-    Vec(const T a[N]):detail::VecCommon< T,N,Vec<T,N> >(a) {}
+    constexpr Vec(const T a[N]):detail::VecCommon< T,N,Vec<T,N> >(a) {}
     
     /**
      * Construct a new vector with the elements from `v`, with `a` as the last 
@@ -294,7 +294,8 @@ public:
      * @param v A vector of dimension `N - 1`
      * @param a The value of the last element
      */
-    Vec(const Vec<T,N-1> &v, T a) {
+    template <typename U>
+    constexpr Vec(const Vec<U,N-1> &v, T a) {
         std::copy(v.begin(), v.end(), detail::VecBase<T,N>::begin());
         this->get(N-1) = a;
     }
@@ -313,16 +314,18 @@ public:
     }
     
     /**
-     * Construct a vector from a brace-initialization list. (c++11)
+     * Construct a vector from a brace-initialization list.
      *
      * Example: `Vec<int,3> v = {2, 5, 8};`
      * @param items A brace-initializer list.
      */
 #if __cplusplus >= 201103L or PARSING_DOXYGEN
-    Vec(const std::initializer_list<T>& items):detail::VecCommon< T,N,Vec<T,N> >(items.begin()) {
+    Vec(const std::initializer_list<T>& items):
+        detail::VecCommon< T,N,Vec<T,N> >(items.begin())
+    {
 #if __cplusplus >= 201402L
         // items.size() not constexpr in c++11  D:<
-        static_assert(items.size() == N);
+        static_assert(items.size() == N, "Vector must be initialized with N items");
 #endif
     }
 #endif

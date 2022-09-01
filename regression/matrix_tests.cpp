@@ -1,10 +1,11 @@
 #define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE MatrixIterator
+#define BOOST_TEST_MODULE MatrixTests
 
 #include <iostream>
 #include <random>
+#include <chrono>
 #include <boost/test/unit_test.hpp>
-#include <boost/test/floating_point_comparison.hpp>
+#include <boost/test/tools/floating_point_comparison.hpp>
 #include <geomc/linalg/Matrix.h>
 
 // xxx: todo: unfuck the matrix inversion code
@@ -30,6 +31,18 @@ void randomize_matrix(SimpleMatrix<T,M,N,L>* mx, rng_t* rng) {
     for (index_t r = 0; r < mx->rows(); ++r) {
         for (index_t c = 0; c < mx->cols(); ++c) {
             (*mx)(r,c) = gauss(*rng);
+        }
+    }
+}
+
+
+template <typename MxA, typename MxB>
+void check_matrices_close(const MxA& mxa, const MxB& mxb) {
+    BOOST_CHECK_EQUAL(mxa.rows(), mxb.rows());
+    BOOST_CHECK_EQUAL(mxa.cols(), mxb.cols());
+    for (index_t r = 0; r < mxa.rows(); ++r) {
+        for (index_t c = 0; c < mxa.cols(); ++c) {
+            BOOST_CHECK_CLOSE(mxa(r,c), mxb(r,c), 0.0001);
         }
     }
 }
@@ -71,8 +84,10 @@ namespace std {
     }
 }
 
+typedef LayoutFixture<5,7> LytFixture57;
 
-BOOST_FIXTURE_TEST_SUITE(matrix_layout_tests, SINGLE_ARG(LayoutFixture<5,7>))
+
+BOOST_FIXTURE_TEST_SUITE(matrix_layout_tests, LytFixture57)
 
 
 BOOST_AUTO_TEST_CASE(verify_layout_parallel) {
@@ -170,6 +185,30 @@ BOOST_AUTO_TEST_CASE(verify_matrix_add) {
     }
 }
 
+// BOOST_AUTO_TEST_CASE(matrix_speed) {
+//     rng_t rng(17581355241LL);
+//     static constexpr index_t K = 512;
+//     static constexpr index_t L = 1 << 14;
+//     using Mx = SimpleMatrix<double,24,24>;
+//     Mx* mx = new Mx[K];
+//     for (index_t i = 0 ; i < K; ++i) {
+//         randomize_matrix(mx + i, &rng);
+//     }
+    
+//     Mx into;
+//     double m = 0;
+//     auto t0 = std::chrono::high_resolution_clock::now();
+//     for (index_t i = 0; i < L; ++i) {
+//         inv(&into, mx[i % K]);
+//         m = fmod(m + into(0,0), 1);
+//     }
+//     auto t1 = std::chrono::high_resolution_clock::now();
+//     std::chrono::duration<double> dur = t1 - t0;
+//     auto secs = dur.count();
+//     std::cout << into << "\n";
+//     std::cout << "ops/sec: " << L / secs << "\n";
+// }
+
 
 BOOST_AUTO_TEST_SUITE_END()
 
@@ -180,13 +219,21 @@ void test_inv(rng_t& rng) {
     SimpleMatrix<T,N,N,ROW_MAJOR> m1r;
     SimpleMatrix<T,N,N,COL_MAJOR> m0c;
     SimpleMatrix<T,N,N,COL_MAJOR> m1c;
+    SimpleMatrix<T,N,N,ROW_MAJOR> m1d;
+    SimpleMatrix<T,N,N,ROW_MAJOR> m1d_buf;
     
     randomize_matrix(&m0r, &rng);
+    mtxcopy(&m1d_buf, m0r);
     
-    // verify that inverting into row major and col major matrices is the same.
-    inv(&m1r, m0r);
-    inv(&m1c, m0r);
-    BOOST_CHECK(m1r == m1c);
+    // verify that the inversion succeeds
+    BOOST_CHECK(inv(&m1r, m0r));
+    BOOST_CHECK(inv(&m1c, m0r));
+    // check "static" inversion against dynamic inversion:
+    BOOST_CHECK(invNxN(m1d.data_begin(), m1d_buf.data_begin(), N));
+    
+    // verify that all the methods of inverting produce (nearly) identical results
+    check_matrices_close(m1r, m1c);
+    check_matrices_close(m1d, m1c);
     
     // verify the inverse is correct, i.e. that M * M^-1 = I
     mul(&m0c, m0r, m1r);
@@ -201,7 +248,7 @@ void test_inv(rng_t& rng) {
     randomize_matrix(&m0c, &rng);
     inv(&m1c, m0c);
     inv(&m1r, m0c);
-    BOOST_CHECK(m1r == m1c);
+    check_matrices_close(m1r, m1c);
     
     // verify correctness
     mul(&m0r, m0c, m1c);

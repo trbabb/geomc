@@ -11,7 +11,7 @@
 #include <limits.h>
 #include <geomc/linalg/Vec.h>
 #include <geomc/linalg/Orthogonal.h>
-#include <geomc/shape/Bounded.h>
+#include <geomc/shape/Shape.h>
 
 #include <vector>
  
@@ -273,7 +273,7 @@ namespace detail {
             // check for degenerate case: origin lies on face
             // (we do not check this in the other cases because `d` will represent a vector
             // from the origin to the simplex, and we check this against zero at the end).
-            if (-A.projectOn(*d).mag2() == 0) return true;
+            if (-A.project_on(*d).mag2() == 0) return true;
         } else if (null_dim == 0) {
             // simplex forms a complete basis; no vertexes were eliminated.
             // in other words, no plane test failed. The origin is inside
@@ -301,9 +301,9 @@ namespace detail {
                 // gram-schmidt orthonormalization.
                 for (index_t b = 0; b < proj_n; b++) {
                     for (index_t i = 0; i < b; i++) {
-                        proj_basis[b] -= proj_basis[b].projectOn(proj_basis[i]);
+                        proj_basis[b] -= proj_basis[b].project_on(proj_basis[i]);
                     }
-                    *d += -A.projectOn(proj_basis[b]);
+                    *d += -A.project_on(proj_basis[b]);
                 }
 
                 if (swap_proj) *d = -A - *d;
@@ -405,7 +405,7 @@ namespace detail {
     }
     
     template <typename T, index_t N>
-    struct UnstructuredPointcloud : virtual public Convex<T,N> {
+    struct UnstructuredPointcloud : public Convex<T,N,UnstructuredPointcloud<T,N>> {
         const Vec<T,N> *pts;
         index_t n;
         
@@ -427,10 +427,12 @@ namespace detail {
     
 
     template <typename T, index_t N>
-    bool gjk_intersect(const Convex<T,N> &shape_a, 
-                       const Convex<T,N> &shape_b,
-                       Vec<T,N> *overlap_axis,
-                       detail::Simplex<T,N> *s) {
+    bool gjk_intersect(
+        const AnyConvex<T,N>& shape_a,
+        const AnyConvex<T,N>& shape_b,
+        Vec<T,N>* overlap_axis,
+        detail::Simplex<T,N>* s)
+    {
         // choose an arbitrary initial direction.
         Vec<T,N> initial;
         if (overlap_axis and *overlap_axis != Vec<T,N>::zeros) 
@@ -453,7 +455,7 @@ namespace detail {
                 shape_b.convex_support(-d);
             s->insert(a);
             if (a.dot(d) < 0) {
-                if (overlap_axis) *overlap_axis = -a.projectOn(d);
+                if (overlap_axis) *overlap_axis = -a.project_on(d);
                 return false;
             }
             
@@ -557,8 +559,8 @@ template <typename T, index_t N>
 #ifndef PARSING_DOXYGEN
 inline 
 #endif 
-bool gjk_intersect(const Convex<T,N> &shape_a, 
-                   const Convex<T,N> &shape_b,
+bool gjk_intersect(const AnyConvex<T,N>& shape_a, 
+                   const AnyConvex<T,N>& shape_b,
                    Vec<T,N> *overlap_axis=NULL) {
     detail::Simplex<T,N> s;
     return detail::gjk_intersect(shape_a, shape_b, overlap_axis, &s);
@@ -566,18 +568,18 @@ bool gjk_intersect(const Convex<T,N> &shape_a,
 
 
 template <typename T, index_t N>
-inline bool gjk_intersect(const Vec<T,N> *pts_a, index_t n_a,
-                          const Vec<T,N> *pts_b, index_t n_b,
-                          Vec<T,N> *overlap_axis=NULL) {
+inline bool gjk_intersect(const Vec<T,N>* pts_a, index_t n_a,
+                          const Vec<T,N>* pts_b, index_t n_b,
+                          Vec<T,N>* overlap_axis=NULL) {
     detail::UnstructuredPointcloud<T,N> a(pts_a, n_a);
     detail::UnstructuredPointcloud<T,N> b(pts_b, n_b);
-    return gjk_intersect(a, b, overlap_axis);
+    return gjk_intersect(as_any_convex(a), as_any_convex(b), overlap_axis);
 }
 
 
 template <typename T, index_t N>
-void explode_simplex(const Convex<T,N>& shape_a,
-                     const Convex<T,N>& shape_b, 
+void explode_simplex(const AnyConvex<T,N>& shape_a,
+                     const AnyConvex<T,N>& shape_b, 
                      detail::Simplex<T,N>* splex) {
    while (splex->n < N + 1) {
         // search the initial nullspace axes first, and only bother to
@@ -637,8 +639,8 @@ void explode_simplex(const Convex<T,N>& shape_a,
 // given a minkowski volume which does *not* enclose the origin, find the closest point
 // on the volume to the origin.
 template <typename T, index_t N>
-void disjoint_separation_axis(const Convex<T,N>& shape_a,
-                              const Convex<T,N>& shape_b, 
+void disjoint_separation_axis(const AnyConvex<T,N>& shape_a,
+                              const AnyConvex<T,N>& shape_b, 
                               Vec<T,N> *overlap_axis,
                               detail::Simplex<T,N>* splex,
                               double fractional_tolerance = 0.001,
@@ -675,7 +677,7 @@ void disjoint_separation_axis(const Convex<T,N>& shape_a,
                      shape_b.convex_support(-d);
         
         // project the origin onto the simplex, down along its normal
-        new_proj = ((*splex)[0]).projectOn(d);
+        new_proj = ((*splex)[0]).project_on(d);
         
         // if the search point already exists in the simplex, halt
         for (index_t i = 0; i < splex->n; i++) if ((*splex)[i] == a) {
@@ -715,8 +717,8 @@ void disjoint_separation_axis(const Convex<T,N>& shape_a,
  * @return `true` if and only if the two shapes overlap.
  */
 template <typename T, index_t N>
-bool minimal_separation_axis(const Convex<T,N>& shape_a,
-                             const Convex<T,N>& shape_b,
+bool minimal_separation_axis(const AnyConvex<T,N>& shape_a,
+                             const AnyConvex<T,N>& shape_b,
                              Vec<T,N>* overlap_axis,
                              double fractional_tolerance = 0.001,
                              index_t iteration_limit = -1,
@@ -803,9 +805,7 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
             for (auto f : faces) {
                 std::cout << "  " << f.n << "\n";
             }
-            std::cout << "iteration " << k << "\n";            
-            const OrientedRect<T,N>* r0 = dynamic_cast<const OrientedRect<T,N>*>(&shape_a);
-            const OrientedRect<T,N>* r1 = dynamic_cast<const OrientedRect<T,N>*>(&shape_b);
+            std::cout << "iteration " << k << "\n";
             // breakpoint set --file Intersect.h --line 798
             throw "poop train\n";
         }
@@ -814,7 +814,7 @@ bool minimal_separation_axis(const Convex<T,N>& shape_a,
             for (auto f = faces.begin(); f != faces.end(); ++f) EMIT(*f, f == best_face);
         
         // project the origin to the closest face.
-        *overlap_axis = verts[best_face->v[0]].projectOn(best_face->n);  // xxx: best_face->n is a no-go.
+        *overlap_axis = verts[best_face->v[0]].project_on(best_face->n);  // xxx: best_face->n is a no-go.
                                                                          // can we fail to find best_face due to inf?
                                                                          // 
         

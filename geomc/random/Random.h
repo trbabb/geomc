@@ -205,63 +205,64 @@ namespace geom {
      */
     class Random {
     public:
-
-        /// Construct a new random number generator with an implementation-selected seed.
-        Random(void);
         
-        /// Construct a new random number generator with the bits of `seed` as a source
-        /// of entropy.
-        Random(uint64_t seed); //allow us to supply up to 64 bits of entropy
-        virtual ~Random();
-
-        /// @return No fewer than 32 (pseudo-) random bits.
-        virtual uint32_t rand32() = 0;
-        
-        /// Reset the generator's state with the bits of `seed` as its source of entropy.
-        virtual void rseed(uint64_t seed) = 0;
-        
-        /**
-         * Produces a (pseudo-) random `T` with uniform distribution over the 
-         * unit interval, if the unit interval is populated by `T`; or with uniform 
-         * distribution over the entire space of possible `T` otherwise.
-         * 
-         * For example, `rand<float>()` returns a random float between 0 and
-         * 1.0, while `rand<unsigned int>()` returns a random `uint` between 0 and `UINT_MAX`. 
-         */
-        
-        // todo: make the base template of rand<>() call randomimpl<T>
-        // user specializations must go in randomimpl.
-        // add specialization declarations to the random class here, in the
-        // header. this will prevent the base template from masking the
-        // specializations, and might also prevent doxygen from getting confused.
-        template <typename T> T rand() {
-            return detail::RandomImpl<T>::rand(this);
-        }
-        
-        /**
-         * Produces a (pseudo-) random `T` with uniform distribution between
-         * the `T` analogue of `0` and `max`.
-         * 
-         * @param max Upper bound of possible `T` samples.
-         */
-        template <typename T> T rand(T max) {
-            return detail::RandomImpl<T>::rand(this, max);
-        }
-        
-        /**
-         * Produces a (pseudo-) random `T` with uniform distribution between
-         * `lo` and `hi`.
-         * @param lo Lower bound for possible `T` samples.
-         * @param hi Upper bound for possible `T` samples.
-         */
-        template <typename T> T rand(T lo, T hi) {
-            return detail::RandomImpl<T>::rand(this, lo, hi);
-        }
-
+    /// Construct a new random number generator with an implementation-selected seed.
+    Random(void);
+    
+    /// Construct a new random number generator with the bits of `seed` as a source
+    /// of entropy.
+    Random(uint64_t seed); //allow us to supply up to 64 bits of entropy
+    virtual ~Random();
+    
+    /// @return No fewer than 32 (pseudo-) random bits.
+    virtual uint32_t rand32() = 0;
+    
+    /// Reset the generator's state with the bits of `seed` as its source of entropy.
+    virtual void rseed(uint64_t seed) = 0;
+    
+    /**
+     * Produces a (pseudo-) random `T` with uniform distribution over the 
+     * unit interval, if the unit interval is populated by `T`; or with uniform 
+     * distribution over the entire space of possible `T` otherwise.
+     * 
+     * For example, `rand<float>()` returns a random float between 0 and
+     * 1.0, while `rand<unsigned int>()` returns a random `uint` between 0 and `UINT_MAX`. 
+     */
+    
+    // todo: make the base template of rand<>() call randomimpl<T>
+    // user specializations must go in randomimpl.
+    // add specialization declarations to the random class here, in the
+    // header. this will prevent the base template from masking the
+    // specializations, and might also prevent doxygen from getting confused.
+    template <typename T> T rand() {
+        return detail::RandomImpl<T>::rand(this);
+    }
+    
+    /**
+     * Produces a (pseudo-) random `T` with uniform distribution between
+     * the `T` analogue of `0` and `max`.
+     * 
+     * @param max Upper bound of possible `T` samples.
+     */
+    template <typename T> T rand(T max) {
+        return detail::RandomImpl<T>::rand(this, max);
+    }
+    
+    /**
+     * Produces a (pseudo-) random `T` with uniform distribution between
+     * `lo` and `hi`.
+     * @param lo Lower bound for possible `T` samples.
+     * @param hi Upper bound for possible `T` samples.
+     */
+    template <typename T> T rand(T lo, T hi) {
+        return detail::RandomImpl<T>::rand(this, lo, hi);
+    }
+    
         
     protected:
-        uint32_t     _bitpool;
-        unsigned int _bitsleft;
+    
+    uint32_t     _bitpool;
+    unsigned int _bitsleft;
     };
 }
 

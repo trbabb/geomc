@@ -59,14 +59,16 @@ class MatrixBase {
 
     inline const Derived* derived() const { return static_cast<const Derived*>(this); }
     
+    // this trait class is necessary because the derived type is incomplete
+    // when the base type is being defined. (More detail in MatrixIterator.h).
     typedef typename detail::_ImplMtxConstRowtype<Derived,T>::const_row_iterator derived_const_row_iterator;
     
 public:
     
     /// @brief Row dimension template parameter.
-    static const index_t ROWDIM = M;
+    static constexpr index_t ROWDIM = M;
     /// @brief Column dimension template parameter
-    static const index_t COLDIM = N;
+    static constexpr index_t COLDIM = N;
     /// @brief Element type
     typedef T elem_t;
     
@@ -79,10 +81,10 @@ public:
     /// @brief Read-only iterator over the elements of a column
     typedef MtxColIterator<const Derived, const elem_t>    const_col_iterator;
     
-    typedef Storage<storage_id_t, _ImplStorageObjCount<Derived>::count> storagebuffer_t;
+    typedef Storage<storage_token_t, _ImplStorageObjCount<Derived>::count> storagebuffer_t;
 
     // This is accessible from the derived class(es).
-    // We need this so we can check boost::is_base_of<>; because
+    // We need this so we can check std::is_base_of<>; because
     // the base we are testing has Derived as a template parameter!
     // We need some way of know which class it was that
     // was passed to the curiously-recurring base.
@@ -190,8 +192,8 @@ public:
 
     // this and its related functions assist in determining
     // whether two matrices alias memory.
-    inline storagebuffer_t getStorageIDBuffer() const {
-        return storagebuffer_t(derived()->getStorageIDCount());
+    inline storagebuffer_t get_storage_token_buffer() const {
+        return storagebuffer_t(derived()->storage_token_count());
     }
     
 };
@@ -204,6 +206,9 @@ template <typename T, index_t M, index_t N, typename Derived>
 class WriteableMatrixBase : public MatrixBase<T,M,N,Derived> {
     
     typedef MatrixBase<T,M,N,Derived> parent_t;
+    
+    // these traits classes are necessary because the derived type is incomplete
+    // when the base type is being defined. (More detail in MatrixIterator.h).
     typedef typename detail::_ImplMtxReftype<Derived,T>::reference    derived_reference;
     typedef typename detail::_ImplMtxRowtype<Derived,T>::row_iterator derived_row_iterator;
     

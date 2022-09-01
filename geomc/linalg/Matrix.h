@@ -253,7 +253,7 @@
 #ifndef MATRIX_H_
 #define MATRIX_H_
 
-#include <boost/type_traits/is_scalar.hpp>
+#include <type_traits>
 
 #include <geomc/linalg/LinalgTypes.h>
 
@@ -274,6 +274,7 @@
 #include <geomc/linalg/mtxdetail/MatrixMult.h>
 #include <geomc/linalg/mtxdetail/MatrixInv.h>
 #include <geomc/linalg/mtxdetail/MatrixArithmetic.h>
+#include <geomc/linalg/mtxdetail/MatrixDet.h>
 
 #ifdef GEOMC_LINALG_USE_STREAMS
 
@@ -306,41 +307,29 @@ namespace geom {
  * 
  * @return `true` if writing to `a` may alter `b` or vice versa; `false` otherwise.
  */
-#ifdef PARSING_DOXYGEN
-template <typename Matrix1, typename Matrix2> bool mtx_aliases_storage(const Matrix1 &a, const Matrix2 &b) {}
-#endif
-// do two matrices share any storage?
 template <typename Ma, typename Mb>
-typename boost::enable_if_c<
-            detail::IsMatrix<Ma>::val and detail::IsMatrix<Mb>::val, 
-            bool>::type 
-mtx_aliases_storage(const Ma &a, const Mb &b) {
+inline bool mtx_aliases_storage(const Ma& a, const Mb& b) {
+    static_assert(detail::IsMatrix<Ma>::val and detail::IsMatrix<Mb>::val, "Arguments must both be matrices");
     // todo: currently assumes no /internal/ aliasing.
-    typename Ma::storagebuffer_t buf_a = a.getStorageIDBuffer();
-    typename Mb::storagebuffer_t buf_b = b.getStorageIDBuffer();
+    typename Ma::storagebuffer_t buf_a = a.get_storage_token_buffer();
+    typename Mb::storagebuffer_t buf_b = b.get_storage_token_buffer();
     
-    a.getStorageIDs(buf_a.get()); // may be dynamically allocated
-    b.getStorageIDs(buf_b.get()); // but usually static, and usually only one ptr
-    for (index_t i = 0; i < a.getStorageIDCount(); i++) {
-        for (index_t j = 0; j < b.getStorageIDCount(); j++) {
-            if (buf_a.get()[i] == buf_b.get()[j]) return true;
+    a.get_storage_tokens(buf_a.get()); // may be dynamically allocated
+    b.get_storage_tokens(buf_b.get()); // but usually static, and usually only one ptr
+    // do any of the tokens have overlapping range?
+    for (index_t i = 0; i < a.storage_token_count(); i++) {
+        for (index_t j = 0; j < b.storage_token_count(); j++) {
+            auto& tka = buf_a[i];
+            auto& tkb = buf_b[j];
+            if (tka.lo < tkb.lo or tka.hi > tkb.hi) return false;
         }
     }
     
-    return false;
-}
-
-// needed for checks with vectors
-template <typename Ma, typename Mb>
-typename boost::enable_if_c<
-            not (detail::IsMatrix<Ma>::val and detail::IsMatrix<Mb>::val), 
-            bool>::type 
-inline mtx_aliases_storage(const Ma &a, const Mb &b) {
-    return false;
+    return true;
 }
 
 template <typename T, index_t N>
-inline bool mtx_aliases_storage(const Vec<T,N> &a, const Vec<T,N> &b) {
+inline bool mtx_aliases_storage(const Vec<T,N>& a, const Vec<T,N>& b) {
     return a.begin() == b.begin();
 }
 
@@ -370,7 +359,8 @@ inline bool mtx_aliases_storage(const Vec<T,N> &a, const Vec<T,N> &b) {
  * @param [in]  b    A matrix object or vector with dimension `(a.cols() x N)`
  **/
 #ifdef PARSING_DOXYGEN
-template <typename Matrix, typename Matrix1, typename Matrix2> Matrix& mul(Matrix *into, const Matrix1 &a, const Matrix2 &b) {}
+template <typename Matrix, typename Matrix1, typename Matrix2>
+Matrix& mul(Matrix *into, const Matrix1 &a, const Matrix2 &b) {}
 #endif
 
 // (a x b) * (b x c) -> (a x c)
@@ -390,7 +380,7 @@ template <typename Matrix, typename Matrix1, typename Matrix2> Matrix& mul(Matri
  * appropriate orientation for result vectors.
  */
 template <typename Md, typename Ma, typename Mb>
-typename boost::enable_if_c<
+typename std::enable_if<
             detail::MatrixMultipliable<Ma,Mb>::val and 
             detail::_ImplMtxResult<Ma, Mb, Md>::agreement == detail::MTX_RESULT_MATCH, 
         Md&>::type
@@ -438,7 +428,7 @@ mul(Md *into, const Ma &a, const Mb &b) {
 // The desired row/col orientation of the vector cannot be determined at compile
 // time, so special logic is needed to check both configurations.
 template <typename Md, typename Ma, typename Mb>
-typename boost::enable_if_c<
+typename std::enable_if<
                      detail::MatrixMultipliable<Ma,Mb>::val and 
                      detail::_ImplMtxResult<Ma,Mb,Md>::agreement == detail::MTX_RESULT_UNKNOWN,
             Md&>::type
@@ -498,7 +488,7 @@ mul(Md *into, const Ma &a, const Mb &b) {
 template <typename Matrix1, typename Matrix2> Matrix mul(const Matrix1 &a, const Matrix2 &b) {}
 #endif
 template <typename Ma, typename Mb>
-typename boost::enable_if_c<
+typename std::enable_if<
             detail::MatrixMultipliable<Ma,Mb>::val, 
             typename detail::_ImplMtxMul<Ma,Mb>::return_t>::type
 mul(const Ma &a, const Mb &b) {
@@ -521,6 +511,7 @@ mul(const Ma &a, const Mb &b) {
     return dest;
 }
 
+
 /*********************************
  * Matrix transpose              *
  *********************************/
@@ -528,7 +519,7 @@ mul(const Ma &a, const Mb &b) {
 
 // allow txpose in-place
 template <typename T, index_t M, index_t N, MatrixLayout Lyt, StoragePolicy P>
-typename boost::enable_if_c<M * N == 0 or M == N, void>::type
+typename std::enable_if<M * N == 0 or M == N, void>::type
 transpose(SimpleMatrix<T,M,N,Lyt,P>* into, const SimpleMatrix<T,M,N,Lyt,P>& m) {
     if (into == &m and (M * N > 0 or m.rows() == m.cols())) {
         
@@ -585,7 +576,7 @@ transpose(SimpleMatrix<T,M,N,Lyt,P>* into, const SimpleMatrix<T,M,N,Lyt,P>& m) {
 template <typename Matrix1, typename Matrix2> void transpose(Matrix1 *into, const Matrix2 &m) {}
 #endif
 template <typename Md, typename Mx>
-typename boost::enable_if_c<
+typename std::enable_if<
     detail::IsMatrix<Md>::val and detail::IsMatrix<Mx>::val and
                   (Md::ROWDIM == Mx::COLDIM or
                    Md::ROWDIM *  Mx::COLDIM == 0) and
@@ -628,7 +619,7 @@ transpose(Md *into, const Mx &m) {
 template <typename Matrix1> Matrix transpose(const Matrix1 &m) {}
 #endif
 template <typename Mx>
-typename boost::enable_if_c<
+typename std::enable_if<
             detail::IsMatrix<Mx>::val, 
             typename detail::_ImplMtxTxpose<Mx>::return_t>::type
 transpose(const Mx &m) {
@@ -659,7 +650,7 @@ template <typename Matrix1, typename Matrix2> bool inv(Matrix1 *into, const Matr
 #endif
 template <typename Md, typename Mx>
 bool inv(Md *into, const Mx &src,
-         M_ENABLE_IF_C(
+         M_ENABLE_IF(
              (detail::MatrixDimensionMatch<Md,Mx>::isStaticMatch and
              (Mx::ROWDIM == Mx::COLDIM or Mx::ROWDIM * Mx::COLDIM == DYNAMIC_DIM))
          )) {
@@ -692,7 +683,7 @@ template <typename Matrix1> Matrix inv(const Matrix1 &m, bool *success) {}
 #endif
 template <typename Mx>
 typename detail::_ImplMtxInv<Mx>::return_t inv(const Mx &m, bool *success, 
-                M_ENABLE_IF_C(Mx::ROWDIM == Mx::COLDIM or Mx::ROWDIM * Mx::COLDIM == DYNAMIC_DIM)) {
+                M_ENABLE_IF(Mx::ROWDIM == Mx::COLDIM or Mx::ROWDIM * Mx::COLDIM == DYNAMIC_DIM)) {
     typedef detail::_ImplMtxInv<Mx> inv_t;
     typedef typename inv_t::return_t return_t;
     
@@ -724,7 +715,7 @@ typename detail::_ImplMtxInv<Mx>::return_t inv(const Mx &m, bool *success,
 template <typename Matrix, typename Matrix1, typename Matrix2> void add(Matrix *d, const Matrix1 &a, const Matrix2 &b) {}
 #endif
 template <typename Md, typename Ma, typename Mb>
-typename boost::enable_if_c<
+typename std::enable_if<
     detail::MatrixDimensionMatch<Ma,Mb>::isStaticMatch and
     detail::MatrixDimensionMatch<Ma,Md>::isStaticMatch,
     void
@@ -750,7 +741,7 @@ add(Md *d, const Ma &a, const Mb &b) {
 template <typename Matrix, typename Matrix1, typename Matrix2> void sub(Matrix *d, const Matrix1 &a, const Matrix2 &b) {}
 #endif
 template <typename Md, typename Ma, typename Mb>
-typename boost::enable_if_c<
+typename std::enable_if<
     detail::MatrixDimensionMatch<Ma,Mb>::isStaticMatch and
     detail::MatrixDimensionMatch<Ma,Md>::isStaticMatch,
     void
@@ -776,7 +767,7 @@ sub(Md *d, const Ma &a, const Mb &b) {
 template <typename Matrix1, typename Matrix2> Matrix add(const Matrix1 &a, const Matrix2 &b) {}
 #endif
 template <typename Ma, typename Mb>
-typename boost::enable_if_c<
+typename std::enable_if<
     detail::MatrixDimensionMatch<Ma,Mb>::isStaticMatch,
     typename detail::_ImplMatrixAdd<Ma,Mb>::return_t
 >::type 
@@ -803,7 +794,7 @@ add(const Ma &a, const Mb &b) {
 template <typename Matrix1, typename Matrix2> Matrix sub(const Matrix1 &a, const Matrix2 &b) {}
 #endif
 template <typename Ma, typename Mb>
-typename boost::enable_if_c<
+typename std::enable_if<
     detail::MatrixDimensionMatch<Ma,Mb>::isStaticMatch,
     typename detail::_ImplMatrixAdd<Ma,Mb>::return_t
 >::type 
@@ -828,16 +819,16 @@ sub(const Ma &a, const Mb &b) {
  * of `m` by scalar value `k`.
  * 
  * @param [out] d A writeable matrix, whose dimensions must match those of `m`.
- * @param [in]  k Scalar constant (whose type satisfies `boost::is_scalar<U>`).
+ * @param [in]  k Scalar constant (whose type satisfies `std::is_scalar<U>`).
  * @param [in]  m Matrix object to be scaled.
  */
 #ifdef PARSING_DOXYGEN
 template <typename U typename Matrix, typename Matrix> void scale(Matrix1 *d, U k, const Matrix &m) {}
 #endif
 template <typename U, typename Mx, typename Md>
-typename boost::enable_if_c<
+typename std::enable_if<
     detail::IsMatrix<Mx>::val and
-    boost::is_scalar<U>::value and
+    std::is_scalar<U>::value and
     detail::MatrixDimensionMatch<Mx,Md>::isStaticMatch,
     void
 >::type 
@@ -853,7 +844,7 @@ scale(Md *d, U k, const Mx &m) {
  * Scalar muliplication on matrices. In other words, multiply all the elements
  * of `m` by scalar value `k`.
  * 
- * @param [in]  k Scalar constant (whose type satisfies `boost::is_scalar<U>`).
+ * @param [in]  k Scalar constant (whose type satisfies `std::is_scalar<U>`).
  * @param [in]  m Matrix object to be scaled.
  * @return A scaled copy of `m`.
  */
@@ -861,9 +852,9 @@ scale(Md *d, U k, const Mx &m) {
 template <typename U, typename Matrix> Matrix scale(U k, const Matrix &m) {}
 #endif
 template <typename U, typename Mx>
-typename boost::enable_if_c<
+typename std::enable_if<
     detail::IsMatrix<Mx>::val and
-    boost::is_scalar<U>::value,
+    std::is_scalar<U>::value,
     typename detail::_ImplMatrixScale<Mx>::return_t
 >::type 
 scale(U k, const Mx &m) {
@@ -882,14 +873,14 @@ scale(U k, const Mx &m) {
  * scalar * matrix
  * 
  * All elements of `m` are multiplied by `k`. `Matrix` must be a matrix type, and
- * `U` must satisfy `boost::is_scalar<U>`.
+ * `U` must satisfy `std::is_scalar<U>`.
  */
 #ifdef PARSING_DOXYGEN
 template <typename U, typename Matrix> Matrix operator*(U k, const Matrix &m) {}
 #endif
 template <typename U, typename Mx>
-inline typename boost::enable_if_c<
-    detail::IsMatrix<Mx>::val and boost::is_scalar<U>::value,
+inline typename std::enable_if<
+    detail::IsMatrix<Mx>::val and std::is_scalar<U>::value,
     typename detail::_ImplMatrixScale<Mx>::return_t
 >::type operator*(U k, const Mx &m) {
     return scale(k,m);
@@ -899,14 +890,14 @@ inline typename boost::enable_if_c<
  * matrix * scalar
  * 
  * All elements of `m` are multiplied by `k`. `Matrix` must be a matrix type, and
- * `U` must satisfy `boost::is_scalar<U>`.
+ * `U` must satisfy `std::is_scalar<U>`.
  */
 #ifdef PARSING_DOXYGEN
  template <typename U, typename Matrix> Matrix operator*(const Matrix &m, U k) {}
 #endif
 template <typename U, typename Mx>
-inline typename boost::enable_if_c<
-    detail::IsMatrix<Mx>::val and boost::is_scalar<U>::value,
+inline typename std::enable_if<
+    detail::IsMatrix<Mx>::val and std::is_scalar<U>::value,
     typename detail::_ImplMatrixScale<Mx>::return_t
 >::type operator*(const Mx &m, U k) {
     return scale(k,m);
@@ -983,7 +974,7 @@ template <typename Matix, T, M, N>
 Matrix& operator*=(Matrix& m, const DiagMatrix<T,M,N>& d) {}
 #endif
 template <typename Mx, typename T, index_t M, index_t N>
-typename boost::enable_if_c<
+typename std::enable_if<
         detail::MatrixMultipliable< Mx, DiagMatrix<T,M,N> >::val,
         Mx&>::type
 operator*=(Mx& m, const DiagMatrix<T,M,N>& d) {
@@ -1012,7 +1003,7 @@ operator*=(Mx& m, const DiagMatrix<T,M,N>& d) {
 template <typename Matrix1, typename Matrix2> bool operator==(const Matrix1 &a, const Matrix2 &b) {}
 #endif
 template <typename Ma, typename Mb>
-typename boost::enable_if_c<
+typename std::enable_if<
         detail::IsMatrix<Ma>::val and detail::IsMatrix<Mb>::val and
         detail::MatrixDimensionMatch<Ma,Mb>::isStaticMatch, 
     bool>::type
@@ -1028,7 +1019,7 @@ operator==(const Ma &a, const Mb &b) {
 // mtx == mtx 
 // (static dimension mismatch; never equal)
 template <typename Ma, typename Mb>
-typename boost::enable_if_c<
+typename std::enable_if<
                 detail::IsMatrix<Ma>::val and detail::IsMatrix<Mb>::val and
             not detail::MatrixDimensionMatch<Ma,Mb>::isStaticMatch, 
         bool>::type
@@ -1046,7 +1037,7 @@ operator==(const Ma &a, const Mb &b) {
 template <typename Matrix1, typename Matrix2> bool operator!=(const Matrix1 &a, const Matrix2 &b) {}
 #endif
 template <typename Ma, typename Mb>
-inline typename boost::enable_if_c<detail::IsMatrix<Ma>::val and detail::IsMatrix<Mb>::val, bool>::type
+inline typename std::enable_if<detail::IsMatrix<Ma>::val and detail::IsMatrix<Mb>::val, bool>::type
 operator!=(const Ma &a, const Mb &b) {
     return not (a == b);
 }
@@ -1063,7 +1054,7 @@ operator!=(const Ma &a, const Mb &b) {
 template <typename Matrix> std::ostream& operator<< (std::ostream &s, const Matrix &m) {}
 #endif
 template <typename Mx>
-typename boost::enable_if_c<detail::IsMatrix<Mx>::val, std::ostream &>::type
+typename std::enable_if<detail::IsMatrix<Mx>::val, std::ostream &>::type
 operator<<(std::ostream &s, const Mx &mtx) {
     s << std::setfill(' '); // xxx statefulness bad
     s << "[ ";

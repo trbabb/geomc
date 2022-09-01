@@ -23,45 +23,6 @@
  *  @{
  */
 
-//4d
-#define ONE_VEC4d   (Vec<double,4>::ones) 
-#define ZERO_VEC4d  (Vec<double,4>::zeros)
-#define X_AXIS4d    (Vec<double,4>::X_AXIS)
-#define Y_AXIS4d    (Vec<double,4>::Y_AXIS)
-#define Z_AXIS4d    (Vec<double,4>::Z_AXIS)
-#define W_AXIS4d    (Vec<double,4>::W_AXIS)
-
-#define ONE_VEC4f   (Vec<float,4>::ones)
-#define ZERO_VEC4f  (Vec<float,4>::zeros)
-#define X_AXIS4f    (Vec<float,4>::X_AXIS)
-#define Y_AXIS4f    (Vec<float,4>::Y_AXIS)
-#define Z_AXIS4f    (Vec<float,4>::Z_AXIS)
-#define W_AXIS4f    (Vec<float,4>::W_AXIS)
-
-//3d
-#define ONE_VEC3d   (Vec<double,3>::ones)
-#define ZERO_VEC3d  (Vec<double,3>::zeros)
-#define X_AXIS3d    (Vec<double,3>::X_AXIS)
-#define Y_AXIS3d    (Vec<double,3>::Y_AXIS)
-#define Z_AXIS3d    (Vec<double,3>::Z_AXIS)
-
-#define ONE_VEC3f   (Vec<float,3>::ones)
-#define ZERO_VEC3f  (Vec<float,3>::zeros)
-#define X_AXIS3f    (Vec<float,3>::X_AXIS)
-#define Y_AXIS3f    (Vec<float,3>::Y_AXIS)
-#define Z_AXIS3f    (Vec<float,3>::Z_AXIS)
-
-//2d
-#define ONE_VEC2d   (Vec<double,2>::ones)
-#define ZERO_VEC2d  (Vec<double,2>::zeros)
-#define X_AXIS2d    (Vec<double,2>::X_AXIS)
-#define Y_AXIS2d    (Vec<double,2>::Y_AXIS)
-
-#define ONE_VEC2f   (Vec<float,2>::ones)
-#define ZERO_VEC2f  (Vec<float,2>::zeros)
-#define X_AXIS2f    (Vec<float,2>::X_AXIS)
-#define Y_AXIS2f    (Vec<float,2>::Y_AXIS)
-
 // @}  // ingroup linalg
 
 // type definitions
@@ -87,7 +48,11 @@ namespace detail {
         COL_MAJOR
     };
 
-   typedef const void* storage_id_t;
+    // represents a memory range:
+    struct storage_token_t {
+        const void* lo;
+        const void* hi;
+    };
 
     // data fwd decls
     template <typename T, index_t N>            class Vec;
@@ -205,6 +170,10 @@ namespace detail {
         static inline T dot(const point_t& p0, const point_t& p1) {
             return p0.dot(p1);
         }
+        
+        static inline point_t unit(const point_t& p) {
+            return p.unit();
+        }
     };
 
     template <typename T>
@@ -232,12 +201,36 @@ namespace detail {
         }
         
         static inline T mag(const point_t& p) {
-            return p;
+            return std::abs(p);
         }
         
         static inline T dot(const point_t& p0, const point_t& p1) {
             return p0 * p1;
         }
+        
+        static inline T unit(const point_t& p) {
+            return p >= 0 ? (T)1 : (T)-1;
+        }
+    };
+    
+    template <typename T>
+    struct VectorDimension {
+        static constexpr index_t N = 1;
+    };
+    
+    template <typename T, index_t M>
+    struct VectorDimension<Vec<T,M>> {
+        static constexpr index_t N = M;
+    };
+    
+    template <typename T>
+    struct CoordType {
+        typedef T coord_t;
+    };
+    
+    template <typename T, index_t N>
+    struct CoordType<Vec<T,N>> {
+        typedef T coord_t;
     };
     
 } // namespace geom

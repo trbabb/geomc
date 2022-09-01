@@ -11,7 +11,7 @@
 
 using namespace geom;
 
-//lazily init'd from getRandom()
+// lazily init'd from getRandom()
 Random *randomtools_rng = NULL;
 
 Random* geom::getRandom(){

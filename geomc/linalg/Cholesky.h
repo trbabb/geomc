@@ -1,6 +1,7 @@
 #ifndef __CHOLESKY_H__
 #define __CHOLESKY_H__
 
+#include <type_traits>
 #include <geomc/linalg/Matrix.h>
 
 // todo: make a Symmetric matrix class, which this can operate on.
@@ -19,6 +20,8 @@ namespace geom {
  */
 
 /**
+ * @brief Perform a Cholesky decomposition on a bare array.
+ * 
  * Perform an in-place Cholesky decomposition on the given square positive-definite
  * matrix `A`, producing a lower-triangular matrix `M` such that 
  * `(M * M`<sup>T</sup>`) = A`.
@@ -46,6 +49,7 @@ bool cholesky(T* m, index_t n) {
                 s = std::sqrt(s);
             } else {
                 s = s / mx.elem(c, c);
+                // upper matrix gets set to 0:
                 mx.elem(c, r) = 0;
             }
             mx.elem(r, c) = s;
@@ -56,9 +60,15 @@ bool cholesky(T* m, index_t n) {
 
 
 /**
+ * @brief Perform a Cholesky decomposition on a Matrix.
+ * 
  * Perform an in-place Cholesky decomposition on the given square positive-definite 
  * matrix `A`, producing a lower-triangular matrix `M` such that 
  * `(M * M`<sup>T</sup>`) = A`.
+ * 
+ * @tparam T Element type of the matrix.
+ * @tparam M Number of rows in the matrix. Must either match N or be dynamic (0).
+ * @tparam N Number of columns in the matrix. Must either match M or be dynamic (0).
  * 
  * @param m A square positive-definite matrix.
  * @return False if the matrix is not square, not positive-definite, or could
@@ -70,7 +80,7 @@ template <typename T, index_t M, index_t N>
 bool cholesky(SimpleMatrix<T,M,N>* m);
 #else
 template <typename T, index_t M, index_t N, MatrixLayout Lyt, StoragePolicy P>
-inline typename boost::enable_if_c<M == N or M * N == 0, bool>::type
+inline typename std::enable_if<M == N or M * N == 0, bool>::type
 cholesky(SimpleMatrix<T,M,N,Lyt,P>* m) {
     if (M * N == 0 and m->rows() != m->cols()) {
         return false;

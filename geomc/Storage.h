@@ -358,7 +358,7 @@ struct WrappedStorage {
  * case, only deferring to heap allocation when unusually large buffers are needed.
  *
  * On assignment or copy, reallocations will be avoided if the existing buffer is already 
- * the correct size. Move semantics will also avoid an allocation in c++11 or later.
+ * the correct size.
  *
  * This buffer will *always* stack-allocate a buffer of size `N` (it will simply not be used
  * when a heap allocation is necessary).
@@ -398,7 +398,15 @@ public:
         std::copy(other.data, other.data + sz, data);
     }
     
-#if __cplusplus >= 201103L
+    /// Construct a new SmallStorage containing a copy of the `n` elements in `array`. 
+    SmallStorage(const T* array, index_t n) : sz(n) {
+        if (sz > N) {
+            data = new T[sz];
+        } else {
+            data = buf;
+        }
+        std::copy(array, array + sz, data);
+    }
     
     /// Move the contents of `other` to a new `SmallStorage`.
     SmallStorage(SmallStorage<T,N>&& other) noexcept : sz(other.sz) {
@@ -432,8 +440,6 @@ public:
         other.sz = 0;
         return *this;
     }
-    
-#endif
     
     /// Copy the contents of `other` to this `SmallStorage`. 
     SmallStorage<T,N>& operator=(SmallStorage<T,N>& other) {

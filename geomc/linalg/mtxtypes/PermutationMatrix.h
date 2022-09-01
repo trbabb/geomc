@@ -5,6 +5,19 @@
  *      Author: tbabb
  */
 
+// todo: fix naming convention
+// todo: remove {row,col} from src/dest elements. this is super confusing.
+//       just deal with input/output sequence and let the user figure out what
+//       sequence they're changing
+// todo: this should not auto-compute its inverse. it should be possible to compute
+//       left and right mtx mults by reinterpreting the index map. also it should
+//       be possible to wrap user memory for the index map (don't forget to fix
+//       the aliased token logic).
+// >>> basically this needs a re-write to be much simpler.
+// todo: apply in-place method. see:
+//     http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.29.2256&rep=rep1&type=pdf
+//     (Fich, Munro, Poblete; "Permuting in place")
+
 #ifndef PERMUTATIONMATRIX_H_
 #define PERMUTATIONMATRIX_H_
 
@@ -69,6 +82,8 @@ protected:
 namespace detail {
 template <typename Ma, typename Mb, typename Enable> class _ImplMtxMul;
 };
+// fwd decl
+index_t permutation_sign(index_t* p, index_t n);
 
 /** @ingroup matrix 
  *  @brief A matrix which, by multiplication, permutes the rows or columns of
@@ -96,15 +111,12 @@ private:
     index_t _sign; // 0 means "not computed yet".
                    // could possibly compute on construction.
                    // (or don't store at all).
-                   // disadvantage: duplicated code; computeSign() is non-const. :(
+                   // disadvantage: duplicated code; _compute_sign() is non-const. :(
     
 public:
     
     template <typename Md, typename Ma, typename Mb>
     friend class detail::_ImplMtxMul;
-    
-    template <typename T, index_t Q, index_t R>
-    friend class PLUDecomposition;
     
     /**
      * Construct a new identity permutation matrix.
@@ -130,13 +142,14 @@ public:
      *
      * @return -1 if the number of transpositions in this permutation is odd, 1 otherwise.
      */
-    index_t getSign() {
+    index_t sign() {
         if (_sign == 0) {
+            // todo: this is hella dumb, can we compute this on construction?
             index_t n = detail::PermuteMatrixBase<N>::_rows();
             index_t *row_src = parent_t::getSrcData();
             index_t *row_dst = parent_t::getDstData();
             
-            _sign = computeSign(row_src, row_dst, n) ? -1 : 1;
+            _sign = permutation_sign(row_dst, n);
             
             // we just destroyed our dst data. recompute.
             for (index_t i = 0; i < n; i++) {
@@ -379,11 +392,13 @@ public:
         detail::PermuteMatrixBase<N>::swapPointers();
     }
 
-    inline void getStorageIDs(storage_id_t *buf) const {
-        *buf = this;
+    inline void get_storage_tokens(storage_token_t* buf) const {
+        // currently, this kind of matrix owns all its memory. two matrices
+        // cannot alias unless they are the same object.
+        *buf = {this, this};
     }
     
-    inline index_t getStorageIDCount() const {
+    constexpr index_t storage_token_count() const {
         return 1;
     }
     
@@ -405,7 +420,7 @@ private:
     // we must call this function after one index map has been filled, but before the other has been computed.
     // runs in O(n) time.
     
-    bool computeSign(index_t* p, index_t* buf, index_t n) {
+    bool _compute_sign(index_t* p, index_t* buf, index_t n) {
         std::fill(buf, buf+n, 0);
         
         // follow the cycles.
@@ -421,6 +436,66 @@ private:
         return odd;
     }
 };
+
+
+// todo: untested
+/**
+ * @brief Apply a permutation in-place, resetting the permutation to identity in the process.
+ * 
+ * @param p An array of `n` indecies representing the sources of elements in the permuted
+ * sequence; i.e. `output[i] = input[p[i]]`. `p` will contain the identity permutation
+ * after the function returns.
+ * @param n The number of elements in the permutation.
+ * @v A random access iterator containing the sequence to be permuted.
+ */
+template <typename RandomAccessIterator>
+void permutation_apply(index_t* p, index_t n, RandomAccessIterator v) {
+    for (index_t i = 0; i < n; i++) {
+        index_t cur  = i;
+        index_t next = p[i]; // source of new element at this position
+        if (next == i) continue; // no swap necessary
+        do { 
+            // give v[cur] the correct element, v[next] gets the cycle's first element
+            std::swap(v[cur], v[next]);
+            // ...and then proceed to find out what goes into the hole
+            cur  = next;
+            next = p[next];
+            // mark this element as visited by mapping it to itself
+            // (we only need to do this if we might encounter the cycle again)
+            p[cur] = cur;
+        } while (next != i);
+    }
+}
+
+
+/**
+ * @brief Compute the sign of a permutation, resetting the permutation to identity in the process.
+ * 
+ * @param p An array of `n` indecies representing the permutation mapping. `p` will contain
+ * the identity permutation after the function returns.
+ * @param n The number of elements in the permutation.
+ */
+index_t permutation_sign(index_t* p, index_t n) {
+    // todo: UNTESTED
+    bool odd = false;
+    for (index_t i = 0; i < n; i++) {
+        // no cycle to traverse (or already visited)
+        if (p[i] == i) continue;
+        // traverse the cycle
+        index_t cur = i;
+        do {
+            // source of the new element at this position:
+            index_t next = p[cur];
+            odd = not odd;
+            // mark this element as visited by mapping it to itself
+            p[cur] = cur;
+            // ...and then proceed
+            cur = next;
+        } while (cur != i);
+    }
+    return odd ? -1 : 1;
+}
+
 
 };
 
