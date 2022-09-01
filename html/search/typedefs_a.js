@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['t_870',['T',['../classgeom_1_1_extrusion.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee',1,'geom::Extrusion::T()'],['../classgeom_1_1_frustum.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee',1,'geom::Frustum::T()'],['../classgeom_1_1_oriented.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee',1,'geom::Oriented::T()']]],
-  ['tree_5ft_871',['tree_t',['../classgeom_1_1_subtree_base.html#a904e4d810d2e5eea75b58c66e08c0236',1,'geom::SubtreeBase']]],
-  ['type_872',['type',['../structgeom_1_1_generic_storage.html#a4ebe581c279acbdd5af9597202715bc3',1,'geom::GenericStorage']]]
+  ['sample_5ft_0',['sample_t',['../classgeom_1_1_raster.html#aaf76a11cdfb550f895d671a3c96f694e',1,'geom::Raster']]],
+  ['self_5ft_1',['self_t',['../classgeom_1_1detail_1_1_vec_common.html#a57565b340118f6f3590c517a2442525b',1,'geom::detail::VecCommon::self_t()'],['../classgeom_1_1_subtree_base.html#afcf375d0fafb10a4184eb0283f55b0bf',1,'geom::SubtreeBase::self_t()']]]
 ];

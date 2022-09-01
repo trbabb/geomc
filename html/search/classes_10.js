@@ -1,5 +1,28 @@
 var searchData=
 [
-  ['tree_496',['Tree',['../classgeom_1_1_tree.html',1,'geom']]],
-  ['tree_3c_20node_2c_20item_20_3e_497',['Tree&lt; Node, Item &gt;',['../classgeom_1_1_tree.html',1,'geom']]]
+  ['random_0',['Random',['../classgeom_1_1_random.html',1,'geom']]],
+  ['randomimpl_1',['RandomImpl',['../classgeom_1_1detail_1_1_random_impl.html',1,'geom::detail']]],
+  ['randomimpl_3c_20dual_3c_20t_20_3e_20_3e_2',['RandomImpl&lt; Dual&lt; T &gt; &gt;',['../classgeom_1_1detail_1_1_random_impl_3_01_dual_3_01_t_01_4_01_4.html',1,'geom::detail']]],
+  ['raster_3',['Raster',['../classgeom_1_1_raster.html',1,'geom']]],
+  ['ray_4',['Ray',['../classgeom_1_1_ray.html',1,'geom']]],
+  ['rayintersectable_5',['RayIntersectable',['../classgeom_1_1_ray_intersectable.html',1,'geom']]],
+  ['rayintersectable_3c_20shape_3a_3aelem_5ft_2c_20shape_3a_3an_2b1_2c_20extrusion_3c_20shape_20_3e_20_3e_6',['RayIntersectable&lt; Shape::elem_t, Shape::N+1, Extrusion&lt; Shape &gt; &gt;',['../classgeom_1_1_ray_intersectable.html',1,'geom']]],
+  ['rayintersectable_3c_20shape_3a_3aelem_5ft_2c_20shape_3a_3an_2b1_2c_20frustum_3c_20shape_20_3e_20_3e_7',['RayIntersectable&lt; Shape::elem_t, Shape::N+1, Frustum&lt; Shape &gt; &gt;',['../classgeom_1_1_ray_intersectable.html',1,'geom']]],
+  ['rayintersectable_3c_20shape_3a_3aelem_5ft_2c_20shape_3a_3an_2c_20oriented_3c_20shape_20_3e_20_3e_8',['RayIntersectable&lt; Shape::elem_t, Shape::N, Oriented&lt; Shape &gt; &gt;',['../classgeom_1_1_ray_intersectable.html',1,'geom']]],
+  ['rayintersectable_3c_20t_2c_20n_2c_20cylinder_3c_20t_2c_20n_20_3e_20_3e_9',['RayIntersectable&lt; T, N, Cylinder&lt; T, N &gt; &gt;',['../classgeom_1_1_ray_intersectable.html',1,'geom']]],
+  ['rayintersectable_3c_20t_2c_20n_2c_20oriented_3c_20rect_3c_20t_2c_20n_20_3e_20_3e_20_3e_10',['RayIntersectable&lt; T, N, Oriented&lt; Rect&lt; T, N &gt; &gt; &gt;',['../classgeom_1_1_ray_intersectable.html',1,'geom']]],
+  ['rayintersectable_3c_20t_2c_20n_2c_20rect_3c_20t_2c_20n_20_3e_20_3e_11',['RayIntersectable&lt; T, N, Rect&lt; T, N &gt; &gt;',['../classgeom_1_1_ray_intersectable.html',1,'geom']]],
+  ['rayintersectable_3c_20t_2c_20n_2c_20simplex_3c_20t_2c_20n_20_3e_20_3e_12',['RayIntersectable&lt; T, N, Simplex&lt; T, N &gt; &gt;',['../classgeom_1_1_ray_intersectable.html',1,'geom']]],
+  ['rayintersectable_3c_20t_2c_20n_2c_20sphere_3c_20t_2c_20n_20_3e_20_3e_13',['RayIntersectable&lt; T, N, Sphere&lt; T, N &gt; &gt;',['../classgeom_1_1_ray_intersectable.html',1,'geom']]],
+  ['rayintersectable_3c_20t_2c_20n_2c_20sphericalsector_3c_20t_2c_20n_20_3e_20_3e_14',['RayIntersectable&lt; T, N, SphericalSector&lt; T, N &gt; &gt;',['../classgeom_1_1_ray_intersectable.html',1,'geom']]],
+  ['rect_15',['Rect',['../classgeom_1_1_rect.html',1,'geom']]],
+  ['rectaxishelper_16',['RectAxisHelper',['../classgeom_1_1detail_1_1_rect_axis_helper.html',1,'geom::detail']]],
+  ['rectaxishelper_3c_20t_2c_202_20_3e_17',['RectAxisHelper&lt; T, 2 &gt;',['../classgeom_1_1detail_1_1_rect_axis_helper_3_01_t_00_012_01_4.html',1,'geom::detail']]],
+  ['rectaxishelper_3c_20t_2c_203_20_3e_18',['RectAxisHelper&lt; T, 3 &gt;',['../classgeom_1_1detail_1_1_rect_axis_helper_3_01_t_00_013_01_4.html',1,'geom::detail']]],
+  ['rectaxishelperbase_19',['RectAxisHelperBase',['../classgeom_1_1detail_1_1_rect_axis_helper_base.html',1,'geom::detail']]],
+  ['rectaxishelperbase_3c_20t_2c_202_20_3e_20',['RectAxisHelperBase&lt; T, 2 &gt;',['../classgeom_1_1detail_1_1_rect_axis_helper_base.html',1,'geom::detail']]],
+  ['rectaxishelperbase_3c_20t_2c_203_20_3e_21',['RectAxisHelperBase&lt; T, 3 &gt;',['../classgeom_1_1detail_1_1_rect_axis_helper_base.html',1,'geom::detail']]],
+  ['rectintersector_22',['RectIntersector',['../classgeom_1_1detail_1_1_rect_intersector.html',1,'geom::detail']]],
+  ['rectintersector_3c_20t_2c_20n_2c_20typename_20std_3a_3aenable_5fif_3c_20rectaxishelper_3c_20t_2c_20n_20_3e_3a_3asat_5fsupported_20_3e_3a_3atype_20_3e_23',['RectIntersector&lt; T, N, typename std::enable_if&lt; RectAxisHelper&lt; T, N &gt;::SAT_SUPPORTED &gt;::type &gt;',['../classgeom_1_1detail_1_1_rect_intersector_3_01_t_00_01_n_00_01typename_01std_1_1enable__if_3_01_rd4a755bc13ae96aa56a36504a5fc415b.html',1,'geom::detail']]],
+  ['region_5fiterator_24',['region_iterator',['../classgeom_1_1_bin_lattice_partition_1_1region__iterator.html',1,'geom::BinLatticePartition']]]
 ];

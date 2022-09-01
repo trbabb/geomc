@@ -1,11 +1,10 @@
 var searchData=
 [
-  ['max_648',['max',['../classgeom_1_1_dual.html#a6ac62be12a9feef6e61445d2ccac0914',1,'geom::Dual::max()'],['../classgeom_1_1_vec.html#a53f73b61fb453fbaae49f89351797d93',1,'geom::Vec::max()']]],
-  ['min_649',['min',['../classgeom_1_1_dual.html#a11ddd47b1fca3b534e29822cbd4277fd',1,'geom::Dual::min()'],['../classgeom_1_1_vec.html#a4a30e6b3f9197cf8fdf084d656441ca3',1,'geom::Vec::min()']]],
-  ['minimal_5fseparation_5faxis_650',['minimal_separation_axis',['../group__shape.html#ga4ffe9e2cfdfbcb384543364b779db4ff',1,'geom']]],
-  ['mix_651',['mix',['../group__function.html#ga544e92cb874abbcc6d0636db7150eced',1,'geom']]],
-  ['mtx_5faliases_5fstorage_652',['mtx_aliases_storage',['../group__matrix.html#gaece56584613790b7e364cf00b93ee36a',1,'geom']]],
-  ['mtxcopy_653',['mtxcopy',['../group__matrix.html#ga18aa4cc96039ea7bf54d7d9fb25defe4',1,'geom']]],
-  ['mul_654',['mul',['../group__matrix.html#ga3f7b11d56dfce541930313e00471845a',1,'geom::mul(Matrix *into, const Matrix1 &amp;a, const Matrix2 &amp;b)'],['../group__matrix.html#ga2d61c9c78d6cfeec7f676ebbf028970c',1,'geom::mul(const Matrix1 &amp;a, const Matrix2 &amp;b)']]],
-  ['mult_655',['mult',['../classgeom_1_1_quat.html#a7284416e46caf98230ec9f284a27b305',1,'geom::Quat']]]
+  ['nearest_0',['nearest',['../classgeom_1_1_k_d_tree.html#ab4399e00891da3fd3458c707378410bc',1,'geom::KDTree::nearest(const Vec&lt; T, N &gt; &amp;p) const'],['../classgeom_1_1_k_d_tree.html#a11d5f315571ab2c510ee4c50ee65f39e',1,'geom::KDTree::nearest(const Vec&lt; T, N &gt; &amp;p)']]],
+  ['neg_1',['neg',['../classgeom_1_1_ray.html#afedc6184ced10d703e4dae6e500aed3d',1,'geom::Ray']]],
+  ['nobjects_2',['nobjects',['../classgeom_1_1_k_d_tree.html#a8ec358712bd195d17e7439aa0c9f9ed1',1,'geom::KDTree']]],
+  ['node_5fcount_3',['node_count',['../classgeom_1_1_subtree_base.html#a65aa5dc1b8bfbc815ba7057c312ea154',1,'geom::SubtreeBase']]],
+  ['normal_4',['normal',['../classgeom_1_1_projectable.html#aa6d0f15e1bd534f449aea1238ac8a515',1,'geom::Projectable::normal()'],['../classgeom_1_1_sphere.html#a71dfb3e38e96d7b794bba530e91e46a5',1,'geom::Sphere::normal()'],['../classgeom_1_1_spherical_sector.html#a71dfb3e38e96d7b794bba530e91e46a5',1,'geom::SphericalSector::normal()']]],
+  ['normalize_5',['normalize',['../classgeom_1_1_spherical_harmonics.html#acd0de676568888d848beb97dcc53ae47',1,'geom::SphericalHarmonics::normalize()'],['../classgeom_1_1_zonal_harmonics.html#acd0de676568888d848beb97dcc53ae47',1,'geom::ZonalHarmonics::normalize()']]],
+  ['nullspace_6',['nullspace',['../group__linalg.html#ga30df286717929ce22deabe6b52ae9d24',1,'geom']]]
 ];

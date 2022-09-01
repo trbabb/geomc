@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['x_841',['x',['../classgeom_1_1_dual.html#a9a4f74af87a76a4c3dcb729cb0e68f8d',1,'geom::Dual']]],
-  ['x_5faxis_842',['X_AXIS',['../classgeom_1_1_vec_3_01_t_00_012_01_4.html#a4741f6e58a490b227f789d602a05e36f',1,'geom::Vec&lt; T, 2 &gt;::X_AXIS()'],['../classgeom_1_1_vec_3_01_t_00_013_01_4.html#a1ba17320b42c53cacbc6c4c8b450ab3b',1,'geom::Vec&lt; T, 3 &gt;::X_AXIS()'],['../classgeom_1_1_vec_3_01_t_00_014_01_4.html#add16805539b6d8f0dc187b494e148730',1,'geom::Vec&lt; T, 4 &gt;::X_AXIS()']]],
-  ['xf_843',['xf',['../classgeom_1_1_oriented.html#a1656de6a9e00b1bd5387a9317be4b608',1,'geom::Oriented::xf()'],['../classgeom_1_1_oriented_3_01_rect_3_01_t_00_01_n_01_4_01_4.html#a1656de6a9e00b1bd5387a9317be4b608',1,'geom::Oriented&lt; Rect&lt; T, N &gt; &gt;::xf()']]]
+  ['shape_0',['shape',['../classgeom_1_1_dilated.html#a8b9f7758a8bd2bef680aeecc40bcfe04',1,'geom::Dilated::shape()'],['../classgeom_1_1_oriented.html#a8b9f7758a8bd2bef680aeecc40bcfe04',1,'geom::Oriented::shape()'],['../classgeom_1_1_oriented_3_01_rect_3_01_t_00_01_n_01_4_01_4.html#aafc812086dc03f0a9641e07d2d27da32',1,'geom::Oriented&lt; Rect&lt; T, N &gt; &gt;::shape()']]],
+  ['signed_5funit_5finterval_1',['signed_unit_interval',['../classgeom_1_1_rect.html#a77fbb927fd8197920219c524a600961e',1,'geom::Rect']]]
 ];

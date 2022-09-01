@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['p_828',['P',['../classgeom_1_1_p_l_u_decomposition.html#a4f5585be373c8c885cf86b56c168f8f3',1,'geom::PLUDecomposition::P()'],['../classgeom_1_1_hit.html#addd25c036eb4d1edf0d47d309ab54a7c',1,'geom::Hit::p()']]],
-  ['p0_829',['p0',['../classgeom_1_1_cylinder.html#a668d099de6e768fde498a47b85adf5c4',1,'geom::Cylinder']]],
-  ['p1_830',['p1',['../classgeom_1_1_cylinder.html#a2eff8b7bbf0f3b8986b4289dffce5b3d',1,'geom::Cylinder']]],
-  ['pivot_831',['pivot',['../structgeom_1_1_k_d_tree_1_1_k_d_structure_params.html#a0ffeda6cd34ee68d52ffe4374b0c7c80',1,'geom::KDTree::KDStructureParams']]],
-  ['pt_832',['pt',['../classgeom_1_1_grid_iterator.html#a6557d66a1f4b24281a12de0d4e5d9ecd',1,'geom::GridIterator']]],
-  ['pts_833',['pts',['../classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f',1,'geom::Simplex']]]
+  ['n_0',['N',['../classgeom_1_1_dilated.html#ad8331653910a5a034f8238e6a8fbb9b1',1,'geom::Dilated::N()'],['../classgeom_1_1_extrusion.html#ad8331653910a5a034f8238e6a8fbb9b1',1,'geom::Extrusion::N()'],['../classgeom_1_1_frustum.html#ad8331653910a5a034f8238e6a8fbb9b1',1,'geom::Frustum::N()'],['../classgeom_1_1_oriented.html#ad8331653910a5a034f8238e6a8fbb9b1',1,'geom::Oriented::N()'],['../classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1',1,'geom::Bounded::N()']]],
+  ['n_1',['n',['../classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80',1,'geom::Simplex']]],
+  ['node_5farity_2',['node_arity',['../structgeom_1_1_k_d_tree_1_1_k_d_structure_params.html#a063fd9413f9182661f7b0fbb628d6f81',1,'geom::KDTree::KDStructureParams']]],
+  ['normal_3',['normal',['../classgeom_1_1_plane.html#a97a283c4b6e5c00898477c179ff36c9d',1,'geom::Plane']]]
 ];

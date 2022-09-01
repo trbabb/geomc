@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['r_834',['r',['../classgeom_1_1_hit.html#a4bba3ca6ed94622c37f8e6d08fbc592d',1,'geom::Hit::r()'],['../classgeom_1_1_sphere.html#a3ff0123200292ec4b7e3e6319d048fa0',1,'geom::Sphere::r()']]],
-  ['radius_835',['radius',['../classgeom_1_1_cylinder.html#a0714908df4564adf9afd99c11624b337',1,'geom::Cylinder']]],
-  ['region_836',['region',['../classgeom_1_1_grid_iterator.html#ade6957c546b8892a6c3e6faa5b6dda3b',1,'geom::GridIterator']]]
+  ['order_0',['order',['../classgeom_1_1_grid_iterator.html#ae1381cf07052bb3f14b6d427d85ed089',1,'geom::GridIterator']]],
+  ['origin_1',['origin',['../classgeom_1_1_ray.html#ae35e0ea34c12b6f71b9ca03de71119a1',1,'geom::Ray']]]
 ];

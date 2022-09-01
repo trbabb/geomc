@@ -1,16 +1,16 @@
 var searchData=
 [
-  ['mat_207',['mat',['../classgeom_1_1_affine_transform.html#a787773472ebe58ae9d5c43b6589386aa',1,'geom::AffineTransform']]],
-  ['matrix_208',['Matrix',['../group__matrix.html',1,'']]],
-  ['matrixhandle_209',['MatrixHandle',['../classgeom_1_1_matrix_handle.html',1,'geom']]],
-  ['matrixhandle_3c_20m_3a_3aelem_5ft_20_3e_210',['MatrixHandle&lt; M::elem_t &gt;',['../classgeom_1_1_matrix_handle.html',1,'geom']]],
-  ['max_211',['max',['../classgeom_1_1_dual.html#a6ac62be12a9feef6e61445d2ccac0914',1,'geom::Dual::max()'],['../classgeom_1_1_vec.html#a53f73b61fb453fbaae49f89351797d93',1,'geom::Vec::max()']]],
-  ['min_212',['min',['../classgeom_1_1_dual.html#a11ddd47b1fca3b534e29822cbd4277fd',1,'geom::Dual::min()'],['../classgeom_1_1_vec.html#a4a30e6b3f9197cf8fdf084d656441ca3',1,'geom::Vec::min()']]],
-  ['minimal_5fseparation_5faxis_213',['minimal_separation_axis',['../group__shape.html#ga4ffe9e2cfdfbcb384543364b779db4ff',1,'geom']]],
-  ['mix_214',['mix',['../group__function.html#ga544e92cb874abbcc6d0636db7150eced',1,'geom']]],
-  ['mtrand_215',['MTRand',['../classgeom_1_1_m_t_rand.html',1,'geom']]],
-  ['mtx_5faliases_5fstorage_216',['mtx_aliases_storage',['../group__matrix.html#gaece56584613790b7e364cf00b93ee36a',1,'geom']]],
-  ['mtxcopy_217',['mtxcopy',['../group__matrix.html#ga18aa4cc96039ea7bf54d7d9fb25defe4',1,'geom']]],
-  ['mul_218',['mul',['../group__matrix.html#ga3f7b11d56dfce541930313e00471845a',1,'geom::mul(Matrix *into, const Matrix1 &amp;a, const Matrix2 &amp;b)'],['../group__matrix.html#ga2d61c9c78d6cfeec7f676ebbf028970c',1,'geom::mul(const Matrix1 &amp;a, const Matrix2 &amp;b)']]],
-  ['mult_219',['mult',['../classgeom_1_1_quat.html#a7284416e46caf98230ec9f284a27b305',1,'geom::Quat']]]
+  ['layout_0',['Layout',['../classgeom_1_1_simple_matrix.html#a2d7acf3adca5bd435ef7c143c7be0105',1,'geom::SimpleMatrix']]],
+  ['lcrand_1',['LCRand',['../classgeom_1_1_l_c_rand.html',1,'geom']]],
+  ['leaf_5farity_2',['leaf_arity',['../structgeom_1_1_k_d_tree_1_1_k_d_structure_params.html#a660ea640a443b3d4241edc7060e286d5',1,'geom::KDTree::KDStructureParams']]],
+  ['left_3',['Left',['../group__function.html#ggadd7875f66ac8e387f3a6849d5d32ad58a945d5e233cf7d6240f6b783b36a374ff',1,'geom']]],
+  ['left_5fperpendicular_4',['left_perpendicular',['../classgeom_1_1_vec_3_01_t_00_012_01_4.html#aaaa3a02f9028a22605def885a4973100',1,'geom::Vec&lt; T, 2 &gt;']]],
+  ['legendre_5',['legendre',['../group__function.html#gacd52d5fc246f3c14cf79eb8d14ac4a30',1,'geom::legendre(index_t l, index_t m, T x)'],['../group__function.html#ga87c5526808ff9654e1d90fe051ce7aea',1,'geom::legendre(index_t n, T x)']]],
+  ['legendre_5fintegral_6',['legendre_integral',['../group__function.html#ga95a927c5fe7620e09d6aab019693901c',1,'geom']]],
+  ['linalg_7',['Linalg',['../group__linalg.html',1,'']]],
+  ['linalgdimensionmatch_8',['LinalgDimensionMatch',['../structgeom_1_1detail_1_1_linalg_dimension_match.html',1,'geom::detail']]],
+  ['linalgdimensionmatch_3c_20ma_2c_20mb_2c_20typename_20std_3a_3aenable_5fif_3c_28_28_28_5fimplmtxadaptor_3c_20ma_2c_20_5fimplvecorient_3c_20ma_2c_20mb_20_3e_3a_3aorient_20_3e_3a_3arowdim_3d_3d_5fimplmtxadaptor_3c_20mb_2c_20_5fimplvecorient_3c_20ma_2c_20mb_20_3e_3a_3aorient_20_3e_3a_3arowdim_29_20or_28_5fimplmtxadaptor_3c_20ma_2c_20_5fimplvecorient_3c_20ma_2c_20mb_20_3e_3a_3aorient_20_3e_3a_3arowdim_20_2a_5fimplmtxadaptor_3c_20mb_2c_20_5fimplvecorient_3c_20ma_2c_20mb_20_3e_3a_3aorient_20_3e_3a_3arowdim_3d_3d0_29_29_20and_28_28_5fimplmtxadaptor_3c_20ma_2c_20_5fimplvecorient_3c_20ma_2c_20mb_20_3e_3a_3aorient_20_3e_3a_3acoldim_3d_3d_5fimplmtxadaptor_3c_20mb_2c_20detail_3a_3a_5fimplvecorient_3c_20ma_2c_20mb_20_3e_3a_3aorient_20_3e_3a_3acoldim_29_20or_28_5fimplmtxadaptor_3c_20ma_2c_20_5fimplvecorient_3c_20ma_2c_20mb_20_3e_3a_3aorient_20_3e_3a_3acoldim_20_2a_5fimplmtxadaptor_3c_20mb_2c_20detail_3a_3a_5fimplvecorient_3c_20ma_2c_20mb_20_3e_3a_3aorient_20_3e_3a_3acoldim_3d_3d0_29_29_29_2c_20void_20_3e_3a_3atype_20_3e_9',['LinalgDimensionMatch&lt; Ma, Mb, typename std::enable_if&lt;(((_ImplMtxAdaptor&lt; Ma, _ImplVecOrient&lt; Ma, Mb &gt;::orient &gt;::ROWDIM==_ImplMtxAdaptor&lt; Mb, _ImplVecOrient&lt; Ma, Mb &gt;::orient &gt;::ROWDIM) or(_ImplMtxAdaptor&lt; Ma, _ImplVecOrient&lt; Ma, Mb &gt;::orient &gt;::ROWDIM *_ImplMtxAdaptor&lt; Mb, _ImplVecOrient&lt; Ma, Mb &gt;::orient &gt;::ROWDIM==0)) and((_ImplMtxAdaptor&lt; Ma, _ImplVecOrient&lt; Ma, Mb &gt;::orient &gt;::COLDIM==_ImplMtxAdaptor&lt; Mb, detail::_ImplVecOrient&lt; Ma, Mb &gt;::orient &gt;::COLDIM) or(_ImplMtxAdaptor&lt; Ma, _ImplVecOrient&lt; Ma, Mb &gt;::orient &gt;::COLDIM *_ImplMtxAdaptor&lt; Mb, detail::_ImplVecOrient&lt; Ma, Mb &gt;::orient &gt;::COLDIM==0))), void &gt;::type &gt;',['../structgeom_1_1detail_1_1_linalg_dimension_match_3_01_ma_00_01_mb_00_01typename_01std_1_1enable__12840fa57aa62397dc183dfef83b3a23.html',1,'geom::detail']]],
+  ['linear_5fsolve_10',['linear_solve',['../group__linalg.html#ga739f535ed422aad1d9faee257db8c08e',1,'geom::linear_solve(T *a, index_t n, index_t m, T *x, index_t skip=0)'],['../group__linalg.html#gafad22bd09f7ab61d8fe1b8f14f77c372',1,'geom::linear_solve(Vec&lt; T, N &gt; bases[N], index_t m, Vec&lt; T, N &gt; *x, index_t skip=0)']]],
+  ['lo_11',['lo',['../classgeom_1_1_rect.html#a1d489526769f66aa383b611d208c6216',1,'geom::Rect']]],
+  ['log_12',['log',['../classgeom_1_1_quat.html#a7a55b4ac08b90c23d8e6afe6a08c524c',1,'geom::Quat::log()'],['../classgeom_1_1_vec.html#aa7b41eb3a584fcd27fe18d95055ba103',1,'geom::Vec::log()'],['../namespacestd.html#abebbecf9d51943b54d7942bea764c7da',1,'std::log()']]]
 ];

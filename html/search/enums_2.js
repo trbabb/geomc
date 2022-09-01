@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hitside_877',['HitSide',['../group__shape.html#ga66505ffabe4da800c0ec653d493ea944',1,'geom']]]
+  ['edgebehavior_0',['EdgeBehavior',['../group__function.html#ga8c170080a988c99ae4546b1f8e44b4cf',1,'geom']]]
 ];

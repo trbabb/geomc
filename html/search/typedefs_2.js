@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['elem_5ft_856',['elem_t',['../classgeom_1_1_bounded.html#a3fa2115cdbb245c2f609f654a9888f14',1,'geom::Bounded']]]
+  ['difference_5ftype_0',['difference_type',['../classgeom_1_1_subtree_base.html#abfdd13f89f59c2e4cbe107005e05ca27',1,'geom::SubtreeBase']]]
 ];
