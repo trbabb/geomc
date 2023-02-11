@@ -339,6 +339,26 @@ before the next time you'll touch it. This is closer to the truth than many
 people tend to admit, and is also a good method for empathizing with future
 maintainers who are not yourself!
 
+Conditionals
+------------
+
+If an `if` statement has both a true and a false branch, the condition statement should be chosen so that it isn't negated. This avoids double negatives and is easier to read.
+
+    // Avoid using `not` on the top-level condition:
+    if (not complex_statement) {
+        a();
+    } else {
+        b();
+    }
+
+
+    // Reverse the `if` and `else` for easier reading:
+    if (complex_statement) {
+        b();
+    } else {
+        a();
+    }
+
 Programming
 ===========
 

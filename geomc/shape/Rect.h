@@ -181,6 +181,16 @@ public:
     }
     
     /**
+     * @brief Construct a Rect at the origin having dimensions `dims`.
+     * 
+     * @param dims Lengths of each axis.
+     * @return Rect<T,N> A new Rect with its center at the origin.
+     */
+    inline static Rect<T,N> from_size(typename Rect<T,N>::point_t dims) {
+        return Rect<T,N>::from_center({}, dims);
+    }
+    
+    /**
      * @brief Construct a Rect containing all the points in the sequence
      * between `begin` and `end`.
      * @tparam PointIterator An iterator to a `point_t`.
@@ -464,7 +474,12 @@ public:
      * @return A new Rect, scaled about the origin by multiple `1 / a`.
      */
     inline Rect<T,N> operator/(point_t a) const {
-        return Rect<T,N>(lo / a, hi / a);
+        auto lo_a = lo / a;
+        auto hi_a = hi / a;
+        return {
+            std::min(lo_a, hi_a),
+            std::max(lo_a, hi_a)
+        };
     }
 
     /**
@@ -475,8 +490,7 @@ public:
      * @return A reference to `this`, for convenience.
      */
     inline Rect<T,N>& operator/=(point_t a) {
-        lo /= a;
-        hi /= a;
+        *this = (*this) / a;
         return *this;
     }
     
@@ -650,13 +664,48 @@ public:
     }
     
     /**
+     * @brief Return a rect having the same aspect (ratios of axial lengths) as this one,
+     * sized and positioned to minimally contain `other`.
+     * 
+     * The fitted box will be a rigid rescaling and translation of this box. No reflections
+     * or rotations will be performed. The signs of the dimensions will be the same as this
+     * Rect.
+     * 
+     * Not available for integral ranges, since in general the aspect can't be preserved.
+     * 
+     * Zero dimensions will be ignored and not adjusted. To expand the zero dimensions, take
+     * the union of `other` with the result.
+     * 
+     * @param other Rect to contain.
+     */
+    Rect<T,N> fitted_to(Rect<T,N> other) const
+#if __cplusplus >= 202002L
+    requires (not std::integral<T>)
+#endif
+    {
+        static_assert(not std::is_integral<T>::value, "fitted_to() is not available for integral types");
+        T max_ratio = 0;
+        point_t d0 = dimensions();
+        point_t d1 = other.dimensions();
+        auto d0p = ptype::iterator(d0);
+        auto d1p = ptype::iterator(d1);
+        // find the dimension which constrains the final size:
+        for (index_t i = 0; i < N; ++i) {
+            // do not try to "expand" any dimensions which are empty:
+            auto ratio = (d0p[i] == 0) ? 0 : (d1p[i] / d0p[i]);
+            max_ratio = std::max(max_ratio, std::abs(ratio));
+        }
+        return Rect<T,N>::from_center(other.center(), d0 * max_ratio);
+    }
+    
+    /**
      * @brief Morphological dilation.
      * 
      * Return a Rect with the boundary extended coordinate-wise by the amount `c` 
      * in all directions.
      */
     inline Rect<T,N> dilated(point_t c) const {
-        return Rect<T,N>(lo + c, hi - c);
+        return Rect<T,N>(lo - c, hi + c);
     }
     
     /**
@@ -684,6 +733,15 @@ public:
             vol *= std::max(ptype::iterator(dim)[axis], (T)0);
         }
         return vol;
+    }
+    
+    /**
+     * @brief Return a "normalized" length measure encoding the size of this box.
+     * 
+     * Computed as the `N`th root of the volume.
+     */
+    auto length() const {
+        return std::pow(volume(), 1/(double)N);
     }
     
     /**
@@ -874,6 +932,17 @@ public:
     }
 
 }; // end Rect class
+
+
+template <typename T, index_t N>
+Rect<T,N> operator+(typename Rect<T,N>::point_t p, const Rect<T,N>& r) {
+    return r + p;
+}
+
+template <typename T, index_t N>
+Rect<T,N> operator-(typename Rect<T,N>::point_t p, const Rect<T,N>& r) {
+    return r - p;
+}
 
 
 // these must be declared outside the class body because

@@ -130,6 +130,43 @@ class Cylinder:
         return p0 + (s * a) + (r * r_dist);
     }
     
+    Vec<T,N> normal(Vec<T,N> p) const {
+        // axis of the cylinder
+        auto a = p1 - p0;
+        // vec from "base" of cylinder to p
+        auto b = p - p0;
+        T b2 = b.mag2(); // squared length of b (hypoteneuse)
+        T a2 = a.mag2(); // squared length of axis (side 1)
+        T d  = a.dot(b);
+        // fractional distance along axis from 0 to 1
+        T s  = d / a2;
+        // square of distance from the base to the projected axis point
+        T x2 = d * s;
+        // distance of p to the axis
+        T r_dist = std::sqrt(b2 - x2);
+        // unit length radial vector
+        auto r = (p - p0 - s * a) / r_dist;
+        // choose the outward direction
+        Vec<T,N> n;
+        if (s < 0 or s > 1) {
+            // p projects onto the cap
+            if (r_dist > radius) {
+                // p projects onto the rim of the cap
+                n = p - (r * radius + p0);
+            } else {
+                // p projects to the cap face; normal is axial
+                n = s < 0 ? -a : a);
+            }
+        } else if (r_dist < radius and std::sqrt(a2) * std::min(s, 1 - s) < radius - r_dist) {
+            // p is interior and the cap is closer than the wall
+            n = s < 0.5 ? -a : a;
+        } else {
+            // p projects onto the cylinder wall
+            n = r;
+        }
+        return n.unit();
+    }
+    
     /**
      * @return An axis-aligned bounding box completely containing this
      * cylinder.

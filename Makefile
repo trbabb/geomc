@@ -1,4 +1,4 @@
-CC        = g++
+CC        = clang++
 AR        = ar
 PREFIX    = /opt/local
 INCLUDES  = .

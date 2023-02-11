@@ -396,18 +396,17 @@ public:
         }
         return true;
     }
-    
+
+#if __cplusplus < 202002L
     /**
      * @brief Inequality test.
      * @return `true` if any corresponding elements of `this` and `vv` are unequal,
      *`false` otherwise.
      */
     inline bool operator!=(const self_t& vv) const {
-        for (index_t i = 0; i < N; i++) {
-            if (vv.get(i) != this->get(i)) return true;
-        }
-        return false;
+        return not ((*this) == vv);
     }
+#endif
 
     /// Element-wise addition.
     inline self_t operator+(const self_t &v) const {
