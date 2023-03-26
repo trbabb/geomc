@@ -1,3 +1,8 @@
+#pragma once
+
+#include <random>
+#include <geomc/shape/ShapeTypes.h>
+
 namespace geom {
     
 // todo: fix me when we implement Vec<T,1> decay
