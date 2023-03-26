@@ -75,6 +75,9 @@ namespace geom {
      */
     template <typename T> class Vec<T,3> : public detail::VecCommon< T, 3, Vec<T,3> > {
     public:
+
+        // to prevent c++20 ambiguity warnings:
+        using detail::VecCommon<T,3,Vec<T,3>>::operator==;
         
         /// @brief (1, 0, 0) constant
         static const Vec<T,3> X_AXIS;

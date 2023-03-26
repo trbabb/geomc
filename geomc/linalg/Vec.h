@@ -269,6 +269,9 @@ std::ostream &operator<<(std::ostream &stream, const Quat<T> &q) {
  */
 template <typename T, index_t N> class Vec : public detail::VecCommon< T,N,Vec<T,N> > {
 public:
+
+    // to prevent c++20 ambiguity warnings:
+    using detail::VecCommon<T,N,Vec<T,N>>::operator==;
     
     /**
      * Construct a new vector with all elements set to zero.

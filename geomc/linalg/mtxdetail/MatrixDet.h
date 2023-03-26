@@ -143,7 +143,7 @@ T detNxN(const T* m, index_t n) {
 /**
  * @brief Compute the determinant of a square matrix.
  * 
- * If the dimension of the matrix is larger than 6, heap memory may be allocated as buffer
+ * If the dimension of the matrix is larger than 8, heap memory may be allocated as buffer
  * space for the computation.
  * 
  * If the dimension of the matrix can be determined at compile time to be nonsquare,

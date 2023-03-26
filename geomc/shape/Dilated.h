@@ -82,6 +82,11 @@ public:
         return shape.sdf(p) - dilation;
     }
     
+    Vec<T,N> normal(Vec<T,N> p) const {
+        // we are dilating the shape along the normal, so the normal is unchanged
+        return shape.normal(p);
+    }
+    
     Vec<T,N> convex_support(Vec<T,N> d) const {
         Vec<T,N> p = shape.convex_support(d);
         return p + d.unit() * dilation;
@@ -106,6 +111,7 @@ public:
     
     // todo: trace()
 };
+
 
 /** @addtogroup shape
  *  @{
@@ -154,6 +160,17 @@ Sphere<T,N> dilate(const Sphere<T,N>& s, T dilation) {
     return Sphere<T,N>(s.center, std::max(s.r + dilation, 0));
 }
 
+/**
+ * @brief Dilate the Rect `r` by the amount `dilation`.
+ * 
+ * @related Rect
+ * @related Dilated
+ */
+template <typename T, index_t N>
+Rect<T,N> dilate(const Rect<T,N>& r, T dilation) {
+    return r.dilated(dilation);
+}
+
 /** @addtogroup traits
  *  @{
  */
@@ -178,4 +195,5 @@ struct implements_shape_concept<Dilated<Shape>, Convex> :
 
 } // namespace geom
 
-#endif /* _DILATED_SHAPE_H
+#endif /* _DILATED_SHAPE_H */
+
