@@ -155,7 +155,7 @@ class Cylinder:
                 n = p - (r * radius + p0);
             } else {
                 // p projects to the cap face; normal is axial
-                n = s < 0 ? -a : a);
+                n = s < 0 ? -a : a;
             }
         } else if (r_dist < radius and std::sqrt(a2) * std::min(s, 1 - s) < radius - r_dist) {
             // p is interior and the cap is closer than the wall

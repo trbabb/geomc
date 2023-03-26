@@ -21,6 +21,8 @@ LITELIB   = lib/libgeomc_lite.a
 EMLIB     = lib/libgeomc_em.a
 INSTALL_INC_DIR = $(PREFIX)/include
 INSTALL_LIB_DIR = $(PREFIX)/lib
+WASM_INC_DIR = /usr/local/wasm/include
+WASM_LIB_DIR = /usr/local/wasm/lib
 
 
 all: lib litelib test
@@ -39,6 +41,11 @@ install: $(LIB) $(LITELIB)
 	cp -rf ./geomc $(INSTALL_INC_DIR)
 	cp -rf $(LIB) $(INSTALL_INC_DIR)
 	cp -rf $(LITELIB) $(INSTALL_LIB_DIR)
+
+install-wasm:
+	mkdir -p $(WASM_INC_DIR)
+	cp -rf ./geomc $(WASM_INC_DIR)
+	cp -rf $(EMLIB) $(WASM_LIB_DIR)/$(LIBNAME)
 
 uninstall:
 	rm -rf $(INSTALL_INC_DIR)/geomc
