@@ -605,7 +605,7 @@ public:
     
     SimpleMatrix(T* src_data, index_t nrows, index_t ncols):
             parent_t(nrows, ncols, src_data) {
-        static_assert(N * M != 0,
+        static_assert(N == 0 and M == 0,
             "Matrix has static dimensions, but a runtime dimensions were specified.");
     }
 

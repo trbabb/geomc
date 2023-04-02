@@ -52,6 +52,12 @@ inline T det2x2(T a, T b, T c, T d) {
     return diff_of_products(a, d, b, c);
 }
 
+template <typename T>
+inline T det2x2(const T m[4]) {
+    const detail::_m2x2<T>& v = *reinterpret_cast<detail::_m2x2<T>*>(m);
+    return diff_of_products(v.a, v.d, v.b, v.c);
+}
+
 /// Compute the 3x3 matrix determinant
 template <typename T>
 inline T det3x3(const T m[9]) {
@@ -59,7 +65,8 @@ inline T det3x3(const T m[9]) {
     return detail::cofac(
         v.a, det2x2(v.e, v.f, v.h, v.i),
         v.b, det2x2(v.d, v.f, v.g, v.i),
-        v.c, det2x2(v.d, v.e, v.g, v.h));
+        v.c, det2x2(v.d, v.e, v.g, v.h)
+    );
 }
 
 /// Compute the 3x3 matrix determinant from individual parameters.
@@ -72,7 +79,8 @@ inline T det3x3(
     return detail::cofac(
         a, det2x2(e, f, h, i),
         b, det2x2(d, f, g, i),
-        c, det2x2(d, e, g, h));
+        c, det2x2(d, e, g, h)
+    );
 }
 
 /// Compute the 4x4 matrix determinant.
@@ -82,10 +90,12 @@ T det4x4(const T m[16]) {
     return 
         diff_of_products(
             v.a, det3x3(v.f, v.g, v.h,  v.j, v.k, v.l,  v.n, v.o, v.p),
-            v.b, det3x3(v.e, v.g, v.h,  v.i, v.k, v.l,  v.m, v.o, v.p))
+            v.b, det3x3(v.e, v.g, v.h,  v.i, v.k, v.l,  v.m, v.o, v.p)
+        )
       + diff_of_products(
             v.c, det3x3(v.e, v.f, v.h,  v.i, v.j, v.l,  v.m, v.n, v.p),
-            v.d, det3x3(v.e, v.f, v.g,  v.i, v.j, v.k,  v.m, v.n, v.o));
+            v.d, det3x3(v.e, v.f, v.g,  v.i, v.j, v.k,  v.m, v.n, v.o)
+        );
 }
 
 
@@ -105,6 +115,7 @@ T det4x4(const T m[16]) {
  */
 template <typename T>
 T det_destructive(T* m, index_t n) {
+    if (n == 1) return m[0];
     bool odd;
     if (decomp_plu(m, n, n, nullptr, &odd) != 0) return 0;
     T d = odd ? -1 : 1;

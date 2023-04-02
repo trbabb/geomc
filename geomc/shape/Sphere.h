@@ -1,12 +1,4 @@
-/*
- * Sphere.h
- *
- *  Created on: May 10, 2009
- *      Author: Tim Babb
- */
-
-#ifndef SPHERE_H_
-#define SPHERE_H_
+#pragma once
 
 #include <geomc/linalg/Vec.h>
 #include <geomc/shape/Shape.h>
@@ -117,5 +109,14 @@ public:
     
 }; /* Sphere<T,N> */
 
+/**
+ * @brief A 2D circle.
+ * 
+ * @tparam T Coordinate type
+ * 
+ * @related Sphere
+ */
+template <typename T>
+using Circle = Sphere<T,2>;
+
 } /* namespace geom */
-#endif /* SPHERE_H_ */

@@ -1,12 +1,10 @@
+#pragma once
 /* 
  * File:   Frustum.h
  * Author: tbabb
  *
  * Created on November 8, 2014, 11:09 PM
  */
-
-#ifndef EXTRUSION_H
-#define	EXTRUSION_H
 
 #include <climits>
 #include <geomc/shape/Rect.h>
@@ -27,6 +25,8 @@ namespace geom {
  * 
  *     // initialize a cylinder of length and radius 1:
  *     auto cylinder = Extrusion<Sphere<double,2>>(Sphere<double,2>(), Rect<double,1>(0,1));
+ *     // or equivalently, and more succinctly:
+ *     auto cylinder2 = extrude(Circle<double>(), 0, 1);
  */
 template <typename Shape>
 class Extrusion :
@@ -223,6 +223,3 @@ struct implements_shape_concept<Extrusion<Shape>, SdfEvaluable> :
 /// @} // addtogroup shape
 
 } // namespace geom
-
-#endif	/* EXTRUSION */
-

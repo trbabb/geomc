@@ -103,6 +103,8 @@ template <typename T, bool RowMajor=true>
 index_t decomp_lup(T* m, index_t rows, index_t cols, index_t* reorder, bool* parity) {
     const index_t n = std::min(rows, cols);
     index_t degenerate_ct = 0;
+    bool _parity = false;
+    if (parity == nullptr) parity = &_parity;
     *parity = false;
     // fill permutation array
     if (reorder != nullptr) {
@@ -186,6 +188,8 @@ index_t decomp_lup(T* m, index_t rows, index_t cols, index_t* reorder, bool* par
 template <typename T, bool RowMajor=true>
 index_t decomp_plu(T* m, index_t rows, index_t cols, index_t* reorder, bool* parity) {
     const index_t n = std::min(rows, cols);
+    bool _parity = false;
+    if (parity == nullptr) parity = &_parity;
     index_t degenerate_ct = 0;
     *parity = false;
     // fill permutation array

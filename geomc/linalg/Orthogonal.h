@@ -132,6 +132,7 @@ namespace geom {
     void nullspace(const Vec<T,N> bases[], index_t n, Vec<T,N> null_basis[]) {
         if (n >= N) return;   // nothing to do
         if (N - n == 1) {
+            // this may be optimized for some (lower) dimensions:
             null_basis[0] = orthogonal(bases);
             return;
         }

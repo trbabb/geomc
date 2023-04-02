@@ -261,6 +261,28 @@ inline Frustum<Shape> frustum(
 template <typename T, index_t N>
 using ViewFrustum = Oriented< Frustum< Rect<T,N-1> > >;
 
+/**
+ * @brief Convenience typedef for a 3D cone with its tip at the origin.
+ * 
+ * Formed from a frustum with a circular base.
+ * 
+ * @related Frustum
+ * @tparam T Coordinate type
+ */
+template <typename T>
+using Cone = Frustum<Circle<T>>;
+
+/**
+ * @brief Convenience typedef for an oriented cone.
+ * 
+ * @related Cone
+ * @related Oriented
+ * 
+ * @tparam T Coordinate type
+ */
+template <typename T>
+using OrientedCone = Oriented<Cone<T>>;
+
 
 /** @addtogroup traits
  *  @{

@@ -325,7 +325,7 @@ public:
     }
     
     /**
-     * @brief Compute the volume of the simplex.
+     * @brief Compute the signed volume of the simplex.
      * 
      * If the simplex is not a full volume (i.e., the number of vertices is less than `N+1`),
      * then its volume is zero.
@@ -338,7 +338,54 @@ public:
             vs[i - 1] = pts[i] - pts[0];
             k *= i;
         }
-        return det_destructive(vs[0].begin(), N) / k;
+        const T* m = vs[0].begin();
+        if constexpr (N == 2) {
+            return det2x2(m) / 2;
+        } else if constexpr (N == 3) {
+            return det3x3(m) / 6;
+        } else {
+            return det_destructive(m, N) / k;
+        }
+    }
+    
+    /**
+     * @brief Return the positive volume of the simplex within the subspace that it spans.
+     * 
+     * For example, if the simplex has three points, it spans a plane and this function
+     * returns the area within the plane. If it has four, it returns the volume of the
+     * tetrahedron; or if it has two, the length of the line segment; and so on.
+     * 
+     * @return T 
+     */
+    T measure() const {
+        // special cases (easy to compute):
+        // line segment
+        if (n == 2) return (pts[1] - pts[0]).mag();
+        // 3D triangle
+        if constexpr (N == 3) {
+            if (n == 3) return (pts[1] - pts[0]).cross(pts[2] - pts[0]).mag() / 2;
+        }
+        // full volume
+        if (n == N + 1) return volume();
+        // otherwise, construct the basis of the simplex.
+        // we'll use it to compute the volume
+        Vec<T,N> bases[N];
+        int k = 1;
+        for (index_t i = 1; i < n; ++i) {
+            bases[i - 1] = s[i] - s[0];
+            k * = i;
+        }
+        const T* m = bases[0].begin();
+        // volume is sqrt of the determinant of the gram matrix,
+        // divided by n factorial. the gram matrix could probably
+        // be computed more efficiently because it is symmetric
+        T buf[N * N];
+        WrapperMatrix<T,0,0> b {buf, n, n};
+        WrapperMatrix<T,0,N,MatrixLayout::ROW_MAJOR> m0 {m, n};
+        WrapperMatrix<T,N,0,MatrixLayout::COL_MAJOR> m1 {m, n};
+        // (n x n) = (n x N) * (N x n)
+        mul(&b, m0, m1);
+        return std::sqrt(std::abs(det_destructive(buf, n))) / k;
     }
     
     /**
