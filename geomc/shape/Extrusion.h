@@ -66,6 +66,9 @@ public:
         base(base),
         height(std::min(h0, h1), std::max(h0, h1)) {}
     
+    bool operator==(const Extrusion<Shape>& other) const {
+        return base == other.base && height == other.height;
+    }
     
     bool contains(Vec<T,N> p) const {
         if (not height.contains(p[N-1])) return false;
@@ -223,3 +226,16 @@ struct implements_shape_concept<Extrusion<Shape>, SdfEvaluable> :
 /// @} // addtogroup shape
 
 } // namespace geom
+
+
+template <typename Shape>
+struct std::hash<geom::Extrusion<Shape>> {
+    size_t operator()(const geom::Extrusion<Shape> &s) const {
+        constexpr size_t nonce = (size_t) 0x28211b7d8ba5f09bULL;
+        using T = typename Shape::elem_t;
+        return geom::hash_combine(
+            std::hash<Shape>{}(s.base),
+            std::hash<geom::Rect<T,1>>{}(s.height)
+        ) ^ nonce;
+    }
+};

@@ -10,6 +10,7 @@
 
 #include <type_traits>
 
+#include <geomc/Hash.h>
 #include <geomc/linalg/vecdetail/VecBase.h>  // the meat happens in here.
 #include <geomc/linalg/vecdetail/Vec2.h>
 #include <geomc/linalg/vecdetail/Vec3.h>
@@ -337,5 +338,16 @@ public:
 
 } // namespace geom
 
+
+namespace std {
+
+template <typename T, index_t N>
+struct hash<geom::Vec<T,N>> {
+    size_t operator()(const geom::Vec<T,N> &v) const {
+        return geom::hash_bytes(&v, sizeof(geom::Vec<T,N>));
+    }
+};
+
+} // end namespace std
 
 #endif /* VEC_H_ */

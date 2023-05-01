@@ -2,7 +2,6 @@
 
 #include <geomc/linalg/Vec.h>
 #include <geomc/shape/Shape.h>
-#include <geomc/shape/shapedetail/Hit.h>
 #include <geomc/function/Utils.h>
 
 namespace geom {
@@ -48,6 +47,10 @@ public:
     constexpr Sphere(const point_t& c, T r):
         center(c),
         r(r) {}
+    
+    bool operator==(const Sphere& other) const {
+        return center == other.center && r == other.r;
+    }
     
     Rect<T,N> bounds() const {
         point_t rvec(r);
@@ -120,3 +123,12 @@ template <typename T>
 using Circle = Sphere<T,2>;
 
 } /* namespace geom */
+
+
+template <typename T, index_t N>
+struct std::hash<geom::Sphere<T,N>> {
+    size_t operator()(const geom::Sphere<T,N> &s) const {
+        constexpr size_t nonce = (size_t) 0x948904c693a7ddebULL;
+        return geom::hash_bytes(&s, sizeof(s)) ^ nonce;
+    }
+};

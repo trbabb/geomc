@@ -12,6 +12,7 @@
 
 #include <algorithm>
 
+#include <geomc/Hash.h>
 #include <geomc/linalg/LinalgTypes.h>
 #include <geomc/linalg/Vec.h>
 #include <geomc/linalg/Quaternion.h>
@@ -91,35 +92,42 @@ public:
      *******************************/
     
     /**
-     * Transformation of a ray.
+     * @brief Equality operator.
+     */
+    bool operator==(const AffineTransform<T,N>& xf) const {
+        return mat == xf.mat;
+    }
+    
+    /**
+     * @brief Transformation of a ray.
      */
     friend Ray<T,N> operator*(const AffineTransform<T,N>& xf, Ray<T,N> r) {
         return Ray<T,N>(xf.apply(r.origin), xf.apply_vector(r.direction));
     }
     
     /**
-     * Inverse transformation of a ray (`xf`<sup>`-1`</sup>` * ray`)
+     * @brief Inverse transformation of a ray (`xf`<sup>`-1`</sup>` * ray`)
      */
     friend Ray<T,N> operator/(Ray<T,N> r, const AffineTransform<T,N>& xf) {
         return Ray<T,N>(xf.apply_inverse(r.origin), xf.apply_inverse_vector(r.direction));
     }
     
     /**
-     * Transformation of a point.
+     * @brief Transformation of a point.
      */
     friend Vec<T,N> operator*(const AffineTransform<T,N>& xf, Vec<T,N> p) {
         return xf.apply(p);
     }
     
     /**
-     * Inverse transformation of a point (`xf`<sup>`-1`</sup>` * pt`)
+     * @brief Inverse transformation of a point (`xf`<sup>`-1`</sup>` * pt`)
      */
     friend Vec<T,N> operator/(Vec<T,N> p, const AffineTransform<T,N>& xf) {
         return xf.apply_inverse(p);
     }
     
     /**
-     * Concatenation of transforms. 
+     * @brief Concatenation of transforms. 
      * @return A transformation representing an application of `xf2` followed by
      * `xf1`.
      */
@@ -131,7 +139,7 @@ public:
     }
     
     /**
-     * Inverse transform application.
+     * @brief Inverse transform application.
      * @return A transformation representing an application of `xf1` followed by
      * the inverse of `xf2`.
      */
@@ -143,7 +151,7 @@ public:
     }
     
     /**
-     * Concatenation of transforms.
+     * @brief Concatenation of transforms.
      * 
      * Assign a transform representing an application of `this` followed by `xf`.
      */
@@ -154,7 +162,7 @@ public:
     }
     
     /**
-     * Apply inverse transform.
+     * @brief Apply inverse transform.
      * 
      * Assign a transform representing an application of `this` followed by
      * the inverse of `xf`.
@@ -186,7 +194,7 @@ public:
      *******************************/
     
     /**
-     * Transformation of a point.
+     * @brief Transformation of a point.
      */
     const Vec<T,N> apply(const Vec<T,N>& p) const {
         Vec<T,N+1> p_hom(p,1);
@@ -195,7 +203,7 @@ public:
     }
     
     /**
-     * Transformation of a direction vector; ignores any translation.
+     * @brief Transformation of a direction vector; ignores any translation.
      */
     const Vec<T,N> apply_vector(const Vec<T,N>& v) const {
         Vec<T,N> o;
@@ -208,8 +216,9 @@ public:
     }
     
     /**
-     * Transformation of a normal. Preserves surface direction
-     * of geometry transformed by `this`. 
+     * @brief Transformation of a normal.
+     * 
+     * Preserves surface direction of geometry transformed by `this`. 
      */
     const Vec<T,N> apply_normal(const Vec<T,N>& n) const {
         // normal matrix = txpose of inverse.
@@ -223,7 +232,7 @@ public:
     }
     
     /**
-     * Inverse transformation of a point.
+     * @brief Inverse transformation of a point.
      */
     const Vec<T,N> apply_inverse(const Vec<T,N>& p) const {
         Vec<T,N+1> p_hom(p,1);
@@ -232,7 +241,7 @@ public:
     }
     
     /**
-     * Inverse transformation of a direction vector; ignores any translation.
+     * @brief Inverse transformation of a direction vector; ignores any translation.
      */
     const Vec<T,N> apply_inverse_vector(const Vec<T,N>& v) const {
         Vec<T,N> o;
@@ -245,7 +254,7 @@ public:
     }
     
     /**
-     * Inverse transformation of a normal.
+     * @brief Inverse transformation of a normal.
      */
     const Vec<T,N> apply_inverse_normal(const Vec<T,N>& n) const {
         // txpose of inverse of inverse.
@@ -259,7 +268,7 @@ public:
     }
     
     /**
-     * Concatenation of transforms. 
+     * @brief Concatenation of transforms. 
      * @return A transformation representing a transform by `this` followed by
      * a transform by `xf`.
      */
@@ -271,7 +280,7 @@ public:
     }
     
     /**
-     * Application of inverse.
+     * @brief Application of inverse.
      * @return A transformation representing a transform by `this` followed by
      * the inverse of `xf`.
      */
@@ -718,5 +727,20 @@ AffineTransform<T,2> translation(T tx, T ty) {
 
 
 } //end namespace geom
+
+
+namespace std {
+
+template <typename T, index_t N>
+struct hash<geom::AffineTransform<T,N>> {
+    size_t operator()(const geom::AffineTransform<T,N> &v) const {
+        // this nonce ensures that Xfs and Mats don't hash equal;
+        // their type makes them distinct
+        constexpr size_t nonce = (size_t) 7462482095847566613ULL;
+        return hash<geom::SimpleMatrix<T,N,N>>()(v.mat) ^ nonce;
+    }
+};
+
+} // end namespace std
 
 #endif /* AFFINETRANSFORM_H_ */

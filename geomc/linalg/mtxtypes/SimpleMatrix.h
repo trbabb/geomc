@@ -20,6 +20,7 @@
 #define SIMPLEMATRIX_H_
 
 #include <type_traits>
+#include <geomc/Hash.h>
 #include <geomc/Storage.h>
 #include <geomc/linalg/mtxdetail/MatrixLayout.h>
 #include <geomc/linalg/mtxdetail/MatrixBase.h>
@@ -617,5 +618,17 @@ public:
 
 
 } // end namespace geom
+
+
+namespace std {
+
+template <typename T, index_t M, index_t N>
+struct hash<geom::SimpleMatrix<T,M,N>> {
+    size_t operator()(const geom::SimpleMatrix<T,M,N> &m) const {
+        return geom::hash_bytes(m.data_begin(), m.rows() * m.cols() * sizeof(T));
+    }
+};
+
+} // end namespace std
 
 #endif /* SIMPLEMATRIX_H_ */

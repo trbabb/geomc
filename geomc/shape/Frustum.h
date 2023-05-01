@@ -1,15 +1,8 @@
-/* 
- * File:   Frustum.h
- * Author: tbabb
- *
- * Created on November 8, 2014, 11:09 PM
- */
-
-#ifndef FRUSTUM_H
-#define	FRUSTUM_H
+#pragma once
 
 #include <climits>
 #include <geomc/shape/Rect.h>
+#include <geomc/shape/Sphere.h>
 
 namespace geom {
 
@@ -81,6 +74,11 @@ public:
         base(base),
         height(h) {}
     
+    
+    bool operator==(const Frustum& other) const {
+        return base == other.base && height == other.height;
+    }
+    
     /**
      * Frustum-point intersection test.
      * 
@@ -114,9 +112,9 @@ public:
         // project the Z+ axis to the ray subspace. (the point on the projected ray
         // which is closest to the origin is a multiple of this point)
         // todo: this can probably be optimized:
-        Vec<T,N> o_base  = z_plus.project_on(ray.direction) + z_plus.project_on(o_ortho);
+        Vec<T,N> o_base = z_plus.project_on(ray.direction) + z_plus.project_on(o_ortho);
         // project V to the h=0 plane
-        Vec<T,N> v_base  = ray.direction - ray.direction.project_on(o_base);
+        Vec<T,N> v_base = ray.direction - ray.direction.project_on(o_base);
         
         // handle degenerate cases
         if (o_base[N-1] == 0) {
@@ -324,5 +322,15 @@ struct implements_shape_concept<Frustum<Shape>, Convex> :
 
 } // namespace geom
 
-#endif	/* FRUSTUM_H */
 
+template <typename Shape>
+struct std::hash<geom::Frustum<Shape>> {
+    size_t operator()(const geom::Frustum<Shape> &s) const {
+        constexpr size_t nonce = (size_t) 0x28211b7d8ba5f09bULL;
+        using T = typename Shape::elem_t;
+        return geom::hash_combine(
+            std::hash<Shape>{}(s.base),
+            std::hash<geom::Rect<T,1>>{}(s.height)
+        ) ^ nonce;
+    }
+};

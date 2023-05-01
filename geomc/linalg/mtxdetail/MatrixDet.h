@@ -54,14 +54,14 @@ inline T det2x2(T a, T b, T c, T d) {
 
 template <typename T>
 inline T det2x2(const T m[4]) {
-    const detail::_m2x2<T>& v = *reinterpret_cast<detail::_m2x2<T>*>(m);
+    const detail::_m2x2<T>& v = *reinterpret_cast<const detail::_m2x2<T>*>(m);
     return diff_of_products(v.a, v.d, v.b, v.c);
 }
 
 /// Compute the 3x3 matrix determinant
 template <typename T>
 inline T det3x3(const T m[9]) {
-    const detail::_m3x3<T>& v = *reinterpret_cast<detail::_m3x3<T>*>(m);
+    const detail::_m3x3<T>& v = *reinterpret_cast<const detail::_m3x3<T>*>(m);
     return detail::cofac(
         v.a, det2x2(v.e, v.f, v.h, v.i),
         v.b, det2x2(v.d, v.f, v.g, v.i),
@@ -117,7 +117,7 @@ template <typename T>
 T det_destructive(T* m, index_t n) {
     if (n == 1) return m[0];
     bool odd;
-    if (decomp_plu(m, n, n, nullptr, &odd) != 0) return 0;
+    if (decomp_plu<T>(m, n, n, nullptr, &odd) != 0) return 0;
     T d = odd ? -1 : 1;
     // det(A) is the product of its diagonals, if A is triangular
     for (index_t i = 0; i < n; ++i) {

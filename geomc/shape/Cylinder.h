@@ -68,6 +68,10 @@ class Cylinder:
         return in_r and in_caps;
     }
     
+    bool operator==(const Cylinder<T,N>& other) const {
+        return p0 == other.p0 and p1 == other.p1 and radius == other.radius;
+    }
+    
     /// Signed distance function.
     T sdf(Vec<T,N> p) const {
         // approach: put p into the r, a_hat basis,
@@ -253,6 +257,15 @@ class Cylinder:
     
     
 } // namespace geom
+
+
+template <typename T, index_t N>
+struct std::hash<geom::Cylinder<T,N>> {
+    size_t operator()(const geom::Cylinder<T,N> &v) const {
+        constexpr size_t nonce = (size_t) 0x77f68ad97f8281e6ULL;
+        return geom::hash_bytes(&v, sizeof(geom::Cylinder<T,N>)) ^ nonce;
+    }
+};
 
 #endif	/* CYLINDER_H */
 

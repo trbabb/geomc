@@ -1,13 +1,4 @@
-/*
- * Rect.h
- * 
- *  Created on: Oct 7, 2010
- *      Author: Tim Babb
- */
-
-
-#ifndef Rect_H_
-#define Rect_H_
+#pragma once
 
 #include <algorithm>
 #include <cmath>
@@ -421,7 +412,7 @@ public:
      * 
      * @return `true` if and only if all the corresponding extremes of `b` are the same.
      */
-    inline bool operator==(Rect<T,N> b) const {
+    inline bool operator==(const Rect<T,N>& b) const {
         return (hi == b.hi) and (lo == b.lo);
     }
     
@@ -431,7 +422,7 @@ public:
      * @return `true` if and only if any extreme of `b` is different from
      * the corresponding extreme in `this`.
      */
-    inline bool operator!=(Rect<T,N> b) const {
+    inline bool operator!=(const Rect<T,N>& b) const {
         return (hi != b.hi) or (lo != b.lo);
     }
 
@@ -972,4 +963,11 @@ constexpr typename Rect<T,N>::point_t Rect<T,N>::endpoint_measure =
 
 } // end namespace geom
 
-#endif /* Rect_H_ */
+
+template <typename T, index_t N>
+struct std::hash<geom::Rect<T,N>> {
+    size_t operator()(const geom::Rect<T,N> &r) const {
+        constexpr size_t nonce = (size_t) 0x5fdb6f041e87e25dULL;
+        return geom::hash_bytes(&r, sizeof(r)) ^ nonce;
+    }
+};

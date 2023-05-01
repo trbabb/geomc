@@ -1,5 +1,4 @@
-#ifndef ORIENTED_H
-#define ORIENTED_H
+#pragma once
 
 #include <geomc/linalg/AffineTransform.h>
 #include <geomc/shape/Rect.h>
@@ -62,6 +61,10 @@ public:
     Oriented(const Shape& s, const AffineTransform<T,N>& xf):
         shape(s),
         xf(xf) {}
+    
+    bool operator==(const Oriented& other) const {
+        return shape == other.shape && xf == other.xf;
+    }
     
     /// Shape-point overlap test.
     bool contains(Vec<T,N> p) const {
@@ -136,6 +139,9 @@ public:
             shape(box),
             xf(xf) {}
     
+    bool operator==(const Oriented& other) const {
+        return shape == other.shape && xf == other.xf;
+    }
     
     /// Obtain an axis-aligned bounding box for this shape.
     Rect<T,N> bounds() const {
@@ -355,4 +361,16 @@ struct implements_shape_concept<Oriented<Shape>, Convex> :
 
 } // namespace geom
 
-#endif // ORIENTED_H
+
+template <typename Shape>
+struct std::hash<geom::Oriented<Shape>> {
+    size_t operator()(const geom::Oriented<Shape> &s) const {
+        constexpr size_t nonce = (size_t) 0xb04c31374e530a4eULL;
+        using T = typename Shape::elem_t;
+        constexpr index_t N = Shape::N;
+        return geom::hash_combine(
+            std::hash<Shape>{}(s.shape),
+            std::hash<geom::AffineTransform<T,N>>{}(s.xf)
+        ) ^ nonce;
+    }
+};

@@ -14,6 +14,7 @@
 #include <type_traits>
 
 #include <geomc/geomc_defs.h>
+#include <geomc/Hash.h>
 #include <cmath>
 #include <limits>
 
@@ -657,6 +658,17 @@ namespace std {
     template <typename T, typename U, geom::DiscontinuityPolicy P>
     struct common_type<geom::Dual<T,P>,U> {
         typedef geom::Dual<typename common_type<T,U>::type, P> type;
+    };
+    
+    
+    template <typename T, geom::DiscontinuityPolicy P>
+    struct hash<geom::Dual<T,P>> {
+        size_t operator()(const geom::Dual<T,P> &d) const {
+            return geom::hash_combine(
+                hash<T>{}(d.x),
+                hash<T>{}(d.dx)
+            );
+        }
     };
     
 } // namespace std

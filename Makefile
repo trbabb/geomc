@@ -1,8 +1,8 @@
 CC        = clang++
 AR        = ar
-PREFIX    = /opt/local
+PREFIX    = /usr/local
 INCLUDES  = .
-BUILD_STD = c++14
+BUILD_STD = c++17
 M_ARCH    = native
 CFLAGS    = -g -march=$(M_ARCH) -std=$(BUILD_STD) -O3 -Wall -fmessage-length=0 -Wno-unused-local-typedef
 IFLAGS    = $(addprefix -I, $(INCLUDES))
@@ -39,7 +39,7 @@ clean:
 install: $(LIB) $(LITELIB)
 	mkdir -p $(INSTALL_INC_DIR)
 	cp -rf ./geomc $(INSTALL_INC_DIR)
-	cp -rf $(LIB) $(INSTALL_INC_DIR)
+	cp -rf $(LIB) $(INSTALL_LIB_DIR)
 	cp -rf $(LITELIB) $(INSTALL_LIB_DIR)
 
 install-wasm:

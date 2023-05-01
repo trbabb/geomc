@@ -1,15 +1,4 @@
-/*
- * Plane.h
- *
- *  Created on: Mar 7, 2013
- *      Author: tbabb
- * 
- * TODO: test affine transform ops
- * TODO: does AffineTransform * Vec<T,N+1>(normal, d) work?
- */
-
-#ifndef PLANE_H_
-#define PLANE_H_
+#pragma once
 
 #include <geomc/linalg/AffineTransform.h>
 #include <geomc/linalg/Orthogonal.h>
@@ -64,6 +53,10 @@ public:
     Plane(Vec<T,N> n, Vec<T,N> pt):
         normal(n.unit()),
         d(-pt.dot(normal)) {}
+    
+    bool operator==(const Plane<T,N> &other) const {
+        return normal == other.normal && d == other.d;
+    }
     
     /**
      * Construct a plane spanning the given basis vectors. 
@@ -268,4 +261,14 @@ public:
 
 } // namespace geom
 
-#endif /* PLANE_H_ */
+
+template <typename T, index_t N>
+struct std::hash<geom::Plane<T,N>> {
+    size_t operator()(const geom::Plane<T,N> &p) const {
+        constexpr size_t nonce = (size_t) 0x1bff2d1194dd90c5ULL;
+        return geom::hash_combine(
+            std::hash<Vec<T,N>>{}(p.normal),
+            std::hash<T>{}(p.d)
+        ) ^ nonce;
+    }
+};

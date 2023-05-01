@@ -72,6 +72,10 @@ public:
     /// Dilate `s` by the amount `dilation`.
     Dilated(const Shape& s, T dilation):shape(s), dilation(dilation) {}
     
+    bool operator==(const Dilated& other) const {
+        return shape == other.shape && dilation == other.dilation;
+    }
+    
     /// Point containment test.
     bool contains(Vec<T,N> p) const {
         return sdf(p) < 0;
@@ -194,6 +198,18 @@ struct implements_shape_concept<Dilated<Shape>, Convex> :
 /// @}  // addtogroup shape
 
 } // namespace geom
+
+
+template <typename Shape>
+struct std::hash<geom::Dilated<Shape>> {
+    size_t operator()(const geom::Dilated<Shape> &s) const {
+        constexpr size_t nonce = (size_t) 0x7f5e38d0b18f1dbfULL;
+        return geom::hash_combine(
+            std::hash<Shape>{}(s.shape),
+            std::hash<Shape::elem_t>{}(s.dilation)
+        ) ^ nonce;
+    }
+};
 
 #endif /* _DILATED_SHAPE_H */
 

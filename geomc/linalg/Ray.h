@@ -144,4 +144,13 @@ inline std::ostream &operator<< (std::ostream &stream, const Ray<T,N> &r) {
 
 #endif
 } // namespace geom
+
+template <typename T, index_t N>
+struct std::hash<geom::Ray<T,N>> {
+    size_t operator()(const geom::Ray<T,N> &v) const {
+        constexpr size_t nonce = (size_t) 0x8af9e7e642670825ULL;
+        return geom::hash_bytes(&v, sizeof(geom::Ray<T,N>)) ^ nonce;
+    }
+};
+
 #endif /* GEOM_RAY_H_ */
