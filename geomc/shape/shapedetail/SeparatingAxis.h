@@ -168,8 +168,9 @@ class RectIntersector<T, N,
         // the first two cases are one and the same; they are the principal
         // axes of each rect; amounting to 2N tests. The third case is
         // 9 axes for N=3 and 0 axes for N=2. Other dimensions may be
-        // supported by extending detail::RectAxisHelper to higher N.
-        const static index_t n_corners = 1 << N;
+        // supported by extending detail::RectAxisHelper to higher N,
+        // though this is unlikely to be simpler than simply falling back to GJK.
+        constexpr index_t n_corners = 1 << N;
         Vec<T,N> b0_pts[n_corners];
         Vec<T,N> b1_pts[n_corners];
         Vec<T,N> b0_body_extreme[2] = { b0.shape.lo, b0.shape.hi };
@@ -185,8 +186,9 @@ class RectIntersector<T, N,
             b0_pts[c] = b0.xf * b0_pts[c];
         }
         
-        // compare along world (i.e. b1's) axes
+        // compare along world (i.e. b1's) axes.
         // special case because no projection needed.
+        // this is basically testing if the two AABBs overlap.
         for (index_t i = 0; i < N; i++) {
             T lo = std::numeric_limits<T>::max();
             T hi = std::numeric_limits<T>::lowest();
@@ -195,7 +197,7 @@ class RectIntersector<T, N,
                 hi = std::max(hi, b0_pts[j][i]);
             }
             // if no overlap on this axis, we've found a separating axis.
-            if (lo >= b1.hi[i] or hi < b1.lo[i]) return false;
+            if (lo > b1.hi[i] or hi < b1.lo[i]) return false;
         }
         
         // now test all the remaining axes. For N=2, this is simply

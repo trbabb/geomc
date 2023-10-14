@@ -332,6 +332,7 @@ public:
     
     static const self_t ones;
     static const self_t zeros;
+    static const self_t unit_x;
 
     /*******************************
      * Structors                   *
@@ -344,6 +345,8 @@ protected:
     constexpr VecCommon(T a):VecBase<T,N>(a) {}
 
     constexpr VecCommon(const T a[N]):VecBase<T,N>(a) {}
+    
+    constexpr VecCommon(std::initializer_list<T> l):VecBase<T,N>(l.begin()) {}
 
     /*******************************
      * Operators                   *
@@ -867,6 +870,12 @@ template <typename T, index_t N, typename VType>
     const VType VecCommon< T,N,VType >::ones  = VType((T)1);
 template <typename T, index_t N, typename VType>
     const VType VecCommon< T,N,VType >::zeros = VType((T)0);
+template <typename T, index_t N, typename VType>
+    const VType VecCommon< T,N,VType >::unit_x = []() {
+        VType v((T)0);
+        v[0] = (T)1;
+        return v;
+    }();
 
 // used by fromRGB()
 // for integer vectors, you don't want to divide by 255, essentially

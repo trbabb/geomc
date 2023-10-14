@@ -282,6 +282,17 @@ protected:
         Dimension<N>::set(n_cols, m.cols());
         detail::_mtxcopy(this, m);
     }
+    
+    // initialize from an initializer list
+    FlatMatrixBase(
+            index_t nrows,
+            index_t ncols,
+            std::initializer_list<T> l):
+                data(l)
+    {
+        Dimension<M>::set(n_rows, nrows);
+        Dimension<N>::set(n_cols, ncols);
+    }
 
 public:
 
@@ -553,11 +564,10 @@ public:
             index_t ncols=detail::DefinedIf<N != DYNAMIC_DIM, N>::value) : 
                 parent_t(nrows, ncols, src_data) {}
     
-    SimpleMatrix(const std::initializer_list<T>& elems):
-            parent_t(M,N,elems.begin())
-    {
-        static_assert(M * N != 0, "initializer list only allowed with static dimensions");
-    }
+    SimpleMatrix(const std::initializer_list<T>& elems,
+            index_t nrows=detail::DefinedIf<M != DYNAMIC_DIM, M>::value,
+            index_t ncols=detail::DefinedIf<N != DYNAMIC_DIM, N>::value) :
+                parent_t(nrows, ncols, elems) {}
 
     template <typename Mx>
     SimpleMatrix(
@@ -625,7 +635,7 @@ namespace std {
 template <typename T, index_t M, index_t N>
 struct hash<geom::SimpleMatrix<T,M,N>> {
     size_t operator()(const geom::SimpleMatrix<T,M,N> &m) const {
-        return geom::hash_bytes(m.data_begin(), m.rows() * m.cols() * sizeof(T));
+        return geom::hash_many(m.data_begin(), m.rows() * m.cols());
     }
 };
 

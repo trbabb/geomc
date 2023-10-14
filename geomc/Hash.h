@@ -7,6 +7,12 @@
 
 namespace geom {
 
+// convenience function which deduces the type of the hash function
+template <typename T>
+inline size_t hash(const T& obj) {
+    return std::hash<T>{}(obj);
+}
+
 inline size_t hash_combine(size_t h0, size_t h1) {
     if constexpr (sizeof(size_t) == 8) {
         /*
@@ -40,6 +46,19 @@ inline size_t hash_combine(size_t h0, size_t h1) {
     }
 }
 
+template <typename... Hs>
+inline size_t hash_combine_many(size_t h, Hs... hashes) {
+    return hash_combine(h, hash_combine_many(hashes...));
+}
+
+template <typename T>
+inline size_t hash_many(const T* objs, size_t count) {
+    size_t h = (size_t) 0xa5668ab063399788ULL; // arbitrary nonce
+    for (size_t i = 0; i < count; ++i) {
+        h = hash_combine(h, geom::hash(objs[i]));
+    }
+    return h;
+}
 
 inline size_t hash_bytes(const void* obj, size_t size) {
     const char* bytes = reinterpret_cast<const char*>(obj);

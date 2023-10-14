@@ -344,7 +344,11 @@ namespace std {
 template <typename T, index_t N>
 struct hash<geom::Vec<T,N>> {
     size_t operator()(const geom::Vec<T,N> &v) const {
-        return geom::hash_bytes(&v, sizeof(geom::Vec<T,N>));
+        size_t h = std::hash<T>{}(v[0]);
+        for (index_t i = 1; i < N; i++) {
+            geom::hash_combine(v[i], h);
+        }
+        return h;
     }
 };
 

@@ -671,6 +671,21 @@ namespace std {
         }
     };
     
+    template <typename T, geom::DiscontinuityPolicy P>
+    bool isfinite(const geom::Dual<T,P> &d) {
+        return std::isfinite(d.x) and std::isfinite(d.dx);
+    }
+    
+    template <typename T, geom::DiscontinuityPolicy P>
+    bool isinf(const geom::Dual<T,P> &d) {
+        return std::isinf(d.x) or std::isinf(d.dx);
+    }
+    
+    template <typename T, geom::DiscontinuityPolicy P>
+    bool isnan(const geom::Dual<T,P> &d) {
+        return std::isnan(d.x) or std::isnan(d.dx);
+    }
+    
 } // namespace std
 
 

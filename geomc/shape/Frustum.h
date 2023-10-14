@@ -141,7 +141,8 @@ public:
         // form the intersection in the base plane
         Ray<T,N-1> ray_base = Ray<T,N-1>(
             o_base.template resized<N-1>(),
-            v_base.template resized<N-1>());
+            v_base.template resized<N-1>()
+        );
         Rect<T,1> s = base.intersect(ray_base);
         
         // short circuit: if the projected ray does not intersect
@@ -179,7 +180,8 @@ public:
         // construct the interval of overlap with the infinite frustum.
         s = Rect<T,1>::spanning_corners(
             p_lo_x / p_lo_y - o_x,
-            p_hi_x / p_hi_y - o_x);
+            p_hi_x / p_hi_y - o_x
+        );
         
         T h0 = ray.origin[N-1] + s.lo * ray.direction[N-1];
         T h1 = ray.origin[N-1] + s.hi * ray.direction[N-1];
@@ -327,10 +329,9 @@ template <typename Shape>
 struct std::hash<geom::Frustum<Shape>> {
     size_t operator()(const geom::Frustum<Shape> &s) const {
         constexpr size_t nonce = (size_t) 0x28211b7d8ba5f09bULL;
-        using T = typename Shape::elem_t;
         return geom::hash_combine(
-            std::hash<Shape>{}(s.base),
-            std::hash<geom::Rect<T,1>>{}(s.height)
+            geom::hash(s.base),
+            geom::hash(s.height)
         ) ^ nonce;
     }
 };

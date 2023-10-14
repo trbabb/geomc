@@ -588,6 +588,16 @@ public:
     }
     
     /**
+     * @brief Oriented range intersection test.
+     * 
+     * Alias for `box.intersects(*this)`.
+     */
+    bool intersects(const Oriented<Rect<T,N>>& box) const {
+        // delegate to OrientedRect
+        return box.intersects(*this);
+    }
+    
+    /**
      * @brief Center point.
      * @return The center point of this region.
      */
@@ -949,12 +959,14 @@ constexpr Rect<T,N> Rect<T,N>::signed_unit_interval = Rect<T,N>((T)-1, (T)1);
 template <typename T, index_t N>
 constexpr Rect<T,N> Rect<T,N>::full = Rect<T,N>(
     -std::numeric_limits<T>::infinity(),
-     std::numeric_limits<T>::infinity());
+     std::numeric_limits<T>::infinity()
+);
 
 template <typename T, index_t N>
 constexpr Rect<T,N> Rect<T,N>::empty = Rect<T,N>(
      std::numeric_limits<T>::infinity(),
-    -std::numeric_limits<T>::infinity());
+    -std::numeric_limits<T>::infinity()
+);
 
 template <typename T, index_t N>
 constexpr typename Rect<T,N>::point_t Rect<T,N>::endpoint_measure = 
@@ -968,6 +980,9 @@ template <typename T, index_t N>
 struct std::hash<geom::Rect<T,N>> {
     size_t operator()(const geom::Rect<T,N> &r) const {
         constexpr size_t nonce = (size_t) 0x5fdb6f041e87e25dULL;
-        return geom::hash_bytes(&r, sizeof(r)) ^ nonce;
+        return geom::hash_combine(
+            geom::hash(r.lo),
+            geom::hash(r.hi)
+        ) ^ nonce;
     }
 };

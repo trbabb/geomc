@@ -81,13 +81,13 @@
 
 typedef std::ptrdiff_t index_t;
 
-template <typename T> inline T positive_mod(T a, T b){
-    return (a % b + b) % b;
-}
-
 
 /** @brief Namespace of all `geomc` functions and classes. */
 namespace geom {
+    
+    template <typename T> inline T positive_mod(T a, T b){
+        return (a % b + b) % b;
+    }
     
     // storage fwd decls
     template <typename T, index_t N> struct Storage;

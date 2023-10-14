@@ -55,7 +55,7 @@ public:
     Oriented() {}
     
     /// Wrap `s` in an identity transformation.
-    Oriented(const Shape& s):shape(s) {}
+    explicit Oriented(const Shape& s):shape(s) {}
     
     /// Construct an oriented shape from `s`, which is positioned and oriented by `xf`.
     Oriented(const Shape& s, const AffineTransform<T,N>& xf):
@@ -132,7 +132,7 @@ public:
     Oriented() {}
     
     /// Construct an axis-aligned box from the given Rect.
-    Oriented(const Rect<T,N>& box):shape(box) {}
+    explicit Oriented(const Rect<T,N>& box):shape(box) {}
     
     /// Construct an oriented box from the given Rect and object-to-world transformation.
     Oriented(const Rect<T,N>& box, const AffineTransform<T,N>& xf):
@@ -194,7 +194,7 @@ public:
      * @param b1 OritentedRect to test against.
      * @return `true` if and only if `this` overlaps with `b1`; `false` otherwise.
      */
-    inline bool intersects(const Rect<T,N>& r) {
+    inline bool intersects(const Rect<T,N>& r) const {
         return detail::RectIntersector<T,N>::intersect(*this, r);
     }
     
@@ -238,13 +238,6 @@ public:
 /** @addtogroup shape
  *  @{
  */
-
-/**
- * @brief Convenience typedef for oriented Rects.
- * @related Oriented
- */
-template <typename T, index_t N>
-using OrientedRect = Oriented<Rect<T,N>>;
 
 
 /****************************
@@ -366,11 +359,9 @@ template <typename Shape>
 struct std::hash<geom::Oriented<Shape>> {
     size_t operator()(const geom::Oriented<Shape> &s) const {
         constexpr size_t nonce = (size_t) 0xb04c31374e530a4eULL;
-        using T = typename Shape::elem_t;
-        constexpr index_t N = Shape::N;
         return geom::hash_combine(
-            std::hash<Shape>{}(s.shape),
-            std::hash<geom::AffineTransform<T,N>>{}(s.xf)
+            geom::hash(s.shape),
+            geom::hash(s.xf)
         ) ^ nonce;
     }
 };

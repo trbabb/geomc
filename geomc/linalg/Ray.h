@@ -149,7 +149,10 @@ template <typename T, index_t N>
 struct std::hash<geom::Ray<T,N>> {
     size_t operator()(const geom::Ray<T,N> &v) const {
         constexpr size_t nonce = (size_t) 0x8af9e7e642670825ULL;
-        return geom::hash_bytes(&v, sizeof(geom::Ray<T,N>)) ^ nonce;
+        return geom::hash_combine(
+            geom::hash(v.origin),
+            geom::hash(v.direction)
+        ) ^ nonce;
     }
 };
 

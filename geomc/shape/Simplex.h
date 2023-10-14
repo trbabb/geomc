@@ -1,16 +1,9 @@
-/* 
- * File:   Frustum.h
- * Author: tbabb
- *
- * Created on November 8, 2014, 11:09 PM
- */
-
-#ifndef SIMPLEX_H
-#define	SIMPLEX_H
+#pragma once
 
 #include <geomc/shape/Shape.h>
 #include <geomc/linalg/Vec.h>
 #include <geomc/linalg/Orthogonal.h>
+#include <geomc/linalg/Matrix.h>
 
 // todo: distinguish project() and clip(). What we call project() is actually clip()
 //       here. GJK also needs to use clip(). maybe template this?
@@ -97,22 +90,27 @@ public:
     /// Number of vertices in this simplex.
     index_t n;
     
-
+    
     /// Construct an empty simplex, with no vertices.
     Simplex():n(0) {}
-
+    
     /// Construct an `n`-cornered simplex with vertices at `verts`.
     Simplex(const Vec<T,N>* verts, index_t n):n(n) {
         std::copy(verts, verts + n, pts);
     }
-
-
+    
+    Simplex(std::initializer_list<Vec<T,N>> verts):
+            n(std::min<size_t>(verts.size(), N + 1))
+    {
+        std::copy(verts.begin(), verts.begin() + n, pts);
+    }
+    
     /// Get the `i`th vertex in this simplex.
     Vec<T,N>& operator[](index_t i) {
         return pts[i];
     }
-
-
+    
+    
     /// Get the `i`th vertex in this simplex.
     Vec<T,N> operator[](index_t i) const {
         return pts[i];
@@ -148,10 +146,7 @@ public:
      */
     Simplex<T,N> operator|(const Vec<T,N>& p) const {
         Simplex<T,N> s = *this;
-        if (n < N + 1) {
-            s.n += 1;
-            s.pts[n] = p;
-        }
+        s.insert(p);
         return s;
     }
 
@@ -159,13 +154,12 @@ public:
     /**
      * @brief Extend this simplex to include `p` by adding `p` as a vertex.
      *
+     * Alias for `insert(p)`.
+     * 
      * If this Simplex already has `N+1` vertices, then this operator has no effect.
      */
     Simplex<T,N>& operator|=(const Vec<T,N>& p) {
-        if (n < N + 1) {
-            pts[n] = p;
-            n += 1;
-        }
+        insert(p);
         return *this;
     }
     
@@ -187,6 +181,18 @@ public:
             pts[i] = pts[i] / xf;
         }
         return *this;
+    }
+    
+    /**
+     * @brief Extend this simplex to include `p` by adding `p` as a vertex.
+     * 
+     * If this Simplex already has `N+1` vertices, then this function has no effect.
+     */
+    void insert(Vec<T,N> p) {
+        if (n < N + 1) {
+            pts[n] = p;
+            n += 1;
+        }
     }
     
     /**
@@ -338,7 +344,7 @@ public:
             vs[i - 1] = pts[i] - pts[0];
             k *= i;
         }
-        const T* m = vs[0].begin();
+        T* m = vs[0].begin();
         if constexpr (N == 2) {
             return det2x2(m) / 2;
         } else if constexpr (N == 3) {
@@ -372,13 +378,13 @@ public:
         Vec<T,N> bases[N];
         int k = 1;
         for (index_t i = 1; i < n; ++i) {
-            bases[i - 1] = s[i] - s[0];
-            k * = i;
+            bases[i - 1] = pts[i] - pts[0];
+            k *= i;
         }
-        const T* m = bases[0].begin();
+        T* m = bases[0].begin();
         // volume is sqrt of the determinant of the gram matrix,
-        // divided by n factorial. the gram matrix could probably
-        // be computed more efficiently because it is symmetric
+        // divided by n factorial. i suspect the gram matrix could probably
+        // be computed more efficiently, because it's symmetric
         T buf[N * N];
         WrapperMatrix<T,0,0> b {buf, n, n};
         WrapperMatrix<T,0,N,MatrixLayout::ROW_MAJOR> m0 {m, n};
@@ -438,10 +444,22 @@ public:
     }
     
     
+    Vec<T,N> project(Vec<T,N>& p) const {
+        // xxx: todo: this is a stub
+        return p;
+    }
+    
+    
+    void exclude(index_t i) {
+        std::copy(pts + i + 1, pts + n, pts + i);
+        n -= 1;
+    }
+    
+    
     /**
      * @brief Create a new sub-simplex by excluding the `i`th vertex in this simplex.
      */
-    Simplex<T,N> exclude(index_t i) const {
+    Simplex<T,N> excluded(index_t i) const {
         Simplex<T,N> s;
         index_t c = 0;
         for (index_t j = 0; j < n; ++j) {
@@ -453,7 +471,8 @@ public:
     
     
     /**
-     * @brief Project `p` to the nearest point on the simplex.
+     * @brief Ensure `p` lies within the simplex by orthogonally projecting it to
+     * the nearest point on the surface if it lies outside.
      *
      * The point is unchanged if `p` is already inside the simplex.
      * 
@@ -464,7 +483,7 @@ public:
      *
      * @return The location of `p`'s projection.
      */
-    Vec<T,N> project(const Vec<T,N>& p, Simplex<T,N>* onto=nullptr) const {
+    Vec<T,N> clip(const Vec<T,N>& p, Simplex<T,N>* onto=nullptr) const {
         Vec<T,N> buffer[N];
         Simplex<T,N> s;
         
@@ -622,7 +641,7 @@ private:
             // does `p` project to some sub-simplex of ours?
             // try each sub-simplex.
             for (index_t i = 0; i < n; ++i) {
-                Simplex<T,N> sub = this->exclude(i);
+                Simplex<T,N> sub = this->excluded(i);
                 if (sub._find_nearest_face(p, all_bases, true, pts[i] - sub[0], onto)) {
                     // some sub-simplex of us both faces `p` and contains
                     // its projection. `all_bases` and `onto` now reflect that sub-simplex.
@@ -697,8 +716,25 @@ bool trace_simplex(const Vec<T,N> verts[N], const Ray<T,N>& ray, Vec<T,N-1>* uv,
     return true;
 }
 
+template <typename T>
+using Triangle = Simplex<T,2>;
+
+template <typename T>
+using Tetrahedron = Simplex<T,3>;
+
 
 } // namespace geom
 
-#endif	/* SIMPLEX_H */
 
+template <typename T, index_t N>
+struct std::hash<geom::Simplex<T,N>> {
+    size_t operator()(const geom::Simplex<T,N> &s) const {
+        constexpr size_t nonce = (size_t) 0x8159bb983f797983ULL;
+        size_t h = nonce;
+        // only hash the verts that exist
+        for (size_t i = 0; i < s.n; ++i) {
+            h = geom::hash_combine(h, geom::hash(s[i]));
+        }
+        return h;
+    }
+};

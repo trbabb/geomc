@@ -198,28 +198,32 @@ template <typename Shape>
 struct implements_shape_concept<Extrusion<Shape>, Projectable> : 
     public std::integral_constant<
         bool,
-        implements_shape_concept<Shape, Projectable>::value>
+        implements_shape_concept<Shape, Projectable>::value
+    >
 {};
 
 template <typename Shape>
 struct implements_shape_concept<Extrusion<Shape>, RayIntersectable> : 
     public std::integral_constant<
         bool,
-        implements_shape_concept<Shape, RayIntersectable>::value>
+        implements_shape_concept<Shape, RayIntersectable>::value
+    >
 {};
 
 template <typename Shape>
 struct implements_shape_concept<Extrusion<Shape>, Convex> : 
     public std::integral_constant<
         bool,
-        implements_shape_concept<Shape, RayIntersectable>::value>
+        implements_shape_concept<Shape, RayIntersectable>::value
+    >
 {};
 
 template <typename Shape>
 struct implements_shape_concept<Extrusion<Shape>, SdfEvaluable> : 
     public std::integral_constant<
         bool,
-        implements_shape_concept<Shape, SdfEvaluable>::value>
+        implements_shape_concept<Shape, SdfEvaluable>::value
+    >
 {};
 
 /// @} // addtogroup traits
@@ -232,10 +236,9 @@ template <typename Shape>
 struct std::hash<geom::Extrusion<Shape>> {
     size_t operator()(const geom::Extrusion<Shape> &s) const {
         constexpr size_t nonce = (size_t) 0x28211b7d8ba5f09bULL;
-        using T = typename Shape::elem_t;
         return geom::hash_combine(
-            std::hash<Shape>{}(s.base),
-            std::hash<geom::Rect<T,1>>{}(s.height)
+            geom::hash(s.base),
+            geom::hash(s.height)
         ) ^ nonce;
     }
 };

@@ -328,7 +328,7 @@ namespace std {
 template <typename T>
 struct hash<geom::Quat<T>> {
     size_t operator()(const geom::Quat<T> &v) const {
-        constexpr size_t nonce = 0x25ca848a1305d3a2ULL;
+        constexpr size_t nonce = (size_t) 0x25ca848a1305d3a2ULL;
         return geom::hash_bytes(&v, sizeof(geom::Quat<T>)) ^ nonce;
     }
 };

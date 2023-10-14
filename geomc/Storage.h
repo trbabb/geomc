@@ -221,6 +221,11 @@ struct UniqueStorage {
     UniqueStorage(index_t n, const T* srcdata) {
         std::copy(srcdata, srcdata + n, data);
     }
+    /// Construct a new UniqueStorage of size `N`, and copy `N` elements from `srcdata` into
+    /// the new array.
+    UniqueStorage(std::initializer_list<T> srcdata) {
+        std::copy(srcdata.begin(), srcdata.end(), data);
+    }
     
     /// Return a pointer to the first element in the storage array.
     inline       T* get()       { return data; }
@@ -249,6 +254,12 @@ struct UniqueStorage<T, DYNAMIC_DIM> {
             data(new T[n]),
             sz(n) {
         std::copy(srcdata, srcdata + n, data);
+    }
+    
+    UniqueStorage(std::initializer_list<T> srcdata):
+            data(new T[srcdata.size()]),
+            sz(srcdata.size()) {
+        std::copy(srcdata.begin(), srcdata.end(), data);
     }
 
 #if __cplusplus >= 201103L
@@ -389,7 +400,7 @@ public:
     }
     
     /// Construct a new SmallStorage containing the elements of `other`. 
-    SmallStorage(SmallStorage<T,N>& other) : sz(other.sz) {
+    SmallStorage(const SmallStorage<T,N>& other) : sz(other.sz) {
         if (sz > N) {
             data = new T[sz];
         } else {
@@ -542,6 +553,10 @@ struct GenericStorage : public Storage<T,N> {
 
     /// Construct a new array of size `n`. Not available for wrapped specializations.
     GenericStorage(index_t n):type(n) {}
+    
+    GenericStorage(std::initializer_list<T> list):type(list.size()) {
+        std::copy(list.begin(), list.end(), type::data);
+    }
 
 #ifdef PARSING_DOXYGEN
 
@@ -584,6 +599,10 @@ struct GenericStorage<T,N,STORAGE_UNIQUE> : public UniqueStorage<T,N> {
     GenericStorage(index_t n, const T* srcdata):type(n, srcdata) {}
 
     GenericStorage(index_t n):type(n) {}
+    
+    GenericStorage(std::initializer_list<T> list):type(list.size()) {
+        std::copy(list.begin(), list.end(), type::data);
+    }
 
 };
 

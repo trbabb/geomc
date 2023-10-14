@@ -139,57 +139,63 @@ namespace geom {
         /// @return `(dx, dy, dz)` added with `this`
         Vec<T,3> add(T dx, T dy, T dz) const {
             return Vec<T,3>(
-                detail::VecBase<T,3>::x + dx,
-                detail::VecBase<T,3>::y + dy,
-                detail::VecBase<T,3>::z + dz);
+                this->x + dx,
+                this->y + dy,
+                this->z + dz
+            );
         }
 
         /// @return `(dx, dy, dz)` subtracted from `this`
         Vec<T,3> sub(T dx, T dy, T dz) const {
             return Vec<T,3>(
-                detail::VecBase<T,3>::x - dx,
-                detail::VecBase<T,3>::y - dy,
-                detail::VecBase<T,3>::z - dz);
+                this->x - dx,
+                this->y - dy,
+                this->z - dz
+            );
         }
 
         /// @return Element-wise scaled copy
         Vec<T,3> scale(T a, T b, T c) const {
             return Vec<T,3>(
-                a*detail::VecBase<T,3>::x,
-                b*detail::VecBase<T,3>::y,
-                c*detail::VecBase<T,3>::z);
+                a*this->x,
+                b*this->y,
+                c*this->z
+            );
         }
         
         /// @return Dot product of `this` with the vector `(xx, yy, zz)`
         T dot(T xx, T yy, T zz) const {
             return
-                (detail::VecBase<T,3>::x * xx) +
-                (detail::VecBase<T,3>::y * yy) +
-                (detail::VecBase<T,3>::z * zz);
+                (this->x * xx) +
+                (this->y * yy) +
+                (this->z * zz);
         }
 
         /// @return A copy with the X component negated
         inline Vec<T,3> reflected_x() const {
             return Vec<T,3>(
-                -detail::VecBase<T,3>::x,
-                 detail::VecBase<T,3>::y,
-                 detail::VecBase<T,3>::z);
+                -this->x,
+                 this->y,
+                 this->z
+            );
         }
 
         /// @return A copy with the Y component negated
         inline Vec<T,3> reflected_y() const {
             return Vec<T,3>(
-                 detail::VecBase<T,3>::x,
-                -detail::VecBase<T,3>::y,
-                 detail::VecBase<T,3>::z);
+                 this->x,
+                -this->y,
+                 this->z
+            );
         }
 
         /// @return A copy with the Z component negated
         inline Vec<T,3> reflected_z() const {
             return Vec<T,3>(
-                 detail::VecBase<T,3>::x,
-                 detail::VecBase<T,3>::y,
-                -detail::VecBase<T,3>::z);
+                 this->x,
+                 this->y,
+                -this->z
+            );
         }
         
         /*===========================*
@@ -199,14 +205,14 @@ namespace geom {
         /// @return Cross product of `this` by `v`, in the order shown.
         Vec<T,3> cross(Vec<T,3> v) const {
             T newX = diff_of_products(
-                detail::VecBase<T,3>::y, v.z,
-                detail::VecBase<T,3>::z, v.y);
+                this->y, v.z,
+                this->z, v.y);
             T newY = diff_of_products(
-                detail::VecBase<T,3>::z, v.x,
-                detail::VecBase<T,3>::x, v.z);
+                this->z, v.x,
+                this->x, v.z);
             T newZ = diff_of_products(
-                detail::VecBase<T,3>::x, v.y,
-                detail::VecBase<T,3>::y, v.x);
+                this->x, v.y,
+                this->y, v.x);
 
             return Vec<T,3>(newX, newY, newZ);
         }
@@ -230,21 +236,20 @@ namespace geom {
         }
         
         /**
-         * Convert this point, interpreted as spherical coordinates `(r, elevation, azimuth)`,
-         * to euclidean coordinates, where `r` (`this[0]`) is the radius, `eleveation`
-         * (`this[1]`) is the angle from the +z axis, and `azimuth` (`this[2]`)
-         * is the angle about z+ from the x+ axis.
+         * Construct a point from spherical coordinates `(r, elevation, azimuth)`,
+         * to euclidean coordinates, where `r` is the radius, `eleveation`
+         * is the angle from the +z axis, and `azimuth` is the angle about z+ from
+         * the x+ axis.
          * 
-         * @return This point described by this vector interpreted as spherical 
-         * coordinates as `(x, y, z)` euclidean coordinates.
+         * @return A euclidean point constructed from spherical coordinates.
          */
-        Vec<T,3> from_spherical() const {
-            Vec<T,3> oot;
-            T rsinelev = detail::VecBase<T,3>::x * std::sin(detail::VecBase<T,3>::y);
-            oot.x = rsinelev*std::cos(detail::VecBase<T,3>::z);
-            oot.y = rsinelev*std::sin(detail::VecBase<T,3>::z);
-            oot.z = detail::VecBase<T,3>::x*std::cos(detail::VecBase<T,3>::y);
-            return oot;
+        static Vec<T,3> from_spherical(T r, T elev, T azi) {
+            Vec<T,3> out;
+            T rsinelev = r * std::sin(elev);
+            out.x = rsinelev * std::cos(azi);
+            out.y = rsinelev * std::sin(azi);
+            out.z = r * std::cos(elev);
+            return out;
         }
 
         /// @return A copy of this vector rotated by angle `radians` about `axis`.
@@ -257,9 +262,9 @@ namespace geom {
          * the axis `(u, v, w)`.
          */
         Vec<T,3> rotate(T u, T v, T w, T radians) const {
-            const T& x = detail::VecBase<T,3>::x;
-            const T& y = detail::VecBase<T,3>::y;
-            const T& z = detail::VecBase<T,3>::z;
+            const T& x = this->x;
+            const T& y = this->y;
+            const T& z = this->z;
             T u2 = u * u;
             T v2 = v * v;
             T w2 = w * w;  // likely to become an FMA, which will keep precision ↙︎
@@ -304,17 +309,17 @@ namespace geom {
          * the axis `(u, v, w)`, and centerpoint `(a, b, c)`.
          */
         Vec<T,3> rotate(T u, T v, T w, T a, T b, T c, T radians){
-            const T& x = detail::VecBase<T,3>::x;
-            const T& y = detail::VecBase<T,3>::y;
-            const T& z = detail::VecBase<T,3>::z;
+            const T& x = this->x;
+            const T& y = this->y;
+            const T& z = this->z;
             
             T cc = std::cos(radians);
             T ss = std::sin(radians);
             T oneMcos = 1 - cc;
             
-            T u2 = u*u;
-            T v2 = v*v;
-            T w2 = w*w;
+            T u2 = u * u;
+            T v2 = v * v;
+            T w2 = w * w;
             T uxvywz = diff_of_products(u, x, v, y) - (w * z);
             
             T p0 = sum_of_products(b, v, c, w);
@@ -347,9 +352,9 @@ namespace geom {
         
         /// @return `true` if no elements are an infinity or `NaN`.
         bool is_finite_real() const {
-            return is_real(detail::VecBase<T,3>::x) and
-                   is_real(detail::VecBase<T,3>::y) and
-                   is_real(detail::VecBase<T,3>::z);
+            return is_real(this->x) and
+                   is_real(this->y) and
+                   is_real(this->z);
         }
 
     private:

@@ -63,10 +63,28 @@ namespace geom {
     template <typename T, index_t N> class Rect;
     template <typename T, index_t N> class Cylinder;
     template <typename T, index_t N> class Simplex;
+    template <typename T, index_t N> class Capsule;
     template <typename Shape>        class Extrusion;
     template <typename Shape>        class Oriented;
     template <typename Shape>        class Frustum;
     template <typename Shape>        class Dilated;
+    
+    /**
+     * @brief Convenience typedef for oriented Rects.
+     * @related Oriented
+     */
+    template <typename T, index_t N>
+    using OrientedRect = Oriented<Rect<T,N>>;
+
+    /**
+     * @brief A 2D circle.
+     * 
+     * @tparam T Coordinate type
+     * 
+     * @related Sphere
+     */
+    template <typename T>
+    using Circle = Sphere<T,2>;
     
     template <typename T, index_t N, typename Object, typename NodeData=void*>
         class KDTree;

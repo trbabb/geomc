@@ -11,6 +11,8 @@ LIB_SRC   = $(wildcard geomc/*.cpp) $(wildcard geomc/*/*.cpp)
 TEST_SRC  = $(wildcard regression/*cpp)
 ALL_SRC   = $(LIB_SRC) $(TEST_SRC) test/Profile.cpp
 
+H_FILES   = $(shell find geomc -name "*.h")
+
 TEST_BINS  = $(addprefix bin/, $(basename $(TEST_SRC)))
 LIB_OBJS   = $(addprefix build/,    $(LIB_SRC:.cpp=.o))
 EMLIB_OBJS = $(addprefix build/em/, $(LIB_SRC:.cpp=.o))
@@ -37,10 +39,11 @@ clean:
 	rm -rf ./doc/gen/html
 
 install: $(LIB) $(LITELIB)
-	mkdir -p $(INSTALL_INC_DIR)
-	cp -rf ./geomc $(INSTALL_INC_DIR)
-	cp -rf $(LIB) $(INSTALL_LIB_DIR)
-	cp -rf $(LITELIB) $(INSTALL_LIB_DIR)
+	install -d $(foreach f, $(H_FILES), $(INSTALL_INC_DIR)/$(dir $(f)))
+	install -d $(INSTALL_LIB_DIR)
+	install -m 644 $(LIB) $(INSTALL_LIB_DIR)
+	install -m 644 $(LITELIB) $(INSTALL_LIB_DIR)
+	for f in $(H_FILES); do install -m 644 $$f $(INSTALL_INC_DIR)/$$f; done
 
 install-wasm:
 	mkdir -p $(WASM_INC_DIR)

@@ -173,6 +173,23 @@ public:
         return *this;
     }
     
+    template <index_t M, typename U=T>
+    AffineTransform<U,M> resized() const {
+        AffineTransform<U,M> xf;
+        for (index_t i = 0; i < std::min(M,N); i++) {
+            // copy the inner MxM elements (if they exist)
+            for (index_t j = 0; j < std::min(M,N); j++) {
+                xf.mat(i,j) = static_cast<U>(mat(i,j));
+                xf.inv(i,j) = static_cast<U>(inv(i,j));
+            }
+            // keep translation components in the homogenous column
+            xf.mat(i,M) = static_cast<U>(mat(i,N));
+        }
+        // this ought to be 1, but let's be pedantic
+        xf.mat(M,M) = mat(N,N);
+        return xf;
+    }
+    
     /// Cast elements to a different type.
     template <typename U>
     explicit operator AffineTransform<U,N>() const {
@@ -435,6 +452,99 @@ inline void rotmat_direction_align(
     std::copy(m, m + 16, into->begin());
 }
 
+template <typename T>
+SimpleMatrix<T,3,3> rotmat_direction_align(
+        const Vec<T,3>& dir, 
+        const Vec<T,3>& alignWith)
+{
+    const Vec<T,3> v = dir ^ alignWith;
+    const T c = dir.dot(alignWith);
+    
+    // handle poles
+    if (std::abs(c) == 1) {
+        SimpleMatrix<T,3,3> out;
+        // 180 degree case:
+        if (c < 0) { out.set(0, 0, -1); out.set(2, 2, -1); }
+        return out;
+    }
+    
+    const T k = (1 - c) / (1 - c * c);
+
+    return {
+        v.x*v.x*k + c,     v.y*v.x*k - v.z,    v.z*v.x*k + v.y,
+        v.x*v.y*k + v.z,   v.y*v.y*k + c,      v.z*v.y*k - v.x, 
+        v.x*v.z*k - v.y,   v.y*v.z*k + v.x,    v.z*v.z*k + c
+    };
+}
+
+template <typename T>
+SimpleMatrix<T,3,3> rotmat_x(T theta) {
+    T c = std::cos(theta);
+    T s = std::sin(theta);
+    return {
+        1, 0, 0,
+        0, c,-s,
+        0, s, c
+    };
+}
+
+template <typename T>
+SimpleMatrix<T,3,3> rotmat_y(T theta) {
+    T c = std::cos(theta);
+    T s = std::sin(theta);
+    return {
+        c, 0, s,
+        0, 1, 0,
+       -s, 0, c
+    };
+}
+
+template <typename T>
+SimpleMatrix<T,3,3> rotmat_z(T theta) {
+    T c = std::cos(theta);
+    T s = std::sin(theta);
+    return {
+        c,-s, 0,
+        s, c, 0,
+        0, 0, 1
+    };
+}
+
+template <typename T>
+void rotmat_x(SimpleMatrix<T,4,4>* into, T theta) {
+    T c = std::cos(theta);
+    T s = std::sin(theta);
+    *into = {
+        1, 0, 0, 0,
+        0, c,-s, 0,
+        0, s, c, 0,
+        0, 0, 0, 1
+    };
+}
+
+template <typename T>
+void rotmat_y(SimpleMatrix<T,4,4>* into, T theta) {
+    T c = std::cos(theta);
+    T s = std::sin(theta);
+    *into = {
+        c, 0, s, 0,
+        0, 1, 0, 0,
+       -s, 0, c, 0,
+        0, 0, 0, 1
+    };
+}
+
+template <typename T>
+void rotmat_z(SimpleMatrix<T,4,4>* into, T theta) {
+    T c = std::cos(theta);
+    T s = std::sin(theta);
+    *into = {
+        c,-s, 0, 0,
+        s, c, 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1
+    };
+}
 
 template <typename T>
 inline void rotmat_direction_align(
@@ -613,6 +723,30 @@ AffineTransform<T,2> rotation(T radians) {
     return xfnew;
 }
 
+template <typename T>
+AffineTransform<T,3> rotation_x(T theta) {
+    AffineTransform<T,3> xfnew;
+    rotmat_x(&xfnew.mat, theta);
+    transpose(&xfnew.inv, xfnew.mat);
+    return xfnew;
+}
+
+template <typename T>
+AffineTransform<T,3> rotation_y(T theta) {
+    AffineTransform<T,3> xfnew;
+    rotmat_y(&xfnew.mat, theta);
+    transpose(&xfnew.inv, xfnew.mat);
+    return xfnew;
+}
+
+template <typename T>
+AffineTransform<T,3> rotation_z(T theta) {
+    AffineTransform<T,3> xfnew;
+    rotmat_z(&xfnew.mat, theta);
+    transpose(&xfnew.inv, xfnew.mat);
+    return xfnew;
+}
+
 /**
  * Rotation to align one vector with another.
  * @param dir Unit direction to be realigned.
@@ -737,7 +871,7 @@ struct hash<geom::AffineTransform<T,N>> {
         // this nonce ensures that Xfs and Mats don't hash equal;
         // their type makes them distinct
         constexpr size_t nonce = (size_t) 7462482095847566613ULL;
-        return hash<geom::SimpleMatrix<T,N,N>>()(v.mat) ^ nonce;
+        return geom::hash(v.mat) ^ nonce;
     }
 };
 

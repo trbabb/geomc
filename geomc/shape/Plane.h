@@ -267,8 +267,8 @@ struct std::hash<geom::Plane<T,N>> {
     size_t operator()(const geom::Plane<T,N> &p) const {
         constexpr size_t nonce = (size_t) 0x1bff2d1194dd90c5ULL;
         return geom::hash_combine(
-            std::hash<Vec<T,N>>{}(p.normal),
-            std::hash<T>{}(p.d)
+            geom::hash(p.normal),
+            geom::hash(p.d)
         ) ^ nonce;
     }
 };

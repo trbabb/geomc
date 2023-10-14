@@ -67,37 +67,37 @@ namespace geom {
 
         
         /// Construct vector with all elements set to 0.
-        constexpr Vec():detail::VecCommon< T, 4, Vec<T,4> >() {}
+        constexpr Vec():detail::VecCommon<T, 4, Vec<T,4>>() {}
         
         /// Construct a vector with elements `(x, y, z, w)`.
-        constexpr Vec(T x, T y, T z, T w) {
-            detail::VecBase<T,4>::x = x;
-            detail::VecBase<T,4>::y = y;
-            detail::VecBase<T,4>::z = z;
-            detail::VecBase<T,4>::w = w;
-        }
+        constexpr Vec(T x, T y, T z, T w):detail::VecCommon<T, 4, Vec<T,4>>{x,y,z,w} {}
 
         /// Construct a vector with elements copied from the 4-element array `v`.
-        constexpr Vec(const T v[4]):detail::VecCommon< T, 4, Vec<T,4> >(v) {};
+        constexpr Vec(const T v[4]):detail::VecCommon<T, 4, Vec<T,4>>(v) {};
 
         /**
          * @brief Construct a vector with `(x, y, z)` taken from the 3D vector `xyz`,
          * and `w` as the final element.
          */
         template <typename U>
-        constexpr Vec(Vec<U,3> xyz, T w) {
-            detail::VecBase<T,4>::x = xyz.x;
-            detail::VecBase<T,4>::y = xyz.y;
-            detail::VecBase<T,4>::z = xyz.z;
-            detail::VecBase<T,4>::w = w;
-        }
+        constexpr Vec(Vec<U,3> xyz, T w):detail::VecCommon<T, 4, Vec<T,4>>{
+            xyz.x, xyz.y, xyz.z, w
+        } {}
+        
+        template <typename U>
+        constexpr Vec(Vec<U,2> xy, T z, T w):detail::VecCommon<T, 4, Vec<T,4>>{
+            xy.x, xy.y, z, w
+        } {}
 
         /// Construct a vector with all elements set to `a`.
-        constexpr Vec(T a):detail::VecCommon< T, 4, Vec<T,4> >(a) {}
+        constexpr Vec(T a):detail::VecCommon<T, 4, Vec<T,4>>(a) {}
         
         /*===========================*
          * Arithmetic                *
          *===========================*/
+
+        // to prevent c++20 ambiguity warnings:
+        using detail::VecCommon<T,4,Vec<T,4>>::operator==;
         
         using detail::VecCommon< T, 4, Vec<T,4> >::add;
         using detail::VecCommon< T, 4, Vec<T,4> >::sub;

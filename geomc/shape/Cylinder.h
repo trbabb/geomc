@@ -263,7 +263,11 @@ template <typename T, index_t N>
 struct std::hash<geom::Cylinder<T,N>> {
     size_t operator()(const geom::Cylinder<T,N> &v) const {
         constexpr size_t nonce = (size_t) 0x77f68ad97f8281e6ULL;
-        return geom::hash_bytes(&v, sizeof(geom::Cylinder<T,N>)) ^ nonce;
+        return geom::hash_combine_many(
+            geom::hash(v.p0),
+            geom::hash(v.p1),
+            geom::hash(v.radius)
+        ) ^ nonce;
     }
 };
 

@@ -165,14 +165,16 @@ Sphere<T,N> dilate(const Sphere<T,N>& s, T dilation) {
 }
 
 /**
- * @brief Dilate the Rect `r` by the amount `dilation`.
+ * @brief Product a rounded rectangle with corner radius `radius`.
  * 
- * @related Rect
- * @related Dilated
+ * The rounded rectangle will have the extents of `rect`, but with corners
+ * rounded by `radius`. The radius will be clamped to the maximum possible
+ * value that will not cause the corners to overlap.
  */
 template <typename T, index_t N>
-Rect<T,N> dilate(const Rect<T,N>& r, T dilation) {
-    return r.dilated(dilation);
+Dilated<Rect<T,N>> roundrect(const Rect<T,N>& rect, T radius) {
+    radius = std::min(radius, rect.dimensions().min() / 2);
+    return (rect.dilated(-radius), radius);
 }
 
 /** @addtogroup traits
@@ -205,8 +207,8 @@ struct std::hash<geom::Dilated<Shape>> {
     size_t operator()(const geom::Dilated<Shape> &s) const {
         constexpr size_t nonce = (size_t) 0x7f5e38d0b18f1dbfULL;
         return geom::hash_combine(
-            std::hash<Shape>{}(s.shape),
-            std::hash<Shape::elem_t>{}(s.dilation)
+            geom::hash(s.shape),
+            geom::hash(s.dilation)
         ) ^ nonce;
     }
 };

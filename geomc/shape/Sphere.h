@@ -112,16 +112,6 @@ public:
     
 }; /* Sphere<T,N> */
 
-/**
- * @brief A 2D circle.
- * 
- * @tparam T Coordinate type
- * 
- * @related Sphere
- */
-template <typename T>
-using Circle = Sphere<T,2>;
-
 } /* namespace geom */
 
 
@@ -129,6 +119,9 @@ template <typename T, index_t N>
 struct std::hash<geom::Sphere<T,N>> {
     size_t operator()(const geom::Sphere<T,N> &s) const {
         constexpr size_t nonce = (size_t) 0x948904c693a7ddebULL;
-        return geom::hash_bytes(&s, sizeof(s)) ^ nonce;
+        return geom::hash_combine(
+            geom::hash(s.center),
+            geom::hash(s.r)
+        ) ^ nonce;
     }
 };

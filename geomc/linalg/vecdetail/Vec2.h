@@ -154,7 +154,7 @@ namespace geom {
          * with `angle` in radians.
          */
         inline Vec<T,2> to_polar() const {
-            return Vec<T,2>(this->mag(), get_angle());
+            return Vec<T,2>(this->mag(), angle());
         }
         
         /**
@@ -172,7 +172,7 @@ namespace geom {
          * @return The angle in radians to this vector from the x-axis, between 0 
          * and `2 * pi`.
          */
-        inline T get_angle() const {
+        inline T angle() const {
             T theta = (T)(atan2(detail::VecBase<T,2>::y,detail::VecBase<T,2>::x));
             if (theta < 0) theta += 2 * M_PI;
             return theta;
