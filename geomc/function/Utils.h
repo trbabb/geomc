@@ -101,7 +101,7 @@ inline typename std::common_type<S,T>::type mix(S t, T a, T b) {
  * @return Interpolated value.
  */
 template <typename S, typename T>
-T interp_linear(const S s[], const T p[], int dim) {
+inline T interp_linear(const S s[], const T p[], int dim) {
     if (dim <= 1){
         return mix<S,T>(*s, p[0], p[1]);
     } else {
@@ -121,7 +121,7 @@ T interp_linear(const S s[], const T p[], int dim) {
  * @return Interpolated value.
  */
 template <typename S, typename T>
-T interp_cubic(S s, const T p[4]) {
+inline T interp_cubic(S s, const T p[4]) {
     return p[1] + 0.5 * 
         s*(p[2] - p[0] + 
             s*(2.0*p[0] - 5.0*p[1] + 4.0*p[2] - p[3] + 
@@ -137,7 +137,7 @@ T interp_cubic(S s, const T p[4]) {
  * @return Interpolated value.
  */
 template <typename S, typename T>
-T interp_cubic(const S s[], const T p[], int dim) {
+inline T interp_cubic(const S s[], const T p[], int dim) {
     if (dim <= 1){
         return interp_cubic(*s, p);
     } else {
@@ -167,7 +167,7 @@ T interp_cubic(const S s[], const T p[], int dim) {
  * `false` otherwise (in which case the contents of `results` will be unaltered).
  */
 template <typename T>
-bool quadratic_solve(T results[2], T a, T b, T c){
+inline bool quadratic_solve(T results[2], T a, T b, T c){
     T descr = diff_of_products(b, b, 4 * a, c); // b^2 - 4ac
     // no real solution, or an equation of the form "c = 0"
     if (descr < 0 or (a == 0 and b == 0)) return false;

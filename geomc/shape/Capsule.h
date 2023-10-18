@@ -48,6 +48,10 @@ public:
         return Rect<T,N>::spanning_corners(p0, p1).dilated(radius);
     }
     
+    Vec<T,N> axis() const {
+        return p1 - p0;
+    }
+    
     /// Shape-point intersection test.
     bool contains(point_t p) const {
         return sdf(p) <= 0;

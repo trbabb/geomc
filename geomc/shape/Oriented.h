@@ -251,7 +251,7 @@ public:
  * @related Oriented
  */
 template <typename Shape>
-Oriented<Shape> operator*(
+inline Oriented<Shape> operator*(
         const AffineTransform<typename Shape::elem_t, Shape::N>& xf,
         const Shape& s)
 {
@@ -265,7 +265,7 @@ Oriented<Shape> operator*(
  * @related Oriented
  */
 template <typename Shape>
-Oriented<Shape> operator*(
+inline Oriented<Shape> operator*(
         const AffineTransform<typename Shape::elem_t, Shape::N>& xf,
         const Oriented<Shape>& s)
 {
@@ -279,7 +279,7 @@ Oriented<Shape> operator*(
  * @related Oriented
  */
 template <typename Shape>
-Oriented<Shape>& operator*=(
+inline Oriented<Shape>& operator*=(
         Oriented<Shape>& s,
         const AffineTransform<typename Shape::elem_t, Shape::N>& xf)
 {
@@ -294,7 +294,7 @@ Oriented<Shape>& operator*=(
  * @related Oriented
  */
 template <typename Shape>
-Oriented<Shape> operator/(
+inline Oriented<Shape> operator/(
         const Shape& s,
         const AffineTransform<typename Shape::elem_t, Shape::N>& xf)
 {
@@ -308,7 +308,7 @@ Oriented<Shape> operator/(
  * @related Oriented
  */
 template <typename Shape>
-Oriented<Shape> operator/(
+inline Oriented<Shape> operator/(
         const Oriented<Shape>& s,
         const AffineTransform<typename Shape::elem_t, Shape::N>& xf)
 {
@@ -322,7 +322,7 @@ Oriented<Shape> operator/(
  * @related Oriented
  */
 template <typename Shape>
-Oriented<Shape>& operator/=(
+inline Oriented<Shape>& operator/=(
         Oriented<Shape>& s,
         const AffineTransform<typename Shape::elem_t, Shape::N>& xf)
 {

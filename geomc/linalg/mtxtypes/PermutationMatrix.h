@@ -83,7 +83,7 @@ namespace detail {
 template <typename Ma, typename Mb, typename Enable> class _ImplMtxMul;
 };
 // fwd decl
-index_t permutation_sign(index_t* p, index_t n);
+inline index_t permutation_sign(index_t* p, index_t n);
 
 /** @ingroup matrix 
  *  @brief A matrix which, by multiplication, permutes the rows or columns of

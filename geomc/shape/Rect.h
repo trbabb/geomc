@@ -230,7 +230,7 @@ public:
      * 
      * @return A Rect fully containing `this` and box `b`.
      */
-    inline Rect<T,N> operator|(const Rect<T,N> &b) const {
+    Rect<T,N> operator|(const Rect<T,N> &b) const {
         return Rect<T,N>(std::min(lo, b.lo),
                          std::max(hi, b.hi));
     }
@@ -285,7 +285,7 @@ public:
      * The unsigned intersection is the most common form of interval intersection,
      * and is the more efficient of the two.
      */
-    inline Rect<T,N> operator&(const Rect<T,N> &b) const {
+    Rect<T,N> operator&(const Rect<T,N> &b) const {
         return Rect<T,N>(std::max(lo, b.lo),
                          std::min(hi, b.hi));
     }
@@ -315,7 +315,7 @@ public:
      *   Add `dx` to the coordinates of all the bounds.
      * @return A translated Rect.
      */
-    inline Rect<T,N> operator+(point_t dx) const {
+    Rect<T,N> operator+(point_t dx) const {
         return Rect<T,N>(lo + dx, hi + dx);
     }
     
@@ -326,7 +326,7 @@ public:
      *   Subtract `dx` from the coordinates of all the bounds.
      * @return A translated Rect.
      */
-    inline Rect<T,N> operator-(point_t dx) const {
+    Rect<T,N> operator-(point_t dx) const {
         return Rect<T,N>(lo - dx, hi - dx);
     }
     
@@ -338,7 +338,7 @@ public:
      *   Add `dx` to the coordinates of all the bounds.
      * @return  A reference to `this`, for convenience.
      */
-    inline Rect<T,N>& operator+=(point_t dx) {
+    Rect<T,N>& operator+=(point_t dx) {
         hi += dx;
         lo += dx;
         return *this;
@@ -352,7 +352,7 @@ public:
      *   Subtract `dx` from the coordinates of all the bounds.
      * @return  A reference to `this`, for convenience.
      */
-    inline Rect<T,N>& operator-=(point_t dx) {
+    Rect<T,N>& operator-=(point_t dx) {
         hi -= dx;
         lo -= dx;
         return *this;
@@ -368,7 +368,7 @@ public:
      * @param other Range to be excluded from the range of this `Rect`.
      * @return A new `Rect` whose range does not overlap `other`.
      */
-    inline Rect<T,N> operator-(const Rect<T,N>& other) {
+    Rect<T,N> operator-(const Rect<T,N>& other) {
         // todo: instead of returning empty() when an interval is split in two,
         //   choose the larger
         // todo: make an exclude_signed() and handle empty-interval case,
@@ -401,7 +401,7 @@ public:
      * @param other Range to remove from this `Rect`.
      * @return A reference to `this`, for convenience.
      */
-    inline Rect<T,N>& operator-=(const Rect<T,N>& other) {
+    Rect<T,N>& operator-=(const Rect<T,N>& other) {
         *this = (*this) - other;
         return *this;
     }
@@ -412,7 +412,7 @@ public:
      * 
      * @return `true` if and only if all the corresponding extremes of `b` are the same.
      */
-    inline bool operator==(const Rect<T,N>& b) const {
+    bool operator==(const Rect<T,N>& b) const {
         return (hi == b.hi) and (lo == b.lo);
     }
     
@@ -422,7 +422,7 @@ public:
      * @return `true` if and only if any extreme of `b` is different from
      * the corresponding extreme in `this`.
      */
-    inline bool operator!=(const Rect<T,N>& b) const {
+    bool operator!=(const Rect<T,N>& b) const {
         return (hi != b.hi) or (lo != b.lo);
     }
 
@@ -432,7 +432,7 @@ public:
      * @param a Scale factor.
      * @return A new Rect, scaled about the origin by factor `a`.
      */
-    inline Rect<T,N> operator*(point_t a) const {
+    Rect<T,N> operator*(point_t a) const {
         // a sign change can swap lo and hi for any coordinate.
         // we have to do max and min again after the multiply:
         point_t lo_a = lo * a;
@@ -450,7 +450,7 @@ public:
      * @param a Scale factor
      * @return A reference to `this`, for convenience.
      */
-    inline Rect<T,N>& operator*=(point_t a) {
+    Rect<T,N>& operator*=(point_t a) {
         point_t lo_a = lo * a;
         point_t hi_a = hi * a;
         lo = std::min(lo_a, hi_a);
@@ -464,7 +464,7 @@ public:
      * @param a Scale factor.
      * @return A new Rect, scaled about the origin by multiple `1 / a`.
      */
-    inline Rect<T,N> operator/(point_t a) const {
+    Rect<T,N> operator/(point_t a) const {
         auto lo_a = lo / a;
         auto hi_a = hi / a;
         return {
@@ -480,7 +480,7 @@ public:
      * @param a Scale factor
      * @return A reference to `this`, for convenience.
      */
-    inline Rect<T,N>& operator/=(point_t a) {
+    Rect<T,N>& operator/=(point_t a) {
         *this = (*this) / a;
         return *this;
     }
@@ -499,7 +499,7 @@ public:
      * @tparam M Dimensionality of `r`.
      */
     template <index_t M>
-    inline Rect<T,M+N> operator*(const Rect<T,M>& r) const {
+    Rect<T,M+N> operator*(const Rect<T,M>& r) const {
         typedef PointType<T,M> r_ptype;
         Rect<T,M+N> o;
         
@@ -612,7 +612,7 @@ public:
      * Note that for integer type Rects, since both the high and low boundaries
      * are included, the length along each axis is `hi - lo + 1`.
      */
-    inline point_t dimensions() const {
+    point_t dimensions() const {
         return hi - lo + endpoint_measure;
     }
 
@@ -660,7 +660,7 @@ public:
      * at `c`.
      * @param c New center point.
      */
-    inline Rect<T,N> centered_on(point_t c) const {
+    Rect<T,N> centered_on(point_t c) const {
         return Rect<T,N>::from_center(c, dimensions());
     }
     
@@ -705,7 +705,7 @@ public:
      * Return a Rect with the boundary extended coordinate-wise by the amount `c` 
      * in all directions.
      */
-    inline Rect<T,N> dilated(point_t c) const {
+    Rect<T,N> dilated(point_t c) const {
         return Rect<T,N>(lo - c, hi + c);
     }
     
@@ -714,7 +714,7 @@ public:
      * 
      * Combine this Rect with another using the Minkowski sum.
      */
-    inline Rect<T,N> minkowski_sum(const Rect<T,N>& other) const {
+    Rect<T,N> minkowski_sum(const Rect<T,N>& other) const {
         return Rect<T,N>(lo + other.lo, hi + other.hi);
     }
     
@@ -766,7 +766,7 @@ public:
      *
      * Result can be considered the point nearest to `p` contained in this `Rect`.
      */
-    inline point_t clip(point_t p) const {
+    point_t clip(point_t p) const {
         return std::min(hi, std::max(lo, p));
     }
     
@@ -777,7 +777,7 @@ public:
      * the Rect, regardless of whether it's inside or outside. By contrast,
      * `clip()` leaves `p` unchanged if it lies in the Rect's interior.
      */
-    inline point_t project(point_t p) const {
+    point_t project(point_t p) const {
         if (contains(p)) {
             // project to the closest face;
             // i.e. find the axis along which p is closest to a boundary and 
@@ -808,7 +808,7 @@ public:
     /**
      * @brief Return the signed distance to the surface of the shape.
      */
-    inline T sdf(point_t p) const {
+    T sdf(point_t p) const {
         T sign = contains(p) ? -1 : 1;
         return sign * project(p).dist(p);
     }
@@ -818,7 +818,7 @@ public:
      * @return The square of the distance to the nearest point contained by this `Rect`; 
      * zero if `p` is inside.
      */
-    inline T dist2(point_t p) const {
+    T dist2(point_t p) const {
         return ptype::mag2(p - clip(p));
     }
     
@@ -936,12 +936,12 @@ public:
 
 
 template <typename T, index_t N>
-Rect<T,N> operator+(typename Rect<T,N>::point_t p, const Rect<T,N>& r) {
+inline Rect<T,N> operator+(typename Rect<T,N>::point_t p, const Rect<T,N>& r) {
     return r + p;
 }
 
 template <typename T, index_t N>
-Rect<T,N> operator-(typename Rect<T,N>::point_t p, const Rect<T,N>& r) {
+inline Rect<T,N> operator-(typename Rect<T,N>::point_t p, const Rect<T,N>& r) {
     return r - p;
 }
 

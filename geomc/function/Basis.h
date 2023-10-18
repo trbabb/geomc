@@ -27,7 +27,7 @@ namespace geom {
 // evaluate a column m and -m of Legendre polynomials and stuff them
 // into the appropriate place in the SphericalHarmonics' coeff table
 template <typename T, index_t N>
-void legendre(SphericalHarmonics<T,N> *sh, index_t m, T x) {
+inline void legendre(SphericalHarmonics<T,N> *sh, index_t m, T x) {
     index_t l = sh->bands();
     T pmm0 = 1;
     if (m > 0) {
@@ -58,7 +58,7 @@ void legendre(SphericalHarmonics<T,N> *sh, index_t m, T x) {
  * @param x Value of `x` at which to evaluate the polynomial.
  */
 template <typename T>
-T legendre(index_t l, index_t m, T x) {
+inline T legendre(index_t l, index_t m, T x) {
     T pmm0 = 1;
     if (m > 0) {
         // compute double factorial of 2m - 1
@@ -88,7 +88,7 @@ T legendre(index_t l, index_t m, T x) {
  * @param x Value of `x` at which to evaluate the polynomial.
  */
 template <typename T>
-T legendre(index_t n, T x) {
+inline T legendre(index_t n, T x) {
     if (n <= 0) return 1;
     T p_0 = 1; // P(i - 1, x)
     T p_1 = x; // P(i,     x)
@@ -110,7 +110,7 @@ T legendre(index_t n, T x) {
  * @param x Value of `x` at which to evaluate the integral.
  */
 template <typename T>
-T legendre_integral(index_t n, T x) {
+inline T legendre_integral(index_t n, T x) {
     if (n <= 0) return x + 1;
     T p_0 = 1; // P(i - 1, x)
     T p_1 = x; // P(i,     x)
@@ -133,7 +133,7 @@ T legendre_integral(index_t n, T x) {
  * @param x Value of `x` at which to evaluate.
  */
 template <typename T>
-T chebyshev(index_t kind, index_t n, T x) {
+inline T chebyshev(index_t kind, index_t n, T x) {
     if (n <= 0) return 1;
     T t_0 = 1;
     T t_1 = kind * x; // first kind := x; second kind := 2x

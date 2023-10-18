@@ -132,7 +132,7 @@ namespace geom {
          * @return A vector rotated counterclockwise by the angle `radians`.
          * @param radians Rotation angle in radians
          */
-        Vec<T,2> rotate(T radians) const {
+        Vec<T,2> rotated(T radians) const {
             T sint = sin(radians);
             T cost = cos(radians);
             return Vec<T,2>(cost*detail::VecBase<T,2>::x - sint*detail::VecBase<T,2>::y,

@@ -126,7 +126,7 @@ public:
  * @related Dilated
  */
 template <typename Shape>
-Dilated<Shape> dilate(const Shape& s, typename Shape::elem_t dilation) {
+inline Dilated<Shape> dilate(const Shape& s, typename Shape::elem_t dilation) {
     return Dilated<Shape>(s, std::max(dilation, 0));
 }
 
@@ -135,7 +135,7 @@ Dilated<Shape> dilate(const Shape& s, typename Shape::elem_t dilation) {
  * @related Dilated
  */
 template <typename Shape>
-Dilated<Shape> dilate(const Dilated<Shape>& s, typename Shape::elem_t dilation) {
+inline Dilated<Shape> dilate(const Dilated<Shape>& s, typename Shape::elem_t dilation) {
     return Dilated<Shape>(s.shape, std::max(s.dilation + dilation, 0));
 }
 
@@ -147,7 +147,7 @@ Dilated<Shape> dilate(const Dilated<Shape>& s, typename Shape::elem_t dilation) 
  * @related Dilated
  */
 template <typename T, index_t N>
-Plane<T,N> dilate(Plane<T,N> p, T dilation) {
+inline Plane<T,N> dilate(Plane<T,N> p, T dilation) {
     p.d += dilation;
     return p;
 }
@@ -160,7 +160,7 @@ Plane<T,N> dilate(Plane<T,N> p, T dilation) {
  * @related Dilated
  */
 template <typename T, index_t N>
-Sphere<T,N> dilate(const Sphere<T,N>& s, T dilation) {
+inline Sphere<T,N> dilate(const Sphere<T,N>& s, T dilation) {
     return Sphere<T,N>(s.center, std::max(s.r + dilation, 0));
 }
 
@@ -172,9 +172,9 @@ Sphere<T,N> dilate(const Sphere<T,N>& s, T dilation) {
  * value that will not cause the corners to overlap.
  */
 template <typename T, index_t N>
-Dilated<Rect<T,N>> roundrect(const Rect<T,N>& rect, T radius) {
+inline Dilated<Rect<T,N>> roundrect(const Rect<T,N>& rect, T radius) {
     radius = std::min(radius, rect.dimensions().min() / 2);
-    return (rect.dilated(-radius), radius);
+    return {rect.dilated(-radius), radius};
 }
 
 /** @addtogroup traits

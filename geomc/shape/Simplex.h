@@ -680,7 +680,7 @@ private:
  * @return `true` if the ray hit the simplex.
  */
 template <typename T, index_t N>
-bool trace_simplex(const Vec<T,N> verts[N], const Ray<T,N>& ray, Vec<T,N-1>* uv, T* s) {
+inline bool trace_simplex(const Vec<T,N> verts[N], const Ray<T,N>& ray, Vec<T,N-1>* uv, T* s) {
     /* Solve for u,v coordinates along the edges radiating from `verts[0]`:
     A + u(B-A) + v(C-A)      = o + sV
         u(B-A) + v(C-A) - sV = o - A

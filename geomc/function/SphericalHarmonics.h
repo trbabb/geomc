@@ -112,7 +112,7 @@ namespace detail {
  * @param azi Azimuthal (longitude) angle.
  */
 template <typename T>
-T spherical_harmonic_coeff(index_t l, index_t m, T cos_alt, T azi) {
+inline T spherical_harmonic_coeff(index_t l, index_t m, T cos_alt, T azi) {
     index_t m_a = std::abs(m);
     static const T sr2 = std::sqrt((T)2);
     static const T pi  = boost::math::constants::pi<T>();
