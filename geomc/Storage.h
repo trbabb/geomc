@@ -453,7 +453,7 @@ public:
     }
     
     /// Copy the contents of `other` to this `SmallStorage`. 
-    SmallStorage<T,N>& operator=(SmallStorage<T,N>& other) {
+    SmallStorage<T,N>& operator=(const SmallStorage<T,N>& other) {
         if (&other == this) return; // no self-assign
         // don't bother to realloc if the buffer is already the correct size.
         if (sz > N and data and sz != other.sz) delete [] data;
