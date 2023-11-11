@@ -12,6 +12,7 @@
 #include <functional>
 #include <type_traits>
 
+#include <geomc/function/Utils.h>
 #include <geomc/linalg/LinalgTypes.h>
 
 //TODO: specialize for dynamic dimension Vec<T,0>
@@ -552,7 +553,7 @@ public:
     inline T dot(const self_t& v) const {
         T sum = (*this)[0] * v[0];
         for (index_t i = 1; i < N; i++) {
-            sum = std::fma(this->get(i), v[i], sum);
+            sum = geom::multiply_add(this->get(i), v[i], sum);
         }
         return sum;
     }
@@ -574,7 +575,7 @@ public:
         T sum = x0 * x0;
         for (index_t i = 1; i < N; i++) {
             T xi = this->get(i);
-            sum  = std::fma(xi, xi, sum);
+            sum  = geom::multiply_add(xi, xi, sum);
         }
         return sum;
     }

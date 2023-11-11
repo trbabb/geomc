@@ -2,7 +2,7 @@ CC        = clang++
 AR        = ar
 PREFIX    = /usr/local
 INCLUDES  = .
-BUILD_STD = c++17
+BUILD_STD = c++20
 M_ARCH    = native
 CFLAGS    = -g -march=$(M_ARCH) -std=$(BUILD_STD) -O3 -Wall -fmessage-length=0 -Wno-unused-local-typedef
 IFLAGS    = $(addprefix -I, $(INCLUDES))

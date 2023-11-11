@@ -1,12 +1,11 @@
+#pragma once
+
 /*
  * Utils.h
  *
  *  Created on: Feb 22, 2009
  *      Author: Tim Babb
  */
-
-#ifndef UTILS_H_
-#define UTILS_H_
 
 #include <cmath>
 #include <algorithm>
@@ -204,5 +203,3 @@ inline T angle_to(T radians_0, T radians_1) {
 
 /// @} // ingroup function
 }
-
-#endif /* UTILS_H_ */
