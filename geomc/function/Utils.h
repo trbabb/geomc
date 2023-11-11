@@ -19,6 +19,18 @@ namespace geom {
  * @{
  */
 
+
+template <typename T>
+inline std::enable_if_t<std::is_integral_v<T>, T> positive_mod(T a, T b) {
+    return (a % b + b) % b;
+}
+
+template <typename T>
+inline std::enable_if_t<not std::is_integral_v<T>, T> positive_mod(T a, T b)
+{
+    return a - b * std::floor(a / b);
+}
+
 /**
  * A high-precision method for computing (a * b) - (c * d). In cases
  * where the two products are large and close in value, the result can be
@@ -202,4 +214,5 @@ inline T angle_to(T radians_0, T radians_1) {
 }
 
 /// @} // ingroup function
-}
+
+} // namespace geom

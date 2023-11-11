@@ -6,11 +6,35 @@
 
 #include <geomc/function/functiondetail/DualImpl.h>
 
-namespace geom {
 
 ///////////////
 // fwd decls //
 ///////////////
+
+namespace std {
+
+template <typename T, geom::DiscontinuityPolicy P>
+inline geom::Dual<T,P> abs(const geom::Dual<T,P>& x);
+
+template <typename T, geom::DiscontinuityPolicy P>
+inline geom::Dual<T,P> sqrt(const geom::Dual<T,P>& x);
+
+template <typename T, geom::DiscontinuityPolicy P>
+inline geom::Dual<T,P> min(const geom::Dual<T,P>& x, const geom::Dual<T,P>& y);
+
+template <typename T, geom::DiscontinuityPolicy P>
+inline geom::Dual<T,P> max(const geom::Dual<T,P>& x, const geom::Dual<T,P>& y);
+
+template <typename T, geom::DiscontinuityPolicy P>
+inline geom::Dual<T,P> ceil(const geom::Dual<T,P>& x);
+
+template <typename T, geom::DiscontinuityPolicy P>
+inline geom::Dual<T,P> floor(const geom::Dual<T,P>& x);
+
+} // namespace std
+
+
+namespace geom {
 
 template <typename T>
 inline T multiply_add(T a, T b, T c);
@@ -21,6 +45,10 @@ inline T diff_of_products(T a, T b, T c, T d);
 template <typename T>
 inline T sum_of_products(T a, T b, T c, T d);
 
+
+/////////////////////////
+// FMA implementations //
+////////////////////////
 
 namespace detail {
 
@@ -84,7 +112,7 @@ struct _ImplFMADot<Dual<T,P>, void> {
         T dp = geom::sum_of_products<T>(a.x, b.dx, a.dx, b.x);
         T dq = geom::sum_of_products<T>(c.x, d.dx, c.dx, d.x);
         return Dual<T,P>(
-            geom::sum_of_products<T>(a, b, c, d),
+            geom::sum_of_products<T>(a.x, b.x, c.x, d.x),
             dp + dq);
     }
     

@@ -207,11 +207,29 @@ constexpr Dual<T,Dp>& operator+=(Dual<T,Dp>& x, const Dual<T,Dp>& y) {
     return x;
 }
 
+template <typename T, typename U, DiscontinuityPolicy Dp>
+requires requires(T t, U u) {
+  {t += u} -> std::convertible_to<T&>;
+}
+constexpr Dual<T,Dp>& operator+=(Dual<T,Dp>& x, U s) {
+    x.x += s;
+    return x;
+}
+
 /// Subtract and assign.
 template <typename T, DiscontinuityPolicy Dp>
 constexpr Dual<T,Dp>& operator-=(Dual<T,Dp>& x, const Dual<T,Dp>& y) {
     x.x  -= y.x;
     x.dx -= y.dx;
+    return x;
+}
+
+template <typename T, typename U, DiscontinuityPolicy Dp>
+requires requires(T t, U u) {
+  {t -= u} -> std::convertible_to<T&>;
+}
+constexpr Dual<T,Dp>& operator-=(Dual<T,Dp>& x, U s) {
+    x.x -= s;
     return x;
 }
 

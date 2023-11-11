@@ -1,6 +1,7 @@
 #include <type_traits>
 #include <utility>
 #include <geomc/Storage.h>
+#include <geomc/function/Utils.h>
 
 // todo: this guy wants an iterator
 
