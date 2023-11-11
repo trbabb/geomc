@@ -85,8 +85,15 @@ typedef std::ptrdiff_t index_t;
 /** @brief Namespace of all `geomc` functions and classes. */
 namespace geom {
     
-    template <typename T> inline T positive_mod(T a, T b){
+    template <typename T>
+    inline std::enable_if_t<std::is_integral_v<T>, T> positive_mod(T a, T b) {
         return (a % b + b) % b;
+    }
+    
+    template <typename T>
+    inline std::enable_if_t<not std::is_integral_v<T>, T> positive_mod(T a, T b)
+    {
+        return a - b * std::floor(a / b);
     }
     
     // storage fwd decls

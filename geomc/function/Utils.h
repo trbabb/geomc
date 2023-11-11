@@ -180,6 +180,32 @@ inline bool quadratic_solve(T results[2], T a, T b, T c){
     return true;
 }
 
+/**
+ * Compute the shortest angle from `a0` to `a1`. By default, angles are in radians.
+ * 
+ * Returns a value in the range `[-τ / 2, τ / 2]`, with τ being the angle of a full turn.
+ * 
+ * To compute the angles in degrees, pass `Turn = 360`.
+ * 
+ * @tparam T The type representing the angle.
+ * @tparam Turn The value of a full turn, in the units of the angles. Defaults to `2 * M_PI`.
+ */
+template <typename T, T Turn=2 * M_PI>
+inline T angle_to(T theta_0, T theta_1) {
+    T a0 = positive_mod<T>(theta_0, Turn);
+    T a1 = positive_mod<T>(theta_1, Turn);
+    // one of three images of a1 is closest to a0:
+    // ···----•------|----•---*----|---•---···
+    //   a1 - τ      0   a1   a0   τ   a1 + τ  
+    T da = a1 -  a0;
+    T db = a1 - (a0 + Turn);
+    T dc = a1 - (a0 - Turn);
+    // find the difference of smallest magnitude:
+    T err = std::abs(da)  < std::abs(db) ? da  : db;
+    err   = std::abs(err) < std::abs(dc) ? err : dc;
+    return err;
+}
+
 /// @} // ingroup function
 }
 
