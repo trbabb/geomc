@@ -255,8 +255,6 @@ namespace std {
 // or in other words:
 //   f(x), dx * f`(x)
 
-// TODO: atan2
-
 /**
  * @brief Sine function.
  * @related geom::Dual
@@ -322,6 +320,20 @@ inline geom::Dual<T,P> atan(const geom::Dual<T,P> &d) {
     return geom::Dual<T,P>(
         std::atan(d.x),
         d.dx / (d.x * d.x + 1)
+    );
+}
+
+
+/**
+ * @brief Arctangent of `y/x` in the range `[-pi, pi]`.
+ * @related geom::Dual
+ */
+template <typename T, geom::DiscontinuityPolicy P>
+inline geom::Dual<T,P> atan2(const geom::Dual<T,P> &y, const geom::Dual<T,P> &x) {
+    return geom::Dual<T,P>(
+        std::atan2(y.x, x.x),
+        // source: https://en.wikipedia.org/wiki/Atan2#Definition_and_computation
+        (x.x * y.dx - y.x * x.dx) / (x.x * x.x + y.x * y.x)
     );
 }
 
