@@ -1,12 +1,11 @@
+#pragma once
+
 /*
  * geomc_defs.h
  *
  *  Created on: Dec 24, 2010
  *      Author: tbabb
  */
-
-#ifndef GEOMC_DEFS_H_
-#define GEOMC_DEFS_H_
 
 #include <cstddef>
 #include <type_traits>
@@ -109,5 +108,3 @@ namespace geom {
 namespace std { };
 
 #endif
-
-#endif /* GEOMC_DEFS_H_ */

@@ -224,9 +224,9 @@ public:
     Quat<T> rotation_scale(T t) const {
         // assumes a unit quaternion.
         const T w = std::max(-1, std::min(Vec<T,4>::w, 1));
-        T omega = acos(w);
+        T omega = std::acos(w);
         T theta = omega * t;
-        return Quat<T>(sin(theta) * imag().unit(), cos(theta));
+        return Quat<T>(std::sin(theta) * imag().unit(), std::cos(theta));
     }
 
     /**
@@ -245,10 +245,10 @@ public:
             q1 = -q1;
         }
         dot = std::max(0, std::min<T>(1, dot)); //keep <dot> in the domain of acos.
-        T omega = acos(dot);
+        T omega = std::acos(dot);
         T theta = omega * t;
         Quat<T> q2 = (q1 - q0 * dot).unit();
-        return cos(theta) * q0 + sin(theta) * q2;
+        return std::cos(theta) * q0 + std::sin(theta) * q2;
     }
     
     /**
@@ -280,11 +280,11 @@ namespace std {
      */
     template <typename T>
     geom::Quat<T> exp(const geom::Quat<T>& q) {
-        T k = exp(q.w);
+        T k = std::exp(q.w);
         T m = q.imag().mag();
-        if (m == 0) return geom::Quat<T>(geom::Vec<T,3>::zeros, exp(q.w));
-        T c = cos(m);
-        T s = sin(m);
+        if (m == 0) return geom::Quat<T>(geom::Vec<T,3>::zeros, std::exp(q.w));
+        T c = std::cos(m);
+        T s = std::sin(m);
         return geom::Quat<T>(k * s * q.imag() / m, k * c);
     }
     
@@ -295,8 +295,8 @@ namespace std {
     geom::Quat<T> log(const geom::Quat<T>& q) {
         T q_m = q.mag();
         T v_m = q.imag().mag();
-        T k   = acos(q.w / q_m);
-        return geom::Quat<T>(k * q.imag() / v_m, log(q_m));
+        T k   = std::acos(q.w / q_m);
+        return geom::Quat<T>(k * q.imag() / v_m, std::log(q_m));
     }
     
     /**

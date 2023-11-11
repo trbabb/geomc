@@ -3,6 +3,7 @@
 #include <cmath>
 #include <type_traits>
 #include <complex>
+
 #include <geomc/function/functiondetail/DualImpl.h>
 
 namespace geom {

@@ -257,9 +257,9 @@ public:
         //  has unchanging area regardless of h). 
         T min_h = std::cos(half_angle_radians);
         T h = this->rng->template rand<T>(min_h, 1);
-        T r = sqrt(1 - h * h);
-        T theta = this->rng->template rand<T>(2*M_PI);
-        return Vec<T,3>(r * cos(theta), r * sin(theta), h);
+        T r = std::sqrt(1 - h * h);
+        T theta = this->rng->template rand<T>(2 * M_PI);
+        return Vec<T,3>(r * std::cos(theta), r * std::sin(theta), h);
     }
     
     /**
@@ -287,7 +287,7 @@ public:
      */
     inline Vec<T,3> solidcap(Vec<T,3> dir, T half_angle_radians, T minR, T maxR) {
         T r = this->rng->template rand<T>(minR / maxR, 1);
-        r = maxR * cbrt(r);
+        r = maxR * std::cbrt(r);
         return r * this->cap(dir, half_angle_radians);
     }
     
@@ -355,7 +355,7 @@ public:
      */
     inline Vec<T,2> arc(T min_radians, T max_radians) {
         T angle = this->rng->template rand<T>(min_radians, max_radians);
-        return Vec<T,2>(cos(angle), sin(angle));
+        return Vec<T,2>(std::cos(angle), std::sin(angle));
     }
     
     /**

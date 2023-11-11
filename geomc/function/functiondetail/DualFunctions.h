@@ -1,6 +1,8 @@
 #pragma once
 
 #include <concepts>
+
+#include <geomc/Hash.h>
 #include <geomc/function/functiondetail/DualImpl.h>
 #include <geomc/function/Utils.h>
 
@@ -226,6 +228,7 @@ constexpr Dual<T,Dp> operator-(Dual<T,Dp>& d) {
 }
 
 } // namespace geom
+
 
 namespace std {
 
@@ -514,7 +517,7 @@ inline geom::Dual<T,P> fma(
         geom::Dual<T,P> b, 
         geom::Dual<T,P> c)
 {
-    return geom::sum_of_products<Dual<T,P>>(a, b, c);
+    return geom::multiply_add<geom::Dual<T,P>>(a, b, c);
 }
 
 template <typename T, geom::DiscontinuityPolicy Dp>

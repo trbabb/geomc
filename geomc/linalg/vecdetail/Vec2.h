@@ -1,12 +1,11 @@
+#pragma once
+
 /*
  * Vec2.h
  *
  *  Created on: May 9, 2009
  *      Author: Tim Babb
  */
-
-#ifndef Vec2_H_
-#define Vec2_H_
 
 #include <cmath>
 #include <geomc/linalg/vecdetail/VecBase.h>
@@ -133,10 +132,10 @@ namespace geom {
          * @param radians Rotation angle in radians
          */
         Vec<T,2> rotated(T radians) const {
-            T sint = sin(radians);
-            T cost = cos(radians);
-            return Vec<T,2>(cost*detail::VecBase<T,2>::x - sint*detail::VecBase<T,2>::y,
-                            sint*detail::VecBase<T,2>::x + cost*detail::VecBase<T,2>::y);
+            T sint = std::sin(radians);
+            T cost = std::cos(radians);
+            return Vec<T,2>(cost * this->x - sint * this->y,
+                            sint * this->x + cost * this->y);
         }
         
         /**
@@ -163,8 +162,8 @@ namespace geom {
          */
         inline Vec<T,2> from_polar() const {
             Vec<T,2> v;
-            v.x = detail::VecBase<T,2>::y * cos(detail::VecBase<T,2>::x);
-            v.y = detail::VecBase<T,2>::y * sin(detail::VecBase<T,2>::x);
+            v.x = detail::VecBase<T,2>::y * std::cos(detail::VecBase<T,2>::x);
+            v.y = detail::VecBase<T,2>::y * std::sin(detail::VecBase<T,2>::x);
             return v;
         }
 
@@ -173,7 +172,7 @@ namespace geom {
          * and `2 * pi`.
          */
         inline T angle() const {
-            T theta = (T)(atan2(detail::VecBase<T,2>::y,detail::VecBase<T,2>::x));
+            T theta = (T)(std::atan2(detail::VecBase<T,2>::y,detail::VecBase<T,2>::x));
             if (theta < 0) theta += 2 * M_PI;
             return theta;
         }
@@ -184,5 +183,3 @@ namespace geom {
     template <typename T> const Vec<T,2> Vec<T,2>::Y_AXIS = Vec<T,2>(0,1);
 
 } //end namespace geom
-
-#endif /* Vec2_H_ */

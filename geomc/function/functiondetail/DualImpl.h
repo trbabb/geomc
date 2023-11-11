@@ -121,6 +121,8 @@ struct discontinuity_impl<T, DiscontinuityPolicy::Inf> {
  *
  * @tparam T The numerical type of the number.
  * @tparam DP The `DiscontinuityPolicy` for handling discontinuous derivatives.
+ * 
+ * @ingroup function
  */
 template <typename T, DiscontinuityPolicy Dp=DiscontinuityPolicy::Right>
 struct Dual {
