@@ -1,12 +1,11 @@
+#pragma once
+
 /*
  * VecBase.h
  *
  *  Created on: Oct 10, 2010
  *      Author: tbabb
  */
-
-#ifndef VECBASE_H_
-#define VECBASE_H_
 
 #include <cmath>
 #include <algorithm>
@@ -920,5 +919,3 @@ struct IsVector<T, typename std::enable_if<
 
 } /* end namespace detail */
 } /* end namepsace geom */
-
-#endif /* VECBASE_H_ */

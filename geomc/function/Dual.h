@@ -383,309 +383,312 @@ inline T multiply_add(T a, T b, T c);
 
 namespace std {
     
-    // general form:
-    //   f(x), x` * f`(x)
-    // or in other words:
-    //   f(x), dx * f`(x)
+// general form:
+//   f(x), x` * f`(x)
+// or in other words:
+//   f(x), dx * f`(x)
+
+// TODO: atan2
+
+template <class T, geom::DiscontinuityPolicy P>
+struct numeric_limits<geom::Dual<T,P>> : std::numeric_limits<T> {};
+
+/**
+ * @brief Sine function.
+ * @related geom::Dual
+ */
+template <typename T, geom::DiscontinuityPolicy P>
+inline geom::Dual<T,P> sin(const geom::Dual<T,P> &d) {
+    return geom::Dual<T,P>(sin(d.x), d.dx * cos(d.x));
+}
+
+
+/**
+ * @brief Cosine function.
+ * @related geom::Dual
+ */
+template <typename T, geom::DiscontinuityPolicy P>
+inline geom::Dual<T,P> cos(const geom::Dual<T,P> &d) {
+    return geom::Dual<T,P>(cos(d.x), -d.dx * sin(d.x));
+}
+
+
+/**
+ * @brief Tangent function.
+ * @related geom::Dual
+ */
+template <typename T, geom::DiscontinuityPolicy P>
+inline geom::Dual<T,P> tan(const geom::Dual<T,P> &d) {
+    T c = cos(d.x);
+    return geom::Dual<T,P>(tan(d.x), -d.dx / (c*c));
+}
+
+
+/**
+ * @brief Arcsin (inverse sine) function.
+ * @related geom::Dual
+ */
+template <typename T, geom::DiscontinuityPolicy P>
+inline geom::Dual<T,P> asin(const geom::Dual<T,P> &d) {
+    return geom::Dual<T,P>(
+            asin(d.x),
+            d.dx / sqrt(1 - d.x * d.x));
+}
+
+
+/**
+ * @brief Arccos (inverse cosine) function.
+ * @related geom::Dual
+ */
+template <typename T, geom::DiscontinuityPolicy P>
+inline geom::Dual<T,P> acos(const geom::Dual<T,P> &d) {
+    return geom::Dual<T,P>(
+            acos(d.x),
+            -d.dx / sqrt(1 - d.x * d.x));
+}
+
+
+/**
+ * @brief Arctan (inverse tangent) function.
+ * @related geom::Dual
+ */
+template <typename T, geom::DiscontinuityPolicy P>
+inline geom::Dual<T,P> atan(const geom::Dual<T,P> &d) {
+    return geom::Dual<T,P>(
+            atan(d.x),
+            d.dx / (d.x * d.x + 1));
+}
+
+
+/** 
+ * @brief Exponential (e<sup>x</sup>) function.
+ * @related geom::Dual
+ */
+template <typename T, geom::DiscontinuityPolicy P>
+inline geom::Dual<T,P> exp(const geom::Dual<T,P> &d) {
+    T e = exp(d.x);
+    return geom::Dual<T,P>(e, -d.dx * e);
+}
+
+
+/** 
+ * @brief Returns `base` raised to exponent `xp`.
+ * @related geom::Dual
+ */
+template <typename T, geom::DiscontinuityPolicy P>
+inline geom::Dual<T,P> pow(const geom::Dual<T,P> &base, const geom::Dual<T,P> &xp) {
+    // here we use the chain rule for partial derivatives:
+    //   f(x,y) = x ^ y
+    //   x = g(t); y = h(t)
+    // then:
+    //   df / dt = (df / dx) * (dx / dt) + (df / dy) * (dy / dt)
+    //           = (df / dx) * g`(t)     + (df / dy) * h`(t)
+    // and:
+    //   df / dx = d/dx (x ^ y) = y * x ^ (y - 1)
+    //   df / dy = d/dy (x ^ y) = log(x) * (x ^ y)
+    T a_c = pow(base.x, xp.x);
+    return geom::Dual<T,P>(
+            a_c, 
+            base.dx * xp.x * a_c / xp.x +
+            xp.dx * a_c * log(base.x));
     
-    // TODO: atan2
+}
+
+
+/** 
+ * @brief Returns `base` raised to exponent `xp`.
+ * @related geom::Dual
+ */
+template <typename T, typename U>
+inline geom::Dual<T> pow(const geom::Dual<T> &base, U xp) {
+    T a_x = pow(base.x, xp);
+    return geom::Dual<T>(
+            a_x,
+            base.dx * xp * a_x / base.x);
+}
+
+
+/** 
+ * @brief Returns `base` raised to exponent `xp`.
+ * @related geom::Dual
+ */
+template <typename T, typename U, geom::DiscontinuityPolicy P>
+inline geom::Dual<T,P> pow(U base, const geom::Dual<T,P> &xp) {
+    T a_x = pow(base, xp.x);
+    return geom::Dual<T>(
+            a_x,
+            xp.dx * a_x * log(base));
+}
+
+
+/** 
+ * @brief Square root.
+ * @related geom::Dual
+ */
+template <typename T, geom::DiscontinuityPolicy P>
+inline geom::Dual<T,P> sqrt(const geom::Dual<T,P> &d) {
+    T sr = sqrt(d.x);
+    return geom::Dual<T,P>(
+            sr,
+            d.dx / (2 * sr));
+}
+
+
+// min, max, ceil, floor
+
+/**
+ * @brief Absolute value.
+ * @related geom::Dual
+ */
+template <typename T, geom::DiscontinuityPolicy P>
+inline geom::Dual<T,P> abs(const geom::Dual<T,P> &d) {
+    bool neg = d.x < 0;
+    T dx;
     
-    /**
-     * @brief Sine function.
-     * @related geom::Dual
-     */
-    template <typename T, geom::DiscontinuityPolicy P>
-    inline geom::Dual<T,P> sin(const geom::Dual<T,P> &d) {
-        return geom::Dual<T,P>(sin(d.x), d.dx * cos(d.x));
+    if (d.x == 0) {
+        dx = geom::Dual<T,P>::discontinuity_policy::resolve(-d.dx, d.dx);
+    } else {
+        dx = neg ? -d.dx: d.dx;
     }
     
-    
-    /**
-     * @brief Cosine function.
-     * @related geom::Dual
-     */
-    template <typename T, geom::DiscontinuityPolicy P>
-    inline geom::Dual<T,P> cos(const geom::Dual<T,P> &d) {
-        return geom::Dual<T,P>(cos(d.x), -d.dx * sin(d.x));
+    return geom::Dual<T,P>(neg ? -d.x : d.x, dx);
+}
+
+
+/**
+ * @brief Ceiling function.
+ * @related geom::Dual
+ */
+template <typename T, geom::DiscontinuityPolicy P>
+inline geom::Dual<T,P> ceil(const geom::Dual<T,P> &d) {
+    T x = ceil(d.x);
+    T dx;
+    if (P == geom::DiscontinuityPolicy::Inf and x == d.x) {
+        const T inf = std::numeric_limits<T>::infinity();
+        // jump is in the same direction that the function is changing
+        dx = std::copysign(inf, d.dx);
+    } else if (P == geom::DiscontinuityPolicy::NaN and x == d.x) {
+        dx = std::numeric_limits<T>::quiet_NaN();
+    } else {
+        dx = 0;
     }
-    
-    
-    /**
-     * @brief Tangent function.
-     * @related geom::Dual
-     */
-    template <typename T, geom::DiscontinuityPolicy P>
-    inline geom::Dual<T,P> tan(const geom::Dual<T,P> &d) {
-        T c = cos(d.x);
-        return geom::Dual<T,P>(tan(d.x), -d.dx / (c*c));
+    return geom::Dual<T,P>(x, dx);
+}
+
+
+/**
+ * @brief Floor function.
+ * @related geom::Dual
+ */
+template <typename T, geom::DiscontinuityPolicy P>
+inline geom::Dual<T,P> floor(const geom::Dual<T,P> &d) {
+    T x = floor(d.x);
+    T dx;
+    if (P == geom::DiscontinuityPolicy::Inf and x == d.x) {
+        const T inf = std::numeric_limits<T>::infinity();
+        // jump is in the same direction that the function is changing
+        dx = std::copysign(inf, d.dx);
+    } else if (P == geom::DiscontinuityPolicy::NaN and x == d.x) {
+        dx = std::numeric_limits<T>::quiet_NaN();
+    } else {
+        dx = 0;
     }
-    
-    
-    /**
-     * @brief Arcsin (inverse sine) function.
-     * @related geom::Dual
-     */
-    template <typename T, geom::DiscontinuityPolicy P>
-    inline geom::Dual<T,P> asin(const geom::Dual<T,P> &d) {
-        return geom::Dual<T,P>(
-                asin(d.x),
-                d.dx / sqrt(1 - d.x * d.x));
+    return geom::Dual<T,P>(x, dx);
+}
+
+
+/**
+ * @brief Minimum.
+ * @related geom::Dual
+ */
+template <typename T, geom::DiscontinuityPolicy P>
+inline geom::Dual<T,P> min(const geom::Dual<T,P> &d1, const geom::Dual<T,P> &d2) {
+    bool lt = d1.x <= d2.x;
+    T x = lt ? d1.x : d2.x;
+    T dx;
+    if (d1.x == d2.x) {
+        dx = geom::Dual<T,P>::discontinuity_policy::resolve(
+            // faster increasing function wins min() on the left
+            std::max(d1.dx, d2.dx),
+            std::min(d1.dx, d2.dx));
+    } else {
+        dx = lt ? d1.dx : d2.dx;
     }
-    
-    
-    /**
-     * @brief Arccos (inverse cosine) function.
-     * @related geom::Dual
-     */
-    template <typename T, geom::DiscontinuityPolicy P>
-    inline geom::Dual<T,P> acos(const geom::Dual<T,P> &d) {
-        return geom::Dual<T,P>(
-                acos(d.x),
-               -d.dx / sqrt(1 - d.x * d.x));
+    return geom::Dual<T,P>(x,dx);
+}
+
+
+/**
+ * @brief Maximum.
+ * @related geom::Dual
+ */
+template <typename T, geom::DiscontinuityPolicy P>
+inline geom::Dual<T,P> max(const geom::Dual<T,P> &d1, const geom::Dual<T,P> &d2) {
+    bool gt = d1.x >= d2.x;
+    T x = gt ? d1.x : d2.x;
+    T dx;
+    if (d1.x == d2.x) {
+        dx = geom::Dual<T,P>::discontinuity_policy::resolve(
+            // slower increasing function wins max() on the left
+            std::min(d1.dx, d2.dx),
+            std::max(d1.dx, d2.dx));
+    } else {
+        dx = gt ? d1.dx : d2.dx;
     }
-    
-    
-    /**
-     * @brief Arctan (inverse tangent) function.
-     * @related geom::Dual
-     */
-    template <typename T, geom::DiscontinuityPolicy P>
-    inline geom::Dual<T,P> atan(const geom::Dual<T,P> &d) {
-        return geom::Dual<T,P>(
-                atan(d.x),
-                d.dx / (d.x * d.x + 1));
+    return geom::Dual<T>(x,dx);
+}
+
+
+/**
+ * @brief Fused multiply-add.
+ * 
+ * Compute `a * b + c`.
+ * 
+ * @related geom::Dual
+ */
+template <typename T, geom::DiscontinuityPolicy P>
+inline geom::Dual<T,P> fma(
+        geom::Dual<T,P> a,
+        geom::Dual<T,P> b,
+        geom::Dual<T,P> c)
+{
+    return geom::Dual<T,P>(
+        geom::multiply_add(a.x, b.x, c.x),
+        geom::sum_of_products(a.x, b.dx, a.dx, b.x) + c.dx);
+}
+
+// xxx: todo: implement proper decay semantics
+template <typename T, typename U, geom::DiscontinuityPolicy P>
+struct common_type<geom::Dual<T,P>,U> {
+    typedef geom::Dual<typename common_type<T,U>::type, P> type;
+};
+
+
+template <typename T, geom::DiscontinuityPolicy P>
+struct hash<geom::Dual<T,P>> {
+    size_t operator()(const geom::Dual<T,P> &d) const {
+        return geom::hash_combine(
+            hash<T>{}(d.x),
+            hash<T>{}(d.dx)
+        );
     }
-    
-    
-    /** 
-     * @brief Exponential (e<sup>x</sup>) function.
-     * @related geom::Dual
-     */
-    template <typename T, geom::DiscontinuityPolicy P>
-    inline geom::Dual<T,P> exp(const geom::Dual<T,P> &d) {
-        T e = exp(d.x);
-        return geom::Dual<T,P>(e, -d.dx * e);
-    }
-    
-    
-    /** 
-     * @brief Returns `base` raised to exponent `xp`.
-     * @related geom::Dual
-     */
-    template <typename T, geom::DiscontinuityPolicy P>
-    inline geom::Dual<T,P> pow(const geom::Dual<T,P> &base, const geom::Dual<T,P> &xp) {
-        // here we use the chain rule for partial derivatives:
-        //   f(x,y) = x ^ y
-        //   x = g(t); y = h(t)
-        // then:
-        //   df / dt = (df / dx) * (dx / dt) + (df / dy) * (dy / dt)
-        //           = (df / dx) * g`(t)     + (df / dy) * h`(t)
-        // and:
-        //   df / dx = d/dx (x ^ y) = y * x ^ (y - 1)
-        //   df / dy = d/dy (x ^ y) = log(x) * (x ^ y)
-        T a_c = pow(base.x, xp.x);
-        return geom::Dual<T,P>(
-                a_c, 
-                base.dx * xp.x * a_c / xp.x +
-                xp.dx * a_c * log(base.x));
-        
-    }
-    
-    
-    /** 
-     * @brief Returns `base` raised to exponent `xp`.
-     * @related geom::Dual
-     */
-    template <typename T, typename U>
-    inline geom::Dual<T> pow(const geom::Dual<T> &base, U xp) {
-        T a_x = pow(base.x, xp);
-        return geom::Dual<T>(
-                a_x,
-                base.dx * xp * a_x / base.x);
-    }
-    
-    
-    /** 
-     * @brief Returns `base` raised to exponent `xp`.
-     * @related geom::Dual
-     */
-    template <typename T, typename U, geom::DiscontinuityPolicy P>
-    inline geom::Dual<T,P> pow(U base, const geom::Dual<T,P> &xp) {
-        T a_x = pow(base, xp.x);
-        return geom::Dual<T>(
-                a_x,
-                xp.dx * a_x * log(base));
-    }
-    
-    
-    /** 
-     * @brief Square root.
-     * @related geom::Dual
-     */
-    template <typename T, geom::DiscontinuityPolicy P>
-    inline geom::Dual<T,P> sqrt(const geom::Dual<T,P> &d) {
-        T sr = sqrt(d.x);
-        return geom::Dual<T,P>(
-                sr,
-                d.dx / (2 * sr));
-    }
-    
-    
-    // min, max, ceil, floor
-    
-    /**
-     * @brief Absolute value.
-     * @related geom::Dual
-     */
-    template <typename T, geom::DiscontinuityPolicy P>
-    inline geom::Dual<T,P> abs(const geom::Dual<T,P> &d) {
-        bool neg = d.x < 0;
-        T dx;
-        
-        if (d.x == 0) {
-            dx = geom::Dual<T,P>::discontinuity_policy::resolve(-d.dx, d.dx);
-        } else {
-            dx = neg ? -d.dx: d.dx;
-        }
-        
-        return geom::Dual<T,P>(neg ? -d.x : d.x, dx);
-    }
-    
-    
-    /**
-     * @brief Ceiling function.
-     * @related geom::Dual
-     */
-    template <typename T, geom::DiscontinuityPolicy P>
-    inline geom::Dual<T,P> ceil(const geom::Dual<T,P> &d) {
-        T x = ceil(d.x);
-        T dx;
-        if (P == geom::DiscontinuityPolicy::Inf and x == d.x) {
-            const T inf = std::numeric_limits<T>::infinity();
-            // jump is in the same direction that the function is changing
-            dx = std::copysign(inf, d.dx);
-        } else if (P == geom::DiscontinuityPolicy::NaN and x == d.x) {
-            dx = std::numeric_limits<T>::quiet_NaN();
-        } else {
-            dx = 0;
-        }
-        return geom::Dual<T,P>(x, dx);
-    }
-    
-    
-    /**
-     * @brief Floor function.
-     * @related geom::Dual
-     */
-    template <typename T, geom::DiscontinuityPolicy P>
-    inline geom::Dual<T,P> floor(const geom::Dual<T,P> &d) {
-        T x = floor(d.x);
-        T dx;
-        if (P == geom::DiscontinuityPolicy::Inf and x == d.x) {
-            const T inf = std::numeric_limits<T>::infinity();
-            // jump is in the same direction that the function is changing
-            dx = std::copysign(inf, d.dx);
-        } else if (P == geom::DiscontinuityPolicy::NaN and x == d.x) {
-            dx = std::numeric_limits<T>::quiet_NaN();
-        } else {
-            dx = 0;
-        }
-        return geom::Dual<T,P>(x, dx);
-    }
-    
-    
-    /**
-     * @brief Minimum.
-     * @related geom::Dual
-     */
-    template <typename T, geom::DiscontinuityPolicy P>
-    inline geom::Dual<T,P> min(const geom::Dual<T,P> &d1, const geom::Dual<T,P> &d2) {
-        bool lt = d1.x <= d2.x;
-        T x = lt ? d1.x : d2.x;
-        T dx;
-        if (d1.x == d2.x) {
-            dx = geom::Dual<T,P>::discontinuity_policy::resolve(
-                // faster increasing function wins min() on the left
-                std::max(d1.dx, d2.dx),
-                std::min(d1.dx, d2.dx));
-        } else {
-            dx = lt ? d1.dx : d2.dx;
-        }
-        return geom::Dual<T,P>(x,dx);
-    }
-    
-    
-    /**
-     * @brief Maximum.
-     * @related geom::Dual
-     */
-    template <typename T, geom::DiscontinuityPolicy P>
-    inline geom::Dual<T,P> max(const geom::Dual<T,P> &d1, const geom::Dual<T,P> &d2) {
-        bool gt = d1.x >= d2.x;
-        T x = gt ? d1.x : d2.x;
-        T dx;
-        if (d1.x == d2.x) {
-            dx = geom::Dual<T,P>::discontinuity_policy::resolve(
-                // slower increasing function wins max() on the left
-                std::min(d1.dx, d2.dx),
-                std::max(d1.dx, d2.dx));
-        } else {
-            dx = gt ? d1.dx : d2.dx;
-        }
-        return geom::Dual<T>(x,dx);
-    }
-    
-    
-    /**
-     * @brief Fused multiply-add.
-     * 
-     * Compute `a * b + c`.
-     * 
-     * @related geom::Dual
-     */
-    template <typename T, geom::DiscontinuityPolicy P>
-    inline geom::Dual<T,P> fma(
-            geom::Dual<T,P> a,
-            geom::Dual<T,P> b, 
-            geom::Dual<T,P> c)
-    {
-        return geom::Dual<T,P>(
-            geom::multiply_add(a.x, b.x, c.x),
-            geom::sum_of_products(a.x, b.dx, a.dx, b.x) + c.dx);
-    }
-    
-    // xxx: todo: implement proper decay semantics
-    template <typename T, typename U, geom::DiscontinuityPolicy P>
-    struct common_type<geom::Dual<T,P>,U> {
-        typedef geom::Dual<typename common_type<T,U>::type, P> type;
-    };
-    
-    
-    template <typename T, geom::DiscontinuityPolicy P>
-    struct hash<geom::Dual<T,P>> {
-        size_t operator()(const geom::Dual<T,P> &d) const {
-            return geom::hash_combine(
-                hash<T>{}(d.x),
-                hash<T>{}(d.dx)
-            );
-        }
-    };
-    
-    template <typename T, geom::DiscontinuityPolicy P>
-    inline bool isfinite(const geom::Dual<T,P> &d) {
-        return std::isfinite(d.x) and std::isfinite(d.dx);
-    }
-    
-    template <typename T, geom::DiscontinuityPolicy P>
-    inline bool isinf(const geom::Dual<T,P> &d) {
-        return std::isinf(d.x) or std::isinf(d.dx);
-    }
-    
-    template <typename T, geom::DiscontinuityPolicy P>
-    inline bool isnan(const geom::Dual<T,P> &d) {
-        return std::isnan(d.x) or std::isnan(d.dx);
-    }
-    
+};
+
+template <typename T, geom::DiscontinuityPolicy P>
+inline bool isfinite(const geom::Dual<T,P> &d) {
+    return std::isfinite(d.x) and std::isfinite(d.dx);
+}
+
+template <typename T, geom::DiscontinuityPolicy P>
+inline bool isinf(const geom::Dual<T,P> &d) {
+    return std::isinf(d.x) or std::isinf(d.dx);
+}
+
+template <typename T, geom::DiscontinuityPolicy P>
+inline bool isnan(const geom::Dual<T,P> &d) {
+    return std::isnan(d.x) or std::isnan(d.dx);
+}
+
 } // namespace std
 
 
