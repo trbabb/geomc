@@ -177,7 +177,7 @@ operator/(const V &a, const V &b) {
 }
 #endif
 
-#ifdef GEOMC_LINALG_USE_STREAMS
+#ifdef GEOMC_USE_STREAMS
 template <typename T, index_t N> 
 std::ostream &operator<< (std::ostream &stream, const Vec<T,N> &v) {
     stream << "(";

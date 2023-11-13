@@ -19,7 +19,7 @@
 #include <geomc/linalg/Ray.h>
 #include <geomc/linalg/Matrix.h>
 
-#ifdef GEOMC_LINALG_USE_STREAMS
+#ifdef GEOMC_USE_STREAMS
 #include <iostream>
 #endif
 
@@ -199,7 +199,7 @@ public:
         return xf;
     }
     
-#ifdef GEOMC_LINALG_USE_STREAMS
+#ifdef GEOMC_USE_STREAMS
     friend std::ostream &operator<<(std::ostream& stream, const AffineTransform<T,N> xf) {
         stream << xf.mat;
         return stream;

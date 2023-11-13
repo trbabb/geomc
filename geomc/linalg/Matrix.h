@@ -276,7 +276,7 @@
 #include <geomc/linalg/mtxdetail/MatrixArithmetic.h>
 #include <geomc/linalg/mtxdetail/MatrixDet.h>
 
-#ifdef GEOMC_LINALG_USE_STREAMS
+#ifdef GEOMC_USE_STREAMS
 
 #include <iostream>
 #include <iomanip>
@@ -1042,7 +1042,7 @@ operator!=(const Ma &a, const Mb &b) {
     return not (a == b);
 }
 
-#ifdef GEOMC_LINALG_USE_STREAMS
+#ifdef GEOMC_USE_STREAMS
 
 /**
  * stream << matrix 

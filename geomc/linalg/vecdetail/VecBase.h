@@ -551,8 +551,8 @@ public:
      * @return The dot product of `this` with `v`.
      */
     inline T dot(const self_t& v) const {
-        T sum = (*this)[0] * v[0];
-        for (index_t i = 1; i < N; i++) {
+        T sum = 0;
+        for (index_t i = 0; i < N; i++) {
             sum = geom::multiply_add(this->get(i), v[i], sum);
         }
         return sum;
@@ -571,9 +571,8 @@ public:
      * @return The square of the magnitude of this vector.
      */
     inline T mag2() const {
-        T x0  = this->get(0);
-        T sum = x0 * x0;
-        for (index_t i = 1; i < N; i++) {
+        T sum = 0;
+        for (index_t i = 0; i < N; i++) {
             T xi = this->get(i);
             sum  = geom::multiply_add(xi, xi, sum);
         }

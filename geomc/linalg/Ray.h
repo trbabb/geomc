@@ -1,7 +1,7 @@
 #ifndef GEOM_RAY_H_
 #define GEOM_RAY_H_
 
-#ifdef GEOMC_LINALG_USE_STREAMS
+#ifdef GEOMC_USE_STREAMS
 #include <iostream>
 #endif
 
@@ -127,7 +127,7 @@ inline typename PointType<T,N>::point_t operator*(T s, const Ray<T,N> r) {
     return r.at_multiple(s);
 }
     
-#ifdef GEOMC_LINALG_USE_STREAMS
+#ifdef GEOMC_USE_STREAMS
     
 /** @ingroup linalg
  * Ray stream output, in the form:

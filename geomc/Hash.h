@@ -29,7 +29,7 @@ inline size_t hash_combine(size_t h0, size_t h1) {
         */
        
         // constant from: https://stackoverflow.com/questions/5889238/
-        h0 ^= h1 + 0x517cc1b727220a95 + (h0 << 12) + (h0 >> 4);
+        h0 ^= h1 + 0x517cc1b727220a95ULL + (h0 << 12) + (h0 >> 4);
         return h0;
     } else if constexpr (sizeof(size_t) == 4) {
         // boost's hash_combine. everyone uses this even though it's known to be shit.

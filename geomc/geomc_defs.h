@@ -48,11 +48,15 @@
  * inter-matrix operations?
  */
 
+#ifndef GEOMC_MTX_CHECK_ALIASING
 #define GEOMC_MTX_CHECK_ALIASING
+#endif
 
 // Shall vectors include functions for outputting to streams?
 
-#define GEOMC_LINALG_USE_STREAMS
+#ifndef GEOMC_USE_STREAMS
+#define GEOMC_USE_STREAMS 1
+#endif
 
 // Shall the <function> module include functions for outputting to streams?
 

@@ -239,9 +239,9 @@ constexpr Dual<T,Dp>& operator-=(Dual<T,Dp>& x, U s) {
 //////////////
 
 
-/// Negation.
+/// Unary negation.
 template <typename T, DiscontinuityPolicy Dp>
-constexpr Dual<T,Dp> operator-(Dual<T,Dp>& d) {
+constexpr Dual<T,Dp> operator-(const Dual<T,Dp>& d) {
     return { -d.x, -d.dx };
 }
 

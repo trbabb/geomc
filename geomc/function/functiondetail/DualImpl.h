@@ -228,4 +228,15 @@ struct Dual {
 }; // struct Dual
 
 
+#if GEOMC_USE_STREAMS
+
+// xxx todo: this isn't found. why?
+template <typename T, DiscontinuityPolicy Dp>
+std::ostream& operator<<(std::ostream& out, const Dual<T,Dp>& d) {
+    out << d.x << " + " << d.dx << "dx";
+    return out;
+}
+
+#endif
+
 } // namespace geom
