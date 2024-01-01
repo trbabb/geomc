@@ -611,7 +611,7 @@ public:
      * @brief Elastic collision.
      * 
      * Treat `this` as a velocity vector or incident ray; this function returns
-     * the velocity reflected off of a surface with normal `normal`. 
+     * the velocity reflected off of a surface with normal `normal`.
      * Convenience for `-reflect_about(normal)`.
      * 
      * @param normal Normal of surface to "bounce" on.
