@@ -88,9 +88,9 @@ public:
         for (index_t i = 1; i < N; i++) {
             // todo: can we choose the "pivot" more intelligently? 
             // i.e. avoid "sliver" simplexes.
-            bases[i] = points[i] - points[0];
+            bases[i - 1] = points[i] - points[0];
         }
-        return Plane(bases, points[0]);
+        return from_basis(bases, points[0]);
     }
     
     /*****************************

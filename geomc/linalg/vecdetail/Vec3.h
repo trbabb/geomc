@@ -122,7 +122,7 @@ namespace geom {
          *===========================*/
 
         /// @brief Vector cross product
-        Vec<T,3>  operator^(Vec<T,3> v) const {
+        Vec<T,3> operator^(Vec<T,3> v) const {
             return cross(v);
         }
         
@@ -130,7 +130,7 @@ namespace geom {
          * Arithmetic                *
          *===========================*/
         
-        //do not hide these; we want to overload them: 
+        // do not hide these; we want to overload them: 
         using detail::VecCommon< T, 3, Vec<T,3> >::add;
         using detail::VecCommon< T, 3, Vec<T,3> >::sub;
         using detail::VecCommon< T, 3, Vec<T,3> >::scale;

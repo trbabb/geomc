@@ -10,6 +10,7 @@
 
 #include <algorithm>
 
+#include <geomc/SmallStorage.h>
 #include <geomc/linalg/LinalgTypes.h>
 #include <geomc/linalg/LUDecomp.h>
 #include <geomc/linalg/mtxdetail/MatrixDet.h>
@@ -187,7 +188,7 @@ template <typename T>
 bool invNxN(T* out, T* m, index_t n) {
     SmallStorage<index_t, 24> p(n);
     bool parity = false;
-    if (decomp_plu(m, n, n, p.get(), &parity) > 0) return false;
+    if (decomp_plu(m, n, n, p.begin(), &parity) > 0) return false;
     std::fill(out, out + n * n, (T)0);
     // pre-apply the permutation P to the identity matrix:
     detail::MxWrap<T,true> o = {out, n, n};

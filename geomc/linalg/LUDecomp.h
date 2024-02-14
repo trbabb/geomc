@@ -9,6 +9,7 @@
 #define LUDECOMP_H_
 
 #include <type_traits>
+#include <geomc/SmallStorage.h>
 #include <geomc/linalg/LinalgTypes.h>
 #include <geomc/linalg/Vec.h>
 
@@ -389,11 +390,11 @@ template <typename T, bool RowMajor=true>
 inline bool linear_solve(T* a, index_t n, index_t m, T* x, index_t skip=0) {
     SmallStorage<index_t, 24> p(n); // unlikely to need an alloc
     bool parity;
-    if (decomp_plu<T,RowMajor>(a, n, n, p.get(), &parity) > 0) {
+    if (decomp_plu<T,RowMajor>(a, n, n, p.begin(), &parity) > 0) {
         return false;
     }
     // pre-apply P to x
-    detail::destructive_apply_permutation<T,RowMajor>(p.get(), x, n, m);
+    detail::destructive_apply_permutation<T,RowMajor>(p.begin(), x, n, m);
     // LUx = Pb
     backsolve_lu<T,RowMajor>(a, n, m, x, skip);
     return true;

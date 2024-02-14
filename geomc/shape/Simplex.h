@@ -4,6 +4,7 @@
 #include <geomc/linalg/Vec.h>
 #include <geomc/linalg/Orthogonal.h>
 #include <geomc/linalg/Matrix.h>
+#include <geomc/shape/shapedetail/SimplexProject.h>
 
 // todo: distinguish project() and clip(). What we call project() is actually clip()
 //       here. GJK also needs to use clip(). maybe template this?
@@ -407,6 +408,8 @@ public:
      * @return `true` if `p` is on or inside this simplex; `false` otherwise.
      */
     bool contains(const Vec<T,N>& p) const {
+        // xxx: has this been tested? I don't think it's correct.
+        // we need to solve for all K weights, e.g.
         if (n < N + 1) return false;
         // todo: test performance + stability over projection_contains
         
@@ -428,6 +431,8 @@ public:
         if (not linear_solve<T,false>((T*) m, K, 1, (T*) x, 1)) return false;
         // skip solving for the sum of the weights         ⤴︎
         // we don't need it, and we know it's 1.
+        //   xxx this is wrong
+        //   a tet has 4 pts, we need weights for all 4
         
         T sum = 0;
         for (index_t i = 1; i < K; ++i) {
@@ -444,9 +449,8 @@ public:
     }
     
     
-    Vec<T,N> project(Vec<T,N>& p) const {
-        // xxx: todo: this is a stub
-        return p;
+    Vec<T,N> project(Vec<T,N>& p, Simplex<T,N>* face=nullptr) const {
+        return detail::project_to_simplex(*this, p, face, detail::ProjectionOp::PROJECT);
     }
     
     
@@ -483,6 +487,11 @@ public:
      *
      * @return The location of `p`'s projection.
      */
+    Vec<T,N> clip(const Vec<T,N>& p, Simplex<T,N>* onto=nullptr) const {
+        return detail::project_to_simplex(*this, p, onto, detail::ProjectionOp::CLIP);
+    }
+    
+    /*
     Vec<T,N> clip(const Vec<T,N>& p, Simplex<T,N>* onto=nullptr) const {
         Vec<T,N> buffer[N];
         Simplex<T,N> s;
@@ -556,7 +565,7 @@ public:
         if (onto) *onto = s;
         
         return out;
-    }
+    }*/
     
     
     Rect<T,N> bounds() const {
@@ -583,6 +592,7 @@ public:
 
 private:
 
+    /*
     // `all_bases` shall be laid out like:
     //   [normal] [parent null basis] [spanning basis]
     // where `normal` remains to be computed.
@@ -662,6 +672,7 @@ private:
             return true;
         }
     }
+    */
 
 
 }; // class simplex

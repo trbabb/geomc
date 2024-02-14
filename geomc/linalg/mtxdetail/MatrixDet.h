@@ -1,7 +1,7 @@
 #ifndef _MATRIXDET_H_
 #define _MATRIXDET_H_
 
-#include <geomc/Storage.h>
+#include <geomc/SmallStorage.h>
 #include <geomc/linalg/LUDecomp.h>
 
 // todo: all untested
