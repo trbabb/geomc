@@ -597,6 +597,10 @@ public:
         return box.intersects(*this);
     }
     
+    bool intersects(const Sphere<T,N>& sph) const {
+        return sph.intersects(*this);
+    }
+    
     /**
      * @brief Center point.
      * @return The center point of this region.

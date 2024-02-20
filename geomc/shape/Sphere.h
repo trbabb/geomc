@@ -67,8 +67,12 @@ public:
      * @param s Another sphere.
      * @return `true` if `s` overlaps with this sphere's volume, false otherwise.
      */
-    inline bool intersects(Sphere s) const {
+    bool intersects(Sphere s) const {
         return ptype::mag2(center - s.center) <= r * r;
+    }
+    
+    bool intersects(const Rect<T,N>& rect) const {
+        return rect.dist2(r) <= r * r;
     }
     
     point_t convex_support(point_t d) const {

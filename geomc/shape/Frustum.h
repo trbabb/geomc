@@ -119,7 +119,7 @@ public:
         // handle degenerate cases
         if (o_base[N-1] == 0) {
             // the ray lies in the h=0 plane
-            if (o_base == (T)0) {
+            if (o_base == (T)0) [[unlikely]] {
                 // the ray passes through the origin, and intersects the
                 // frustum tip, if it's included in the height range
                 T s = ray.direction.fraction_on(ray.origin);

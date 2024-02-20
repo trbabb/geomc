@@ -49,6 +49,7 @@ private:
             T* src = begin();
             for (size_t i = 0; i < n; ++i) {
                 new (new_data + i) T{std::move(src[i])};
+                src[i].~T(); // destroy the source
             }
             if (_capacity > N) delete [] _data;
             _data     = new_data;
@@ -142,6 +143,7 @@ public:
             for (size_t i = 0; i < _size; ++i) {
                 // move construct
                 new (_data + i) T {std::move(src[i])};
+                src[i].~T(); // destroy the source
             }
         } else {
             // array was stolen.
@@ -173,11 +175,11 @@ public:
         } else {
             // the donor container has static storage. copy the items.
             _data = _buffer;
-            std::copy(
-                std::make_move_iterator(other.begin()), 
-                std::make_move_iterator(other.end()), 
-                reinterpret_cast<T*>(_data)
-            );
+            T* src = other.begin();
+            for (size_t i = 0; i < _size; ++i) {
+                new (_data + i) T {std::move(src[i])};
+                src[i].~T();
+            }
         }
         other._data     = other._buffer;
         other._capacity = N;

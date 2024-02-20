@@ -4,7 +4,7 @@
 // #include <iostream>
 
 #include <boost/test/unit_test.hpp>
-#include <geomc/CircularBuffer.h>
+#include <geomc/Deque.h>
 
 using namespace geom;
 using namespace std;
@@ -14,7 +14,7 @@ using namespace std;
 
 
 template <typename T, index_t N>
-void validate_stepfill(CircularBuffer<T, N>& buf, index_t ct) {
+void validate_stepfill(Deque<T, N>& buf, index_t ct) {
     BOOST_CHECK(buf.size() == ct);
     BOOST_CHECK(buf.front() == 10);
     BOOST_CHECK(buf.back() == 10 * ct);
@@ -31,7 +31,7 @@ void validate_stepfill(CircularBuffer<T, N>& buf, index_t ct) {
 
 
 template <typename T, index_t N>
-void exercise(CircularBuffer<T, N>& buf, index_t ct) {
+void exercise(Deque<T, N>& buf, index_t ct) {
     // forwards insertion:
     for (index_t i = 0; i < ct; ++i) {
         buf.push_back((i + 1) * 10);
@@ -62,8 +62,8 @@ void exercise(CircularBuffer<T, N>& buf, index_t ct) {
 
 template <typename T, index_t N>
 void exercise_copy_and_move(index_t ct) {
-    CircularBuffer<T, N> buf0;
-    CircularBuffer<T, N> buf1;
+    Deque<T, N> buf0;
+    Deque<T, N> buf1;
     
     // stepfill
     for (index_t i = 0; i < ct; ++i) {
@@ -84,7 +84,7 @@ void exercise_copy_and_move(index_t ct) {
     validate_stepfill(buf1, ct);
     
     // copy construct
-    CircularBuffer<T, N> buf2(buf0);
+    Deque<T, N> buf2(buf0);
     validate_stepfill(buf2, ct);
     buf2.clear();
     
@@ -99,7 +99,7 @@ void exercise_copy_and_move(index_t ct) {
     exercise(buf2, N * 2);
     
     // move construct
-    CircularBuffer<T, N> buf3(std::move(buf0));
+    Deque<T, N> buf3(std::move(buf0));
     validate_stepfill(buf3, ct);
     BOOST_CHECK_EQUAL(buf0.size(), 0);
     exercise(buf0, N - 1);
@@ -114,7 +114,7 @@ BOOST_AUTO_TEST_SUITE(circular_buffer)
 
 
 BOOST_AUTO_TEST_CASE(create_circular_buffer) {
-    CircularBuffer<int, 8> buf;
+    Deque<int, 8> buf;
     
     BOOST_CHECK_EQUAL(buf.size(), 0);
     BOOST_CHECK_EQUAL(buf.capacity(), 8);
@@ -140,7 +140,7 @@ BOOST_AUTO_TEST_CASE(create_circular_buffer) {
 
 
 BOOST_AUTO_TEST_CASE(exercise_small_buffer) {
-    CircularBuffer<int, 8> buf;
+    Deque<int, 8> buf;
     // try the buffer with a small number of items.
     exercise(buf, 6);
     // try the buffer again, but with the head at the middle of the buffer:
@@ -149,7 +149,7 @@ BOOST_AUTO_TEST_CASE(exercise_small_buffer) {
 
 
 BOOST_AUTO_TEST_CASE(exercise_large_buffer) {
-    CircularBuffer<int, 8> buf;
+    Deque<int, 8> buf;
     // try the buffer with a large number of items.
     exercise(buf, 19);
     // try again, but with the head in the middle of the buffer:

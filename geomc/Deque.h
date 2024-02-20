@@ -4,6 +4,7 @@
 #include <geomc/function/Utils.h>
 
 // todo: this guy wants an iterator
+// todo: head + tail might be more elegant if tail points to last and not just-beyond-last.
 
 
 namespace geom {
@@ -15,13 +16,13 @@ namespace geom {
  */
 
 /**
- * @brief A lightweight circular buffer.
+ * @brief A lightweight double ended queue backed by a flat array.
  *
- * A circular buffer can accommodate adding elements to either the front or the back
- * of the list in constant time.
+ * A deque can accommodate adding elements to either the front or the back
+ * of the list in constant time. Random access is also constant time.
  *
- * Furthermore, indexing off the end of the circular buffer wraps around to the 
- * beginning again. This works in both directions.
+ * Furthermore, indexing off the end of the deque wraps around to the
+ * beginning again, as in a circular buffer. This works in both directions.
  *
  * @tparam T Element type.
  * @tparam N Static capacity of the buffer. Adding more than this number of elements
@@ -30,7 +31,7 @@ namespace geom {
  * element is added.
  */
 template <typename T, index_t N>
-class CircularBuffer {
+class Deque {
     
     typedef typename std::aligned_storage<sizeof(T), alignof(T)>::type storage_t;
     
@@ -56,29 +57,30 @@ class CircularBuffer {
 public:
     
     /// Construct a new empty circular buffer, with capacity for `N` items.
-    CircularBuffer():
-            _data(_buf),
-            _capacity(N),
-            _head(0),
-            _size(0) {}
+    Deque():
+        _data(_buf),
+        _capacity(N),
+        _head(0),
+        _size(0) {}
     
     /// Construct a new empty circular buffer, with space for at least `capacity` items.
-    CircularBuffer(index_t capacity):
-            _data((capacity > N) ? (new storage_t[capacity]) : _buf),
-            _capacity(std::max(capacity, N)),
-            _head(0),
-            _size(0) {}
+    Deque(index_t capacity):
+        _data((capacity > N) ? (new storage_t[capacity]) : _buf),
+        _capacity(std::max(capacity, N)),
+        _head(0),
+        _size(0) {}
     
     /**
      * @brief Construct a new circular buffer by copying `count` items in the sequence
      * starting at `begin`.
      */
     template <typename InputIterator>
-    CircularBuffer(InputIterator begin, index_t count):
+    Deque(InputIterator begin, index_t count):
             _data((count > N) ? (new storage_t[count]) : _buf),
             _capacity(std::max(count, N)),
             _head(0),
-            _size(count) {
+            _size(count)
+    {
         // placement construct all the items in the provided range:
         for (index_t i = 0; i < count; ++i, ++begin) {
             T* p = get() + i;
@@ -87,11 +89,12 @@ public:
     }
     
     /// Construct a new circular buffer containing copies of all the items in `other`.
-    CircularBuffer(const CircularBuffer<T,N>& other):
+    Deque(const Deque<T,N>& other):
             _data((other._size > N) ? (new storage_t[other._capacity]) : _buf),
             _capacity(std::max(other._capacity, N)),
             _head(0),
-            _size(other._size) {
+            _size(other._size)
+    {
         // copy-construct the populated items:
         for (index_t i = 0; i < _size; ++i) {
             T* p = get() + i;
@@ -99,12 +102,13 @@ public:
         }
     }
     
-    /// Move the contents of `other` to a new CircularBuffer
-    CircularBuffer(CircularBuffer<T,N>&& other):
+    /// Move the contents of `other` to a new Deque
+    Deque(Deque<T,N>&& other):
             _data((other._capacity > N) ? other._data : _buf),
             _capacity(other._capacity),
             _head((other._capacity > N) ? other._head : 0),
-            _size(other._size) {
+            _size(other._size)
+    {
         if (other._capacity <= N) {
             // move-construct individual items.
             for (index_t i = 0; i < _size; ++i) {
@@ -123,7 +127,7 @@ public:
     }
     
     // Destroy this buffer and all the items within.
-    virtual ~CircularBuffer() {
+    virtual ~Deque() {
         for (index_t i = 0; i < size(); ++i) {
             item(i)->~T();
         }
@@ -136,7 +140,7 @@ public:
     }
     
     /// Assignment operator
-    CircularBuffer& operator=(const CircularBuffer& other) {
+    Deque& operator=(const Deque& other) {
         index_t old_size = size();
         index_t new_size = other.size();
         index_t n = std::min(old_size, new_size);
@@ -161,7 +165,7 @@ public:
     }
     
     /// Move the contents of `other` to this buffer
-    CircularBuffer& operator=(CircularBuffer&& other) {
+    Deque& operator=(Deque&& other) {
         // destroy all our stuff
         for (index_t i = 0; i < _size; ++i) {
             item(i)->~T();
@@ -206,7 +210,7 @@ public:
      * Negative indices are permitted and count from the end of the buffer, with -1
      * denoting the last element in the buffer.
      */
-    inline T& operator[](index_t i) {
+    T& operator[](index_t i) {
         i = positive_mod(i, _size);
         return *item(i);
     }
@@ -218,7 +222,7 @@ public:
      * Negative indices are permitted and count from the end of the buffer, with -1
      * denoting the last element in the buffer.
      */
-    inline const T& operator[](index_t i) const {
+    const T& operator[](index_t i) const {
         i = positive_mod(i, _size);
         return *item(i);
     }
@@ -226,9 +230,9 @@ public:
     /**
      * @brief Equality operator.
      *
-     * Two CircularBuffers are equal iff they contain equal elements in equal order.
+     * Two Deques are equal iff they contain equal elements in equal order.
      */
-    bool operator==(const CircularBuffer<T, N>& other) {
+    bool operator==(const Deque<T, N>& other) {
         if (this == &other)       return true;  // literally the same object
         if (_size != other._size) return false; // different number of items; unequal
         for (index_t i = 0; i < _size; ++i) {
@@ -238,12 +242,12 @@ public:
     }
     
     /// Inequality operator.
-    inline bool operator!=(const CircularBuffer<T, N>& other) {
+    bool operator!=(const Deque<T, N>& other) {
         return not ((*this) == other);
     }
     
     /// Return the number of items in the buffer.
-    inline index_t size() const {
+    index_t size() const {
         return _size;
     }
     
@@ -251,18 +255,19 @@ public:
      * @brief Return the total number of items that can be accommodated without an additional
      * memory allocation.
      */
-    inline index_t capacity() const {
+    index_t capacity() const {
         return _capacity;
     }
     
     /// Add an element to the end of the buffer.
     template <typename U> // templated so that we can deduce and collapse lvalues
-    inline void push_back(U&& t) {
+    T& push_back(U&& t) {
         reserve(_size + 1);
         T* p = item(_size);
         // placement new, using move semantics if applicable:
         new (p) T(std::forward<U>(t));
         _size += 1;
+        return *p;
     }
     
     /**
@@ -272,21 +277,24 @@ public:
      * The new element will have index zero.
      */
     template <typename U> // templated so that we can deduce and collapse lvalues
-    inline void push_front(U&& t) {
+    T& push_front(U&& t) {
         reserve(_size + 1);
         const index_t n = capacity();
-        _head = (_head + n - 1) % n; 
+        _head = (_head + n - 1) % n;
+        T* place = get() + _head;
         // placement new, using move semantics if applicable:
-        new (get() + _head) T(std::forward<U>(t));
+        new (place) T(std::forward<U>(t));
         _size += 1;
+        return *place;
     }
     
     /**
-     * @brief Remove the first element in the buffer.
+     * @brief Remove the first element in the buffer, if there is one.
      * 
      * This decreases the indices of all the remaining elements by one.
      */
-    T pop_front() {
+    std::optional<T> pop_front() {
+        if (_size == 0) return std::nullopt;
         const index_t old = _head;
         _head  = (_head + 1) % capacity();
         _size -= 1;
@@ -297,8 +305,9 @@ public:
         return ret;
     }
     
-    /// Remove the element at the end of the buffer.
-    T pop_back() {
+    /// Remove the element at the end of the buffer, if there is one.
+    std::optional<T> pop_back() {
+        if (_size == 0) return std::nullopt;
         index_t i = (_head + _size - 1) % capacity();
         _size -= 1;
         // move-construct a new T into the return value
@@ -309,27 +318,27 @@ public:
     }
     
     /// Return a reference to the item at the beginning of the buffer.
-    inline T& front() {
+    T& front() {
         return get()[_head];
     }
     
     /// Return a const reference to the item at the beginning of the buffer.
-    inline const T& front() const {
+    const T& front() const {
         return get()[_head];
     }
     
     /// Return a reference to the item at the end of the buffer.
-    inline T& back() {
+    T& back() {
         return *item(_size - 1);
     }
     
     /// Return a const reference to the item at the end of the buffer.
-    inline const T& back() const {
+    const T& back() const {
         return *item(_size - 1);
     }
     
     /// Empty the buffer of all items.
-    inline void clear() {
+    void clear() {
         // destroy all items.
         for (index_t i = 0; i < _size; ++i) {
             item(i)->~T();

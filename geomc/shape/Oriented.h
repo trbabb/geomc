@@ -183,7 +183,7 @@ public:
      * @brief Returns true if and only if `p` is inside or on the surface of 
      * this shape.
      */
-    inline bool contains(Vec<T,N> p) const {
+    bool contains(Vec<T,N> p) const {
         p = p / xf; // world coord to object coord
         return shape.contains(p);
     }
@@ -194,7 +194,7 @@ public:
      * @param b1 OritentedRect to test against.
      * @return `true` if and only if `this` overlaps with `b1`; `false` otherwise.
      */
-    inline bool intersects(const Rect<T,N>& r) const {
+    bool intersects(const Rect<T,N>& r) const {
         return detail::RectIntersector<T,N>::intersect(*this, r);
     }
     
@@ -204,7 +204,7 @@ public:
      * @param b1 OritentedRect to test against.
      * @return `true` if and only if `this` overlaps with `b1`; `false` otherwise.
      */
-    inline bool intersects(const Oriented< Rect<T,N> >& b1) {
+    bool intersects(const Oriented< Rect<T,N> >& b1) {
         // we will make ourselves axis-aligned; this is the same as applying
         // the inverse of our xf. We apply the inverse of xf to b1 too,
         // to preserve the relationhip between the us. From this, we

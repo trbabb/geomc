@@ -50,7 +50,7 @@ public:
 
     /// Return a ray pointing in the opposite direction.
     Ray<T,N> operator-() const {
-        return neg();
+        return {origin, -direction};
     }
 
     /*************************
@@ -73,11 +73,6 @@ public:
     /// Return the point `origin + s * direction`.
     inline point_t at_multiple(T s) const {
         return origin + direction * s;
-    }
-
-    /// Return ray pointing in the opposite direction.
-    inline point_t neg() const {
-        return Ray<T,N>(origin, -direction);
     }
     
     /**

@@ -4,7 +4,7 @@
 #include <boost/test/unit_test.hpp>
 #include <geomc/Tree.h>
 #include <geomc/random/MTRand.h>
-#include <geomc/CircularBuffer.h>
+#include <geomc/Deque.h>
 #include <geomc/shape/Rect.h>
 
 // todo:
@@ -130,7 +130,7 @@ void split_subtree(Subtree<Rect<index_t, 1>, index_t> n) {
     const index_t max_arity = 4;
     if (n.item_count() > max_arity) {
         // make a new child identical to ourselves; put it on the stack
-        CircularBuffer<Subtree<Rect<index_t, 1>, index_t>, 8> buf;
+        Deque<Subtree<Rect<index_t, 1>, index_t>, 8> buf;
         buf.push_back(n.insert_child_node(*n));
         
         // split into siblings until we are full, or all the siblings are small enough.
