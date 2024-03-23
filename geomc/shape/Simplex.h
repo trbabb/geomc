@@ -464,6 +464,15 @@ public:
         return proj.distance() * (proj.result.contains ? -1 : 1);
     }
     
+    Vec<T,N> normal(Vec<T,N> p) const {
+        detail::SimplexProjection<T,N> proj {
+            *this,
+            p,
+            detail::ProjectionOp::PROJECT
+        };
+        return proj.normal_direction();
+    }
+    
     
     Vec<T,N> project(Vec<T,N>& p, Simplex<T,N>* face=nullptr) const {
         detail::SimplexProjection<T,N> proj {

@@ -72,7 +72,7 @@ public:
     }
     
     /**********************************
-     * Expr Functions                 *
+     * methods                        *
      **********************************/
     
     /**
@@ -109,10 +109,6 @@ public:
         
         return f_x[0];
     }
-    
-    /**********************************
-     * Other Functions                *
-     **********************************/
     
     /**
      * Evaluate the gradient of the noise function at `pt`. 

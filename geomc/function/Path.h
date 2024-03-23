@@ -16,7 +16,6 @@
 
 #include <geomc/linalg/Vec.h>
 #include <geomc/linalg/Ray.h>
-#include <geomc/function/Expr.h>
 
 //todo: A path could be a subclass of Raster with ptype=Ray!
 //      ...except that Ray*float = Vec. Raster would assume Ray*float=Ray.
@@ -51,6 +50,8 @@
 //todo: bound() (fits in the convex hull of control points)
 //      could solve for X and Y extremes?
 
+// todo: template the input type of eval() so we can sample with duals?
+
 namespace geom {
 
 template <typename T, index_t N>
@@ -84,7 +85,7 @@ public:
         knots.push_back(Ray<T,N>(p,v));
     }
     
-    std::vector< Ray<T,N> > knots;
+    std::vector<Ray<T,N>> knots;
     
 protected:
     static inline T ease(T t){

@@ -75,15 +75,17 @@ public:
         return base.contains(p.template resized<N-1>());
     }
     
-    inline T sdf(Vec<T,N> p) const {
+    T sdf(Vec<T,N> p) const {
         Vec<T,N-1> p_proj = (Vec<T,N-1>) p.template resized<N-1>();
         T h = p[N-1];
         // distance to the base shape within the base shape's plane
         T sdf_base = base.sdf(p_proj);
         // sdf of the slab that contains the height range of the shape
         T sdf_h_slab = std::max(h - height.hi, height.lo - h);
-        if (height.contains((T)h)) {
+        if (height.contains(h)) {
             // intersect base extrusion with the height slab
+            // because we are inside the shape, the sdf will be negative,
+            // so max() will give us a smaller absolute value— the closer surface.
             return std::max(sdf_base, sdf_h_slab);
         } else {
             // nearest point must be a cap
@@ -95,10 +97,44 @@ public:
         }
     }
     
+    Vec<T,N> normal(Vec<T,N> p) const {
+        Vec<T,N-1> p_base = (Vec<T,N-1>) p.template resized<N-1>();
+        T h = p[N-1];
+        bool inside_base = base.contains(p_base);
+        if (height.contains(h)) {
+            // p is somewhere between the caps
+            if (inside_base) {
+                // we need to know if the wall is closest, or a cap is closest
+                T cap_h     = height.project(h);
+                T cap_dist  = std::abs(h - cap_h);
+                T wall_dist = std::abs(base.sdf(p_base));
+                if (cap_dist < wall_dist) {
+                    // the cap is nearest. use its normal
+                    return {Vec<T,N-1>{}, (cap_h >= height.hi) ? 1 : -1};
+                }
+            }
+            // the wall is nearest, use its normal
+            return Vec<T,N>(base.normal(p_base), 0);
+        } else {
+            // p beyond the top or bottom cap
+            if (inside_base) {
+                // p directly above or below a cap
+                return {Vec<T,N-1>{}, (h >= height.hi) ? 1 : -1};
+            } else {
+                // p is outside the base shape
+                Vec<T,N> cap_pt {
+                    base.project(p_base),
+                    height.clip(h)
+                };
+                return (p - cap_pt).unit();
+            }
+        }
+    }
+    
     /**
      * Return the point `p` orthogonally projected onto the surface of the shape.
      */
-    inline Vec<T,N> project(Vec<T,N> p) const {
+    Vec<T,N> project(Vec<T,N> p) const {
         const T h     = p[N-1];
         const T h_cap = std::abs(h - height.lo) < std::abs(h - height.hi) 
             ? height.lo

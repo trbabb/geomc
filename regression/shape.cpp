@@ -20,7 +20,7 @@
 
 // increase for good coverage.
 // set to 1 for debugging.
-#define N_TESTS 1
+#define N_TESTS 1000
 
 using namespace geom;
 
@@ -313,7 +313,7 @@ BOOST_AUTO_TEST_CASE(validate_sphere) {
 }
 
 
-BOOST_AUTO_TEST_CASE(validate_extrusion) {
+BOOST_AUTO_TEST_CASE(validate_extruded) {
     explore_compound_shape<Extruded, double>(&rng, std::max(N_TESTS / 4, 1));
 }
 
