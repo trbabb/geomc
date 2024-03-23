@@ -52,7 +52,8 @@ void exercise(Deque<T, N>& buf, index_t ct) {
     // clear the buffer by popping
     index_t removed;
     for (removed = 0; buf.size() > 0; ++removed) {
-        int w = buf.pop_front();
+        std::optional<int> w = buf.pop_front();
+        BOOST_CHECK(w.has_value());
         BOOST_CHECK(w == (removed + 1) * 10);
     }
     BOOST_CHECK_EQUAL(buf.size(), 0);
@@ -119,13 +120,19 @@ BOOST_AUTO_TEST_CASE(create_circular_buffer) {
     BOOST_CHECK_EQUAL(buf.size(), 0);
     BOOST_CHECK_EQUAL(buf.capacity(), 8);
     
+    std::optional<int> z = buf.pop_front();
+    BOOST_CHECK(not z.has_value());
+    z = buf.pop_back();
+    BOOST_CHECK(not z.has_value());
+    
     buf.push_back(111);
     BOOST_CHECK_EQUAL(buf.size(), 1);
     BOOST_CHECK_EQUAL(buf.front(), 111);
     BOOST_CHECK_EQUAL(buf.back(), 111);
     
-    int z = buf.pop_front();
-    BOOST_CHECK_EQUAL(z, 111);
+    z = buf.pop_front();
+    BOOST_CHECK(z.has_value());
+    BOOST_CHECK_EQUAL(*z, 111);
     BOOST_CHECK_EQUAL(buf.size(), 0);
     
     buf.push_front(222);
@@ -134,7 +141,8 @@ BOOST_AUTO_TEST_CASE(create_circular_buffer) {
     BOOST_CHECK_EQUAL(buf.back(), 222);
     
     z = buf.pop_back();
-    BOOST_CHECK_EQUAL(z, 222);
+    BOOST_CHECK(z.has_value());
+    BOOST_CHECK_EQUAL(*z, 222);
     BOOST_CHECK_EQUAL(buf.size(), 0);
 }
 

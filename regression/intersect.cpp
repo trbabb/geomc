@@ -142,8 +142,8 @@ void test_box_gjk_matches_sat(rng_t* rng, index_t iters) {
     if (f) fclose(f);
     
     delete [] boxes;
-    std::cout << "tested " << iters << " " << N << "D" << typeid(T).name() << " shapes. " << positive << " intersecting, ";
-    std::cout << negative << " disjoint" << std::endl;
+    std::cout << "tested " << iters << " " << N << "D" << typeid(T).name() << " shapes. ";
+    std::cout << positive << " intersecting, " << negative << " disjoint" << std::endl;
     if (failures != 0) {
         std::cout << "  actually-intersecting failures: "  << pos_fails << std::endl;
         std::cout << "  actually-disjoint failures: "      << neg_fails << std::endl;
@@ -165,11 +165,21 @@ void test_box_gjk_matches_sat(rng_t* rng, index_t iters) {
 
 BOOST_AUTO_TEST_SUITE(intersect)
 
-BOOST_AUTO_TEST_CASE(test_gjk_sat_agree) {
-    const index_t N_TESTS = 1'000'000;
+constexpr index_t N_TESTS = 1'000'000;
+
+BOOST_AUTO_TEST_CASE(test_2f_gjk_sat_agree) {
     test_box_gjk_matches_sat<float, 2>(&rng, N_TESTS);
-    test_box_gjk_matches_sat<float, 3>(&rng, N_TESTS);
+}
+
+BOOST_AUTO_TEST_CASE(test_2d_gjk_sat_agree) {
     test_box_gjk_matches_sat<double, 2>(&rng, N_TESTS);
+}
+
+BOOST_AUTO_TEST_CASE(test_3f_gjk_sat_agree) {
+    test_box_gjk_matches_sat<float, 3>(&rng, N_TESTS);
+}
+
+BOOST_AUTO_TEST_CASE(test_3d_gjk_sat_agree) {
     test_box_gjk_matches_sat<double, 3>(&rng, N_TESTS);
 }
 

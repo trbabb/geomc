@@ -4,7 +4,11 @@ PREFIX    = /usr/local
 INCLUDES  = .
 BUILD_STD = c++20
 M_ARCH    = native
-CFLAGS    = -g -march=$(M_ARCH) -std=$(BUILD_STD) -O3 -Wall -fmessage-length=0 -Wno-unused-local-typedef
+CFLAGS    = -g -march=$(M_ARCH) -std=$(BUILD_STD) -O3 -Wall \
+	-fmessage-length=0 -Wno-unused-local-typedef \
+	# -fsanitize=address -fno-omit-frame-pointer
+LDFLAGS   = -g -lgeomc -lboost_unit_test_framework \
+	# -fsanitize=address -fno-omit-frame-pointer
 IFLAGS    = $(addprefix -I, $(INCLUDES))
 
 LIB_SRC   = $(wildcard geomc/*.cpp) $(wildcard geomc/*/*.cpp)
@@ -102,7 +106,7 @@ $(EMLIB) : $(EMLIB_OBJS)
 
 bin/regression/%: build/regression/%.o lib
 	@mkdir -p $(dir $@)
-	$(CC) -g -lgeomc -lboost_unit_test_framework $< -o $@
+	$(CC) $(LDFLAGS) $< -o $@
 
 bin/%: build/%.o lib
 	@mkdir -p $(dir $(patsubst build/%, bin/%, $<))

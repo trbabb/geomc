@@ -65,7 +65,7 @@ class Rect:
 {
 protected:
     typedef PointType<T,N> ptype;
-
+    
 public:
     /// Type of object confined by this Rect
     typedef typename PointType<T,N>::point_t point_t;
@@ -76,7 +76,7 @@ public:
     point_t hi;
     
     static const point_t endpoint_measure;
-
+    
 public:
     
     
@@ -90,7 +90,7 @@ public:
     constexpr Rect():
         lo(std::numeric_limits<T>::max()),
         hi(std::numeric_limits<T>::lowest()) {}
-
+    
     /**
      * @brief Construct a Rect with extremes `lo` and `hi`. 
      * If for any axis `lo > hi`, the Rect is empty.
@@ -108,8 +108,8 @@ public:
     explicit constexpr Rect(point_t p):
         lo(p),
         hi(p) {}
-
-
+    
+    
     /****************************
      * Static members           *
      ****************************/
@@ -125,7 +125,7 @@ public:
     
     /// A Rect that contains no points.
     static const Rect<T,N> empty;
-
+    
     /**
      * @brief Construct a Rect from a center point and extent.
      * @param c Center of the new Rect
@@ -197,7 +197,7 @@ public:
         }
         return r;
     }
-
+    
     /**
      * @brief Test whether a point is in the N-dimensional range `[lo, hi]`.
      *
@@ -220,11 +220,56 @@ public:
         }
         return true;
     }
-
+    
     /*****************************
      * Operators                 *
      *****************************/
+    
+    /**
+     * @brief Dimensionally slice a Rect.
+     * 
+     * Return a Rect of dimension `M` by taking the range for each axis given by
+     * the arugments. For example, the result of `r(0,2)` will be a 2D Rect
+     * with the x and z ranges of `this` Rect.
+     */
+#if __cplusplus >= 202302L
+    [[deprecated("use operator[] instead")]]
+#endif
+    template <typename... I>
+    requires (... and std::convertible_to<I, size_t>)
+    Rect<T,sizeof...(I)> operator()(I... indices) const {
+        constexpr index_t M = sizeof...(I);
+        const T* lo_p = ptype::iterator(lo);
+        const T* hi_p = ptype::iterator(hi);
+        Rect<T,M> out {
+            point_t{ lo_p[indices]...},
+            point_t{ hi_p[indices]...}
+        };
+        return out;
+    }
 
+#if __cplusplus >= 202302L
+    /**
+     * @brief Dimensionally slice a Rect.
+     * 
+     * Return a Rect of dimension `M` by taking the range for each axis given by
+     * the arugments. For example, the result of `r[0,2]` will be a 2D Rect
+     * with the x and z ranges of `this` Rect.
+     */
+    template <typename... I>
+    requires (... and std::convertible_to<I, size_t>)
+    Rect<T,sizeof...(I)> operator[](I... indices) const {
+        constexpr index_t M = sizeof...(I);
+        const T* lo_p = ptype::iterator(lo);
+        const T* hi_p = ptype::iterator(hi);
+        Rect<T,M> out {
+            point_t{ lo_p[indices]...},
+            point_t{ hi_p[indices]...}
+        };
+        return out;
+    }
+#endif
+    
     /**
      * @brief Interval union.
      * 
@@ -307,7 +352,7 @@ public:
         hi = std::min(hi, b.hi);
         return *this;
     }
-
+    
     /**
      * @brief Translation.
      * 
@@ -330,7 +375,7 @@ public:
         return Rect<T,N>(lo - dx, hi - dx);
     }
     
-
+    
     /**
      * @brief Translation.
      * 
@@ -406,7 +451,7 @@ public:
         return *this;
     }
     
-
+    
     /**
      * @brief Equality test.
      * 
@@ -425,7 +470,7 @@ public:
     bool operator!=(const Rect<T,N>& b) const {
         return (hi != b.hi) or (lo != b.lo);
     }
-
+    
     /**
      * @brief Scale transformation.
      * 
@@ -441,7 +486,7 @@ public:
             std::min(lo_a, hi_a),
             std::max(lo_a, hi_a));
     }
-
+    
     /**
      * @brief Scale transformation. 
      * 
@@ -457,7 +502,7 @@ public:
         hi = std::max(lo_a, hi_a);
         return *this;
     }
-
+    
     /**
      * @brief Scale transformation.
      * 
@@ -472,7 +517,7 @@ public:
             std::max(lo_a, hi_a)
         };
     }
-
+    
     /**
      * @brief Scale transformation. 
      * 
@@ -510,7 +555,7 @@ public:
         
         return o;
     }
-
+    
     /**
      * @brief Element-wise typecast.
      * 
@@ -520,12 +565,12 @@ public:
         return Rect<U,M>((typename Rect<U,M>::point_t) lo,
                          (typename Rect<U,M>::point_t) hi);
     }
-
-
+    
+    
     /*****************************
      * Public Methods            *
      *****************************/
-
+    
     /**
      * @brief Point containment test.
      * @return `true` if and only if `pt` is inside this rectangle.
@@ -571,7 +616,7 @@ public:
             ptype::iterator(hi)[k]
         };
     }
- 
+    
     /**
      * @brief Range intersection test.
      * @return `true` if and only if there is a point overlapped by both `Rect`s.
@@ -608,7 +653,7 @@ public:
     point_t center() const {
         return (hi + lo + endpoint_measure) / 2;
     }
-
+    
     /**
      * @brief Axial size.
      * @return The size of this region along each axis.
@@ -619,7 +664,7 @@ public:
     point_t dimensions() const {
         return hi - lo + endpoint_measure;
     }
-
+    
     /**
      * @brief Change the size of the region, adjusting about its center.
      * @param dim New lengths along each axis.
@@ -646,7 +691,7 @@ public:
         lo = lo - diff;
         hi = hi + diff;
     }
-
+    
     /**
      * @brief Reconstruct from corner points.
      * 
@@ -666,6 +711,25 @@ public:
      */
     Rect<T,N> centered_on(point_t c) const {
         return Rect<T,N>::from_center(c, dimensions());
+    }
+    
+    /**
+     * @brief Normalize the sign of the region.
+     * 
+     * If any extent has negative sign (lo > hi), the `lo` and `hi` coordinates
+     * for that axis are swapped. The result is a non-empty Rect.
+     */
+    Rect<T,N> abs() const {
+        Rect<T,N> out;
+        T* lo_i     = ptype::iterator(lo);
+        T* hi_i     = ptype::iterator(hi);
+        T* out_lo_i = ptype::iterator(out.lo);
+        T* out_hi_i = ptype::iterator(out.hi);
+        for (index_t i = 0; i < N; ++i) {
+            out_lo_i[i] = std::min(lo_i[i], hi_i[i]);
+            out_hi_i[i] = std::max(lo_i[i], hi_i[i]);
+        }
+        return out;
     }
     
     /**
@@ -927,15 +991,15 @@ public:
         }
         return interval;
     }
-
+    
     /*****************************
      * Inherited Methods         *
      *****************************/
-
+    
     Rect<T,N> bounds() const {
         return *this;
     }
-
+    
 }; // end Rect class
 
 

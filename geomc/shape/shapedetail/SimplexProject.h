@@ -127,127 +127,37 @@ enum struct SimplexFaces {
 
 
 template <typename T, index_t N>
-bool find_nearest_face(
+Vec<T,N> _project_to_face(
+        const Simplex<T,N>& simplex,
         SimplexFace<T,N> face,
-        std::optional<SimplexFace<T,N>>* best_face,
-        Vec<T,N> to_p,
-        ProjectionOp op,
-        SimplexFaces check_faces,
-        bool is_root,
-        bool* is_degenerate=nullptr)
+        Vec<T,N> point,
+        Vec<T,N> to_p)
 {
-    bool frontfacing = is_root or face.normal().dot(to_p) >= 0;
-    if (not frontfacing) return true;  // point is on the interior
-    // early exit: a neighbor face already owns:
-    if (best_face->has_value() and face.n < (*best_face)->n) return false;
-    if (face.n == 0) {
-        // simplex is a point and has no subfaces to check
-        if (frontfacing) *best_face = face;
-        return not frontfacing;
-    }
-    
-    SimplexFace<T,N> nearest_face;
-    T min_d2 = std::numeric_limits<T>::max();
-    bool all_inside = true;
-    index_t n_to_check = face.n + (check_faces == SimplexFaces::SKIP_BACKFACE ? 0 : 1);
-    for (index_t i = 0; i < n_to_check; ++i) {
-        // check each subface for ownership of the projected point.
-        SimplexFace<T,N> subface = face.exclude(i);
-        
-        // re-root p if we're checking the backface
-        if (i == face.n) to_p = to_p - face.bases[i - 1];
-        if (subface.normal().mag2() == 0) {
-            if (is_degenerate) *is_degenerate = true;
-            continue; // degenerate subface
-        }
-        
-        bool is_interior = find_nearest_face(
-            subface,
-            best_face,
-            to_p,
-            op,
-            check_faces,
-            false,
-            is_degenerate
-        );
-        
-        if (is_interior) {
-            if (op == ProjectionOp::PROJECT and is_root and all_inside) {
-                // keep track of the nearest wall, as long as we might be fully contained
-                T d2 = to_p.project_on(subface.normal()).mag2();
-                if (d2 < min_d2) {
-                    nearest_face = subface;
-                    min_d2 = d2;
-                }
-            }
-        } else {
-            all_inside = false;
-        }
-    }
-    if (all_inside) {
-        // the point is on the interior of all our subfaces, but exterior to
-        // the face itself. therefore it projects to us.
-        // we also check again against the dimension of the best face, in case a degenerate
-        // subface reduced our dimension
-        if ((is_root or min_d2 == 0) and op == ProjectionOp::PROJECT) {
-            // we're fully inside the root simplex, and we care about which
-            // wall we're closest to
-            *best_face = nearest_face;
-        } else {
-            *best_face = face;
-        }
-    }
-    return false;
-}
-
-
-template <typename T, index_t N>
-Vec<T,N> project_to_simplex(
-        const Simplex<T,N>& s,
-        Vec<T,N> p,
-        Simplex<T,N>* out_simplex,
-        ProjectionOp op,
-        bool* is_degenerate=nullptr)
-{
-    if (is_degenerate) *is_degenerate = false;
-    std::optional<SimplexFace<T,N>> best_face = std::nullopt;
-    Vec<T,N> to_p = p - s.pts[s.n - 1];
-    
-    find_nearest_face(
-        SimplexFace<T,N>{s, s.n > 2}, 
-        &best_face, 
-        to_p,
-        op,
-        SimplexFaces::ALL,
-        true, // is root
-        is_degenerate
-    );
-    
     Vec<T,N> out;
-    index_t best_n = best_face->n;
-    to_p = p - s.pts[best_face->included[best_n]];
-    if (best_n == 0) {
+    // we pass this bc the facefinding algorithm already has it:
+    // to_p = p - s.pts[best_face->included[best_n]];
+    if (face.n == 0) {
         // projects to a vertex; the projection is the vertex itself.
-        out = s[best_face->included[0]];
-    } else if (best_n == 1) {
+        out = simplex[face.included[0]];
+    } else if (face.n == 1) {
         // projects to an edge
-        const Vec<T,N>& v = best_face->spanning()[0];
-        out = to_p.project_on(v) + s.pts[best_face->included[1]];
-    } else if (N > 2 and best_n == N - 1) {
+        const Vec<T,N>& v = face.spanning()[0];
+        out = to_p.project_on(v) + simplex.pts[face.included[1]];
+    } else if (N > 2 and face.n == N - 1) {
         // p projects to a plane.
         // subtract the normal component of the vector from the face to the point
-        out = p - to_p.project_on(best_face->normal());
-    } else if (best_n == N) {
+        out = point - to_p.project_on(face.normal());
+    } else if (face.n == N) {
         // projects to the interior of the simplex; p unchanged
-        out = p;
+        out = point;
     } else if constexpr (N > 3) {
         // this case is only possible with N > 3.
         // project to the lowest-dimension subspace (nullspace or spanning basis).
-        index_t n_null = best_face->n_null();
-        bool proj_null = n_null < best_n;
-        Vec<T,N>* proj_basis = proj_null ? best_face->nullspace() : best_face->spanning();
-        index_t proj_n = proj_null ? n_null : best_n;
-        if (s.n < N + 1 or not proj_null) {
+        index_t n_null = face.n_null();
+        bool proj_null = n_null < face.n;
+        Vec<T,N>* proj_basis = proj_null ? face.nullspace() : face.spanning();
+        index_t proj_n = proj_null ? n_null : face.n;
+        if (simplex.n < N + 1 or not proj_null) {
             // the projection basis is not orthogonal if:
             // (a) the root simplex is not full, and we generated the nullspace
             //     on inititalization
@@ -266,116 +176,207 @@ Vec<T,N> project_to_simplex(
             out = to_p - out;
         }
         // add back the origin of the simplex
-        out += s.pts[best_face->included[best_n]];
+        out += simplex.pts[face.included[face.n]];
     }
     
-    if (out_simplex) {
-        // copy the points corresponding to the selected bases
-        // into the output simplex:
-        for (index_t i = 0; i <= best_n; ++i) {
-            out_simplex->pts[i] = s.pts[best_face->included[i]];
-        }
-        out_simplex->n = best_n + 1;
-    }
     return out;
 }
 
-/**
- * @brief Compute the outward facing normal.
- * 
- * - more numerically stable for pts near the surface.
- *   - always ok for N <= 3
- *   - precision degrades when points are (nearly) coincident with an edge
- * - does not yet handle interior case
- * - does not yet handle final face case
- */
+
 template <typename T, index_t N>
-Vec<T,N> simplex_normal_direction(
-        const Simplex<T,N>& s,
-        Vec<T,N> p,
-        Simplex<T,N>* out_simplex,
-        ProjectionOp op,
-        SimplexFaces check_faces,
-        bool* is_degenerate=nullptr)
-{
-    if (is_degenerate) *is_degenerate = false;
-    std::optional<SimplexFace<T,N>> best_face = std::nullopt;
-    Vec<T,N> to_p = p - s.pts[s.n - 1];
+struct ProjectionResult {
+    // the candidate/resultant face to which the point projects
+    SimplexFace<T,N> face;
+    // intermediate candidate has been found?
+    bool     exists = false;
+    // the point on the face to which the input point projects
+    Vec<T,N> projected_point;
+    // squared distance from the point to its projection on the face
+    T        distance2 = std::numeric_limits<T>::max();
+    // in the process of search, has a degenerate face been encountered?
+    bool     is_degenerate = false;
+    // whether the point is inside a full simplex
+    bool     contains = false;
+    // whether the point is on the back side of a boundary face.
+    // this can happen if we are not yet sure whether the point is inside
+    // a full simplex
+    bool     backfacing = false;
     
-    find_nearest_face(
-        SimplexFace<T,N>{s, s.n > 2},
-        &best_face,
-        to_p,
-        op,
-        check_faces,
-        true,
-        is_degenerate
-    );
+    operator bool() const {
+        return exists;
+    }
     
-    Vec<T,N> out;
-    index_t best_n = best_face->n; // dimension of the projection target simplex
-    to_p = p - s.pts[best_face->included[best_n]];
-    if (best_n == 0) {
-        // projects to a vertex; the normal is the direction from that vertex to the point
-        out = to_p;
-    } else if (best_n == 1) {
-        // projects to an edge
-        const Vec<T,N>& v = best_face->spanning()[0];
-        if constexpr (N == 3) {
-            // we can use the cross product to get a direction to the edge
-            Vec<T,N> c = v ^ to_p;
-            out = c ^ v;
-        } else if constexpr (N == 2) {
-            // there are only two orthogonal directions to a line in 2D
-            Vec<T,N> d = v.right_perpendicular();
-            out = d.dot(to_p) >= 0 ? d : -d;
-        } else {
-            out = to_p - to_p.project_on(v);
-        }
-    } else if (N > 2 and best_n == N - 1) {
-        // p projects to a hyperplane. return the normal
-        Vec<T,N> normal = best_face->nullspace()[0];
-        out = normal.dot(to_p) >= 0 ? normal : -normal;
-    } else if (best_n == N) {
-        // projects to the interior of the simplex; no normal
-        out = {};
-    } else if constexpr (N > 3) {
-        // this case is only possible with N > 3.
-        // project to the lowest-dimension subspace (nullspace or spanning basis).
-        index_t n_null = best_face->n_null();
-        bool proj_null = n_null < best_n;
-        Vec<T,N>* proj_basis = proj_null ? best_face->nullspace() : best_face->spanning();
-        index_t proj_n = proj_null ? n_null : best_n;
-        if (s.n < N + 1 or not proj_null) {
-            // the projection basis is not orthogonal if:
-            // (a) the root simplex is not full, and we generated the nullspace
-            //     on inititalization
-            // (b) we're projecting to the simplex basis, which is in general
-            //     not orthogonal
-            orthogonalize(proj_basis, proj_n);
-        }
-        // project P onto the chosen basis
-        for (index_t i = 0; i < proj_n; ++i) {
-            out += to_p.project_on(proj_basis[i]);
-        }
-        if (not proj_null) {
-            // if we projected onto the simplex basis,
-            // compute the null direction
-            out = to_p - out;
+    void update(T d2, Vec<T,N> point, const SimplexFace<T,N>& face, bool new_backfacing) {
+        if (not exists // no previous candidates
+            // this candidate is closer
+            or (d2 < distance2 and new_backfacing <= backfacing)
+            // frontface always beats backface
+            or (not new_backfacing and backfacing))
+        {
+            this->exists          = true;
+            this->face            = face;
+            this->projected_point = point;
+            this->distance2       = d2;
+            this->backfacing      = new_backfacing;
         }
     }
     
-    if (out_simplex) {
-        // copy the points corresponding to the selected bases
-        // into the output simplex:
-        for (index_t i = 0; i <= best_n; ++i) {
-            out_simplex->pts[i] = s.pts[best_face->included[i]];
-        }
-        out_simplex->n = best_n + 1;
-    }
-    return out;
-}
+};
 
+
+template <typename T, index_t N>
+struct SimplexProjection {
+    const Simplex<T,N>&   simplex;
+    Vec<T,N>              p;
+    ProjectionOp          op;
+    SimplexFaces          check_faces;
+    ProjectionResult<T,N> result;
+    
+    SimplexProjection(
+            const Simplex<T,N>& s,
+            Vec<T,N> p,
+            ProjectionOp op,
+            SimplexFaces check_faces=SimplexFaces::ALL): 
+                simplex(s),
+                p(p),
+                op(op),
+                check_faces(check_faces),
+                result {
+                    .projected_point = p
+                }
+    {
+        _find_nearest_face(SimplexFace<T,N>{s, s.n > 2}, p - s.pts[s.n - 1], 0);
+    }
+    
+    Vec<T,N> projected_point() const {
+        return result.projected_point;
+    }
+    
+    T distance() const {
+        return std::sqrt(result.distance2);
+    }
+    
+protected:
+    
+    // return whether the point is interior to the subface
+    bool _find_nearest_face(const SimplexFace<T,N>& face, Vec<T,N> to_p, int depth) {
+        bool all_inside = true;
+        bool backfacing = depth > 0 and face.normal().dot(to_p) < 0;
+        if (backfacing and op == ProjectionOp::PROJECT and depth == 1 and face.n == N - 1) {
+            // we're on the interior side of a top-level boundary face, and we might project
+            // the point to one such face if we're inside a full simplex. we don't need to check 
+            // its subfaces, though, because you can't project to a subface (e.g., an edge)
+            // from the interior of a simplex. we also shouldn't early exit because we're on
+            // the backside! (in the case where we're clipping, interior faces are not
+            // projection candidates).
+            
+            // because we don't boundary check in this case, we could in principle project
+            // to the face's plane well outside the simplex. if we are truly inside
+            // the simplex, then some later face will be closer and occlude that hit. but we
+            // have to be sure that any frontfacing hit always clobbers a backfacing best-hit,
+            // since the backfacing plane might skim closer to the point than the frontfacing
+            // face it should project to.
+        } else {
+            if (backfacing) {
+                // point is on the interior side of a boundary, 
+                // so it does not project to this subface.
+                return true;
+            }
+            if (face.n == 0) {
+                // simplex is a point and has no subfaces to check
+                result.update(to_p.mag2(), simplex[face.included[0]], face, false);
+                return false;
+            }
+            
+            SimplexFace<T,N> nearest_face;
+            index_t n_to_check = face.n + (check_faces == SimplexFaces::SKIP_BACKFACE ? 0 : 1);
+            for (index_t i = 0; i < n_to_check; ++i) {
+                // check each subface for ownership of the projected point.
+                SimplexFace<T,N> subface = face.exclude(i);
+                
+                // re-root p if we're checking the backface
+                Vec<T,N> to_sub_p = (i == face.n) ? (to_p - face.bases[i - 1]) : to_p;
+                if (subface.normal().mag2() == 0) [[unlikely]] {
+                    result.is_degenerate = true;
+                    continue; // degenerate subface
+                }
+                
+                bool is_interior = _find_nearest_face(subface, to_sub_p, depth + 1);
+            
+                if (not is_interior) all_inside = false;
+            }
+        }
+        
+        if (all_inside) {
+            // the point is on the interior of all our subfaces, therefore it projects to us.
+            if (face.n < N) {
+                Vec<T,N> projected_pt = _project_to_face(simplex, face, p, to_p);
+                T d2 = p.dist2(projected_pt);
+                result.update(d2, projected_pt, face, backfacing);
+            } else {
+                // if we're a full simplex, we don't project at all:
+                //   - if projecting, we project to a top-level boundary face, not the root
+                //   - if clipping, no change to the point at all.
+                // we do know we're inside the simplex, though:
+                result.contains = true;
+                if (op == ProjectionOp::CLIP) {
+                    result.update(0, p, face, true);
+                }
+            }
+        }
+        // this can be backfacing when we're checking the top-level boundary faces;
+        // i.e. the point is interior to a 2D tri or a 3D tet
+        return backfacing;
+    }
+    
+public:
+    
+    /**
+     * @brief Compute a direction normal to the projected face.
+     * 
+     * In some cases, there may be more numerically stable methods for obtaining
+     * the normal than subtracting the projected point from the original point.
+     */
+    Vec<T,N> normal_direction() {
+        Vec<T,N> out_normal = p - result.projected_point;
+        index_t best_n = result.face.n; // dimension of the projection target simplex
+        Vec<T,N> to_p = p - simplex.pts[result.face.included[best_n]];
+        if (best_n == 1) {
+            // projects to an edge
+            const Vec<T,N>& v = result.face.spanning()[0];
+            if constexpr (N == 3) {
+                // we can use the cross product to get a direction to the edge.
+                // numerically this is better than subtracting from the projected point
+                // (catastrophic cancellation)
+                Vec<T,N> c = v ^ to_p;
+                out_normal = c ^ v;
+            } else if constexpr (N == 2) {
+                // there are only two orthogonal directions to a line in 2D
+                Vec<T,N> d = v.right_perpendicular();
+                out_normal = d.dot(to_p) >= 0 ? d : -d;
+            }
+        } else if (N > 2 and best_n == N - 1) {
+            // p projects to a hyperplane. return its normal, which we explicitly know
+            Vec<T,N> normal = result.face.nullspace()[0];
+            out_normal = normal.dot(to_p) >= 0 ? normal : -normal;
+        }
+        
+        return out_normal;
+    }
+    
+    /**
+     * @brief Extract the face to which `p` projects.
+     */
+    Simplex<T,N> projected_face() const {
+        Simplex<T,N> out;
+        for (index_t i = 0; i <= result.face.n; ++i) {
+            out.pts[i] = simplex.pts[result.face.included[i]];
+        }
+        out.n = result.face.n + 1;
+        return out;
+    }
+
+};
 
 } // namespace detail
 } // namespace geom
