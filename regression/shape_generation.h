@@ -9,7 +9,7 @@
 #include <geomc/shape/Simplex.h>
 #include <geomc/shape/Sphere.h>
 #include <geomc/shape/Plane.h>
-#include <geomc/shape/Extrusion.h>
+#include <geomc/shape/Extruded.h>
 #include <geomc/shape/Frustum.h>
 
 using namespace geom;
@@ -165,12 +165,12 @@ struct ShapeSampler<Cylinder<T,N>> {
 
 
 template <typename Shape>
-struct ShapeSampler<Extrusion<Shape>> {
+struct ShapeSampler<Extruded<Shape>> {
     typedef typename Shape::elem_t T;
     static constexpr size_t N = Shape::N + 1;
     
-    Extrusion<Shape> shape;
-    ShapeSampler(const Extrusion<Shape>& s):shape(s) {}
+    Extruded<Shape> shape;
+    ShapeSampler(const Extruded<Shape>& s):shape(s) {}
     
     Vec<T,N> operator()(rng_t* rng) {
         std::uniform_real_distribution<T> u(shape.height.lo, shape.height.hi);
@@ -297,12 +297,12 @@ struct RandomShape<Frustum<Shape>> {
 };
 
 template <typename Shape>
-struct RandomShape<Extrusion<Shape>> {
+struct RandomShape<Extruded<Shape>> {
     typedef typename Shape::elem_t T;
     static constexpr index_t N = Shape::N;
     
-    static Extrusion<Shape> rnd_shape(rng_t* rng) {
-        return Extrusion<Shape>(
+    static Extruded<Shape> rnd_shape(rng_t* rng) {
+        return Extruded<Shape>(
                 RandomShape<Shape>::rnd_shape(rng),
                 Rect<T,1>::spanning_corners(
                     5 * rnd<T>(rng),

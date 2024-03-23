@@ -64,7 +64,7 @@ namespace geom {
     template <typename T, index_t N> class Cylinder;
     template <typename T, index_t N> class Simplex;
     template <typename T, index_t N> class Capsule;
-    template <typename Shape>        class Extrusion;
+    template <typename Shape>        class Extruded;
     template <typename Shape>        class Oriented;
     template <typename Shape>        class Frustum;
     template <typename Shape>        class Dilated;

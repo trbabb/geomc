@@ -13,7 +13,7 @@
 #include <geomc/shape/Simplex.h>
 #include <geomc/shape/Sphere.h>
 #include <geomc/shape/Plane.h>
-#include <geomc/shape/Extrusion.h>
+#include <geomc/shape/Extruded.h>
 #include <geomc/shape/Frustum.h>
 
 #include "shape_generation.h"
@@ -314,7 +314,7 @@ BOOST_AUTO_TEST_CASE(validate_sphere) {
 
 
 BOOST_AUTO_TEST_CASE(validate_extrusion) {
-    explore_compound_shape<Extrusion, double>(&rng, std::max(N_TESTS / 4, 1));
+    explore_compound_shape<Extruded, double>(&rng, std::max(N_TESTS / 4, 1));
 }
 
 BOOST_AUTO_TEST_CASE(validate_oriented) {

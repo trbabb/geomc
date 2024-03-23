@@ -24,15 +24,15 @@ namespace geom {
  * Example:
  * 
  *     // initialize a cylinder of length and radius 1:
- *     auto cylinder = Extrusion<Sphere<double,2>>(Sphere<double,2>(), Rect<double,1>(0,1));
+ *     auto cylinder = Extruded<Sphere<double,2>>(Sphere<double,2>(), Rect<double,1>(0,1));
  *     // or equivalently, and more succinctly:
  *     auto cylinder2 = extrude(Circle<double>(), 0, 1);
  */
 template <typename Shape>
-class Extrusion :
-    public Convex          <typename Shape::elem_t, Shape::N+1, Extrusion<Shape>>,
-    public RayIntersectable<typename Shape::elem_t, Shape::N+1, Extrusion<Shape>>,
-    public Projectable     <typename Shape::elem_t, Shape::N+1, Extrusion<Shape>>
+class Extruded :
+    public Convex          <typename Shape::elem_t, Shape::N+1, Extruded<Shape>>,
+    public RayIntersectable<typename Shape::elem_t, Shape::N+1, Extruded<Shape>>,
+    public Projectable     <typename Shape::elem_t, Shape::N+1, Extruded<Shape>>
 {
 public:
     /// The coordinate type of this Shape
@@ -47,26 +47,26 @@ public:
     
     
     /// Construct a new extrusion with unit height.
-    Extrusion():height(0,1) {}
+    Extruded():height(0,1) {}
     
     /// Construct a new extrusion with cross section `base` and unit height.
-    explicit Extrusion(const Shape& base):
+    explicit Extruded(const Shape& base):
         base(base),
         height(0,1) {}
     
     /// Construct an extrusion with cross section `base` and height range `height`.
-    Extrusion(const Shape& base, const Rect<T,1>& height):
+    Extruded(const Shape& base, const Rect<T,1>& height):
             base(base), 
             height(height) {}
     
     /** @brief Construct an extrusion with cross section `base`, and height 
      * ranging between `h0` and `h1`.
      */     
-    Extrusion(const Shape& base, T h0, T h1):
+    Extruded(const Shape& base, T h0, T h1):
         base(base),
         height(std::min(h0, h1), std::max(h0, h1)) {}
     
-    bool operator==(const Extrusion<Shape>& other) const {
+    bool operator==(const Extruded<Shape>& other) const {
         return base == other.base && height == other.height;
     }
     
@@ -175,17 +175,17 @@ public:
 
 /**
  * @brief Convenience function to extrude the shape `s` between heights `h0` and `h1` by
- * wrapping `s` in the `Extrusion` template.
+ * wrapping `s` in the `Extruded` template.
  *
- * @related Extrusion
+ * @related Extruded
  */
 template <typename Shape>
-inline Extrusion<Shape> extrude(
+inline Extruded<Shape> extrude(
         const    Shape& s,
         typename Shape::elem_t h0,
         typename Shape::elem_t h1)
 {
-    return Extrusion<Shape>(s, h0, h1);
+    return Extruded<Shape>(s, h0, h1);
 }
 
 /** 
@@ -195,7 +195,7 @@ inline Extrusion<Shape> extrude(
 
 // Extruded shapes inherit concepts
 template <typename Shape>
-struct implements_shape_concept<Extrusion<Shape>, Projectable> : 
+struct implements_shape_concept<Extruded<Shape>, Projectable> : 
     public std::integral_constant<
         bool,
         implements_shape_concept<Shape, Projectable>::value
@@ -203,7 +203,7 @@ struct implements_shape_concept<Extrusion<Shape>, Projectable> :
 {};
 
 template <typename Shape>
-struct implements_shape_concept<Extrusion<Shape>, RayIntersectable> : 
+struct implements_shape_concept<Extruded<Shape>, RayIntersectable> : 
     public std::integral_constant<
         bool,
         implements_shape_concept<Shape, RayIntersectable>::value
@@ -211,7 +211,7 @@ struct implements_shape_concept<Extrusion<Shape>, RayIntersectable> :
 {};
 
 template <typename Shape>
-struct implements_shape_concept<Extrusion<Shape>, Convex> : 
+struct implements_shape_concept<Extruded<Shape>, Convex> : 
     public std::integral_constant<
         bool,
         implements_shape_concept<Shape, RayIntersectable>::value
@@ -219,7 +219,7 @@ struct implements_shape_concept<Extrusion<Shape>, Convex> :
 {};
 
 template <typename Shape>
-struct implements_shape_concept<Extrusion<Shape>, SdfEvaluable> : 
+struct implements_shape_concept<Extruded<Shape>, SdfEvaluable> : 
     public std::integral_constant<
         bool,
         implements_shape_concept<Shape, SdfEvaluable>::value
@@ -233,8 +233,8 @@ struct implements_shape_concept<Extrusion<Shape>, SdfEvaluable> :
 
 
 template <typename Shape>
-struct std::hash<geom::Extrusion<Shape>> {
-    size_t operator()(const geom::Extrusion<Shape> &s) const {
+struct std::hash<geom::Extruded<Shape>> {
+    size_t operator()(const geom::Extruded<Shape> &s) const {
         constexpr size_t nonce = (size_t) 0x28211b7d8ba5f09bULL;
         return geom::hash_combine(
             geom::hash(s.base),
