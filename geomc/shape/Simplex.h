@@ -418,11 +418,7 @@ public:
      * @return `true` if `p` is on or inside this simplex; `false` otherwise.
      */
     bool contains(const Vec<T,N>& p) const {
-        // xxx: has this been tested? I don't think it's correct.
-        // we need to solve for all K weights, e.g.
         if (n < N + 1) return false;
-        // todo: test performance + stability over projection_contains
-        
         // solve for barycentric coordinates x:
         // Σ (1, v[i]) * x[i] = (1, p)
         
@@ -441,8 +437,6 @@ public:
         if (not linear_solve<T,false>((T*) m, K, 1, (T*) x, 1)) return false;
         // skip solving for the sum of the weights         ⤴︎
         // we don't need it, and we know it's 1.
-        //   xxx this is wrong
-        //   a tet has 4 pts, we need weights for all 4
         
         T sum = 0;
         for (index_t i = 1; i < K; ++i) {

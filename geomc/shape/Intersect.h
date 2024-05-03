@@ -39,6 +39,7 @@ protected:
     Simplex<T,N>* next_simplex = &simplex_b;
 
 public:
+
     const Simplex<T,N>& simplex() const { return *cur_simplex; }
     
     bool intersects(

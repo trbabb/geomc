@@ -1,12 +1,6 @@
-/*
- * GridIterator.h
- *
- *  Created on: Mar 14, 2013
- *      Author: tbabb
- */
+#pragma once
 
-#ifndef GRIDITERATOR_H_
-#define GRIDITERATOR_H_
+// todo: rewrite this to use an integer state and convert to/from point_t.
 
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_integral.hpp>
@@ -270,5 +264,3 @@ private:
 } /* namespace geom */
 
 #undef ENABLEINT_TYPE
-
-#endif /* GRIDITERATOR_H_ */

@@ -8,7 +8,9 @@ namespace geom {
 
 /** 
  * @ingroup shape
- * @brief A N-dimensional circle, sphere, or hypersphere
+ * @brief An N-dimensional circle, sphere, or hypersphere.
+ * 
+ * `Circle<T>` is a template alias for `Sphere<T,2>`.
  */
 template <typename T, index_t N>
 class Sphere:

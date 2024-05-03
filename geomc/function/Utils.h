@@ -213,6 +213,37 @@ inline T angle_to(T radians_0, T radians_1) {
     return err;
 }
 
+
+/**
+ * @brief Compute `ceil(a/b)`.
+ * 
+ * @param a Numerator.
+ * @param b Denominator.
+ */
+template <typename T>
+constexpr auto ceil_div(T a, T b) {
+    if constexpr (not std::is_integral<T>()) {
+        return std::ceil(a / b);
+    } else {
+        return (a + b - 1) / b;
+    }
+}
+
+/**
+ * @brief Compute `floor(a/b)`.
+ * 
+ * @param a Numerator.
+ * @param b Denominator.
+ */
+template <typename T>
+constexpr auto floor_div(T a, T b) {
+    if constexpr (not std::is_integral<T>()) {
+        return std::floor(a / b);
+    } else {
+        return (a + b) / b - 1;
+    }
+}
+
 /// @} // ingroup function
 
 } // namespace geom

@@ -13,7 +13,7 @@ inline size_t hash(const T& obj) {
     return std::hash<T>{}(obj);
 }
 
-inline size_t hash_combine(size_t h0, size_t h1) {
+inline constexpr size_t hash_combine(size_t h0, size_t h1) {
     if constexpr (sizeof(size_t) == 8) {
         /*
         // this offers a solution which doesn't use
@@ -42,12 +42,16 @@ inline size_t hash_combine(size_t h0, size_t h1) {
         h0 ^= h1 + 0x9e37U + (h0 << 3) + (h0 >> 1);
         return h0;
     } else {
-        static_assert(sizeof(size_t) > 2, "size_t size not supported for hashing");
+        static_assert(sizeof(size_t) >= 2, "size_t size not supported for hashing");
     }
 }
 
+inline constexpr size_t hash_combine_many(size_t h) {
+    return h;
+}
+
 template <typename... Hs>
-inline size_t hash_combine_many(size_t h, Hs... hashes) {
+inline constexpr size_t hash_combine_many(size_t h, Hs... hashes) {
     return hash_combine(h, hash_combine_many(hashes...));
 }
 

@@ -4,6 +4,10 @@
 
 namespace geom {
 
+// xxx: todo: this is not actually minimally small.
+//   - _buffer could be a union which also carries a data ptr
+//   - _we determined whether to use the buffer or the data ptr based on _capacity
+
 /**
  * @brief Array storage which does not allocate from the heap unless the requested 
  * size is larger than a threshold, `N`. 

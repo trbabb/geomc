@@ -1,3 +1,4 @@
+#pragma once
 /*
  * Xoshiro.h
  *
@@ -15,7 +16,7 @@ inline uint64_t rot64(uint64_t x, int k) {
 }
 
 
-uint64_t splitmix64(uint64_t* state) {
+inline uint64_t splitmix64(uint64_t* state) {
     uint64_t x = (*state += 0x9E3779B97f4A7C15);
     x = (x ^ (x >> 30)) * 0xBF58476D1CE4E5B9;
     x = (x ^ (x >> 27)) * 0x94D049BB133111EB;
@@ -37,7 +38,11 @@ public:
         rseed(seed);
     };
     
-    inline void rseed(uint64_t seed) {
+    XoshiroRand(const uint64_t entropy[4]) {
+        seed(entropy);
+    }
+    
+    void rseed(uint64_t seed) {
         uint64_t x = seed;
         s[0] = splitmix64(&x);
         s[1] = splitmix64(&x);
@@ -45,8 +50,29 @@ public:
         s[3] = splitmix64(&x);
     }
     
-    inline uint64_t rand64() {
-        uint64_t out = rot64(s[1] * 5, 7) * 9;
+    template <typename F>
+    void seed(F&& entropy) {
+        // wangjangle the entropy a bit; this ensures (e.g.) that there are no zeros
+        uint64_t x = entropy();
+        s[0] = splitmix64(&x);
+        x = entropy();
+        s[1] = splitmix64(&x);
+        x = entropy();
+        s[2] = splitmix64(&x);
+        x = entropy();
+        s[3] = splitmix64(&x);
+    }
+    
+    void seed(const uint64_t entropy[4]) {
+        s[0] = entropy[0];
+        s[1] = entropy[1];
+        s[2] = entropy[2];
+        s[3] = entropy[3];
+    }
+    
+    uint64_t rand64() {
+        // the xoshiro256++ algorithm:
+        uint64_t out = rot64(s[0] + s[3], 23) + s[0];
         uint64_t   t = s[1] << 17;
         
         s[2] ^= s[0];
