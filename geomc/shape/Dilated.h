@@ -199,17 +199,22 @@ struct implements_shape_concept<Dilated<Shape>, Convex> :
 /// @}  // addtogroup traits
 /// @}  // addtogroup shape
 
+
+template <typename Shape, typename H>
+struct Digest<Dilated<Shape>, H> {
+    H operator()(const Dilated<Shape> &s) const {
+        H nonce = geom::truncated_constant<H>(0x7f5e38d0b18f1dbf, 0x105e0a188e1bc0ef);
+        return geom::hash_many<H>(nonce, s.shape, s.dilation);
+    }
+};
+
 } // namespace geom
 
 
 template <typename Shape>
 struct std::hash<geom::Dilated<Shape>> {
     size_t operator()(const geom::Dilated<Shape> &s) const {
-        constexpr size_t nonce = (size_t) 0x7f5e38d0b18f1dbfULL;
-        return geom::hash_combine(
-            geom::hash(s.shape),
-            geom::hash(s.dilation)
-        ) ^ nonce;
+        return geom::hash<geom::Dilated<Shape>, size_t>(s);
     }
 };
 

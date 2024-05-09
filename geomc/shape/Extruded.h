@@ -265,16 +265,20 @@ struct implements_shape_concept<Extruded<Shape>, SdfEvaluable> :
 /// @} // addtogroup traits
 /// @} // addtogroup shape
 
+template <typename Shape, typename H>
+struct Digest<Extruded<Shape>, H> {
+    H operator()(const Extruded<Shape> &s) const {
+        H nonce = geom::truncated_constant<H>(0x28211b7d8ba5f09b, 0x6b7b5d58d68273c7);
+        return geom::hash_many<H>(nonce, s.base, s.height);
+    }
+};
+
 } // namespace geom
 
 
 template <typename Shape>
 struct std::hash<geom::Extruded<Shape>> {
     size_t operator()(const geom::Extruded<Shape> &s) const {
-        constexpr size_t nonce = (size_t) 0x28211b7d8ba5f09bULL;
-        return geom::hash_combine(
-            geom::hash(s.base),
-            geom::hash(s.height)
-        ) ^ nonce;
+        return geom::hash<geom::Extruded<Shape>, size_t>(s);
     }
 };

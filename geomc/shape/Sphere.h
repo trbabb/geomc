@@ -118,16 +118,20 @@ public:
     
 }; /* Sphere<T,N> */
 
+template <typename T, index_t N, typename H>
+struct Digest<Sphere<T,N>, H> {
+    H operator()(const Sphere<T,N>& s) const {
+        H nonce = geom::truncated_constant<H>(0x948904c693a7ddeb, 0xd121a1f8ce15ac6c);
+        return geom::hash_many<H>(nonce, s.center, s.r);
+    }
+};
+
 } /* namespace geom */
 
 
 template <typename T, index_t N>
 struct std::hash<geom::Sphere<T,N>> {
     size_t operator()(const geom::Sphere<T,N> &s) const {
-        constexpr size_t nonce = (size_t) 0x948904c693a7ddebULL;
-        return geom::hash_combine(
-            geom::hash(s.center),
-            geom::hash(s.r)
-        ) ^ nonce;
+        return geom::hash<geom::Sphere<T,N>, size_t>(s);
     }
 };

@@ -4,9 +4,10 @@ PREFIX    = /usr/local
 INCLUDES  = .
 BUILD_STD = c++20
 M_ARCH    = native
-CFLAGS    = -g -march=$(M_ARCH) -std=$(BUILD_STD) -O3 -Wall \
+CFLAGS    = -g -std=$(BUILD_STD) -O3 -Wall \
 	-fmessage-length=0 -Wno-unused-local-typedef \
 	# -fsanitize=address -fno-omit-frame-pointer
+NATIVE_CFLAGS = -march=$(M_ARCH) $(CFLAGS)
 LDFLAGS   = -g -lgeomc -lboost_unit_test_framework \
 	# -fsanitize=address -fno-omit-frame-pointer
 IFLAGS    = $(addprefix -I, $(INCLUDES))
@@ -84,7 +85,7 @@ DEP = $(patsubst %.cpp, build/%.d, $(ALL_SRC))
 # build rules:
 
 build/%.o: %.cpp build/%.d
-	$(CC) -c $(CFLAGS) $(IFLAGS) -o $@ $<
+	$(CC) -c $(NATIVE_CFLAGS) $(IFLAGS) -o $@ $<
 
 build/em/%.o: %.cpp build/%.d
 	@mkdir -p build/em/$(dir $<)

@@ -336,6 +336,14 @@ public:
     
 }; /* class Vec */
 
+template <typename T, index_t N, typename H>
+struct Digest<Vec<T,N>,H> {
+    H operator()(const Vec<T,N> &v) const {
+        H nonce = geom::truncated_constant<H>(0xc0da6f441f70ee90, 0x37217861ad19149b);
+        return geom::hash_array(nonce, v.begin(), N);
+    }
+};
+
 } // namespace geom
 
 
@@ -344,11 +352,7 @@ namespace std {
 template <typename T, index_t N>
 struct hash<geom::Vec<T,N>> {
     size_t operator()(const geom::Vec<T,N> &v) const {
-        size_t h = std::hash<T>{}(v[0]);
-        for (index_t i = 1; i < N; i++) {
-            geom::hash_combine(v[i], h);
-        }
-        return h;
+        return geom::hash<geom::Vec<T,N>,size_t>(v);
     }
 };
 

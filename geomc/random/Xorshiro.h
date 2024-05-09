@@ -1,19 +1,10 @@
 #pragma once
-/*
- * Xoshiro.h
- *
- */
 
 #include <atomic>
 #include <chrono>
 #include <geomc/random/Random.h>
 
 namespace geom {
-
-
-inline uint64_t rot64(uint64_t x, int k) {
-    return (x << k) | (x >> (64 - k));
-}
 
 
 inline uint64_t splitmix64(uint64_t* state) {
@@ -72,7 +63,7 @@ public:
     
     uint64_t rand64() {
         // the xoshiro256++ algorithm:
-        uint64_t out = rot64(s[0] + s[3], 23) + s[0];
+        uint64_t out = std::rotl<uint64_t>(s[0] + s[3], 23) + s[0];
         uint64_t   t = s[1] << 17;
         
         s[2] ^= s[0];
@@ -81,7 +72,7 @@ public:
         s[0] ^= s[3];
         
         s[2] ^= t;
-        s[3] = rot64(s[3], 45);
+        s[3] = std::rotl<uint64_t>(s[3], 45);
         
         return out;
     }

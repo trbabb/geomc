@@ -1026,16 +1026,21 @@ constexpr typename Rect<T,N>::point_t Rect<T,N>::endpoint_measure =
     std::is_integral<T>::value ? 1 : 0;
 
 
+template <typename T, index_t N, typename H>
+struct Digest<Rect<T,N>, H> {
+    H operator()(const Rect<T,N>& r) const {
+        H nonce = geom::truncated_constant<H>(0x5fdb6f041e87e25d, 0x3ee84a498958343d);
+        return geom::hash_many<H>(nonce, r.lo, r.hi);
+    }
+};
+
+
 } // end namespace geom
 
 
 template <typename T, index_t N>
 struct std::hash<geom::Rect<T,N>> {
     size_t operator()(const geom::Rect<T,N> &r) const {
-        constexpr size_t nonce = (size_t) 0x5fdb6f041e87e25dULL;
-        return geom::hash_combine(
-            geom::hash(r.lo),
-            geom::hash(r.hi)
-        ) ^ nonce;
+        return geom::hash<geom::Rect<T,N>, size_t>(r);
     }
 };

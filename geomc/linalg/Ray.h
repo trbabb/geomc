@@ -1,5 +1,4 @@
-#ifndef GEOM_RAY_H_
-#define GEOM_RAY_H_
+#pragma once
 
 #ifdef GEOMC_USE_STREAMS
 #include <iostream>
@@ -137,18 +136,23 @@ inline std::ostream &operator<< (std::ostream &stream, const Ray<T,N> &r) {
     return stream;
 }
 
-#endif
+#endif // GEOMC_USE_STREAMS
+
+
+template <typename T, index_t N, typename H>
+struct Digest<Ray<T,N>, H> {
+    H operator()(const Ray<T,N> &r) const {
+        H nonce = geom::truncated_constant<H>(0xc5ca6b58d6ca9853, 0x8af9e7e642670825);
+        return geom::hash_many<Vec<T,N>,H>(nonce, r.origin, r.direction);
+    }
+};
+
 } // namespace geom
+
 
 template <typename T, index_t N>
 struct std::hash<geom::Ray<T,N>> {
     size_t operator()(const geom::Ray<T,N> &v) const {
-        constexpr size_t nonce = (size_t) 0x8af9e7e642670825ULL;
-        return geom::hash_combine(
-            geom::hash(v.origin),
-            geom::hash(v.direction)
-        ) ^ nonce;
+        return geom::hash<geom::Ray<T,N>, size_t>(v);
     }
 };
-
-#endif /* GEOM_RAY_H_ */

@@ -270,66 +270,71 @@ public:
 };
 
 
+// hashing
+template <typename T, typename H>
+struct Digest<Quat<T>, H> {
+    H operator()(const Quat<T> &v) const {
+        H nonce = geom::truncated_constant<H>(0x111113181fd05e73, 0xf5ba45c0011f1ffc);
+        return geom::hash_many<H>(nonce, v.x, v.y, v.z, v.w);
+    }
+};
+
+
 } //namespace geom
 
 namespace std {
     
-    /**
-     * @brief Quaternion exponential. Represents a rotation about `q.imag()` by
-     * angle `|q|` and a scaling by `e`<sup>`q.real()`</sup>.
-     */
-    template <typename T>
-    geom::Quat<T> exp(const geom::Quat<T>& q) {
-        T k = std::exp(q.w);
-        T m = q.imag().mag();
-        if (m == 0) return geom::Quat<T>(geom::Vec<T,3>::zeros, std::exp(q.w));
-        T c = std::cos(m);
-        T s = std::sin(m);
-        return geom::Quat<T>(k * s * q.imag() / m, k * c);
-    }
-    
-    /**
-     * @brief Quaternion natural log.
-     */
-    template <typename T>
-    geom::Quat<T> log(const geom::Quat<T>& q) {
-        T q_m = q.mag();
-        T v_m = q.imag().mag();
-        T k   = std::acos(q.w / q_m);
-        return geom::Quat<T>(k * q.imag() / v_m, std::log(q_m));
-    }
-    
-    /**
-     * @brief Quaternion power. Raise `q` to the (real) power of `a`. 
-     */
-    template <typename T, typename U>
-    geom::Quat<T> pow(const geom::Quat<T> &q, U a) {
-        T mag = q.mag();
-        if (mag == 0) return geom::Quat<T>(0,0,0,1);
-        U theta = std::acos(q.real() / mag); // :(
-        geom::Vec<T,3> nhat = q.imag().unit();
-        return std::pow(mag, a) * geom::Quat<T>(
-            nhat * std::sin(a * theta), 
-            std::cos(a * theta));
-    }
-    
-    /**
-     * @brief Quaternion complex conjugate. Negate the vector part of `q`. 
-     */
-    template <typename T>
-    inline geom::Quat<T> conj(const geom::Quat<T> &q) {
-        return q.conj();
-    }
+/**
+ * @brief Quaternion exponential. Represents a rotation about `q.imag()` by
+ * angle `|q|` and a scaling by `e`<sup>`q.real()`</sup>.
+ */
+template <typename T>
+geom::Quat<T> exp(const geom::Quat<T>& q) {
+    T k = std::exp(q.w);
+    T m = q.imag().mag();
+    if (m == 0) return geom::Quat<T>(geom::Vec<T,3>::zeros, std::exp(q.w));
+    T c = std::cos(m);
+    T s = std::sin(m);
+    return geom::Quat<T>(k * s * q.imag() / m, k * c);
 }
 
+/**
+ * @brief Quaternion natural log.
+ */
+template <typename T>
+geom::Quat<T> log(const geom::Quat<T>& q) {
+    T q_m = q.mag();
+    T v_m = q.imag().mag();
+    T k   = std::acos(q.w / q_m);
+    return geom::Quat<T>(k * q.imag() / v_m, std::log(q_m));
+}
 
-namespace std {
+/**
+ * @brief Quaternion power. Raise `q` to the (real) power of `a`. 
+ */
+template <typename T, typename U>
+geom::Quat<T> pow(const geom::Quat<T> &q, U a) {
+    T mag = q.mag();
+    if (mag == 0) return geom::Quat<T>(0,0,0,1);
+    U theta = std::acos(q.real() / mag); // :(
+    geom::Vec<T,3> nhat = q.imag().unit();
+    return std::pow(mag, a) * geom::Quat<T>(
+        nhat * std::sin(a * theta), 
+        std::cos(a * theta));
+}
+
+/**
+ * @brief Quaternion complex conjugate. Negate the vector part of `q`. 
+ */
+template <typename T>
+inline geom::Quat<T> conj(const geom::Quat<T> &q) {
+    return q.conj();
+}
 
 template <typename T>
 struct hash<geom::Quat<T>> {
     size_t operator()(const geom::Quat<T> &v) const {
-        constexpr size_t nonce = (size_t) 0x25ca848a1305d3a2ULL;
-        return geom::hash_bytes(&v, sizeof(geom::Quat<T>)) ^ nonce;
+        return geom::hash<geom::Quat<T>, size_t>(v);
     }
 };
 

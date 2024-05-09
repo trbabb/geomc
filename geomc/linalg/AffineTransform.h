@@ -860,6 +860,15 @@ AffineTransform<T,2> translation(T tx, T ty) {
 }
 
 
+// hashing
+template <typename T, size_t N, typename H>
+struct Digest<AffineTransform<T,N>, H> {
+    size_t operator()(const AffineTransform<T,N>& xf) const {
+        H nonce = truncated_constant<H>(0x173d01f6a3408f0b, 0x74a2e1d9f7a37c6f);
+        return geom::hash<SimpleMatrix<T,N+1,N+1>, H>(xf.mat) ^ nonce;
+    }
+};
+
 } //end namespace geom
 
 
@@ -868,10 +877,7 @@ namespace std {
 template <typename T, index_t N>
 struct hash<geom::AffineTransform<T,N>> {
     size_t operator()(const geom::AffineTransform<T,N> &v) const {
-        // this nonce ensures that Xfs and Mats don't hash equal;
-        // their type makes them distinct
-        constexpr size_t nonce = (size_t) 7462482095847566613ULL;
-        return geom::hash(v.mat) ^ nonce;
+        return geom::hash<geom::AffineTransform<T,N>, size_t>(v);
     }
 };
 

@@ -1,3 +1,5 @@
+#pragma once
+
 /*
  * SimpleMatrix.h
  *
@@ -15,9 +17,6 @@
  *  Created on: Apr 18, 2013
  *      Author: tbabb
  */
-
-#ifndef SIMPLEMATRIX_H_
-#define SIMPLEMATRIX_H_
 
 #include <type_traits>
 #include <geomc/Hash.h>
@@ -624,8 +623,16 @@ public:
 };  // class SimpleMatrix <..., STORAGE_WRAPPED>
 
 
-#endif
+#endif // PARSING_DOXYGEN
 
+
+template <typename T, index_t M, index_t N, MatrixLayout Lyt, StoragePolicy P, typename H>
+struct Digest<SimpleMatrix<T,M,N,Lyt,P>, H> {
+    H operator()(const SimpleMatrix<T,M,N,Lyt,P> &m) const {
+        H nonce = geom::truncated_constant<T>(0x74652bb86dc7661a, 0xa71008c5769cb8f9);
+        return geom::hash_array<T,H>(nonce, m.data_begin(), m.rows() * m.cols());
+    }
+};
 
 } // end namespace geom
 
@@ -635,10 +642,9 @@ namespace std {
 template <typename T, index_t M, index_t N>
 struct hash<geom::SimpleMatrix<T,M,N>> {
     size_t operator()(const geom::SimpleMatrix<T,M,N> &m) const {
-        return geom::hash_many(m.data_begin(), m.rows() * m.cols());
+        return geom::hash<geom::SimpleMatrix<T,M,N>,size_t>(m);
     }
 };
 
 } // end namespace std
 
-#endif /* SIMPLEMATRIX_H_ */

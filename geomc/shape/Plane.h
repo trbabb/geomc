@@ -259,16 +259,20 @@ public:
     
 }; /* Plane<T,N> */
 
+template <typename T, index_t N, typename H>
+struct Digest<Plane<T,N>, H> {
+    H operator()(const Plane<T,N>& p) const {
+        H nonce = geom::truncated_constant<H>(0x1bff2d1194dd90c5, 0x145a6e09ed0b387d);
+        return geom::hash_many<H>(nonce, p.normal, p.d);
+    }
+};
+
 } // namespace geom
 
 
 template <typename T, index_t N>
 struct std::hash<geom::Plane<T,N>> {
     size_t operator()(const geom::Plane<T,N> &p) const {
-        constexpr size_t nonce = (size_t) 0x1bff2d1194dd90c5ULL;
-        return geom::hash_combine(
-            geom::hash(p.normal),
-            geom::hash(p.d)
-        ) ^ nonce;
+        return geom::hash<geom::Plane<T,N>, size_t>(p);
     }
 };

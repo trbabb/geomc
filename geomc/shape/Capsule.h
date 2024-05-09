@@ -152,17 +152,20 @@ public:
     
 };
 
+template <typename T, index_t N, typename H>
+struct Digest<Capsule<T,N>, H> {
+    H operator()(const Capsule<T,N> &c) const {
+        H nonce = geom::truncated_constant<H>(0x800065016103dd5f, 0x197bdccf6e53f9e7);
+        return geom::hash_many<H>(nonce, c.p0, c.p1, c.radius);
+    }
+};
+
 } /* namespace geom */
 
 
 template <typename T, index_t N>
 struct std::hash<geom::Capsule<T,N>> {
     size_t operator()(const geom::Capsule<T,N> &c) const {
-        constexpr size_t nonce = (size_t) 0x800065016103dd5fULL;
-        return geom::hash_combine(
-            geom::hash(c.p0),
-            geom::hash(c.p1),
-            geom::hash(c.radius)
-        ) ^ nonce;
+        return geom::hash<geom::Capsule<T,N>, size_t>(c);
     }
 };

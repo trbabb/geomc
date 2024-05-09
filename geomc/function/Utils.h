@@ -244,6 +244,11 @@ constexpr auto floor_div(T a, T b) {
     }
 }
 
+template <typename T>
+constexpr bool is_power_of_two(T x) requires std::integral<T> {
+    return x > 0 and (x & (x - 1)) == 0;
+}
+
 /// @} // ingroup function
 
 } // namespace geom

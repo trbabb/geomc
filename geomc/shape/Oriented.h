@@ -352,16 +352,20 @@ struct implements_shape_concept<Oriented<Shape>, Convex> :
 /// @} // addtogroup traits
 /// @} // addtogroup shape
 
+template <typename Shape, typename H>
+struct Digest<Oriented<Shape>, H> {
+    H operator()(const Oriented<Shape> &s) const {
+        H nonce = geom::truncated_constant<H>(0xb04c31374e530a4e, 0xae9a04ef51d26625);
+        return geom::hash_many<H>(nonce, s.shape, s.xf);
+    }
+};
+
 } // namespace geom
 
 
 template <typename Shape>
 struct std::hash<geom::Oriented<Shape>> {
     size_t operator()(const geom::Oriented<Shape> &s) const {
-        constexpr size_t nonce = (size_t) 0xb04c31374e530a4eULL;
-        return geom::hash_combine(
-            geom::hash(s.shape),
-            geom::hash(s.xf)
-        ) ^ nonce;
+        return geom::hash<geom::Oriented<Shape>, size_t>(s);
     }
 };

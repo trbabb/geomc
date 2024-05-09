@@ -595,18 +595,20 @@ template <typename T>
 using Tetrahedron = Simplex<T,3>;
 
 
+template <typename T, index_t N, typename H>
+struct Digest<Simplex<T,N>, H> {
+    H operator()(const Simplex<T,N>& s) const {
+        H nonce = geom::truncated_constant<H>(0x8159bb983f797983, 0xe8904e94430f7555);
+        return geom::hash_array<H>(nonce, s.pts, s.n);
+    }
+};
+
 } // namespace geom
 
 
 template <typename T, index_t N>
 struct std::hash<geom::Simplex<T,N>> {
     size_t operator()(const geom::Simplex<T,N> &s) const {
-        constexpr size_t nonce = (size_t) 0x8159bb983f797983ULL;
-        size_t h = nonce;
-        // only hash the verts that exist
-        for (size_t i = 0; i < s.n; ++i) {
-            h = geom::hash_combine(h, geom::hash(s[i]));
-        }
-        return h;
+        return geom::hash<geom::Simplex<T,N>, size_t>(s);
     }
 };
