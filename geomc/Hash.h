@@ -31,10 +31,23 @@ template <typename T, typename H=std::size_t>
 struct Digest {};
 
 
+/**
+ * @brief Specialize for `T` to disable the use of `std::hash` for `Digest<T>`.
+ * 
+ * This can be used to disambiguate specializations of `Digest` with certain
+ * templated custom types. (Most templates will not be ambiguous).
+ */
+template <typename T>
+struct disable_std_hash_fallback : std::false_type {};
+
+
 // if std::hash is defined for T and there are enough
 // bits in size_t to fill a H, use that
 template <typename T, typename H>
-requires (sizeof(H) <= sizeof(size_t))
+requires (
+    sizeof(H) <= sizeof(size_t)
+    and not disable_std_hash_fallback<T>::value
+)
 struct Digest<T, H> {
     H operator()(const T& obj) const {
         return std::hash<T>{}(obj);
@@ -48,7 +61,7 @@ struct Digest<T, H> {
 template <typename T, typename H>
 requires (
         sizeof(H) > sizeof(size_t)  // std::hash cannot fill an H
-    and sizeof(H) > sizeof(T)       // not enough bits in T to fill an H
+    and sizeof(H) > sizeof(T)       // not enough bits in T to fill an H,
     and sizeof(T) > sizeof(size_t)  // but T is bigger than size_t,
                                     // so we get more bits than std::hash;
                                     // might as well use all available bits directly
@@ -127,7 +140,7 @@ inline constexpr H hash_combine(H h0, H h1) {
         // with a multiprecision library; k = 2^128 / phi
         constexpr H k_hi = 0x9e3779b97f4a7c15ULL;
         constexpr H k_lo = 0xf39cc0605cedc834ULL;
-        H k = (k_hi << 64) | k_lo;
+        constexpr H k = (k_hi << 64) | k_lo;
         h0 ^= h1 + k + (h0 << 24) + (h0 >> 8);
         return h0;
     } else if constexpr (sizeof(H) == 8) {
