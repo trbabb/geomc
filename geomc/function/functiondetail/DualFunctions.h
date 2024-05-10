@@ -254,8 +254,8 @@ template <typename T, DiscontinuityPolicy Dp, typename H>
 struct Digest<Dual<T,Dp>, H> {
     H operator()(const Dual<T,Dp>& d) const {
         return hash_combine<H>(
-            hash<T,H>{}(d.x),
-            hash<T,H>{}(d.dx)
+            geom::hash<T,H>(d.x),
+            geom::hash<T,H>(d.dx)
         );
     }
 };
@@ -568,7 +568,7 @@ inline geom::Dual<T,P> fma(
 template <typename T, geom::DiscontinuityPolicy Dp>
 struct hash<geom::Dual<T,Dp>> {
     size_t operator()(const geom::Dual<T,Dp> &d) const {
-        return geom::hash<geom::Dual<T,Dp>, size_t>{}(d);
+        return geom::hash<geom::Dual<T,Dp>, size_t>(d);
     }
 };
 

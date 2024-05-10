@@ -629,7 +629,7 @@ public:
 template <typename T, index_t M, index_t N, MatrixLayout Lyt, StoragePolicy P, typename H>
 struct Digest<SimpleMatrix<T,M,N,Lyt,P>, H> {
     H operator()(const SimpleMatrix<T,M,N,Lyt,P> &m) const {
-        H nonce = geom::truncated_constant<T>(0x74652bb86dc7661a, 0xa71008c5769cb8f9);
+        H nonce = geom::truncated_constant<H>(0x74652bb86dc7661a, 0xa71008c5769cb8f9);
         return geom::hash_array<T,H>(nonce, m.data_begin(), m.rows() * m.cols());
     }
 };
