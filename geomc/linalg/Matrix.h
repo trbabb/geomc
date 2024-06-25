@@ -407,7 +407,7 @@ mul(Md *into, const Ma &a, const Mb &b) {
     }
 #endif
     
-#ifdef GEOMC_MTX_CHECK_ALIASING
+#if GEOMC_MTX_CHECK_ALIASING
     // allocate a temp destination matrix, in case of storage aliasing
     if (mtx_aliases_storage(*into, a) or mtx_aliases_storage(*into, b)) {
         buffer_t tmp = detail::_ImplMtxInstance<buffer_t>::instance(A::rows(a), B::cols(b));
@@ -422,6 +422,41 @@ mul(Md *into, const Ma &a, const Mb &b) {
     
     return *into;
 }
+
+
+/// Accumulate the result of a matrix multiplication into a destination matrix.
+/// (a x b) * (b x c) += (a x c)
+template <typename Md, typename Ma, typename Mb>
+typename std::enable_if<
+            detail::MatrixMultipliable<Ma,Mb>::val and 
+            detail::_ImplMtxResult<Ma, Mb, Md>::agreement == detail::MTX_RESULT_MATCH, 
+        Md&>::type
+mul_acc(Md *into, const Ma &a, const Mb &b) {
+    // adaptor types for each argument:
+    typedef detail::_ImplMtxAdaptor<Ma, detail::ORIENT_VEC_ROW> A;
+    typedef detail::_ImplMtxAdaptor<Mb, detail::ORIENT_VEC_COL> B;
+    typedef detail::_ImplMtxAdaptor<Md, detail::_ImplVecMulOrient<Ma,Mb,Md>::orient> D;
+    // multiplier implementation:
+    typedef detail::_ImplMtxMul<Ma,Mb> mult_t;
+    typedef typename mult_t::return_t buffer_t;
+    
+#ifdef GEOMC_MTX_CHECK_DIMS
+    // do the source matrix dimensions agree?
+    // any compiler worth its salt should eliminate this test for template instantiations with static-dimensioned operands
+    if ((A::COLDIM == DYNAMIC_DIM or B::ROWDIM == DYNAMIC_DIM) and A::cols(a) != B::rows(b)) {
+        throw DimensionMismatchException(A::rows(a), A::cols(a), B::rows(b), B::cols(b));
+    }
+    // does the destination matrix have correct dims?
+    // again, runtime checks are to be avoided.
+    if (((D::ROWDIM == DYNAMIC_DIM or A::ROWDIM == DYNAMIC_DIM) and A::rows(a) != D::rows(*into)) or 
+        ((D::COLDIM == DYNAMIC_DIM or B::COLDIM == DYNAMIC_DIM) and B::cols(b) != D::cols(*into))) {
+        throw DimensionMismatchException(D::rows(*into), D::cols(*into), A::rows(a), B::cols(b));
+    }
+#endif
+    mult_t::mul_acc(into, a, b);
+    return *into;
+}
+
 
 // vec <- mtx * mtx
 // Special case where matrices have dynamic size and destination is a vector.
@@ -452,7 +487,7 @@ mul(Md *into, const Ma &a, const Mb &b) {
     }
 #endif
     
-#ifdef GEOMC_MTX_CHECK_ALIASING
+#if GEOMC_MTX_CHECK_ALIASING
     if (mtx_aliases_storage(*into, a) or mtx_aliases_storage(*into, b)) {
         buffer_t tmp = detail::_ImplMtxInstance<buffer_t>::instance(A::rows(a), B::cols(b));
         mult_t::mul(&tmp, a, b);
@@ -464,6 +499,38 @@ mul(Md *into, const Ma &a, const Mb &b) {
     mult_t::mul(into, a, b);
 #endif
     
+    return *into;
+}
+
+// vec <- vec + mtx * mtx
+// Special case where matrices have dynamic size and destination is a vector.
+// The desired row/col orientation of the vector cannot be determined at compile
+// time, so special logic is needed to check both configurations.
+template <typename Md, typename Ma, typename Mb>
+typename std::enable_if<
+                     detail::MatrixMultipliable<Ma,Mb>::val and 
+                     detail::_ImplMtxResult<Ma,Mb,Md>::agreement == detail::MTX_RESULT_UNKNOWN,
+            Md&>::type
+mul_acc(Md *into, const Ma &a, const Mb &b) {
+    // adaptors types for arguments:
+    typedef detail::_ImplMtxAdaptor<Ma, detail::ORIENT_VEC_ROW> A;
+    typedef detail::_ImplMtxAdaptor<Mb, detail::ORIENT_VEC_COL> B;
+     //multiplier implementation
+    typedef detail::_ImplMtxMul<Ma,Mb> mult_t;
+    typedef typename mult_t::return_t buffer_t;
+    
+#ifdef GEOMC_MTX_CHECK_DIMS
+    // trial orientation adaptors:
+    typedef detail::_ImplMtxAdaptor<Md, detail::ORIENT_VEC_ROW> Dr;
+    typedef detail::_ImplMtxAdaptor<Md, detail::ORIENT_VEC_COL> Dc;
+    
+    // if neither configuration yields dimension agreement:
+    if (not ((Dr::rows(*into) == A::rows(a) and Dr::cols(*into) == B::cols(b)) or
+             (Dc::rows(*into) == A::rows(a) and Dc::cols(*into) == B::cols(b))) ) {
+        throw DimensionMismatchException(Dr::rows(*into), Dr::cols(*into), A::rows(a), B::cols(b));
+    }
+#endif
+    mult_t::mul_acc(into, a, b);
     return *into;
 }
 
@@ -537,7 +604,7 @@ transpose(SimpleMatrix<T,M,N,Lyt,P>* into, const SimpleMatrix<T,M,N,Lyt,P>& m) {
                 m.cols(),     m.rows());
         }
 #endif
-#ifdef GEOMC_MTX_CHECK_ALIASING
+#if GEOMC_MTX_CHECK_ALIASING
         if (mtx_aliases_storage(*into, m)) {
             // matrices alias each other; mutating one will affect the other,
             // in such a way as to prohibit a clean in-place transpose.
@@ -597,7 +664,7 @@ transpose(Md *into, const Mx &m) {
     }
 #endif
     
-#ifdef GEOMC_MTX_CHECK_ALIASING
+#if GEOMC_MTX_CHECK_ALIASING
     // memory aliasing?
     if (mtx_aliases_storage(*into, m)) {
         return_t buf = detail::_ImplMtxInstance<return_t>::instance(m.cols(), m.rows());

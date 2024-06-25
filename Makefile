@@ -12,7 +12,7 @@ LDFLAGS   = -g -lgeomc -lboost_unit_test_framework \
 	# -fsanitize=address -fno-omit-frame-pointer
 IFLAGS    = $(addprefix -I, $(INCLUDES))
 
-LIB_SRC   = $(wildcard geomc/*.cpp) $(wildcard geomc/*/*.cpp)
+LIB_SRC   = $(wildcard geomc/*.cpp) $(wildcard geomc/*/*.cpp) $(wildcard geomc/*/*/*.cpp)
 TEST_SRC  = $(wildcard regression/*cpp)
 ALL_SRC   = $(LIB_SRC) $(TEST_SRC) test/Profile.cpp
 
@@ -99,8 +99,8 @@ $(LIB): $(LIB_OBJS)
 	@mkdir -p lib
 	$(AR) rs $(LIB) $(LIB_OBJS)
 
-$(LITELIB) : build/geomc/GeomException.o
-	$(AR) rs $(LITELIB) build/geomc/GeomException.o
+$(LITELIB) : build/geomc/GeomException.o build/geomc/function/functiondetail/SipHash.o
+	$(AR) rs $(LITELIB) build/geomc/GeomException.o build/geomc/function/functiondetail/SipHash.o
 
 $(EMLIB) : $(EMLIB_OBJS)
 	emar rs $(EMLIB) $(EMLIB_OBJS)

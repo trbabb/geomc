@@ -49,7 +49,7 @@
  */
 
 #ifndef GEOMC_MTX_CHECK_ALIASING
-#define GEOMC_MTX_CHECK_ALIASING
+#define GEOMC_MTX_CHECK_ALIASING 1
 #endif
 
 // Shall vectors include functions for outputting to streams?

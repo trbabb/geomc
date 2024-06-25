@@ -37,6 +37,8 @@
 //      > haven't proven this route impossible, though. something magic
 //        might be possible by a combination of project() and support()
 //        (but quite unlikely as it would be novel).
+//      - you want: douglas-rachford algorithm
+//        - https://x.com/gabrielpeyre/status/1791332821459472643
 //   - some shapes are closed under intersection (Rect)
 // - minkowski sum
 //   - ray intersection is interval minkowski sum (implemented)

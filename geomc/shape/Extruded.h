@@ -1,10 +1,4 @@
 #pragma once
-/* 
- * File:   Frustum.h
- * Author: tbabb
- *
- * Created on November 8, 2014, 11:09 PM
- */
 
 #include <climits>
 #include <geomc/shape/Rect.h>

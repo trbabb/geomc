@@ -977,10 +977,6 @@ public:
         return interval;
     }
     
-    /*****************************
-     * Inherited Methods         *
-     *****************************/
-    
     Rect<T,N> bounds() const {
         return *this;
     }
@@ -1025,6 +1021,8 @@ template <typename T, index_t N>
 constexpr typename Rect<T,N>::point_t Rect<T,N>::endpoint_measure = 
     std::is_integral<T>::value ? 1 : 0;
 
+
+// hashing:
 
 template <typename T, index_t N, typename H>
 struct Digest<Rect<T,N>, H> {

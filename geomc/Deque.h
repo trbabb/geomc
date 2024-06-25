@@ -9,7 +9,6 @@
 
 namespace geom {
 
-
 /**
  * @addtogroup storage
  * @{

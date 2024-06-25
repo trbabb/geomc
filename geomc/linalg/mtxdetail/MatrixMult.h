@@ -53,14 +53,25 @@ public:
     typedef SimpleMatrix<typename Ma::elem_t, Ma::ROWDIM, Mb::COLDIM> return_t;
     
     template <typename Md>
-    static void mul(Md* d, const Ma& a, const Mb& b){
-        //TODO: There is a trick to optimize *d = *a that convinces the compiler that d != a, thus
-        //preventing an expensive fetch operation behind the scenes. We should use this here.
-        //google key term would be "aliasing". c++ keyword = "restrict"
+    static void mul(Md* d, const Ma& a, const Mb& b) {
         typedef typename Md::elem_t T;
         for (index_t r = 0; r < a.rows(); r++) {
             for (index_t c = 0; c < b.cols(); c++) {
                 T sum = 0;
+                for (index_t n = 0; n < a.cols(); n++) {
+                    sum += a(r, n) * b(n, c);
+                }
+                d->set(r, c, sum);
+            }
+        }
+    }
+    
+    template <typename Md>
+    static void mul_acc(Md* d, const Ma& a, const Mb& b) {
+        typedef typename Md::elem_t T;
+        for (index_t r = 0; r < a.rows(); r++) {
+            for (index_t c = 0; c < b.cols(); c++) {
+                T sum = d->get(r, c);
                 for (index_t n = 0; n < a.cols(); n++) {
                     sum += a(r, n) * b(n, c);
                 }
@@ -129,6 +140,16 @@ public:
         }
     }
     
+    template <typename U, index_t I, index_t J>
+    static void mul_acc(geom::DiagMatrix<U,I,J>* d, const geom::DiagMatrix<T,L,M1>& a, const geom::DiagMatrix<T,M2,N>& b) {
+        T* pa = a.diagonal_begin();
+        T* pb = b.diagonal_begin();
+        T* pc = d->diagonal_begin();
+        for (index_t i = 0; i < a.rows(); ++i, ++pa, ++pb, ++pc) {
+            *pc += (*pa) * (*pb);
+        }
+    }
+    
     // arbitrary destination matrix
     template <typename Md>
     static void mul(Md* d, const geom::DiagMatrix<T,L,M1>& a, const geom::DiagMatrix<T,M2,N>& b) {
@@ -137,6 +158,15 @@ public:
         d->set_zero();
         for (index_t i = 0; i < a.rows(); ++i, ++pa, ++pb) {
             d->set(i, i, (*pa) * (*pb));
+        }
+    }
+    
+    template <typename Md>
+    static void mul_acc(Md* d, const geom::DiagMatrix<T,L,M1>& a, const geom::DiagMatrix<T,M2,N>& b) {
+        T* pa = a.diagonal_begin();
+        T* pb = b.diagonal_begin();
+        for (index_t i = 0; i < a.rows(); ++i, ++pa, ++pb) {
+            d->set(i, i, d->get(i,i) + (*pa) * (*pb));
         }
     }
 };
@@ -162,6 +192,17 @@ public:
         }
     }
     
+    template <index_t M>
+    static void mul_acc(geom::Vec<T,M>* d, const Mat& a, const geom::Vec<T,N>& b) {
+        for (index_t r = 0; r < M; r++) {
+            T x = (*d)[r];
+            for (index_t c = 0; c < N; c++) {
+                x += a(r,c) * b[c];
+            }
+            (*d)[r] = x;
+        }
+    }
+    
     template <typename Md>
     static void mul(Md* d, const Mat& a, const geom::Vec<T,N>& b, REQUIRE_MATRIX_T(Md)* dummy=0) {
         for (index_t r = 0; r < a.rows(); r++) {
@@ -170,6 +211,17 @@ public:
                 x += a(r,c) * b[c];
             }
             d->set(r,0,x);
+        }
+    }
+    
+    template <typename Md>
+    static void mul_acc(Md* d, const Mat& a, const geom::Vec<T,N>& b, REQUIRE_MATRIX_T(Md)* dummy=0) {
+        for (index_t r = 0; r < a.rows(); r++) {
+            T x = d->get(r, 0);
+            for (index_t c = 0; c < N; c++) {
+                x += a(r, c) * b[c];
+            }
+            d->set(r, 0, x);
         }
     }
 };
@@ -193,10 +245,32 @@ public:
         }
     }
     
+    template <index_t N>
+    static void mul_acc(geom::Vec<T,N>* d, geom::Vec<T,M> b, const Mat& a) {
+        for (index_t c = 0; c < N; c++) {
+            T x = (*d)[c];
+            for (index_t r = 0; r < M; r++) {
+                x += a(r,c) * b[r];
+            }
+            (*d)[c] = x;
+        }
+    }
+    
     template <typename Md>
     static void mul(Md* d, geom::Vec<T,M> b, const Mat& a, REQUIRE_MATRIX_T(Md)* dummy=0) {
         for (index_t c = 0; c < a.cols(); c++) {
             T x = 0;
+            for (index_t r = 0; r < M; r++) {
+                x += a(r,c) * b[r];
+            }
+            d->set(0,c,x);
+        }
+    }
+    
+    template <typename Md>
+    static void mul_acc(Md* d, geom::Vec<T,M> b, const Mat& a, REQUIRE_MATRIX_T(Md)* dummy=0) {
+        for (index_t c = 0; c < a.cols(); c++) {
+            T x = d->get(0,c);
             for (index_t r = 0; r < M; r++) {
                 x += a(r,c) * b[r];
             }

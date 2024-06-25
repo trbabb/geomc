@@ -1,5 +1,4 @@
-#ifndef _DILATED_SHAPE_H
-#define _DILATED_SHAPE_H
+#pragma once
 
 #include <geomc/shape/Rect.h>
 #include <geomc/shape/Sphere.h>
@@ -217,6 +216,3 @@ struct std::hash<geom::Dilated<Shape>> {
         return geom::hash<geom::Dilated<Shape>, size_t>(s);
     }
 };
-
-#endif /* _DILATED_SHAPE_H */
-
