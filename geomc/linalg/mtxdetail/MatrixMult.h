@@ -71,7 +71,7 @@ public:
         typedef typename Md::elem_t T;
         for (index_t r = 0; r < a.rows(); r++) {
             for (index_t c = 0; c < b.cols(); c++) {
-                T sum = d->get(r, c);
+                T sum = (*d)(r, c);
                 for (index_t n = 0; n < a.cols(); n++) {
                     sum += a(r, n) * b(n, c);
                 }
@@ -166,7 +166,7 @@ public:
         T* pa = a.diagonal_begin();
         T* pb = b.diagonal_begin();
         for (index_t i = 0; i < a.rows(); ++i, ++pa, ++pb) {
-            d->set(i, i, d->get(i,i) + (*pa) * (*pb));
+            d->set(i, i, (*d)(i,i) + (*pa) * (*pb));
         }
     }
 };
@@ -217,7 +217,7 @@ public:
     template <typename Md>
     static void mul_acc(Md* d, const Mat& a, const geom::Vec<T,N>& b, REQUIRE_MATRIX_T(Md)* dummy=0) {
         for (index_t r = 0; r < a.rows(); r++) {
-            T x = d->get(r, 0);
+            T x = (*d)(r, 0);
             for (index_t c = 0; c < N; c++) {
                 x += a(r, c) * b[c];
             }
@@ -270,7 +270,7 @@ public:
     template <typename Md>
     static void mul_acc(Md* d, geom::Vec<T,M> b, const Mat& a, REQUIRE_MATRIX_T(Md)* dummy=0) {
         for (index_t c = 0; c < a.cols(); c++) {
-            T x = d->get(0,c);
+            T x = (*d)(0,c);
             for (index_t r = 0; r < M; r++) {
                 x += a(r,c) * b[r];
             }

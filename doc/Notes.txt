@@ -5,8 +5,8 @@ what if:
 TODO:
   x fix free function docs
   - switch to scons
-  - fix Dual docs
-  - fix tracing
+  x fix Dual docs
+  x fix tracing
   - everything in deployment_blockers.txt
   x fix matrices
     x wrapper

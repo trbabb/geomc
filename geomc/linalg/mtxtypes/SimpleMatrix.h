@@ -541,13 +541,13 @@ public:
 
 template <typename T, index_t M, index_t N, MatrixLayout Lyt, StoragePolicy P>
 class SimpleMatrix : public detail::FlatMatrixBase<T,M,N,Lyt,P> {
-
+    
 private:
-
+    
     typedef detail::FlatMatrixBase<T,M,N,Lyt,P> parent_t;
-
+    
 public:
-
+    
     // I would not expect this trickery to work, but it does!
     // this mandates row, column arguments for dynamic matrices.
     // arguments are basically ignored if matrix is static.
@@ -577,8 +577,14 @@ public:
             void*
         >::type dummy=0):
             parent_t(mtx) {}
-
-
+    
+    // todo: statically require the correct number of vectors
+    SimpleMatrix(std::initializer_list<Vec<T,Lyt == ROW_MAJOR ? N : M>> spans):
+            parent_t(
+                Lyt == ROW_MAJOR ? spans.size() : M,
+                Lyt == COL_MAJOR ? spans.size() : N,
+                spans.begin()->begin()) {}
+    
 };  // class SimpleMatrix <...>
 
 

@@ -318,6 +318,19 @@ public:
         return xfnew;
     }
     
+    /**
+     * @brief Return the 3x3 matrix which transforms direction vectors.
+     */
+    const SimpleMatrix<T,N,N> direction_matrix() const {
+        SimpleMatrix<T,N,N> m;
+        for (index_t r = 0; r < N; r++) {
+            for (index_t c = 0; c < N; c++) {
+                m(r,c) = mat(r,c);
+            }
+        }
+        return m;
+    }
+    
 }; //end AffineTransform class
 
 /*******************************

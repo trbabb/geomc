@@ -13,7 +13,7 @@ H hash(const T& obj);
 
 
 namespace detail {
-    
+
 void siphash(
         const void*    in_bytes,
         const size_t   in_len,
@@ -45,7 +45,7 @@ constexpr H type_constant() {
 /**
  * @brief Partially-specializable hash function object for arbitrary
  * object and hash types.
- * 
+ *
  * To enable hashing of a custom type, specialize this template for that type.
  * In general it is good to hash with a type-specific nonce so that distinct types
  * that have the same member data do not collide.
@@ -56,7 +56,7 @@ struct Digest {};
 
 /**
  * @brief Specialize for `T` to disable the use of `std::hash` for `Digest<T>`.
- * 
+ *
  * This can be used to disambiguate specializations of `Digest` with certain
  * templated custom types. (Most templates will not be ambiguous).
  */

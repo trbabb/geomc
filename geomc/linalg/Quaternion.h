@@ -72,6 +72,10 @@ public:
      * Static constructors         *
      *******************************/
     
+    static Quat<T> identity() {
+        return Quat<T>(0,0,0,1);
+    }
+    
     /**
      * @brief Rotation quaternion from an axis and angle
      * @param axis Axis of rotation (not necessesarily a unit vector)
@@ -79,11 +83,11 @@ public:
      * @return A unit quaternion representing a rotation of `angle` radians
      * about `axis`.
      */
-    static Quat<T> rotation_from_axis_angle(const Vec<T,3> &axis, T angle) {
-        if (axis.x == 0 && axis.y == 0 && axis.z == 0) {
+    static Quat<T> rotation_from_axis_angle(const Vec<T,3> &axis, T radians) {
+        if (axis.x == 0 and axis.y == 0 and axis.z == 0) {
             return Quat<T>(axis, 1);
         } else {
-            return Quat<T>(axis.unit() * std::sin(angle*0.5), std::cos(angle*0.5));
+            return Quat<T>(axis.unit() * std::sin(radians * 0.5), std::cos(radians * 0.5));
         }
     }
      
@@ -147,7 +151,7 @@ public:
      *******************************/
     
     /// The vector part of this quaternion
-    inline Vec<T,3> imag() const {
+    Vec<T,3> imag() const {
         return Vec<T,3>(
                 detail::VecBase<T,4>::x,
                 detail::VecBase<T,4>::y,
@@ -155,12 +159,12 @@ public:
     }
     
     /// The scalar part of this quaternion
-    inline T real() const {
+    T real() const {
         return detail::VecBase<T,4>::w;
     }
     
     /// The complex conjugate of this quaternion; also the inverse rotation.
-    inline Quat<T> conj() const {
+    Quat<T> conj() const {
         return Quat<T>(-detail::VecBase<T,4>::x, 
                        -detail::VecBase<T,4>::y, 
                        -detail::VecBase<T,4>::z, 
@@ -168,7 +172,7 @@ public:
     }
     
     /// Quaternion multiplication
-    inline Quat<T> mult(const Quat<T>& q) const {
+    Quat<T> mult(const Quat<T>& q) const {
         Quat<T> result;
         
         const T x = detail::VecBase<T,4>::x;
