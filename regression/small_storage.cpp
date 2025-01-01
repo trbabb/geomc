@@ -1,11 +1,8 @@
-#define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE SmallStorage
+#define TEST_MODULE_NAME SmallStorage
 
 #include <iostream>
-#include <random>
 #include <pcg_random.hpp>
-#include <boost/test/unit_test.hpp>
-#include <boost/test/tools/floating_point_comparison.hpp>
+#include <gtest/gtest.h>
 #include <geomc/SmallStorage.h>
 
 // todo: moar tests
@@ -20,123 +17,123 @@ using SStor = SmallStorage<int64_t,4>;
 
 
 void check_okay(const SStor& s, int start, int increment, size_t sz) {
-    BOOST_CHECK_EQUAL(s.size(), sz);
-    BOOST_CHECK_GE(s.capacity(), sz);
+    EXPECT_EQ(s.size(), sz);
+    EXPECT_GE(s.capacity(), sz);
     for (size_t i = 0; i < sz; ++i) {
-        BOOST_CHECK_EQUAL(s[i], start + i * increment);
+        EXPECT_EQ(s[i], start + i * increment);
     }
 }
 
 
-BOOST_AUTO_TEST_CASE(verify_default_ctor) {
+TEST(TEST_MODULE_NAME, verify_default_ctor) {
     SStor s{};
-    BOOST_CHECK_EQUAL(s.size(), 0);
-    BOOST_CHECK_EQUAL(s.static_capacity(), s.capacity());
-    BOOST_CHECK_EQUAL(s.begin(), s.end());
+    EXPECT_EQ(s.size(), 0);
+    EXPECT_EQ(s.static_capacity(), s.capacity());
+    EXPECT_EQ(s.begin(), s.end());
     
 }
 
-BOOST_AUTO_TEST_CASE(verify_initializer_list) {
+TEST(TEST_MODULE_NAME, verify_initializer_list) {
     SStor ss {{1,2,3,4}};
-    BOOST_CHECK_EQUAL(ss[0], 1);
-    BOOST_CHECK_EQUAL(ss[1], 2);
-    BOOST_CHECK_EQUAL(ss[2], 3);
-    BOOST_CHECK_EQUAL(ss[3], 4);
-    BOOST_CHECK_EQUAL(ss.size(), 4);
-    BOOST_CHECK_EQUAL(ss.capacity(), 4);
+    EXPECT_EQ(ss[0], 1);
+    EXPECT_EQ(ss[1], 2);
+    EXPECT_EQ(ss[2], 3);
+    EXPECT_EQ(ss[3], 4);
+    EXPECT_EQ(ss.size(), 4);
+    EXPECT_EQ(ss.capacity(), 4);
     
     SStor s1 {{1,2,3,4,5,6,7,8}};
     for (int i = 0; i < 8; ++i) {
-        BOOST_CHECK_EQUAL(s1[i], i + 1);
+        EXPECT_EQ(s1[i], i + 1);
     }
-    BOOST_CHECK_EQUAL(s1.size(), 8);
-    BOOST_CHECK_GE(s1.capacity(), 8);
+    EXPECT_EQ(s1.size(), 8);
+    EXPECT_GE(s1.capacity(), 8);
 }
 
-BOOST_AUTO_TEST_CASE(verify_copy_assign) {
+TEST(TEST_MODULE_NAME, verify_copy_assign) {
     SStor ss {{3,2,1}};
     {
         SStor s0 {{0,1,2,3,4,5}};
         ss = s0;
     }
-    BOOST_CHECK_EQUAL(ss.size(), 6);
-    BOOST_CHECK_GE(ss.capacity(), 6);
+    EXPECT_EQ(ss.size(), 6);
+    EXPECT_GE(ss.capacity(), 6);
     for (int i = 0; i < 6; ++i) {
-        BOOST_CHECK_EQUAL(ss[i],i);
+        EXPECT_EQ(ss[i],i);
     }
     
     {
         SStor s0 {{5,4,3}};
         ss = s0;
     }
-    BOOST_CHECK_EQUAL(ss.size(), 3);
-    BOOST_CHECK_GE(ss.capacity(), 3);
-    BOOST_CHECK_EQUAL(ss[0], 5);
-    BOOST_CHECK_EQUAL(ss[1], 4);
-    BOOST_CHECK_EQUAL(ss[2], 3);
+    EXPECT_EQ(ss.size(), 3);
+    EXPECT_GE(ss.capacity(), 3);
+    EXPECT_EQ(ss[0], 5);
+    EXPECT_EQ(ss[1], 4);
+    EXPECT_EQ(ss[2], 3);
 }
 
-BOOST_AUTO_TEST_CASE(verify_copy_ctor) {
+TEST(TEST_MODULE_NAME, verify_copy_ctor) {
     SStor ssmol {{5,4,3}};
     SStor sbig  {{0,1,2,3,4,5,6,7}};
     {
         SStor s {ssmol};
-        BOOST_CHECK_EQUAL(s.size(), ssmol.size());
-        BOOST_CHECK_EQUAL(s.capacity(), ssmol.capacity());
-        BOOST_CHECK_EQUAL(s[0], 5);
-        BOOST_CHECK_EQUAL(s[1], 4);
-        BOOST_CHECK_EQUAL(s[2], 3);
+        EXPECT_EQ(s.size(), ssmol.size());
+        EXPECT_EQ(s.capacity(), ssmol.capacity());
+        EXPECT_EQ(s[0], 5);
+        EXPECT_EQ(s[1], 4);
+        EXPECT_EQ(s[2], 3);
     }
     
     {
         SStor s {sbig};
-        BOOST_CHECK_EQUAL(s.size(), sbig.size());
-        BOOST_CHECK_GE(s.capacity(), s.size());
+        EXPECT_EQ(s.size(), sbig.size());
+        EXPECT_GE(s.capacity(), s.size());
         for (int i = 0; i < s.size(); ++i) {
-            BOOST_CHECK_EQUAL(s[i], i);
+            EXPECT_EQ(s[i], i);
         }
     }
 }
 
-BOOST_AUTO_TEST_CASE(verify_move_assign) {
+TEST(TEST_MODULE_NAME, verify_move_assign) {
     SStor s;
     {
         SStor s0 {{2,4,6,8,10,12}};
         s = std::move(s0);
-        BOOST_CHECK_NE(s0.begin(), s.begin());
+        EXPECT_NE(s0.begin(), s.begin());
     }
     check_okay(s, 2, 2, 6);
     {
         SStor s0 {{5,4,3,2}};
         s = std::move(s0);
-        BOOST_CHECK_NE(s0.begin(), s.begin());
+        EXPECT_NE(s0.begin(), s.begin());
     }
     check_okay(s, 5, -1, 4);
 }
 
-BOOST_AUTO_TEST_CASE(verify_move_ctor) {
+TEST(TEST_MODULE_NAME, verify_move_ctor) {
     SStor ssmol {{0,1,2,3}};
     SStor sbig  {{2,4,6,8,10, 12,14,16,18,20}};
     {
         SStor s {std::move(ssmol)};
-        BOOST_CHECK_NE(s.begin(), ssmol.begin());
+        EXPECT_NE(s.begin(), ssmol.begin());
         check_okay(s, 0, 1, 4);
     }
     {
         SStor s {std::move(sbig)};
-        BOOST_CHECK_NE(s.begin(), sbig.begin());
+        EXPECT_NE(s.begin(), sbig.begin());
         check_okay(s, 2, 2, 10);
     }
 }
 
-BOOST_AUTO_TEST_CASE(verify_reserve) {
+TEST(TEST_MODULE_NAME, verify_reserve) {
     SStor s{{0,1,2,3}};
     s.reserve(20);
     check_okay(s, 0, 1, 4);
-    BOOST_CHECK_GE(s.capacity(), 20);
+    EXPECT_GE(s.capacity(), 20);
 }
 
-BOOST_AUTO_TEST_CASE(verify_push_back) {
+TEST(TEST_MODULE_NAME, verify_push_back) {
     SStor s;
     for (size_t i = 0; i < 33; ++i) {
         s.push_back(i * 2);

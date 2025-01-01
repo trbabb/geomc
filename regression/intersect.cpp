@@ -1,11 +1,10 @@
-#define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE Intersect
+#define TEST_MODULE_NAME Intersect
 
 // set this to 1 to get diagnostic text file dumps of failure cases
 #define DEBUG_INTERSECTION 0
 
 #include <random>
-#include <boost/test/unit_test.hpp>
+#include <gtest/gtest.h>
 
 #include <geomc/shape/Intersect.h>
 #include <geomc/shape/Rect.h>
@@ -160,27 +159,24 @@ void test_box_gjk_matches_sat(rng_t* rng, index_t iters) {
         std::cout << iter_hist[i] << " ";
     }
     std::cout << "\n";
-    BOOST_CHECK_EQUAL(failures, 0);
+    EXPECT_EQ(failures, 0);
 }
 
-BOOST_AUTO_TEST_SUITE(intersect)
 
 constexpr index_t N_TESTS = 1'000'000;
 
-BOOST_AUTO_TEST_CASE(test_2f_gjk_sat_agree) {
+TEST(TEST_MODULE_NAME, test_2f_gjk_sat_agree) {
     test_box_gjk_matches_sat<float, 2>(&rng, N_TESTS);
 }
 
-BOOST_AUTO_TEST_CASE(test_2d_gjk_sat_agree) {
+TEST(TEST_MODULE_NAME, test_2d_gjk_sat_agree) {
     test_box_gjk_matches_sat<double, 2>(&rng, N_TESTS);
 }
 
-BOOST_AUTO_TEST_CASE(test_3f_gjk_sat_agree) {
+TEST(TEST_MODULE_NAME, test_3f_gjk_sat_agree) {
     test_box_gjk_matches_sat<float, 3>(&rng, N_TESTS);
 }
 
-BOOST_AUTO_TEST_CASE(test_3d_gjk_sat_agree) {
+TEST(TEST_MODULE_NAME, test_3d_gjk_sat_agree) {
     test_box_gjk_matches_sat<double, 3>(&rng, N_TESTS);
 }
-
-BOOST_AUTO_TEST_SUITE_END()

@@ -5,3 +5,7 @@ doc/gen
 bin
 test
 build
+.cache
+
+.sconsign.dblite
+/.vscode

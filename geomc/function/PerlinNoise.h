@@ -1,3 +1,4 @@
+#pragma once
 /*
  * PerlinNoise.h
  *
@@ -5,10 +6,6 @@
  *      Author: tbabb
  */
 
-#ifndef PERLINNOISE_H_
-#define PERLINNOISE_H_
-
-#include <boost/shared_array.hpp>
 #include <limits>
 #include <utility>
 
@@ -40,12 +37,12 @@ public:
     
     friend class detail::_ImplPerlinInit<T,N>;
     
-    boost::shared_array<point_t> gradients;
+    std::shared_ptr<point_t[]> gradients;
     // permutation array.
     // xxx: delete me, since we are using a LCG scramble
     // Not needed / used if N = 1, since we're using a linear congruential randomizer
     // in this case.
-    boost::shared_array<index_t> p;
+    std::shared_ptr<index_t[]> p;
     
     /**********************************
      * Structors                      *
@@ -233,5 +230,3 @@ protected:
 };
 
 }
-
-#endif /* PERLINNOISE_H_ */

@@ -6,10 +6,12 @@
 
 namespace geom {
 
-// todo: point projection is unsolved
+// todo: point projection and sdf is unsolved
 //   - can't project point to base plane and recurse
 //   - example case: consider a shape far from origin
 //     - pt will project to the wall directly "underneath" it, in the limit
+//     - it's not just the Z component that's distorted; the direction to the shape
+//       surface is also distorted
 //     - in general, projection vector field is "stretched" away from origin by this effect
 
 // todo: permit 1d cross sectional shapes

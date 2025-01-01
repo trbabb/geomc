@@ -1,3 +1,5 @@
+#pragma once
+
 /*
  * ShapeTypes.h
  *
@@ -5,10 +7,6 @@
  *      Author: tbabb
  */
 
-#ifndef SHAPETYPES_H_
-#define SHAPETYPES_H_
-
-#include <boost/utility/enable_if.hpp>
 #include <geomc/linalg/LinalgTypes.h>
 
 /** @defgroup shape Shape
@@ -94,5 +92,3 @@ namespace geom {
 /// @} // addtogroup shape
     
 } // namespace geom
-
-#endif /* SHAPETYPES_H_ */

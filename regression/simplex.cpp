@@ -1,12 +1,10 @@
-#define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE Simplex
+#define TEST_MODULE_NAME Simplex
 
 #include <iostream>
 #include <random>
 #include <pcg_random.hpp>
 
-#include <boost/test/unit_test.hpp>
-#include <boost/test/tools/floating_point_comparison.hpp>
+#include <gtest/gtest.h>
 
 #include <geomc/shape/Simplex.h>
 #include <geomc/linalg/Matrix.h>
@@ -105,26 +103,26 @@ void test_simplex_projection(rng_t* rng, const Simplex<T,N>& s, index_t trials) 
             // `p` is inside a full-volume simplex.
             // no points should have been excluded;
             // the "projected-to" simplex should be the same as the original
-            BOOST_CHECK(ss_clip == s);
+            EXPECT_TRUE(ss_clip == s);
             // the target simplex is the same as the original
-            BOOST_CHECK_EQUAL(ss_clip.n, s.n);
+            EXPECT_EQ(ss_clip.n, s.n);
             // the clipped point should be precisely the original point
-            BOOST_CHECK_EQUAL(p, pc);
+            EXPECT_EQ(p, pc);
             // the projected point should be an n-1 dimensional face
-            BOOST_CHECK_EQUAL(ss_proj.n, N);
+            EXPECT_EQ(ss_proj.n, N);
         } else {
             // if the point is not inside the simplex, then projected point
             // and the clipped point are the same
-            BOOST_CHECK_EQUAL(pp, pc);
+            EXPECT_EQ(pp, pc);
             // the direction from the surface pt to the original point
             // should be orthogonal to the simplex face
             Vec<T,N> v = p - pp;
             for (index_t j = 1; j < ss_clip.n; ++j) {
                 Vec<T,N> b = ss_clip.pts[j] - ss_clip.pts[0];
-                BOOST_CHECK_SMALL(b.dot(v), 1e-5);
+                EXPECT_NEAR(b.dot(v), 0, 1e-5);
             }
             bool facing = ss_clip.is_facing(p);
-            BOOST_CHECK(facing);
+            EXPECT_TRUE(facing);
         }
     }
 }
@@ -141,10 +139,8 @@ void exercise_simplex_projection(rng_t* rng, index_t trials) {
 }
 
 
-BOOST_AUTO_TEST_SUITE(simplex_tests)
-
 /*
-BOOST_AUTO_TEST_CASE(verify_simplex_measure) {
+TEST(TEST_MODULE_NAME, verify_simplex_measure) {
     rng_t rng(16512485420001724907ULL);
     exercise_simplex_measure<double,  2>(&rng, N_TESTS);
     exercise_simplex_measure<double,  3>(&rng, N_TESTS);
@@ -155,7 +151,7 @@ BOOST_AUTO_TEST_CASE(verify_simplex_measure) {
 */
 
 
-BOOST_AUTO_TEST_CASE(simplex_projection) {
+TEST(TEST_MODULE_NAME, simplex_projection) {
     rng_t rng(2532266933125789701ULL);
     std::cout << "computing 2D..." << std::endl;
     exercise_simplex_projection<double,2>(&rng, N_TESTS);
@@ -168,7 +164,3 @@ BOOST_AUTO_TEST_CASE(simplex_projection) {
     std::cout << "computing 7D..." << std::endl;
     exercise_simplex_projection<double,7>(&rng, std::max(N_TESTS/100, 1));
 }
-
-
-BOOST_AUTO_TEST_SUITE_END()
-

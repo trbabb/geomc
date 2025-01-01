@@ -1,11 +1,8 @@
-#define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE Shape
+#define TEST_MODULE_NAME Shape
 
 // #include <iostream>
 
-#include <random>
-#include <boost/test/unit_test.hpp>
-#include <boost/core/demangle.hpp>
+#include <gtest/gtest.h>
 
 #include <geomc/function/Utils.h>
 #include <geomc/shape/Oriented.h>
@@ -52,7 +49,7 @@ using namespace geom;
 template <typename Shape, typename T, index_t N>
 void validate_plane(const Shape& s, const Vec<T,N>& p, const Vec<T,N>& n) {
     Plane<T,N> pl = Plane<T,N>(n, s.convex_support(n));
-    BOOST_CHECK(pl.contains(p));
+    EXPECT_TRUE(pl.contains(p));
 }
 
 
@@ -65,7 +62,7 @@ bool validate_point(
     constexpr index_t N = Shape::N;
     if (s.contains(p)) {
         // if the pt is in the shape, it should definitely be in the bbox.
-        BOOST_CHECK(s.bounds().contains(p));
+        EXPECT_TRUE(s.bounds().contains(p));
         // pick a random support direction. the point should be inside
         // the bounds of the resultant plane.
         if constexpr (N > 1) {
@@ -100,7 +97,7 @@ void validate_sdf(rng_t* rng, const Shape& s, index_t trials) {
         auto ctr  = bb.center();
         for (index_t i = 0; i < trials; ++i) {
             auto p = rnd<T,N>(rng) * dims + ctr;
-            BOOST_CHECK((s.sdf(p) <= 0) == s.contains(p));
+            EXPECT_TRUE((s.sdf(p) <= 0) == s.contains(p));
         }
     }
 }
@@ -121,11 +118,11 @@ void validate_projection(rng_t* rng, const Shape& s, index_t trials) {
             auto pp = s.project(p);
             T   sdf = s.sdf(pp);
             // projected point should be very near the surface
-            BOOST_CHECK_SMALL(sdf, 1e-5);
+            EXPECT_NEAR(sdf, 0, 1e-5);
             // projection should be idempotent
             // (in cases where sdf() has distinct implementation)
             T sz = ptype::mag(pp - s.project(pp));
-            BOOST_CHECK_SMALL(sz, 1e-5);
+            EXPECT_NEAR(sz, 0, 1e-5);
             
             // the projection direction should be approximately normal to the surface
             point_t axis = p - pp;
@@ -151,9 +148,9 @@ void validate_projection(rng_t* rng, const Shape& s, index_t trials) {
                 if (std::abs(raydist) > 1e-4) {
                     std::cout << p << " -> " << pp << "\n";
                 }
-                BOOST_CHECK_SMALL(raydist, 1e-4);
+                EXPECT_NEAR(raydist, 0, 1e-4);
                 // the hit should be at t=~1
-                BOOST_CHECK_SMALL(t - 1, 1e-4);
+                EXPECT_NEAR(t - 1, 0, 1e-4);
             }
         }
     }
@@ -164,8 +161,6 @@ template <typename Shape>
 void validate_ray(rng_t* rng, const Shape& s, index_t trials) {
     if constexpr (implements_shape_concept<Shape, RayIntersectable>::value) {
         typedef typename Shape::elem_t T;
-        typedef typename Shape::point_t point_t;
-        typedef PointType<T,Shape::N> ptype;
         constexpr index_t N = Shape::N;
         auto sampler = ShapeSampler<Shape>(s);
         for (index_t i = 0; i < trials; ++i) {
@@ -178,14 +173,14 @@ void validate_ray(rng_t* rng, const Shape& s, index_t trials) {
             // intersect the ray with the shape
             auto interval = s.intersect(ray);
             // ray goes through a point in the shape. ray hit should reflect that:
-            BOOST_CHECK(not interval.is_empty());
+            EXPECT_TRUE(not interval.is_empty());
             // the ray origin is a point in the shape; s=0 should be in the overlap region
-            BOOST_CHECK(interval.contains(0));
+            EXPECT_TRUE(interval.contains(0));
             // ray in the opposite direction should still intersect
-            BOOST_CHECK(not s.intersect(Ray<T,N>{p, -v}).is_empty());
+            EXPECT_TRUE(not s.intersect(Ray<T,N>{p, -v}).is_empty());
             // a ray displaced randomly along V should still intersect
             auto k = rnd<T>(rng);
-            BOOST_CHECK(not s.intersect(Ray<T,N>{ray.at_multiple(k), v}).is_empty());
+            EXPECT_TRUE(not s.intersect(Ray<T,N>{ray.at_multiple(k), v}).is_empty());
         }
     }
 }
@@ -206,7 +201,7 @@ void exercise_shape(rng_t* rng, const Shape& s, index_t trials) {
         // validate a point near the shape's bbox
         validate_point<Shape>(rng, s, rnd<T,N>(rng) * dims + c);
         // validate a point definitely in the shape
-        BOOST_CHECK(validate_point<Shape>(rng, s, sampler(rng)));
+        EXPECT_TRUE(validate_point<Shape>(rng, s, sampler(rng)));
         // validate a point near the origin
         validate_point<Shape>(rng, s, rnd<T,N>(rng));
     }
@@ -233,7 +228,7 @@ void explore_simplex(rng_t* rng, index_t shapes) {
         ShapeSampler<Simplex<T,N>> smp(splx);
         for (index_t j = 0; j < 100; ++j) {
             Vec<T,N> p = smp(rng);
-            BOOST_CHECK(splx.contains(p));
+            EXPECT_TRUE(splx.contains(p));
         }
     }
 }
@@ -277,17 +272,15 @@ void explore_compound_shape(rng_t* rng, index_t shapes) {
  ****************************/
 
 
-BOOST_AUTO_TEST_SUITE(shape)
 
-
-BOOST_AUTO_TEST_CASE(validate_rect) {
+TEST(TEST_MODULE_NAME, validate_rect) {
     explore_shape<Rect<double, 2>>(&rng, N_TESTS);
     explore_shape<Rect<double, 3>>(&rng, N_TESTS);
     explore_shape<Rect<double, 4>>(&rng, N_TESTS);
     explore_shape<Rect<double, 5>>(&rng, N_TESTS);
 }
 
-BOOST_AUTO_TEST_CASE(validate_cylinder) {
+TEST(TEST_MODULE_NAME, validate_cylinder) {
     explore_shape<Cylinder<double, 2>>(&rng, N_TESTS);
     explore_shape<Cylinder<double, 3>>(&rng, N_TESTS);
     explore_shape<Cylinder<double, 4>>(&rng, N_TESTS);
@@ -295,7 +288,7 @@ BOOST_AUTO_TEST_CASE(validate_cylinder) {
     explore_shape<Cylinder<double, 7>>(&rng, N_TESTS);
 }
 
-BOOST_AUTO_TEST_CASE(validate_simplex) {
+TEST(TEST_MODULE_NAME, validate_simplex) {
     explore_shape<Simplex<double, 2>>(&rng, N_TESTS);
     explore_shape<Simplex<double, 3>>(&rng, N_TESTS);
     explore_shape<Simplex<double, 4>>(&rng, N_TESTS);
@@ -305,7 +298,7 @@ BOOST_AUTO_TEST_CASE(validate_simplex) {
     //       all agree about pt containment.
 }
 
-BOOST_AUTO_TEST_CASE(validate_sphere) {
+TEST(TEST_MODULE_NAME, validate_sphere) {
     explore_shape<Sphere<double, 1>>(&rng, N_TESTS);
     explore_shape<Sphere<double, 2>>(&rng, N_TESTS);
     explore_shape<Sphere<double, 3>>(&rng, N_TESTS);
@@ -313,41 +306,39 @@ BOOST_AUTO_TEST_CASE(validate_sphere) {
 }
 
 
-BOOST_AUTO_TEST_CASE(validate_extruded) {
+TEST(TEST_MODULE_NAME, validate_extruded) {
     explore_compound_shape<Extruded, double>(&rng, std::max(N_TESTS / 4, 1));
 }
 
-BOOST_AUTO_TEST_CASE(validate_oriented) {
+TEST(TEST_MODULE_NAME, validate_oriented) {
     explore_compound_shape<Oriented, double>(&rng, std::max(N_TESTS / 4, 1));
 }
 
-BOOST_AUTO_TEST_CASE(validate_frustum) {
+TEST(TEST_MODULE_NAME, validate_frustum) {
     // explore_compound_shape<Frustum, double>(&rng, std::max(N_TESTS / 4, 1));
     explore_shape<Frustum<Rect<double,2>>>(&rng, 1);
 }
 
-BOOST_AUTO_TEST_CASE(create_oriented_cylinder) {
+TEST(TEST_MODULE_NAME, create_oriented_cylinder) {
     // make a null-transformed oriented cylinder.
     // (the cylinder defaults to unit radius and length along X)
     auto ocyl = Oriented<Cylinder<double,3>>(Cylinder<double,3>());
     // confirm that the Oriented delegates containment checking
-    BOOST_CHECK(ocyl.contains(Vec3d(0.5, 0, 0)));
+    EXPECT_TRUE(ocyl.contains(Vec3d(0.5, 0, 0)));
     // confirm the Oriented delegages convex_support
-    BOOST_CHECK_EQUAL(ocyl.convex_support(Vec3d(0.1, 1, 0)), Vec3d(1, 1, 0));
+    EXPECT_EQ(ocyl.convex_support(Vec3d(0.1, 1, 0)), Vec3d(1, 1, 0));
     // rotate the thing 180 degrees
     ocyl *= rotation(Vec3d(0, 0, 1), M_PI);
     // confirm that wrapper applies the xf:
-    BOOST_CHECK(ocyl.contains(Vec3d(-0.5, 0, 0)));
+    EXPECT_TRUE(ocyl.contains(Vec3d(-0.5, 0, 0)));
 }
 
-BOOST_AUTO_TEST_CASE(orient_simple_shape) {
+TEST(TEST_MODULE_NAME, orient_simple_shape) {
     auto xf = translation(Vec3d(-5, 0, 0));
     // confirm the operator works and its return type is correct:
     Oriented<Cylinder<double,3>> ocyl = xf * Cylinder<double,3>();
     // confirm the created wrapper applies the xf:
-    BOOST_CHECK(ocyl.contains(Vec3d(-4.5, 0, 0)));
+    EXPECT_TRUE(ocyl.contains(Vec3d(-4.5, 0, 0)));
     // verify inheritance
     ocyl.convex_support(Vec3d(0.2,0.4,0.1));
 }
-
-BOOST_AUTO_TEST_SUITE_END()

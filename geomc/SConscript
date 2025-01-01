@@ -1,0 +1,43 @@
+import os
+import itertools
+
+Import("env")
+
+lib_target  = 'geomc'
+lib_sources = [Glob('**.cpp'), Glob('**/*.cpp')]
+lib_headers = [Glob('**.h'), Glob('**/*.h'), Glob('**.hpp'), Glob('**/*.hpp')]
+
+if env['ARCH'] == 'native':
+    install_root = '/usr/local'
+    if env['PLATFORM'] == 'darwin':
+        extra_flags = ' -install_name ' + f'@rpath/lib{lib_target}.dylib'
+    elif env['PLATFORM'] == 'linux':
+        extra_flags = f' -Wl,-soname,lib{lib_target}.so'
+    else:
+        extra_flags = ''
+    # lib = env.SharedLibrary(
+    #     target=lib_target,
+    #     source=lib_sources,
+    #     LINKFLAGS='$LINKFLAGS' + extra_flags
+    # )
+    lib = env.StaticLibrary(target=lib_target, source=lib_sources)
+else:
+    install_root = '/usr/local/wasm'
+    lib = env.StaticLibrary(target=lib_target, source=lib_sources)
+
+env.Alias('install', install_root)
+
+# recursively install headers
+for header in itertools.chain(*lib_headers):
+    # e.g., 'linalg/Vec.h':
+    h_path = str(header.dir)
+    # e.g., '/usr/local/include/geomc/linalg':
+    install_path = os.path.join(install_root, 'include/geomc', h_path)
+    # e.g., '/usr/local/include/geomc/linalg/Vec.h':
+    env.Install(install_path, header)
+
+# install library
+env.Install(os.path.join(install_root, 'lib'), lib)
+
+# I am annoyed that you return by name, not by value
+Return('lib')

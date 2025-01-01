@@ -148,8 +148,6 @@ public:
     }
     
     Vec<T,N> convex_support(Vec<T,N> d) const {
-        typedef PointType<T,N-1> Pt;
-        
         Vec<T,N-1> d_ = d.template resized<N-1>();
         
         if (d_.is_zero()) {

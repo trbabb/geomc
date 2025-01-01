@@ -1,12 +1,11 @@
+#pragma once
+
 /*
  * Vec.h
  *
  *  Created on: Dec 25, 2010
  *      Author: tbabb
  */
-
-#ifndef VEC_H_
-#define VEC_H_
 
 #include <type_traits>
 
@@ -16,8 +15,6 @@
 #include <geomc/linalg/vecdetail/Vec3.h>
 #include <geomc/linalg/vecdetail/Vec4.h>
 #include <geomc/linalg/vecdetail/VecStd.h>
-
-#include "mtxdetail/MatrixGlue.h"
 
 
 namespace geom {
@@ -357,5 +354,3 @@ struct hash<geom::Vec<T,N>> {
 };
 
 } // end namespace std
-
-#endif /* VEC_H_ */

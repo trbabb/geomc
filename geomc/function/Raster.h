@@ -9,7 +9,6 @@
 #define RASTER_H_
 
 #include <algorithm>
-#include <boost/shared_array.hpp>
 
 #include <geomc/linalg/Vec.h>
 #include <geomc/shape/Rect.h>
@@ -127,7 +126,7 @@ public:
 protected:
     grid_t    m_extent;
     index_t   m_size;
-    boost::shared_array<O> m_data;
+    std::shared_ptr<O[]> m_data;
     sample_t  m_abyss;
     Rect<I,M> m_domain;
     

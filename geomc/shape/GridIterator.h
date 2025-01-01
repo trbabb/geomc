@@ -2,17 +2,12 @@
 
 // todo: rewrite this to use an integer state and convert to/from point_t.
 
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_integral.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_traits.hpp>
-#include <boost/static_assert.hpp>
 
 #include <geomc/linalg/Vec.h>
 #include <geomc/shape/ShapeTypes.h>
 #include <geomc/shape/Rect.h>
-
-#define ENABLEINT_TYPE(T) typename boost::enable_if<boost::is_integral<T>, int>::type
 
 namespace geom {
 
@@ -262,5 +257,3 @@ private:
 };
 
 } /* namespace geom */
-
-#undef ENABLEINT_TYPE

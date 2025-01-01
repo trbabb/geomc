@@ -1,3 +1,5 @@
+#pragma once
+
 /* 
  * File:   MatrixArithmetic.h
  * Author: tbabb
@@ -5,10 +7,6 @@
  * Created on July 28, 2013, 11:53 AM
  */
 
-#ifndef MATRIXARITHMETIC_H
-#define	MATRIXARITHMETIC_H
-
-#include <boost/utility/enable_if.hpp>
 #include <geomc/linalg/LinalgTypes.h>
 #include <geomc/linalg/mtxdetail/MatrixGlue.h>
 
@@ -134,12 +132,12 @@ struct _ImplMatrixAddReturnType {
 
 template <typename Ma, typename Mb>
 struct _ImplMatrixAddReturnType <Ma, Mb, 
-            typename boost::enable_if_c<
+            typename std::enable_if_t<
                 detail::IsMatrix<Ma>::val and
                 detail::IsMatrix<Mb>::val and
                 detail::MatrixDimensionMatch<Ma,Mb>::isStaticMatch,
                 void
-            >::type > {
+            >> {
     typedef typename _ImplMatrixAdd<Ma,Mb>::return_t return_t;
 };
     
@@ -190,7 +188,3 @@ struct _ImplMatrixScale < DiagMatrix<T,M,N> > {
 
 };  // end namespace detail
 };  // end namespace geom
-
-
-#endif	/* MATRIXARITHMETIC_H */
-

@@ -5,10 +5,10 @@
  *      Author: Tim Babb
  */
 
-#include <assert.h>
 #include <algorithm>
 #include <limits>
 
+#include <geomc/function/Utils.h>
 #include <geomc/random/Random.h>
 
 #define INT_SIGNBIT       (1 << std::numeric_limits<int>::digits)
@@ -55,14 +55,14 @@ template <> bool Random::rand<bool>() {
 
 template <> unsigned int Random::rand<unsigned int>() {
     unsigned int bits = 0;
-    const int chunks = (std::numeric_limits<unsigned int>::digits + 32 - 1) / 32; //ceiling(x/y) = (x + y - 1) / y
-#if UINT_MAX > (1LL << 32) - 1
-    for (int i = 0; i < chunks; i++) {
-        bits = (bits << 32) | rand32();
+    constexpr int chunks = geom::ceil_div(std::numeric_limits<unsigned int>::digits, 32);
+    if constexpr (chunks > 1) {
+        for (int i = 0; i < chunks; i++) {
+            bits = (bits << 32) | rand32();
+        }
+    } else {
+        bits = (unsigned int)rand32();
     }
-#else
-    bits =(unsigned int)rand32();
-#endif
     return bits;
 }
 

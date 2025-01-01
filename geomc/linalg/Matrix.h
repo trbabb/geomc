@@ -438,7 +438,6 @@ mul_acc(Md *into, const Ma &a, const Mb &b) {
     typedef detail::_ImplMtxAdaptor<Md, detail::_ImplVecMulOrient<Ma,Mb,Md>::orient> D;
     // multiplier implementation:
     typedef detail::_ImplMtxMul<Ma,Mb> mult_t;
-    typedef typename mult_t::return_t buffer_t;
     
 #ifdef GEOMC_MTX_CHECK_DIMS
     // do the source matrix dimensions agree?
@@ -517,7 +516,6 @@ mul_acc(Md *into, const Ma &a, const Mb &b) {
     typedef detail::_ImplMtxAdaptor<Mb, detail::ORIENT_VEC_COL> B;
      //multiplier implementation
     typedef detail::_ImplMtxMul<Ma,Mb> mult_t;
-    typedef typename mult_t::return_t buffer_t;
     
 #ifdef GEOMC_MTX_CHECK_DIMS
     // trial orientation adaptors:

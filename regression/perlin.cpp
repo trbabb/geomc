@@ -1,7 +1,6 @@
-#define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE Perlin
+#define TEST_MODULE_NAME Perlin
 
-#include <boost/test/unit_test.hpp>
+#include <gtest/gtest.h>
 #include <geomc/function/PerlinNoise.h>
 #include <geomc/random/MTRand.h>
 #include <geomc/random/RandomTools.h>
@@ -37,7 +36,7 @@ std::pair<T,T> perlin_gradient(Random* rng, index_t n_trials) {
         }
         
         // gradient()'s opinion on f(x) should be the same as eval()'s.
-        BOOST_CHECK_CLOSE(x_dx.first, pn.eval(x), eps);
+        EXPECT_NEAR(x_dx.first, pn.eval(x), eps);
         
         g      -= x_dx.second;
         T e     = g.dot(g);
@@ -51,22 +50,16 @@ std::pair<T,T> perlin_gradient(Random* rng, index_t n_trials) {
 }
 
 
-BOOST_AUTO_TEST_SUITE(perlin_noise)
-
-
-BOOST_AUTO_TEST_CASE(test_perlin_gradient) {
+TEST(TEST_MODULE_NAME, test_perlin_gradient) {
     MTRand rng = MTRand(1017381749271967481LL);
     std::pair<double, double> k;
     k = perlin_gradient<double,2>(&rng, 10000);
-    BOOST_CHECK_SMALL(k.first,  5e-11);
-    BOOST_CHECK_SMALL(k.second, 1e-8);
+    EXPECT_NEAR(k.first,  0, 5e-11);
+    EXPECT_NEAR(k.second, 0, 1e-8);
     k = perlin_gradient<double,3>(&rng, 10000);
-    BOOST_CHECK_SMALL(k.first,  5e-11);
-    BOOST_CHECK_SMALL(k.second, 1e-8);
+    EXPECT_NEAR(k.first,  0, 5e-11);
+    EXPECT_NEAR(k.second, 0, 1e-8);
     k = perlin_gradient<double,4>(&rng, 10000);
-    BOOST_CHECK_SMALL(k.first,  5e-11);
-    BOOST_CHECK_SMALL(k.second, 1e-8);
+    EXPECT_NEAR(k.first,  0, 5e-11);
+    EXPECT_NEAR(k.second, 0, 1e-8);
 }
-
-
-BOOST_AUTO_TEST_SUITE_END()

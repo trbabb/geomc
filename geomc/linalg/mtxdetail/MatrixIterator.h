@@ -1,12 +1,13 @@
+#pragma once
+
+#include <geomc/geomc_defs.h>
+
 /*
  * MatrixIterator.h
  *
  *  Created on: Jun 25, 2013
  *      Author: tbabb
  */
-
-#ifndef MATRIXITERATOR_H_
-#define MATRIXITERATOR_H_
 
 namespace geom {
 namespace detail {
@@ -329,6 +330,3 @@ struct _ImplMtxRowtype {
 
 }; // namespace detail
 }; // namespace geom
-
-
-#endif /* MATRIXITERATOR_H_ */

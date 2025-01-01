@@ -11,6 +11,8 @@
 
 // todo: remove redundant fn names.
 // todo: check this works sanely with unsigned types.
+// todo: sdf normal function
+// todo: furthest point function
 
 // all boundaries are inclusive. this is inconsistent with half-open interval convention,
 // but:
@@ -754,7 +756,10 @@ public:
     requires (not std::integral<T>)
 #endif
     {
-        static_assert(not std::is_integral<T>::value, "fitted_to() is not available for integral types");
+        static_assert(
+            not std::is_integral<T>::value,
+            "fitted_to() is not available for integral types"
+        );
         T max_ratio = 0;
         point_t d0 = dimensions();
         point_t d1 = other.dimensions();
@@ -794,6 +799,8 @@ public:
      * Compute the measure of the region contained by this Rect as the product
      * of its dimensions. Result measures a length if `N` is 1; an area if `N` is 2; a
      * volume if 3; etc.
+     *
+     * The volume of an empty or negative Rect is 0.
      *
      * @return The volume of this region.
      */

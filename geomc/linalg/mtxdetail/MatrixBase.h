@@ -1,3 +1,4 @@
+#pragma once
 /*
  * MatrixBase.h
  *
@@ -5,10 +6,6 @@
  *      Author: tbabb
  */
 
-#ifndef NEWMATRIX_H_
-#define NEWMATRIX_H_
-
-#include <boost/static_assert.hpp>
 #include <algorithm>
 #include <geomc/linalg/Vec.h>
 #include <geomc/shape/Rect.h>
@@ -335,6 +332,3 @@ public:
 
 }; // namespace detail
 }; // namespace geom
-
-
-#endif /* NEWMATRIX_H_ */

@@ -1,3 +1,6 @@
+#pragma once
+
+#include <boost/iterator/iterator_facade.hpp>
 #include <geomc/linalg/LinalgTypes.h>
 
 namespace geom {

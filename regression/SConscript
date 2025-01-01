@@ -1,0 +1,58 @@
+from pathlib import Path
+import itertools
+
+def runUnitTest(env, target, source):
+   import subprocess
+   app = str(source[0].abspath)
+   if not subprocess.call(app):
+      with open(str(target[0]),'w') as f:
+          f.write("PASSED\n")
+
+Import("env")
+Import("lib")
+
+arch = env['ARCH']
+
+test_env = env.Clone()
+test_env.Append(LIBS=['gtest', 'gtest_main', lib])
+test_env.Append(CPPPATH=['.'])
+
+test_sources = Glob('*.cpp')
+
+wasm_flags = {
+    'ALLOW_MEMORY_GROWTH' : 1,
+}
+
+if arch == 'wasm':
+    wasm_opts = (('-s', f'{k}={v}') for k,v in wasm_flags.items())
+    test_env.Append(LINKFLAGS=list(itertools.chain(*wasm_opts)))
+    if ARGUMENTS.get('debug', False):
+        test_env.Append(LINKFLAGS=['--source-map-base', 'http://localhost:8000/'])
+
+test_objs = []
+
+for p in test_sources:
+    name = Path(p.path).stem
+    if arch == 'wasm':
+        target = f'#/html/regression/{name}.html'
+    else:
+        target = f'#/bin/{arch}/regression/{name}'
+    prog = test_env.Program(target, 
+        source=p,
+        depends=['geomc'])
+    if arch == 'wasm':
+        # only create the test html file if we're building for wasm.
+        # we can't run it directly.
+        test_objs.append(prog)
+    else:
+        runtest = test_env.Command(f"{name}.passed", target, runUnitTest)
+        # actually run the test if we're building natively
+        test_objs.append(runtest)
+
+out_target = test_env.Alias('test', test_objs)
+
+serve_path = env.GetBuildPath('#/html/regression')
+serve      = env.Command('serve', test_objs, f'python3 -m http.server 8000 -d {serve_path}')
+env.Alias('serve', serve)
+
+Return('out_target')

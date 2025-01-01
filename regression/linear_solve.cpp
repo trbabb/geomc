@@ -1,10 +1,8 @@
-#define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE LinearSolve
+#define TEST_MODULE_NAME LinearSolve
 
 #include <iostream>
 #include <random>
-#include <boost/test/unit_test.hpp>
-#include <boost/test/tools/floating_point_comparison.hpp>
+#include <gtest/gtest.h>
 #include <geomc/linalg/Matrix.h>
 #include <geomc/linalg/LUDecomp.h>
 #include <geomc/linalg/Orthogonal.h>
@@ -51,7 +49,7 @@ void solve_vectors(rng_t* rng) {
         }
         // check that the components of b0 and b are close.
         for (index_t i = 0; i < N; ++i) {
-            BOOST_CHECK_CLOSE(b[i], b0[i], 1e-5);
+            EXPECT_NEAR(b[i], b0[i], 1e-5);
         }
     } else {
         // ↓ very unlikely
@@ -94,7 +92,7 @@ void exercise_plu(rng_t* rng, index_t n, index_t trials) {
         mul(&L,  P, mx); // L  <- P * M
         // check that LU = PM
         for (index_t j = 0; j < n * n; ++j) {
-            BOOST_CHECK_CLOSE(LU.begin()[j], L.begin()[j], 1e-5);
+            EXPECT_NEAR(LU.begin()[j], L.begin()[j], 1e-5);
         }
     }
     
@@ -112,7 +110,7 @@ void exercise_orthogonalize(rng_t* rng, index_t trials) {
         // product with all the others:
         for (index_t j = 0; j < N - 1; ++j) {
             for (index_t k = j + 1; k < N; ++k) {
-                BOOST_CHECK_SMALL(vs[j].dot(vs[k]), 1e-5);
+                EXPECT_NEAR(vs[j].dot(vs[k]), 0, 1e-5);
             }
         }
     }
@@ -133,17 +131,15 @@ void exercise_nullspace(rng_t* rng, index_t trials) {
         // (they are not guaranteed to be orthogonal to each other)
         for (index_t j = 0; j < n; ++j) {
             for (index_t k = n; k < N; ++k) {
-                BOOST_CHECK_SMALL(bases[j].dot(bases[k]), 1e-5);
+                EXPECT_NEAR(bases[j].dot(bases[k]), 0, 1e-5);
             }
         }
     }
 }
 
 
-BOOST_AUTO_TEST_SUITE(linear_solve_tests)
 
-
-BOOST_AUTO_TEST_CASE(verify_nullspace) {
+TEST(TEST_MODULE_NAME, verify_nullspace) {
     rng_t rng(16512485420001724907ULL);
     exercise_nullspace<double,  2>(&rng, N_TESTS);
     exercise_nullspace<double,  3>(&rng, N_TESTS);
@@ -153,7 +149,7 @@ BOOST_AUTO_TEST_CASE(verify_nullspace) {
 }
 
 
-BOOST_AUTO_TEST_CASE(verify_orthogonal) {
+TEST(TEST_MODULE_NAME, verify_orthogonal) {
     rng_t rng(15794404771588593305ULL);
     exercise_orthogonalize<double,  2>(&rng, N_TESTS);
     exercise_orthogonalize<double,  3>(&rng, N_TESTS);
@@ -163,7 +159,7 @@ BOOST_AUTO_TEST_CASE(verify_orthogonal) {
 }
 
 
-BOOST_AUTO_TEST_CASE(verify_PLU) {
+TEST(TEST_MODULE_NAME, verify_PLU) {
     rng_t rng(1013126187766094264ULL);
     exercise_plu<double>(&rng, 2, N_TESTS);
     exercise_plu<double>(&rng, 3, N_TESTS);
@@ -175,7 +171,7 @@ BOOST_AUTO_TEST_CASE(verify_PLU) {
 }
 
 
-BOOST_AUTO_TEST_CASE(linear_solve_tests) {
+TEST(TEST_MODULE_NAME, linear_solve_tests) {
     rng_t rng(7301667549950575693ULL);
     exercise_solve_vectors<double,2>(&rng, N_TESTS);
     exercise_solve_vectors<double,3>(&rng, N_TESTS);
@@ -184,7 +180,3 @@ BOOST_AUTO_TEST_CASE(linear_solve_tests) {
     exercise_solve_vectors<double,6>(&rng, N_TESTS);
     exercise_solve_vectors<double,7>(&rng, N_TESTS);
 }
-
-
-BOOST_AUTO_TEST_SUITE_END()
-

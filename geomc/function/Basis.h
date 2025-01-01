@@ -10,7 +10,6 @@
 
 #include <math.h>
 #include <numeric>
-#include <boost/math/constants/constants.hpp>
 #include <geomc/linalg/Vec.h>
 #include <geomc/function/FunctionTypes.h>
 
@@ -152,4 +151,3 @@ inline T chebyshev(index_t kind, index_t n, T x) {
 } // end namespace geom
 
 #endif	/* BASIS_H */
-

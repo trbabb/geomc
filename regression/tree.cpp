@@ -1,7 +1,6 @@
-#define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE Tree
+#define TEST_MODULE_NAME Tree
 
-#include <boost/test/unit_test.hpp>
+#include <gtest/gtest.h>
 #include <geomc/Tree.h>
 #include <geomc/random/MTRand.h>
 #include <geomc/Deque.h>
@@ -200,7 +199,7 @@ void populate_search_tree(Tree<Rect<index_t, 1>, index_t>& tree, index_t n) {
         index_t ct = 0;
         for (auto i = r.query(query_pt, bound, bound); i != r.end() and ct < n; ++i, ++ct) {
             auto bnd = **i;
-            BOOST_CHECK(bnd.contains(query_pt));
+            EXPECT_TRUE(bnd.contains(query_pt));
         }
     }
 }
@@ -209,18 +208,16 @@ void populate_search_tree(Tree<Rect<index_t, 1>, index_t>& tree, index_t n) {
 ///////////// test suites /////////////
 
 
-BOOST_AUTO_TEST_SUITE(tree_construction)
 
-
-BOOST_AUTO_TEST_CASE(construct_small_tree) {
+TEST(TEST_MODULE_NAME, construct_small_tree) {
     Tree<const char*, index_t> t;
     fill_tree(t.root());
-    BOOST_CHECK(t.size() == 5);
-    BOOST_CHECK(t.item_count() == 6);
+    EXPECT_TRUE(t.size() == 5);
+    EXPECT_TRUE(t.item_count() == 6);
 }
 
 
-BOOST_AUTO_TEST_CASE(split_flat_tree) {
+TEST(TEST_MODULE_NAME, split_flat_tree) {
     const index_t count = 30;
     Tree<const char*, index_t> t;
     auto r = t.root();
@@ -231,7 +228,7 @@ BOOST_AUTO_TEST_CASE(split_flat_tree) {
     auto i = r.items_begin();
     for (index_t j = 0; j < count; ++j, ++i) {
         index_t b = *i;
-        BOOST_REQUIRE(b == b);
+        EXPECT_TRUE(b == b);
     }
     
     // add a single child:
@@ -241,11 +238,11 @@ BOOST_AUTO_TEST_CASE(split_flat_tree) {
     
     auto c = r.insert_child_node("dingus");
     // does the new child inherit the parent's items?
-    BOOST_CHECK(c.item_count() == count);
+    EXPECT_TRUE(c.item_count() == count);
     // is the parent of the new child the root?
-    BOOST_REQUIRE(c.parent() == r);
+    EXPECT_TRUE(c.parent() == r);
     // is the parent's first child the new node?
-    BOOST_REQUIRE(r.begin() == c);
+    EXPECT_TRUE(r.begin() == c);
     
     // now test splitting:
     //    r
@@ -253,48 +250,45 @@ BOOST_AUTO_TEST_CASE(split_flat_tree) {
     //  s   c
     auto s = c.split(compare, 0, "doot");
     // parent has one more child?
-    BOOST_REQUIRE(r.node_count() == 2);
+    EXPECT_TRUE(r.node_count() == 2);
     // is the new node's value as specified?
-    BOOST_CHECK(strcmp(*s, "doot") == 0);
+    EXPECT_TRUE(strcmp(*s, "doot") == 0);
     // is the new node still a child of its parent?
-    BOOST_REQUIRE(s.parent() == r);
+    EXPECT_TRUE(s.parent() == r);
     // the new node should have been inserted before `c`, the first child.
-    BOOST_REQUIRE(r.begin() == s);
+    EXPECT_TRUE(r.begin() == s);
     // split nodes are siblings:
-    BOOST_REQUIRE(std::next(s) == c);
+    EXPECT_TRUE(std::next(s) == c);
     // item count makes sense:
-    BOOST_CHECK(r.item_count() == s.item_count() + c.item_count());
+    EXPECT_TRUE(r.item_count() == s.item_count() + c.item_count());
     // items are contiguous:
-    BOOST_CHECK(s.items_end() == c.items_begin());
+    EXPECT_TRUE(s.items_end() == c.items_begin());
     // parent's edge items are correct:
-    BOOST_REQUIRE(r.items_begin() == s.items_begin());
-    BOOST_REQUIRE(r.items_end() == c.items_end());
+    EXPECT_TRUE(r.items_begin() == s.items_begin());
+    EXPECT_TRUE(r.items_end() == c.items_end());
     
     // print_subtree(r);
 }
 
 
-BOOST_AUTO_TEST_CASE(copy_deep_tree) {
+TEST(TEST_MODULE_NAME, copy_deep_tree) {
     Tree<const char*, index_t> t;
     *(t.root()) = "zoinks";
     populate_tree(t.root(), 30);
     // print_subtree(t.root());
     
     Tree<const char*, index_t> t2(t);
-    BOOST_CHECK(t2 == t);
+    EXPECT_TRUE(t2 == t);
 }
 
 
-BOOST_AUTO_TEST_CASE(search_tree) {
+TEST(TEST_MODULE_NAME, search_tree) {
     Tree<Rect<index_t, 1>, index_t> t;
     // fuzz this baby
     for (index_t i = 0; i < 1024; ++i) {
         populate_search_tree(t, rng.rand<index_t>(200));
         t.root().clear();
-        BOOST_CHECK_EQUAL(t.size(), 1);
-        BOOST_CHECK_EQUAL(t.item_count(), 0);
+        EXPECT_EQ(t.size(), 1);
+        EXPECT_EQ(t.item_count(), 0);
     }
 }
-
-
-BOOST_AUTO_TEST_SUITE_END()

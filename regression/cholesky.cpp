@@ -1,10 +1,9 @@
-#define BOOST_TEST_DYN_LINK
-#define BOOST_TEST_MODULE Cholesky
+#define TEST_MODULE_NAME Cholesky
 
 // #include <iostream>
 
 #include <random>
-#include <boost/test/unit_test.hpp>
+#include <gtest/gtest.h>
 #include <geomc/linalg/Cholesky.h>
 
 using namespace geom;
@@ -30,8 +29,8 @@ SimpleMatrix<T,0,0> random_matrix(index_t sz, rng_t* rng) {
 
 template <typename T>
 T matrix_diff(const SimpleMatrix<T,0,0>& a, const SimpleMatrix<T,0,0>& b) {
-    BOOST_CHECK_EQUAL(a.rows(), b.rows());
-    BOOST_CHECK_EQUAL(a.cols(), b.cols());
+    EXPECT_EQ(a.rows(), b.rows());
+    EXPECT_EQ(a.cols(), b.cols());
     
     T residual = 0;
     for (index_t r = 0; r < a.rows(); ++r) {
@@ -56,20 +55,17 @@ void run_cholesky(index_t sz, rng_t* rng) {
     
     // cholesky decompose `A` into `mx`.
     mtxcopy(&mx, A);
-    BOOST_CHECK(cholesky(&mx));
+    EXPECT_TRUE(cholesky(&mx));
     
     // confirm `mx^T * mx = A`
     transpose(&mxT, mx);
     mul(&C, mx, mxT);
     T rms = matrix_diff(C, A);
-    BOOST_CHECK_SMALL(rms, (T)1e-5);
+    EXPECT_NEAR(rms, 0, (T)1e-5);
 }
 
 
-BOOST_AUTO_TEST_SUITE(cholesky)
-
-
-BOOST_AUTO_TEST_CASE(verify_cholesky) {
+TEST(TEST_MODULE_NAME, verify_cholesky) {
     rng_t rng(11937294775LL);
     std::uniform_int_distribution<> rnd_int(2, 16);
     const index_t n = 50000;
@@ -78,6 +74,3 @@ BOOST_AUTO_TEST_CASE(verify_cholesky) {
         run_cholesky<double>(k, &rng);
     }
 }
-
-
-BOOST_AUTO_TEST_SUITE_END()

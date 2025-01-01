@@ -15,8 +15,6 @@
  *  @brief Linear algebra functions and classes.
  */
 
-#include <boost/iterator/counting_iterator.hpp>
-
 //vector convenience macros
 
 /** @ingroup linalg 

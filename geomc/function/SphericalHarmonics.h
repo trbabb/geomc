@@ -1,3 +1,4 @@
+#pragma once
 /* 
  * File:   SphericalHarmonics.h
  * Author: tbabb
@@ -5,10 +6,8 @@
  * Created on December 26, 2014, 1:51 AM
  */
 
-#ifndef SPHERICALHARMONICS_H
-#define	SPHERICALHARMONICS_H
-
 #include <cmath>
+#include <numbers>
 #include <geomc/Storage.h>
 #include <geomc/function/Basis.h>
 #include <complex>
@@ -115,7 +114,7 @@ template <typename T>
 inline T spherical_harmonic_coeff(index_t l, index_t m, T cos_alt, T azi) {
     index_t m_a = std::abs(m);
     static const T sr2 = std::sqrt((T)2);
-    static const T pi  = boost::math::constants::pi<T>();
+    static const T pi  = std::numbers::pi_v<T>;
     
     T P_lm = legendre(l, m_a, cos_alt);
     
@@ -186,7 +185,7 @@ class SphericalHarmonics {
     template <index_t B>
     SphericalHarmonics(const ZonalHarmonics<T,B> &zh):
             coeffs(zh.bands() * zh.bands()) {
-        const T pi = boost::math::constants::pi<T>();
+        const T pi = std::numbers::pi_v<T>;
         const index_t b = Bands > 0 ? std::min(zh.bands(), Bands) : zh.bands();
         Dimension<Bands>::set(n_bands, b);
         clear();
@@ -207,7 +206,7 @@ class SphericalHarmonics {
     template <index_t B>
     SphericalHarmonics(const ZonalHarmonics<T,B> &zh, Vec<T,3> new_axis):
             coeffs(zh.bands() * zh.bands()) {
-        const T pi = boost::math::constants::pi<T>();
+        const T pi = std::numbers::pi_v<T>;
         const index_t b = Bands > 0 ? std::min(zh.bands(), Bands) : zh.bands();
         Dimension<Bands>::set(n_bands, b);
         clear();
@@ -317,7 +316,7 @@ class SphericalHarmonics {
     // z is available directly.
     T _eval(T cos_alt, T azi) const {
         static const T sr2 = std::sqrt((T)2);
-        static const T pi  = boost::math::constants::pi<T>();
+        static const T pi  = std::numbers::pi_v<T>;
         const index_t l = bands();
         const T x = cos_alt;
         T sum = 0;
@@ -371,7 +370,7 @@ class SphericalHarmonics {
     
     void _project(T cos_alt, T azi, T val) {
         static const T sr2 = std::sqrt((T)2);
-        static const T pi  = boost::math::constants::pi<T>();
+        static const T pi  = std::numbers::pi_v<T>;
         const index_t l = bands();
         const T x = cos_alt;
         for (index_t m = 0; m < l; m++) {
@@ -612,7 +611,7 @@ class ZonalHarmonics {
      */
     ZonalHarmonics(const SphericalHarmonics<T,Bands> &sh):
             coeffs(sh.bands()) {
-        const T pi = boost::math::constants::pi<T>();
+        const T pi = std::numbers::pi_v<T>;
         Dimension<Bands>::set(n_bands,sh.bands());
         for (index_t l = 0; l < bands(); l++) {
             coeffs[l] = sh.coeff(l,0) * std::sqrt((2*l - 1) / (4 * pi));
@@ -776,7 +775,7 @@ class ZonalHarmonics {
      */
     void convolve(const ZonalHarmonics<T,Bands> &kernel) {
         for (index_t l = 0; l < bands(); l++) {
-            T k = std::sqrt((boost::math::constants::pi<T>() * 4) / (2 * l + 1));
+            T k = std::sqrt((std::numbers::pi_v<T> * 4) / (2 * l + 1));
             coeffs[l] *= k * kernel.coeffs[l];
         }
     }
@@ -793,7 +792,7 @@ class ZonalHarmonics {
         // xxx debug
         //std::cout << "diffusing to " << t << "\n";
         for (index_t l = 0; l < bands(); l++) {
-            T k = std::sqrt((boost::math::constants::pi<T>() * 4) / (2 * l + 1));
+            T k = std::sqrt((std::numbers::pi_v<T> * 4) / (2 * l + 1));
             T m = k * coeffs[l];
             coeffs[l] = detail::cpow(m, t) / k;
             //std::cout << m << " --> " << coeffs[l] * k << "\n";
@@ -806,7 +805,7 @@ class ZonalHarmonics {
      * If the integral is currently 0, no change will be made.
      */ /*
     void normalize() {
-        T k  = std::sqrt(4 * boost::math::constants::pi<T>());
+        T k  = std::sqrt(4 * std::numbers::pi_v<T>);
         T nh = coeffs[0] * k;
         if (nh == 0) return;
         coeffs[0] = 1 / k;
@@ -817,7 +816,7 @@ class ZonalHarmonics {
     
     // xxx debug
     void normalize() {
-        T k  = std::sqrt(4 * boost::math::constants::pi<T>() / 3);
+        T k  = std::sqrt(4 * std::numbers::pi_v<T> / 3);
         T nh = coeffs[1] * k;
         if (nh == 0) return;
         coeffs[1] = 1 / k;
@@ -839,6 +838,3 @@ class ZonalHarmonics {
 /// @} // group function
     
 } // end namespace geom
-
-#endif	/* SPHERICALHARMONICS_H */
-

@@ -1,13 +1,10 @@
+#pragma once
 /* 
  * File:   Cylinder.h
  * Author: tbabb
  *
  * Created on May 19, 2014, 10:58 PM
  */
-
-#ifndef CYLINDER_H
-#define	CYLINDER_H
-
 #include <geomc/shape/ShapeTypes.h>
 #include <geomc/shape/Shape.h>
 #include <geomc/function/Utils.h>
@@ -273,6 +270,3 @@ struct std::hash<geom::Cylinder<T,N>> {
         return geom::hash<geom::Cylinder<T,N>, size_t>(v);
     }
 };
-
-#endif	/* CYLINDER_H */
-

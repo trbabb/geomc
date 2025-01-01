@@ -8,7 +8,6 @@
 #ifndef STORAGE_H
 #define STORAGE_H
 
-#include <boost/smart_ptr/shared_array.hpp>
 #include <geomc/geomc_defs.h>
 
 namespace geom {
@@ -136,7 +135,7 @@ struct Storage {
 
 template <typename T>
 struct Storage<T,DYNAMIC_DIM> {
-    boost::shared_array<T> data;
+    std::shared_ptr<T[]> data;
     
     explicit Storage(index_t n):
                     data(new T[n]) {}
@@ -463,4 +462,3 @@ struct GenericStorage<T,N,STORAGE_UNIQUE> : public UniqueStorage<T,N> {
 } // end namespace geom
 
 #endif  /* STORAGE_H */
-
