@@ -6,6 +6,9 @@
 
 namespace geom {
 
+/**
+ * @brief A similarity transform, which is a rotation, scaling, and translation.
+ */
 template <typename T, index_t N>
 struct Similarity {
     T             sx = 1;
@@ -93,8 +96,19 @@ Similarity<T,N> operator+(const Similarity<T,N>& i, const Vec<T,N>& v) {
     return Similarity<T,N>(i.sx, i.rx, i.tx + v);
 }
 
-// nb: we omit operator* denoting scaling, because it might be confused with
-//    a partial or iterated application of the similarity transform.
+/// Interpolate between two similarity transforms.
+/// It is invalid to interpolate between two similarity transforms with different signs.
+template <typename T, index_t N>
+Similarity<T,N> mix(T s, const Similarity<T,N>& a, const Similarity<T,N>& b) {
+    T sign = a.sx >= 0 ? 1 : -1;
+    return Similarity<T,N>(
+        sign * std::pow(std::abs(a.sx), 1 - s) * std::pow(std::abs(b.sx), s),
+        mix(a.rx, b.rx, t),
+        mix(a.tx, b.tx, t)
+    );
+}
 
+// nb: we omit operator* with a scalar for now; it's ambiguous whether
+//   it means to apply a scaling or a partial application.
 
 } // namespace geom
