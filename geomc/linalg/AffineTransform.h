@@ -1,3 +1,4 @@
+#pragma once
 /*
  * AffineTransform.h
  *
@@ -6,9 +7,6 @@
  */
 
 //TODO: This should not accept DYNAMIC_DIM.
-
-#ifndef AFFINETRANSFORM_H_
-#define AFFINETRANSFORM_H_
 
 #include <algorithm>
 
@@ -895,5 +893,3 @@ struct hash<geom::AffineTransform<T,N>> {
 };
 
 } // end namespace std
-
-#endif /* AFFINETRANSFORM_H_ */

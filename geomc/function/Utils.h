@@ -1,5 +1,6 @@
 #pragma once
 
+
 /*
  * Utils.h
  *
@@ -9,6 +10,7 @@
 
 #include <cmath>
 #include <algorithm>
+#include <concepts>
 
 #include <geomc/function/functiondetail/UtilDetail.h>
 
@@ -21,14 +23,12 @@ namespace geom {
 
 
 template <typename T>
-inline std::enable_if_t<std::is_integral_v<T>, T> positive_mod(T a, T b) {
-    return (a % b + b) % b;
-}
-
-template <typename T>
-inline std::enable_if_t<not std::is_integral_v<T>, T> positive_mod(T a, T b)
-{
-    return a - b * std::floor(a / b);
+inline T positive_mod(T a, T b) {
+    if constexpr (std::integral<T>) {
+        return (a % b + b) % b;
+    } else {
+        return a - b * std::floor(a / b);
+    }
 }
 
 /**
@@ -192,7 +192,7 @@ inline bool quadratic_solve(T results[2], T a, T b, T c){
 }
 
 /**
- * Compute the shortest angle from `a0` to `a1`, in radians.
+ * Compute the shortest angle from `radians_0` to `radians_1`.
  *
  * Returns a value in the range `[-π, π]`.
  */
@@ -263,6 +263,7 @@ constexpr bool is_power_of_two(T x) requires std::integral<T> {
  * @brief Convert degrees to radians.
  */
 template <typename T>
+requires (not std::integral<T>)
 constexpr T radians(T degrees) {
     return degrees * M_PI / 180;
 }
@@ -271,6 +272,7 @@ constexpr T radians(T degrees) {
  * @brief Convert radians to degrees.
  */
 template <typename T>
+requires (not std::integral<T>)
 constexpr T degrees(T radians) {
     return radians * 180 / M_PI;
 }

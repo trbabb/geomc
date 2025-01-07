@@ -116,7 +116,7 @@ namespace geom {
          */
         
         Vec<T,2> left_perpendicular() const {
-            return Vec<T,2>(-detail::VecBase<T,2>::y, detail::VecBase<T,2>::x);
+            return Vec<T,2>(-this->y, this->x);
         }
         
         /**

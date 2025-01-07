@@ -4,8 +4,12 @@ import itertools
 Import("env")
 
 lib_target  = 'geomc'
-lib_sources = [Glob('**.cpp'), Glob('**/*.cpp')]
-lib_headers = [Glob('**.h'), Glob('**/*.h'), Glob('**.hpp'), Glob('**/*.hpp')]
+# scons doesn't have recursive globs. this is dumb but it's clearer than a recursive function.
+lib_sources = [Glob('*.cpp'), Glob('*/*.cpp'), Glob('*/*/*.cpp'), Glob('*/*/*/*.cpp')]
+lib_headers = [
+    Glob('*.h'),   Glob('*/*.h'),   Glob('*/*/*.h'),   Glob('*/*/*/*.h'),
+    Glob('*.hpp'), Glob('*/*.hpp'), Glob('*/*/*.hpp'), Glob('*/*/*/*.hpp')
+]
 
 if env['ARCH'] == 'native':
     install_root = '/usr/local'

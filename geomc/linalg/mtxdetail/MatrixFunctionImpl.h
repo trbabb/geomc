@@ -72,7 +72,6 @@ struct _ImplMtxInstance {
 template <index_t N>
 struct _ImplMtxInstance <geom::PermutationMatrix<N> > {
     static inline geom::PermutationMatrix<N> instance(index_t r, index_t c) {
-        assert(r == c);
         return geom::PermutationMatrix<N>(r);
     }
 };

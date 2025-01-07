@@ -1,12 +1,10 @@
+#pragma once
 /*
  * Quaternion.h
  *
  *  Created on: Mar 30, 2013
  *      Author: tbabb
  */
-
-#ifndef QUATERNION_H_
-#define QUATERNION_H_
 
 #include <cmath>
 #include <geomc/linalg/Vec.h>
@@ -99,10 +97,10 @@ public:
      */
     static inline Quat<T> rotation_direction_align(
             const Vec<T,3>& v,
-            const Vec<T,3>& alignWith)
+            const Vec<T,3>& align_with)
     {
-        Vec<T,3> axis = v ^ alignWith;
-        T d = v.dot(alignWith);
+        Vec<T,3> axis = v ^ align_with;
+        T d = v.dot(align_with);
         return Quat<T>(axis, d);
     }
 
@@ -188,12 +186,17 @@ public:
         return result;
     }
     
+    T angle() const {
+        T w_clamp = std::min(std::max(this->w, -1.), 1.);
+        return 2 * std::acos(w_clamp);
+    }
+    
     /** 
      * @brief Convert this unit quaternion to an axis-angle rotation representation
      * `(x, y, z, radians)`.
      */
     Vec<T,4> to_axis_angle_rotation() const {
-        T w_clamp = std::min(std::max(detail::VecBase<T,4>::w, -1.0), 1.0);
+        T w_clamp = std::min(std::max(this->w, -1.0), 1.0);
         double alpha = 2 * std::acos(w_clamp);
         if (detail::VecBase<T,4>::x == 0 and 
             detail::VecBase<T,4>::y == 0 and
@@ -343,5 +346,3 @@ struct hash<geom::Quat<T>> {
 };
 
 } // end namespace std
-
-#endif /* QUATERNION_H_ */

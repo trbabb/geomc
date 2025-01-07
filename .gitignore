@@ -9,3 +9,4 @@ build
 
 .sconsign.dblite
 /.vscode
+compile_commands.json
