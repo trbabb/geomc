@@ -49,6 +49,25 @@ struct Similar:
         return shape.contains(p / xf);
     }
     
+    /// Shape-sphere intersection.
+    bool intersects(const Sphere<T,N> s) const 
+        requires requires (const Shape s, const Sphere<T,N> b) { s.intersects(b); }
+    {
+        return shape.intersects(s / xf);
+    }
+    
+    /// Shape-shape intersection.
+    template <typename S>
+    bool intersects(const Similar<S>& s) const 
+        requires requires (const Similar<Shape> s, const S b) { s.intersects(b); }
+    {
+        // if we can intersect with an un-transformed shape,
+        // then we can also intersect with a transformed one by
+        // un-transforming ourselves first.
+        Similar<Shape> s1 = *this / s.xf;
+        return s1.intersects(s.shape);
+    }
+    
     /// Convex support function. Return the point on the surface of the shape
     /// which is farthest in the direction `d`.
     Vec<T,N> convex_support(Vec<T,N> d) const {

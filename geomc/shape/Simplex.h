@@ -2,6 +2,8 @@
 
 #include <geomc/shape/Shape.h>
 #include <geomc/linalg/Vec.h>
+#include <geomc/linalg/Isometry.h>
+#include <geomc/linalg/Similarity.h>
 #include <geomc/linalg/Orthogonal.h>
 #include <geomc/linalg/Matrix.h>
 #include <geomc/shape/shapedetail/SimplexProject.h>
@@ -538,6 +540,56 @@ public:
 
 }; // class simplex
 
+/// @addtogroup shape
+/// @{
+
+/// @brief Transform a simplex by a similarity transform.
+/// @related Simplex
+/// @related Similarity
+template <typename T, index_t N>
+Simplex<T,N> operator*(const Similarity<T,N>& xf, const Simplex<T,N>& s) {
+    Simplex<T,N> s2 = s;
+    for (index_t i = 0; i < s2.n; ++i) {
+        s2.pts[i] = xf * s2.pts[i];
+    }
+    return s2;
+}
+
+/// @brief Inverse-transform a simplex by a similarity transform.
+/// @related Simplex
+/// @related Similarity
+template <typename T, index_t N>
+Simplex<T,N> operator/(const Simplex<T,N>& s, const Similarity<T,N>& xf) {
+    Simplex<T,N> s2 = s;
+    for (index_t i = 0; i < s2.n; ++i) {
+        s2.pts[i] = s2.pts[i] / xf;
+    }
+    return s2;
+}
+
+/// @brief Transform a simplex by an isometry.
+/// @related Simplex
+/// @related Isometry
+template <typename T, index_t N>
+Simplex<T,N> operator*(const Isometry<T,N>& xf, const Simplex<T,N>& s) {
+    Simplex<T,N> s2 = s;
+    for (index_t i = 0; i < s2.n; ++i) {
+        s2.pts[i] = xf * s2.pts[i];
+    }
+    return s2;
+}
+
+/// @brief Inverse-transform a simplex by an isometry.
+/// @related Simplex
+/// @related Isometry
+template <typename T, index_t N>
+Simplex<T,N> operator/(const Simplex<T,N>& s, const Isometry<T,N>& xf) {
+    Simplex<T,N> s2 = s;
+    for (index_t i = 0; i < s2.n; ++i) {
+        s2.pts[i] = s2.pts[i] / xf;
+    }
+    return s2;
+}
 
 /**
  * Ray trace an N-1 dimensional simplex (e.g. triangle in 3D, tetrahedron in 4D, a line
@@ -594,6 +646,7 @@ using Triangle = Simplex<T,2>;
 template <typename T>
 using Tetrahedron = Simplex<T,3>;
 
+/// @} // group shape
 
 template <typename T, index_t N, typename H>
 struct Digest<Simplex<T,N>, H> {

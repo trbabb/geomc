@@ -1,6 +1,8 @@
 #pragma once
 
 #include <geomc/linalg/Vec.h>
+#include <geomc/linalg/Isometry.h>
+#include <geomc/linalg/Similarity.h>
 #include <geomc/shape/Shape.h>
 #include <geomc/function/Utils.h>
 
@@ -117,6 +119,43 @@ public:
     }
     
 }; /* Sphere<T,N> */
+
+/// @addtogroup shape
+/// @{
+
+/// @brief Transform a sphere by a similarity transform.
+/// @related Sphere
+/// @related Similarity
+template <typename T, index_t N>
+Sphere<T,N> operator*(const Similarity<T,N>& xf, const Sphere<T,N>& s) {
+    return Sphere<T,N>(xf * s.center, s.r * xf.sx);
+}
+
+/// @brief Inverse-transform a sphere by a similarity transform.
+/// @related Sphere
+/// @related Similarity
+template <typename T, index_t N>
+Sphere<T,N> operator/(const Sphere<T,N>& s, const Similarity<T,N>& xf) {
+    return Sphere<T,N>(xf / s.center, s.r / xf.sx);
+}
+
+/// @brief Transform a sphere by an isometry.
+/// @related Sphere
+/// @related Isometry
+template <typename T, index_t N>
+Sphere<T,N> operator*(const Isometry<T,N>& xf, const Sphere<T,N>& s) {
+    return Sphere<T,N>(xf * s.center, s.r);
+}
+
+/// @brief Inverse-transform a sphere by an isometry.
+/// @related Sphere
+/// @related Isometry
+template <typename T, index_t N>
+Sphere<T,N> operator/(const Sphere<T,N>& s, const Isometry<T,N>& xf) {
+    return Sphere<T,N>(xf / s.center, s.r);
+}
+
+/// @} // addtogroup shape
 
 template <typename T, index_t N, typename H>
 struct Digest<Sphere<T,N>, H> {

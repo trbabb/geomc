@@ -12,6 +12,35 @@ namespace geom {
  *
  * Similar transfroms do not have any skew or nonuniform scales; they preserve
  * shapes, angles, and relative distances.
+ *
+ * For transforms which do not include a scaling, see Isometry.
+ *
+ * For nonuniform scaling or skew transforms, see AffineTransform.
+ *
+ * Similarity transforms compose like transforms, with multiplication on the left:
+ *
+ *     Similarity<T,N> s1, s2;
+ *     Similarity<T,N> s3 = s2 * s1; // similarity which applies s2, then s1
+ *     Vec<T,N> v = s3 * s1 * v0;  // apply s1 to v0, then s3 to the result
+ *
+ * Similarity transforms can be inverted with the `/` operator:
+ *
+ *     Similarity<T,N> s1, s2;
+ *     Similarity<T,N> s3 = s2 / s1; // similarity which takes s1 to s2
+ *     Vec<T,N> v = v0 / s3;       // apply the inverse of s3 to v0
+ *
+ * Compose with rotations and translations:
+ *
+ *     Similarity<T,3> s;
+ *     Rotation<T,3> r;
+ *     Similarity<T,3> s2 = r * s; // s2 is s with r applied
+ *     Similarity<T,3> s3 = s + Vec<T,3>(1,2,3); // s3 is s translated by (1,2,3)
+ *
+ * Scaling is done explicitly with `.scaled()` or the `.sx` member:
+ *
+ *     Similarity<T,3> s;
+ *     Similarity<T,3> s2 = s.scaled(2); // s2 is s with double the scale
+ *     Similarity<T,3> s3 = s * 2; // s3 is s with double the scale
  */
 template <typename T, index_t N>
 struct Similarity {
@@ -27,6 +56,7 @@ struct Similarity {
     Similarity(T sx, const Rotation<T,N>& rx):sx(sx),rx(rx),tx() {}
     Similarity(const Rotation<T,N>& rx):rx(rx),tx() {}
     Similarity(const Vec<T,N>& tx):rx(),tx(tx) {}
+    Similarity(const Isometry<T,N>& s, T sx=1):sx(sx),rx(s.rx),tx(s.tx) {}
     explicit Similarity(T sx):sx(sx),rx(),tx() {}
     
     /// Represent this similarity as an affine transform.
@@ -94,7 +124,8 @@ struct Similarity {
 };
 
 /** @addtogroup linalg
-/** @{ */
+ * @{
+ */
 
 /// @brief Transform a point.
 /// @related Similarity
@@ -157,8 +188,8 @@ Similarity<T,N> mix(T s, const Similarity<T,N>& a, const Similarity<T,N>& b) {
     T sign = a.sx >= 0 ? 1 : -1;
     return Similarity<T,N>(
         sign * std::pow(std::abs(a.sx), 1 - s) * std::pow(std::abs(b.sx), s),
-        mix(a.rx, b.rx, t),
-        mix(a.tx, b.tx, t)
+        geom::mix(s, a.rx, b.rx),
+        geom::mix(s, a.tx, b.tx)
     );
 }
 

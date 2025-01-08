@@ -1,5 +1,7 @@
 #pragma once
 
+#include <geomc/linalg/Isometry.h>
+#include <geomc/linalg/Similarity.h>
 #include <geomc/shape/Rect.h>
 #include <geomc/shape/Sphere.h>
 
@@ -164,7 +166,7 @@ inline Sphere<T,N> dilate(const Sphere<T,N>& s, T dilation) {
 }
 
 /**
- * @brief Product a rounded rectangle with corner radius `radius`.
+ * @brief Produce a rounded rectangle with corner radius `radius`.
  * 
  * The rounded rectangle will have the extents of `rect`, but with corners
  * rounded by `radius`. The radius will be clamped to the maximum possible
@@ -174,6 +176,50 @@ template <typename T, index_t N>
 inline Dilated<Rect<T,N>> roundrect(const Rect<T,N>& rect, T radius) {
     radius = std::min(radius, rect.dimensions().min() / 2);
     return {rect.dilated(-radius), radius};
+}
+
+/// @brief Transform a dilated shape by a similarity transform.
+/// @related Dilated
+/// @related Similarity
+template <typename T, index_t N, typename Shape>
+requires (N == Shape::N and std::same_as<T, typename Shape::elem_t> and
+    requires (Shape s, Similarity<T,N> xf) { {s * xf} -> std::same_as<Shape>; }
+)
+Dilated<Shape> operator*(const Similarity<T,N>& xf, const Dilated<Shape>& s) {
+    return Dilated<Shape>(xf * s.shape, s.dilation * xf.sx);
+}
+
+/// @brief Inverse-transform a dilated shape by a similarity transform.
+/// @related Dilated
+/// @related Similarity
+template <typename T, index_t N, typename Shape>
+requires (N == Shape::N and std::same_as<T, typename Shape::elem_t> and
+    requires (Shape s, Similarity<T,N> xf) { {s / xf} -> std::same_as<Shape>; }
+)
+Dilated<Shape> operator/(const Dilated<Shape>& s, const Similarity<T,N>& xf) {
+    return Dilated<Shape>(xf / s.shape, s.dilation / xf.sx);
+}
+
+/// @brief Transform a dilated shape by an isometry.
+/// @related Dilated
+/// @related Isometry
+template <typename T, index_t N, typename Shape>
+requires (N == Shape::N and std::same_as<T, typename Shape::elem_t> and
+    requires (Shape s, Isometry<T,N> xf) { {s * xf} -> std::same_as<Shape>; }
+)
+Dilated<Shape> operator*(const Isometry<T,N>& xf, const Dilated<Shape>& s) {
+    return Dilated<Shape>(xf * s.shape, s.dilation);
+}
+
+/// @brief Inverse-transform a dilated shape by an isometry.
+/// @related Dilated
+/// @related Isometry
+template <typename T, index_t N, typename Shape>
+requires (N == Shape::N and std::same_as<T, typename Shape::elem_t> and
+    requires (Shape s, Isometry<T,N> xf) { {s / xf} -> std::same_as<Shape>; }
+)
+Dilated<Shape> operator/(const Dilated<Shape>& s, const Isometry<T,N>& xf) {
+    return Dilated<Shape>(xf / s.shape, s.dilation);
 }
 
 /** @addtogroup traits

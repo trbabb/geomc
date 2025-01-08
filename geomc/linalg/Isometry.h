@@ -10,6 +10,30 @@ namespace geom {
  * 
  * Isometric transfroms do not have any skew or scales; they preserve
  * shapes, angles, and distances.
+ * 
+ * For transforms which include a scaling, see Similarity.
+ * 
+ * For nonuniform scaling or skew transforms, see AffineTransform.
+ *
+ * Isometries compose like transforms, with multiplication on the left:
+ *
+ *     Isometry<T,N> i1, i2;
+ *     Isometry<T,N> i3 = i2 * i1; // isometry which applies i2, then i1
+ *     Vec<T,N> v = i3 * i1 * v0;  // apply i1 to v0, then i3 to the result
+ *
+ * Isometries can be inverted with the `/` operator:
+ *
+ *     Isometry<T,N> i1, i2;
+ *     Isometry<T,N> i3 = i2 / i1; // isometry which takes i1 to i2
+ *     Vec<T,N> v = v0 / i3;       // apply the inverse of i3 to v0
+ *
+ * Compose with rotations and translations:
+ * 
+ *     Isometry<T,3> i;
+ *     Rotation<T,3> r;
+ *     Isoemtry<T,3> i2 = r * i; // i2 is i with r post-applied
+ *     Isometry<T,3> i3 = i + Vec<T,3>(1,2,3); // i3 is i translated by (1,2,3)
+ * 
  */
 template <typename T, index_t N>
 struct Isometry {

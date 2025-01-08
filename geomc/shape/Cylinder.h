@@ -5,6 +5,8 @@
  *
  * Created on May 19, 2014, 10:58 PM
  */
+#include <geomc/linalg/Isometry.h>
+#include <geomc/linalg/Similarity.h>
 #include <geomc/shape/ShapeTypes.h>
 #include <geomc/shape/Shape.h>
 #include <geomc/function/Utils.h>
@@ -251,6 +253,59 @@ class Cylinder:
     }
     
 };
+
+/// @addtogroup shape
+/// @{
+
+/// @brief Transform a cylinder by a similarity transform.
+/// @related Cylinder
+/// @related Similarity
+template <typename T, index_t N>
+Cylinder<T,N> operator*(const Similarity<T,N>& xf, const Cylinder<T,N>& c) {
+    return Cylinder<T,N>(
+        xf * c.p0,
+        xf * c.p1,
+        c.radius * xf.sx
+    );
+}
+
+/// @brief Inverse-transform a cylinder by a similarity transform.
+/// @related Cylinder
+/// @related Similarity
+template <typename T, index_t N>
+Cylinder<T,N> operator/(const Cylinder<T,N>& c, const Similarity<T,N>& xf) {
+    return Cylinder<T,N>(
+        xf / c.p0,
+        xf / c.p1,
+        c.radius / xf.sx
+    );
+}
+
+/// @brief Transform a cylinder by an isometry.
+/// @related Cylinder
+/// @related Isometry
+template <typename T, index_t N>
+Cylinder<T,N> operator*(const Isometry<T,N>& xf, const Cylinder<T,N>& c) {
+    return Cylinder<T,N>(
+        xf * c.p0,
+        xf * c.p1,
+        c.radius
+    );
+}
+
+/// @brief Inverse-transform a cylinder by an isometry.
+/// @related Cylinder
+/// @related Isometry
+template <typename T, index_t N>
+Cylinder<T,N> operator/(const Cylinder<T,N>& c, const Isometry<T,N>& xf) {
+    return Cylinder<T,N>(
+        xf / c.p0,
+        xf / c.p1,
+        c.radius
+    );
+}
+
+/// @} // addtogroup shape
 
 template <typename T, index_t N, typename H>
 struct Digest<Cylinder<T,N>,H> {

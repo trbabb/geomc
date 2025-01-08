@@ -15,7 +15,26 @@ namespace geom {
  * @ingroup linalg
  * @brief A rotation in N-dimensional space.
  * 
- * Currently 2D and 3D are implemented.
+ * Currently 2D and 3D are implemented. See Rotation<T,2> and Rotation<T,3>.
+ *
+ * For transforms which include a translation, see Isometry.
+ *
+ * For transforms which include a translation and a scaling, see Similarity.
+ * 
+ * For nonuniform scaling or skew transforms, see AffineTransform.
+ *
+ * Rotations are composed like transforms, with multiplication on the left:
+ *
+ *     Rotation<T,N> r1, r2;
+ *     Rotation<T,N> r3 = r2 * r1; // rotation which applies r2, then r1
+ *     Vec<T,N> v = r3 * r1 * v0;  // apply r1 to v0, then r3 to the result
+ * 
+ * Rotations can be inverted with the `/` operator:
+ *
+ *     Rotation<T,N> r1, r2;
+ *     Rotation<T,N> r3 = r2 / r1; // rotation which takes r1 to r2
+ *     Vec<T,N> v = v0 / r3;       // apply the inverse of r3 to v0
+ *
  */
 template <typename T, index_t N>
 struct Rotation {}; // todo: implement N-blades
@@ -23,6 +42,8 @@ struct Rotation {}; // todo: implement N-blades
 /**
  * @ingroup linalg
  * @brief 2D rotation.
+ *
+ * See `Rotation` for a general description of rotations.
  */
 template <typename T>
 struct Rotation<T,2> {
@@ -159,6 +180,8 @@ Rotation<T,2> mix(T s, const Rotation<T,2>& a, const Rotation<T,2>& b) {
 
 /**
  * @brief 3D rotation.
+ *
+ * See `Rotation` for a general description of rotations.
  */
 template <typename T>
 struct Rotation<T,3> {

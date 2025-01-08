@@ -1,6 +1,8 @@
 #pragma once
 
 #include <geomc/linalg/Vec.h>
+#include <geomc/linalg/Similarity.h>
+#include <geomc/linalg/Isometry.h>
 #include <geomc/shape/Shape.h>
 #include <geomc/function/Utils.h>
 
@@ -151,6 +153,43 @@ public:
     */
     
 };
+
+/// @addtogroup shape
+/// @{
+
+/// @brief Transform a capsule by a similarity transform.
+/// @related Capsule
+/// @related Similarity
+template <typename T, index_t N>
+Capsule<T,N> operator*(const Similarity<T,N>& xf, const Capsule<T,N>& c) {
+    return Capsule<T,N>(xf * c.p0, xf * c.p1, c.radius * xf.sx);
+}
+
+/// @brief Inverse-transform a capsule by a similarity transform.
+/// @related Capsule
+/// @related Similarity
+template <typename T, index_t N>
+Capsule<T,N> operator/(const Capsule<T,N>& c, const Similarity<T,N>& xf) {
+    return Capsule<T,N>(xf / c.p0, xf / c.p1, c.radius / xf.sx);
+}
+
+/// @brief Transform a capsule by an isometry.
+/// @related Capsule
+/// @related Isometry
+template <typename T, index_t N>
+Capsule<T,N> operator*(const Isometry<T,N>& xf, const Capsule<T,N>& c) {
+    return Capsule<T,N>(xf * c.p0, xf * c.p1, c.radius);
+}
+
+/// @brief Inverse-transform a capsule by an isometry.
+/// @related Capsule
+/// @related Isometry
+template <typename T, index_t N>
+Capsule<T,N> operator/(const Capsule<T,N>& c, const Isometry<T,N>& xf) {
+    return Capsule<T,N>(xf / c.p0, xf / c.p1, c.radius);
+}
+
+/// @} // addtogroup shape
 
 template <typename T, index_t N, typename H>
 struct Digest<Capsule<T,N>, H> {
