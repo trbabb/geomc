@@ -5,11 +5,17 @@
 namespace geom {
 
 /**
- * A rigid rotation and translation.
+ * @ingroup linalg
+ * @brief A rigid rotation and translation.
+ * 
+ * Isometric transfroms do not have any skew or scales; they preserve
+ * shapes, angles, and distances.
  */
 template <typename T, index_t N>
 struct Isometry {
+    /// Rotation component.
     Rotation<T,N> rx;
+    /// Translation component.
     Vec<T,N>      tx;
     
     Isometry():rx(),tx() {}
@@ -27,9 +33,19 @@ struct Isometry {
         return Isometry<T,N>(rx * other.rx, tx + rx.transform(other.tx));
     }
     
-    /// Apply the isometry to a point.
+    /// Transform a point.
     Vec<T,N> operator*(const Vec<T,N>& p) const {
-        return rx.transform(p) + tx;
+        return rx * p + tx;
+    }
+    
+    /// Transform a direction vector.
+    Vec<T,N> apply_direction(const Vec<T,N> v) const {
+        return rx * v;
+    }
+    
+    /// Inverse transform a direction vector.
+    Vec<T,N> apply_inverse_direction(const Vec<T,N> v) const {
+        return v / rx;
     }
     
     /// Compose with the inverse of an isometry.
@@ -59,32 +75,67 @@ struct Isometry {
     }
 };
 
-/// Apply a rotation to an isometry.
+/** @addtogroup linalg
+ *  @{
+ */
+
+/// @brief Transform a point.
+/// @related Isometry
+template <typename T, index_t N>
+Vec<T,N> operator/(const Vec<T,N>& v, const Isometry<T,N>& i) {
+    // unapply the translation and rotation in reverse order
+    return (v - i.tx) / i.rx;
+}
+
+/// @brief Transform a ray.
+/// @related Isometry
+/// @related Ray
+template <typename T, index_t N>
+Ray<T,N> operator*(const Isometry<T,N>& xf, const Ray<T,N>& ray) {
+    return {xf * ray.origin, xf.rx * ray.direction};
+}
+
+/// @brief Inverse-transform a ray.
+/// @related Isometry
+/// @related Ray
+template <typename T, index_t N>
+Ray<T,N> operator/(const Ray<T,N>& ray, const Isometry<T,N>& xf) {
+    return {ray.origin / xf, ray.direction / xf.rx};
+}
+
+/// @brief Apply a rotation to an isometry.
+/// @related Isometry
+/// @related Rotation
 template <typename T, index_t N>
 Isometry<T,N> operator*(const Rotation<T,N>& r, const Isometry<T,N>& i) {
     return Isometry<T,N>(r * i.rx, r.transform(i.tx));
 }
 
-/// Apply an isometry to a rotation.
+/// @brief Apply an isometry to a rotation.
+/// @related Isometry
+/// @related Rotation
 template <typename T, index_t N>
 Isometry<T,N> operator*(const Isometry<T,N>& i, const Rotation<T,N>& r) {
     return Isometry<T,N>(i.rx * r, i.tx);
 }
 
-/// Apply a translation to an isometry.
+/// @brief Apply a translation to an isometry.
+/// @related Isometry
 template <typename T, index_t N>
 Isometry<T,N> operator+(const Isometry<T,N>& i, const Vec<T,N>& v) {
     return Isometry<T,N>(i.rx, i.tx + v);
 }
 
-/// Apply a translation to an isometry.
+/// @brief Apply a translation to an isometry.
+/// @related Isometry
 template <typename T, index_t N>
 Isometry<T,N> operator+(const Vec<T,N>& v, const Isometry<T,N>& i) {
     return Isometry<T,N>(i.rx, i.tx + v);
 }
 
-/// Scale the magnitude of an isometry. A scale of 0 produces an identity transform.
+/// @brief Scale the magnitude of an isometry. A scale of 0 produces an identity transform.
 /// Applying a scale of 1 to an isometry results in no change.
+/// @related Isometry
 template <typename T, index_t N>
 Isometry<T,N> operator*(T s, const Isometry<T,N>& xf) {
     return {
@@ -93,7 +144,8 @@ Isometry<T,N> operator*(T s, const Isometry<T,N>& xf) {
     };
 }
 
-/// Scale the magnitude of an isometry.
+/// @brief Scale the magnitude of an isometry.
+/// @related Isometry
 template <typename T, index_t N>
 Isometry<T,N> operator*(const Isometry<T,N>& xf, T s) {
     return {
@@ -102,7 +154,8 @@ Isometry<T,N> operator*(const Isometry<T,N>& xf, T s) {
     };
 }
 
-/// Continuously interpolate two isometries.
+/// @brief Continuously interpolate two isometries.
+/// @related Isometry
 template <typename T, index_t N>
 Isometry<T,N> mix(T s, const Isometry<T,N>& a, const Isometry<T,N>& b) {
     return {
@@ -110,5 +163,15 @@ Isometry<T,N> mix(T s, const Isometry<T,N>& a, const Isometry<T,N>& b) {
         mix(s, a.tx, b.tx)
     };
 }
+
+/// @}  // group linalg
+
+template <typename T, index_t N, typename H>
+struct Digest<Isometry<T,N>, H> {
+    H operator()(const Isometry<T,N>& xf) const {
+        H nonce = geom::truncated_constant<H>(0x176a7504edd40424, 0x292b420bad0c4b61);
+        return geom::hash_many(nonce, xf.rx, xf.tx);
+    }
+};
 
 } // namespace geom

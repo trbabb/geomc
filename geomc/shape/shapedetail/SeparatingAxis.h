@@ -151,7 +151,7 @@ class RectAxisHelper<T,2> : public RectAxisHelperBase<T,2> {
 template <typename T, index_t N, typename Enable=void>
 class RectIntersector {
     
-    static inline bool intersect(const Oriented<Rect<T,N> >& b0, const Rect<T,N>& b1) {
+    static inline bool intersect(const Transformed<Rect<T,N> >& b0, const Rect<T,N>& b1) {
         return gjk_intersect(b0, b1);
     }
 };
@@ -162,7 +162,7 @@ class RectIntersector<T, N,
 {
     public: 
         
-    static bool intersect(const Oriented<Rect<T,N> >& b0, const Rect<T,N>& b1) {
+    static bool intersect(const Transformed<Rect<T,N> >& b0, const Rect<T,N>& b1) {
         // here we apply the separating axis theorem.
         // all edge axes, face normals, and edge-edge normals must be tested.
         // the first two cases are one and the same; they are the principal
@@ -233,4 +233,3 @@ class RectIntersector<T, N,
 
 
 #endif	/* SEPARATINGAXIS_H */
-

@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 
 #include <geomc/function/Utils.h>
-#include <geomc/shape/Oriented.h>
+#include <geomc/shape/Transformed.h>
 #include <geomc/shape/Cylinder.h>
 #include <geomc/shape/Simplex.h>
 #include <geomc/shape/Sphere.h>
@@ -311,7 +311,7 @@ TEST(TEST_MODULE_NAME, validate_extruded) {
 }
 
 TEST(TEST_MODULE_NAME, validate_oriented) {
-    explore_compound_shape<Oriented, double>(&rng, std::max(N_TESTS / 4, 1));
+    explore_compound_shape<Transformed, double>(&rng, std::max(N_TESTS / 4, 1));
 }
 
 TEST(TEST_MODULE_NAME, validate_frustum) {
@@ -322,7 +322,7 @@ TEST(TEST_MODULE_NAME, validate_frustum) {
 TEST(TEST_MODULE_NAME, create_oriented_cylinder) {
     // make a null-transformed oriented cylinder.
     // (the cylinder defaults to unit radius and length along X)
-    auto ocyl = Oriented<Cylinder<double,3>>(Cylinder<double,3>());
+    auto ocyl = Transformed<Cylinder<double,3>>(Cylinder<double,3>());
     // confirm that the Oriented delegates containment checking
     EXPECT_TRUE(ocyl.contains(Vec3d(0.5, 0, 0)));
     // confirm the Oriented delegages convex_support
@@ -336,7 +336,7 @@ TEST(TEST_MODULE_NAME, create_oriented_cylinder) {
 TEST(TEST_MODULE_NAME, orient_simple_shape) {
     auto xf = translation(Vec3d(-5, 0, 0));
     // confirm the operator works and its return type is correct:
-    Oriented<Cylinder<double,3>> ocyl = xf * Cylinder<double,3>();
+    Transformed<Cylinder<double,3>> ocyl = xf * Cylinder<double,3>();
     // confirm the created wrapper applies the xf:
     EXPECT_TRUE(ocyl.contains(Vec3d(-4.5, 0, 0)));
     // verify inheritance

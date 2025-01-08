@@ -1,6 +1,5 @@
 #pragma once
 
-#include <climits>
 #include <geomc/shape/Rect.h>
 #include <geomc/shape/Sphere.h>
 
@@ -13,6 +12,13 @@ namespace geom {
 //     - it's not just the Z component that's distorted; the direction to the shape
 //       surface is also distorted
 //     - in general, projection vector field is "stretched" away from origin by this effect
+//   - answer: we can perform the projection if we can project to the surface of a 
+//     *perspective transformation* of the base shape. that is, put the base shape on a piece
+//     of glass, shine a point light at it, and let the shadow fall onto an arbitrarily-oriented
+//     plane. We want to project to the shape of the shadow.
+//     - the plane we are projecting to is sensitive to the point we are testing. that is, the
+//       plane is the one normal to the test point vector (i.e., a vector with its tail at
+//       the origin / frustum tip). proof is too small for margin to contain.
 
 // todo: permit 1d cross sectional shapes
 
@@ -33,7 +39,7 @@ namespace geom {
  *
  * Oriented, Rect-based Frustums are very commonly needed to represent
  * viewing frustums; for these consider using `ViewFrustum`, which is a
- * templated type alias for `Oriented<Frustum<Rect>>`. 
+ * templated type alias for `Transformed<Frustum<Rect>>`. 
  */
 template <typename Shape>
 class Frustum: 
@@ -261,7 +267,7 @@ inline Frustum<Shape> frustum(
  * @related Frustum
  */
 template <typename T, index_t N>
-using ViewFrustum = Oriented< Frustum< Rect<T,N-1> > >;
+using ViewFrustum = Transformed< Frustum< Rect<T,N-1> > >;
 
 /**
  * @brief Convenience typedef for a 3D cone with its tip at the origin.
@@ -278,12 +284,12 @@ using Cone = Frustum<Circle<T>>;
  * @brief Convenience typedef for an oriented cone.
  * 
  * @related Cone
- * @related Oriented
+ * @related Transformed
  * 
  * @tparam T Coordinate type
  */
 template <typename T>
-using OrientedCone = Oriented<Cone<T>>;
+using TransformedCone = Transformed<Cone<T>>;
 
 
 /** @addtogroup traits

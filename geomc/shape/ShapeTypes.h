@@ -63,16 +63,17 @@ namespace geom {
     template <typename T, index_t N> class Simplex;
     template <typename T, index_t N> class Capsule;
     template <typename Shape>        class Extruded;
-    template <typename Shape>        class Oriented;
+    template <typename Shape>        class Transformed;
+    template <typename Shape>        class Similar;
     template <typename Shape>        class Frustum;
     template <typename Shape>        class Dilated;
     
     /**
-     * @brief Convenience typedef for oriented Rects.
-     * @related Oriented
+     * @brief Convenience typedef for transformed Rects.
+     * @related Transformed
      */
     template <typename T, index_t N>
-    using OrientedRect = Oriented<Rect<T,N>>;
+    using TransformedRect = Transformed<Rect<T,N>>;
 
     /**
      * @brief A 2D circle.

@@ -7,12 +7,19 @@
 namespace geom {
 
 /**
+ * @ingroup linalg
  * @brief A similarity transform, which is a rotation, scaling, and translation.
+ *
+ * Similar transfroms do not have any skew or nonuniform scales; they preserve
+ * shapes, angles, and relative distances.
  */
 template <typename T, index_t N>
 struct Similarity {
+    /// Scale component.
     T             sx = 1;
+    /// Rotation component.
     Rotation<T,N> rx;
+    /// Translation component.
     Vec<T,N>      tx;
     
     Similarity():rx(),tx() {}
@@ -27,9 +34,19 @@ struct Similarity {
         return geom::translation(tx) * rx.transform() * geom::scale(sx);
     }
     
-    /// Apply the similarity to a point.
+    /// Transform a point.
     Vec<T,N> operator*(const Vec<T,N>& p) const {
-        return tx + sx * rx.transform(p);
+        return tx + sx * rx * p;
+    }
+    
+    /// Transform a direction vector.
+    Vec<T,N> apply_direction(const Vec<T,N>& v) const {
+        return sx * rx.transform(v);
+    }
+    
+    /// Inverse-transform a direction vector.
+    Vec<T,N> apply_inverse_direction(const Vec<T,N>& v) const {
+        return (v / sx) / rx;
     }
     
     /// Compose two similarity transforms.
@@ -76,27 +93,64 @@ struct Similarity {
     
 };
 
+/** @addtogroup linalg
+/** @{ */
+
+/// @brief Transform a point.
+/// @related Similarity
+template <typename T, index_t N>
+Vec<T,N> operator/(const Vec<T,N>& v, const Similarity<T,N>& i) {
+    // unapply the translation, rotation, and scale in reverse order
+    return ((v - i.tx) / i.rx) / i.sx;
+}
+
+/// @brief Transform a ray.
+/// @related Similarity
+/// @related Ray
+template <typename T, index_t N>
+Ray<T,N> operator*(const Similarity<T,N>& i, const Ray<T,N>& ray) {
+    return {i * ray.origin, i.rx * i.sx * ray.direction};
+}
+
+/// @brief Inverse-transform a ray.
+/// @related Similarity
+/// @related Ray
+template <typename T, index_t N>
+Ray<T,N> operator/(const Ray<T,N>& ray, const Similarity<T,N>& i) {
+    return {ray.origin / i, (ray.direction / i.sx) / i.rx};
+}
+
+/// @brief Apply a rotation to a similarity.
+/// @related Similarity
+/// @related Rotation
 template <typename T, index_t N>
 Similarity<T,N> operator*(const Rotation<T,N>& r, const Similarity<T,N>& i) {
     return Similarity<T,N>(i.sx, r * i.rx, r.transform(i.tx));
 }
 
+/// @brief Apply a similarity to a rotation.
+/// @related Similarity
+/// @related Rotation
 template <typename T, index_t N>
 Similarity<T,N> operator*(const Similarity<T,N>& i, const Rotation<T,N>& r) {
     return Similarity<T,N>(i.sx, i.rx * r, i.tx);
 }
 
+/// @brief Apply a translation to a similarity.
+/// @related Similarity
 template <typename T, index_t N>
 Similarity<T,N> operator+(const Vec<T,N>& v, const Similarity<T,N>& i) {
     return Similarity<T,N>(i.sx, i.rx, i.tx + v);
 }
 
+/// @brief Apply a translation to a similarity.
+/// @related Similarity
 template <typename T, index_t N>
 Similarity<T,N> operator+(const Similarity<T,N>& i, const Vec<T,N>& v) {
     return Similarity<T,N>(i.sx, i.rx, i.tx + v);
 }
 
-/// Interpolate between two similarity transforms.
+/// @brief Interpolate between two similarity transforms.
 /// It is invalid to interpolate between two similarity transforms with different signs.
 template <typename T, index_t N>
 Similarity<T,N> mix(T s, const Similarity<T,N>& a, const Similarity<T,N>& b) {
@@ -110,5 +164,16 @@ Similarity<T,N> mix(T s, const Similarity<T,N>& a, const Similarity<T,N>& b) {
 
 // nb: we omit operator* with a scalar for now; it's ambiguous whether
 //   it means to apply a scaling or a partial application.
+
+
+/// @} // end addtogroup linalg
+
+template <typename T, index_t N, typename H>
+struct Digest<Similarity<T,N>, H> {
+    H operator()(const Isometry<T,N>& xf) const {
+        H nonce = geom::truncated_constant<H>(0xcab7aaee307c0de5, 0xd3074f5dbd666d01);
+        return geom::hash_many(nonce, xf.rx, xf.tx, xf.sx);
+    }
+};
 
 } // namespace geom

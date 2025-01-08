@@ -1,0 +1,208 @@
+#pragma once
+
+#include <geomc/linalg/Similarity.h>
+#include <geomc/shape/Rect.h>
+
+// todo: add intersection for bboxes and spheres
+
+namespace geom {
+
+/**
+ * @ingroup shape
+ * @brief A shape transformed by a similarity transform (translation, rotation, scale).
+ * 
+ * Similar transfrorms guarantee that shapes and relative distances are preserved.
+ */
+template <typename Shape>
+struct Similar:
+    public Convex          <typename Shape::elem_t, Shape::N, Similar<Shape>>,
+    public RayIntersectable<typename Shape::elem_t, Shape::N, Similar<Shape>>,
+    public Projectable     <typename Shape::elem_t, Shape::N, Similar<Shape>>
+{
+    using elem_t = typename Shape::elem_t;
+    static constexpr index_t N = Shape::N;
+    
+    using T = elem_t;
+    
+    /// Un-transformed shape
+    Shape shape;
+    Similarity<T,N> xf;
+    
+    /// Wrap a default-constructed shape with the identity transform.
+    Similar() {}
+    
+    /// Wrap a shape with a similarity transform.
+    Similar(const Shape& shape, const Similarity<T,N>& xf):
+        shape(shape),
+        xf(xf) {}
+    
+    /// Wrap a shape with an identity transform.
+    Similar(const Shape& shape):
+        shape(shape) {}
+    
+    bool operator==(const Similar& other) const {
+        return shape == other.shape && xf == other.xf;
+    }
+    
+    /// Shape-point intersection test.
+    bool contains(typename Shape::point_t p) const {
+        return shape.contains(p / xf);
+    }
+    
+    /// Convex support function. Return the point on the surface of the shape
+    /// which is farthest in the direction `d`.
+    Vec<T,N> convex_support(Vec<T,N> d) const {
+        return xf * shape.convex_support(xf.apply_inverse_direction(d));
+    }
+    
+    /// Compute the axis-aligned bounding box of the shape.
+    Rect<T,N> bounds() const {
+        Rect<T,N> r;
+        for (index_t axis = 0; axis < N; ++axis) {
+            // test along a cardinal axis in shape-space
+            Vec<T,N> d;
+            d[axis] = 1;
+            d = xf.apply_inverse_direction(d);
+            Vec<T,N> p_lo = xf * shape.convex_support( d);
+            Vec<T,N> p_hi = xf * shape.convex_support(-d);
+            r.lo[axis] = p_lo[axis];
+            r.hi[axis] = p_hi[axis];
+        }
+        return r;
+    }
+    
+    Similar<Rect<T,N>> transformed_bounds() const {
+        return Similar<Rect<T,N>>(bounds(), xf);
+    }
+    
+    /// Ray-shape intersection.
+    Rect<T,1> intersect(const Ray<T,N>& ray) const {
+        return xf * shape.intersect(ray / xf);
+    }
+    
+    /// Signed distance function.
+    T sdf(Vec<T,N> p) const {
+        return xf.sx * shape.sdf(p / xf);
+    }
+    
+    /// Direction away from the surface of the shape at point `p`.
+    Vec<T,N> normal(Vec<T,N> p) const {
+        return xf.rx * shape.normal(p / xf);
+    }
+    
+    /// Orthogonally project `p` to the surface of this shape.
+    Vec<T,N> project(Vec<T,N> p) const {
+        return xf * shape.project(xf.apply_inverse(p));
+    }
+    
+};
+
+/// Transform the shape `shape` by wrapping it with a Similarity transform.
+/// @related Similar
+template <typename Shape>
+inline Similar<Shape> operator*(
+        const Similarity<typename Shape::elem_t, Shape::N>& xf,
+        const Shape& shape)
+{
+    return Similar<Shape>(shape, xf);
+}
+
+/// Transform the transformed shape `s` by `xf`.
+/// @related Similar
+template <typename Shape>
+inline Transformed<Shape> operator*(
+    const Similarity<typename Shape::elem_t, Shape::N>& xf,
+    const Similar<Shape>& s)
+{
+    return Transformed<Shape>(s.shape, xf * s.xf);
+}
+
+/// In-place transform the transformed shape `s` by `xf`.
+/// @related Similar
+template <typename Shape>
+inline Transformed<Shape>& operator*=(
+    Transformed<Shape>& s,
+    const Similarity<typename Shape::elem_t, Shape::N>& xf)
+{
+    s.xf = xf * s.xf;
+    return s;
+}
+
+/// Transform the shape `s` by the inverse of `xf`.
+/// @related Similar
+template <typename Shape>
+inline Transformed<Shape> operator/(
+    const Shape& s,
+    const Similarity<typename Shape::elem_t, Shape::N>& xf)
+{
+    return Transformed<Shape>(s, xf.inv());
+}
+
+/// Transform the transformed shape `s` by the inverse of `xf`.
+/// @related Similar
+template <typename Shape>
+inline Transformed<Shape> operator/(
+    const Similar<Shape>& s,
+    const Similarity<typename Shape::elem_t, Shape::N>& xf)
+{
+    return Transformed<Shape>(s.shape, s.xf / xf);
+}
+
+/// In-place transform the transformed shape `s` by the inverse of `xf`.
+/// @related Similar
+template <typename Shape>
+inline Transformed<Shape>& operator/=(
+    Transformed<Shape>& s,
+    const Similarity<typename Shape::elem_t, Shape::N>& xf)
+{
+    s.xf = s.xf / xf;
+    return s;
+}
+
+/** @addtogroup traits
+ *  @{
+ */
+
+// Similar shapes inherit concepts
+template <typename Shape>
+struct implements_shape_concept<Similar<Shape>, RayIntersectable> : 
+    public std::integral_constant<
+        bool,
+        implements_shape_concept<Shape, RayIntersectable>::value>
+{};
+
+template <typename Shape>
+struct implements_shape_concept<Similar<Shape>, Convex> : 
+    public std::integral_constant<
+        bool,
+        implements_shape_concept<Shape, Convex>::value>
+{};
+
+template <typename Shape>
+struct implements_shape_concept<Similar<Shape>, Projectable> : 
+    public std::integral_constant<
+        bool,
+        implements_shape_concept<Shape, Projectable>::value>
+{};
+
+/// @} // addtogroup traits
+/// @} // addtogroup shape
+
+template <typename Shape, typename H>
+struct Digest<Similar<Shape>, H> {
+    template <typename H>
+    H operator()(const Similar<Shape>& s, H& h) const {
+        H nonce = geom::truncated_constant<H>(0x742da870d5a73569, 0xbbec1fb3638d6150);
+        return geom::hash_many<H>(nonce, s.shape, s.xf);
+    }
+};
+
+} // namespace geom
+
+
+template <typename Shape>
+struct std::hash<geom::Similar<Shape>> {
+    size_t operator()(const geom::Similar<Shape> &s) const {
+        return geom::hash<geom::Similar<Shape>, size_t>(s);
+    }
+};

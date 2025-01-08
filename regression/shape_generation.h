@@ -4,7 +4,7 @@
 #include <pcg_random.hpp>
 
 #include <geomc/function/Utils.h>
-#include <geomc/shape/Oriented.h>
+#include <geomc/shape/Transformed.h>
 #include <geomc/shape/Cylinder.h>
 #include <geomc/shape/Simplex.h>
 #include <geomc/shape/Sphere.h>
@@ -204,12 +204,12 @@ struct ShapeSampler<Frustum<Shape>> {
 
 
 template <typename Shape>
-struct ShapeSampler<Oriented<Shape>> {
+struct ShapeSampler<Transformed<Shape>> {
     typedef typename Shape::elem_t T;
     static constexpr size_t N = Shape::N;
     
-    Oriented<Shape> shape;
-    ShapeSampler(const Oriented<Shape>& s):shape(s) {}
+    Transformed<Shape> shape;
+    ShapeSampler(const Transformed<Shape>& s):shape(s) {}
     
     Vec<T,N> operator()(rng_t* rng) {
         return shape.xf * ShapeSampler<Shape>(shape.shape)(rng);
@@ -267,17 +267,17 @@ struct RandomShape<Simplex<T,N>> {
 };
 
 template <typename Shape>
-struct RandomShape<Oriented<Shape>> {
+struct RandomShape<Transformed<Shape>> {
     typedef typename Shape::elem_t T;
     static constexpr index_t N = Shape::N;
     
-    static Oriented<Shape> rnd_shape(rng_t* rng) {
+    static Transformed<Shape> rnd_shape(rng_t* rng) {
         SimpleMatrix<T,N,N> mx;
         for (index_t i = 0; i < N * N; ++i) {
             mx.begin()[i] = 3 * rnd<T>(rng);
         }
         AffineTransform<T,N> xf = translation(10 * rnd<T,N>(rng)) * transformation(mx);
-        return Oriented<Shape>(RandomShape<Shape>::rnd_shape(rng), xf);
+        return Transformed<Shape>(RandomShape<Shape>::rnd_shape(rng), xf);
     }
 };
 

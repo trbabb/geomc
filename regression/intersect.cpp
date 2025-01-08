@@ -8,7 +8,7 @@
 
 #include <geomc/shape/Intersect.h>
 #include <geomc/shape/Rect.h>
-#include <geomc/shape/Oriented.h>
+#include <geomc/shape/Transformed.h>
 
 #include "shape_generation.h"
 
@@ -40,7 +40,7 @@ struct PointHull : public Convex<T,N,PointHull<T,N>> {
 };
 
 template <typename T, index_t N>
-void random_box(OrientedRect<T,N>* r, rng_t* rng) {
+void random_box(TransformedRect<T,N>* r, rng_t* rng) {
     std::uniform_real_distribution<T> range{2,8};
     
     rnd(rng, &r->xf);
@@ -51,7 +51,7 @@ void random_box(OrientedRect<T,N>* r, rng_t* rng) {
 }
 
 template <typename T, index_t N>
-void get_box_corners(const OrientedRect<T,N>& r, Vec<T,N> p[1 << N]) {
+void get_box_corners(const TransformedRect<T,N>& r, Vec<T,N> p[1 << N]) {
     Vec<T,N> extreme[2] = { r.shape.lo, r.shape.hi };
     
     for (index_t i = 0; i < (1 << N); ++i) {
@@ -68,7 +68,7 @@ void get_box_corners(const OrientedRect<T,N>& r, Vec<T,N> p[1 << N]) {
 template <typename T, index_t N>
 void test_box_gjk_matches_sat(rng_t* rng, index_t iters) {
     const index_t n = (index_t)std::ceil(std::sqrt(iters));
-    OrientedRect<T,N>* boxes = new OrientedRect<T,N>[n];
+    TransformedRect<T,N>* boxes = new TransformedRect<T,N>[n];
     for (index_t i = 0; i < n; i++) {
         random_box(boxes + i, rng);
     }

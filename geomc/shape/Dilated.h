@@ -81,7 +81,7 @@ public:
     }
     
     /// Signed distance function.
-    inline T sdf(Vec<T,N> p) const {
+    T sdf(Vec<T,N> p) const {
         return shape.sdf(p) - dilation;
     }
     

@@ -12,6 +12,7 @@ namespace geom {
 //   it would be misleading to use '+' for a non-commutative operation.
 
 /**
+ * @ingroup linalg
  * @brief A rotation in N-dimensional space.
  * 
  * Currently 2D and 3D are implemented.
@@ -20,6 +21,7 @@ template <typename T, index_t N>
 struct Rotation {}; // todo: implement N-blades
 
 /**
+ * @ingroup linalg
  * @brief 2D rotation.
  */
 template <typename T>
@@ -106,17 +108,49 @@ struct Rotation<T,2> {
     }
 };
 
+/** @addtogroup linalg
+ *  @{
+ */
+
+/// @brief Apply the inverse of a rotation to a vector.
+/// @related Rotation
+template <typename T>
+Vec<T,2> operator/(const Vec<T,2>& v, const Rotation<T,2>& r) {
+    return v.rotated(-r.radians);
+}
+
+/// @brief Apply a rotation to a ray.
+/// @related Rotation
+/// @related Ray
+template <typename T, index_t N>
+Ray<T,N> operator*(const Rotation<T,N>& rot, Ray<T,N> ray) {
+    return {rot * ray.direction, rot * ray.origin};
+}
+
+/// @brief Apply the inverse of a rotation to a ray.
+/// @related Rotation
+/// @related Ray
+template <typename T, index_t N>
+Ray<T,N> operator/(Ray<T,N> ray, const Rotation<T,N>& rot) {
+    return {rot / ray.direction, rot / ray.origin};
+}
+
+/// @brief Extend a rotation.
+/// @related Rotation
 template <typename T>
 Rotation<T,2> operator*(T s, const Rotation<T,2>& o) {
     return {o.radians * s};
 }
 
+/// @brief Extend a rotation.
+/// @related Rotation
 template <typename T>
 Rotation<T,2> operator*(const Rotation<T,2>& o, T s) {
     return {o.radians * s};
 }
 
-/// Minimally interpolate two rotations.
+/// @brief Minimally interpolate two rotations.
+/// @related Rotation
 template <typename T>
 Rotation<T,2> mix(T s, const Rotation<T,2>& a, const Rotation<T,2>& b) {
     T d_a = geom::angle_to(a.radians, b.radians);
@@ -208,21 +242,51 @@ struct Rotation<T,3> {
     }
 };
 
+/// @brief Apply the inverse of a rotation to a vector.
+/// @related Rotation
+template <typename T>
+Vec<T,3> operator/(const Vec<T,3>& v, const Rotation<T,3>& r) {
+    return r.q.conj() * v;
+}
+
+/// @brief Extend a rotation.
+/// @related Rotation
 template <typename T>
 Rotation<T,3> operator*(T s, const Rotation<T,3>& o) {
     return {o.q.rotation_scale(s)};
 }
 
+/// @brief Extend a rotation.
+/// @related Rotation
 template <typename T>
 Rotation<T,3> operator*(const Rotation<T,3>& o, T s) {
     return {o.q.rotation_scale(s)};
 }
 
-/// Minimally interpolate two rotations.
+/// @brief Minimally interpolate two rotations.
+/// @related Rotation
 template <typename T>
 Rotation<T,3> mix(T s, const Rotation<T,3>& a, const Rotation<T,3>& b) {
     Quat<T> q = a.q.slerp(b.q, s);
     return Rotation<T,3>(q);
 }
+
+/// @} // addtogroup linalg
+
+template <typename T, typename H>
+struct Digest<Rotation<T,2>, H> {
+    H operator()(const Rotation<T,2>& r) const {
+        H nonce = geom::truncated_constant<H>(0x8f4676a597229f40, 0x2f01ddf7f5cb29b9);
+        return geom::hash_many(nonce, r.radians);
+    }
+};
+
+template <typename T, typename H>
+struct Digest<Rotation<T,3>, H> {
+    H operator()(const Rotation<T,3>& r) const {
+        H nonce = geom::truncated_constant<H>(0xe0da0dc698074138, 0x60197ba709a81c40);
+        return geom::hash_many(nonce, r.q);
+    }
+};
 
 } // namespace geom

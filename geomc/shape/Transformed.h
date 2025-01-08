@@ -21,24 +21,24 @@ namespace geom {
 
 /**
  * @ingroup shape
- * @brief A wrapper shape which orients another arbitrary shape with an AffineTransform.
+ * @brief A wrapper shape which transforms another arbitrary shape with an AffineTransform.
  * 
- * Oriented shapes can be constructed simply by applying an AffineTransform to an
+ * Transformed shapes can be constructed simply by applying an AffineTransform to an
  * ordinary shape:
  *
  *     AffineTransform<double,3> xf = rotation(...);
- *     Oriented<Cylinder<double,3>> oriented = xf * Cylinder<double,3>();
+ *     Transformed<Cylinder<double,3>> transformed = xf * Cylinder<double,3>();
  *
- * Transforming an Oriented results in another Oriented of the same type:
+ * Transforming a Transformed results in another Transformed of the same type:
  *
- *     Oriented<Cylinder<double,3>> ocyl_a = xf * Cylinder<double,3>();
- *     Oriented<Cylinder<double,3>> ocyl_b = xf * ocyl_a;
+ *     Transformed<Cylinder<double,3>> ocyl_a = xf * Cylinder<double,3>();
+ *     Transformed<Cylinder<double,3>> ocyl_b = xf * ocyl_a;
  * 
  */
 template <typename Shape>
-class Oriented:
-    public Convex          <typename Shape::elem_t, Shape::N, Oriented<Shape>>,
-    public RayIntersectable<typename Shape::elem_t, Shape::N, Oriented<Shape>>
+class Transformed:
+    public Convex          <typename Shape::elem_t, Shape::N, Transformed<Shape>>,
+    public RayIntersectable<typename Shape::elem_t, Shape::N, Transformed<Shape>>
 {
 public:
     /// The coordinate type of this Shape
@@ -52,17 +52,17 @@ public:
     AffineTransform<T,N> xf;
     
     /// Wrap a default-constructed Shape with the identity transformation.
-    Oriented() {}
+    Transformed() {}
     
     /// Wrap `s` in an identity transformation.
-    explicit Oriented(const Shape& s):shape(s) {}
+    explicit Transformed(const Shape& s):shape(s) {}
     
     /// Construct an oriented shape from `s`, which is positioned and oriented by `xf`.
-    Oriented(const Shape& s, const AffineTransform<T,N>& xf):
+    Transformed(const Shape& s, const AffineTransform<T,N>& xf):
         shape(s),
         xf(xf) {}
     
-    bool operator==(const Oriented& other) const {
+    bool operator==(const Transformed& other) const {
         return shape == other.shape && xf == other.xf;
     }
     
@@ -104,22 +104,22 @@ public:
     }
     
     /// Return an Oriented Rect containing the shape.
-    inline Oriented<Rect<T,N>> oriented_bounds() const {
+    inline Transformed<Rect<T,N>> transformed_bounds() const {
         return xf * shape.bounds();
     }
     
     
-}; // class Oriented
+}; // class Transformed
 
 
 /**
  * @ingroup shape
- * @brief Partial specialization of Oriented for Rects.
+ * @brief Partial specialization of Transformed for Rects.
  */
 template <typename T, index_t N>
-class Oriented<Rect<T,N>>:
-    public Convex<T,N,Oriented<Rect<T,N>>>,
-    public RayIntersectable<T,N,Oriented<Rect<T,N>>>
+class Transformed<Rect<T,N>>:
+    public Convex<T,N,Transformed<Rect<T,N>>>,
+    public RayIntersectable<T,N,Transformed<Rect<T,N>>>
 {    
 public:
     
@@ -129,17 +129,17 @@ public:
     AffineTransform<T,N> xf; // moves object points to world positions
     
     /// Construct an empty axis-aligned box.
-    Oriented() {}
+    Transformed() {}
     
     /// Construct an axis-aligned box from the given Rect.
-    explicit Oriented(const Rect<T,N>& box):shape(box) {}
+    explicit Transformed(const Rect<T,N>& box):shape(box) {}
     
-    /// Construct an oriented box from the given Rect and object-to-world transformation.
-    Oriented(const Rect<T,N>& box, const AffineTransform<T,N>& xf):
+    /// Construct a transformed box from the given Rect and object-to-world transformation.
+    Transformed(const Rect<T,N>& box, const AffineTransform<T,N>& xf):
             shape(box),
             xf(xf) {}
     
-    bool operator==(const Oriented& other) const {
+    bool operator==(const Transformed& other) const {
         return shape == other.shape && xf == other.xf;
     }
     
@@ -166,7 +166,7 @@ public:
     }
 
     /// Return `this`.
-    inline Oriented< Rect<T,N> > oriented_bounds() const {
+    inline Transformed<Rect<T,N>> transformed_bounds() const {
         return *this;
     }
     
@@ -189,9 +189,9 @@ public:
     }
     
     /**
-     * Test whether this Oriented<Rect> overlaps an axis-aligned Rect.
+     * Test whether this Transformed<Rect> overlaps an axis-aligned Rect.
      * 
-     * @param b1 OritentedRect to test against.
+     * @param b1 TransformedRect to test against.
      * @return `true` if and only if `this` overlaps with `b1`; `false` otherwise.
      */
     bool intersects(const Rect<T,N>& r) const {
@@ -199,17 +199,17 @@ public:
     }
     
     /**
-     * Test whether this Oriented<Rect> overlaps another.
+     * Test whether this Transformed<Rect> overlaps another.
      * 
      * @param b1 OritentedRect to test against.
      * @return `true` if and only if `this` overlaps with `b1`; `false` otherwise.
      */
-    bool intersects(const Oriented< Rect<T,N> >& b1) {
+    bool intersects(const Transformed< Rect<T,N> >& b1) {
         // we will make ourselves axis-aligned; this is the same as applying
         // the inverse of our xf. We apply the inverse of xf to b1 too,
         // to preserve the relationhip between the us. From this, we
         // fallback to an ORect <-> Rect test.
-        Oriented< Rect<T,N> > b1_in_b0 = b1 / xf;
+        Transformed< Rect<T,N> > b1_in_b0 = b1 / xf;
         
         return b1_in_b0.intersects(shape);
     }
@@ -232,7 +232,7 @@ public:
         return det_destructive(mx.data_begin(), N);
     }
     
-}; // class Oriented<Rect>
+}; // class Transformed<Rect>
 
 
 /** @addtogroup shape
@@ -246,41 +246,41 @@ public:
 
 
 /**
- * @brief Transform the shape `s` by wrapping it in an `Oriented` class.
+ * @brief Transform the shape `s` by wrapping it in an `Transformed` class.
  * @related AffineTransform
- * @related Oriented
+ * @related Transformed
  */
 template <typename Shape>
-inline Oriented<Shape> operator*(
+inline Transformed<Shape> operator*(
         const AffineTransform<typename Shape::elem_t, Shape::N>& xf,
         const Shape& s)
 {
-    return Oriented<Shape>(s, xf);
+    return Transformed<Shape>(s, xf);
 }
 
 
 /**
- * @brief Transform the oriented shape `s` by `xf`.
+ * @brief Transform the transformed shape `s` by `xf`.
  * @related AffineTransform
- * @related Oriented
+ * @related Transformed
  */
 template <typename Shape>
-inline Oriented<Shape> operator*(
+inline Transformed<Shape> operator*(
         const AffineTransform<typename Shape::elem_t, Shape::N>& xf,
-        const Oriented<Shape>& s)
+        const Transformed<Shape>& s)
 {
-    return Oriented<Shape>(s.shape, xf * s.xf);
+    return Transformed<Shape>(s.shape, xf * s.xf);
 }
 
 
 /**
- * @brief In-place transform the oriented shape `s` by `xf`.
+ * @brief In-place transform the transformed shape `s` by `xf`.
  * @related AffineTransform
- * @related Oriented
+ * @related Transformed
  */
 template <typename Shape>
-inline Oriented<Shape>& operator*=(
-        Oriented<Shape>& s,
+inline Transformed<Shape>& operator*=(
+        Transformed<Shape>& s,
         const AffineTransform<typename Shape::elem_t, Shape::N>& xf)
 {
     s.xf *= xf;
@@ -291,39 +291,39 @@ inline Oriented<Shape>& operator*=(
 /**
  * @brief Transform the shape `s` by the inverse of `xf`.
  * @related AffineTransform
- * @related Oriented
+ * @related Transformed
  */
 template <typename Shape>
-inline Oriented<Shape> operator/(
+inline Transformed<Shape> operator/(
         const Shape& s,
         const AffineTransform<typename Shape::elem_t, Shape::N>& xf)
 {
-    return Oriented<Shape>(s, xf.inverse());
+    return Transformed<Shape>(s, xf.inverse());
 }
 
 
 /**
- * @brief Transform the oriented shape `s` by the inverse of `xf`.
+ * @brief Transform the transformed shape `s` by the inverse of `xf`.
  * @related AffineTransform
- * @related Oriented
+ * @related Transformed
  */
 template <typename Shape>
-inline Oriented<Shape> operator/(
-        const Oriented<Shape>& s,
+inline Transformed<Shape> operator/(
+        const Transformed<Shape>& s,
         const AffineTransform<typename Shape::elem_t, Shape::N>& xf)
 {
-    return Oriented<Shape>(s.shape, s.xf / xf);
+    return Transformed<Shape>(s.shape, s.xf / xf);
 }
 
 
 /**
- * @brief In-place transform the oriented shape `s` by the inverse of `xf`.
+ * @brief In-place transform the transformed shape `s` by the inverse of `xf`.
  * @related AffineTransform
- * @related Oriented
+ * @related Transformed
  */
 template <typename Shape>
-inline Oriented<Shape>& operator/=(
-        Oriented<Shape>& s,
+inline Transformed<Shape>& operator/=(
+        Transformed<Shape>& s,
         const AffineTransform<typename Shape::elem_t, Shape::N>& xf)
 {
     s.xf /= xf;
@@ -334,27 +334,27 @@ inline Oriented<Shape>& operator/=(
  *  @{
  */
 
-// Oriented shapes inherit concepts
+// Transformed shapes inherit concepts
 template <typename Shape>
-struct implements_shape_concept<Oriented<Shape>, RayIntersectable> : 
+struct implements_shape_concept<Transformed<Shape>, RayIntersectable> : 
     public std::integral_constant<
         bool,
         implements_shape_concept<Shape, RayIntersectable>::value>
 {};
 
 template <typename Shape>
-struct implements_shape_concept<Oriented<Shape>, Convex> : 
+struct implements_shape_concept<Transformed<Shape>, Convex> : 
     public std::integral_constant<
         bool,
-        implements_shape_concept<Shape, RayIntersectable>::value>
+        implements_shape_concept<Shape, Convex>::value>
 {};
 
 /// @} // addtogroup traits
 /// @} // addtogroup shape
 
 template <typename Shape, typename H>
-struct Digest<Oriented<Shape>, H> {
-    H operator()(const Oriented<Shape> &s) const {
+struct Digest<Transformed<Shape>, H> {
+    H operator()(const Transformed<Shape> &s) const {
         H nonce = geom::truncated_constant<H>(0xb04c31374e530a4e, 0xae9a04ef51d26625);
         return geom::hash_many<H>(nonce, s.shape, s.xf);
     }
@@ -364,8 +364,8 @@ struct Digest<Oriented<Shape>, H> {
 
 
 template <typename Shape>
-struct std::hash<geom::Oriented<Shape>> {
-    size_t operator()(const geom::Oriented<Shape> &s) const {
-        return geom::hash<geom::Oriented<Shape>, size_t>(s);
+struct std::hash<geom::Transformed<Shape>> {
+    size_t operator()(const geom::Transformed<Shape> &s) const {
+        return geom::hash<geom::Transformed<Shape>, size_t>(s);
     }
 };

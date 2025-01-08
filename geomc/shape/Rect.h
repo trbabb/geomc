@@ -637,11 +637,11 @@ public:
     }
 
     /**
-     * @brief Oriented range intersection test.
+     * @brief Transformed range intersection test.
      *
      * Alias for `box.intersects(*this)`.
      */
-    bool intersects(const Oriented<Rect<T,N>>& box) const {
+    bool intersects(const Transformed<Rect<T,N>>& box) const {
         // delegate to OrientedRect
         return box.intersects(*this);
     }
