@@ -49,14 +49,8 @@ struct Similar:
         return shape.contains(p / xf);
     }
     
-    /// Shape-sphere intersection.
-    bool intersects(const Sphere<T,N> s) const 
-        requires requires (const Shape s, const Sphere<T,N> b) { s.intersects(b); }
-    {
-        return shape.intersects(s / xf);
-    }
-    
-    /// Shape-shape intersection.
+    /// @brief Intersecion with another similar shape.
+    /// Requires that the our shape can intersect the other shape's base shape.
     template <typename S>
     bool intersects(const Similar<S>& s) const 
         requires requires (const Similar<Shape> s, const S b) { s.intersects(b); }
@@ -66,6 +60,22 @@ struct Similar:
         // un-transforming ourselves first.
         Similar<Shape> s1 = *this / s.xf;
         return s1.intersects(s.shape);
+    }
+    
+    /// @brief Intersection with another shape.
+    /// Requires that the other shape can be transformed into our space
+    /// while preserving its type.
+    template <typename S>
+    bool intersects(const S& s) const 
+        requires requires (Similarity<T,N> xf, const Shape s, const S b) { 
+            s.intersects(b);
+            { b / xf } -> std::same_as<S>;
+        }
+    {
+        // if we can transform the other shape into base-shape space,
+        // and our base shape can intersect the other shape,
+        // then we can intersect with the other shape.
+        return shape.intersects(s / xf);
     }
     
     /// Convex support function. Return the point on the surface of the shape
