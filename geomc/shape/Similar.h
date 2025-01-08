@@ -97,7 +97,7 @@ struct Similar:
     
 };
 
-/// Transform the shape `shape` by wrapping it with a Similarity transform.
+/// @brief Transform the shape `shape` by wrapping it with a Similarity transform.
 /// @related Similar
 template <typename Shape>
 inline Similar<Shape> operator*(
@@ -107,52 +107,52 @@ inline Similar<Shape> operator*(
     return Similar<Shape>(shape, xf);
 }
 
-/// Transform the transformed shape `s` by `xf`.
+/// @brief Transform the shape `s` by `xf`.
 /// @related Similar
 template <typename Shape>
-inline Transformed<Shape> operator*(
+inline Similar<Shape> operator*(
     const Similarity<typename Shape::elem_t, Shape::N>& xf,
     const Similar<Shape>& s)
 {
-    return Transformed<Shape>(s.shape, xf * s.xf);
+    return Similar<Shape>(s.shape, xf * s.xf);
 }
 
-/// In-place transform the transformed shape `s` by `xf`.
+/// @brief In-place transform the shape `s` by `xf`.
 /// @related Similar
 template <typename Shape>
-inline Transformed<Shape>& operator*=(
-    Transformed<Shape>& s,
+inline Similar<Shape>& operator*=(
+    Similar<Shape>& s,
     const Similarity<typename Shape::elem_t, Shape::N>& xf)
 {
     s.xf = xf * s.xf;
     return s;
 }
 
-/// Transform the shape `s` by the inverse of `xf`.
+/// @brief Transform the shape `s` by the inverse of `xf`.
 /// @related Similar
 template <typename Shape>
-inline Transformed<Shape> operator/(
+inline Similar<Shape> operator/(
     const Shape& s,
     const Similarity<typename Shape::elem_t, Shape::N>& xf)
 {
-    return Transformed<Shape>(s, xf.inv());
+    return Similar<Shape>(s, xf.inv());
 }
 
-/// Transform the transformed shape `s` by the inverse of `xf`.
+/// @brief Transform the shape `s` by the inverse of `xf`.
 /// @related Similar
 template <typename Shape>
-inline Transformed<Shape> operator/(
+inline Similar<Shape> operator/(
     const Similar<Shape>& s,
     const Similarity<typename Shape::elem_t, Shape::N>& xf)
 {
-    return Transformed<Shape>(s.shape, s.xf / xf);
+    return Similar<Shape>(s.shape, s.xf / xf);
 }
 
-/// In-place transform the transformed shape `s` by the inverse of `xf`.
+/// @brief In-place transform the shape `s` by the inverse of `xf`.
 /// @related Similar
 template <typename Shape>
-inline Transformed<Shape>& operator/=(
-    Transformed<Shape>& s,
+inline Similar<Shape>& operator/=(
+    Similar<Shape>& s,
     const Similarity<typename Shape::elem_t, Shape::N>& xf)
 {
     s.xf = s.xf / xf;
