@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['z_5faxis_0',['Z_AXIS',['../classgeom_1_1_vec_3_01_t_00_013_01_4.html#a187e6d2633f33f497191638a15b79732',1,'geom::Vec&lt; T, 3 &gt;::Z_AXIS()'],['../classgeom_1_1_vec_3_01_t_00_014_01_4.html#a4df6497a333e548bf8361f6843f9524d',1,'geom::Vec&lt; T, 4 &gt;::Z_AXIS()']]]
+  ['y_5faxis_0',['Y_AXIS',['../classgeom_1_1_vec_3_01_t_00_012_01_4.html#af9a36de78b0ff0827947a384ddd55907',1,'geom::Vec&lt; T, 2 &gt;::Y_AXIS'],['../classgeom_1_1_vec_3_01_t_00_013_01_4.html#a1272eeb7c7c23536d3ba818d34bbaf03',1,'geom::Vec&lt; T, 3 &gt;::Y_AXIS'],['../classgeom_1_1_vec_3_01_t_00_014_01_4.html#a1dad69687dc012451c5c65f95bb6522c',1,'geom::Vec&lt; T, 4 &gt;::Y_AXIS']]]
 ];

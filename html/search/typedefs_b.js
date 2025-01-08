@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['t_0',['T',['../classgeom_1_1_dilated.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee',1,'geom::Dilated::T()'],['../classgeom_1_1_extrusion.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee',1,'geom::Extrusion::T()'],['../classgeom_1_1_frustum.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee',1,'geom::Frustum::T()'],['../classgeom_1_1_oriented.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee',1,'geom::Oriented::T()']]],
-  ['tree_5ft_1',['tree_t',['../classgeom_1_1_subtree_base.html#a904e4d810d2e5eea75b58c66e08c0236',1,'geom::SubtreeBase']]],
-  ['type_2',['type',['../structgeom_1_1_generic_storage.html#a4ebe581c279acbdd5af9597202715bc3',1,'geom::GenericStorage']]]
+  ['t_0',['T',['../classgeom_1_1_dilated.html#a46692954491d469bcd0ef9ba62dd122c',1,'geom::Dilated::T'],['../classgeom_1_1_extruded.html#a46692954491d469bcd0ef9ba62dd122c',1,'geom::Extruded::T'],['../classgeom_1_1_frustum.html#a46692954491d469bcd0ef9ba62dd122c',1,'geom::Frustum::T'],['../classgeom_1_1_transformed.html#a46692954491d469bcd0ef9ba62dd122c',1,'geom::Transformed::T']]],
+  ['transformedcone_1',['TransformedCone',['../group__shape.html#gaf690608727685058eb94ceb8bc96d8d8',1,'geom::Transformed']]],
+  ['transformedrect_2',['TransformedRect',['../group__shape.html#gaf52ec478b4a98b5397fa19ab7d9191cf',1,'geom::Transformed']]],
+  ['tree_5ft_3',['tree_t',['../classgeom_1_1_subtree_base.html#aefb91ccb01a256b48897e70faf57b2d5',1,'geom::SubtreeBase']]],
+  ['type_4',['type',['../structgeom_1_1_generic_storage.html#a855257f38bf167d343e70e220406c20c',1,'geom::GenericStorage']]]
 ];

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['oriented_0',['Oriented',['../classgeom_1_1_oriented.html',1,'geom']]],
-  ['oriented_3c_20rect_3c_20t_2c_20n_20_3e_20_3e_1',['Oriented&lt; Rect&lt; T, N &gt; &gt;',['../classgeom_1_1_oriented_3_01_rect_3_01_t_00_01_n_01_4_01_4.html',1,'geom']]]
+  ['nonsquarematrixexception_0',['NonsquareMatrixException',['../classgeom_1_1_nonsquare_matrix_exception.html',1,'geom']]],
+  ['numeric_5flimits_3c_20geom_3a_3adual_3c_20t_2c_20dp_20_3e_20_3e_1',['numeric_limits&lt; geom::Dual&lt; T, Dp &gt; &gt;',['../structstd_1_1numeric__limits_3_01geom_1_1_dual_3_01_t_00_01_dp_01_4_01_4.html',1,'std']]]
 ];

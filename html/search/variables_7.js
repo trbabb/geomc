@@ -1,5 +1,6 @@
 var searchData=
 [
   ['insert_0',['insert',['../structgeom_1_1_k_d_tree_1_1_k_d_structure_params.html#a75625203498ac85cdf4d37b23cc2bb40',1,'geom::KDTree::KDStructureParams']]],
-  ['inv_1',['inv',['../classgeom_1_1_affine_transform.html#ae619bd6ea27d842746837177297ccba7',1,'geom::AffineTransform']]]
+  ['inv_1',['inv',['../classgeom_1_1_affine_transform.html#ae619bd6ea27d842746837177297ccba7',1,'geom::AffineTransform']]],
+  ['iterations_2',['iterations',['../structgeom_1_1_intersector.html#a3bc6cf073312c96d48e813b642cd048c',1,'geom::Intersector']]]
 ];
