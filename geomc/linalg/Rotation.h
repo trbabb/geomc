@@ -75,6 +75,23 @@ struct Rotation<T,2> {
         return std::polar((T)1, radians);
     }
     
+    /// Cast the underlying coordinate type.
+    template <typename U>
+    explicit operator Rotation<U,2>() const {
+        return Rotation<U,2>(static_cast<U>(radians));
+    }
+    
+    /// Cast to a 3D rotation.
+    operator Rotation<T,3>() const {
+        return Rotation<T,3>({0,0,1}, radians);
+    }
+    
+    /// Cast to a 3D rotation and change the coordinate type.
+    template <typename U>
+    explicit operator Rotation<U,3>() const {
+        return Rotation<U,3>({0,0,1}, static_cast<U>(radians));
+    }
+    
     /// Apply to a 2D vector.
     Vec<T,2> operator*(const Vec<T,2>& v) const {
         return v.rotated(radians);

@@ -2,7 +2,6 @@
 
 #include <geomc/linalg/Vec.h>
 #include <geomc/linalg/Similarity.h>
-#include <geomc/linalg/Isometry.h>
 #include <geomc/shape/Shape.h>
 #include <geomc/function/Utils.h>
 
@@ -10,7 +9,7 @@ namespace geom {
 
 /** 
  * @ingroup shape
- * @brief A N-dimensional capsule shape
+ * @brief An N-dimensional capsule shape
  */
 template <typename T, index_t N>
 class Capsule:

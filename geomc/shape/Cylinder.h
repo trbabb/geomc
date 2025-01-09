@@ -5,7 +5,6 @@
  *
  * Created on May 19, 2014, 10:58 PM
  */
-#include <geomc/linalg/Isometry.h>
 #include <geomc/linalg/Similarity.h>
 #include <geomc/shape/ShapeTypes.h>
 #include <geomc/shape/Shape.h>

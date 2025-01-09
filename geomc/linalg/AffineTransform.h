@@ -874,7 +874,7 @@ AffineTransform<T,2> translation(T tx, T ty) {
 // hashing
 template <typename T, size_t N, typename H>
 struct Digest<AffineTransform<T,N>, H> {
-    size_t operator()(const AffineTransform<T,N>& xf) const {
+    H operator()(const AffineTransform<T,N>& xf) const {
         H nonce = truncated_constant<H>(0x173d01f6a3408f0b, 0x74a2e1d9f7a37c6f);
         return geom::hash<SimpleMatrix<T,N+1,N+1>, H>(xf.mat) ^ nonce;
     }

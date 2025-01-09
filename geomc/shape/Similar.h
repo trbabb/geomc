@@ -3,7 +3,8 @@
 #include <geomc/linalg/Similarity.h>
 #include <geomc/shape/Rect.h>
 
-// todo: add intersection for bboxes and spheres
+// todo: add intersection for SAT-tested bboxes
+// todo: test intersection with Sphere
 
 namespace geom {
 
@@ -121,7 +122,7 @@ struct Similar:
     
     /// Orthogonally project `p` to the surface of this shape.
     Vec<T,N> project(Vec<T,N> p) const {
-        return xf * shape.project(xf.apply_inverse(p));
+        return xf * shape.project(p / xf);
     }
     
 };
@@ -219,7 +220,6 @@ struct implements_shape_concept<Similar<Shape>, Projectable> :
 
 template <typename Shape, typename H>
 struct Digest<Similar<Shape>, H> {
-    template <typename H>
     H operator()(const Similar<Shape>& s, H& h) const {
         H nonce = geom::truncated_constant<H>(0x742da870d5a73569, 0xbbec1fb3638d6150);
         return geom::hash_many<H>(nonce, s.shape, s.xf);

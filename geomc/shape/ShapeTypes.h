@@ -73,7 +73,14 @@ namespace geom {
      * @related Transformed
      */
     template <typename T, index_t N>
-    using TransformedRect = Transformed<Rect<T,N>>;
+    using AffineBox = Transformed<Rect<T,N>>;
+    
+    /**
+     * @brief Convenience typedef for arbitrarily-oriented Rects.
+     * @related Similar
+     */
+    template <typename T, index_t N>
+    using Box = Similar<Rect<T,N>>;
 
     /**
      * @brief A 2D circle.

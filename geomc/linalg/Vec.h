@@ -334,7 +334,7 @@ public:
 }; /* class Vec */
 
 template <typename T, index_t N, typename H>
-struct Digest<Vec<T,N>,H> {
+struct Digest<Vec<T,N>, H> {
     H operator()(const Vec<T,N> &v) const {
         H nonce = geom::truncated_constant<H>(0xc0da6f441f70ee90, 0x37217861ad19149b);
         return geom::hash_array(nonce, v.begin(), N);

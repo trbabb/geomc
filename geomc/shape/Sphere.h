@@ -1,7 +1,6 @@
 #pragma once
 
 #include <geomc/linalg/Vec.h>
-#include <geomc/linalg/Isometry.h>
 #include <geomc/linalg/Similarity.h>
 #include <geomc/shape/Shape.h>
 #include <geomc/function/Utils.h>

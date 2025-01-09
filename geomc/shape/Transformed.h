@@ -1,6 +1,7 @@
 #pragma once
 
 #include <geomc/linalg/AffineTransform.h>
+#include <geomc/linalg/Similarity.h>
 #include <geomc/shape/Rect.h>
 #include <geomc/shape/shapedetail/SeparatingAxis.h>
 
@@ -328,6 +329,58 @@ inline Transformed<Shape>& operator/=(
 {
     s.xf /= xf;
     return s;
+}
+
+/**
+ * @brief Transform the shape `s` by a similarity transform `xf`.
+ * @related Similarity
+ * @related Transformed
+ */
+template <typename Shape, typename T, index_t N>
+inline Transformed<Shape> operator*(
+        const Similarity<T,N>& xf,
+        const Transformed<Shape>& s)
+{
+    return Transformed<Shape>(s, xf * s.xf);
+}
+
+/**
+ * @brief Inverse transform the shape `s` by a similarity transform `xf`.
+ * @related Similar
+ * @related Transformed
+ */
+template <typename Shape, typename T, index_t N>
+inline Transformed<Shape> operator/(
+        const Transformed<Shape>& s,
+        const Similarity<T,N>& xf)
+{
+    return Transformed<Shape>(s, s.xf / xf);
+}
+
+/**
+ * @brief Transform the shape `s` by an isometry `xf`.
+ * @related Isometry
+ * @related Transformed
+ */
+template <typename Shape, typename T, index_t N>
+inline Transformed<Shape> operator*(
+        const Isometry<T,N>& xf,
+        const Transformed<Shape>& s)
+{
+    return Transformed<Shape>(s, xf * s.xf);
+}
+
+/**
+ * @brief Inverse transform the shape `s` by an isometry `xf`.
+ * @related Isometry
+ * @related Transformed
+ */
+template <typename Shape, typename T, index_t N>
+inline Transformed<Shape> operator/(
+        const Transformed<Shape>& s,
+        const Isometry<T,N>& xf)
+{
+    return Transformed<Shape>(s, s.xf / xf);
 }
 
 /** @addtogroup traits

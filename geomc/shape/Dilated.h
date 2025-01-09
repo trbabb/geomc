@@ -1,6 +1,5 @@
 #pragma once
 
-#include <geomc/linalg/Isometry.h>
 #include <geomc/linalg/Similarity.h>
 #include <geomc/shape/Rect.h>
 #include <geomc/shape/Sphere.h>

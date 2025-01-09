@@ -2,7 +2,6 @@
 
 #include <geomc/shape/Shape.h>
 #include <geomc/linalg/Vec.h>
-#include <geomc/linalg/Isometry.h>
 #include <geomc/linalg/Similarity.h>
 #include <geomc/linalg/Orthogonal.h>
 #include <geomc/linalg/Matrix.h>

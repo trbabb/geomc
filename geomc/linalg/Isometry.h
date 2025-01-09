@@ -18,8 +18,9 @@ namespace geom {
  * Isometries compose like transforms, with multiplication on the left:
  *
  *     Isometry<T,N> i1, i2;
- *     Isometry<T,N> i3 = i2 * i1; // isometry which applies i2, then i1
- *     Vec<T,N> v = i3 * i1 * v0;  // apply i1 to v0, then i3 to the result
+ *     Isometry<T,N> i3 = i2 * i1;  // isometry which applies i2, then i1
+ *     Vec<T,N> v = i3 * i1 * v0;   // apply i1 to v0, then i3 to the result
+ *     Sphere<T,N> s = i1 * sphere; // apply i1 to a sphere
  *
  * Isometries can be inverted with the `/` operator:
  *
@@ -50,6 +51,29 @@ struct Isometry {
     /// Cast to an affine transform.
     operator AffineTransform<T,N>() const {
         return geom::translation(tx) * rx.transform();
+    }
+    
+    /// Cast the underlying coordinate type.
+    template <typename U>
+    explicit operator Isometry<U,N>() const {
+        return Isometry<U,N>(rx, tx);
+    }
+    
+    /// Extend the dimensionality of this isometry.
+    template <index_t M>
+    requires (M > N)
+    operator Isometry<T,M>() const {
+        return Isometry<T,M>(rx, tx.template resized<M>());
+    }
+    
+    /// Extend the dimensionality of this isometry and change the coordinate type.
+    template <typename U, index_t M>
+    requires (M > N)
+    explicit operator Isometry<U,M>() const {
+        return Isometry<U,M>(
+            static_cast<Rotation<U,M>>(rx),
+            Vec<U,M>(tx)
+        );
     }
     
     /// Compose two isometric transforms.

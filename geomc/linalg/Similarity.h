@@ -1,6 +1,6 @@
 #pragma once
 
-#include <geomc/linalg/Rotation.h>
+#include <geomc/linalg/Isometry.h>
 
 // todo: lie algebra operations (exp, log, etc)
 
@@ -21,7 +21,8 @@ namespace geom {
  *
  *     Similarity<T,N> s1, s2;
  *     Similarity<T,N> s3 = s2 * s1; // similarity which applies s2, then s1
- *     Vec<T,N> v = s3 * s1 * v0;  // apply s1 to v0, then s3 to the result
+ *     Vec<T,N> v = s3 * s1 * v0;    // apply s1 to v0, then s3 to the result
+ *     Sphere<T,N> s = s1 * sphere;  // apply s1 to a sphere
  *
  * Similarity transforms can be inverted with the `/` operator:
  *
@@ -62,6 +63,29 @@ struct Similarity {
     /// Represent this similarity as an affine transform.
     operator AffineTransform<T,N>() const {
         return geom::translation(tx) * rx.transform() * geom::scale(sx);
+    }
+    
+    /// Cast the underlying coordinate type.
+    template <typename U>
+    explicit operator Similarity<U,N>() const {
+        return Similarity<U,N>(sx, rx, tx);
+    }
+    
+    /// Extend the dimensionality of this similarity.
+    template <index_t M>
+    requires (M > N)
+    operator Similarity<T,M>() const {
+        return Similarity<T,M>(sx, rx, tx.template resized<M>());
+    }
+    
+    /// Extend the dimensionality of this similarity and change the coordinate type.
+    template <typename U, index_t M>
+    requires (M > N)
+    explicit operator Similarity<U,M>() const {
+        return Similarity<U,M>(
+            static_cast<Rotation<U,M>>(rx),
+            Vec<U,M>(tx)
+        );
     }
     
     /// Transform a point.
