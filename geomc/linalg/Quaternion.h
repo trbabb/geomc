@@ -230,7 +230,7 @@ public:
     // this may go the "long way" around. that what we want?
     Quat<T> rotation_scale(T t) const {
         // assumes a unit quaternion.
-        const T w = std::max(-1, std::min(Vec<T,4>::w, 1));
+        T w = std::max<T>(-1, std::min<T>(this->w, 1));
         T omega = std::acos(w);
         T theta = omega * t;
         return Quat<T>(std::sin(theta) * imag().unit(), std::cos(theta));

@@ -855,16 +855,31 @@ public:
      * `clip()` leaves `p` unchanged if it lies in the Rect's interior.
      */
     point_t project(point_t p) const {
-        T* p_i = ptype::iterator(p);
-        const T* lo_i = ptype::iterator(lo);
-        const T* hi_i = ptype::iterator(hi);
-        for (index_t i = 0; i < N; ++i) {
-            // for each coordinate, find the extrumum which is closest to p
-            T d_lo = std::abs(p_i[i] - lo_i[i]);
-            T d_hi = std::abs(p_i[i] - hi_i[i]);
-            p_i[i] = (d_lo < d_hi) ? lo_i[i] : hi_i[i];
+        if (contains(p)) {
+            // project to the closest face;
+            // i.e. find the axis along which p is closest to a boundary and 
+            // snap that coordinate to the boundary.
+            index_t best_axis = 0;
+            T winning_coord   = 0;
+            T best_distance   = std::numeric_limits<T>::max();
+            for (index_t i = 0; i < N; ++i) {
+                T   p_i = ptype::iterator(p) [i];
+                T  lo_i = ptype::iterator(lo)[i];
+                T  hi_i = ptype::iterator(hi)[i];
+                T to_lo = std::abs(p_i - lo_i);
+                T to_hi = std::abs(p_i - hi_i);
+                T  dist = std::min(to_lo, to_hi);
+                if (dist < best_distance) {
+                    winning_coord = to_lo < to_hi ? lo_i : hi_i;
+                    best_axis     = i;
+                    best_distance = dist;
+                }
+            }
+            p[best_axis] = winning_coord;
+            return p;
+        } else {
+            return clip(p);
         }
-        return p;
     }
 
     /**

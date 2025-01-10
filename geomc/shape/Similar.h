@@ -4,13 +4,12 @@
 #include <geomc/shape/Rect.h>
 
 // todo: add intersection for SAT-tested bboxes
-// todo: test intersection with Sphere
 
 namespace geom {
 
 /**
  * @ingroup shape
- * @brief A shape transformed by a similarity transform (translation, rotation, scale).
+ * @brief A shape transformed by a similarity transform (translation, rotation, and scale).
  * 
  * Similar transfrorms guarantee that shapes and relative distances are preserved.
  */

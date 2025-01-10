@@ -10,7 +10,7 @@ namespace geom {
  * @ingroup linalg
  * @brief A similarity transform, which is a rotation, scaling, and translation.
  *
- * Similar transfroms do not have any skew or nonuniform scales; they preserve
+ * Similar transforms do not have any skew or nonuniform scales; they preserve
  * shapes, angles, and relative distances.
  *
  * For transforms which do not include a scaling, see Isometry.
