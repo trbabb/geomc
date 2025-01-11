@@ -1,12 +1,10 @@
+#pragma once
 /*
  * LinalgTypes.h
  *
  *  Created on: Nov 11, 2010
  *      Author: tbabb
  */
-
-#ifndef LINALGTYPES_H_
-#define LINALGTYPES_H_
 
 #include <geomc/geomc_defs.h>
 #include <geomc/Storage.h>
@@ -56,6 +54,9 @@ namespace detail {
     template <typename T, index_t N>            class Vec;
     template <typename T>                       class Quat;
     template <typename T, index_t N>            class Ray;
+    template <typename T, index_t N>            class Rotation;
+    template <typename T, index_t N>            class Isometry;
+    template <typename T, index_t N>            class Similarity;
     template <typename T, index_t N>            class AffineTransform;
     template <typename T, index_t M, index_t N> class PLUDecomposition;
     
@@ -128,6 +129,54 @@ namespace detail {
     using WrapperMatrix = SimpleMatrix<T,M,N,Lyt,STORAGE_WRAPPED>;
 
 #endif
+    
+    /// @brief Represents an object or operation that exists in a certain
+    /// dimension with a certain coordinate type.
+    /// @ingroup linalg
+    template <typename T, index_t _N>
+    struct Dimensional {
+        /// The coordinate type of this object.
+        using elem_t = T;
+        /// The dimension of this object.
+        static constexpr index_t N = _N;
+        
+    private:
+        // prevent this class from taking space
+        int _dummy[0];
+    };
+    
+    /// Represents a means of transforming a point or vector.
+    template <typename Xf, typename T, index_t N>
+    concept Transform = requires (Xf xf, Vec<T,N> p) {
+        // transforms can be applied to points
+        { xf * p } -> std::convertible_to<Vec<T,N>>;
+        // inverse transforms can be applied to points
+        { p / xf } -> std::convertible_to<Vec<T,N>>;
+        // transforms can be composed
+        { xf * xf } -> std::convertible_to<T>;
+        // transforms have inverses
+        { xf.inverse() } -> std::convertible_to<T>;
+        // transforms can operate on directions
+        { xf.apply_direction(p) } -> std::convertible_to<Vec<T,N>>;
+        // inverse transforms can operate on directions
+        { xf.apply_inverse_direction(p) } -> std::convertible_to<Vec<T,N>>;
+        // transforms can in-place compose
+        { xf *= xf } -> std::convertible_to<T>;
+        // transforms can in-place apply inverse
+        { xf /= xf } -> std::convertible_to<T>;
+    };
+    
+    /// A transformable is that which can be operated on by a Transform
+    /// and maintain its type.
+    template <typename S, typename Xf>
+    concept Transformable = 
+        Transform<Xf, typename S::elem_t, S::N> and
+        requires (S s, Xf xf) {
+            // transformables can be transformed
+            { xf * s } -> std::convertible_to<S>;
+            // transformables can be inverse-transformed
+            { s / xf } -> std::convertible_to<S>;
+        };
     
     // Point type information
     // these are used to switch code between behaviors for
@@ -232,5 +281,3 @@ namespace detail {
     };
     
 } // namespace geom
-
-#endif /* LINALGTYPES_H_ */

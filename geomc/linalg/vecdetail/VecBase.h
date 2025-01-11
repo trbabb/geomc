@@ -318,17 +318,13 @@ public:
 
 /// Common base for all Vec-derived classes. Do not instantiate directly.
 template <typename T, index_t N, typename VType>
-class VecCommon : public VecBase<T,N> {
+class VecCommon : public VecBase<T,N>, public Dimensional<T,N> {
 public:
     
     static_assert(N > 0, "Vector dimension must be larger than zero and cannot be dynamic");
     
     /// Self type. I.e., `Vec<T,N>` if a vector, `Quat<T>` if a quaternion.
     typedef VType self_t;
-    /// Element type.
-    typedef T elem_t;
-    /// Vector dimension.
-    static constexpr index_t DIM = N;
     
     static const self_t ones;
     static const self_t zeros;
@@ -908,7 +904,7 @@ struct IsVector {
 template <typename T>
 struct IsVector<T, typename std::enable_if<
                         std::is_base_of<
-                            detail::VecCommon<typename T::elem_t, T::DIM, T>, 
+                            detail::VecCommon<typename T::elem_t, T::N, T>, 
                             T>::value,
                     void>::type
                  >

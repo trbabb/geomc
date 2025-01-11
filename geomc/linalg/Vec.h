@@ -53,7 +53,7 @@ inline typename std::enable_if<
         V>::type 
 operator* (const V &v, U d) {
     V r;
-    for (index_t i = 0; i < V::DIM; i++) {
+    for (index_t i = 0; i < V::N; i++) {
         r[i] = v[i] * d;
     }
     return r;
@@ -77,7 +77,7 @@ inline typename std::enable_if<
         V>::type 
 operator* (U d, const V &v) {
     V r;
-    for (index_t i = 0; i < V::DIM; i++) {
+    for (index_t i = 0; i < V::N; i++) {
         r[i] = d * v[i];
     }
     return r;
@@ -120,7 +120,7 @@ inline
 typename std::enable_if<detail::IsVector<V>::value, V>::type
 operator/(const V &v, U d) {
     V r;
-    for (index_t i = 0; i < V::DIM; i++) {
+    for (index_t i = 0; i < V::N; i++) {
         r[i] = v[i] / d;
     }
     return r;
@@ -144,7 +144,7 @@ inline
 typename std::enable_if<detail::IsVector<V>::value, V>::type
 operator/(U d, const V &v) {
     V r;
-    for (index_t i = 0; i < V::DIM; i++) {
+    for (index_t i = 0; i < V::N; i++) {
         r[i] = d / v[i];
     }
     return r;
@@ -167,7 +167,7 @@ template <typename V>
 typename std::enable_if<detail::IsVector<V>::value,V>::type
 operator/(const V &a, const V &b) {
     V r;
-    for (index_t i = 0; i < V::DIM; i++) {
+    for (index_t i = 0; i < V::N; i++) {
         r[i] = a[i] / b[i];
     }
     return r;
@@ -265,7 +265,8 @@ std::ostream &operator<<(std::ostream &stream, const Quat<T> &q) {
  *     Vec<double,4> v4d = v3d.resized<4>(); // last coordinate is zero
  * 
  */
-template <typename T, index_t N> class Vec : public detail::VecCommon< T,N,Vec<T,N> > {
+template <typename T, index_t N>
+class Vec : public detail::VecCommon< T,N,Vec<T,N> > {
 public:
 
     // to prevent c++20 ambiguity warnings:

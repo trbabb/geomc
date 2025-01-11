@@ -17,6 +17,8 @@ namespace geom {
  * 
  * Currently 2D and 3D are implemented. See Rotation<T,2> and Rotation<T,3>.
  *
+ * Rotations meet the Transform concept.
+ *
  * For transforms which include a translation, see Isometry.
  *
  * For transforms which include a translation and a scaling, see Similarity.
@@ -37,7 +39,7 @@ namespace geom {
  *
  */
 template <typename T, index_t N>
-struct Rotation {}; // todo: implement N-blades
+class Rotation {}; // todo: implement N-blades
 
 /**
  * @ingroup linalg
@@ -46,7 +48,9 @@ struct Rotation {}; // todo: implement N-blades
  * See `Rotation` for a general description of rotations.
  */
 template <typename T>
-struct Rotation<T,2> {
+class Rotation<T,2> : public Dimensional<T,2> {
+public:
+    
     T radians;
     
     Rotation():radians(0) {}
@@ -97,6 +101,11 @@ struct Rotation<T,2> {
         return v.rotated(radians);
     }
     
+    /// Apply to a direction vector (conorming to Transform concept)
+    Vec<T,2> apply_direction(const Vec<T,2>& v) const {
+        return (*this) * v;
+    }
+    
     /// Compose rotation.
     Rotation<T,2> operator*(const Rotation<T,2>& other) const {
         return Rotation<T,2>(radians + other.radians);
@@ -111,6 +120,17 @@ struct Rotation<T,2> {
     /// Find the rotation that takes `other` to `this`.
     Rotation<T,2> operator/(const Rotation<T,2>& other) const {
         return Rotation<T,2>(radians - other.radians);
+    }
+    
+    /// In-place apply inverse
+    Rotation<T,2>& operator/=(const Rotation<T,2>& other) {
+        radians -= other.radians;
+        return *this;
+    }
+    
+    /// Apply inverse rotation to a direction vector (conforming to Transform concept)
+    Vec<T,2> apply_inverse_direction(const Vec<T,2>& v) const {
+        return v.rotated(-radians);
     }
     
     /// In-place scaling of a rotation.
@@ -134,7 +154,7 @@ struct Rotation<T,2> {
     
     /// Return a rotation with the same orientation, but normalized to the rotation
     /// angle range [0, 2π).
-    Rotation<T,2> normalized() const {
+    Rotation<T,2> canonical() const {
         return Rotation<T,2>(
             geom::positive_mod<T>(radians, std::numbers::pi_v<T> * 2)
         );
@@ -201,7 +221,9 @@ Rotation<T,2> mix(T s, const Rotation<T,2>& a, const Rotation<T,2>& b) {
  * See `Rotation` for a general description of rotations.
  */
 template <typename T>
-struct Rotation<T,3> {
+class Rotation<T,3> : public Dimensional<T,3> {
+public:
+    
     Quat<T> q;
     
     Rotation():q(0,0,0,1) {}
@@ -235,6 +257,11 @@ struct Rotation<T,3> {
         return q * v;
     }
     
+    /// Apply to a direction vector (conforming to Transform concept)
+    Vec<T,3> apply_direction(const Vec<T,3>& v) const {
+        return (*this) * v;
+    }
+    
     /// Compose rotation.
     Rotation<T,3> operator*(const Rotation<T,3>& other) const {
         return Rotation<T,3>(q * other.q);
@@ -249,6 +276,17 @@ struct Rotation<T,3> {
     /// Find the rotation that takes `other` to `this`.
     Rotation<T,3> operator/(const Rotation<T,3>& other) const {
         return Rotation<T,3>(q * other.q.conj());
+    }
+    
+    /// In-place apply inverse
+    Rotation<T,3>& operator/=(const Rotation<T,3>& other) {
+        q = q * other.q.conj();
+        return *this;
+    }
+    
+    /// Apply inverse rotation to a direction vector (conforming to Transform concept)
+    Vec<T,3> apply_inverse_direction(const Vec<T,3>& v) const {
+        return q.conj() * v;
     }
     
     /// In-place scaling of a rotation.
@@ -270,10 +308,11 @@ struct Rotation<T,3> {
         return q.angle();
     }
     
-    /// Return a rotation with the same orientation, but normalized to the rotation
-    /// angle range [0, 2π).
-    Rotation<T,3> normalized() const {
-        return Rotation<T,3>(q.unit());
+    /// Return a rotation with the same orientation, but with axis chosen so the rotation
+    /// angle is in the range [0, π].
+    Rotation<T,3> canonical() const {
+        T sign = q.w < 0 ? -1 : 1;
+        return Rotation<T,3>(sign * q.unit());
     }
     
     /// Compute the inverse rotation.

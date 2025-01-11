@@ -45,6 +45,14 @@ namespace geom {
 /** @ingroup linalg
  *  @brief Affine transformation class.
  *
+ * AffineTransforms may represent any linear transformation, including rotations,
+ * translations, nonuniform scales, and shears. They are represented by an
+ * (N+1) x (N+1) matrix, where the last row is [0,0,...,1].
+ * 
+ * AffineTransforms meet the Transform concept. For transforms that preserve angles
+ * and relative distances, see Similarity. For transforms that preserve distance,
+ * see Isometry. For pure rotations, see Rotation.
+ *
  * Vectors are assumed to be columns; therefore a transformation is ordered like:
  * 
  *     T * v
@@ -75,8 +83,10 @@ namespace geom {
  * AffineTransform objects.
  */
 
-template <typename T, index_t N> class AffineTransform {
+template <typename T, index_t N>
+class AffineTransform : public Dimensional<T,N> {
 public:
+    
     /// Matrix representing this transformation.
     SimpleMatrix<T,N+1,N+1> mat;
     /// Matrix representing the inverse of this transformation.
@@ -100,14 +110,14 @@ public:
      * @brief Transformation of a ray.
      */
     friend Ray<T,N> operator*(const AffineTransform<T,N>& xf, Ray<T,N> r) {
-        return Ray<T,N>(xf.apply(r.origin), xf.apply_vector(r.direction));
+        return Ray<T,N>(xf.apply(r.origin), xf.apply_direction(r.direction));
     }
     
     /**
      * @brief Inverse transformation of a ray (`xf`<sup>`-1`</sup>` * ray`)
      */
     friend Ray<T,N> operator/(Ray<T,N> r, const AffineTransform<T,N>& xf) {
-        return Ray<T,N>(xf.apply_inverse(r.origin), xf.apply_inverse_vector(r.direction));
+        return Ray<T,N>(xf.apply_inverse(r.origin), xf.apply_inverse_direction(r.direction));
     }
     
     /**
@@ -220,7 +230,7 @@ public:
     /**
      * @brief Transformation of a direction vector; ignores any translation.
      */
-    const Vec<T,N> apply_vector(const Vec<T,N>& v) const {
+    const Vec<T,N> apply_direction(const Vec<T,N>& v) const {
         Vec<T,N> o;
         for (index_t r = 0; r < N; r++) {
             for (index_t c = 0; c < N; c++) {
@@ -258,7 +268,7 @@ public:
     /**
      * @brief Inverse transformation of a direction vector; ignores any translation.
      */
-    const Vec<T,N> apply_inverse_vector(const Vec<T,N>& v) const {
+    const Vec<T,N> apply_inverse_direction(const Vec<T,N>& v) const {
         Vec<T,N> o;
         for (index_t r = 0; r < N; r++) {
             for (index_t c = 0; c < N; c++) {
@@ -735,7 +745,7 @@ AffineTransform<T,2> rotation(T radians) {
 }
 
 template <typename T>
-AffineTransform<T,3> rotation_x(T theta) {
+inline AffineTransform<T,3> rotation_x(T theta) {
     AffineTransform<T,3> xfnew;
     rotmat_x(&xfnew.mat, theta);
     transpose(&xfnew.inv, xfnew.mat);
@@ -743,7 +753,7 @@ AffineTransform<T,3> rotation_x(T theta) {
 }
 
 template <typename T>
-AffineTransform<T,3> rotation_y(T theta) {
+inline AffineTransform<T,3> rotation_y(T theta) {
     AffineTransform<T,3> xfnew;
     rotmat_y(&xfnew.mat, theta);
     transpose(&xfnew.inv, xfnew.mat);
@@ -751,7 +761,7 @@ AffineTransform<T,3> rotation_y(T theta) {
 }
 
 template <typename T>
-AffineTransform<T,3> rotation_z(T theta) {
+inline AffineTransform<T,3> rotation_z(T theta) {
     AffineTransform<T,3> xfnew;
     rotmat_z(&xfnew.mat, theta);
     transpose(&xfnew.inv, xfnew.mat);
@@ -766,7 +776,7 @@ AffineTransform<T,3> rotation_z(T theta) {
  * @related AffineTransform
  */
 template <typename T>
-AffineTransform<T,3> direction_align(const Vec<T,3>& dir, const Vec<T,3>& align_with) {
+inline AffineTransform<T,3> direction_align(const Vec<T,3>& dir, const Vec<T,3>& align_with) {
     AffineTransform<T,3> xfnew; 
     rotmat_direction_align(&xfnew.mat, dir, align_with);
     transpose(&xfnew.inv, xfnew.mat);
@@ -778,7 +788,7 @@ AffineTransform<T,3> direction_align(const Vec<T,3>& dir, const Vec<T,3>& align_
  * @related AffineTransform
  */
 template <typename T, index_t N> 
-AffineTransform<T,N> translation(const Vec<T,N>& tx) {
+inline AffineTransform<T,N> translation(const Vec<T,N>& tx) {
     AffineTransform<T,N> xfnew;
     for (index_t i = 0; i < N; i++) {
         xfnew.mat[i][N] =  tx[i];
@@ -794,7 +804,7 @@ AffineTransform<T,N> translation(const Vec<T,N>& tx) {
  * @related AffineTransform
  */
 template <typename T, index_t N> 
-AffineTransform<T,N> scale(const Vec<T,N>& sx) {
+inline AffineTransform<T,N> scale(const Vec<T,N>& sx) {
     AffineTransform<T,N> xfnew;
     for (index_t i = 0; i < N; i++) {
         xfnew.mat[i][i] = sx[i];
@@ -810,7 +820,7 @@ AffineTransform<T,N> scale(const Vec<T,N>& sx) {
  * @related AffineTransform
  */
 template <typename T, index_t N, MatrixLayout Lyt, StoragePolicy P> 
-AffineTransform<T,N> transformation(const SimpleMatrix<T,N,N,Lyt,P>& mat) {
+inline AffineTransform<T,N> transformation(const SimpleMatrix<T,N,N,Lyt,P>& mat) {
     SimpleMatrix<T,N,N>  m_inv;
     AffineTransform<T,N> xfnew;
     
@@ -839,7 +849,7 @@ AffineTransform<T,N> transformation(const SimpleMatrix<T,N,N,Lyt,P>& mat) {
  * @related AffineTransform
  */
 template <typename T> 
-AffineTransform<T,3> scale(T sx, T sy, T sz) {
+inline AffineTransform<T,3> scale(T sx, T sy, T sz) {
     return scale(Vec<T,3>(sx,sy,sz));
 }
 
@@ -848,7 +858,7 @@ AffineTransform<T,3> scale(T sx, T sy, T sz) {
  * @related AffineTransform
  */
 template <typename T> 
-AffineTransform<T,2> scale(T sx, T sy) {
+inline AffineTransform<T,2> scale(T sx, T sy) {
         return scale(Vec<T,2>(sx,sy));
     }
 
@@ -857,7 +867,7 @@ AffineTransform<T,2> scale(T sx, T sy) {
  * @related AffineTransform
  */
 template <typename T> 
-AffineTransform<T,3> translation(T tx, T ty, T tz) {
+inline AffineTransform<T,3> translation(T tx, T ty, T tz) {
     return translation(Vec<T,3>(tx,ty,tz));
 }
 
@@ -866,7 +876,7 @@ AffineTransform<T,3> translation(T tx, T ty, T tz) {
  * @related AffineTransform
  */
 template <typename T> 
-AffineTransform<T,2> translation(T tx, T ty) {
+inline AffineTransform<T,2> translation(T tx, T ty) {
     return translation(Vec<T,2>(tx,ty));
 }
 

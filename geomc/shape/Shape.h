@@ -67,14 +67,9 @@ namespace geom {
  * Uses the curiously-recurring template pattern to perform static polymorphism.
  * Override `bounds()` in the derived implementation.
  */
-template <typename T, index_t _N, typename Derived>
-class Bounded {
+template <typename T, index_t N, typename Derived>
+class Bounded : public Dimensional<T,N> {
     public:
-    
-    /// The coordinate type of this shape.
-    typedef T elem_t;
-    /// The dimension of this shape.
-    static constexpr size_t N = _N;
     
     /**
      * @brief Produces an axis-aligned box completely enclosing this shape.

@@ -13,9 +13,8 @@ namespace geom {
  * Similar transforms do not have any skew or nonuniform scales; they preserve
  * shapes, angles, and relative distances.
  *
- * For transforms which do not include a scaling, see Isometry.
- *
- * For nonuniform scaling or skew transforms, see AffineTransform.
+ * Similarities meet the Transform concept. For transforms which do not include a
+ * scaling, see Isometry. For nonuniform scaling or skew transforms, see AffineTransform.
  *
  * Similarity transforms compose like transforms, with multiplication on the left:
  *
@@ -44,7 +43,8 @@ namespace geom {
  *     Similarity<T,3> s3 = s * 2; // s3 is s with double the scale
  */
 template <typename T, index_t N>
-struct Similarity {
+class Similarity : public Dimensional<T,N> {
+public:
     /// Scale component.
     T             sx = 1;
     /// Rotation component.
@@ -112,6 +112,14 @@ struct Similarity {
         );
     }
     
+    /// Compose in-place.
+    Similarity<T,N>& operator*=(const Similarity<T,N>& other) {
+        tx += rx.transform(other.tx) * sx;
+        rx *= other.rx;
+        sx *= other.sx;
+        return *this;
+    }
+    
     /// Compose with the inverse of a similarity.
     Similarity<T,N> operator/(const Similarity<T,N>& other) const {
         return Similarity<T,N>(
@@ -119,6 +127,14 @@ struct Similarity {
             rx / other.rx,
             rx.transform(other.tx - tx) / other.sx
         );
+    }
+    
+    /// In-place apply inverse
+    Similarity<T,N>& operator/=(const Similarity<T,N>& other) {
+        tx = rx.transform(other.tx - tx) / other.sx;
+        rx /= other.rx;
+        sx /= other.sx;
+        return *this;
     }
     
     /// Compute the inverse of the similarity.
@@ -133,11 +149,6 @@ struct Similarity {
     
     Similarity<T,N> operator+=(const Vec<T,N>& v) {
         tx += v;
-        return *this;
-    }
-    
-    Similarity<T,N> operator*=(const Similarity<T,N>& other) {
-        *this = *this * other;
         return *this;
     }
     

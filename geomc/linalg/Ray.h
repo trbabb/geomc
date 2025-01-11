@@ -17,7 +17,7 @@ namespace geom {
  * @ingroup linalg
  */
 template <typename T, index_t N>
-class Ray {
+class Ray : public Dimensional<T,N> {
 public:
     /**
      * @brief The type of a point with the same dimension as this ray; a `Vec<T,N>`

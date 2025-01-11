@@ -43,7 +43,7 @@ class Transformed:
 {
 public:
     /// The coordinate type of this Shape
-    typedef typename Shape::elem_t T;
+    using T = typename Shape::elem_t;
     /// The dimension of this Shape
     static constexpr size_t N = Shape::N;
     

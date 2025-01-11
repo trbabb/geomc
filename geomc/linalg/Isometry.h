@@ -10,10 +10,9 @@ namespace geom {
  * 
  * Isometric transfroms do not have any skew or scales; they preserve
  * shapes, angles, and distances.
- * 
- * For transforms which include a scaling, see Similarity.
- * 
- * For nonuniform scaling or skew transforms, see AffineTransform.
+ *
+ * Isometries meet the Transform concept. For transforms which include a scaling,
+ * see Similarity. For nonuniform scaling or skew transforms, see AffineTransform.
  *
  * Isometries compose like transforms, with multiplication on the left:
  *
@@ -37,7 +36,9 @@ namespace geom {
  * 
  */
 template <typename T, index_t N>
-struct Isometry {
+class Isometry : public Dimensional<T,N> {
+public:
+    
     /// Rotation component.
     Rotation<T,N> rx;
     /// Translation component.
@@ -81,6 +82,13 @@ struct Isometry {
         return Isometry<T,N>(rx * other.rx, tx + rx.transform(other.tx));
     }
     
+    /// Compose in-place.
+    Isometry<T,N>& operator*=(const Isometry<T,N>& other) {
+        tx += rx.transform(other.tx);
+        rx *= other.rx;
+        return *this;
+    }
+    
     /// Transform a point.
     Vec<T,N> operator*(const Vec<T,N>& p) const {
         return rx * p + tx;
@@ -101,6 +109,13 @@ struct Isometry {
         return Isometry<T,N>(rx / other.rx, rx.transform(other.tx - tx));
     }
     
+    /// In-place apply inverse
+    Isometry<T,N>& operator/=(const Isometry<T,N>& other) {
+        tx = rx.transform(other.tx - tx);
+        rx /= other.rx;
+        return *this;
+    }
+    
     /// Compute the inverse of the isometry.
     Isometry<T,N> inverse() const {
         Rotation<T,N> r_inv = rx.inverse();
@@ -113,12 +128,6 @@ struct Isometry {
     /// Apply a translation.
     Isometry<T,N> operator+=(const Vec<T,N>& v) {
         tx += v;
-        return *this;
-    }
-    
-    /// Compose in-place.
-    Isometry<T,N> operator*=(const Isometry<T,N>& other) {
-        *this = *this * other;
         return *this;
     }
 };
