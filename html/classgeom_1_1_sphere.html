@@ -110,11 +110,12 @@ Inheritance diagram for Sphere&lt; T, N &gt;:</div>
  <div class="center">
   <img src="classgeom_1_1_sphere.png" usemap="#Sphere_3C_20T_2C_20N_20_3E_map" alt=""/>
   <map id="Sphere_3C_20T_2C_20N_20_3E_map" name="Sphere_3C_20T_2C_20N_20_3E_map">
-<area href="classgeom_1_1_convex.html" alt="Convex&lt; T, N, Sphere&lt; T, N &gt; &gt;" shape="rect" coords="0,56,254,80"/>
-<area href="classgeom_1_1_ray_intersectable.html" alt="RayIntersectable&lt; T, N, Sphere&lt; T, N &gt; &gt;" shape="rect" coords="264,56,518,80"/>
-<area href="classgeom_1_1_projectable.html" alt="Projectable&lt; T, N, Sphere&lt; T, N &gt; &gt;" shape="rect" coords="528,56,782,80"/>
-<area href="classgeom_1_1_bounded.html" alt="Bounded&lt; T, N, Sphere&lt; T, N &gt; &gt;" shape="rect" coords="0,0,254,24"/>
-<area href="classgeom_1_1_sdf_evaluable.html" alt="SdfEvaluable&lt; T, N, Sphere&lt; T, N &gt; &gt;" shape="rect" coords="528,0,782,24"/>
+<area href="classgeom_1_1_convex.html" alt="Convex&lt; T, N, Sphere&lt; T, N &gt; &gt;" shape="rect" coords="0,112,254,136"/>
+<area href="classgeom_1_1_ray_intersectable.html" alt="RayIntersectable&lt; T, N, Sphere&lt; T, N &gt; &gt;" shape="rect" coords="264,112,518,136"/>
+<area href="classgeom_1_1_projectable.html" alt="Projectable&lt; T, N, Sphere&lt; T, N &gt; &gt;" shape="rect" coords="528,112,782,136"/>
+<area href="classgeom_1_1_bounded.html" alt="Bounded&lt; T, N, Sphere&lt; T, N &gt; &gt;" shape="rect" coords="0,56,254,80"/>
+<area href="classgeom_1_1_sdf_evaluable.html" alt="SdfEvaluable&lt; T, N, Sphere&lt; T, N &gt; &gt;" shape="rect" coords="528,56,782,80"/>
+<area href="structgeom_1_1_dimensional.html" alt="Dimensional&lt; T, N &gt;" shape="rect" coords="0,0,254,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -123,10 +124,10 @@ Public Types</h2></td></tr>
 <tr class="memitem:a7a4787aba4d956f42eb495cf835b7702" id="r_a7a4787aba4d956f42eb495cf835b7702"><td class="memItemLeft" align="right" valign="top"><a id="a7a4787aba4d956f42eb495cf835b7702" name="a7a4787aba4d956f42eb495cf835b7702"></a>
 typedef <a class="el" href="classgeom_1_1_vec.html">ptype::point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>point_t</b></td></tr>
 <tr class="separator:a7a4787aba4d956f42eb495cf835b7702"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05ff7a62cbfe54e2a4bade46d1015a01" id="r_a05ff7a62cbfe54e2a4bade46d1015a01"><td class="memItemLeft" align="right" valign="top"><a id="a05ff7a62cbfe54e2a4bade46d1015a01" name="a05ff7a62cbfe54e2a4bade46d1015a01"></a>
-typedef T&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
-<tr class="memdesc:a05ff7a62cbfe54e2a4bade46d1015a01"><td class="mdescLeft">&#160;</td><td class="mdescRight">The coordinate type of this shape. <br /></td></tr>
-<tr class="separator:a05ff7a62cbfe54e2a4bade46d1015a01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ce56f5f4fb0fe326b49a018b2b6efdb" id="r_a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="memItemLeft" align="right" valign="top"><a id="a6ce56f5f4fb0fe326b49a018b2b6efdb" name="a6ce56f5f4fb0fe326b49a018b2b6efdb"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
+<tr class="memdesc:a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The coordinate type of this object. <br /></td></tr>
+<tr class="separator:a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -140,7 +141,7 @@ Public Member Functions</h2></td></tr>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="classgeom_1_1_sphere.html">Sphere</a> &amp;other) const</td></tr>
 <tr class="separator:ac2aaa83d554d4395bef45f1ff03eba70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9169a12164a1950abed5f76c559691e8" id="r_a9169a12164a1950abed5f76c559691e8"><td class="memItemLeft" align="right" valign="top"><a id="a9169a12164a1950abed5f76c559691e8" name="a9169a12164a1950abed5f76c559691e8"></a>
-<a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>bounds</b> () const</td></tr>
+<a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>bounds</b> () const</td></tr>
 <tr class="separator:a9169a12164a1950abed5f76c559691e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1f41f2ebaaf5a85a9a3063962ed4a1c" id="r_ac1f41f2ebaaf5a85a9a3063962ed4a1c"><td class="memItemLeft" align="right" valign="top"><a id="ac1f41f2ebaaf5a85a9a3063962ed4a1c" name="ac1f41f2ebaaf5a85a9a3063962ed4a1c"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>contains</b> (<a class="el" href="classgeom_1_1_vec.html">point_t</a> p) const</td></tr>
@@ -149,7 +150,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>contains</b> (<a clas
 <tr class="memitem:aff6adb1a3619a93ff0fe0e87b3a0f6eb" id="r_aff6adb1a3619a93ff0fe0e87b3a0f6eb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aff6adb1a3619a93ff0fe0e87b3a0f6eb">intersects</a> (<a class="el" href="classgeom_1_1_sphere.html">Sphere</a> s) const</td></tr>
 <tr class="separator:aff6adb1a3619a93ff0fe0e87b3a0f6eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab68fef98e4c573dc9f6a49fb97379031" id="r_ab68fef98e4c573dc9f6a49fb97379031"><td class="memItemLeft" align="right" valign="top"><a id="ab68fef98e4c573dc9f6a49fb97379031" name="ab68fef98e4c573dc9f6a49fb97379031"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>intersects</b> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;rect) const</td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>intersects</b> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;rect) const</td></tr>
 <tr class="separator:ab68fef98e4c573dc9f6a49fb97379031"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6af4e3e4e412edc6e07c9d7721e3a6c" id="r_af6af4e3e4e412edc6e07c9d7721e3a6c"><td class="memItemLeft" align="right" valign="top"><a id="af6af4e3e4e412edc6e07c9d7721e3a6c" name="af6af4e3e4e412edc6e07c9d7721e3a6c"></a>
 <a class="el" href="classgeom_1_1_vec.html">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>convex_support</b> (<a class="el" href="classgeom_1_1_vec.html">point_t</a> d) const</td></tr>
@@ -165,13 +166,13 @@ T&#160;</td><td class="memItemRight" valign="bottom"><b>sdf</b> (<a class="el" h
 <tr class="memdesc:a71dfb3e38e96d7b794bba530e91e46a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outward-facing direction. <br /></td></tr>
 <tr class="separator:a71dfb3e38e96d7b794bba530e91e46a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee7e67d36552eea7dd1602308b133f92" id="r_aee7e67d36552eea7dd1602308b133f92"><td class="memItemLeft" align="right" valign="top"><a id="aee7e67d36552eea7dd1602308b133f92" name="aee7e67d36552eea7dd1602308b133f92"></a>
-<a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, 1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>intersect</b> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;ray) const</td></tr>
+<a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, 1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>intersect</b> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;ray) const</td></tr>
 <tr class="memdesc:aee7e67d36552eea7dd1602308b133f92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shape-ray intersection test. <br /></td></tr>
 <tr class="separator:aee7e67d36552eea7dd1602308b133f92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a783e4812827599c0b116581ff94f4024" id="r_a783e4812827599c0b116581ff94f4024"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_convex.html#a783e4812827599c0b116581ff94f4024">intersects</a> (const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a>, Shape &gt; &amp;other) const</td></tr>
+<tr class="memitem:a783e4812827599c0b116581ff94f4024" id="r_a783e4812827599c0b116581ff94f4024"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_convex.html#a783e4812827599c0b116581ff94f4024">intersects</a> (const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>, Shape &gt; &amp;other) const</td></tr>
 <tr class="memdesc:a783e4812827599c0b116581ff94f4024"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classgeom_1_1_convex.html" title="Base class describing convex shapes in N-dimensional space.">Convex</a> shape overlap test.  <br /></td></tr>
 <tr class="separator:a783e4812827599c0b116581ff94f4024"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1ce72ac22267627f5e7b46fc655bac5" id="r_af1ce72ac22267627f5e7b46fc655bac5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_projectable.html#af1ce72ac22267627f5e7b46fc655bac5">clip</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; p) const</td></tr>
+<tr class="memitem:af1ce72ac22267627f5e7b46fc655bac5" id="r_af1ce72ac22267627f5e7b46fc655bac5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_projectable.html#af1ce72ac22267627f5e7b46fc655bac5">clip</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; p) const</td></tr>
 <tr class="memdesc:af1ce72ac22267627f5e7b46fc655bac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nearest point on the interior of the shape.  <br /></td></tr>
 <tr class="separator:af1ce72ac22267627f5e7b46fc655bac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -188,10 +189,10 @@ T&#160;</td><td class="memItemRight" valign="bottom"><b>r</b></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:ad8331653910a5a034f8238e6a8fbb9b1" id="r_ad8331653910a5a034f8238e6a8fbb9b1"><td class="memItemLeft" align="right" valign="top"><a id="ad8331653910a5a034f8238e6a8fbb9b1" name="ad8331653910a5a034f8238e6a8fbb9b1"></a>
-static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><b>N</b></td></tr>
-<tr class="memdesc:ad8331653910a5a034f8238e6a8fbb9b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The dimension of this shape. <br /></td></tr>
-<tr class="separator:ad8331653910a5a034f8238e6a8fbb9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a964460830811452bb075cc15005440ba" id="r_a964460830811452bb075cc15005440ba"><td class="memItemLeft" align="right" valign="top"><a id="a964460830811452bb075cc15005440ba" name="a964460830811452bb075cc15005440ba"></a>
+static constexpr index_t&#160;</td><td class="memItemRight" valign="bottom"><b>N</b></td></tr>
+<tr class="memdesc:a964460830811452bb075cc15005440ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">The dimension of this object. <br /></td></tr>
+<tr class="separator:a964460830811452bb075cc15005440ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="related" name="related"></a>
 Related Symbols</h2></td></tr>
@@ -317,7 +318,7 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; clip </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; clip </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
           <td> const</td>
@@ -347,7 +348,7 @@ template&lt;typename T , index_t N&gt; </div>
         <tr>
           <td class="memname">bool intersects </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a>, Shape &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>, Shape &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -377,7 +378,7 @@ template&lt;typename T , index_t N&gt; </div>
         <tr>
           <td class="memname">bool intersects </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>s</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>s</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -432,7 +433,7 @@ template&lt;typename T , index_t N&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 7 2025 23:28:25 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
+Generated on Sat Jan 18 2025 12:01:00 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
 </div><!-- doc-content -->
 </body>

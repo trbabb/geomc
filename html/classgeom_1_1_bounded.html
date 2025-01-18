@@ -108,30 +108,31 @@ Inheritance diagram for Bounded&lt; T, N, Derived &gt;:</div>
  <div class="center">
   <img src="classgeom_1_1_bounded.png" usemap="#Bounded_3C_20T_2C_20N_2C_20Derived_20_3E_map" alt=""/>
   <map id="Bounded_3C_20T_2C_20N_2C_20Derived_20_3E_map" name="Bounded_3C_20T_2C_20N_2C_20Derived_20_3E_map">
-<area href="classgeom_1_1_convex.html" title="Base class describing convex shapes in N-dimensional space." alt="Convex&lt; T, N, Derived &gt;" shape="rect" coords="0,56,165,80"/>
+<area href="structgeom_1_1_dimensional.html" alt="Dimensional&lt; T, N &gt;" shape="rect" coords="0,0,165,24"/>
+<area href="classgeom_1_1_convex.html" title="Base class describing convex shapes in N-dimensional space." alt="Convex&lt; T, N, Derived &gt;" shape="rect" coords="0,112,165,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a05ff7a62cbfe54e2a4bade46d1015a01" id="r_a05ff7a62cbfe54e2a4bade46d1015a01"><td class="memItemLeft" align="right" valign="top"><a id="a05ff7a62cbfe54e2a4bade46d1015a01" name="a05ff7a62cbfe54e2a4bade46d1015a01"></a>
-typedef T&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
-<tr class="memdesc:a05ff7a62cbfe54e2a4bade46d1015a01"><td class="mdescLeft">&#160;</td><td class="mdescRight">The coordinate type of this shape. <br /></td></tr>
-<tr class="separator:a05ff7a62cbfe54e2a4bade46d1015a01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ce56f5f4fb0fe326b49a018b2b6efdb" id="r_a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="memItemLeft" align="right" valign="top"><a id="a6ce56f5f4fb0fe326b49a018b2b6efdb" name="a6ce56f5f4fb0fe326b49a018b2b6efdb"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
+<tr class="memdesc:a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The coordinate type of this object. <br /></td></tr>
+<tr class="separator:a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a9169a12164a1950abed5f76c559691e8" id="r_a9169a12164a1950abed5f76c559691e8"><td class="memItemLeft" align="right" valign="top"><a id="a9169a12164a1950abed5f76c559691e8" name="a9169a12164a1950abed5f76c559691e8"></a>
-<a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>bounds</b> () const</td></tr>
+<a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>bounds</b> () const</td></tr>
 <tr class="memdesc:a9169a12164a1950abed5f76c559691e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Produces an axis-aligned box completely enclosing this shape. <br /></td></tr>
 <tr class="separator:a9169a12164a1950abed5f76c559691e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:ad8331653910a5a034f8238e6a8fbb9b1" id="r_ad8331653910a5a034f8238e6a8fbb9b1"><td class="memItemLeft" align="right" valign="top"><a id="ad8331653910a5a034f8238e6a8fbb9b1" name="ad8331653910a5a034f8238e6a8fbb9b1"></a>
-static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><b>N</b> = _N</td></tr>
-<tr class="memdesc:ad8331653910a5a034f8238e6a8fbb9b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The dimension of this shape. <br /></td></tr>
-<tr class="separator:ad8331653910a5a034f8238e6a8fbb9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a964460830811452bb075cc15005440ba" id="r_a964460830811452bb075cc15005440ba"><td class="memItemLeft" align="right" valign="top"><a id="a964460830811452bb075cc15005440ba" name="a964460830811452bb075cc15005440ba"></a>
+static constexpr index_t&#160;</td><td class="memItemRight" valign="bottom"><b>N</b></td></tr>
+<tr class="memdesc:a964460830811452bb075cc15005440ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">The dimension of this object. <br /></td></tr>
+<tr class="separator:a964460830811452bb075cc15005440ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T, index_t N, typename Derived&gt;<br />
@@ -144,7 +145,7 @@ class geom::Bounded&lt; T, N, Derived &gt;</div><p>Base class describing shapes 
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 7 2025 23:28:25 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
+Generated on Sat Jan 18 2025 12:00:59 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
 </div><!-- doc-content -->
 </body>

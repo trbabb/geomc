@@ -31,7 +31,7 @@ var searchData=
   ['shapeindexhelper_3c_20t_2c_20n_2c_20std_3a_3apair_3c_20k_2c_20v_20_3e_20_3e_28',['ShapeIndexHelper&lt; T, N, std::pair&lt; K, V &gt; &gt;',['../structgeom_1_1detail_1_1_shape_index_helper_3_01_t_00_01_n_00_01std_1_1pair_3_01_k_00_01_v_01_4_01_4.html',1,'geom::detail']]],
   ['shapeindexhelper_3c_20t_2c_20n_2c_20vec_3c_20t_2c_20n_20_3e_20_3e_29',['ShapeIndexHelper&lt; T, N, Vec&lt; T, N &gt; &gt;',['../structgeom_1_1detail_1_1_shape_index_helper_3_01_t_00_01_n_00_01_vec_3_01_t_00_01_n_01_4_01_4.html',1,'geom::detail']]],
   ['similar_30',['Similar',['../classgeom_1_1_similar.html',1,'geom']]],
-  ['similarity_31',['Similarity',['../structgeom_1_1_similarity.html',1,'geom']]],
+  ['similarity_31',['Similarity',['../classgeom_1_1_similarity.html',1,'geom']]],
   ['simplematrix_32',['SimpleMatrix',['../classgeom_1_1_simple_matrix.html',1,'geom']]],
   ['simplematrix_3c_20t_2c_20n_2b1_2c_20n_2b1_20_3e_33',['SimpleMatrix&lt; T, N+1, N+1 &gt;',['../classgeom_1_1_simple_matrix.html',1,'geom']]],
   ['simplex_34',['Simplex',['../classgeom_1_1_simplex.html',1,'geom']]],

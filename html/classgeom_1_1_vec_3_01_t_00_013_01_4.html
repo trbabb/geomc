@@ -110,8 +110,9 @@ Inheritance diagram for Vec&lt; T, 3 &gt;:</div>
  <div class="center">
   <img src="classgeom_1_1_vec_3_01_t_00_013_01_4.png" usemap="#Vec_3C_20T_2C_203_20_3E_map" alt=""/>
   <map id="Vec_3C_20T_2C_203_20_3E_map" name="Vec_3C_20T_2C_203_20_3E_map">
-<area href="classgeom_1_1detail_1_1_vec_common.html" alt="VecCommon&lt; T, 3, Vec&lt; T, 3 &gt; &gt;" shape="rect" coords="0,56,209,80"/>
+<area href="classgeom_1_1detail_1_1_vec_common.html" alt="VecCommon&lt; T, 3, Vec&lt; T, 3 &gt; &gt;" shape="rect" coords="109,56,318,80"/>
 <area href="classgeom_1_1detail_1_1_vec_base.html" alt="VecBase&lt; T, N &gt;" shape="rect" coords="0,0,209,24"/>
+<area href="structgeom_1_1_dimensional.html" alt="Dimensional&lt; T, N &gt;" shape="rect" coords="219,0,428,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -121,10 +122,10 @@ Public Types</h2></td></tr>
 typedef <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>self_t</b></td></tr>
 <tr class="memdesc:a6039ae5b6bcf9f5196abfe40118e9ca7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Self type. I.e., <code><a class="el" href="classgeom_1_1_vec.html" title="A tuple of N elements of type T.">Vec</a>&lt;T,N&gt;</code> if a vector, <code><a class="el" href="classgeom_1_1_quat.html" title="Quaternion class.">Quat</a>&lt;T&gt;</code> if a quaternion. <br /></td></tr>
 <tr class="separator:a6039ae5b6bcf9f5196abfe40118e9ca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05ff7a62cbfe54e2a4bade46d1015a01" id="r_a05ff7a62cbfe54e2a4bade46d1015a01"><td class="memItemLeft" align="right" valign="top"><a id="a05ff7a62cbfe54e2a4bade46d1015a01" name="a05ff7a62cbfe54e2a4bade46d1015a01"></a>
-typedef T&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
-<tr class="memdesc:a05ff7a62cbfe54e2a4bade46d1015a01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element type. <br /></td></tr>
-<tr class="separator:a05ff7a62cbfe54e2a4bade46d1015a01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ce56f5f4fb0fe326b49a018b2b6efdb" id="r_a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="memItemLeft" align="right" valign="top"><a id="a6ce56f5f4fb0fe326b49a018b2b6efdb" name="a6ce56f5f4fb0fe326b49a018b2b6efdb"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
+<tr class="memdesc:a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The coordinate type of this object. <br /></td></tr>
+<tr class="separator:a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -259,6 +260,14 @@ constexpr&#160;</td><td class="memItemRight" valign="bottom"><b>Vec</b> (T x, T 
 <tr class="memitem:a71db93b1a1a4553253b64498ea25f898" id="r_a71db93b1a1a4553253b64498ea25f898"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1detail_1_1_vec_common.html#a71db93b1a1a4553253b64498ea25f898">dist2</a> (const <a class="el" href="classgeom_1_1detail_1_1_vec_common.html#a6039ae5b6bcf9f5196abfe40118e9ca7">self_t</a> &amp;pt) const</td></tr>
 <tr class="memdesc:a71db93b1a1a4553253b64498ea25f898"><td class="mdescLeft">&#160;</td><td class="mdescRight">Distance squared to a point.  <br /></td></tr>
 <tr class="separator:a71db93b1a1a4553253b64498ea25f898"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3897602215e918b73f64df481e8f7aa7" id="r_a3897602215e918b73f64df481e8f7aa7"><td class="memItemLeft" align="right" valign="top"><a id="a3897602215e918b73f64df481e8f7aa7" name="a3897602215e918b73f64df481e8f7aa7"></a>
+T&#160;</td><td class="memItemRight" valign="bottom"><b>sum</b> () const</td></tr>
+<tr class="memdesc:a3897602215e918b73f64df481e8f7aa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sum the elements of the vector. <br /></td></tr>
+<tr class="separator:a3897602215e918b73f64df481e8f7aa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7372fef4982f404e0476f91759e913ad" id="r_a7372fef4982f404e0476f91759e913ad"><td class="memItemLeft" align="right" valign="top"><a id="a7372fef4982f404e0476f91759e913ad" name="a7372fef4982f404e0476f91759e913ad"></a>
+T&#160;</td><td class="memItemRight" valign="bottom"><b>product</b> () const</td></tr>
+<tr class="memdesc:a7372fef4982f404e0476f91759e913ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply all elements together. <br /></td></tr>
+<tr class="separator:a7372fef4982f404e0476f91759e913ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54d408dbdda010e09df46396885aa3b8" id="r_a54d408dbdda010e09df46396885aa3b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1detail_1_1_vec_common.html#a6039ae5b6bcf9f5196abfe40118e9ca7">self_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1detail_1_1_vec_common.html#a54d408dbdda010e09df46396885aa3b8">reflect_about</a> (<a class="el" href="classgeom_1_1detail_1_1_vec_common.html#a6039ae5b6bcf9f5196abfe40118e9ca7">self_t</a> normal) const</td></tr>
 <tr class="memdesc:a54d408dbdda010e09df46396885aa3b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reflection about a normal.  <br /></td></tr>
 <tr class="separator:a54d408dbdda010e09df46396885aa3b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -359,10 +368,6 @@ static const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#
 static const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Z_AXIS</b> = <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,3&gt;(0,0,1)</td></tr>
 <tr class="memdesc:a187e6d2633f33f497191638a15b79732"><td class="mdescLeft">&#160;</td><td class="mdescRight">(0, 0, 1) constant <br /></td></tr>
 <tr class="separator:a187e6d2633f33f497191638a15b79732"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b0c5d682ce09577d0e05f0f22dab4a3" id="r_a1b0c5d682ce09577d0e05f0f22dab4a3"><td class="memItemLeft" align="right" valign="top"><a id="a1b0c5d682ce09577d0e05f0f22dab4a3" name="a1b0c5d682ce09577d0e05f0f22dab4a3"></a>
-static constexpr index_t&#160;</td><td class="memItemRight" valign="bottom"><b>DIM</b></td></tr>
-<tr class="memdesc:a1b0c5d682ce09577d0e05f0f22dab4a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector dimension. <br /></td></tr>
-<tr class="separator:a1b0c5d682ce09577d0e05f0f22dab4a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7548e9b29b1b4b8055abf2dab4ec29d0" id="r_a7548e9b29b1b4b8055abf2dab4ec29d0"><td class="memItemLeft" align="right" valign="top"><a id="a7548e9b29b1b4b8055abf2dab4ec29d0" name="a7548e9b29b1b4b8055abf2dab4ec29d0"></a>
 static const <a class="el" href="classgeom_1_1detail_1_1_vec_common.html#a6039ae5b6bcf9f5196abfe40118e9ca7">self_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>ones</b></td></tr>
 <tr class="separator:a7548e9b29b1b4b8055abf2dab4ec29d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -372,11 +377,15 @@ static const <a class="el" href="classgeom_1_1detail_1_1_vec_common.html#a6039ae
 <tr class="memitem:ae86b30d5699e16bc4ee0acb0b98d3ca8" id="r_ae86b30d5699e16bc4ee0acb0b98d3ca8"><td class="memItemLeft" align="right" valign="top"><a id="ae86b30d5699e16bc4ee0acb0b98d3ca8" name="ae86b30d5699e16bc4ee0acb0b98d3ca8"></a>
 static const <a class="el" href="classgeom_1_1detail_1_1_vec_common.html#a6039ae5b6bcf9f5196abfe40118e9ca7">self_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>unit_x</b></td></tr>
 <tr class="separator:ae86b30d5699e16bc4ee0acb0b98d3ca8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a964460830811452bb075cc15005440ba" id="r_a964460830811452bb075cc15005440ba"><td class="memItemLeft" align="right" valign="top"><a id="a964460830811452bb075cc15005440ba" name="a964460830811452bb075cc15005440ba"></a>
+static constexpr index_t&#160;</td><td class="memItemRight" valign="bottom"><b>N</b></td></tr>
+<tr class="memdesc:a964460830811452bb075cc15005440ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">The dimension of this object. <br /></td></tr>
+<tr class="separator:a964460830811452bb075cc15005440ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a2a3a50227a29135d82029ce764dabf45" id="r_a2a3a50227a29135d82029ce764dabf45"><td class="memItemLeft" align="right" valign="top"><a id="a2a3a50227a29135d82029ce764dabf45" name="a2a3a50227a29135d82029ce764dabf45"></a>
-T&#160;</td><td class="memItemRight" valign="bottom"><b>v</b> [N]</td></tr>
+T&#160;</td><td class="memItemRight" valign="bottom"><b>v</b> [<a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>]</td></tr>
 <tr class="separator:a2a3a50227a29135d82029ce764dabf45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -1357,7 +1366,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">operator <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; U, N &gt; </td>
+          <td class="memname">operator <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; U, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -2148,7 +2157,7 @@ template&lt;typename T &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 7 2025 23:28:25 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
+Generated on Sat Jan 18 2025 12:01:00 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
 </div><!-- doc-content -->
 </body>

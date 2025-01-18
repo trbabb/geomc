@@ -90,9 +90,11 @@ $(function(){ initResizable(false); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="structgeom_1_1_rotation_3_01_t_00_013_01_4-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Rotation&lt; T, 3 &gt; Struct Template Reference<div class="ingroups"><a class="el" href="group__linalg.html">Linalg</a></div></div></div>
 </div><!--header-->
@@ -102,7 +104,23 @@ $(function(){ initResizable(false); });
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_rotation_8h_source.html">geomc/linalg/Rotation.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for Rotation&lt; T, 3 &gt;:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="structgeom_1_1_rotation_3_01_t_00_013_01_4.png" usemap="#Rotation_3C_20T_2C_203_20_3E_map" alt=""/>
+  <map id="Rotation_3C_20T_2C_203_20_3E_map" name="Rotation_3C_20T_2C_203_20_3E_map">
+<area href="structgeom_1_1_dimensional.html" alt="Dimensional&lt; T, 3 &gt;" shape="rect" coords="0,0,127,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a6ce56f5f4fb0fe326b49a018b2b6efdb" id="r_a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="memItemLeft" align="right" valign="top"><a id="a6ce56f5f4fb0fe326b49a018b2b6efdb" name="a6ce56f5f4fb0fe326b49a018b2b6efdb"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
+<tr class="memdesc:a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The coordinate type of this object. <br /></td></tr>
+<tr class="separator:a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a44bd7e84d0472b1cf3f673bc873021dc" id="r_a44bd7e84d0472b1cf3f673bc873021dc"><td class="memItemLeft" align="right" valign="top"><a id="a44bd7e84d0472b1cf3f673bc873021dc" name="a44bd7e84d0472b1cf3f673bc873021dc"></a>
@@ -127,6 +145,10 @@ Public Member Functions</h2></td></tr>
 <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt; &amp;v) const</td></tr>
 <tr class="memdesc:aa560140a96c3f50943dfa3674f9422e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply to a 3D vector. <br /></td></tr>
 <tr class="separator:aa560140a96c3f50943dfa3674f9422e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a743999b96fec2d71476b9687108f34d2" id="r_a743999b96fec2d71476b9687108f34d2"><td class="memItemLeft" align="right" valign="top"><a id="a743999b96fec2d71476b9687108f34d2" name="a743999b96fec2d71476b9687108f34d2"></a>
+<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>apply_direction</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt; &amp;v) const</td></tr>
+<tr class="memdesc:a743999b96fec2d71476b9687108f34d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply to a direction vector (conforming to <a class="el" href="conceptgeom_1_1_transform.html" title="Represents a means of transforming a point or vector.">Transform</a> concept) <br /></td></tr>
+<tr class="separator:a743999b96fec2d71476b9687108f34d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52b5e4faef1df32a972d062d825b16c2" id="r_a52b5e4faef1df32a972d062d825b16c2"><td class="memItemLeft" align="right" valign="top"><a id="a52b5e4faef1df32a972d062d825b16c2" name="a52b5e4faef1df32a972d062d825b16c2"></a>
 <a class="el" href="structgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="structgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; &amp;other) const</td></tr>
 <tr class="memdesc:a52b5e4faef1df32a972d062d825b16c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose rotation. <br /></td></tr>
@@ -139,6 +161,14 @@ Public Member Functions</h2></td></tr>
 <a class="el" href="structgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="structgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; &amp;other) const</td></tr>
 <tr class="memdesc:a510ac5567bb75e467c5d0d4e1c83f267"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the rotation that takes <code>other</code> to <code>this</code>. <br /></td></tr>
 <tr class="separator:a510ac5567bb75e467c5d0d4e1c83f267"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d1ac8ad3edb19b23a99751c8ef39c3f" id="r_a9d1ac8ad3edb19b23a99751c8ef39c3f"><td class="memItemLeft" align="right" valign="top"><a id="a9d1ac8ad3edb19b23a99751c8ef39c3f" name="a9d1ac8ad3edb19b23a99751c8ef39c3f"></a>
+<a class="el" href="structgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator/=</b> (const <a class="el" href="structgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; &amp;other)</td></tr>
+<tr class="memdesc:a9d1ac8ad3edb19b23a99751c8ef39c3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">In-place apply inverse. <br /></td></tr>
+<tr class="separator:a9d1ac8ad3edb19b23a99751c8ef39c3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca9238b6f35e4f76b7cb9e731c97e54a" id="r_aca9238b6f35e4f76b7cb9e731c97e54a"><td class="memItemLeft" align="right" valign="top"><a id="aca9238b6f35e4f76b7cb9e731c97e54a" name="aca9238b6f35e4f76b7cb9e731c97e54a"></a>
+<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>apply_inverse_direction</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt; &amp;v) const</td></tr>
+<tr class="memdesc:aca9238b6f35e4f76b7cb9e731c97e54a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply inverse rotation to a direction vector (conforming to <a class="el" href="conceptgeom_1_1_transform.html" title="Represents a means of transforming a point or vector.">Transform</a> concept) <br /></td></tr>
+<tr class="separator:aca9238b6f35e4f76b7cb9e731c97e54a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19343cfbc73bd35271a1bd0e1ebbed44" id="r_a19343cfbc73bd35271a1bd0e1ebbed44"><td class="memItemLeft" align="right" valign="top"><a id="a19343cfbc73bd35271a1bd0e1ebbed44" name="a19343cfbc73bd35271a1bd0e1ebbed44"></a>
 <a class="el" href="structgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*=</b> (T s)</td></tr>
 <tr class="memdesc:a19343cfbc73bd35271a1bd0e1ebbed44"><td class="mdescLeft">&#160;</td><td class="mdescRight">In-place scaling of a rotation. <br /></td></tr>
@@ -153,8 +183,8 @@ Public Member Functions</h2></td></tr>
 T&#160;</td><td class="memItemRight" valign="bottom"><b>angle</b> () const</td></tr>
 <tr class="memdesc:a0c14f664b5a14473eadf565b05ce54d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the angle component of the rotation. <br /></td></tr>
 <tr class="separator:a0c14f664b5a14473eadf565b05ce54d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad702064fa2f27805bbbac28aca9448b5" id="r_ad702064fa2f27805bbbac28aca9448b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad702064fa2f27805bbbac28aca9448b5">normalized</a> () const</td></tr>
-<tr class="separator:ad702064fa2f27805bbbac28aca9448b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c65dc7f70e1b83687e3060352210010" id="r_a4c65dc7f70e1b83687e3060352210010"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c65dc7f70e1b83687e3060352210010">canonical</a> () const</td></tr>
+<tr class="separator:a4c65dc7f70e1b83687e3060352210010"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad07d85a38bea94f9f661472dd8e97c3f" id="r_ad07d85a38bea94f9f661472dd8e97c3f"><td class="memItemLeft" align="right" valign="top"><a id="ad07d85a38bea94f9f661472dd8e97c3f" name="ad07d85a38bea94f9f661472dd8e97c3f"></a>
 <a class="el" href="structgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>inv</b> () const</td></tr>
 <tr class="memdesc:ad07d85a38bea94f9f661472dd8e97c3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the inverse rotation. <br /></td></tr>
@@ -171,14 +201,21 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a1e3769d8672c72c7bbbbcd0e26b4607c" id="r_a1e3769d8672c72c7bbbbcd0e26b4607c"><td class="memItemLeft" align="right" valign="top"><a id="a1e3769d8672c72c7bbbbcd0e26b4607c" name="a1e3769d8672c72c7bbbbcd0e26b4607c"></a>
 <a class="el" href="classgeom_1_1_quat.html">Quat</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>q</b></td></tr>
 <tr class="separator:a1e3769d8672c72c7bbbbcd0e26b4607c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a964460830811452bb075cc15005440ba" id="r_a964460830811452bb075cc15005440ba"><td class="memItemLeft" align="right" valign="top"><a id="a964460830811452bb075cc15005440ba" name="a964460830811452bb075cc15005440ba"></a>
+static constexpr index_t&#160;</td><td class="memItemRight" valign="bottom"><b>N</b></td></tr>
+<tr class="memdesc:a964460830811452bb075cc15005440ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">The dimension of this object. <br /></td></tr>
+<tr class="separator:a964460830811452bb075cc15005440ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
 struct geom::Rotation&lt; T, 3 &gt;</div><p>3D rotation. </p>
 <p>See <code><a class="el" href="structgeom_1_1_rotation.html" title="A rotation in N-dimensional space.">Rotation</a></code> for a general description of rotations. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad702064fa2f27805bbbac28aca9448b5" name="ad702064fa2f27805bbbac28aca9448b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad702064fa2f27805bbbac28aca9448b5">&#9670;&#160;</a></span>normalized()</h2>
+<a id="a4c65dc7f70e1b83687e3060352210010" name="a4c65dc7f70e1b83687e3060352210010"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c65dc7f70e1b83687e3060352210010">&#9670;&#160;</a></span>canonical()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -189,7 +226,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; normalized </td>
+          <td class="memname"><a class="el" href="structgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; canonical </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -201,7 +238,7 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Return a rotation with the same orientation, but normalized to the rotation angle range [0, 2π). </p>
+<p>Return a rotation with the same orientation, but with axis chosen so the rotation angle is in the range [0, π]. </p>
 
 </div>
 </div>
@@ -211,7 +248,7 @@ template&lt;typename T &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 7 2025 23:28:25 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
+Generated on Fri Jan 10 2025 01:34:37 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
 </div><!-- doc-content -->
 </body>

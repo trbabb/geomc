@@ -110,11 +110,12 @@ Inheritance diagram for Extruded&lt; Shape &gt;:</div>
  <div class="center">
   <img src="classgeom_1_1_extruded.png" usemap="#Extruded_3C_20Shape_20_3E_map" alt=""/>
   <map id="Extruded_3C_20Shape_20_3E_map" name="Extruded_3C_20Shape_20_3E_map">
-<area href="classgeom_1_1_convex.html" alt="Convex&lt; Shape::elem_t, Shape::N+1, Extruded&lt; Shape &gt; &gt;" shape="rect" coords="0,56,401,80"/>
-<area href="classgeom_1_1_ray_intersectable.html" alt="RayIntersectable&lt; Shape::elem_t, Shape::N+1, Extruded&lt; Shape &gt; &gt;" shape="rect" coords="411,56,812,80"/>
-<area href="classgeom_1_1_projectable.html" alt="Projectable&lt; Shape::elem_t, Shape::N+1, Extruded&lt; Shape &gt; &gt;" shape="rect" coords="822,56,1223,80"/>
-<area href="classgeom_1_1_bounded.html" alt="Bounded&lt; Shape::elem_t, N, Extruded&lt; Shape &gt; &gt;" shape="rect" coords="0,0,401,24"/>
-<area href="classgeom_1_1_sdf_evaluable.html" alt="SdfEvaluable&lt; Shape::elem_t, N, Extruded&lt; Shape &gt; &gt;" shape="rect" coords="822,0,1223,24"/>
+<area href="classgeom_1_1_convex.html" alt="Convex&lt; Shape::elem_t, Shape::N+1, Extruded&lt; Shape &gt; &gt;" shape="rect" coords="0,112,401,136"/>
+<area href="classgeom_1_1_ray_intersectable.html" alt="RayIntersectable&lt; Shape::elem_t, Shape::N+1, Extruded&lt; Shape &gt; &gt;" shape="rect" coords="411,112,812,136"/>
+<area href="classgeom_1_1_projectable.html" alt="Projectable&lt; Shape::elem_t, Shape::N+1, Extruded&lt; Shape &gt; &gt;" shape="rect" coords="822,112,1223,136"/>
+<area href="classgeom_1_1_bounded.html" alt="Bounded&lt; Shape::elem_t, N, Extruded&lt; Shape &gt; &gt;" shape="rect" coords="0,56,401,80"/>
+<area href="classgeom_1_1_sdf_evaluable.html" alt="SdfEvaluable&lt; Shape::elem_t, N, Extruded&lt; Shape &gt; &gt;" shape="rect" coords="822,56,1223,80"/>
+<area href="structgeom_1_1_dimensional.html" alt="Dimensional&lt; Shape::elem_t, N &gt;" shape="rect" coords="0,0,401,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -127,10 +128,10 @@ typedef Shape::elem_t&#160;</td><td class="memItemRight" valign="bottom"><b>T</b
 <tr class="memitem:a4a057c5b60fec78341c983d408ab7753" id="r_a4a057c5b60fec78341c983d408ab7753"><td class="memItemLeft" align="right" valign="top"><a id="a4a057c5b60fec78341c983d408ab7753" name="a4a057c5b60fec78341c983d408ab7753"></a>
 typedef <a class="el" href="structgeom_1_1_point_type.html">PointType</a>&lt; Shape::elem_t, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;::point_t&#160;</td><td class="memItemRight" valign="bottom"><b>point_t</b></td></tr>
 <tr class="separator:a4a057c5b60fec78341c983d408ab7753"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05ff7a62cbfe54e2a4bade46d1015a01" id="r_a05ff7a62cbfe54e2a4bade46d1015a01"><td class="memItemLeft" align="right" valign="top"><a id="a05ff7a62cbfe54e2a4bade46d1015a01" name="a05ff7a62cbfe54e2a4bade46d1015a01"></a>
-typedef Shape::elem_t&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
-<tr class="memdesc:a05ff7a62cbfe54e2a4bade46d1015a01"><td class="mdescLeft">&#160;</td><td class="mdescRight">The coordinate type of this shape. <br /></td></tr>
-<tr class="separator:a05ff7a62cbfe54e2a4bade46d1015a01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ce56f5f4fb0fe326b49a018b2b6efdb" id="r_a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="memItemLeft" align="right" valign="top"><a id="a6ce56f5f4fb0fe326b49a018b2b6efdb" name="a6ce56f5f4fb0fe326b49a018b2b6efdb"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
+<tr class="memdesc:a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The coordinate type of this object. <br /></td></tr>
+<tr class="separator:a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -297,7 +298,7 @@ auto cylinder2 = extrude(Circle&lt;double&gt;(), 0, 1);
         <tr>
           <td class="memname">bool intersects </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; Shape::elem_t, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a>, Shape &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; Shape::elem_t, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>, Shape &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -348,7 +349,7 @@ template&lt;typename Shape &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 7 2025 23:28:25 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
+Generated on Sat Jan 18 2025 12:00:59 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
 </div><!-- doc-content -->
 </body>

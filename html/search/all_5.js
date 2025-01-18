@@ -5,7 +5,7 @@ var searchData=
   ['edge_5fmirror_2',['EDGE_MIRROR',['../group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfa3014a9f4a7f12c3e7d77da27b69804f5',1,'geom']]],
   ['edge_5fperiodic_3',['EDGE_PERIODIC',['../group__function.html#gga8c170080a988c99ae4546b1f8e44b4cfa436fe09ed86bed65446d3b674c601316',1,'geom']]],
   ['edgebehavior_4',['EdgeBehavior',['../group__function.html#ga8c170080a988c99ae4546b1f8e44b4cf',1,'geom']]],
-  ['elem_5ft_5',['elem_t',['../classgeom_1_1detail_1_1_matrix_base.html#a05ff7a62cbfe54e2a4bade46d1015a01',1,'geom::detail::MatrixBase::elem_t'],['../classgeom_1_1detail_1_1_vec_common.html#a05ff7a62cbfe54e2a4bade46d1015a01',1,'geom::detail::VecCommon::elem_t'],['../classgeom_1_1_bounded.html#a05ff7a62cbfe54e2a4bade46d1015a01',1,'geom::Bounded::elem_t']]],
+  ['elem_5ft_5',['elem_t',['../structgeom_1_1_dimensional.html#a6ce56f5f4fb0fe326b49a018b2b6efdb',1,'geom::Dimensional::elem_t'],['../classgeom_1_1detail_1_1_matrix_base.html#a05ff7a62cbfe54e2a4bade46d1015a01',1,'geom::detail::MatrixBase::elem_t']]],
   ['elements_6',['Accessing elements',['../group__matrix.html#autotoc_md14',1,'']]],
   ['emplace_5fback_7',['emplace_back',['../structgeom_1_1_small_storage.html#a3b0f4f782c68271bac6ef31dacade58e',1,'geom::SmallStorage']]],
   ['empty_8',['empty',['../classgeom_1_1_rect.html#ac05d3be507b50e98ec048ee785100465',1,'geom::Rect::empty'],['../structgeom_1_1_small_storage.html#a644718bb2fb240de962dc3c9a1fdf0dc',1,'geom::SmallStorage::empty()']]],

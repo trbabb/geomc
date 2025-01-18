@@ -32,7 +32,7 @@ var searchData=
   ['rectintersector_29',['RectIntersector',['../classgeom_1_1detail_1_1_rect_intersector.html',1,'geom::detail']]],
   ['rectintersector_3c_20t_2c_20n_2c_20typename_20std_3a_3aenable_5fif_3c_20rectaxishelper_3c_20t_2c_20n_20_3e_3a_3asat_5fsupported_20_3e_3a_3atype_20_3e_30',['RectIntersector&lt; T, N, typename std::enable_if&lt; RectAxisHelper&lt; T, N &gt;::SAT_SUPPORTED &gt;::type &gt;',['../classgeom_1_1detail_1_1_rect_intersector_3_01_t_00_01_n_00_01typename_01std_1_1enable__if_3_01_rd4a755bc13ae96aa56a36504a5fc415b.html',1,'geom::detail']]],
   ['region_5fiterator_31',['region_iterator',['../classgeom_1_1_bin_lattice_partition_1_1region__iterator.html',1,'geom::BinLatticePartition']]],
-  ['rotation_32',['Rotation',['../structgeom_1_1_rotation.html',1,'geom']]],
-  ['rotation_3c_20t_2c_202_20_3e_33',['Rotation&lt; T, 2 &gt;',['../structgeom_1_1_rotation_3_01_t_00_012_01_4.html',1,'geom']]],
-  ['rotation_3c_20t_2c_203_20_3e_34',['Rotation&lt; T, 3 &gt;',['../structgeom_1_1_rotation_3_01_t_00_013_01_4.html',1,'geom']]]
+  ['rotation_32',['Rotation',['../classgeom_1_1_rotation.html',1,'geom']]],
+  ['rotation_3c_20t_2c_202_20_3e_33',['Rotation&lt; T, 2 &gt;',['../classgeom_1_1_rotation_3_01_t_00_012_01_4.html',1,'geom']]],
+  ['rotation_3c_20t_2c_203_20_3e_34',['Rotation&lt; T, 3 &gt;',['../classgeom_1_1_rotation_3_01_t_00_013_01_4.html',1,'geom']]]
 ];

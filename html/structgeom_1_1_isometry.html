@@ -90,8 +90,10 @@ $(function(){ initResizable(false); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#related">Related Symbols</a> &#124;
 <a href="structgeom_1_1_isometry-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Isometry&lt; T, N &gt; Struct Template Reference<div class="ingroups"><a class="el" href="group__linalg.html">Linalg</a></div></div></div>
@@ -102,65 +104,109 @@ $(function(){ initResizable(false); });
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_isometry_8h_source.html">geomc/linalg/Isometry.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for Isometry&lt; T, N &gt;:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="structgeom_1_1_isometry.png" usemap="#Isometry_3C_20T_2C_20N_20_3E_map" alt=""/>
+  <map id="Isometry_3C_20T_2C_20N_20_3E_map" name="Isometry_3C_20T_2C_20N_20_3E_map">
+<area href="structgeom_1_1_dimensional.html" alt="Dimensional&lt; T, N &gt;" shape="rect" coords="0,0,129,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a6ce56f5f4fb0fe326b49a018b2b6efdb" id="r_a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="memItemLeft" align="right" valign="top"><a id="a6ce56f5f4fb0fe326b49a018b2b6efdb" name="a6ce56f5f4fb0fe326b49a018b2b6efdb"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
+<tr class="memdesc:a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The coordinate type of this object. <br /></td></tr>
+<tr class="separator:a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a9bd95586d99bf9d8ec1ba7611f32526b" id="r_a9bd95586d99bf9d8ec1ba7611f32526b"><td class="memItemLeft" align="right" valign="top"><a id="a9bd95586d99bf9d8ec1ba7611f32526b" name="a9bd95586d99bf9d8ec1ba7611f32526b"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Isometry</b> (const <a class="el" href="structgeom_1_1_rotation.html">Rotation</a>&lt; T, N &gt; &amp;<a class="el" href="#a45b8b5a4b118fe116a93f3b5742980cb">rx</a>, const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;<a class="el" href="#a06385bbdc6e74cb4c75dc3cb2cdb94ca">tx</a>)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Isometry</b> (const <a class="el" href="structgeom_1_1_rotation.html">Rotation</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;<a class="el" href="#a45b8b5a4b118fe116a93f3b5742980cb">rx</a>, const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;<a class="el" href="#a06385bbdc6e74cb4c75dc3cb2cdb94ca">tx</a>)</td></tr>
 <tr class="separator:a9bd95586d99bf9d8ec1ba7611f32526b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a00b0d1e5a992d3520a565178632a2fd8" id="r_a00b0d1e5a992d3520a565178632a2fd8"><td class="memItemLeft" align="right" valign="top"><a id="a00b0d1e5a992d3520a565178632a2fd8" name="a00b0d1e5a992d3520a565178632a2fd8"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Isometry</b> (const <a class="el" href="structgeom_1_1_rotation.html">Rotation</a>&lt; T, N &gt; &amp;<a class="el" href="#a45b8b5a4b118fe116a93f3b5742980cb">rx</a>)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Isometry</b> (const <a class="el" href="structgeom_1_1_rotation.html">Rotation</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;<a class="el" href="#a45b8b5a4b118fe116a93f3b5742980cb">rx</a>)</td></tr>
 <tr class="separator:a00b0d1e5a992d3520a565178632a2fd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3fca3870b49427298f2cb1cedaa9915" id="r_aa3fca3870b49427298f2cb1cedaa9915"><td class="memItemLeft" align="right" valign="top"><a id="aa3fca3870b49427298f2cb1cedaa9915" name="aa3fca3870b49427298f2cb1cedaa9915"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Isometry</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;<a class="el" href="#a06385bbdc6e74cb4c75dc3cb2cdb94ca">tx</a>)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Isometry</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;<a class="el" href="#a06385bbdc6e74cb4c75dc3cb2cdb94ca">tx</a>)</td></tr>
 <tr class="separator:aa3fca3870b49427298f2cb1cedaa9915"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65b2b59b286b6f5fd82e9b483bd9117e" id="r_a65b2b59b286b6f5fd82e9b483bd9117e"><td class="memItemLeft" align="right" valign="top"><a id="a65b2b59b286b6f5fd82e9b483bd9117e" name="a65b2b59b286b6f5fd82e9b483bd9117e"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>operator AffineTransform&lt; T, N &gt;</b> () const</td></tr>
 <tr class="memdesc:a65b2b59b286b6f5fd82e9b483bd9117e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cast to an affine transform. <br /></td></tr>
 <tr class="separator:a65b2b59b286b6f5fd82e9b483bd9117e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6390b27195550d35dee8e96d11f2df0" id="r_ac6390b27195550d35dee8e96d11f2df0"><td class="memTemplParams" colspan="2"><a id="ac6390b27195550d35dee8e96d11f2df0" name="ac6390b27195550d35dee8e96d11f2df0"></a>
+template&lt;typename U &gt; </td></tr>
+<tr class="memitem:ac6390b27195550d35dee8e96d11f2df0"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator Isometry&lt; U, N &gt;</b> () const</td></tr>
+<tr class="memdesc:ac6390b27195550d35dee8e96d11f2df0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cast the underlying coordinate type. <br /></td></tr>
+<tr class="separator:ac6390b27195550d35dee8e96d11f2df0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2a4725c231e86312b3ce4063e3e510d" id="r_af2a4725c231e86312b3ce4063e3e510d"><td class="memTemplParams" colspan="2"><a id="af2a4725c231e86312b3ce4063e3e510d" name="af2a4725c231e86312b3ce4063e3e510d"></a>
+template&lt;index_t M&gt; <br />
+requires (M &gt; <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>)</td></tr>
+<tr class="memitem:af2a4725c231e86312b3ce4063e3e510d"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator Isometry&lt; T, M &gt;</b> () const</td></tr>
+<tr class="memdesc:af2a4725c231e86312b3ce4063e3e510d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extend the dimensionality of this isometry. <br /></td></tr>
+<tr class="separator:af2a4725c231e86312b3ce4063e3e510d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0add9361a53544a993a4ed7ec35b83ae" id="r_a0add9361a53544a993a4ed7ec35b83ae"><td class="memTemplParams" colspan="2"><a id="a0add9361a53544a993a4ed7ec35b83ae" name="a0add9361a53544a993a4ed7ec35b83ae"></a>
+template&lt;typename U , index_t M&gt; <br />
+requires (M &gt; <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>)</td></tr>
+<tr class="memitem:a0add9361a53544a993a4ed7ec35b83ae"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator Isometry&lt; U, M &gt;</b> () const</td></tr>
+<tr class="memdesc:a0add9361a53544a993a4ed7ec35b83ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extend the dimensionality of this isometry and change the coordinate type. <br /></td></tr>
+<tr class="separator:a0add9361a53544a993a4ed7ec35b83ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ac4b57d2aa8ecc97bed29aecb856cc4" id="r_a1ac4b57d2aa8ecc97bed29aecb856cc4"><td class="memItemLeft" align="right" valign="top"><a id="a1ac4b57d2aa8ecc97bed29aecb856cc4" name="a1ac4b57d2aa8ecc97bed29aecb856cc4"></a>
-<a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt; &amp;other) const</td></tr>
+<a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;other) const</td></tr>
 <tr class="memdesc:a1ac4b57d2aa8ecc97bed29aecb856cc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose two isometric transforms. <br /></td></tr>
 <tr class="separator:a1ac4b57d2aa8ecc97bed29aecb856cc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac07618179c595a7c067c800c49bd9391" id="r_ac07618179c595a7c067c800c49bd9391"><td class="memItemLeft" align="right" valign="top"><a id="ac07618179c595a7c067c800c49bd9391" name="ac07618179c595a7c067c800c49bd9391"></a>
+<a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*=</b> (const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;other)</td></tr>
+<tr class="memdesc:ac07618179c595a7c067c800c49bd9391"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose in-place. <br /></td></tr>
+<tr class="separator:ac07618179c595a7c067c800c49bd9391"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7cb641af6c264caabc86e5cb4adf4be4" id="r_a7cb641af6c264caabc86e5cb4adf4be4"><td class="memItemLeft" align="right" valign="top"><a id="a7cb641af6c264caabc86e5cb4adf4be4" name="a7cb641af6c264caabc86e5cb4adf4be4"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;p) const</td></tr>
-<tr class="memdesc:a7cb641af6c264caabc86e5cb4adf4be4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform a point. <br /></td></tr>
+<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;p) const</td></tr>
+<tr class="memdesc:a7cb641af6c264caabc86e5cb4adf4be4"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="conceptgeom_1_1_transform.html" title="Represents a means of transforming a point or vector.">Transform</a> a point. <br /></td></tr>
 <tr class="separator:a7cb641af6c264caabc86e5cb4adf4be4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e60619dd5dfef1a45c2433fc6ebbb09" id="r_a2e60619dd5dfef1a45c2433fc6ebbb09"><td class="memItemLeft" align="right" valign="top"><a id="a2e60619dd5dfef1a45c2433fc6ebbb09" name="a2e60619dd5dfef1a45c2433fc6ebbb09"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>apply_direction</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; v) const</td></tr>
-<tr class="memdesc:a2e60619dd5dfef1a45c2433fc6ebbb09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform a direction vector. <br /></td></tr>
+<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>apply_direction</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; v) const</td></tr>
+<tr class="memdesc:a2e60619dd5dfef1a45c2433fc6ebbb09"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="conceptgeom_1_1_transform.html" title="Represents a means of transforming a point or vector.">Transform</a> a direction vector. <br /></td></tr>
 <tr class="separator:a2e60619dd5dfef1a45c2433fc6ebbb09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97e8407224c01c12487d955a99a51202" id="r_a97e8407224c01c12487d955a99a51202"><td class="memItemLeft" align="right" valign="top"><a id="a97e8407224c01c12487d955a99a51202" name="a97e8407224c01c12487d955a99a51202"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>apply_inverse_direction</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; v) const</td></tr>
+<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>apply_inverse_direction</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; v) const</td></tr>
 <tr class="memdesc:a97e8407224c01c12487d955a99a51202"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse transform a direction vector. <br /></td></tr>
 <tr class="separator:a97e8407224c01c12487d955a99a51202"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a248610505ac7e43e2f9ea0cd10fd20fc" id="r_a248610505ac7e43e2f9ea0cd10fd20fc"><td class="memItemLeft" align="right" valign="top"><a id="a248610505ac7e43e2f9ea0cd10fd20fc" name="a248610505ac7e43e2f9ea0cd10fd20fc"></a>
-<a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt; &amp;other) const</td></tr>
+<a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;other) const</td></tr>
 <tr class="memdesc:a248610505ac7e43e2f9ea0cd10fd20fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose with the inverse of an isometry. <br /></td></tr>
 <tr class="separator:a248610505ac7e43e2f9ea0cd10fd20fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad76d1181e548a21389fd8b800e525bc2" id="r_ad76d1181e548a21389fd8b800e525bc2"><td class="memItemLeft" align="right" valign="top"><a id="ad76d1181e548a21389fd8b800e525bc2" name="ad76d1181e548a21389fd8b800e525bc2"></a>
+<a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator/=</b> (const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;other)</td></tr>
+<tr class="memdesc:ad76d1181e548a21389fd8b800e525bc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">In-place apply inverse. <br /></td></tr>
+<tr class="separator:ad76d1181e548a21389fd8b800e525bc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4638c82acc47b89c2d5944dd3a236ce3" id="r_a4638c82acc47b89c2d5944dd3a236ce3"><td class="memItemLeft" align="right" valign="top"><a id="a4638c82acc47b89c2d5944dd3a236ce3" name="a4638c82acc47b89c2d5944dd3a236ce3"></a>
-<a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>inverse</b> () const</td></tr>
+<a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>inverse</b> () const</td></tr>
 <tr class="memdesc:a4638c82acc47b89c2d5944dd3a236ce3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the inverse of the isometry. <br /></td></tr>
 <tr class="separator:a4638c82acc47b89c2d5944dd3a236ce3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa67b948f086003a6a5b532f1d43271ff" id="r_aa67b948f086003a6a5b532f1d43271ff"><td class="memItemLeft" align="right" valign="top"><a id="aa67b948f086003a6a5b532f1d43271ff" name="aa67b948f086003a6a5b532f1d43271ff"></a>
-<a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator+=</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;v)</td></tr>
+<a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator+=</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;v)</td></tr>
 <tr class="memdesc:aa67b948f086003a6a5b532f1d43271ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a translation. <br /></td></tr>
 <tr class="separator:aa67b948f086003a6a5b532f1d43271ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52f27e8702c9dfdf6637bc5b9f5cbc66" id="r_a52f27e8702c9dfdf6637bc5b9f5cbc66"><td class="memItemLeft" align="right" valign="top"><a id="a52f27e8702c9dfdf6637bc5b9f5cbc66" name="a52f27e8702c9dfdf6637bc5b9f5cbc66"></a>
-<a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*=</b> (const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt; &amp;other)</td></tr>
-<tr class="memdesc:a52f27e8702c9dfdf6637bc5b9f5cbc66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose in-place. <br /></td></tr>
-<tr class="separator:a52f27e8702c9dfdf6637bc5b9f5cbc66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a45b8b5a4b118fe116a93f3b5742980cb" id="r_a45b8b5a4b118fe116a93f3b5742980cb"><td class="memItemLeft" align="right" valign="top"><a id="a45b8b5a4b118fe116a93f3b5742980cb" name="a45b8b5a4b118fe116a93f3b5742980cb"></a>
-<a class="el" href="structgeom_1_1_rotation.html">Rotation</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>rx</b></td></tr>
+<a class="el" href="structgeom_1_1_rotation.html">Rotation</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>rx</b></td></tr>
 <tr class="memdesc:a45b8b5a4b118fe116a93f3b5742980cb"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structgeom_1_1_rotation.html" title="A rotation in N-dimensional space.">Rotation</a> component. <br /></td></tr>
 <tr class="separator:a45b8b5a4b118fe116a93f3b5742980cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06385bbdc6e74cb4c75dc3cb2cdb94ca" id="r_a06385bbdc6e74cb4c75dc3cb2cdb94ca"><td class="memItemLeft" align="right" valign="top"><a id="a06385bbdc6e74cb4c75dc3cb2cdb94ca" name="a06385bbdc6e74cb4c75dc3cb2cdb94ca"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>tx</b></td></tr>
+<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>tx</b></td></tr>
 <tr class="memdesc:a06385bbdc6e74cb4c75dc3cb2cdb94ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Translation component. <br /></td></tr>
 <tr class="separator:a06385bbdc6e74cb4c75dc3cb2cdb94ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a964460830811452bb075cc15005440ba" id="r_a964460830811452bb075cc15005440ba"><td class="memItemLeft" align="right" valign="top"><a id="a964460830811452bb075cc15005440ba" name="a964460830811452bb075cc15005440ba"></a>
+static constexpr index_t&#160;</td><td class="memItemRight" valign="bottom"><b>N</b></td></tr>
+<tr class="memdesc:a964460830811452bb075cc15005440ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">The dimension of this object. <br /></td></tr>
+<tr class="separator:a964460830811452bb075cc15005440ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="related" name="related"></a>
 Related Symbols</h2></td></tr>
@@ -168,82 +214,82 @@ Related Symbols</h2></td></tr>
 </td></tr>
 <tr class="memitem:ga95dd88c2cca31127fba66459dc570726" id="r_ga95dd88c2cca31127fba66459dc570726"><td class="memTemplParams" colspan="2">
 template&lt;typename T , index_t N&gt; </td></tr>
-<tr class="memitem:ga95dd88c2cca31127fba66459dc570726"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;v, const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt; &amp;i)</td></tr>
-<tr class="memdesc:ga95dd88c2cca31127fba66459dc570726"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform a point. <br /></td></tr>
+<tr class="memitem:ga95dd88c2cca31127fba66459dc570726"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;v, const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;i)</td></tr>
+<tr class="memdesc:ga95dd88c2cca31127fba66459dc570726"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="conceptgeom_1_1_transform.html" title="Represents a means of transforming a point or vector.">Transform</a> a point. <br /></td></tr>
 <tr class="separator:ga95dd88c2cca31127fba66459dc570726"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6463859ca555493465573eda5615aebb" id="r_ga6463859ca555493465573eda5615aebb"><td class="memTemplParams" colspan="2">
 template&lt;typename T , index_t N&gt; </td></tr>
-<tr class="memitem:ga6463859ca555493465573eda5615aebb"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator+</b> (const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt; &amp;i, const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;v)</td></tr>
+<tr class="memitem:ga6463859ca555493465573eda5615aebb"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator+</b> (const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;i, const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;v)</td></tr>
 <tr class="memdesc:ga6463859ca555493465573eda5615aebb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a translation to an isometry. <br /></td></tr>
 <tr class="separator:ga6463859ca555493465573eda5615aebb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabd26044cbe4c9f6ac9a019a0ab6159f5" id="r_gabd26044cbe4c9f6ac9a019a0ab6159f5"><td class="memTemplParams" colspan="2">
 template&lt;typename T , index_t N&gt; </td></tr>
-<tr class="memitem:gabd26044cbe4c9f6ac9a019a0ab6159f5"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator+</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;v, const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt; &amp;i)</td></tr>
+<tr class="memitem:gabd26044cbe4c9f6ac9a019a0ab6159f5"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator+</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;v, const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;i)</td></tr>
 <tr class="memdesc:gabd26044cbe4c9f6ac9a019a0ab6159f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a translation to an isometry. <br /></td></tr>
 <tr class="separator:gabd26044cbe4c9f6ac9a019a0ab6159f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga380e41b9f36479d960668666a8c9ac8a" id="r_ga380e41b9f36479d960668666a8c9ac8a"><td class="memTemplParams" colspan="2">
 template&lt;typename T , index_t N&gt; </td></tr>
-<tr class="memitem:ga380e41b9f36479d960668666a8c9ac8a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*</b> (T s, const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt; &amp;xf)</td></tr>
+<tr class="memitem:ga380e41b9f36479d960668666a8c9ac8a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*</b> (T s, const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf)</td></tr>
 <tr class="memdesc:ga380e41b9f36479d960668666a8c9ac8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale the magnitude of an isometry. A scale of 0 produces an identity transform. Applying a scale of 1 to an isometry results in no change. <br /></td></tr>
 <tr class="separator:ga380e41b9f36479d960668666a8c9ac8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2d7aca37b0e416cead2a43604554d75b" id="r_ga2d7aca37b0e416cead2a43604554d75b"><td class="memTemplParams" colspan="2">
 template&lt;typename T , index_t N&gt; </td></tr>
-<tr class="memitem:ga2d7aca37b0e416cead2a43604554d75b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt; &amp;xf, T s)</td></tr>
+<tr class="memitem:ga2d7aca37b0e416cead2a43604554d75b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf, T s)</td></tr>
 <tr class="memdesc:ga2d7aca37b0e416cead2a43604554d75b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale the magnitude of an isometry. <br /></td></tr>
 <tr class="separator:ga2d7aca37b0e416cead2a43604554d75b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac24cccce14edfdea54a5ff8c7757da24" id="r_gac24cccce14edfdea54a5ff8c7757da24"><td class="memTemplParams" colspan="2">
 template&lt;typename T , index_t N&gt; </td></tr>
-<tr class="memitem:gac24cccce14edfdea54a5ff8c7757da24"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>mix</b> (T s, const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt; &amp;a, const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt; &amp;b)</td></tr>
+<tr class="memitem:gac24cccce14edfdea54a5ff8c7757da24"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>mix</b> (T s, const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;a, const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;b)</td></tr>
 <tr class="memdesc:gac24cccce14edfdea54a5ff8c7757da24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Continuously interpolate two isometries. <br /></td></tr>
 <tr class="separator:gac24cccce14edfdea54a5ff8c7757da24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf45423a0121faf8b84f07206966d84f1" id="r_gaf45423a0121faf8b84f07206966d84f1"><td class="memTemplParams" colspan="2">
 template&lt;typename T , index_t N&gt; </td></tr>
-<tr class="memitem:gaf45423a0121faf8b84f07206966d84f1"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_capsule.html">Capsule</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt; &amp;xf, const <a class="el" href="classgeom_1_1_capsule.html">Capsule</a>&lt; T, N &gt; &amp;c)</td></tr>
-<tr class="memdesc:gaf45423a0121faf8b84f07206966d84f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform a capsule by an isometry. <br /></td></tr>
+<tr class="memitem:gaf45423a0121faf8b84f07206966d84f1"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_capsule.html">Capsule</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf, const <a class="el" href="classgeom_1_1_capsule.html">Capsule</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;c)</td></tr>
+<tr class="memdesc:gaf45423a0121faf8b84f07206966d84f1"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="conceptgeom_1_1_transform.html" title="Represents a means of transforming a point or vector.">Transform</a> a capsule by an isometry. <br /></td></tr>
 <tr class="separator:gaf45423a0121faf8b84f07206966d84f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga41279b70e4bfd6ff31c8ab011008034f" id="r_ga41279b70e4bfd6ff31c8ab011008034f"><td class="memTemplParams" colspan="2">
 template&lt;typename T , index_t N&gt; </td></tr>
-<tr class="memitem:ga41279b70e4bfd6ff31c8ab011008034f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_capsule.html">Capsule</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_capsule.html">Capsule</a>&lt; T, N &gt; &amp;c, const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt; &amp;xf)</td></tr>
+<tr class="memitem:ga41279b70e4bfd6ff31c8ab011008034f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_capsule.html">Capsule</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_capsule.html">Capsule</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;c, const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf)</td></tr>
 <tr class="memdesc:ga41279b70e4bfd6ff31c8ab011008034f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse-transform a capsule by an isometry. <br /></td></tr>
 <tr class="separator:ga41279b70e4bfd6ff31c8ab011008034f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2be3ade577ec03037516ce4140b42153" id="r_ga2be3ade577ec03037516ce4140b42153"><td class="memTemplParams" colspan="2">
 template&lt;typename T , index_t N&gt; </td></tr>
-<tr class="memitem:ga2be3ade577ec03037516ce4140b42153"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_cylinder.html">Cylinder</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt; &amp;xf, const <a class="el" href="classgeom_1_1_cylinder.html">Cylinder</a>&lt; T, N &gt; &amp;c)</td></tr>
-<tr class="memdesc:ga2be3ade577ec03037516ce4140b42153"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform a cylinder by an isometry. <br /></td></tr>
+<tr class="memitem:ga2be3ade577ec03037516ce4140b42153"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_cylinder.html">Cylinder</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf, const <a class="el" href="classgeom_1_1_cylinder.html">Cylinder</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;c)</td></tr>
+<tr class="memdesc:ga2be3ade577ec03037516ce4140b42153"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="conceptgeom_1_1_transform.html" title="Represents a means of transforming a point or vector.">Transform</a> a cylinder by an isometry. <br /></td></tr>
 <tr class="separator:ga2be3ade577ec03037516ce4140b42153"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga47433dc0b5bb5609bca6aa8215347499" id="r_ga47433dc0b5bb5609bca6aa8215347499"><td class="memTemplParams" colspan="2">
 template&lt;typename T , index_t N&gt; </td></tr>
-<tr class="memitem:ga47433dc0b5bb5609bca6aa8215347499"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_cylinder.html">Cylinder</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_cylinder.html">Cylinder</a>&lt; T, N &gt; &amp;c, const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt; &amp;xf)</td></tr>
+<tr class="memitem:ga47433dc0b5bb5609bca6aa8215347499"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_cylinder.html">Cylinder</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_cylinder.html">Cylinder</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;c, const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf)</td></tr>
 <tr class="memdesc:ga47433dc0b5bb5609bca6aa8215347499"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse-transform a cylinder by an isometry. <br /></td></tr>
 <tr class="separator:ga47433dc0b5bb5609bca6aa8215347499"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2c733b5fb17bad1ce6a1ed3f0b652d75" id="r_ga2c733b5fb17bad1ce6a1ed3f0b652d75"><td class="memTemplParams" colspan="2">
 template&lt;typename T , index_t N, typename Shape &gt; </td></tr>
-<tr class="memitem:ga2c733b5fb17bad1ce6a1ed3f0b652d75"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_dilated.html">Dilated</a>&lt; Shape &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt; &amp;xf, const <a class="el" href="classgeom_1_1_dilated.html">Dilated</a>&lt; Shape &gt; &amp;s)</td></tr>
-<tr class="memdesc:ga2c733b5fb17bad1ce6a1ed3f0b652d75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform a dilated shape by an isometry. <br /></td></tr>
+<tr class="memitem:ga2c733b5fb17bad1ce6a1ed3f0b652d75"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_dilated.html">Dilated</a>&lt; Shape &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf, const <a class="el" href="classgeom_1_1_dilated.html">Dilated</a>&lt; Shape &gt; &amp;s)</td></tr>
+<tr class="memdesc:ga2c733b5fb17bad1ce6a1ed3f0b652d75"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="conceptgeom_1_1_transform.html" title="Represents a means of transforming a point or vector.">Transform</a> a dilated shape by an isometry. <br /></td></tr>
 <tr class="separator:ga2c733b5fb17bad1ce6a1ed3f0b652d75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafaf88c2db08c879334ec27e52e008fb3" id="r_gafaf88c2db08c879334ec27e52e008fb3"><td class="memTemplParams" colspan="2">
 template&lt;typename T , index_t N, typename Shape &gt; </td></tr>
-<tr class="memitem:gafaf88c2db08c879334ec27e52e008fb3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_dilated.html">Dilated</a>&lt; Shape &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_dilated.html">Dilated</a>&lt; Shape &gt; &amp;s, const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt; &amp;xf)</td></tr>
+<tr class="memitem:gafaf88c2db08c879334ec27e52e008fb3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_dilated.html">Dilated</a>&lt; Shape &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_dilated.html">Dilated</a>&lt; Shape &gt; &amp;s, const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf)</td></tr>
 <tr class="memdesc:gafaf88c2db08c879334ec27e52e008fb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse-transform a dilated shape by an isometry. <br /></td></tr>
 <tr class="separator:gafaf88c2db08c879334ec27e52e008fb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafb56943be219022c304321a144a5b67a" id="r_gafb56943be219022c304321a144a5b67a"><td class="memTemplParams" colspan="2">
 template&lt;typename T , index_t N&gt; </td></tr>
-<tr class="memitem:gafb56943be219022c304321a144a5b67a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_simplex.html">Simplex</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt; &amp;xf, const <a class="el" href="classgeom_1_1_simplex.html">Simplex</a>&lt; T, N &gt; &amp;s)</td></tr>
-<tr class="memdesc:gafb56943be219022c304321a144a5b67a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform a simplex by an isometry. <br /></td></tr>
+<tr class="memitem:gafb56943be219022c304321a144a5b67a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_simplex.html">Simplex</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf, const <a class="el" href="classgeom_1_1_simplex.html">Simplex</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;s)</td></tr>
+<tr class="memdesc:gafb56943be219022c304321a144a5b67a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="conceptgeom_1_1_transform.html" title="Represents a means of transforming a point or vector.">Transform</a> a simplex by an isometry. <br /></td></tr>
 <tr class="separator:gafb56943be219022c304321a144a5b67a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab9265c05554738c22729dfd0b828a3f0" id="r_gab9265c05554738c22729dfd0b828a3f0"><td class="memTemplParams" colspan="2">
 template&lt;typename T , index_t N&gt; </td></tr>
-<tr class="memitem:gab9265c05554738c22729dfd0b828a3f0"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_simplex.html">Simplex</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_simplex.html">Simplex</a>&lt; T, N &gt; &amp;s, const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt; &amp;xf)</td></tr>
+<tr class="memitem:gab9265c05554738c22729dfd0b828a3f0"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_simplex.html">Simplex</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_simplex.html">Simplex</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;s, const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf)</td></tr>
 <tr class="memdesc:gab9265c05554738c22729dfd0b828a3f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse-transform a simplex by an isometry. <br /></td></tr>
 <tr class="separator:gab9265c05554738c22729dfd0b828a3f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga67d1136b81d03dcefbabe1a89fd2a7e5" id="r_ga67d1136b81d03dcefbabe1a89fd2a7e5"><td class="memTemplParams" colspan="2">
 template&lt;typename T , index_t N&gt; </td></tr>
-<tr class="memitem:ga67d1136b81d03dcefbabe1a89fd2a7e5"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt; &amp;xf, const <a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; T, N &gt; &amp;s)</td></tr>
-<tr class="memdesc:ga67d1136b81d03dcefbabe1a89fd2a7e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform a sphere by an isometry. <br /></td></tr>
+<tr class="memitem:ga67d1136b81d03dcefbabe1a89fd2a7e5"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf, const <a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;s)</td></tr>
+<tr class="memdesc:ga67d1136b81d03dcefbabe1a89fd2a7e5"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="conceptgeom_1_1_transform.html" title="Represents a means of transforming a point or vector.">Transform</a> a sphere by an isometry. <br /></td></tr>
 <tr class="separator:ga67d1136b81d03dcefbabe1a89fd2a7e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2e15594405541c46d14425ad08a2a41e" id="r_ga2e15594405541c46d14425ad08a2a41e"><td class="memTemplParams" colspan="2">
 template&lt;typename T , index_t N&gt; </td></tr>
-<tr class="memitem:ga2e15594405541c46d14425ad08a2a41e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; T, N &gt; &amp;s, const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, N &gt; &amp;xf)</td></tr>
+<tr class="memitem:ga2e15594405541c46d14425ad08a2a41e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;s, const <a class="el" href="structgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf)</td></tr>
 <tr class="memdesc:ga2e15594405541c46d14425ad08a2a41e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse-transform a sphere by an isometry. <br /></td></tr>
 <tr class="separator:ga2e15594405541c46d14425ad08a2a41e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -251,11 +297,11 @@ template&lt;typename T , index_t N&gt; </td></tr>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T, index_t N&gt;<br />
 struct geom::Isometry&lt; T, N &gt;</div><p>A rigid rotation and translation. </p>
 <p>Isometric transfroms do not have any skew or scales; they preserve shapes, angles, and distances.</p>
-<p>For transforms which include a scaling, see <a class="el" href="structgeom_1_1_similarity.html" title="A similarity transform, which is a rotation, scaling, and translation.">Similarity</a>.</p>
-<p>For nonuniform scaling or skew transforms, see <a class="el" href="classgeom_1_1_affine_transform.html" title="Affine transformation class.">AffineTransform</a>.</p>
+<p>Isometries meet the <a class="el" href="conceptgeom_1_1_transform.html" title="Represents a means of transforming a point or vector.">Transform</a> concept. For transforms which include a scaling, see <a class="el" href="structgeom_1_1_similarity.html" title="A similarity transform, which is a rotation, scaling, and translation.">Similarity</a>. For nonuniform scaling or skew transforms, see <a class="el" href="classgeom_1_1_affine_transform.html" title="Affine transformation class.">AffineTransform</a>.</p>
 <p>Isometries compose like transforms, with multiplication on the left: </p><pre class="fragment">Isometry&lt;T,N&gt; i1, i2;
-Isometry&lt;T,N&gt; i3 = i2 * i1; // isometry which applies i2, then i1
-Vec&lt;T,N&gt; v = i3 * i1 * v0;  // apply i1 to v0, then i3 to the result
+Isometry&lt;T,N&gt; i3 = i2 * i1;  // isometry which applies i2, then i1
+Vec&lt;T,N&gt; v = i3 * i1 * v0;   // apply i1 to v0, then i3 to the result
+Sphere&lt;T,N&gt; s = i1 * sphere; // apply i1 to a sphere
 </pre><p>Isometries can be inverted with the <code>/</code> operator: </p><pre class="fragment">Isometry&lt;T,N&gt; i1, i2;
 Isometry&lt;T,N&gt; i3 = i2 / i1; // isometry which takes i1 to i2
 Vec&lt;T,N&gt; v = v0 / i3;       // apply the inverse of i3 to v0
@@ -274,7 +320,7 @@ Isometry&lt;T,3&gt; i3 = i + Vec&lt;T,3&gt;(1,2,3); // i3 is i translated by (1,
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 7 2025 23:28:25 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
+Generated on Fri Jan 10 2025 01:34:37 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
 </div><!-- doc-content -->
 </body>

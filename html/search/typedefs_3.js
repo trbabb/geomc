@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['elem_5ft_0',['elem_t',['../classgeom_1_1detail_1_1_matrix_base.html#a05ff7a62cbfe54e2a4bade46d1015a01',1,'geom::detail::MatrixBase::elem_t'],['../classgeom_1_1detail_1_1_vec_common.html#a05ff7a62cbfe54e2a4bade46d1015a01',1,'geom::detail::VecCommon::elem_t'],['../classgeom_1_1_bounded.html#a05ff7a62cbfe54e2a4bade46d1015a01',1,'geom::Bounded::elem_t']]]
+  ['difference_5ftype_0',['difference_type',['../classgeom_1_1_subtree_base.html#a23f84d6bb88eb7dca186e4c084ddc802',1,'geom::SubtreeBase']]]
 ];

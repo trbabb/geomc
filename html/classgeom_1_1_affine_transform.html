@@ -90,8 +90,10 @@ $(function(){ initResizable(false); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="#related">Related Symbols</a> &#124;
 <a href="classgeom_1_1_affine_transform-members.html">List of all members</a>  </div>
@@ -103,7 +105,23 @@ $(function(){ initResizable(false); });
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_affine_transform_8h_source.html">geomc/linalg/AffineTransform.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for AffineTransform&lt; T, N &gt;:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classgeom_1_1_affine_transform.png" usemap="#AffineTransform_3C_20T_2C_20N_20_3E_map" alt=""/>
+  <map id="AffineTransform_3C_20T_2C_20N_20_3E_map" name="AffineTransform_3C_20T_2C_20N_20_3E_map">
+<area href="structgeom_1_1_dimensional.html" alt="Dimensional&lt; T, N &gt;" shape="rect" coords="0,0,152,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a6ce56f5f4fb0fe326b49a018b2b6efdb" id="r_a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="memItemLeft" align="right" valign="top"><a id="a6ce56f5f4fb0fe326b49a018b2b6efdb" name="a6ce56f5f4fb0fe326b49a018b2b6efdb"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
+<tr class="memdesc:a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The coordinate type of this object. <br /></td></tr>
+<tr class="separator:a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a4b04b30f496f678d29c350d13cc01385" id="r_a4b04b30f496f678d29c350d13cc01385"><td class="memItemLeft" align="right" valign="top"><a id="a4b04b30f496f678d29c350d13cc01385" name="a4b04b30f496f678d29c350d13cc01385"></a>
@@ -111,13 +129,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a4b04b30f496f678d29c350d13cc01385"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new identity transform. <br /></td></tr>
 <tr class="separator:a4b04b30f496f678d29c350d13cc01385"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b8576d86e33d15a23bfaeaa6b8f2a4e" id="r_a5b8576d86e33d15a23bfaeaa6b8f2a4e"><td class="memItemLeft" align="right" valign="top"><a id="a5b8576d86e33d15a23bfaeaa6b8f2a4e" name="a5b8576d86e33d15a23bfaeaa6b8f2a4e"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;xf) const</td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf) const</td></tr>
 <tr class="memdesc:a5b8576d86e33d15a23bfaeaa6b8f2a4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality operator. <br /></td></tr>
 <tr class="separator:a5b8576d86e33d15a23bfaeaa6b8f2a4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78a8e2b85d91e9478736135b5d728c4f" id="r_a78a8e2b85d91e9478736135b5d728c4f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78a8e2b85d91e9478736135b5d728c4f">operator*=</a> (const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;xf)</td></tr>
+<tr class="memitem:a78a8e2b85d91e9478736135b5d728c4f" id="r_a78a8e2b85d91e9478736135b5d728c4f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78a8e2b85d91e9478736135b5d728c4f">operator*=</a> (const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf)</td></tr>
 <tr class="memdesc:a78a8e2b85d91e9478736135b5d728c4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatenation of transforms.  <br /></td></tr>
 <tr class="separator:a78a8e2b85d91e9478736135b5d728c4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98f6e0dbf886d4a36b45b4cd9198d4e5" id="r_a98f6e0dbf886d4a36b45b4cd9198d4e5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a98f6e0dbf886d4a36b45b4cd9198d4e5">operator/=</a> (const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;xf)</td></tr>
+<tr class="memitem:a98f6e0dbf886d4a36b45b4cd9198d4e5" id="r_a98f6e0dbf886d4a36b45b4cd9198d4e5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a98f6e0dbf886d4a36b45b4cd9198d4e5">operator/=</a> (const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf)</td></tr>
 <tr class="memdesc:a98f6e0dbf886d4a36b45b4cd9198d4e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply inverse transform.  <br /></td></tr>
 <tr class="separator:a98f6e0dbf886d4a36b45b4cd9198d4e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a968cb0a1995476fe4823f554842a8971" id="r_a968cb0a1995476fe4823f554842a8971"><td class="memTemplParams" colspan="2"><a id="a968cb0a1995476fe4823f554842a8971" name="a968cb0a1995476fe4823f554842a8971"></a>
@@ -130,74 +148,81 @@ template&lt;typename U &gt; </td></tr>
 <tr class="memdesc:a36eb529c54e27d2ae9a35df2ae15aa36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cast elements to a different type. <br /></td></tr>
 <tr class="separator:a36eb529c54e27d2ae9a35df2ae15aa36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac4d48acdaf1c863e1de805dc4382f939" id="r_ac4d48acdaf1c863e1de805dc4382f939"><td class="memItemLeft" align="right" valign="top"><a id="ac4d48acdaf1c863e1de805dc4382f939" name="ac4d48acdaf1c863e1de805dc4382f939"></a>
-const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>apply</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;p) const</td></tr>
+const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>apply</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;p) const</td></tr>
 <tr class="memdesc:ac4d48acdaf1c863e1de805dc4382f939"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transformation of a point. <br /></td></tr>
 <tr class="separator:ac4d48acdaf1c863e1de805dc4382f939"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0833563a1261c72e5ebed6ea726415e1" id="r_a0833563a1261c72e5ebed6ea726415e1"><td class="memItemLeft" align="right" valign="top"><a id="a0833563a1261c72e5ebed6ea726415e1" name="a0833563a1261c72e5ebed6ea726415e1"></a>
-const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>apply_vector</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;v) const</td></tr>
-<tr class="memdesc:a0833563a1261c72e5ebed6ea726415e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transformation of a direction vector; ignores any translation. <br /></td></tr>
-<tr class="separator:a0833563a1261c72e5ebed6ea726415e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45850c3d2ecfee2a45c4fdfd7e53b7df" id="r_a45850c3d2ecfee2a45c4fdfd7e53b7df"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a45850c3d2ecfee2a45c4fdfd7e53b7df">apply_normal</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;n) const</td></tr>
+<tr class="memitem:a277d600fe224e98707dd24422447899a" id="r_a277d600fe224e98707dd24422447899a"><td class="memItemLeft" align="right" valign="top"><a id="a277d600fe224e98707dd24422447899a" name="a277d600fe224e98707dd24422447899a"></a>
+const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>apply_direction</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;v) const</td></tr>
+<tr class="memdesc:a277d600fe224e98707dd24422447899a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transformation of a direction vector; ignores any translation. <br /></td></tr>
+<tr class="separator:a277d600fe224e98707dd24422447899a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45850c3d2ecfee2a45c4fdfd7e53b7df" id="r_a45850c3d2ecfee2a45c4fdfd7e53b7df"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a45850c3d2ecfee2a45c4fdfd7e53b7df">apply_normal</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;n) const</td></tr>
 <tr class="memdesc:a45850c3d2ecfee2a45c4fdfd7e53b7df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transformation of a normal.  <br /></td></tr>
 <tr class="separator:a45850c3d2ecfee2a45c4fdfd7e53b7df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa670b24e7242f06969f688f4664a2e03" id="r_aa670b24e7242f06969f688f4664a2e03"><td class="memItemLeft" align="right" valign="top"><a id="aa670b24e7242f06969f688f4664a2e03" name="aa670b24e7242f06969f688f4664a2e03"></a>
-const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>apply_inverse</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;p) const</td></tr>
+const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>apply_inverse</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;p) const</td></tr>
 <tr class="memdesc:aa670b24e7242f06969f688f4664a2e03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse transformation of a point. <br /></td></tr>
 <tr class="separator:aa670b24e7242f06969f688f4664a2e03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a224dacdb62589ff9e01d2e0e1a3fb390" id="r_a224dacdb62589ff9e01d2e0e1a3fb390"><td class="memItemLeft" align="right" valign="top"><a id="a224dacdb62589ff9e01d2e0e1a3fb390" name="a224dacdb62589ff9e01d2e0e1a3fb390"></a>
-const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>apply_inverse_vector</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;v) const</td></tr>
-<tr class="memdesc:a224dacdb62589ff9e01d2e0e1a3fb390"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse transformation of a direction vector; ignores any translation. <br /></td></tr>
-<tr class="separator:a224dacdb62589ff9e01d2e0e1a3fb390"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0fa889a6a8da9aeda3f05e52d78a248" id="r_ab0fa889a6a8da9aeda3f05e52d78a248"><td class="memItemLeft" align="right" valign="top"><a id="ab0fa889a6a8da9aeda3f05e52d78a248" name="ab0fa889a6a8da9aeda3f05e52d78a248"></a>
+const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>apply_inverse_direction</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;v) const</td></tr>
+<tr class="memdesc:ab0fa889a6a8da9aeda3f05e52d78a248"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse transformation of a direction vector; ignores any translation. <br /></td></tr>
+<tr class="separator:ab0fa889a6a8da9aeda3f05e52d78a248"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62b23c13aa7c39d680c5d37eb0b92242" id="r_a62b23c13aa7c39d680c5d37eb0b92242"><td class="memItemLeft" align="right" valign="top"><a id="a62b23c13aa7c39d680c5d37eb0b92242" name="a62b23c13aa7c39d680c5d37eb0b92242"></a>
-const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>apply_inverse_normal</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;n) const</td></tr>
+const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>apply_inverse_normal</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;n) const</td></tr>
 <tr class="memdesc:a62b23c13aa7c39d680c5d37eb0b92242"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse transformation of a normal. <br /></td></tr>
 <tr class="separator:a62b23c13aa7c39d680c5d37eb0b92242"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53b109ed23f2009dd8078f9cece8fdc2" id="r_a53b109ed23f2009dd8078f9cece8fdc2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53b109ed23f2009dd8078f9cece8fdc2">apply</a> (const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;xf) const</td></tr>
+<tr class="memitem:a53b109ed23f2009dd8078f9cece8fdc2" id="r_a53b109ed23f2009dd8078f9cece8fdc2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53b109ed23f2009dd8078f9cece8fdc2">apply</a> (const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf) const</td></tr>
 <tr class="memdesc:a53b109ed23f2009dd8078f9cece8fdc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatenation of transforms.  <br /></td></tr>
 <tr class="separator:a53b109ed23f2009dd8078f9cece8fdc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae4026b61704da1f0828b71500477536" id="r_aae4026b61704da1f0828b71500477536"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aae4026b61704da1f0828b71500477536">apply_inverse</a> (const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;xf) const</td></tr>
+<tr class="memitem:aae4026b61704da1f0828b71500477536" id="r_aae4026b61704da1f0828b71500477536"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aae4026b61704da1f0828b71500477536">apply_inverse</a> (const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf) const</td></tr>
 <tr class="memdesc:aae4026b61704da1f0828b71500477536"><td class="mdescLeft">&#160;</td><td class="mdescRight">Application of inverse.  <br /></td></tr>
 <tr class="separator:aae4026b61704da1f0828b71500477536"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1896309586d43f59627c1b15ee3b150" id="r_ad1896309586d43f59627c1b15ee3b150"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1896309586d43f59627c1b15ee3b150">inverse</a> () const</td></tr>
+<tr class="memitem:ad1896309586d43f59627c1b15ee3b150" id="r_ad1896309586d43f59627c1b15ee3b150"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1896309586d43f59627c1b15ee3b150">inverse</a> () const</td></tr>
 <tr class="separator:ad1896309586d43f59627c1b15ee3b150"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb4f30d1ad251c6e544ac3cfc2d8de07" id="r_afb4f30d1ad251c6e544ac3cfc2d8de07"><td class="memItemLeft" align="right" valign="top"><a id="afb4f30d1ad251c6e544ac3cfc2d8de07" name="afb4f30d1ad251c6e544ac3cfc2d8de07"></a>
-const <a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; T, N, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>direction_matrix</b> () const</td></tr>
+const <a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>direction_matrix</b> () const</td></tr>
 <tr class="memdesc:afb4f30d1ad251c6e544ac3cfc2d8de07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the 3x3 matrix which transforms direction vectors. <br /></td></tr>
 <tr class="separator:afb4f30d1ad251c6e544ac3cfc2d8de07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a787773472ebe58ae9d5c43b6589386aa" id="r_a787773472ebe58ae9d5c43b6589386aa"><td class="memItemLeft" align="right" valign="top"><a id="a787773472ebe58ae9d5c43b6589386aa" name="a787773472ebe58ae9d5c43b6589386aa"></a>
-<a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; T, N+1, N+1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mat</b></td></tr>
+<a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>+1, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>+1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mat</b></td></tr>
 <tr class="memdesc:a787773472ebe58ae9d5c43b6589386aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix representing this transformation. <br /></td></tr>
 <tr class="separator:a787773472ebe58ae9d5c43b6589386aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae619bd6ea27d842746837177297ccba7" id="r_ae619bd6ea27d842746837177297ccba7"><td class="memItemLeft" align="right" valign="top"><a id="ae619bd6ea27d842746837177297ccba7" name="ae619bd6ea27d842746837177297ccba7"></a>
-<a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; T, N+1, N+1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>inv</b></td></tr>
+<a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>+1, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>+1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>inv</b></td></tr>
 <tr class="memdesc:ae619bd6ea27d842746837177297ccba7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix representing the inverse of this transformation. <br /></td></tr>
 <tr class="separator:ae619bd6ea27d842746837177297ccba7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a964460830811452bb075cc15005440ba" id="r_a964460830811452bb075cc15005440ba"><td class="memItemLeft" align="right" valign="top"><a id="a964460830811452bb075cc15005440ba" name="a964460830811452bb075cc15005440ba"></a>
+static constexpr index_t&#160;</td><td class="memItemRight" valign="bottom"><b>N</b></td></tr>
+<tr class="memdesc:a964460830811452bb075cc15005440ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">The dimension of this object. <br /></td></tr>
+<tr class="separator:a964460830811452bb075cc15005440ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:ada64b09a9b687e1f15aacbfef43a6c1c" id="r_ada64b09a9b687e1f15aacbfef43a6c1c"><td class="memItemLeft" align="right" valign="top"><a id="ada64b09a9b687e1f15aacbfef43a6c1c" name="ada64b09a9b687e1f15aacbfef43a6c1c"></a>
-<a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;xf, <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; r)</td></tr>
+<a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf, <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; r)</td></tr>
 <tr class="memdesc:ada64b09a9b687e1f15aacbfef43a6c1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transformation of a ray. <br /></td></tr>
 <tr class="separator:ada64b09a9b687e1f15aacbfef43a6c1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac60b2ac1d1f15141e8c14debf95f8167" id="r_ac60b2ac1d1f15141e8c14debf95f8167"><td class="memItemLeft" align="right" valign="top"><a id="ac60b2ac1d1f15141e8c14debf95f8167" name="ac60b2ac1d1f15141e8c14debf95f8167"></a>
-<a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator/</b> (<a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; r, const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;xf)</td></tr>
+<a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator/</b> (<a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; r, const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf)</td></tr>
 <tr class="memdesc:ac60b2ac1d1f15141e8c14debf95f8167"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse transformation of a ray (<code>xf</code><sup><code>-1</code></sup><code>* ray</code>) <br /></td></tr>
 <tr class="separator:ac60b2ac1d1f15141e8c14debf95f8167"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a781833895dfe20fbb1b12091460ff82e" id="r_a781833895dfe20fbb1b12091460ff82e"><td class="memItemLeft" align="right" valign="top"><a id="a781833895dfe20fbb1b12091460ff82e" name="a781833895dfe20fbb1b12091460ff82e"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;xf, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; p)</td></tr>
+<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; p)</td></tr>
 <tr class="memdesc:a781833895dfe20fbb1b12091460ff82e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transformation of a point. <br /></td></tr>
 <tr class="separator:a781833895dfe20fbb1b12091460ff82e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8385b37591314fad13a789073cbda923" id="r_a8385b37591314fad13a789073cbda923"><td class="memItemLeft" align="right" valign="top"><a id="a8385b37591314fad13a789073cbda923" name="a8385b37591314fad13a789073cbda923"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator/</b> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; p, const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;xf)</td></tr>
+<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator/</b> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; p, const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf)</td></tr>
 <tr class="memdesc:a8385b37591314fad13a789073cbda923"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse transformation of a point (<code>xf</code><sup><code>-1</code></sup><code>* pt</code>) <br /></td></tr>
 <tr class="separator:a8385b37591314fad13a789073cbda923"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06457098d7aa318934081b1c22f7f211" id="r_a06457098d7aa318934081b1c22f7f211"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a06457098d7aa318934081b1c22f7f211">operator*</a> (const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;xf1, const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;xf2)</td></tr>
+<tr class="memitem:a06457098d7aa318934081b1c22f7f211" id="r_a06457098d7aa318934081b1c22f7f211"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a06457098d7aa318934081b1c22f7f211">operator*</a> (const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf1, const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf2)</td></tr>
 <tr class="memdesc:a06457098d7aa318934081b1c22f7f211"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatenation of transforms.  <br /></td></tr>
 <tr class="separator:a06457098d7aa318934081b1c22f7f211"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8806aa6397e62e9e47f93d5ea01ccadf" id="r_a8806aa6397e62e9e47f93d5ea01ccadf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8806aa6397e62e9e47f93d5ea01ccadf">operator/</a> (const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;xf1, const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;xf2)</td></tr>
+<tr class="memitem:a8806aa6397e62e9e47f93d5ea01ccadf" id="r_a8806aa6397e62e9e47f93d5ea01ccadf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8806aa6397e62e9e47f93d5ea01ccadf">operator/</a> (const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf1, const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf2)</td></tr>
 <tr class="memdesc:a8806aa6397e62e9e47f93d5ea01ccadf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse transform application.  <br /></td></tr>
 <tr class="separator:a8806aa6397e62e9e47f93d5ea01ccadf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -221,13 +246,13 @@ Related Symbols</h2></td></tr>
 <tr class="memitem:ac55b0dcc50c94c4bf7e7f2d23829c25a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, 3 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ac55b0dcc50c94c4bf7e7f2d23829c25a">direction_align</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt; &amp;dir, const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt; &amp;align_with)</td></tr>
 <tr class="separator:ac55b0dcc50c94c4bf7e7f2d23829c25a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70950018c022569eb79f15d5d20a81e2" id="r_a70950018c022569eb79f15d5d20a81e2"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
-<tr class="memitem:a70950018c022569eb79f15d5d20a81e2"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a70950018c022569eb79f15d5d20a81e2">translation</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;tx)</td></tr>
+<tr class="memitem:a70950018c022569eb79f15d5d20a81e2"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a70950018c022569eb79f15d5d20a81e2">translation</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;tx)</td></tr>
 <tr class="separator:a70950018c022569eb79f15d5d20a81e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80d048b60e50ae32e9319386c2f65955" id="r_a80d048b60e50ae32e9319386c2f65955"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
-<tr class="memitem:a80d048b60e50ae32e9319386c2f65955"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a80d048b60e50ae32e9319386c2f65955">scale</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;sx)</td></tr>
+<tr class="memitem:a80d048b60e50ae32e9319386c2f65955"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a80d048b60e50ae32e9319386c2f65955">scale</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;sx)</td></tr>
 <tr class="separator:a80d048b60e50ae32e9319386c2f65955"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2fa891ee8681cf5002cd37fde29f16c" id="r_af2fa891ee8681cf5002cd37fde29f16c"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N, MatrixLayout Lyt, <a class="el" href="group__storage.html#ga1fe6a0f4b7ba39c90d3d765ca72c3097">StoragePolicy</a> P&gt; </td></tr>
-<tr class="memitem:af2fa891ee8681cf5002cd37fde29f16c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#af2fa891ee8681cf5002cd37fde29f16c">transformation</a> (const <a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; T, N, N, Lyt, P &gt; &amp;<a class="el" href="#a787773472ebe58ae9d5c43b6589386aa">mat</a>)</td></tr>
+<tr class="memitem:af2fa891ee8681cf5002cd37fde29f16c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#af2fa891ee8681cf5002cd37fde29f16c">transformation</a> (const <a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>, Lyt, P &gt; &amp;<a class="el" href="#a787773472ebe58ae9d5c43b6589386aa">mat</a>)</td></tr>
 <tr class="separator:af2fa891ee8681cf5002cd37fde29f16c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3bca52ab62b3c240966865dee9984f6e" id="r_a3bca52ab62b3c240966865dee9984f6e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a3bca52ab62b3c240966865dee9984f6e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, 3 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a3bca52ab62b3c240966865dee9984f6e">scale</a> (T sx, T sy, T sz)</td></tr>
@@ -245,6 +270,8 @@ Related Symbols</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T, index_t N&gt;<br />
 class geom::AffineTransform&lt; T, N &gt;</div><p>Affine transformation class. </p>
+<p>AffineTransforms may represent any linear transformation, including rotations, translations, nonuniform scales, and shears. They are represented by an (N+1) x (N+1) matrix, where the last row is [0,0,...,1].</p>
+<p>AffineTransforms meet the <a class="el" href="conceptgeom_1_1_transform.html" title="Represents a means of transforming a point or vector.">Transform</a> concept. For transforms that preserve angles and relative distances, see <a class="el" href="classgeom_1_1_similarity.html" title="A similarity transform, which is a rotation, scaling, and translation.">Similarity</a>. For transforms that preserve distance, see <a class="el" href="classgeom_1_1_isometry.html" title="A rigid rotation and translation.">Isometry</a>. For pure rotations, see <a class="el" href="classgeom_1_1_rotation.html" title="A rotation in N-dimensional space.">Rotation</a>.</p>
 <p>Vectors are assumed to be columns; therefore a transformation is ordered like: </p><pre class="fragment">T * v
 </pre><p>and so: </p><pre class="fragment">A * B * v
 </pre><p>applies B to v, then A to the result.</p>
@@ -270,9 +297,9 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; apply </td>
+          <td class="memname">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; apply </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>xf</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>xf</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -300,9 +327,9 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; apply_inverse </td>
+          <td class="memname">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; apply_inverse </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>xf</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>xf</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -330,9 +357,9 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; apply_normal </td>
+          <td class="memname">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; apply_normal </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>n</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>n</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -360,7 +387,7 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; inverse </td>
+          <td class="memname">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; inverse </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -388,9 +415,9 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp; operator*= </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp; operator*= </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>xf</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>xf</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -418,9 +445,9 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp; operator/= </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp; operator/= </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>xf</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>xf</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -465,7 +492,7 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p><a class="el" href="structgeom_1_1_rotation.html" title="A rotation in N-dimensional space.">Rotation</a> to align one vector with another. </p><dl class="params"><dt>Parameters</dt><dd>
+<p><a class="el" href="classgeom_1_1_rotation.html" title="A rotation in N-dimensional space.">Rotation</a> to align one vector with another. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">dir</td><td>Unit direction to be realigned. </td></tr>
     <tr><td class="paramname">align_with</td><td>Unit direction to align with. </td></tr>
@@ -488,14 +515,14 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; operator* </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; operator* </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>xf1</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>xf1</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>xf2</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>xf2</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -522,14 +549,14 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; operator/ </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; operator/ </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>xf1</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>xf1</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>xf2</em></span>&#160;)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>xf2</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -568,9 +595,9 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p><a class="el" href="structgeom_1_1_rotation.html" title="A rotation in N-dimensional space.">Rotation</a> from a quaternion. </p><dl class="params"><dt>Parameters</dt><dd>
+<p><a class="el" href="classgeom_1_1_rotation.html" title="A rotation in N-dimensional space.">Rotation</a> from a quaternion. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">q</td><td><a class="el" href="structgeom_1_1_rotation.html" title="A rotation in N-dimensional space.">Rotation</a> quaternion. </td></tr>
+    <tr><td class="paramname">q</td><td><a class="el" href="classgeom_1_1_rotation.html" title="A rotation in N-dimensional space.">Rotation</a> quaternion. </td></tr>
   </table>
   </dd>
 </dl>
@@ -645,7 +672,7 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p><a class="el" href="structgeom_1_1_rotation.html" title="A rotation in N-dimensional space.">Rotation</a> about a point.</p>
+<p><a class="el" href="classgeom_1_1_rotation.html" title="A rotation in N-dimensional space.">Rotation</a> about a point.</p>
 <p>This transformation will not be a pure rotation; it will include a translation component.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -687,7 +714,7 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p><a class="el" href="structgeom_1_1_rotation.html" title="A rotation in N-dimensional space.">Rotation</a> about an axis. </p><dl class="params"><dt>Parameters</dt><dd>
+<p><a class="el" href="classgeom_1_1_rotation.html" title="A rotation in N-dimensional space.">Rotation</a> about an axis. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">axis</td><td>Axis of rotation. </td></tr>
     <tr><td class="paramname">radians</td><td>Angle of rotation. </td></tr>
@@ -710,9 +737,9 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; scale </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; scale </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>sx</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>sx</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -813,9 +840,9 @@ template&lt;typename T , index_t N, MatrixLayout Lyt, <a class="el" href="group_
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; transformation </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; transformation </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; T, N, N, Lyt, P &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>mat</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>, Lyt, P &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>mat</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -847,9 +874,9 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, N &gt; translation </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; translation </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>tx</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>tx</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -939,7 +966,7 @@ template&lt;typename T &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 7 2025 23:28:25 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
+Generated on Sat Jan 18 2025 12:00:59 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
 </div><!-- doc-content -->
 </body>

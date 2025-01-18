@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['sample_5ft_0',['sample_t',['../classgeom_1_1_raster.html#aefeb82c3e343407f402a309fea771bb9',1,'geom::Raster']]],
-  ['self_5ft_1',['self_t',['../classgeom_1_1detail_1_1_vec_common.html#a6039ae5b6bcf9f5196abfe40118e9ca7',1,'geom::detail::VecCommon::self_t'],['../classgeom_1_1_subtree_base.html#a8ace1392b7ef44e6890f862976de0f8c',1,'geom::SubtreeBase::self_t']]]
+  ['reference_0',['reference',['../classgeom_1_1detail_1_1_writeable_matrix_base.html#ad41a72f24cae7876ba2fe385f953c056',1,'geom::detail::WriteableMatrixBase::reference'],['../classgeom_1_1_simple_matrix.html#a85ae0196a04090ff5b67b7a900aabab3',1,'geom::SimpleMatrix::reference'],['../classgeom_1_1_subtree_base.html#a43ddbf37b289ee9e8f6157c71bc6bdba',1,'geom::SubtreeBase::reference']]],
+  ['region_5fiterator_1',['region_iterator',['../classgeom_1_1detail_1_1_writeable_matrix_base.html#a14e68d5d50862c798e1b7bbb38aa5d76',1,'geom::detail::WriteableMatrixBase']]],
+  ['row_5fiterator_2',['row_iterator',['../classgeom_1_1detail_1_1_writeable_matrix_base.html#ac6c857c2e4e001cc53bf5cec8043a08c',1,'geom::detail::WriteableMatrixBase::row_iterator'],['../classgeom_1_1_simple_matrix.html#a129129f9bebc0fb3d7b9bbdedbeb277c',1,'geom::SimpleMatrix::row_iterator']]]
 ];

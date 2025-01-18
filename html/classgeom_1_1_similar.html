@@ -100,7 +100,7 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 
-<p>A shape transformed by a similarity transform (translation, rotation, scale).  
+<p>A shape transformed by a similarity transform (translation, rotation, and scale).  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_similar_8h_source.html">geomc/shape/Similar.h</a>&gt;</code></p>
@@ -110,11 +110,12 @@ Inheritance diagram for Similar&lt; Shape &gt;:</div>
  <div class="center">
   <img src="classgeom_1_1_similar.png" usemap="#Similar_3C_20Shape_20_3E_map" alt=""/>
   <map id="Similar_3C_20Shape_20_3E_map" name="Similar_3C_20Shape_20_3E_map">
-<area href="classgeom_1_1_convex.html" alt="Convex&lt; Shape::elem_t, Shape::N, Similar&lt; Shape &gt; &gt;" shape="rect" coords="0,56,375,80"/>
-<area href="classgeom_1_1_ray_intersectable.html" alt="RayIntersectable&lt; Shape::elem_t, Shape::N, Similar&lt; Shape &gt; &gt;" shape="rect" coords="385,56,760,80"/>
-<area href="classgeom_1_1_projectable.html" alt="Projectable&lt; Shape::elem_t, Shape::N, Similar&lt; Shape &gt; &gt;" shape="rect" coords="770,56,1145,80"/>
-<area href="classgeom_1_1_bounded.html" alt="Bounded&lt; Shape::elem_t, N, Similar&lt; Shape &gt; &gt;" shape="rect" coords="0,0,375,24"/>
-<area href="classgeom_1_1_sdf_evaluable.html" alt="SdfEvaluable&lt; Shape::elem_t, N, Similar&lt; Shape &gt; &gt;" shape="rect" coords="770,0,1145,24"/>
+<area href="classgeom_1_1_convex.html" alt="Convex&lt; Shape::elem_t, Shape::N, Similar&lt; Shape &gt; &gt;" shape="rect" coords="0,112,375,136"/>
+<area href="classgeom_1_1_ray_intersectable.html" alt="RayIntersectable&lt; Shape::elem_t, Shape::N, Similar&lt; Shape &gt; &gt;" shape="rect" coords="385,112,760,136"/>
+<area href="classgeom_1_1_projectable.html" alt="Projectable&lt; Shape::elem_t, Shape::N, Similar&lt; Shape &gt; &gt;" shape="rect" coords="770,112,1145,136"/>
+<area href="classgeom_1_1_bounded.html" alt="Bounded&lt; Shape::elem_t, N, Similar&lt; Shape &gt; &gt;" shape="rect" coords="0,56,375,80"/>
+<area href="classgeom_1_1_sdf_evaluable.html" alt="SdfEvaluable&lt; Shape::elem_t, N, Similar&lt; Shape &gt; &gt;" shape="rect" coords="770,56,1145,80"/>
+<area href="structgeom_1_1_dimensional.html" alt="Dimensional&lt; Shape::elem_t, N &gt;" shape="rect" coords="0,0,375,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -137,7 +138,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a2c66901cba26bf2543bc208efd70218d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap a default-constructed shape with the identity transform. <br /></td></tr>
 <tr class="separator:a2c66901cba26bf2543bc208efd70218d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe31470f2a39cbc98dadf5f34848fd18" id="r_abe31470f2a39cbc98dadf5f34848fd18"><td class="memItemLeft" align="right" valign="top"><a id="abe31470f2a39cbc98dadf5f34848fd18" name="abe31470f2a39cbc98dadf5f34848fd18"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Similar</b> (const Shape &amp;<a class="el" href="#a8b9f7758a8bd2bef680aeecc40bcfe04">shape</a>, const <a class="el" href="structgeom_1_1_similarity.html">Similarity</a>&lt; T, N &gt; &amp;xf)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Similar</b> (const Shape &amp;<a class="el" href="#a8b9f7758a8bd2bef680aeecc40bcfe04">shape</a>, const <a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; T, N &gt; &amp;xf)</td></tr>
 <tr class="memdesc:abe31470f2a39cbc98dadf5f34848fd18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap a shape with a similarity transform. <br /></td></tr>
 <tr class="separator:abe31470f2a39cbc98dadf5f34848fd18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82bac83b58c93df49793cdd3d42652e3" id="r_a82bac83b58c93df49793cdd3d42652e3"><td class="memItemLeft" align="right" valign="top"><a id="a82bac83b58c93df49793cdd3d42652e3" name="a82bac83b58c93df49793cdd3d42652e3"></a>
@@ -151,16 +152,18 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>contains</b> (typename Shape::point_t p) const</td></tr>
 <tr class="memdesc:acc8cdd02245869235052671393db9f68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shape-point intersection test. <br /></td></tr>
 <tr class="separator:acc8cdd02245869235052671393db9f68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba1493b3d98f8a01a13cbf28df995ae7" id="r_aba1493b3d98f8a01a13cbf28df995ae7"><td class="memItemLeft" align="right" valign="top"><a id="aba1493b3d98f8a01a13cbf28df995ae7" name="aba1493b3d98f8a01a13cbf28df995ae7"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>intersects</b> (const <a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; T, N &gt; s) const</td></tr>
-<tr class="memdesc:aba1493b3d98f8a01a13cbf28df995ae7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shape-sphere intersection. <br /></td></tr>
-<tr class="separator:aba1493b3d98f8a01a13cbf28df995ae7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8806eabcde20b19d3d40b10b5446d96b" id="r_a8806eabcde20b19d3d40b10b5446d96b"><td class="memTemplParams" colspan="2"><a id="a8806eabcde20b19d3d40b10b5446d96b" name="a8806eabcde20b19d3d40b10b5446d96b"></a>
 template&lt;typename S &gt; <br />
 requires requires (const <a class="el" href="classgeom_1_1_similar.html">Similar</a>&lt;Shape&gt; s, const S b) { s.intersects(b); }</td></tr>
 <tr class="memitem:a8806eabcde20b19d3d40b10b5446d96b"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>intersects</b> (const <a class="el" href="classgeom_1_1_similar.html">Similar</a>&lt; S &gt; &amp;s) const</td></tr>
-<tr class="memdesc:a8806eabcde20b19d3d40b10b5446d96b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shape-shape intersection. <br /></td></tr>
+<tr class="memdesc:a8806eabcde20b19d3d40b10b5446d96b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intersecion with another similar shape. Requires that the our shape can intersect the other shape's base shape. <br /></td></tr>
 <tr class="separator:a8806eabcde20b19d3d40b10b5446d96b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace9cc078d1e1dc36c9059fbc94b04fe6" id="r_ace9cc078d1e1dc36c9059fbc94b04fe6"><td class="memTemplParams" colspan="2"><a id="ace9cc078d1e1dc36c9059fbc94b04fe6" name="ace9cc078d1e1dc36c9059fbc94b04fe6"></a>
+template&lt;typename S &gt; <br />
+requires requires (<a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt;T,N&gt; xf, const Shape s, const S b) { s.intersects(b); { b / xf } -&gt; std::same_as&lt;S&gt;; }</td></tr>
+<tr class="memitem:ace9cc078d1e1dc36c9059fbc94b04fe6"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>intersects</b> (const S &amp;s) const</td></tr>
+<tr class="memdesc:ace9cc078d1e1dc36c9059fbc94b04fe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intersection with another shape. Requires that the other shape can be transformed into our space while preserving its type. <br /></td></tr>
+<tr class="separator:ace9cc078d1e1dc36c9059fbc94b04fe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab3817bcebe246da3c713de1f8638cf7c" id="r_ab3817bcebe246da3c713de1f8638cf7c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab3817bcebe246da3c713de1f8638cf7c">convex_support</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; d) const</td></tr>
 <tr class="separator:ab3817bcebe246da3c713de1f8638cf7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9169a12164a1950abed5f76c559691e8" id="r_a9169a12164a1950abed5f76c559691e8"><td class="memItemLeft" align="right" valign="top"><a id="a9169a12164a1950abed5f76c559691e8" name="a9169a12164a1950abed5f76c559691e8"></a>
@@ -206,7 +209,7 @@ Shape&#160;</td><td class="memItemRight" valign="bottom"><b>shape</b></td></tr>
 <tr class="memdesc:a8b9f7758a8bd2bef680aeecc40bcfe04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un-transformed shape. <br /></td></tr>
 <tr class="separator:a8b9f7758a8bd2bef680aeecc40bcfe04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5f0e588895aa80ea8977747632f8e53" id="r_af5f0e588895aa80ea8977747632f8e53"><td class="memItemLeft" align="right" valign="top"><a id="af5f0e588895aa80ea8977747632f8e53" name="af5f0e588895aa80ea8977747632f8e53"></a>
-<a class="el" href="structgeom_1_1_similarity.html">Similarity</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>xf</b></td></tr>
+<a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>xf</b></td></tr>
 <tr class="separator:af5f0e588895aa80ea8977747632f8e53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
@@ -219,41 +222,46 @@ static constexpr index_t&#160;</td><td class="memItemRight" valign="bottom"><b>N
 Related Symbols</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p>(Note that these are not member symbols.) </p>
 </td></tr>
+<tr class="memitem:gaea63ec516a725f9f80f0c0ff15d3eadb" id="r_gaea63ec516a725f9f80f0c0ff15d3eadb"><td class="memTemplParams" colspan="2">
+template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:gaea63ec516a725f9f80f0c0ff15d3eadb"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Box</b> = <a class="el" href="classgeom_1_1_similar.html">Similar</a>&lt;<a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt;T,N&gt;&gt;</td></tr>
+<tr class="memdesc:gaea63ec516a725f9f80f0c0ff15d3eadb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience typedef for arbitrarily-oriented Rects. <br /></td></tr>
+<tr class="separator:gaea63ec516a725f9f80f0c0ff15d3eadb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4ca1802c60a34083f10370c3c6698a7" id="r_ad4ca1802c60a34083f10370c3c6698a7"><td class="memTemplParams" colspan="2"><a id="ad4ca1802c60a34083f10370c3c6698a7" name="ad4ca1802c60a34083f10370c3c6698a7"></a>
 template&lt;typename Shape &gt; </td></tr>
-<tr class="memitem:ad4ca1802c60a34083f10370c3c6698a7"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_similar.html">Similar</a>&lt; Shape &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="structgeom_1_1_similarity.html">Similarity</a>&lt; typename Shape::elem_t, Shape::N &gt; &amp;xf, const Shape &amp;<a class="el" href="#a8b9f7758a8bd2bef680aeecc40bcfe04">shape</a>)</td></tr>
-<tr class="memdesc:ad4ca1802c60a34083f10370c3c6698a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform the shape <code>shape</code> by wrapping it with a <a class="el" href="structgeom_1_1_similarity.html" title="A similarity transform, which is a rotation, scaling, and translation.">Similarity</a> transform. <br /></td></tr>
+<tr class="memitem:ad4ca1802c60a34083f10370c3c6698a7"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_similar.html">Similar</a>&lt; Shape &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; typename Shape::elem_t, Shape::N &gt; &amp;xf, const Shape &amp;<a class="el" href="#a8b9f7758a8bd2bef680aeecc40bcfe04">shape</a>)</td></tr>
+<tr class="memdesc:ad4ca1802c60a34083f10370c3c6698a7"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="conceptgeom_1_1_transform.html" title="Represents a means of transforming a point or vector.">Transform</a> the shape <code>shape</code> by wrapping it with a <a class="el" href="classgeom_1_1_similarity.html" title="A similarity transform, which is a rotation, scaling, and translation.">Similarity</a> transform. <br /></td></tr>
 <tr class="separator:ad4ca1802c60a34083f10370c3c6698a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae4b2f89057d98509ab634bdf6a2d3732" id="r_ae4b2f89057d98509ab634bdf6a2d3732"><td class="memTemplParams" colspan="2"><a id="ae4b2f89057d98509ab634bdf6a2d3732" name="ae4b2f89057d98509ab634bdf6a2d3732"></a>
 template&lt;typename Shape &gt; </td></tr>
-<tr class="memitem:ae4b2f89057d98509ab634bdf6a2d3732"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_similar.html">Similar</a>&lt; Shape &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="structgeom_1_1_similarity.html">Similarity</a>&lt; typename Shape::elem_t, Shape::N &gt; &amp;xf, const <a class="el" href="classgeom_1_1_similar.html">Similar</a>&lt; Shape &gt; &amp;s)</td></tr>
-<tr class="memdesc:ae4b2f89057d98509ab634bdf6a2d3732"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform the shape <code>s</code> by <code>xf</code>. <br /></td></tr>
+<tr class="memitem:ae4b2f89057d98509ab634bdf6a2d3732"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_similar.html">Similar</a>&lt; Shape &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; typename Shape::elem_t, Shape::N &gt; &amp;xf, const <a class="el" href="classgeom_1_1_similar.html">Similar</a>&lt; Shape &gt; &amp;s)</td></tr>
+<tr class="memdesc:ae4b2f89057d98509ab634bdf6a2d3732"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="conceptgeom_1_1_transform.html" title="Represents a means of transforming a point or vector.">Transform</a> the shape <code>s</code> by <code>xf</code>. <br /></td></tr>
 <tr class="separator:ae4b2f89057d98509ab634bdf6a2d3732"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acdad6e5ca97e7e4038276585e9870d63" id="r_acdad6e5ca97e7e4038276585e9870d63"><td class="memTemplParams" colspan="2"><a id="acdad6e5ca97e7e4038276585e9870d63" name="acdad6e5ca97e7e4038276585e9870d63"></a>
 template&lt;typename Shape &gt; </td></tr>
-<tr class="memitem:acdad6e5ca97e7e4038276585e9870d63"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_similar.html">Similar</a>&lt; Shape &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*=</b> (<a class="el" href="classgeom_1_1_similar.html">Similar</a>&lt; Shape &gt; &amp;s, const <a class="el" href="structgeom_1_1_similarity.html">Similarity</a>&lt; typename Shape::elem_t, Shape::N &gt; &amp;xf)</td></tr>
+<tr class="memitem:acdad6e5ca97e7e4038276585e9870d63"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_similar.html">Similar</a>&lt; Shape &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*=</b> (<a class="el" href="classgeom_1_1_similar.html">Similar</a>&lt; Shape &gt; &amp;s, const <a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; typename Shape::elem_t, Shape::N &gt; &amp;xf)</td></tr>
 <tr class="memdesc:acdad6e5ca97e7e4038276585e9870d63"><td class="mdescLeft">&#160;</td><td class="mdescRight">In-place transform the shape <code>s</code> by <code>xf</code>. <br /></td></tr>
 <tr class="separator:acdad6e5ca97e7e4038276585e9870d63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad243aa9365f3f41b30489b933abe13e9" id="r_ad243aa9365f3f41b30489b933abe13e9"><td class="memTemplParams" colspan="2"><a id="ad243aa9365f3f41b30489b933abe13e9" name="ad243aa9365f3f41b30489b933abe13e9"></a>
 template&lt;typename Shape &gt; </td></tr>
-<tr class="memitem:ad243aa9365f3f41b30489b933abe13e9"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_similar.html">Similar</a>&lt; Shape &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/</b> (const Shape &amp;s, const <a class="el" href="structgeom_1_1_similarity.html">Similarity</a>&lt; typename Shape::elem_t, Shape::N &gt; &amp;xf)</td></tr>
-<tr class="memdesc:ad243aa9365f3f41b30489b933abe13e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform the shape <code>s</code> by the inverse of <code>xf</code>. <br /></td></tr>
+<tr class="memitem:ad243aa9365f3f41b30489b933abe13e9"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_similar.html">Similar</a>&lt; Shape &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/</b> (const Shape &amp;s, const <a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; typename Shape::elem_t, Shape::N &gt; &amp;xf)</td></tr>
+<tr class="memdesc:ad243aa9365f3f41b30489b933abe13e9"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="conceptgeom_1_1_transform.html" title="Represents a means of transforming a point or vector.">Transform</a> the shape <code>s</code> by the inverse of <code>xf</code>. <br /></td></tr>
 <tr class="separator:ad243aa9365f3f41b30489b933abe13e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a84c63e44fb26f81fc9983fb92ee1633e" id="r_a84c63e44fb26f81fc9983fb92ee1633e"><td class="memTemplParams" colspan="2"><a id="a84c63e44fb26f81fc9983fb92ee1633e" name="a84c63e44fb26f81fc9983fb92ee1633e"></a>
 template&lt;typename Shape &gt; </td></tr>
-<tr class="memitem:a84c63e44fb26f81fc9983fb92ee1633e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_similar.html">Similar</a>&lt; Shape &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_similar.html">Similar</a>&lt; Shape &gt; &amp;s, const <a class="el" href="structgeom_1_1_similarity.html">Similarity</a>&lt; typename Shape::elem_t, Shape::N &gt; &amp;xf)</td></tr>
-<tr class="memdesc:a84c63e44fb26f81fc9983fb92ee1633e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transform the shape <code>s</code> by the inverse of <code>xf</code>. <br /></td></tr>
+<tr class="memitem:a84c63e44fb26f81fc9983fb92ee1633e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_similar.html">Similar</a>&lt; Shape &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_similar.html">Similar</a>&lt; Shape &gt; &amp;s, const <a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; typename Shape::elem_t, Shape::N &gt; &amp;xf)</td></tr>
+<tr class="memdesc:a84c63e44fb26f81fc9983fb92ee1633e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="conceptgeom_1_1_transform.html" title="Represents a means of transforming a point or vector.">Transform</a> the shape <code>s</code> by the inverse of <code>xf</code>. <br /></td></tr>
 <tr class="separator:a84c63e44fb26f81fc9983fb92ee1633e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92d4ec2e8fbb47ab48dcd91a5b5640f0" id="r_a92d4ec2e8fbb47ab48dcd91a5b5640f0"><td class="memTemplParams" colspan="2"><a id="a92d4ec2e8fbb47ab48dcd91a5b5640f0" name="a92d4ec2e8fbb47ab48dcd91a5b5640f0"></a>
 template&lt;typename Shape &gt; </td></tr>
-<tr class="memitem:a92d4ec2e8fbb47ab48dcd91a5b5640f0"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_similar.html">Similar</a>&lt; Shape &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/=</b> (<a class="el" href="classgeom_1_1_similar.html">Similar</a>&lt; Shape &gt; &amp;s, const <a class="el" href="structgeom_1_1_similarity.html">Similarity</a>&lt; typename Shape::elem_t, Shape::N &gt; &amp;xf)</td></tr>
+<tr class="memitem:a92d4ec2e8fbb47ab48dcd91a5b5640f0"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_similar.html">Similar</a>&lt; Shape &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/=</b> (<a class="el" href="classgeom_1_1_similar.html">Similar</a>&lt; Shape &gt; &amp;s, const <a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; typename Shape::elem_t, Shape::N &gt; &amp;xf)</td></tr>
 <tr class="memdesc:a92d4ec2e8fbb47ab48dcd91a5b5640f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">In-place transform the shape <code>s</code> by the inverse of <code>xf</code>. <br /></td></tr>
 <tr class="separator:a92d4ec2e8fbb47ab48dcd91a5b5640f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename Shape&gt;<br />
-class geom::Similar&lt; Shape &gt;</div><p>A shape transformed by a similarity transform (translation, rotation, scale). </p>
-<p><a class="el" href="classgeom_1_1_similar.html" title="A shape transformed by a similarity transform (translation, rotation, scale).">Similar</a> transfrorms guarantee that shapes and relative distances are preserved. </p>
+class geom::Similar&lt; Shape &gt;</div><p>A shape transformed by a similarity transform (translation, rotation, and scale). </p>
+<p><a class="el" href="classgeom_1_1_similar.html" title="A shape transformed by a similarity transform (translation, rotation, and scale).">Similar</a> transfrorms guarantee that shapes and relative distances are preserved. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="af1ce72ac22267627f5e7b46fc655bac5" name="af1ce72ac22267627f5e7b46fc655bac5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af1ce72ac22267627f5e7b46fc655bac5">&#9670;&#160;</a></span>clip()</h2>
@@ -387,7 +395,7 @@ template&lt;typename Shape &gt; </div>
         <tr>
           <td class="memname">bool intersects </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; Shape::elem_t, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a>, Shape &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; Shape::elem_t, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>, Shape &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -410,7 +418,7 @@ template&lt;typename Shape &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 7 2025 23:28:25 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
+Generated on Sat Jan 18 2025 12:01:00 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
 </div><!-- doc-content -->
 </body>

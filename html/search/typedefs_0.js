@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['base_5fpoint_5ft_0',['base_point_t',['../classgeom_1_1_frustum.html#a679c329526e5fbf1f60a5141da1216a4',1,'geom::Frustum']]]
+  ['affinebox_0',['AffineBox',['../group__shape.html#gab9054824521dadbd73d26aaf9cff6006',1,'geom::Transformed']]]
 ];

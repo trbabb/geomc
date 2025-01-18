@@ -111,24 +111,25 @@ Inheritance diagram for Rect&lt; T, N &gt;:</div>
  <div class="center">
   <img src="classgeom_1_1_rect.png" usemap="#Rect_3C_20T_2C_20N_20_3E_map" alt=""/>
   <map id="Rect_3C_20T_2C_20N_20_3E_map" name="Rect_3C_20T_2C_20N_20_3E_map">
-<area href="classgeom_1_1_convex.html" alt="Convex&lt; T, N, Rect&lt; T, N &gt; &gt;" shape="rect" coords="0,56,238,80"/>
-<area href="classgeom_1_1_projectable.html" alt="Projectable&lt; T, N, Rect&lt; T, N &gt; &gt;" shape="rect" coords="248,56,486,80"/>
-<area href="classgeom_1_1_ray_intersectable.html" alt="RayIntersectable&lt; T, N, Rect&lt; T, N &gt; &gt;" shape="rect" coords="496,56,734,80"/>
-<area href="classgeom_1_1_bounded.html" alt="Bounded&lt; T, N, Rect&lt; T, N &gt; &gt;" shape="rect" coords="0,0,238,24"/>
-<area href="classgeom_1_1_sdf_evaluable.html" alt="SdfEvaluable&lt; T, N, Rect&lt; T, N &gt; &gt;" shape="rect" coords="248,0,486,24"/>
+<area href="classgeom_1_1_convex.html" alt="Convex&lt; T, N, Rect&lt; T, N &gt; &gt;" shape="rect" coords="0,112,238,136"/>
+<area href="classgeom_1_1_projectable.html" alt="Projectable&lt; T, N, Rect&lt; T, N &gt; &gt;" shape="rect" coords="248,112,486,136"/>
+<area href="classgeom_1_1_ray_intersectable.html" alt="RayIntersectable&lt; T, N, Rect&lt; T, N &gt; &gt;" shape="rect" coords="496,112,734,136"/>
+<area href="classgeom_1_1_bounded.html" alt="Bounded&lt; T, N, Rect&lt; T, N &gt; &gt;" shape="rect" coords="0,56,238,80"/>
+<area href="classgeom_1_1_sdf_evaluable.html" alt="SdfEvaluable&lt; T, N, Rect&lt; T, N &gt; &gt;" shape="rect" coords="248,56,486,80"/>
+<area href="structgeom_1_1_dimensional.html" alt="Dimensional&lt; T, N &gt;" shape="rect" coords="0,0,238,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:a4a057c5b60fec78341c983d408ab7753" id="r_a4a057c5b60fec78341c983d408ab7753"><td class="memItemLeft" align="right" valign="top"><a id="a4a057c5b60fec78341c983d408ab7753" name="a4a057c5b60fec78341c983d408ab7753"></a>
-typedef <a class="el" href="structgeom_1_1_point_type.html">PointType</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;::point_t&#160;</td><td class="memItemRight" valign="bottom"><b>point_t</b></td></tr>
+typedef <a class="el" href="structgeom_1_1_point_type.html">PointType</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;::point_t&#160;</td><td class="memItemRight" valign="bottom"><b>point_t</b></td></tr>
 <tr class="memdesc:a4a057c5b60fec78341c983d408ab7753"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of object confined by this <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a>. <br /></td></tr>
 <tr class="separator:a4a057c5b60fec78341c983d408ab7753"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05ff7a62cbfe54e2a4bade46d1015a01" id="r_a05ff7a62cbfe54e2a4bade46d1015a01"><td class="memItemLeft" align="right" valign="top"><a id="a05ff7a62cbfe54e2a4bade46d1015a01" name="a05ff7a62cbfe54e2a4bade46d1015a01"></a>
-typedef T&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
-<tr class="memdesc:a05ff7a62cbfe54e2a4bade46d1015a01"><td class="mdescLeft">&#160;</td><td class="mdescRight">The coordinate type of this shape. <br /></td></tr>
-<tr class="separator:a05ff7a62cbfe54e2a4bade46d1015a01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ce56f5f4fb0fe326b49a018b2b6efdb" id="r_a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="memItemLeft" align="right" valign="top"><a id="a6ce56f5f4fb0fe326b49a018b2b6efdb" name="a6ce56f5f4fb0fe326b49a018b2b6efdb"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
+<tr class="memdesc:a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The coordinate type of this object. <br /></td></tr>
+<tr class="separator:a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -147,62 +148,62 @@ requires (... and std::convertible_to&lt;I, size_t&gt;)</td></tr>
 <tr class="memitem:a6bfd046801b158573dd590512a0362db"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, sizeof...(I)&gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a6bfd046801b158573dd590512a0362db">operator()</a> (I... indices) const</td></tr>
 <tr class="memdesc:a6bfd046801b158573dd590512a0362db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dimensionally slice a <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a>.  <br /></td></tr>
 <tr class="separator:a6bfd046801b158573dd590512a0362db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e6a52bf01e96d342b80009d519ae62d" id="r_a4e6a52bf01e96d342b80009d519ae62d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e6a52bf01e96d342b80009d519ae62d">operator|</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;b) const</td></tr>
+<tr class="memitem:a4e6a52bf01e96d342b80009d519ae62d" id="r_a4e6a52bf01e96d342b80009d519ae62d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e6a52bf01e96d342b80009d519ae62d">operator|</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;b) const</td></tr>
 <tr class="memdesc:a4e6a52bf01e96d342b80009d519ae62d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interval union.  <br /></td></tr>
 <tr class="separator:a4e6a52bf01e96d342b80009d519ae62d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeacd69c9c71bc7da9a730243f0b38117" id="r_aeacd69c9c71bc7da9a730243f0b38117"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeacd69c9c71bc7da9a730243f0b38117">operator|=</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;b)</td></tr>
+<tr class="memitem:aeacd69c9c71bc7da9a730243f0b38117" id="r_aeacd69c9c71bc7da9a730243f0b38117"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeacd69c9c71bc7da9a730243f0b38117">operator|=</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;b)</td></tr>
 <tr class="memdesc:aeacd69c9c71bc7da9a730243f0b38117"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interval union.  <br /></td></tr>
 <tr class="separator:aeacd69c9c71bc7da9a730243f0b38117"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74c8c962622321d701337e69b51b7745" id="r_a74c8c962622321d701337e69b51b7745"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a74c8c962622321d701337e69b51b7745">operator|</a> (const <a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> &amp;p)</td></tr>
+<tr class="memitem:a74c8c962622321d701337e69b51b7745" id="r_a74c8c962622321d701337e69b51b7745"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a74c8c962622321d701337e69b51b7745">operator|</a> (const <a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> &amp;p)</td></tr>
 <tr class="memdesc:a74c8c962622321d701337e69b51b7745"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point union.  <br /></td></tr>
 <tr class="separator:a74c8c962622321d701337e69b51b7745"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a376c7d5e9c53f799d56d48b68222ad9b" id="r_a376c7d5e9c53f799d56d48b68222ad9b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a376c7d5e9c53f799d56d48b68222ad9b">operator|=</a> (const <a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> &amp;p)</td></tr>
+<tr class="memitem:a376c7d5e9c53f799d56d48b68222ad9b" id="r_a376c7d5e9c53f799d56d48b68222ad9b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a376c7d5e9c53f799d56d48b68222ad9b">operator|=</a> (const <a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> &amp;p)</td></tr>
 <tr class="memdesc:a376c7d5e9c53f799d56d48b68222ad9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point union.  <br /></td></tr>
 <tr class="separator:a376c7d5e9c53f799d56d48b68222ad9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c75933dbeb5176d83043850b4b29b17" id="r_a8c75933dbeb5176d83043850b4b29b17"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8c75933dbeb5176d83043850b4b29b17">operator&amp;</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;b) const</td></tr>
+<tr class="memitem:a8c75933dbeb5176d83043850b4b29b17" id="r_a8c75933dbeb5176d83043850b4b29b17"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8c75933dbeb5176d83043850b4b29b17">operator&amp;</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;b) const</td></tr>
 <tr class="memdesc:a8c75933dbeb5176d83043850b4b29b17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interval intersection.  <br /></td></tr>
 <tr class="separator:a8c75933dbeb5176d83043850b4b29b17"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a127aabad7487adc8b61a8b31b94a14b8" id="r_a127aabad7487adc8b61a8b31b94a14b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a127aabad7487adc8b61a8b31b94a14b8">operator&amp;=</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;b)</td></tr>
+<tr class="memitem:a127aabad7487adc8b61a8b31b94a14b8" id="r_a127aabad7487adc8b61a8b31b94a14b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a127aabad7487adc8b61a8b31b94a14b8">operator&amp;=</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;b)</td></tr>
 <tr class="memdesc:a127aabad7487adc8b61a8b31b94a14b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interval intersection.  <br /></td></tr>
 <tr class="separator:a127aabad7487adc8b61a8b31b94a14b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a164dbbbdafd8c1f77bd5546b860e6e91" id="r_a164dbbbdafd8c1f77bd5546b860e6e91"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a164dbbbdafd8c1f77bd5546b860e6e91">operator+</a> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> dx) const</td></tr>
+<tr class="memitem:a164dbbbdafd8c1f77bd5546b860e6e91" id="r_a164dbbbdafd8c1f77bd5546b860e6e91"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a164dbbbdafd8c1f77bd5546b860e6e91">operator+</a> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> dx) const</td></tr>
 <tr class="memdesc:a164dbbbdafd8c1f77bd5546b860e6e91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Translation.  <br /></td></tr>
 <tr class="separator:a164dbbbdafd8c1f77bd5546b860e6e91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b5ab5f0919723294d96c4c58106393a" id="r_a5b5ab5f0919723294d96c4c58106393a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b5ab5f0919723294d96c4c58106393a">operator-</a> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> dx) const</td></tr>
+<tr class="memitem:a5b5ab5f0919723294d96c4c58106393a" id="r_a5b5ab5f0919723294d96c4c58106393a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b5ab5f0919723294d96c4c58106393a">operator-</a> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> dx) const</td></tr>
 <tr class="memdesc:a5b5ab5f0919723294d96c4c58106393a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Translation.  <br /></td></tr>
 <tr class="separator:a5b5ab5f0919723294d96c4c58106393a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2cdac72291740c67076cbfae0618e417" id="r_a2cdac72291740c67076cbfae0618e417"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2cdac72291740c67076cbfae0618e417">operator+=</a> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> dx)</td></tr>
+<tr class="memitem:a2cdac72291740c67076cbfae0618e417" id="r_a2cdac72291740c67076cbfae0618e417"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2cdac72291740c67076cbfae0618e417">operator+=</a> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> dx)</td></tr>
 <tr class="memdesc:a2cdac72291740c67076cbfae0618e417"><td class="mdescLeft">&#160;</td><td class="mdescRight">Translation.  <br /></td></tr>
 <tr class="separator:a2cdac72291740c67076cbfae0618e417"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a527e6a524749b43a255155c3c2a6979f" id="r_a527e6a524749b43a255155c3c2a6979f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a527e6a524749b43a255155c3c2a6979f">operator-=</a> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> dx)</td></tr>
+<tr class="memitem:a527e6a524749b43a255155c3c2a6979f" id="r_a527e6a524749b43a255155c3c2a6979f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a527e6a524749b43a255155c3c2a6979f">operator-=</a> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> dx)</td></tr>
 <tr class="memdesc:a527e6a524749b43a255155c3c2a6979f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Translation.  <br /></td></tr>
 <tr class="separator:a527e6a524749b43a255155c3c2a6979f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7462982cc4e0ccd891ca0bbc91031c77" id="r_a7462982cc4e0ccd891ca0bbc91031c77"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7462982cc4e0ccd891ca0bbc91031c77">operator-</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;other)</td></tr>
+<tr class="memitem:a7462982cc4e0ccd891ca0bbc91031c77" id="r_a7462982cc4e0ccd891ca0bbc91031c77"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7462982cc4e0ccd891ca0bbc91031c77">operator-</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;other)</td></tr>
 <tr class="memdesc:a7462982cc4e0ccd891ca0bbc91031c77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interval exclusion.  <br /></td></tr>
 <tr class="separator:a7462982cc4e0ccd891ca0bbc91031c77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a84a02b747fca3b1bf68d568caad940" id="r_a4a84a02b747fca3b1bf68d568caad940"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a84a02b747fca3b1bf68d568caad940">operator-=</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;other)</td></tr>
+<tr class="memitem:a4a84a02b747fca3b1bf68d568caad940" id="r_a4a84a02b747fca3b1bf68d568caad940"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a84a02b747fca3b1bf68d568caad940">operator-=</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;other)</td></tr>
 <tr class="memdesc:a4a84a02b747fca3b1bf68d568caad940"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interval exclusion.  <br /></td></tr>
 <tr class="separator:a4a84a02b747fca3b1bf68d568caad940"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4714e781d2ad5267713ac85048553374" id="r_a4714e781d2ad5267713ac85048553374"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4714e781d2ad5267713ac85048553374">operator==</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;b) const</td></tr>
+<tr class="memitem:a4714e781d2ad5267713ac85048553374" id="r_a4714e781d2ad5267713ac85048553374"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4714e781d2ad5267713ac85048553374">operator==</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;b) const</td></tr>
 <tr class="memdesc:a4714e781d2ad5267713ac85048553374"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality test.  <br /></td></tr>
 <tr class="separator:a4714e781d2ad5267713ac85048553374"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7dc77c1ef0459bca102029ba3d647291" id="r_a7dc77c1ef0459bca102029ba3d647291"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7dc77c1ef0459bca102029ba3d647291">operator!=</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;b) const</td></tr>
+<tr class="memitem:a7dc77c1ef0459bca102029ba3d647291" id="r_a7dc77c1ef0459bca102029ba3d647291"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7dc77c1ef0459bca102029ba3d647291">operator!=</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;b) const</td></tr>
 <tr class="memdesc:a7dc77c1ef0459bca102029ba3d647291"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inequality test.  <br /></td></tr>
 <tr class="separator:a7dc77c1ef0459bca102029ba3d647291"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20cdff101b059687fc5e62181641e44a" id="r_a20cdff101b059687fc5e62181641e44a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a20cdff101b059687fc5e62181641e44a">operator*</a> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> a) const</td></tr>
+<tr class="memitem:a20cdff101b059687fc5e62181641e44a" id="r_a20cdff101b059687fc5e62181641e44a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a20cdff101b059687fc5e62181641e44a">operator*</a> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> a) const</td></tr>
 <tr class="memdesc:a20cdff101b059687fc5e62181641e44a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale transformation.  <br /></td></tr>
 <tr class="separator:a20cdff101b059687fc5e62181641e44a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1cab8158d089db777740af164feb0e7" id="r_aa1cab8158d089db777740af164feb0e7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1cab8158d089db777740af164feb0e7">operator*=</a> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> a)</td></tr>
+<tr class="memitem:aa1cab8158d089db777740af164feb0e7" id="r_aa1cab8158d089db777740af164feb0e7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1cab8158d089db777740af164feb0e7">operator*=</a> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> a)</td></tr>
 <tr class="memdesc:aa1cab8158d089db777740af164feb0e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale transformation.  <br /></td></tr>
 <tr class="separator:aa1cab8158d089db777740af164feb0e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8b483e326d7893f814705509b2b0987" id="r_ad8b483e326d7893f814705509b2b0987"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad8b483e326d7893f814705509b2b0987">operator/</a> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> a) const</td></tr>
+<tr class="memitem:ad8b483e326d7893f814705509b2b0987" id="r_ad8b483e326d7893f814705509b2b0987"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad8b483e326d7893f814705509b2b0987">operator/</a> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> a) const</td></tr>
 <tr class="memdesc:ad8b483e326d7893f814705509b2b0987"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale transformation.  <br /></td></tr>
 <tr class="separator:ad8b483e326d7893f814705509b2b0987"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad18101cd405bba447cbaaf9e3c31c38a" id="r_ad18101cd405bba447cbaaf9e3c31c38a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad18101cd405bba447cbaaf9e3c31c38a">operator/=</a> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> a)</td></tr>
+<tr class="memitem:ad18101cd405bba447cbaaf9e3c31c38a" id="r_ad18101cd405bba447cbaaf9e3c31c38a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad18101cd405bba447cbaaf9e3c31c38a">operator/=</a> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> a)</td></tr>
 <tr class="memdesc:ad18101cd405bba447cbaaf9e3c31c38a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scale transformation.  <br /></td></tr>
 <tr class="separator:ad18101cd405bba447cbaaf9e3c31c38a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a678530d91e893305c91a53049bddf122" id="r_a678530d91e893305c91a53049bddf122"><td class="memTemplParams" colspan="2">template&lt;index_t M&gt; </td></tr>
-<tr class="memitem:a678530d91e893305c91a53049bddf122"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, M+<a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a678530d91e893305c91a53049bddf122">operator*</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, M &gt; &amp;r) const</td></tr>
+<tr class="memitem:a678530d91e893305c91a53049bddf122"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, M+<a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a678530d91e893305c91a53049bddf122">operator*</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, M &gt; &amp;r) const</td></tr>
 <tr class="memdesc:a678530d91e893305c91a53049bddf122"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interval cartesian product.  <br /></td></tr>
 <tr class="separator:a678530d91e893305c91a53049bddf122"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaccd1e56fbb938058afc7160bfa3c4ca" id="r_aaccd1e56fbb938058afc7160bfa3c4ca"><td class="memTemplParams" colspan="2">template&lt;typename U , index_t M&gt; </td></tr>
@@ -212,21 +213,21 @@ requires (... and std::convertible_to&lt;I, size_t&gt;)</td></tr>
 <tr class="memitem:a84f20b9c3eaba2c1b2e6e1a9ae4a7415" id="r_a84f20b9c3eaba2c1b2e6e1a9ae4a7415"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a84f20b9c3eaba2c1b2e6e1a9ae4a7415">contains</a> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> pt) const</td></tr>
 <tr class="memdesc:a84f20b9c3eaba2c1b2e6e1a9ae4a7415"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point containment test.  <br /></td></tr>
 <tr class="separator:a84f20b9c3eaba2c1b2e6e1a9ae4a7415"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa25d90aa6a22a4b62829c72f92101550" id="r_aa25d90aa6a22a4b62829c72f92101550"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa25d90aa6a22a4b62829c72f92101550">contains</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;box) const</td></tr>
+<tr class="memitem:aa25d90aa6a22a4b62829c72f92101550" id="r_aa25d90aa6a22a4b62829c72f92101550"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa25d90aa6a22a4b62829c72f92101550">contains</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;box) const</td></tr>
 <tr class="memdesc:aa25d90aa6a22a4b62829c72f92101550"><td class="mdescLeft">&#160;</td><td class="mdescRight">Box containment.  <br /></td></tr>
 <tr class="separator:aa25d90aa6a22a4b62829c72f92101550"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78f5a78f227ee129e09586adf847e7eb" id="r_a78f5a78f227ee129e09586adf847e7eb"><td class="memItemLeft" align="right" valign="top"><a id="a78f5a78f227ee129e09586adf847e7eb" name="a78f5a78f227ee129e09586adf847e7eb"></a>
 <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, 1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>axis</b> (size_t k) const</td></tr>
 <tr class="memdesc:a78f5a78f227ee129e09586adf847e7eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the one dimensional range spanned along axis <code>k</code>. <br /></td></tr>
 <tr class="separator:a78f5a78f227ee129e09586adf847e7eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a323e41ef967b9236fb3c571bc71705c0" id="r_a323e41ef967b9236fb3c571bc71705c0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a323e41ef967b9236fb3c571bc71705c0">intersects</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;box) const</td></tr>
+<tr class="memitem:a323e41ef967b9236fb3c571bc71705c0" id="r_a323e41ef967b9236fb3c571bc71705c0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a323e41ef967b9236fb3c571bc71705c0">intersects</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;box) const</td></tr>
 <tr class="memdesc:a323e41ef967b9236fb3c571bc71705c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Range intersection test.  <br /></td></tr>
 <tr class="separator:a323e41ef967b9236fb3c571bc71705c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa60eef18e92a634c0605cdf60d9e84c8" id="r_aa60eef18e92a634c0605cdf60d9e84c8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa60eef18e92a634c0605cdf60d9e84c8">intersects</a> (const <a class="el" href="classgeom_1_1_transformed.html">Transformed</a>&lt; <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &gt; &amp;box) const</td></tr>
+<tr class="memitem:aa60eef18e92a634c0605cdf60d9e84c8" id="r_aa60eef18e92a634c0605cdf60d9e84c8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa60eef18e92a634c0605cdf60d9e84c8">intersects</a> (const <a class="el" href="classgeom_1_1_transformed.html">Transformed</a>&lt; <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &gt; &amp;box) const</td></tr>
 <tr class="memdesc:aa60eef18e92a634c0605cdf60d9e84c8"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classgeom_1_1_transformed.html" title="A wrapper shape which transforms another arbitrary shape with an AffineTransform.">Transformed</a> range intersection test.  <br /></td></tr>
 <tr class="separator:aa60eef18e92a634c0605cdf60d9e84c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa31960062e472cf25c9b78b52ff1d2e9" id="r_aa31960062e472cf25c9b78b52ff1d2e9"><td class="memItemLeft" align="right" valign="top"><a id="aa31960062e472cf25c9b78b52ff1d2e9" name="aa31960062e472cf25c9b78b52ff1d2e9"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>intersects</b> (const <a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;sph) const</td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>intersects</b> (const <a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;sph) const</td></tr>
 <tr class="separator:aa31960062e472cf25c9b78b52ff1d2e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97de5519d35f04e76200f4d60a11e108" id="r_a97de5519d35f04e76200f4d60a11e108"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a97de5519d35f04e76200f4d60a11e108">center</a> () const</td></tr>
 <tr class="memdesc:a97de5519d35f04e76200f4d60a11e108"><td class="mdescLeft">&#160;</td><td class="mdescRight">Center point.  <br /></td></tr>
@@ -240,19 +241,19 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>intersects</b> (const
 <tr class="memitem:a6cc391c759e944fd1a7a4a2c2827ecba" id="r_a6cc391c759e944fd1a7a4a2c2827ecba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6cc391c759e944fd1a7a4a2c2827ecba">set_corners</a> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> corner1, <a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> corner2)</td></tr>
 <tr class="memdesc:a6cc391c759e944fd1a7a4a2c2827ecba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconstruct from corner points.  <br /></td></tr>
 <tr class="separator:a6cc391c759e944fd1a7a4a2c2827ecba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5fea8b1f619658a832dbe9f150d01f3" id="r_af5fea8b1f619658a832dbe9f150d01f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5fea8b1f619658a832dbe9f150d01f3">centered_on</a> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> c) const</td></tr>
+<tr class="memitem:af5fea8b1f619658a832dbe9f150d01f3" id="r_af5fea8b1f619658a832dbe9f150d01f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af5fea8b1f619658a832dbe9f150d01f3">centered_on</a> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> c) const</td></tr>
 <tr class="memdesc:af5fea8b1f619658a832dbe9f150d01f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Place a copy at a new location.  <br /></td></tr>
 <tr class="separator:af5fea8b1f619658a832dbe9f150d01f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6cb89c84d2fef6b11e56f4586efaaffa" id="r_a6cb89c84d2fef6b11e56f4586efaaffa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6cb89c84d2fef6b11e56f4586efaaffa">abs</a> () const</td></tr>
+<tr class="memitem:a6cb89c84d2fef6b11e56f4586efaaffa" id="r_a6cb89c84d2fef6b11e56f4586efaaffa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6cb89c84d2fef6b11e56f4586efaaffa">abs</a> () const</td></tr>
 <tr class="memdesc:a6cb89c84d2fef6b11e56f4586efaaffa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normalize the sign of the region.  <br /></td></tr>
 <tr class="separator:a6cb89c84d2fef6b11e56f4586efaaffa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41212062ddbbca0b52b2bc303ebca5c3" id="r_a41212062ddbbca0b52b2bc303ebca5c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a41212062ddbbca0b52b2bc303ebca5c3">fitted_to</a> (<a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; other) const</td></tr>
+<tr class="memitem:a41212062ddbbca0b52b2bc303ebca5c3" id="r_a41212062ddbbca0b52b2bc303ebca5c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a41212062ddbbca0b52b2bc303ebca5c3">fitted_to</a> (<a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; other) const</td></tr>
 <tr class="memdesc:a41212062ddbbca0b52b2bc303ebca5c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a rect having the same aspect (ratios of axial lengths) as this one, sized and positioned to minimally contain <code>other</code>.  <br /></td></tr>
 <tr class="separator:a41212062ddbbca0b52b2bc303ebca5c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa937fa5a6287a4d5d97f2fff4a6a5cdf" id="r_aa937fa5a6287a4d5d97f2fff4a6a5cdf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa937fa5a6287a4d5d97f2fff4a6a5cdf">dilated</a> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> c) const</td></tr>
+<tr class="memitem:aa937fa5a6287a4d5d97f2fff4a6a5cdf" id="r_aa937fa5a6287a4d5d97f2fff4a6a5cdf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa937fa5a6287a4d5d97f2fff4a6a5cdf">dilated</a> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> c) const</td></tr>
 <tr class="memdesc:aa937fa5a6287a4d5d97f2fff4a6a5cdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Morphological dilation.  <br /></td></tr>
 <tr class="separator:aa937fa5a6287a4d5d97f2fff4a6a5cdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f36c09e245ec318c665df3270633760" id="r_a3f36c09e245ec318c665df3270633760"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3f36c09e245ec318c665df3270633760">minkowski_sum</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;other) const</td></tr>
+<tr class="memitem:a3f36c09e245ec318c665df3270633760" id="r_a3f36c09e245ec318c665df3270633760"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3f36c09e245ec318c665df3270633760">minkowski_sum</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;other) const</td></tr>
 <tr class="memdesc:a3f36c09e245ec318c665df3270633760"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minkowski sum.  <br /></td></tr>
 <tr class="separator:a3f36c09e245ec318c665df3270633760"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ed7714934c91dbf15da96f2c7d68241" id="r_a4ed7714934c91dbf15da96f2c7d68241"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ed7714934c91dbf15da96f2c7d68241">volume</a> () const</td></tr>
@@ -284,45 +285,45 @@ T&#160;</td><td class="memItemRight" valign="bottom"><b>sdf</b> (<a class="el" h
 <tr class="memdesc:acf00c25e6537699c4f7b3e82c07d33f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find <code>p</code>'s fractional position within this <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a>.  <br /></td></tr>
 <tr class="separator:acf00c25e6537699c4f7b3e82c07d33f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44cd02ca6ab35c05499174fedde957d0" id="r_a44cd02ca6ab35c05499174fedde957d0"><td class="memItemLeft" align="right" valign="top"><a id="a44cd02ca6ab35c05499174fedde957d0" name="a44cd02ca6ab35c05499174fedde957d0"></a>
-std::pair&lt; <a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a>, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>contact_vector</b> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;other) const</td></tr>
+std::pair&lt; <a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a>, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>contact_vector</b> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;other) const</td></tr>
 <tr class="memdesc:a44cd02ca6ab35c05499174fedde957d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a vector which moves <code>this</code> into precise disjoint contact with <code>other</code>, and a boolean indicating whether the two shapes currently overlap. <br /></td></tr>
 <tr class="separator:a44cd02ca6ab35c05499174fedde957d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6af4e3e4e412edc6e07c9d7721e3a6c" id="r_af6af4e3e4e412edc6e07c9d7721e3a6c"><td class="memItemLeft" align="right" valign="top"><a id="af6af4e3e4e412edc6e07c9d7721e3a6c" name="af6af4e3e4e412edc6e07c9d7721e3a6c"></a>
 <a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>convex_support</b> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> d) const</td></tr>
 <tr class="separator:af6af4e3e4e412edc6e07c9d7721e3a6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf955c5955886a42e82fd3d3d6def20f" id="r_adf955c5955886a42e82fd3d3d6def20f"><td class="memItemLeft" align="right" valign="top"><a id="adf955c5955886a42e82fd3d3d6def20f" name="adf955c5955886a42e82fd3d3d6def20f"></a>
-<a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, 1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>intersect</b> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;r) const</td></tr>
+<a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, 1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>intersect</b> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;r) const</td></tr>
 <tr class="memdesc:adf955c5955886a42e82fd3d3d6def20f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ray-shape intersection test. <br /></td></tr>
 <tr class="separator:adf955c5955886a42e82fd3d3d6def20f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9169a12164a1950abed5f76c559691e8" id="r_a9169a12164a1950abed5f76c559691e8"><td class="memItemLeft" align="right" valign="top"><a id="a9169a12164a1950abed5f76c559691e8" name="a9169a12164a1950abed5f76c559691e8"></a>
-<a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>bounds</b> () const</td></tr>
+<a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>bounds</b> () const</td></tr>
 <tr class="separator:a9169a12164a1950abed5f76c559691e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a783e4812827599c0b116581ff94f4024" id="r_a783e4812827599c0b116581ff94f4024"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_convex.html#a783e4812827599c0b116581ff94f4024">intersects</a> (const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a>, Shape &gt; &amp;other) const</td></tr>
+<tr class="memitem:a783e4812827599c0b116581ff94f4024" id="r_a783e4812827599c0b116581ff94f4024"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_convex.html#a783e4812827599c0b116581ff94f4024">intersects</a> (const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>, Shape &gt; &amp;other) const</td></tr>
 <tr class="memdesc:a783e4812827599c0b116581ff94f4024"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classgeom_1_1_convex.html" title="Base class describing convex shapes in N-dimensional space.">Convex</a> shape overlap test.  <br /></td></tr>
 <tr class="separator:a783e4812827599c0b116581ff94f4024"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa6d0f15e1bd534f449aea1238ac8a515" id="r_aa6d0f15e1bd534f449aea1238ac8a515"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_projectable.html#aa6d0f15e1bd534f449aea1238ac8a515">normal</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; p) const</td></tr>
+<tr class="memitem:aa6d0f15e1bd534f449aea1238ac8a515" id="r_aa6d0f15e1bd534f449aea1238ac8a515"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_projectable.html#aa6d0f15e1bd534f449aea1238ac8a515">normal</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; p) const</td></tr>
 <tr class="memdesc:aa6d0f15e1bd534f449aea1238ac8a515"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unit-length outward-facing direction.  <br /></td></tr>
 <tr class="separator:aa6d0f15e1bd534f449aea1238ac8a515"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a64d31e953b06726e1489539d54e83ae7" id="r_a64d31e953b06726e1489539d54e83ae7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a64d31e953b06726e1489539d54e83ae7">from_center</a> (typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a> c, typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a> dims)</td></tr>
+<tr class="memitem:a64d31e953b06726e1489539d54e83ae7" id="r_a64d31e953b06726e1489539d54e83ae7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a64d31e953b06726e1489539d54e83ae7">from_center</a> (typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a> c, typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a> dims)</td></tr>
 <tr class="memdesc:a64d31e953b06726e1489539d54e83ae7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a> from a center point and extent.  <br /></td></tr>
 <tr class="separator:a64d31e953b06726e1489539d54e83ae7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4fe17c4c7ee9b5999158b93622aa778f" id="r_a4fe17c4c7ee9b5999158b93622aa778f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4fe17c4c7ee9b5999158b93622aa778f">from_corner</a> (typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a> corner, typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a> dims)</td></tr>
+<tr class="memitem:a4fe17c4c7ee9b5999158b93622aa778f" id="r_a4fe17c4c7ee9b5999158b93622aa778f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4fe17c4c7ee9b5999158b93622aa778f">from_corner</a> (typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a> corner, typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a> dims)</td></tr>
 <tr class="memdesc:a4fe17c4c7ee9b5999158b93622aa778f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a> from a corner point and an extent.  <br /></td></tr>
 <tr class="separator:a4fe17c4c7ee9b5999158b93622aa778f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad79e1f25bef5525ef3cf931a42aea52b" id="r_ad79e1f25bef5525ef3cf931a42aea52b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad79e1f25bef5525ef3cf931a42aea52b">spanning_corners</a> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> c1, <a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> c2)</td></tr>
+<tr class="memitem:ad79e1f25bef5525ef3cf931a42aea52b" id="r_ad79e1f25bef5525ef3cf931a42aea52b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad79e1f25bef5525ef3cf931a42aea52b">spanning_corners</a> (<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> c1, <a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> c2)</td></tr>
 <tr class="memdesc:ad79e1f25bef5525ef3cf931a42aea52b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a> containing the two corners <code>c1</code> and <code>c2</code>.  <br /></td></tr>
 <tr class="separator:ad79e1f25bef5525ef3cf931a42aea52b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54d5216ff9105e7e97d2d4bb52c2c54b" id="r_a54d5216ff9105e7e97d2d4bb52c2c54b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54d5216ff9105e7e97d2d4bb52c2c54b">from_size</a> (typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a> dims)</td></tr>
+<tr class="memitem:a54d5216ff9105e7e97d2d4bb52c2c54b" id="r_a54d5216ff9105e7e97d2d4bb52c2c54b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54d5216ff9105e7e97d2d4bb52c2c54b">from_size</a> (typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a> dims)</td></tr>
 <tr class="memdesc:a54d5216ff9105e7e97d2d4bb52c2c54b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a> at the origin having dimensions <code>dims</code>.  <br /></td></tr>
 <tr class="separator:a54d5216ff9105e7e97d2d4bb52c2c54b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a435a06f1d8de53788a7f7ccbb437f50a" id="r_a435a06f1d8de53788a7f7ccbb437f50a"><td class="memTemplParams" colspan="2">template&lt;typename PointIterator &gt; </td></tr>
-<tr class="memitem:a435a06f1d8de53788a7f7ccbb437f50a"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a435a06f1d8de53788a7f7ccbb437f50a">from_point_sequence</a> (PointIterator begin, PointIterator end)</td></tr>
+<tr class="memitem:a435a06f1d8de53788a7f7ccbb437f50a"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a435a06f1d8de53788a7f7ccbb437f50a">from_point_sequence</a> (PointIterator begin, PointIterator end)</td></tr>
 <tr class="memdesc:a435a06f1d8de53788a7f7ccbb437f50a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a> containing all the points in the sequence between <code>begin</code> and <code>end</code>.  <br /></td></tr>
 <tr class="separator:a435a06f1d8de53788a7f7ccbb437f50a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69cf8c76a2cae6435b65941a18dbc2bf" id="r_a69cf8c76a2cae6435b65941a18dbc2bf"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a69cf8c76a2cae6435b65941a18dbc2bf">contains</a> (typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a> <a class="el" href="#a1d489526769f66aa383b611d208c6216">lo</a>, typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a> <a class="el" href="#a0ffa04769eee75de6100330b3395929a">hi</a>, typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a> pt)</td></tr>
+<tr class="memitem:a69cf8c76a2cae6435b65941a18dbc2bf" id="r_a69cf8c76a2cae6435b65941a18dbc2bf"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a69cf8c76a2cae6435b65941a18dbc2bf">contains</a> (typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a> <a class="el" href="#a1d489526769f66aa383b611d208c6216">lo</a>, typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a> <a class="el" href="#a0ffa04769eee75de6100330b3395929a">hi</a>, typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a> pt)</td></tr>
 <tr class="memdesc:a69cf8c76a2cae6435b65941a18dbc2bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test whether a point is in the N-dimensional range <code>[lo, hi]</code>.  <br /></td></tr>
 <tr class="separator:a69cf8c76a2cae6435b65941a18dbc2bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -342,28 +343,28 @@ Static Public Attributes</h2></td></tr>
 <tr class="memitem:ac6c8a9d0f887f3596fcad7337212564b" id="r_ac6c8a9d0f887f3596fcad7337212564b"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6c8a9d0f887f3596fcad7337212564b">endpoint_measure</a></td></tr>
 <tr class="separator:ac6c8a9d0f887f3596fcad7337212564b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bf8b7d8dd2e95c4444c24d658392fa9" id="r_a5bf8b7d8dd2e95c4444c24d658392fa9"><td class="memItemLeft" align="right" valign="top"><a id="a5bf8b7d8dd2e95c4444c24d658392fa9" name="a5bf8b7d8dd2e95c4444c24d658392fa9"></a>
-static const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>unit_interval</b> = <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt;T,<a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a>&gt;((T)0, (T)1)</td></tr>
+static const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>unit_interval</b> = <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt;T,<a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>&gt;((T)0, (T)1)</td></tr>
 <tr class="memdesc:a5bf8b7d8dd2e95c4444c24d658392fa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a> covering the range [0, 1] along all axes. <br /></td></tr>
 <tr class="separator:a5bf8b7d8dd2e95c4444c24d658392fa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77fbb927fd8197920219c524a600961e" id="r_a77fbb927fd8197920219c524a600961e"><td class="memItemLeft" align="right" valign="top"><a id="a77fbb927fd8197920219c524a600961e" name="a77fbb927fd8197920219c524a600961e"></a>
-static const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>signed_unit_interval</b> = <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt;T,<a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a>&gt;((T)-1, (T)1)</td></tr>
+static const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>signed_unit_interval</b> = <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt;T,<a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>&gt;((T)-1, (T)1)</td></tr>
 <tr class="memdesc:a77fbb927fd8197920219c524a600961e"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a> covering the range [-1, 1] along all axes. <br /></td></tr>
 <tr class="separator:a77fbb927fd8197920219c524a600961e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5246b7e90aad134d8828994e1f372e3d" id="r_a5246b7e90aad134d8828994e1f372e3d"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5246b7e90aad134d8828994e1f372e3d">full</a></td></tr>
+<tr class="memitem:a5246b7e90aad134d8828994e1f372e3d" id="r_a5246b7e90aad134d8828994e1f372e3d"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5246b7e90aad134d8828994e1f372e3d">full</a></td></tr>
 <tr class="memdesc:a5246b7e90aad134d8828994e1f372e3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a> that contains all points.  <br /></td></tr>
 <tr class="separator:a5246b7e90aad134d8828994e1f372e3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac05d3be507b50e98ec048ee785100465" id="r_ac05d3be507b50e98ec048ee785100465"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac05d3be507b50e98ec048ee785100465">empty</a></td></tr>
+<tr class="memitem:ac05d3be507b50e98ec048ee785100465" id="r_ac05d3be507b50e98ec048ee785100465"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac05d3be507b50e98ec048ee785100465">empty</a></td></tr>
 <tr class="memdesc:ac05d3be507b50e98ec048ee785100465"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a> that contains no points.  <br /></td></tr>
 <tr class="separator:ac05d3be507b50e98ec048ee785100465"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8331653910a5a034f8238e6a8fbb9b1" id="r_ad8331653910a5a034f8238e6a8fbb9b1"><td class="memItemLeft" align="right" valign="top"><a id="ad8331653910a5a034f8238e6a8fbb9b1" name="ad8331653910a5a034f8238e6a8fbb9b1"></a>
-static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><b>N</b></td></tr>
-<tr class="memdesc:ad8331653910a5a034f8238e6a8fbb9b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The dimension of this shape. <br /></td></tr>
-<tr class="separator:ad8331653910a5a034f8238e6a8fbb9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a964460830811452bb075cc15005440ba" id="r_a964460830811452bb075cc15005440ba"><td class="memItemLeft" align="right" valign="top"><a id="a964460830811452bb075cc15005440ba" name="a964460830811452bb075cc15005440ba"></a>
+static constexpr index_t&#160;</td><td class="memItemRight" valign="bottom"><b>N</b></td></tr>
+<tr class="memdesc:a964460830811452bb075cc15005440ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">The dimension of this object. <br /></td></tr>
+<tr class="separator:a964460830811452bb075cc15005440ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-types" name="pro-types"></a>
 Protected Types</h2></td></tr>
 <tr class="memitem:ad41330affbc8a8108d978b37c0b9e460" id="r_ad41330affbc8a8108d978b37c0b9e460"><td class="memItemLeft" align="right" valign="top"><a id="ad41330affbc8a8108d978b37c0b9e460" name="ad41330affbc8a8108d978b37c0b9e460"></a>
-typedef <a class="el" href="structgeom_1_1_point_type.html">PointType</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ptype</b></td></tr>
+typedef <a class="el" href="structgeom_1_1_point_type.html">PointType</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ptype</b></td></tr>
 <tr class="separator:ad41330affbc8a8108d978b37c0b9e460"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -463,7 +464,7 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; abs </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; abs </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -523,7 +524,7 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; centered_on </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; centered_on </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a></td>          <td class="paramname"><span class="paramname"><em>c</em></span></td><td>)</td>
           <td> const</td>
@@ -590,7 +591,7 @@ template&lt;typename T , index_t N&gt; </div>
         <tr>
           <td class="memname">bool contains </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>box</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>box</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -650,17 +651,17 @@ template&lt;typename T , index_t N&gt; </div>
         <tr>
           <td class="memname">static bool contains </td>
           <td>(</td>
-          <td class="paramtype">typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a></td>          <td class="paramname"><span class="paramname"><em>lo</em></span>, </td>
+          <td class="paramtype">typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a></td>          <td class="paramname"><span class="paramname"><em>lo</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a></td>          <td class="paramname"><span class="paramname"><em>hi</em></span>, </td>
+          <td class="paramtype">typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a></td>          <td class="paramname"><span class="paramname"><em>hi</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a></td>          <td class="paramname"><span class="paramname"><em>pt</em></span>&#160;)</td>
+          <td class="paramtype">typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a></td>          <td class="paramname"><span class="paramname"><em>pt</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -696,7 +697,7 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; dilated </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; dilated </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a></td>          <td class="paramname"><span class="paramname"><em>c</em></span></td><td>)</td>
           <td> const</td>
@@ -787,9 +788,9 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; fitted_to </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; fitted_to </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -825,14 +826,14 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; from_center </td>
+          <td class="memname">static <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; from_center </td>
           <td>(</td>
-          <td class="paramtype">typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a></td>          <td class="paramname"><span class="paramname"><em>c</em></span>, </td>
+          <td class="paramtype">typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a></td>          <td class="paramname"><span class="paramname"><em>c</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a></td>          <td class="paramname"><span class="paramname"><em>dims</em></span>&#160;)</td>
+          <td class="paramtype">typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a></td>          <td class="paramname"><span class="paramname"><em>dims</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -866,14 +867,14 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; from_corner </td>
+          <td class="memname">static <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; from_corner </td>
           <td>(</td>
-          <td class="paramtype">typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a></td>          <td class="paramname"><span class="paramname"><em>corner</em></span>, </td>
+          <td class="paramtype">typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a></td>          <td class="paramname"><span class="paramname"><em>corner</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a></td>          <td class="paramname"><span class="paramname"><em>dims</em></span>&#160;)</td>
+          <td class="paramtype">typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a></td>          <td class="paramname"><span class="paramname"><em>dims</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -909,7 +910,7 @@ template&lt;typename PointIterator &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; from_point_sequence </td>
+          <td class="memname">static <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; from_point_sequence </td>
           <td>(</td>
           <td class="paramtype">PointIterator</td>          <td class="paramname"><span class="paramname"><em>begin</em></span>, </td>
         </tr>
@@ -956,9 +957,9 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; from_size </td>
+          <td class="memname">static <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; from_size </td>
           <td>(</td>
-          <td class="paramtype">typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a></td>          <td class="paramname"><span class="paramname"><em>dims</em></span></td><td>)</td>
+          <td class="paramtype">typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a></td>          <td class="paramname"><span class="paramname"><em>dims</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -992,7 +993,7 @@ template&lt;typename T , index_t N&gt; </div>
         <tr>
           <td class="memname">bool intersects </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a>, Shape &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>, Shape &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -1022,7 +1023,7 @@ template&lt;typename T , index_t N&gt; </div>
         <tr>
           <td class="memname">bool intersects </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>box</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>box</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -1052,7 +1053,7 @@ template&lt;typename T , index_t N&gt; </div>
         <tr>
           <td class="memname">bool intersects </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_transformed.html">Transformed</a>&lt; <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>box</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_transformed.html">Transformed</a>&lt; <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>box</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -1140,9 +1141,9 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; minkowski_sum </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; minkowski_sum </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -1168,7 +1169,7 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; normal </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; normal </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
           <td> const</td>
@@ -1233,7 +1234,7 @@ template&lt;typename T , index_t N&gt; </div>
         <tr>
           <td class="memname">bool operator!= </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -1261,9 +1262,9 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; operator&amp; </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; operator&amp; </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -1292,9 +1293,9 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp; operator&amp;= </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp; operator&amp;= </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1358,7 +1359,7 @@ template&lt;index_t M&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, M+<a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; operator* </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, M+<a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; operator* </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, M &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>r</em></span></td><td>)</td>
           <td> const</td>
@@ -1395,7 +1396,7 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; operator* </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; operator* </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span></td><td>)</td>
           <td> const</td>
@@ -1431,7 +1432,7 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp; operator*= </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp; operator*= </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span></td><td>)</td>
           <td></td>
@@ -1468,7 +1469,7 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; operator+ </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; operator+ </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a></td>          <td class="paramname"><span class="paramname"><em>dx</em></span></td><td>)</td>
           <td> const</td>
@@ -1504,7 +1505,7 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp; operator+= </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp; operator+= </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a></td>          <td class="paramname"><span class="paramname"><em>dx</em></span></td><td>)</td>
           <td></td>
@@ -1540,9 +1541,9 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; operator- </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; operator- </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1577,7 +1578,7 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; operator- </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; operator- </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a></td>          <td class="paramname"><span class="paramname"><em>dx</em></span></td><td>)</td>
           <td> const</td>
@@ -1613,9 +1614,9 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp; operator-= </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp; operator-= </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -1650,7 +1651,7 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp; operator-= </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp; operator-= </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a></td>          <td class="paramname"><span class="paramname"><em>dx</em></span></td><td>)</td>
           <td></td>
@@ -1686,7 +1687,7 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; operator/ </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; operator/ </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span></td><td>)</td>
           <td> const</td>
@@ -1722,7 +1723,7 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp; operator/= </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp; operator/= </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a></td>          <td class="paramname"><span class="paramname"><em>a</em></span></td><td>)</td>
           <td></td>
@@ -1760,7 +1761,7 @@ template&lt;typename T , index_t N&gt; </div>
         <tr>
           <td class="memname">bool operator== </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -1788,7 +1789,7 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; operator| </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; operator| </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
           <td></td>
@@ -1818,9 +1819,9 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; operator| </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; operator| </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -1848,7 +1849,7 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp; operator|= </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp; operator|= </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
           <td></td>
@@ -1878,9 +1879,9 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp; operator|= </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp; operator|= </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>b</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -2039,7 +2040,7 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; spanning_corners </td>
+          <td class="memname">static <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; spanning_corners </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="#a4a057c5b60fec78341c983d408ab7753">point_t</a></td>          <td class="paramname"><span class="paramname"><em>c1</em></span>, </td>
         </tr>
@@ -2143,7 +2144,7 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; empty</td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; empty</td>
         </tr>
       </table>
   </td>
@@ -2174,7 +2175,7 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a> endpoint_measure</td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;<a class="el" href="#a4a057c5b60fec78341c983d408ab7753">::point_t</a> endpoint_measure</td>
         </tr>
       </table>
   </td>
@@ -2200,7 +2201,7 @@ template&lt;typename T , index_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="classgeom_1_1_bounded.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; full</td>
+          <td class="memname"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; full</td>
         </tr>
       </table>
   </td>
@@ -2225,7 +2226,7 @@ template&lt;typename T , index_t N&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 7 2025 23:28:25 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
+Generated on Sat Jan 18 2025 12:01:00 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
 </div><!-- doc-content -->
 </body>
