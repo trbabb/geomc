@@ -17,6 +17,7 @@ AddOption(
 debug  = ARGUMENTS.get('debug',  False)
 noopt  = ARGUMENTS.get('noopt',  False)
 
+DOC_DIR = 'doc/gen'
 
 def subst_wasm_flags(env, wasm_flags):
     wasm_opts = (('-s', f'{k}={v}') for k,v in wasm_flags.items())
@@ -94,6 +95,9 @@ else:
     env.Append(LIBPATH=['/usr/local/lib', f'#build/{arch}/geomc'])
 
 env['ARCH'] = arch
+
+docs = env.Command('docs', None, [Mkdir(DOC_DIR), 'doxygen'])
+env.Alias('docs', docs)
 
 Export("env")
 
