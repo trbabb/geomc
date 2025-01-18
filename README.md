@@ -6,8 +6,6 @@ tr.babb@gmail.com
 Usage
 =====
 
-Installs to `/opt/local/include/geomc` and `/opt/local/lib`.
-
 Includes are of the form:
 
     #include <geomc/linalg/Matrix.h>
@@ -15,5 +13,5 @@ Includes are of the form:
 Documentation
 =============
 
-[Geomc modules](http://trbabb.github.io/geomc/html/modules.html)
+[Geomc topics](http://trbabb.github.io/geomc/html/topics.html)
 
