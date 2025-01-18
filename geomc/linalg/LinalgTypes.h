@@ -153,17 +153,17 @@ namespace detail {
         // inverse transforms can be applied to points
         { p / xf } -> std::convertible_to<Vec<T,N>>;
         // transforms can be composed
-        { xf * xf } -> std::convertible_to<T>;
+        { xf * xf } -> std::convertible_to<Xf>;
         // transforms have inverses
-        { xf.inverse() } -> std::convertible_to<T>;
+        { xf.inverse() } -> std::convertible_to<Xf>;
         // transforms can operate on directions
         { xf.apply_direction(p) } -> std::convertible_to<Vec<T,N>>;
         // inverse transforms can operate on directions
         { xf.apply_inverse_direction(p) } -> std::convertible_to<Vec<T,N>>;
         // transforms can in-place compose
-        { xf *= xf } -> std::convertible_to<T>;
+        { xf *= xf } -> std::convertible_to<Xf>;
         // transforms can in-place apply inverse
-        { xf /= xf } -> std::convertible_to<T>;
+        { xf /= xf } -> std::convertible_to<Xf>;
     };
     
     /// A transformable is that which can be operated on by a Transform
