@@ -67,6 +67,7 @@ namespace geom {
     template <typename Shape>        class Similar;
     template <typename Shape>        class Frustum;
     template <typename Shape>        class Dilated;
+    template <typename Shape>        class Hollow;
     
     /**
      * @brief Convenience typedef for transformed Rects.

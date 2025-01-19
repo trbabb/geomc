@@ -34,6 +34,11 @@ namespace geom {
  *
  *     Transformed<Cylinder<double,3>> ocyl_a = xf * Cylinder<double,3>();
  *     Transformed<Cylinder<double,3>> ocyl_b = xf * ocyl_a;
+ *
+ * Because transformations may include shears and nonuniform scales, some operations
+ * like signed distance fields and orthogonal projections cannot be implemented for
+ * transformed shapes in general. For shapes which are guaranteed to be transformed
+ * by a similarity transform (translation, rotation, and uniform scale), see Similar.
  * 
  */
 template <typename Shape>

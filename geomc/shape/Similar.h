@@ -12,9 +12,10 @@ namespace geom {
  * @brief A shape transformed by a similarity transform (translation, rotation, and scale).
  * 
  * Similar transfrorms guarantee that shapes and relative distances are preserved.
+ * For arbitrarily-transformed shapes, see Transformed.
  */
 template <typename Shape>
-struct Similar:
+class Similar:
     public Convex          <typename Shape::elem_t, Shape::N, Similar<Shape>>,
     public RayIntersectable<typename Shape::elem_t, Shape::N, Similar<Shape>>,
     public Projectable     <typename Shape::elem_t, Shape::N, Similar<Shape>>
