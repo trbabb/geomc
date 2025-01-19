@@ -16,6 +16,5 @@ var searchData=
   ['bounded_3c_20t_2c_20n_2c_20rect_3c_20t_2c_20n_20_3e_20_3e_13',['Bounded&lt; T, N, Rect&lt; T, N &gt; &gt;',['../classgeom_1_1_bounded.html',1,'geom']]],
   ['bounded_3c_20t_2c_20n_2c_20simplex_3c_20t_2c_20n_20_3e_20_3e_14',['Bounded&lt; T, N, Simplex&lt; T, N &gt; &gt;',['../classgeom_1_1_bounded.html',1,'geom']]],
   ['bounded_3c_20t_2c_20n_2c_20sphere_3c_20t_2c_20n_20_3e_20_3e_15',['Bounded&lt; T, N, Sphere&lt; T, N &gt; &gt;',['../classgeom_1_1_bounded.html',1,'geom']]],
-  ['bounded_3c_20t_2c_20n_2c_20sphericalsector_3c_20t_2c_20n_20_3e_20_3e_16',['Bounded&lt; T, N, SphericalSector&lt; T, N &gt; &gt;',['../classgeom_1_1_bounded.html',1,'geom']]],
-  ['bounded_3c_20t_2c_20n_2c_20transformed_3c_20rect_3c_20t_2c_20n_20_3e_20_3e_20_3e_17',['Bounded&lt; T, N, Transformed&lt; Rect&lt; T, N &gt; &gt; &gt;',['../classgeom_1_1_bounded.html',1,'geom']]]
+  ['bounded_3c_20t_2c_20n_2c_20transformed_3c_20rect_3c_20t_2c_20n_20_3e_20_3e_20_3e_16',['Bounded&lt; T, N, Transformed&lt; Rect&lt; T, N &gt; &gt; &gt;',['../classgeom_1_1_bounded.html',1,'geom']]]
 ];

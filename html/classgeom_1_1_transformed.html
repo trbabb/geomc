@@ -262,7 +262,8 @@ class geom::Transformed&lt; Shape &gt;</div><p>A wrapper shape which transforms 
 Transformed&lt;Cylinder&lt;double,3&gt;&gt; transformed = xf * Cylinder&lt;double,3&gt;();
 </pre><p>Transforming a <a class="el" href="classgeom_1_1_transformed.html" title="A wrapper shape which transforms another arbitrary shape with an AffineTransform.">Transformed</a> results in another <a class="el" href="classgeom_1_1_transformed.html" title="A wrapper shape which transforms another arbitrary shape with an AffineTransform.">Transformed</a> of the same type: </p><pre class="fragment">Transformed&lt;Cylinder&lt;double,3&gt;&gt; ocyl_a = xf * Cylinder&lt;double,3&gt;();
 Transformed&lt;Cylinder&lt;double,3&gt;&gt; ocyl_b = xf * ocyl_a;
-</pre> </div><h2 class="groupheader">Member Function Documentation</h2>
+</pre><p>Because transformations may include shears and nonuniform scales, some operations like signed distance fields and orthogonal projections cannot be implemented for transformed shapes in general. For shapes which are guaranteed to be transformed by a similarity transform (translation, rotation, and uniform scale), see <a class="el" href="classgeom_1_1_similar.html" title="A shape transformed by a similarity transform (translation, rotation, and scale).">Similar</a>. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="af6af4e3e4e412edc6e07c9d7721e3a6c" name="af6af4e3e4e412edc6e07c9d7721e3a6c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af6af4e3e4e412edc6e07c9d7721e3a6c">&#9670;&#160;</a></span>convex_support()</h2>
 
@@ -335,7 +336,7 @@ Transformed&lt;Cylinder&lt;double,3&gt;&gt; ocyl_b = xf * ocyl_a;
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 18 2025 12:24:01 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
+Generated on Sat Jan 18 2025 21:36:32 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
 </div><!-- doc-content -->
 </body>

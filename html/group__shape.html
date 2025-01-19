@@ -125,6 +125,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_grid_iterator.html">GridIterator&lt; T, N, Order &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterator over the integer points in an N-dimensional grid.  <a href="classgeom_1_1_grid_iterator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_hollow.html">Hollow&lt; Shape &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects the boundary of a shape.  <a href="classgeom_1_1_hollow.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_k_d_tree.html">KDTree&lt; T, N, Object, NodeData &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A hierarchical spatial index.  <a href="classgeom_1_1_k_d_tree.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -166,9 +169,6 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_similar.html">Similar&lt; Shape &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A shape transformed by a similarity transform (translation, rotation, and scale).  <a href="classgeom_1_1_similar.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_spherical_sector.html">SphericalSector&lt; T, N &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A N-dimensional circle, sphere, or hypersphere.  <a href="classgeom_1_1_spherical_sector.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_transformed_3_01_rect_3_01_t_00_01_n_01_4_01_4.html">Transformed&lt; Rect&lt; T, N &gt; &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Partial specialization of <a class="el" href="classgeom_1_1_transformed.html" title="A wrapper shape which transforms another arbitrary shape with an AffineTransform.">Transformed</a> for Rects.  <a href="classgeom_1_1_transformed_3_01_rect_3_01_t_00_01_n_01_4_01_4.html#details">More...</a><br /></td></tr>
@@ -434,6 +434,26 @@ template&lt;typename Shape , typename <a class="el" href="classgeom_1_1_transfor
 <tr class="memitem:ga2f4010c1050f1b299d9b42a0ccd239d4"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_transformed.html">Transformed</a>&lt; Shape &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_transformed.html">Transformed</a>&lt; Shape &gt; &amp;s, const <a class="el" href="classgeom_1_1_isometry.html">Isometry</a>&lt; <a class="el" href="classgeom_1_1_transformed.html#a74b19b8257ab187a0cff6c483cb0683d">T</a>, <a class="el" href="classgeom_1_1_transformed.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;<a class="el" href="classgeom_1_1_transformed.html#a1656de6a9e00b1bd5387a9317be4b608">xf</a>)</td></tr>
 <tr class="memdesc:ga2f4010c1050f1b299d9b42a0ccd239d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse transform the shape <code>s</code> by an isometry <code>xf</code>. <br /></td></tr>
 <tr class="separator:ga2f4010c1050f1b299d9b42a0ccd239d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac99e0a0eec9d2241e2455a8f5a291075" id="r_gac99e0a0eec9d2241e2455a8f5a291075"><td class="memTemplParams" colspan="2"><a id="gac99e0a0eec9d2241e2455a8f5a291075" name="gac99e0a0eec9d2241e2455a8f5a291075"></a>
+template&lt;typename Shape , Transform&lt; typename Shape::elem_t, Shape::N &gt; Xf&gt; </td></tr>
+<tr class="memitem:gac99e0a0eec9d2241e2455a8f5a291075"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_hollow.html">Hollow</a>&lt; Shape &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*</b> (const Xf &amp;xf, const <a class="el" href="classgeom_1_1_hollow.html">Hollow</a>&lt; Shape &gt; &amp;s)</td></tr>
+<tr class="memdesc:gac99e0a0eec9d2241e2455a8f5a291075"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="conceptgeom_1_1_transform.html" title="Represents a means of transforming a point or vector.">Transform</a> a hollow shape. <br /></td></tr>
+<tr class="separator:gac99e0a0eec9d2241e2455a8f5a291075"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf8ccbabbd83a40b20b99c4cbc385d744" id="r_gaf8ccbabbd83a40b20b99c4cbc385d744"><td class="memTemplParams" colspan="2"><a id="gaf8ccbabbd83a40b20b99c4cbc385d744" name="gaf8ccbabbd83a40b20b99c4cbc385d744"></a>
+template&lt;typename Shape , Transform&lt; typename Shape::elem_t, Shape::N &gt; Xf&gt; </td></tr>
+<tr class="memitem:gaf8ccbabbd83a40b20b99c4cbc385d744"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_hollow.html">Hollow</a>&lt; Shape &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_hollow.html">Hollow</a>&lt; Shape &gt; &amp;s, const Xf &amp;xf)</td></tr>
+<tr class="memdesc:gaf8ccbabbd83a40b20b99c4cbc385d744"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse transform a hollow shape. <br /></td></tr>
+<tr class="separator:gaf8ccbabbd83a40b20b99c4cbc385d744"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaba535c0347afbe4fed0f1c2ccde5fc97" id="r_gaba535c0347afbe4fed0f1c2ccde5fc97"><td class="memTemplParams" colspan="2"><a id="gaba535c0347afbe4fed0f1c2ccde5fc97" name="gaba535c0347afbe4fed0f1c2ccde5fc97"></a>
+template&lt;typename Shape , Transform&lt; typename Shape::elem_t, Shape::N &gt; Xf&gt; </td></tr>
+<tr class="memitem:gaba535c0347afbe4fed0f1c2ccde5fc97"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_hollow.html">Hollow</a>&lt; Shape &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*=</b> (<a class="el" href="classgeom_1_1_hollow.html">Hollow</a>&lt; Shape &gt; &amp;s, const Xf &amp;xf)</td></tr>
+<tr class="memdesc:gaba535c0347afbe4fed0f1c2ccde5fc97"><td class="mdescLeft">&#160;</td><td class="mdescRight">In-place transform a hollow shape. <br /></td></tr>
+<tr class="separator:gaba535c0347afbe4fed0f1c2ccde5fc97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6391888f31342d53bf54679464dce3fb" id="r_ga6391888f31342d53bf54679464dce3fb"><td class="memTemplParams" colspan="2"><a id="ga6391888f31342d53bf54679464dce3fb" name="ga6391888f31342d53bf54679464dce3fb"></a>
+template&lt;typename Shape , Transform&lt; typename Shape::elem_t, Shape::N &gt; Xf&gt; </td></tr>
+<tr class="memitem:ga6391888f31342d53bf54679464dce3fb"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_hollow.html">Hollow</a>&lt; Shape &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/=</b> (<a class="el" href="classgeom_1_1_hollow.html">Hollow</a>&lt; Shape &gt; &amp;s, const Xf &amp;xf)</td></tr>
+<tr class="memdesc:ga6391888f31342d53bf54679464dce3fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">In-place inverse transform a hollow shape. <br /></td></tr>
+<tr class="separator:ga6391888f31342d53bf54679464dce3fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Shape-related functions and classes. </p>
@@ -816,7 +836,7 @@ template&lt;typename T , index_t N&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 18 2025 12:24:01 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
+Generated on Sat Jan 18 2025 21:36:32 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
 </div><!-- doc-content -->
 </body>

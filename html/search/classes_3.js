@@ -26,9 +26,8 @@ var searchData=
   ['convex_3c_20t_2c_20n_2c_20rect_3c_20t_2c_20n_20_3e_20_3e_23',['Convex&lt; T, N, Rect&lt; T, N &gt; &gt;',['../classgeom_1_1_convex.html',1,'geom']]],
   ['convex_3c_20t_2c_20n_2c_20simplex_3c_20t_2c_20n_20_3e_20_3e_24',['Convex&lt; T, N, Simplex&lt; T, N &gt; &gt;',['../classgeom_1_1_convex.html',1,'geom']]],
   ['convex_3c_20t_2c_20n_2c_20sphere_3c_20t_2c_20n_20_3e_20_3e_25',['Convex&lt; T, N, Sphere&lt; T, N &gt; &gt;',['../classgeom_1_1_convex.html',1,'geom']]],
-  ['convex_3c_20t_2c_20n_2c_20sphericalsector_3c_20t_2c_20n_20_3e_20_3e_26',['Convex&lt; T, N, SphericalSector&lt; T, N &gt; &gt;',['../classgeom_1_1_convex.html',1,'geom']]],
-  ['convex_3c_20t_2c_20n_2c_20transformed_3c_20rect_3c_20t_2c_20n_20_3e_20_3e_20_3e_27',['Convex&lt; T, N, Transformed&lt; Rect&lt; T, N &gt; &gt; &gt;',['../classgeom_1_1_convex.html',1,'geom']]],
-  ['coordtype_28',['CoordType',['../structgeom_1_1_coord_type.html',1,'geom']]],
-  ['coordtype_3c_20vec_3c_20t_2c_20n_20_3e_20_3e_29',['CoordType&lt; Vec&lt; T, N &gt; &gt;',['../structgeom_1_1_coord_type_3_01_vec_3_01_t_00_01_n_01_4_01_4.html',1,'geom']]],
-  ['cylinder_30',['Cylinder',['../classgeom_1_1_cylinder.html',1,'geom']]]
+  ['convex_3c_20t_2c_20n_2c_20transformed_3c_20rect_3c_20t_2c_20n_20_3e_20_3e_20_3e_26',['Convex&lt; T, N, Transformed&lt; Rect&lt; T, N &gt; &gt; &gt;',['../classgeom_1_1_convex.html',1,'geom']]],
+  ['coordtype_27',['CoordType',['../structgeom_1_1_coord_type.html',1,'geom']]],
+  ['coordtype_3c_20vec_3c_20t_2c_20n_20_3e_20_3e_28',['CoordType&lt; Vec&lt; T, N &gt; &gt;',['../structgeom_1_1_coord_type_3_01_vec_3_01_t_00_01_n_01_4_01_4.html',1,'geom']]],
+  ['cylinder_29',['Cylinder',['../classgeom_1_1_cylinder.html',1,'geom']]]
 ];

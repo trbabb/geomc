@@ -18,11 +18,11 @@ var searchData=
   ['projectable_3c_20index_5ft_2c_20n_2c_20rect_3c_20index_5ft_2c_20n_20_3e_20_3e_15',['Projectable&lt; index_t, N, Rect&lt; index_t, N &gt; &gt;',['../classgeom_1_1_projectable.html',1,'geom']]],
   ['projectable_3c_20shape_3a_3aelem_5ft_2c_20shape_3a_3an_2b1_2c_20extruded_3c_20shape_20_3e_20_3e_16',['Projectable&lt; Shape::elem_t, Shape::N+1, Extruded&lt; Shape &gt; &gt;',['../classgeom_1_1_projectable.html',1,'geom']]],
   ['projectable_3c_20shape_3a_3aelem_5ft_2c_20shape_3a_3an_2c_20dilated_3c_20shape_20_3e_20_3e_17',['Projectable&lt; Shape::elem_t, Shape::N, Dilated&lt; Shape &gt; &gt;',['../classgeom_1_1_projectable.html',1,'geom']]],
-  ['projectable_3c_20shape_3a_3aelem_5ft_2c_20shape_3a_3an_2c_20similar_3c_20shape_20_3e_20_3e_18',['Projectable&lt; Shape::elem_t, Shape::N, Similar&lt; Shape &gt; &gt;',['../classgeom_1_1_projectable.html',1,'geom']]],
-  ['projectable_3c_20t_2c_20n_2c_20capsule_3c_20t_2c_20n_20_3e_20_3e_19',['Projectable&lt; T, N, Capsule&lt; T, N &gt; &gt;',['../classgeom_1_1_projectable.html',1,'geom']]],
-  ['projectable_3c_20t_2c_20n_2c_20cylinder_3c_20t_2c_20n_20_3e_20_3e_20',['Projectable&lt; T, N, Cylinder&lt; T, N &gt; &gt;',['../classgeom_1_1_projectable.html',1,'geom']]],
-  ['projectable_3c_20t_2c_20n_2c_20rect_3c_20t_2c_20n_20_3e_20_3e_21',['Projectable&lt; T, N, Rect&lt; T, N &gt; &gt;',['../classgeom_1_1_projectable.html',1,'geom']]],
-  ['projectable_3c_20t_2c_20n_2c_20sphere_3c_20t_2c_20n_20_3e_20_3e_22',['Projectable&lt; T, N, Sphere&lt; T, N &gt; &gt;',['../classgeom_1_1_projectable.html',1,'geom']]],
-  ['projectable_3c_20t_2c_20n_2c_20sphericalsector_3c_20t_2c_20n_20_3e_20_3e_23',['Projectable&lt; T, N, SphericalSector&lt; T, N &gt; &gt;',['../classgeom_1_1_projectable.html',1,'geom']]],
+  ['projectable_3c_20shape_3a_3aelem_5ft_2c_20shape_3a_3an_2c_20hollow_3c_20shape_20_3e_20_3e_18',['Projectable&lt; Shape::elem_t, Shape::N, Hollow&lt; Shape &gt; &gt;',['../classgeom_1_1_projectable.html',1,'geom']]],
+  ['projectable_3c_20shape_3a_3aelem_5ft_2c_20shape_3a_3an_2c_20similar_3c_20shape_20_3e_20_3e_19',['Projectable&lt; Shape::elem_t, Shape::N, Similar&lt; Shape &gt; &gt;',['../classgeom_1_1_projectable.html',1,'geom']]],
+  ['projectable_3c_20t_2c_20n_2c_20capsule_3c_20t_2c_20n_20_3e_20_3e_20',['Projectable&lt; T, N, Capsule&lt; T, N &gt; &gt;',['../classgeom_1_1_projectable.html',1,'geom']]],
+  ['projectable_3c_20t_2c_20n_2c_20cylinder_3c_20t_2c_20n_20_3e_20_3e_21',['Projectable&lt; T, N, Cylinder&lt; T, N &gt; &gt;',['../classgeom_1_1_projectable.html',1,'geom']]],
+  ['projectable_3c_20t_2c_20n_2c_20rect_3c_20t_2c_20n_20_3e_20_3e_22',['Projectable&lt; T, N, Rect&lt; T, N &gt; &gt;',['../classgeom_1_1_projectable.html',1,'geom']]],
+  ['projectable_3c_20t_2c_20n_2c_20sphere_3c_20t_2c_20n_20_3e_20_3e_23',['Projectable&lt; T, N, Sphere&lt; T, N &gt; &gt;',['../classgeom_1_1_projectable.html',1,'geom']]],
   ['projectionresult_24',['ProjectionResult',['../structgeom_1_1detail_1_1_projection_result.html',1,'geom::detail']]]
 ];
