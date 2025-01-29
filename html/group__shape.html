@@ -253,6 +253,10 @@ template&lt;typename Shape &gt; </td></tr>
 <tr class="memitem:gaa868de0ece3400fdafcc617878849ec8"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_any_convex_impl.html">AnyConvexImpl</a>&lt; Shape &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>as_any_convex</b> (const Shape &amp;s)</td></tr>
 <tr class="memdesc:gaa868de0ece3400fdafcc617878849ec8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap <code>s</code> in a virtual class which implements the <a class="el" href="classgeom_1_1_convex.html" title="Base class describing convex shapes in N-dimensional space.">Convex</a> concept. <br /></td></tr>
 <tr class="separator:gaa868de0ece3400fdafcc617878849ec8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafb82466a717dd7a6c1bc79539bde55bf" id="r_gafb82466a717dd7a6c1bc79539bde55bf"><td class="memTemplParams" colspan="2"><a id="gafb82466a717dd7a6c1bc79539bde55bf" name="gafb82466a717dd7a6c1bc79539bde55bf"></a>
+template&lt;typename T , index_t N&gt; </td></tr>
+<tr class="memitem:gafb82466a717dd7a6c1bc79539bde55bf"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>intersects</b> (const <a class="el" href="classgeom_1_1_any_convex.html">AnyConvex</a>&lt; T, N &gt; &amp;shape_a, const <a class="el" href="classgeom_1_1_any_convex.html">AnyConvex</a>&lt; T, N &gt; &amp;shape_b)</td></tr>
+<tr class="separator:gafb82466a717dd7a6c1bc79539bde55bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaeb38390a4818ba9f64af8bd33a9087d5" id="r_gaeb38390a4818ba9f64af8bd33a9087d5"><td class="memTemplParams" colspan="2">template&lt;typename T , index_t N&gt; </td></tr>
 <tr class="memitem:gaeb38390a4818ba9f64af8bd33a9087d5"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#gaeb38390a4818ba9f64af8bd33a9087d5">trace_simplex</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; verts[N], const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, N &gt; &amp;ray, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N-1 &gt; *uv, T *s)</td></tr>
 <tr class="separator:gaeb38390a4818ba9f64af8bd33a9087d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -836,7 +840,7 @@ template&lt;typename T , index_t N&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jan 18 2025 22:00:27 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
+Generated on Wed Jan 29 2025 14:40:38 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
 </div><!-- doc-content -->
 </body>
