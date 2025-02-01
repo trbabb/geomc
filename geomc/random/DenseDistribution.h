@@ -1,6 +1,7 @@
 #pragma once
 
 #include <random>
+#include <bit>
 #include <geomc/shape/Rect.h>
 
 namespace geom {
@@ -45,44 +46,36 @@ public:
     
     template <typename Generator>
     float operator()(Generator& g) const {
+        union FPBox {
+            float    f;
+            uint32_t i;
+        };
+        
         // without IEEE754, our bit twiddling will not work.
         // generally this will only fail for "exotic" systems:
         static_assert(std::numeric_limits<float>::is_iec559, "floating point must be ieee754");
         
-        union FPBox {
-            float f;
-            uint32_t i;
-        };
-        
-        uint32_t mant;
-        int exp, hi_exp, lo_exp;
-        FPBox lo, hi, ans;
-        
-        lo.f = 0.0;
-        hi.f = 1.0;
-        
-        lo_exp = (lo.i >> 23) & 0xFF;
-        hi_exp = (hi.i >> 23) & 0xFF;
-        
-        // xxx: use clz()!
-        auto randbit = std::uniform_int_distribution<uint32_t>();
-        uint32_t r = randbit(g);
-        //not >= because exp is decremented at the end of the last loop
-        for (exp = hi_exp - 1; exp > lo_exp; exp--) {
-            if (r & 1) break;
-            r >>= 1;
-            // we could decrement up to 127 times, but we only have 32 bits of
-            // randomness at a time. generate more bits.
-            if (exp == hi_exp - 32) [[unlikely]] {
-                r = randbit(g);
-            }
+        auto randbits = std::uniform_int_distribution<uint64_t>();
+        constexpr size_t mantissa_bits = 23;
+        size_t scale_bits = 64 - mantissa_bits;
+        uint64_t r = randbits(g);
+        int32_t  exp = 126;
+        uint32_t mant = r >> scale_bits;
+        uint32_t z;
+        while (true) {
+            z   = std::countr_zero(r);
+            exp = std::max<int32_t>(exp - z, 0);
+            if (z < scale_bits or exp == 0) [[likely]] break;
+            scale_bits = 64;
+            r = randbits(g);
         }
-        
-        mant = (randbit(g) & 0xFFFFFE00) >> 9; // use the high quality bits
-        
-        if (mant == 0 and (r & 1)) exp++; // border values must not be skewed towards 1
-        
-        ans.i = (((uint32_t)exp) << 23) | mant; // combine exp and mantissa
+        if (mant == 0) [[unlikely]] {
+            // avoid biasing the result toward zero. above, it is not
+            // possible to generate 1.0. with probability 1/2, bump the exponent.
+            exp += ((r >> (scale_bits - 1)) & 1);
+        }
+        FPBox ans;
+        ans.i = (exp << mantissa_bits) | mant; // combine exp and mantissa
         return _range.remap(ans.f);
     }
     
@@ -127,36 +120,29 @@ public:
         
         // without IEEE754, our bit twiddling will not work.
         // generally this will only fail for "exotic" systems:
-        static_assert(std::numeric_limits<double>::is_iec559, "floating point must be ieee754");
+        static_assert(std::numeric_limits<float>::is_iec559, "floating point must be ieee754");
         
-        int exp, hi_exp, lo_exp;
-        uint64_t mant;
-        FPBox lo, hi, ans;
-        
-        lo.d = 0.0;
-        hi.d = 1.0;
-        
-        lo_exp = (lo.l >> 52) & 0x7FF;
-        hi_exp = (hi.l >> 52) & 0x7FF;
-        
-        auto randbit = std::uniform_int_distribution<uint64_t>();
-        uint64_t r = randbit(g);
-        //not >= because exp is decremented at the end of the last loop
-        for (exp = hi_exp - 1; exp > lo_exp; exp--) {
-            if (r & 1) break;
-            r >>= 1;
-            // we could decrement up to 1023 times, but we only have 64 bits of
-            // randomness at a time. generate more bits. this is EXTREMELY unlikely.
-            if (exp == hi_exp - 64) [[unlikely]] {
-                r = randbit(g);
-            }
+        auto randbits = std::uniform_int_distribution<uint64_t>();
+        constexpr size_t mantissa_bits = 52;
+        size_t scale_bits = 64 - mantissa_bits;
+        uint64_t r = randbits(g);
+        int32_t  exp = 1022;
+        uint64_t mant = r >> scale_bits;
+        uint32_t z;
+        while (true) {
+            z   = std::countr_zero(r);
+            exp = std::max<uint32_t>(exp - z, 0);
+            if (z < scale_bits or exp == 0) [[likely]] break;
+            scale_bits = 64;
+            r = randbits(g);
         }
-        
-        mant = (randbit(g) & 0xFFFFFFFFFFFFF000LL) >> 12; // use the high quality bits
-        
-        if (mant == 0 && (r & 1)) exp++; // border values must not be skewed towards 1
-        
-        ans.l = (((uint64_t)exp) << 52) | mant; // combine exp and mantissa
+        if (mant == 0) [[unlikely]] {
+            // avoid biasing the result toward zero. above, it is not
+            // possible to generate 1.0. with probability 1/2, bump the exponent.
+            exp += ((r >> (scale_bits - 1)) & 1);
+        }
+        FPBox ans;
+        ans.l = (((uint64_t)exp) << mantissa_bits) | mant; // combine exp and mantissa
         return _range.remap(ans.d);
     }
     
