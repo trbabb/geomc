@@ -6,16 +6,12 @@
  *      Author: tbabb
  */
 
-#include <limits>
 #include <utility>
 
 #include <geomc/function/Utils.h>
+#include <geomc/random/SampleVector.h>
 #include <geomc/linalg/Vec.h>
 #include <geomc/function/functiondetail/PerlinDetail.h>
-
-
-#define PERLIN_NUM_GRADIENTS (0x100)
-
 
 namespace geom {
 
@@ -27,6 +23,8 @@ namespace geom {
  */
 template <typename T, index_t N>
 class PerlinNoise : public Dimensional<T,N> {
+    static constexpr size_t N_GRADIENTS = 0x100;
+    
 public:
     
     typedef PointType<index_t,N>        gridtype;
@@ -34,42 +32,45 @@ public:
     typedef typename gridtype::point_t  grid_t;
     using typename Dimensional<T,N>::point_t;
     
-    friend class detail::_ImplPerlinInit<T,N>;
-    
     std::shared_ptr<point_t[]> gradients;
-    // permutation array.
-    // xxx: delete me, since we are using a LCG scramble
-    // Not needed / used if N = 1, since we're using a linear congruential randomizer
-    // in this case.
-    std::shared_ptr<index_t[]> p;
     
     /**********************************
      * Structors                      *
      **********************************/
     
     /**
-     * Construct a new perlin noise object with the default (non-reentrant) random number
-     * generator.
+     * Construct a new perlin noise object with a `std::random_device` as a source of
+     * random bits.
      */
-    PerlinNoise():
-            gradients(new point_t[PERLIN_NUM_GRADIENTS]),
-            p(N > 1 ? new index_t[PERLIN_NUM_GRADIENTS] : nullptr) {
-        detail::_ImplPerlinInit<T,N>::init(this, getRandom(), PERLIN_NUM_GRADIENTS);
-    }
+    PerlinNoise():PerlinNoise(std::random_device()) {}
     
     /**
      * Construct a new perlin noise object with the supplied random number generator.
      * @param rng A source of random bits.
      */
-    PerlinNoise(Random* rng):
-            gradients(new point_t[PERLIN_NUM_GRADIENTS]),
-            p(N > 1 ? new index_t[PERLIN_NUM_GRADIENTS] : nullptr) {
-        detail::_ImplPerlinInit<T,N>::init(this, rng, PERLIN_NUM_GRADIENTS);
+    template <typename Generator>
+    PerlinNoise(Generator& rng): gradients(new point_t[N_GRADIENTS]) {
+        if constexpr (N == 1) {
+            // gradients should be in the range -1,1
+            std::uniform_real_distribution<T> dist(-1, 1);
+            for (index_t i = 0; i < N_GRADIENTS; i++) {
+                gradients[i] = dist(rng);
+            }
+        } else {
+            // gradients are random unit vectors
+            for (index_t i = 0; i < N_GRADIENTS; i++) {
+                gradients[i] = random_unit<T,N>(rng);
+            }
+        }
     }
     
     /**********************************
      * methods                        *
      **********************************/
+     
+    static constexpr index_t n_gradients() {
+        return N_GRADIENTS;
+    }
     
     /**
      * Evaluate the noise at `pt`.
@@ -179,33 +180,13 @@ public:
 protected:
     
     inline const point_t& get_grid_gradient(const grid_t& pt) const {
-        index_t idx = 0;
+        uint64_t idx = 0;
         for (index_t i = 0; i < N; ++i) {
             // do an iterated linear congruential scramble, using Knuth's constants:
-            // xxx: todo: make portable
-            index_t k = gridtype::iterator(pt)[i];
-            idx = 6364136223846793005LL * (k + idx) + 1442695040888963407LL;
+            uint64_t k = static_cast<uint64_t>(gridtype::iterator(pt)[i]);
+            idx = 6364136223846793005ULL * (k + idx) + 1442695040888963407ULL;
         }
-        idx = positive_mod(idx, (index_t) PERLIN_NUM_GRADIENTS);
-        
-        // xxx: todo: confirm the above is okay and delete this:
-        // idx = positive_mod(idx, (index_t) PERLIN_NUM_GRADIENTS);
-        // if (N > 1) {
-        //     // iterate on the permutation table, offsetting with each coordinate.
-        //     for (index_t axis = 0; axis < N; axis++) {
-        //         index_t i = positive_mod(
-        //             idx + gridtype::iterator(pt)[axis],
-        //             (index_t)PERLIN_NUM_GRADIENTS);
-        //         idx = p[i];
-        //     }
-        // } else {
-        //     // 1D case: indexing into the permutation table would not be iterated,
-        //     // so the noise would be periodic with period `num_gradients`. instead,
-        //     // do a linear congruential scramble, using Knuth's constants:
-        //     idx = gridtype::iterator(pt)[0];
-        //     idx = 6364136223846793005LL * idx + 1442695040888963407LL;
-        //     idx = positive_mod(idx, (index_t)PERLIN_NUM_GRADIENTS);
-        // }
+        idx = static_cast<index_t>(positive_mod<uint64_t>(idx, N_GRADIENTS));
         return gradients[idx];
     }
     

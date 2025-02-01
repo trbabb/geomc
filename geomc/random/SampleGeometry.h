@@ -152,7 +152,7 @@ public:
                 }
                 // if the point is outside the unit sphere, reject it and try again
             } while (ptype::mag2(out) > 1);
-            return shape.radius * out + shape.center;
+            return shape.r * out + shape.center;
         } else {
             // draw a multivariate gaussian, then project it onto the sphere
             std::uniform_real_distribution<T> u_01(0,1);
@@ -251,7 +251,6 @@ public:
             } while (ptype::mag2(p) > 1);
         } else {
             // draw a multivariate gaussian, then project it onto the sphere
-            Vec<T,N> p;
             for (index_t i = 0; i < N; ++i) {
                 p[i] = _gauss(rng);
             }

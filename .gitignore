@@ -6,7 +6,7 @@ bin
 test
 build
 .cache
-
+bkup
 .sconsign.dblite
 /.vscode
 compile_commands.json
