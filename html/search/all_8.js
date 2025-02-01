@@ -22,5 +22,6 @@ var searchData=
   ['hash_5fcombine_19',['hash_combine',['../namespacegeom.html#a1b94893ba657748522b03a58a5d88095',1,'geom']]],
   ['height_20',['height',['../classgeom_1_1_extruded.html#ac7ea7326f3c37fdcd29fb3a40c06d82e',1,'geom::Extruded::height'],['../classgeom_1_1_frustum.html#ac7ea7326f3c37fdcd29fb3a40c06d82e',1,'geom::Frustum::height']]],
   ['hi_21',['hi',['../classgeom_1_1_rect.html#a0ffa04769eee75de6100330b3395929a',1,'geom::Rect']]],
-  ['hollow_22',['Hollow',['../classgeom_1_1_hollow.html',1,'Hollow&lt; Shape &gt;'],['../classgeom_1_1_hollow.html#a9e063f3411bea988ee4f755eb34cf8ad',1,'geom::Hollow::Hollow()'],['../classgeom_1_1_hollow.html#a2ad0e0bf9c52441d749344c07573e88a',1,'geom::Hollow::Hollow(const Shape &amp;shape)']]]
+  ['hollow_22',['Hollow',['../classgeom_1_1_hollow.html',1,'Hollow&lt; Shape &gt;'],['../classgeom_1_1_hollow.html#a9e063f3411bea988ee4f755eb34cf8ad',1,'geom::Hollow::Hollow()'],['../classgeom_1_1_hollow.html#a2ad0e0bf9c52441d749344c07573e88a',1,'geom::Hollow::Hollow(const Shape &amp;shape)']]],
+  ['hollow_3c_20sphere_3c_20t_2c_20n_20_3e_20_3e_23',['Hollow&lt; Sphere&lt; T, N &gt; &gt;',['../classgeom_1_1_hollow.html',1,'geom']]]
 ];

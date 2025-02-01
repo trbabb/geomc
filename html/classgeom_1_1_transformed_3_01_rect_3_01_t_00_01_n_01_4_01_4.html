@@ -118,13 +118,13 @@ Inheritance diagram for Transformed&lt; Rect&lt; T, N &gt; &gt;:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a4a057c5b60fec78341c983d408ab7753" id="r_a4a057c5b60fec78341c983d408ab7753"><td class="memItemLeft" align="right" valign="top"><a id="a4a057c5b60fec78341c983d408ab7753" name="a4a057c5b60fec78341c983d408ab7753"></a>
-typedef <a class="el" href="structgeom_1_1_point_type.html">PointType</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;::point_t&#160;</td><td class="memItemRight" valign="bottom"><b>point_t</b></td></tr>
-<tr class="separator:a4a057c5b60fec78341c983d408ab7753"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ce56f5f4fb0fe326b49a018b2b6efdb" id="r_a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="memItemLeft" align="right" valign="top"><a id="a6ce56f5f4fb0fe326b49a018b2b6efdb" name="a6ce56f5f4fb0fe326b49a018b2b6efdb"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
 <tr class="memdesc:a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The coordinate type of this object. <br /></td></tr>
 <tr class="separator:a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7b81c250ce370c724b88ffaac574884" id="r_ab7b81c250ce370c724b88ffaac574884"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a></td></tr>
+<tr class="memdesc:ab7b81c250ce370c724b88ffaac574884"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of a point in this object's space.  <br /></td></tr>
+<tr class="separator:ab7b81c250ce370c724b88ffaac574884"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -195,7 +195,33 @@ static constexpr index_t&#160;</td><td class="memItemRight" valign="bottom"><b>N
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T, index_t N&gt;<br />
 class geom::Transformed&lt; Rect&lt; T, N &gt; &gt;</div><p>Partial specialization of <a class="el" href="classgeom_1_1_transformed.html" title="A wrapper shape which transforms another arbitrary shape with an AffineTransform.">Transformed</a> for Rects. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ab7b81c250ce370c724b88ffaac574884" name="ab7b81c250ce370c724b88ffaac574884"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7b81c250ce370c724b88ffaac574884">&#9670;&#160;</a></span>point_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The type of a point in this object's space. </p>
+<p>An N-vector of T if N &gt; 1, otherwise a T. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a783e4812827599c0b116581ff94f4024" name="a783e4812827599c0b116581ff94f4024"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a783e4812827599c0b116581ff94f4024">&#9670;&#160;</a></span>intersects() <span class="overload">[1/3]</span></h2>
 
@@ -300,7 +326,7 @@ template&lt;typename T , index_t N&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 29 2025 14:40:39 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
+Generated on Fri Jan 31 2025 17:47:07 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.12.0
 </small></address>
 </div><!-- doc-content -->
 </body>
