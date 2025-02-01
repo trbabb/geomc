@@ -8,6 +8,9 @@
 #include <geomc/shape/shapedetail/SimplexProject.h>
 
 // xxx: contains() is likely wrong
+//   - we do need to solve the last coordinate; there are as many coordiantes as verts
+// todo: wbn if barycentric() / unmap() projected to simplex subspace and gave coords
+//    anyway; then contains() could call this
 
 // todo: orthogonal projection to a subspace is a very general linalg operation,
 //       and projection_contains() makes use of it. The operation that does this is
@@ -108,6 +111,7 @@ public:
         std::copy(verts.begin(), verts.begin() + n, pts);
     }
     
+    /// Construct a simplex with its vertices on the unit axes.
     static constexpr Simplex standard_simplex() {
         Simplex s;
         for (index_t i = 1; i < N + 1; ++i) {
@@ -117,17 +121,37 @@ public:
         return s;
     }
     
+    /** 
+     * @brief Construct a simplex with all edges of unit length and
+     * one edge along the x-axis.
+     * 
+     * `n` is the number of vertices in the simplex.
+     */
+    static constexpr Simplex regular_simplex(index_t n=N+1) {
+        Simplex s;
+        Vec<T,N> c = s.pts[0] = {};
+        n = std::min(n, N + 1);
+        for (index_t i = 1; i < n; ++i) {
+            // compute the barycenter of the "base" of the simplex
+            Vec<T,N> c_i = c / i;
+            // remaining coordinate is raised above the center of the base by `h`
+            T h = std::sqrt(1 - c_i.mag2());
+            s.pts[i] = {c_i, h};
+            c += s.pts[i];
+        }
+        s.n = n;
+        return s;
+    }
+    
     /// Get the `i`th vertex in this simplex.
     Vec<T,N>& operator[](index_t i) {
         return pts[i];
     }
     
-    
     /// Get the `i`th vertex in this simplex.
     Vec<T,N> operator[](index_t i) const {
         return pts[i];
     }
-    
     
     /**
      * @brief Simplex equality check.
@@ -144,13 +168,11 @@ public:
         return true;
     }
     
-    
     /// Simplex inequality check.
     inline bool operator!=(const Simplex<T,N>& other) const {
         return not ((*this) == other);
     }
-
-
+    
     /**
      * @brief Return a copy of this simplex with an additional vertex at `p`.
      *
@@ -161,7 +183,6 @@ public:
         s.insert(p);
         return s;
     }
-
 
     /**
      * @brief Extend this simplex to include `p` by adding `p` as a vertex.
@@ -205,6 +226,15 @@ public:
             pts[n] = p;
             n += 1;
         }
+    }
+    
+    /// Compute the barycenter of this simplex.
+    Vec<T,N> barycenter() const {
+        Vec<T,N> c = {};
+        for (index_t i = 0; i < n; ++i) {
+            c += pts[i];
+        }
+        return c / n;
     }
     
     /**

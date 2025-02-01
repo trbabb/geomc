@@ -5,6 +5,8 @@
 #include <geomc/shape/Shape.h>
 #include <geomc/function/Utils.h>
 
+// todo: r should be "radius"
+
 namespace geom {
 
 /** 
@@ -21,7 +23,7 @@ class Sphere:
 {
     typedef PointType<T,N> ptype;
 public:
-    typedef typename ptype::point_t point_t;
+    using typename Dimensional<T,N>::point_t;
     /// Center of the sphere.
     point_t center;
     /// Radius of the sphere.

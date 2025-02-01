@@ -1,3 +1,5 @@
+#pragma once
+
 /* 
  * File:   Orthogonal.h
  * Author: tbabb
@@ -5,14 +7,16 @@
  * Created on October 15, 2014, 12:23 AM
  */
 
-#ifndef ORTHOGONAL_H
-#define	ORTHOGONAL_H
-
 #include <algorithm>
 #include <geomc/linalg/Vec.h>
 #include <geomc/linalg/LUDecomp.h>
 
 /*
+computing one vector orthogonal to n others:
+   M * v = (0 ... 1 ... 0)
+where we set the basis vectors we wish to solve for to 1.
+we are solving for the unit vectors in the null space of M. basically.
+
 http://en.wikibooks.org/wiki/Linear_Algebra/Null_Spaces
 
 get to row-echelon form, and solve:
@@ -253,7 +257,3 @@ Vec<T,N> project_to_subspace(Vec<T,N> bases[], Vec<T,N> x, index_t n) {
 /// @} //addtogroup linalg
     
 } // namespace geom
-
-
-#endif	/* ORTHOGONAL_H */
-

@@ -26,14 +26,13 @@ namespace geom {
  * Perlin noise has _O(2<sup>N</sup>)_ time cost.
  */
 template <typename T, index_t N>
-class PerlinNoise {
+class PerlinNoise : public Dimensional<T,N> {
 public:
     
     typedef PointType<index_t,N>        gridtype;
     typedef PointType<T,N>              pointtype;
     typedef typename gridtype::point_t  grid_t;
-    /// Coordinate type: `Vec<T,N>` if `N > 0`; `T` if `N == 1`.
-    typedef typename pointtype::point_t point_t;
+    using typename Dimensional<T,N>::point_t;
     
     friend class detail::_ImplPerlinInit<T,N>;
     

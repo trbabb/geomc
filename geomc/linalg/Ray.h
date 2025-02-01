@@ -19,11 +19,7 @@ namespace geom {
 template <typename T, index_t N>
 class Ray : public Dimensional<T,N> {
 public:
-    /**
-     * @brief The type of a point with the same dimension as this ray; a `Vec<T,N>`
-     * if `N` is greater than 1; or a `T` if `N` is 1.
-     */
-    typedef typename PointType<T,N>::point_t point_t;
+    using typename Dimensional<T,N>::point_t;
     /// Origin of ray.
     point_t origin;
     /// Direction of ray.

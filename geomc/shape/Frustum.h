@@ -19,6 +19,12 @@ namespace geom {
 //     - the plane we are projecting to is sensitive to the point we are testing. that is, the
 //       plane is the one normal to the test point vector (i.e., a vector with its tail at
 //       the origin / frustum tip). proof is too small for margin to contain.
+//     - sdf() draws a circle around the point which contains none of the shape;
+//       this circle becomes a conic section in the perspective-transformed space. the
+//       actual closest point may be inside the circle that circumscribes the conic section;
+//       we do not know in which direction that point lies from sdf() or project() alone.
+//     - in general this cannot be written in terms of the SDF or projection of the base shape
+//       without some kind of iterative solution.
 
 // todo: permit 1d cross sectional shapes
 

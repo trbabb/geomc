@@ -1,12 +1,10 @@
+#pragma once
 /*
  * Shape.h
  *
  *  Created on: Oct 7, 2010
  *      Author: tbabb
  */
-
-#ifndef _SHAPE_H_
-#define _SHAPE_H_
 
 #include <type_traits>
 #include <geomc/shape/ShapeTypes.h>
@@ -90,7 +88,8 @@ class Bounded : public Dimensional<T,N> {
 template <typename T, index_t N, typename Derived>
 class Convex : public Bounded<T,N,Derived> {
     public:
-    typedef typename PointType<T,N>::point_t point_t;
+    
+    using typename Dimensional<T,N>::point_t;
     
     /**
      * @brief Geometric convex support function.
@@ -118,9 +117,10 @@ class Convex : public Bounded<T,N,Derived> {
      */
     template <typename Shape>
     bool intersects(const Convex<T,N,Shape>& other) const {
-        return gjk_intersect(
+        return geom::intersects(
             as_any_convex(*this),
-            as_any_convex(other));
+            as_any_convex(other)
+        );
     }
     
     /**
@@ -238,7 +238,7 @@ public:
         return self->project(p);
     }
     
-    inline T sdf(Vec<T,N> p) const {
+    T sdf(Vec<T,N> p) const {
         static_assert(
             &Derived::sdf      != &Projectable<T,N,Derived>::sdf or
             &Derived::contains != &SdfEvaluable<T,N,Derived>::contains,
@@ -255,7 +255,7 @@ public:
      *
      * This should be the same as the gradient of the sdf().
      */
-    inline Vec<T,N> normal(Vec<T,N> p) const {
+    Vec<T,N> normal(Vec<T,N> p) const {
         Derived* self = (Derived*) this;
         Vec<T,N> n = (p - self->project(p)).unit();
         return (self->contains(p) ? -1 : 1) * n;
@@ -267,7 +267,7 @@ public:
      * If `p` is on the interior of the shape, return `p` unaltered; otherwise
      * orthogonally project `p` to the shape's surface.
      */
-    inline Vec<T,N> clip(Vec<T,N> p) const {
+    Vec<T,N> clip(Vec<T,N> p) const {
         Derived* self = (Derived*) this;
         return self->contains(p) ? p : project(p);
     }
@@ -386,4 +386,3 @@ struct shape_traits {
 /// @} // addtogroup shape
 
 }
-#endif /* _SHAPE_H_ */

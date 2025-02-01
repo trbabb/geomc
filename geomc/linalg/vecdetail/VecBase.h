@@ -592,6 +592,28 @@ public:
     T dist2(const self_t& pt) const {
         return (this->sub(pt)).mag2();
     }
+    
+    /**
+     * @brief Sum the elements of the vector.
+     */
+    T sum() const {
+        T s = 0;
+        for (index_t i = 0; i < N; i++) {
+            s += this->get(i);
+        }
+        return s;
+    }
+    
+    /**
+     * @brief Multiply all elements together.
+     */
+    T product() const {
+        T p = 1;
+        for (index_t i = 0; i < N; i++) {
+            p *= this->get(i);
+        }
+        return p;
+    }
 
     /**
      * @brief Reflection about a normal.
@@ -599,8 +621,7 @@ public:
      * @return A copy of this vector reflected across the given axis.
      */
     self_t reflect_about(self_t normal) const {
-        normal = normal.unit();
-        return this->neg() + normal * 2 * this->dot(normal);
+        return (*this) - 2 * this->project_on(normal);
     }
 
     /**
@@ -678,6 +699,62 @@ public:
         T c = v.unit().dot(unit());
         c = std::min((T)1, std::max(c, (T)-1));
         return std::acos(c);
+    }
+    
+    /**
+     * @brief Apply a rotation to `this` which aligns the unit vectors `from` with `to`.
+     */
+    self_t align(const self_t& from, const self_t& to) const {
+        // todo: assumes unit `from` and `to`.
+        // todo: test this, especially for N > 3
+        if constexpr (N == 2) {
+            // simplified from the N = 3 case:
+            T x = this->x;
+            T y = this->y;
+            T q = geom::diff_of_products(from.x, to.y,  from.y, to.x);
+            T c = from.dot(to);
+            return {
+                geom::diff_of_products(c, x,  q, y),
+                geom::sum_of_products (q, x,  c, y),
+            };
+        } else if constexpr (N == 3) {
+            // modified from http://iquilezles.org/www/articles/noacos/noacos.htm
+            Vec<T,N> q = from ^ to;
+            T x = this->x;
+            T y = this->y;
+            T z = this->z;
+            T c = from.dot(to);
+            T k = 1 / (1 + c);
+            return {
+                (q.x * q.x * k + c)   * x + (q.y * q.x * k - q.z) * y + (q.z * q.x * k + q.y) * z,
+                (q.x * q.y * k + q.z) * x + (q.y * q.y * k + c)   * y + (q.z * q.y * k - q.x) * z,
+                (q.x * q.z * k - q.y) * x + (q.y * q.z * k + q.x) * y + (q.z * q.z * k + c)   * z
+            };
+        } else {
+            // use a householder reflection which aligns `from` with `to`; apply it to `v`.
+            // first reflect to a + b, and then to b.
+            auto d = from.dot(to);
+            Vec<T,N> h;
+            if (d == 1) {
+                // vectors are aligned already; return identity
+                return *this;
+            } else if (d == -1) {
+                // vectors are anti-aligned, the half-vector is the zero vector.
+                // we'll instead use an (arbitrary) axis vector which is not too parallel
+                h[from.argmin()] = 1;
+            } else {
+                // arbitrary alignment.
+                // find a unit vector between `from` and `to`; we'll use their average.
+                // to normalize, we can use the squared norm of the sum of two vectors:
+                // |a + b|^2 = 2 * (dot(a, b) + 1)
+                h = (from + to) / std::sqrt(2 * d + 2);
+            }
+            
+            // reflect `from` to `h`
+            Vec<T,N> c = reflect_about(h - from);
+            // reflect `h` to `to`
+            return c.reflect_about(to - h);
+        }
     }
     
     ///////////////////////

@@ -20,6 +20,7 @@ class Similar:
     public RayIntersectable<typename Shape::elem_t, Shape::N, Similar<Shape>>,
     public Projectable     <typename Shape::elem_t, Shape::N, Similar<Shape>>
 {
+public:
     using elem_t = typename Shape::elem_t;
     static constexpr index_t N = Shape::N;
     
@@ -49,6 +50,13 @@ class Similar:
     bool contains(typename Shape::point_t p) const {
         return shape.contains(p / xf);
     }
+    
+    /// Convert this shape to a Transformed shape.
+    operator Transformed<Shape>() const {
+        return Transformed<Shape>(shape, xf);
+    }
+     
+    using Convex<T,N,Similar<Shape>>::intersects;
     
     /// @brief Intersecion with another similar shape.
     /// Requires that the our shape can intersect the other shape's base shape.

@@ -19,7 +19,7 @@ class Capsule:
 {
     typedef PointType<T,N> ptype;
 public:
-    typedef typename ptype::point_t point_t;
+    using typename Dimensional<T,N>::point_t;
     /// endpoints of the capsule axis.
     point_t p0;
     point_t p1;

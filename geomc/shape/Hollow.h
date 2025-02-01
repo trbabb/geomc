@@ -58,6 +58,14 @@ public:
         return shape.project(p);
     }
     
+    /**
+     * @brief Nearest point on the interior of the shape to `p`; the same as
+     * `project(p)`, since hollow shapes do not have an interior.
+     */
+    Vec<T,N> clip(Vec<T,N> p) const {
+        return shape.project(p);
+    }
+    
     /// Normal vector at point `p`.
     Vec<T,N> normal(Vec<T,N> p) const {
         T sign = shape.contains(p) ? -1 : 1;

@@ -70,8 +70,7 @@ protected:
     typedef PointType<T,N> ptype;
 
 public:
-    /// Type of object confined by this Rect
-    typedef typename PointType<T,N>::point_t point_t;
+    using typename Dimensional<T,N>::point_t;
 
     /// Lower extremes
     point_t lo;
@@ -879,6 +878,66 @@ public:
             return p;
         } else {
             return clip(p);
+        }
+    }
+    
+    /// Outward-facing direction.
+    point_t normal(point_t p) const {
+        // compute the outward-pointing normal from `p`.
+        // we don't just do `p - project(p)`, because that behaves degenerately near
+        // the surface of the range (where we are most likely to care about the normal).
+        
+        // nearest point in the range to `p`
+        point_t clipped;
+        // how many axes are outside the bound?
+        index_t outside = 0;
+        // which axis' plane is closest to p?
+        index_t nearest_axis;
+        // what is the distance to the nearest bounding plane?
+        T nearest_plane = std::numeric_limits<T>::max();
+        // is the nearest plane a lower (-1) or upper (+1) bound?
+        index_t nearest_sign;
+        // the last axis we encountered that we were not contained by
+        index_t exterior_axis;
+        // is the nearest exterior face a lower bound (-1) or upper bound (+1)?
+        index_t exterior_sign;
+        
+        for (index_t i = 0; i < N; ++i) {
+            T x    = ptype::iterator(p)[i];
+            T lo_i = ptype::iterator(lo)[i];
+            T hi_i = ptype::iterator(hi)[i];
+            ptype::iterator(clipped)[i] = std::min(hi_i, std::max(lo_i, x));
+            bool is_out = x < lo_i or x > hi_i;
+            outside += is_out;
+            // compute distances to the two bounding planes
+            T d0 = std::abs(x - ptype::iterator(lo)[i]);
+            T d1 = std::abs(x - ptype::iterator(hi)[i]);
+            T d_min = std::min(d0, d1);
+            if (d_min < nearest_plane) {
+                nearest_axis  = i;
+                nearest_plane = d_min;
+                nearest_sign  = d0 < d1 ? -1 : 1;
+            }
+            if (is_out) {
+                exterior_axis = i;
+                exterior_sign = d0 < d1 ? -1 : 1;
+            }
+        }
+        if (outside == 0) {
+            // we're contained by the range. return a normal pointing toward the nearest face.
+            point_t n;
+            ptype::iterator(n)[nearest_axis] = nearest_sign;
+            return n;
+        } else if (outside == 1) {
+            // we're outside the range, but project to an axial face. return its normal
+            point_t n;
+            ptype::iterator(n)[exterior_axis] = exterior_sign;
+        } else {
+            // the nearest point is on a corner / edge.
+            // draw a vector from that point to `p` and unitize.
+            // this still suffers numerical instability near the surface, but it's
+            // near a degenerate feature, so there's not really anything we can do.
+            return (p - clipped).unit();
         }
     }
 

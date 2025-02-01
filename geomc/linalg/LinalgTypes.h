@@ -130,21 +130,6 @@ namespace detail {
 
 #endif
     
-    /// @brief Represents an object or operation that exists in a certain
-    /// dimension with a certain coordinate type.
-    /// @ingroup linalg
-    template <typename T, index_t _N>
-    struct Dimensional {
-        /// The coordinate type of this object.
-        using elem_t = T;
-        /// The dimension of this object.
-        static constexpr index_t N = _N;
-        
-    private:
-        // prevent this class from taking space
-        int _dummy[0];
-    };
-    
     /// Represents a means of transforming a point or vector.
     template <typename Xf, typename T, index_t N>
     concept Transform = requires (Xf xf, Vec<T,N> p) {
@@ -188,7 +173,7 @@ namespace detail {
 
     template <typename T, index_t N>
     struct PointType {
-        typedef Vec<T,N> point_t;
+        using point_t = Vec<T,N>;
         
         static inline T* iterator(point_t& p) {
             return p.begin();
@@ -225,7 +210,7 @@ namespace detail {
 
     template <typename T>
     struct PointType<T,1> {
-        typedef T point_t;
+        using point_t = T;
         
         static inline T* iterator(point_t& p) {
             return &p;
@@ -258,6 +243,40 @@ namespace detail {
         static inline T unit(const point_t& p) {
             return p >= 0 ? (T)1 : (T)-1;
         }
+    };
+    
+    /// @brief Represents an object or operation that exists in a certain
+    /// dimension with a certain coordinate type.
+    /// @ingroup linalg
+    template <typename T, index_t _N>
+    struct Dimensional {
+        /// The coordinate type of this object.
+        using elem_t = T;
+        /// The dimension of this object.
+        static constexpr index_t N = _N;
+        /**
+         * @brief The type of a point in this object's space.
+         *
+         * An N-vector of T if N > 1, otherwise a T.
+         */
+        using point_t = PointType<T,N>::point_t;
+        
+    private:
+        // prevent this class from taking space
+        int _dummy[0];
+    };
+    
+    /**
+     * @brief Concept for an object or operation that exists in a certain
+     * dimension with a certain coordinate type.
+     *
+     * Inheriting from Dimensional is sufficient to satisfy this concept.
+     */
+    template <typename Obj>
+    concept DimensionalObject = (Obj::N > 0) and requires {
+        typename Obj::elem_t;
+        { Obj::N } -> std::convertible_to<index_t>;
+        typename Obj::point_t;
     };
     
     template <typename T>

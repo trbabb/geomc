@@ -153,6 +153,33 @@ inline Plane<T,N> dilate(Plane<T,N> p, T dilation) {
 }
 
 /**
+ * @brief Create a spherical shell with wall thickness `thickness` around the Sphere `s`.
+ *
+ * The wall will be centered on the Sphere's surface.
+ * @related Dilated
+ */
+template <typename T, index_t N>
+inline Dilated<Hollow<Sphere<T,N>>> shell(const Sphere<T,N>& s, T thickness) {
+    return {s, std::abs(thickness) / (T)2};
+}
+
+/**
+ * @brief Create a spherical shell around `center`, with inner and outer radii `r0` and `r1`.
+ *
+ * It is not required that r0 < r1; the shell will always be constructed with positive thickness.
+ * @related Dilated
+ */
+template <typename T, index_t N>
+inline Dilated<Hollow<Sphere<T,N>>> shell(Vec<T,N> center, T r0, T r1) {
+    r0 = std::max<T>(r0, 0);
+    r1 = std::max<T>(r1, 0);
+    return {
+        Sphere<T,N>{center, (r0 + r1) / 2},
+        std::abs(r1 - r0) / 2
+    };
+}
+
+/**
  * @brief Dilate the Sphere `s` by the amount `dilation`.
  *
  * (This just adds the amount `dilation` to the Sphere's radius).

@@ -194,6 +194,8 @@ public:
         return shape.contains(p);
     }
     
+    using Convex<T,N,Transformed<Rect<T,N>>>::intersects;
+    
     /**
      * Test whether this Transformed<Rect> overlaps an axis-aligned Rect.
      * 

@@ -27,7 +27,7 @@ namespace geom {
  *
  *     Similarity<T,N> s1, s2;
  *     Similarity<T,N> s3 = s2 / s1; // similarity which takes s1 to s2
- *     Vec<T,N> v = v0 / s3;       // apply the inverse of s3 to v0
+ *     Vec<T,N> v = v0 / s3;         // apply the inverse of s3 to v0
  *
  * Compose with rotations and translations:
  *
