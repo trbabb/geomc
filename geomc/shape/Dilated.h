@@ -1,5 +1,6 @@
 #pragma once
 
+#include "geomc/shape/ShapeTypes.h"
 #include <geomc/linalg/Similarity.h>
 #include <geomc/shape/Rect.h>
 #include <geomc/shape/Sphere.h>
@@ -77,31 +78,31 @@ public:
     }
     
     /// Point containment test.
-    bool contains(Vec<T,N> p) const {
+    bool contains(Vec<T,N> p) const requires RegionObject<Shape> {
         return sdf(p) < 0;
     }
     
     /// Signed distance function.
-    T sdf(Vec<T,N> p) const {
+    T sdf(Vec<T,N> p) const requires SdfObject<Shape> {
         return shape.sdf(p) - dilation;
     }
     
-    Vec<T,N> normal(Vec<T,N> p) const {
+    Vec<T,N> normal(Vec<T,N> p) const requires ProjectableObject<Shape> {
         // we are dilating the shape along the normal, so the normal is unchanged
         return shape.normal(p);
     }
     
-    Vec<T,N> convex_support(Vec<T,N> d) const {
+    Vec<T,N> convex_support(Vec<T,N> d) const requires ConvexObject<Shape> {
         Vec<T,N> p = shape.convex_support(d);
         return p + d.unit() * dilation;
     }
     
-    Rect<T,N> bounds() const {
+    Rect<T,N> bounds() const requires BoundedObject<Shape> {
         return shape.bounds().dilated(dilation);
     }
     
     /// Orthogonally project `p` to the surface of this shape.
-    Vec<T,N> project(Vec<T,N> p) const {
+    Vec<T,N> project(Vec<T,N> p) const requires ProjectableObject<Shape> {
         Vec<T,N> p_proj = shape.project(p);
         Vec<T,N> dp = (p_proj - p).unit();
         if (shape.contains(p)) {
@@ -252,20 +253,6 @@ Dilated<Shape> operator/(const Dilated<Shape>& s, const Isometry<T,N>& xf) {
  *  @{
  */
 
-// Dilated shapes inherit concepts
-template <typename Shape>
-struct implements_shape_concept<Dilated<Shape>, Projectable> : 
-    public std::integral_constant<
-        bool,
-        implements_shape_concept<Shape, Projectable>::value>
-{};
-
-template <typename Shape>
-struct implements_shape_concept<Dilated<Shape>, Convex> : 
-    public std::integral_constant<
-        bool,
-        implements_shape_concept<Shape, RayIntersectable>::value>
-{};
 
 /// @}  // addtogroup traits
 /// @}  // addtogroup shape

@@ -99,7 +99,7 @@ public:
      * @param p A point.
      * @return `true` if `p` is on or inside this frustum; `false` otherwise.
      */
-    bool contains(Vec<T,N> p) const {
+    bool contains(Vec<T,N> p) const requires RegionObject<Shape> {
         if (not clipped_height().contains(p[N-1])) return false;
         if (p[N-1] == 0) return p == (T)0;
         p /= p[N-1];
@@ -107,7 +107,7 @@ public:
     }
     
     /// Ray-shape intersection.
-    Rect<T,1> intersect(const Ray<T,N>& ray) const {
+    Rect<T,1> intersect(const Ray<T,N>& ray) const requires RayIntersectableObject<Shape> {
         // todo: check N=2 case
         // s-values for the top and bottom slabs
         Rect<T,1> slab_range = clipped_height().intersect(
@@ -211,7 +211,7 @@ public:
         return s & slab_range;
     }
     
-    Vec<T,N> convex_support(Vec<T,N> d) const {
+    Vec<T,N> convex_support(Vec<T,N> d) const requires ConvexObject<Shape> {
         Rect<T,1> h = clipped_height();
         T sign = h.lo < 0 ? -1 : 1; // ← the shape is flipped below the origin
         
@@ -232,7 +232,7 @@ public:
         return z * p;
     }
     
-    Rect<T,N> bounds() const {
+    Rect<T,N> bounds() const requires BoundedObject<Shape> {
         Rect<T,N-1> b0 = base.bounds();
         Rect<T,1> h    = clipped_height();
         // make two rects for the top and bottom faces;
@@ -297,44 +297,6 @@ using Cone = Frustum<Circle<T>>;
 template <typename T>
 using TransformedCone = Transformed<Cone<T>>;
 
-
-/** @addtogroup traits
- *  @{
- */
-
-// Frustums inherit concepts
-template <typename Shape>
-struct implements_shape_concept<Frustum<Shape>, RayIntersectable> : 
-    public std::integral_constant<
-        bool,
-        implements_shape_concept<Shape, RayIntersectable>::value>
-{};
-
-template <typename Shape>
-struct implements_shape_concept<Frustum<Shape>, Convex> : 
-    public std::integral_constant<
-        bool,
-        implements_shape_concept<Shape, RayIntersectable>::value>
-{};
-
-
-// frustum doesn't yet support sdf or projection.
-// template <typename Shape>
-// struct implements_shape_concept<Frustum<Shape>, Projectable> : 
-//     public std::integral_constant<
-//         bool,
-//         implements_shape_concept<Shape, Projectable>::value>
-// {};
-
-// template <typename Shape>
-// struct implements_shape_concept<Frustum<Shape>, SdfEvaluable> : 
-//     public std::integral_constant<
-//         bool,
-//         implements_shape_concept<Shape, Projectable>::value>
-// {};
-
-/// @} // addtogroup traits
-/// @} // addtogroup shape
 
 template <typename Shape, typename H>
 struct Digest<Frustum<Shape>, H> {

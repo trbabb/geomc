@@ -10,8 +10,8 @@
 
 #include <geomc/function/Utils.h>
 #include <geomc/random/SampleVector.h>
+#include <geomc/random/DenseDistribution.h>
 #include <geomc/linalg/Vec.h>
-#include <geomc/function/functiondetail/PerlinDetail.h>
 
 namespace geom {
 
@@ -52,7 +52,7 @@ public:
     PerlinNoise(Generator& rng): gradients(new point_t[N_GRADIENTS]) {
         if constexpr (N == 1) {
             // gradients should be in the range -1,1
-            std::uniform_real_distribution<T> dist(-1, 1);
+            DenseUniformDistribution<T> dist(-1, 1);
             for (index_t i = 0; i < N_GRADIENTS; i++) {
                 gradients[i] = dist(rng);
             }

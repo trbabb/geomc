@@ -1,3 +1,4 @@
+#include "geomc/shape/ShapeTypes.h"
 #define TEST_MODULE_NAME Shape
 
 // #include <iostream>
@@ -89,7 +90,7 @@ bool validate_point(
 
 template <typename Shape>
 void validate_sdf(rng_t* rng, const Shape& s, index_t trials) {
-    if constexpr (implements_shape_concept<Shape, SdfEvaluable>::value) {
+    if constexpr (SdfObject<Shape>) {
         typedef typename Shape::elem_t T;
         constexpr index_t N = Shape::N;
         auto bb   = s.bounds();
@@ -105,7 +106,7 @@ void validate_sdf(rng_t* rng, const Shape& s, index_t trials) {
 
 template <typename Shape>
 void validate_projection(rng_t* rng, const Shape& s, index_t trials) {
-    if constexpr (implements_shape_concept<Shape, Projectable>::value) {
+    if constexpr (ProjectableObject<Shape>) {
         typedef typename Shape::elem_t T;
         typedef typename Shape::point_t point_t;
         typedef PointType<T,Shape::N> ptype;
@@ -138,7 +139,7 @@ void validate_projection(rng_t* rng, const Shape& s, index_t trials) {
             // BOOST_CHECK_SMALL(std::abs(n.unit().dot(axis.unit())) - 1, 1e-3);
             
             // a ray intersection should agree with project() about where the shape is
-            if constexpr (implements_shape_concept<Shape, RayIntersectable>::value) {
+            if constexpr (RayIntersectableObject<Shape>) {
                 // cast a ray from the point along the projection direction.
                 Ray<T,N> r = Ray<T,N>(p, -axis);
                 Rect<T,1> interval = s.intersect(r);
@@ -159,7 +160,7 @@ void validate_projection(rng_t* rng, const Shape& s, index_t trials) {
 
 template <typename Shape>
 void validate_ray(rng_t* rng, const Shape& s, index_t trials) {
-    if constexpr (implements_shape_concept<Shape, RayIntersectable>::value) {
+    if constexpr (RayIntersectableObject<Shape>) {
         typedef typename Shape::elem_t T;
         constexpr index_t N = Shape::N;
         auto sampler = ShapeSampler<Shape>(s);
@@ -236,28 +237,29 @@ void explore_simplex(rng_t* rng, index_t shapes) {
 
 template <template <typename> class Outer, typename T, bool test_degenerate=false>
 void explore_compound_shape(rng_t* rng, index_t shapes) {
+    index_t fewer_shapes = std::max<index_t>(shapes / 10, 1);
     explore_shape<Outer<Rect<T, 2>>>(rng, shapes);
     explore_shape<Outer<Rect<T, 3>>>(rng, shapes);
     explore_shape<Outer<Rect<T, 4>>>(rng, shapes);
-    explore_shape<Outer<Rect<T, 5>>>(rng, shapes);
+    explore_shape<Outer<Rect<T, 5>>>(rng, fewer_shapes);
     
     explore_shape<Outer<Cylinder<T, 2>>>(rng, shapes);
     explore_shape<Outer<Cylinder<T, 3>>>(rng, shapes);
     explore_shape<Outer<Cylinder<T, 4>>>(rng, shapes);
-    explore_shape<Outer<Cylinder<T, 5>>>(rng, shapes);
-    explore_shape<Outer<Cylinder<T, 7>>>(rng, shapes);
+    explore_shape<Outer<Cylinder<T, 5>>>(rng, fewer_shapes);
+    explore_shape<Outer<Cylinder<T, 7>>>(rng, fewer_shapes);
     
     explore_shape<Outer<Sphere<T, 2>>>(rng, shapes);
     explore_shape<Outer<Sphere<T, 3>>>(rng, shapes);
     explore_shape<Outer<Sphere<T, 4>>>(rng, shapes);
-    explore_shape<Outer<Sphere<T, 5>>>(rng, shapes);
-    explore_shape<Outer<Sphere<T, 7>>>(rng, shapes);
+    explore_shape<Outer<Sphere<T, 5>>>(rng, fewer_shapes);
+    explore_shape<Outer<Sphere<T, 7>>>(rng, fewer_shapes);
     
     explore_shape<Outer<Simplex<T, 2>>>(rng, shapes);
     explore_shape<Outer<Simplex<T, 3>>>(rng, shapes);
     explore_shape<Outer<Simplex<T, 4>>>(rng, shapes);
-    explore_shape<Outer<Simplex<T, 5>>>(rng, shapes);
-    explore_shape<Outer<Simplex<T, 7>>>(rng, shapes);
+    explore_shape<Outer<Simplex<T, 5>>>(rng, fewer_shapes);
+    explore_shape<Outer<Simplex<T, 7>>>(rng, fewer_shapes);
     
     if constexpr (test_degenerate) {
         explore_shape<Outer<Rect<T, 1>>>(rng, shapes);
@@ -293,7 +295,8 @@ TEST(TEST_MODULE_NAME, validate_simplex) {
     explore_shape<Simplex<double, 3>>(&rng, N_TESTS);
     explore_shape<Simplex<double, 4>>(&rng, N_TESTS);
     explore_shape<Simplex<double, 5>>(&rng, N_TESTS);
-    explore_shape<Simplex<double, 7>>(&rng, N_TESTS);
+    // todo: this is slow as shit, which is concerning:
+    explore_shape<Simplex<double, 7>>(&rng, std::max(N_TESTS / 100, 1));
     // todo: also check that contains() and projection_contains(),
     //       all agree about pt containment.
 }

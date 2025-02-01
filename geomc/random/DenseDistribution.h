@@ -39,7 +39,7 @@ public:
         _range(Rect<float,1>::spanning_corners(a, b)) {}
     
     template <typename Generator>
-    float operator()(Generator& g) {
+    float operator()(Generator& g) const {
         // without IEEE754, our bit twiddling will not work.
         // generally this will only fail for "exotic" systems:
         static_assert(std::numeric_limits<float>::is_iec559, "floating point must be ieee754");
@@ -59,6 +59,7 @@ public:
         lo_exp = (lo.i >> 23) & 0xFF;
         hi_exp = (hi.i >> 23) & 0xFF;
         
+        // xxx: use clz()!
         auto randbit = std::uniform_int_distribution<uint32_t>();
         uint32_t r = randbit(g);
         //not >= because exp is decremented at the end of the last loop
@@ -112,7 +113,7 @@ public:
         _range(Rect<double,1>::spanning_corners(a, b)) {}
     
     template <typename Generator>
-    double operator()(Generator& g) {
+    double operator()(Generator& g) const {
         union FPBox {
             double   d;
             uint64_t l;
@@ -162,6 +163,45 @@ public:
     
     double a() const { return _range.lo; }
     double b() const { return _range.hi; }
+    
+    bool operator==(const DenseUniformDistribution& other) const {
+        return _range == other._range;
+    }
+};
+
+
+template <typename T, DiscontinuityPolicy P>
+struct DenseUniformDistribution<Dual<T,P>> {
+private:
+    DenseUniformDistribution<T> _d;
+    Rect<Dual<T,P>,1> _range;
+public:
+    using dual_t      = Dual<T,P>;
+    using param_type  = Rect<dual_t,1>;
+    using result_type = dual_t;
+    
+    constexpr DenseUniformDistribution():
+        _range(0., 1.) {}
+    constexpr DenseUniformDistribution(param_type range):
+        _range(range) {}
+    constexpr DenseUniformDistribution(T a, T b):
+        _range(Rect<dual_t,1>::spanning_corners(a, b)) {}
+    
+    template <typename Generator>
+    Dual<T,P> operator()(Generator& g) const {
+        dual_t d = _d(g);
+        return _range.remap(d);
+    }
+    
+    void reset() { _d.reset(); }
+    param_type param() const { return _range; }
+    void param(param_type range) { _range = range; }
+    
+    dual_t min() const { return _range.lo; }
+    dual_t max() const { return _range.hi; }
+    
+    T a() const { return _range.lo.real(); }
+    T b() const { return _range.hi.real(); }
     
     bool operator==(const DenseUniformDistribution& other) const {
         return _range == other._range;

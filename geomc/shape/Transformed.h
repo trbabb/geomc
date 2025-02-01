@@ -73,18 +73,18 @@ public:
     }
     
     /// Shape-point overlap test.
-    bool contains(Vec<T,N> p) const {
+    bool contains(Vec<T,N> p) const requires RegionObject<Shape> {
         p = p / xf;
         return shape.contains(p);
     }
     
-    Vec<T,N> convex_support(Vec<T,N> d) const {
+    Vec<T,N> convex_support(Vec<T,N> d) const requires ConvexObject<Shape> {
         d = xf.apply_inverse_normal(d);
         Vec<T,N> p = shape.convex_support(d);
         return xf * p;
     }
     
-    Rect<T,N> bounds() const {
+    Rect<T,N> bounds() const requires BoundedObject<Shape> {
         // the base class implementation would work; but we specialize
         // here for a little extra performance (avoid stupidly re-computing `d`).
         Rect<T,N> r;
@@ -105,12 +105,12 @@ public:
     }
     
     /// Ray-shape intersection.
-    Rect<T,1> intersect(const Ray<T,N>& r) const {
+    Rect<T,1> intersect(const Ray<T,N>& r) const requires RayIntersectableObject<Shape> {
         return shape.intersect(r / xf);
     }
     
     /// Return an Oriented Rect containing the shape.
-    inline Transformed<Rect<T,N>> transformed_bounds() const {
+    inline Transformed<Rect<T,N>> transformed_bounds() const requires BoundedObject<Shape> {
         return xf * shape.bounds();
     }
     
@@ -389,28 +389,6 @@ inline Transformed<Shape> operator/(
 {
     return Transformed<Shape>(s, s.xf / xf);
 }
-
-/** @addtogroup traits
- *  @{
- */
-
-// Transformed shapes inherit concepts
-template <typename Shape>
-struct implements_shape_concept<Transformed<Shape>, RayIntersectable> : 
-    public std::integral_constant<
-        bool,
-        implements_shape_concept<Shape, RayIntersectable>::value>
-{};
-
-template <typename Shape>
-struct implements_shape_concept<Transformed<Shape>, Convex> : 
-    public std::integral_constant<
-        bool,
-        implements_shape_concept<Shape, Convex>::value>
-{};
-
-/// @} // addtogroup traits
-/// @} // addtogroup shape
 
 template <typename Shape, typename H>
 struct Digest<Transformed<Shape>, H> {

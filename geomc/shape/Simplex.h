@@ -498,8 +498,7 @@ public:
         return proj.normal_direction();
     }
     
-    
-    Vec<T,N> project(Vec<T,N>& p, Simplex<T,N>* face=nullptr) const {
+    Vec<T,N> project(Vec<T,N> p, Simplex<T,N>* face=nullptr) const {
         detail::SimplexProjection<T,N> proj {
             *this,
             p,
@@ -508,7 +507,6 @@ public:
         if (face) *face = proj.projected_face();
         return proj.projected_point();
     }
-    
     
     /**
      * @brief Ensure `p` lies within the simplex by orthogonally projecting it to
@@ -538,7 +536,6 @@ public:
         std::copy(pts + i + 1, pts + n, pts + i);
         n -= 1;
     }
-    
     
     /**
      * @brief Create a new sub-simplex by excluding the `i`th vertex in this simplex.

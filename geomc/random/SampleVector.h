@@ -1,6 +1,6 @@
 #pragma once
 
-#include <random>
+#include <geomc/random/DenseDistribution.h>
 #include <geomc/linalg/Vec.h>
 
 namespace geom {
@@ -49,7 +49,7 @@ inline Vec<T,N> random_unit(Generator& rng) {
     Vec<T,N> p;
     if constexpr (N <= 3) {
         // rejection sampling
-        std::uniform_real_distribution<T> unif {-1,1};
+        DenseUniformDistribution<T> unif {-1,1};
         do {
             // generate a point in the signed unit box
             for (index_t i = 0; i < N; ++i) {

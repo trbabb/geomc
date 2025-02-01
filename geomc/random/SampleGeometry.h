@@ -1,6 +1,6 @@
 #pragma once
 
-#include <random>
+#include <geomc/random/DenseDistribution.h>
 #include <geomc/shape/ShapeTypes.h>
 
 namespace geom {
@@ -112,7 +112,7 @@ struct SampleShape<Rect<T,N>> : public detail::ShapeDistribution<Rect<T,N>> {
     template <typename Generator>
     point_t operator()(Generator& rng) {
         using ptype = PointType<T,N>;
-        std::uniform_real_distribution<T> u(0, 1);
+        DenseUniformDistribution<T> u(0, 1);
         point_t p;
         for (index_t i = 0; i < N; ++i) {
             ptype::iterator(p)[i] = shape.lo[i] + u(rng) * (shape.hi[i] - shape.lo[i]);
@@ -143,7 +143,7 @@ public:
     point_t operator()(Generator& rng) {
         if constexpr (N <= 3) {
             // rejection sampling
-            std::uniform_real_distribution<T> unif {-1,1};
+            DenseUniformDistribution<T> unif {-1,1};
             point_t out;
             do {
                 // generate a point in the signed unit box
@@ -155,7 +155,7 @@ public:
             return shape.r * out + shape.center;
         } else {
             // draw a multivariate gaussian, then project it onto the sphere
-            std::uniform_real_distribution<T> u_01(0,1);
+            DenseUniformDistribution<T> u_01(0,1);
             Vec<T,N> p;
             for (index_t i = 0; i < N; ++i) {
                 p[i] = _gauss(rng);
@@ -189,7 +189,7 @@ public:
     point_t operator()(Generator& rng) {
         if constexpr (N <= 3) {
             // rejection sampling
-            std::uniform_real_distribution<T> unif {-1,1};
+            DenseUniformDistribution<T> unif {-1,1};
             point_t out;
             do {
                 // generate a point in the signed unit box
@@ -237,11 +237,11 @@ public:
         const Sphere<T,N>& sphere = shape.shape.shape;
         T r0 = std::max<T>(sphere.radius - shape.dilation, 0);
         T r1 = sphere.radius + shape.dilation;
-        std::uniform_real_distribution<T> u_dist(r0, r1);
+        DenseUniformDistribution<T> u_dist(r0, r1);
         point_t p;
         if constexpr (N <= 3) {
             // rejection sampling
-            std::uniform_real_distribution<T> unif {-1,1};
+            DenseUniformDistribution<T> unif {-1,1};
             do {
                 // generate a point in the signed unit box
                 for (index_t i = 0; i < N; ++i) {
@@ -282,7 +282,7 @@ public:
     template <typename Generator>
     point_t operator()(Generator& rng) {
         constexpr point_t _Z = {{(T) 0}, (T) 1};
-        std::uniform_real_distribution<T> unif {0,1};
+        DenseUniformDistribution<T> unif {0,1};
         // pick a point on the cap
         auto base = _sphere(rng) * shape.radius;
         point_t axis = shape.p1 - shape.p0;
@@ -411,7 +411,7 @@ public:
     template <typename Generator>
     typename Shape::point_t operator()(Generator& rng) {
         using T = typename Shape::elem_t;
-        std::uniform_real_distribution<T> unif {shape.height.lo, shape.height.hi};
+        DenseUniformDistribution<T> unif {shape.height.lo, shape.height.hi};
         return { _inner(rng), unif(rng) };
     }
     

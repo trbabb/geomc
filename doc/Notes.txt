@@ -97,12 +97,13 @@ MATRIX:
     - backwards grid iterators are definitely broken.
 
 GENERAL CLEANUP/MAJOR TODOS:
-  - fix naming style (snake_case for fns/vars/typedefs; UpperCamelCase for classes)
-  - fix Random 
-    - or kill Random in favor of c++11 <random>; reduce to sampler and better float selector.
-    - to partially specialize rand<T>()
+  x fix naming style (snake_case for fns/vars/typedefs; UpperCamelCase for classes)
+  x fix Random 
+    x or kill Random in favor of c++11 <random>; reduce to sampler and better float selector.
+    x to partially specialize rand<T>()
     X implement Ziggurat; use gaussian blob strategy for picking high
       dimensional spheres.
+      > no, this is dumb
   x fix Quaternion ops to return Quat<T>
     x note that a branch with this exists using the curiously recurring pattern,
       but it makes the docs ugly. stupid doxygen

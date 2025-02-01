@@ -1,6 +1,5 @@
 #pragma once
 
-#include <climits>
 #include <geomc/shape/Rect.h>
 #include <geomc/linalg/AffineTransform.h>
 
@@ -64,12 +63,12 @@ public:
         return base == other.base && height == other.height;
     }
     
-    bool contains(Vec<T,N> p) const {
+    bool contains(Vec<T,N> p) const requires RegionObject<Shape> {
         if (not height.contains(p[N-1])) return false;
         return base.contains(p.template resized<N-1>());
     }
     
-    T sdf(Vec<T,N> p) const {
+    T sdf(Vec<T,N> p) const requires SdfObject<Shape> {
         Vec<T,N-1> p_proj = (Vec<T,N-1>) p.template resized<N-1>();
         T h = p[N-1];
         // distance to the base shape within the base shape's plane
@@ -91,7 +90,7 @@ public:
         }
     }
     
-    Vec<T,N> normal(Vec<T,N> p) const {
+    Vec<T,N> normal(Vec<T,N> p) const requires ProjectableObject<Shape> {
         Vec<T,N-1> p_base = (Vec<T,N-1>) p.template resized<N-1>();
         T h = p[N-1];
         bool inside_base = base.contains(p_base);
@@ -128,7 +127,7 @@ public:
     /**
      * Return the point `p` orthogonally projected onto the surface of the shape.
      */
-    Vec<T,N> project(Vec<T,N> p) const {
+    Vec<T,N> project(Vec<T,N> p) const requires ProjectableObject<Shape> {
         const T h     = p[N-1];
         const T h_cap = std::abs(h - height.lo) < std::abs(h - height.hi) 
             ? height.lo
@@ -147,7 +146,7 @@ public:
         return p.dist2(wall_pt) < p.dist2(cap_pt) ? wall_pt : cap_pt;
     }
     
-    Vec<T,N> convex_support(Vec<T,N> d) const {
+    Vec<T,N> convex_support(Vec<T,N> d) const requires ConvexObject<Shape> {
         Vec<T,N-1> d_ = d.template resized<N-1>();
         
         if (d_.is_zero()) {
@@ -162,12 +161,12 @@ public:
         return Vec<T,N>(p0, (d[N-1] > 0) ? height.hi : height.lo);
     }
     
-    Rect<T,N> bounds() const {
+    Rect<T,N> bounds() const requires BoundedObject<Shape> {
         return base.bounds() * height;
     }
     
     /// Ray/shape intersection.
-    Rect<T,1> intersect(const Ray<T,N>& r) const {
+    Rect<T,1> intersect(const Ray<T,N>& r) const requires RayIntersectableObject<Shape> {
         Ray<T,N-1> r_base = r.template resized<N-1>();
         Rect<T,1> interval;
         if (r_base.direction.is_zero()) {
@@ -216,46 +215,6 @@ inline Extruded<Shape> extrude(
     return Extruded<Shape>(s, h0, h1);
 }
 
-/** 
- * @addtogroup traits 
- * @{
- */
-
-// Extruded shapes inherit concepts
-template <typename Shape>
-struct implements_shape_concept<Extruded<Shape>, Projectable> : 
-    public std::integral_constant<
-        bool,
-        implements_shape_concept<Shape, Projectable>::value
-    >
-{};
-
-template <typename Shape>
-struct implements_shape_concept<Extruded<Shape>, RayIntersectable> : 
-    public std::integral_constant<
-        bool,
-        implements_shape_concept<Shape, RayIntersectable>::value
-    >
-{};
-
-template <typename Shape>
-struct implements_shape_concept<Extruded<Shape>, Convex> : 
-    public std::integral_constant<
-        bool,
-        implements_shape_concept<Shape, RayIntersectable>::value
-    >
-{};
-
-template <typename Shape>
-struct implements_shape_concept<Extruded<Shape>, SdfEvaluable> : 
-    public std::integral_constant<
-        bool,
-        implements_shape_concept<Shape, SdfEvaluable>::value
-    >
-{};
-
-/// @} // addtogroup traits
-/// @} // addtogroup shape
 
 template <typename Shape, typename H>
 struct Digest<Extruded<Shape>, H> {

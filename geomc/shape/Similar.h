@@ -89,12 +89,12 @@ public:
     
     /// Convex support function. Return the point on the surface of the shape
     /// which is farthest in the direction `d`.
-    Vec<T,N> convex_support(Vec<T,N> d) const {
+    Vec<T,N> convex_support(Vec<T,N> d) const requires ConvexObject<Shape> {
         return xf * shape.convex_support(xf.apply_inverse_direction(d));
     }
     
     /// Compute the axis-aligned bounding box of the shape.
-    Rect<T,N> bounds() const {
+    Rect<T,N> bounds() const requires BoundedObject<Shape> {
         Rect<T,N> r;
         for (index_t axis = 0; axis < N; ++axis) {
             // test along a cardinal axis in shape-space
@@ -109,27 +109,27 @@ public:
         return r;
     }
     
-    Similar<Rect<T,N>> transformed_bounds() const {
+    Similar<Rect<T,N>> transformed_bounds() const requires BoundedObject<Shape> {
         return Similar<Rect<T,N>>(bounds(), xf);
     }
     
     /// Ray-shape intersection.
-    Rect<T,1> intersect(const Ray<T,N>& ray) const {
+    Rect<T,1> intersect(const Ray<T,N>& ray) const requires RayIntersectableObject<Shape> {
         return xf * shape.intersect(ray / xf);
     }
     
     /// Signed distance function.
-    T sdf(Vec<T,N> p) const {
+    T sdf(Vec<T,N> p) const requires SdfObject<Shape> {
         return xf.sx * shape.sdf(p / xf);
     }
     
     /// Direction away from the surface of the shape at point `p`.
-    Vec<T,N> normal(Vec<T,N> p) const {
+    Vec<T,N> normal(Vec<T,N> p) const requires ProjectableObject<Shape> {
         return xf.rx * shape.normal(p / xf);
     }
     
     /// Orthogonally project `p` to the surface of this shape.
-    Vec<T,N> project(Vec<T,N> p) const {
+    Vec<T,N> project(Vec<T,N> p) const requires ProjectableObject<Shape> {
         return xf * shape.project(p / xf);
     }
     
@@ -197,34 +197,6 @@ inline Similar<Shape>& operator/=(
     return s;
 }
 
-/** @addtogroup traits
- *  @{
- */
-
-// Similar shapes inherit concepts
-template <typename Shape>
-struct implements_shape_concept<Similar<Shape>, RayIntersectable> : 
-    public std::integral_constant<
-        bool,
-        implements_shape_concept<Shape, RayIntersectable>::value>
-{};
-
-template <typename Shape>
-struct implements_shape_concept<Similar<Shape>, Convex> : 
-    public std::integral_constant<
-        bool,
-        implements_shape_concept<Shape, Convex>::value>
-{};
-
-template <typename Shape>
-struct implements_shape_concept<Similar<Shape>, Projectable> : 
-    public std::integral_constant<
-        bool,
-        implements_shape_concept<Shape, Projectable>::value>
-{};
-
-/// @} // addtogroup traits
-/// @} // addtogroup shape
 
 template <typename Shape, typename H>
 struct Digest<Similar<Shape>, H> {
