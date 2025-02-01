@@ -6,6 +6,11 @@
 namespace geom {
 
 /**
+ * @addtogroup random
+ * @{
+ */
+
+/**
  * @brief A random number generator that produces uniformly-distributed values.
  *
  * Many uniform random number generators only generate a small subset of the
@@ -13,15 +18,15 @@ namespace geom {
  * values in the range [0,1] with equal probability by directly constructing
  * the mantissa and exponent of a floating point number.
  *
- * Method of generation based on the unpublished paper by Allen B. Downey,
- * "Generating Pseudorandom Floating Point Values":
- * https://allendowney.com/research/rand/downey07randfloat.pdf 
+ * Pharr and Humphreys discuss the method used here:
+ *   https://pharr.org/matt/blog/2022/03/05/sampling-fp-unit-interval
  *
- * Non-float types fall back to std::uniform_int_distribution.
+ * Non-float types fall back to std::uniform_real_distribution.
  */
 template <typename T>
 struct DenseUniformDistribution : public std::uniform_real_distribution<T> {};
 
+/// @brief Dense uniform distribution specialization for float.
 template <>
 struct DenseUniformDistribution<float> {
 private:
@@ -96,6 +101,7 @@ public:
     }
 };
 
+/// @brief Dense uniform distribution specialization for double.
 template <>
 struct DenseUniformDistribution<double> {
 private:
@@ -170,6 +176,7 @@ public:
 };
 
 
+/// @brief Dense uniform distribution specialization for Duals.
 template <typename T, DiscontinuityPolicy P>
 struct DenseUniformDistribution<Dual<T,P>> {
 private:
@@ -207,5 +214,7 @@ public:
         return _range == other._range;
     }
 };
+
+/// @}
 
 } // namespace geom

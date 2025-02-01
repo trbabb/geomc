@@ -297,6 +297,8 @@ using Cone = Frustum<Circle<T>>;
 template <typename T>
 using TransformedCone = Transformed<Cone<T>>;
 
+/// @} // group shape
+
 
 template <typename Shape, typename H>
 struct Digest<Frustum<Shape>, H> {

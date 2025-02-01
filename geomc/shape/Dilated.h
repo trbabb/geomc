@@ -249,14 +249,7 @@ Dilated<Shape> operator/(const Dilated<Shape>& s, const Isometry<T,N>& xf) {
     return Dilated<Shape>(xf / s.shape, s.dilation);
 }
 
-/** @addtogroup traits
- *  @{
- */
-
-
-/// @}  // addtogroup traits
-/// @}  // addtogroup shape
-
+/// @} // group shape
 
 template <typename Shape, typename H>
 struct Digest<Dilated<Shape>, H> {

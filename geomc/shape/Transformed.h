@@ -390,6 +390,8 @@ inline Transformed<Shape> operator/(
     return Transformed<Shape>(s, s.xf / xf);
 }
 
+/// @} // group shape
+
 template <typename Shape, typename H>
 struct Digest<Transformed<Shape>, H> {
     H operator()(const Transformed<Shape> &s) const {

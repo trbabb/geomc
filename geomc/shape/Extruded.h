@@ -215,6 +215,8 @@ inline Extruded<Shape> extrude(
     return Extruded<Shape>(s, h0, h1);
 }
 
+/// @} // addtogroup shape
+
 
 template <typename Shape, typename H>
 struct Digest<Extruded<Shape>, H> {

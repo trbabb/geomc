@@ -135,6 +135,9 @@ public:
     
 };
 
+/// @addtogroup shape
+/// @{
+
 /// @brief Transform the shape `shape` by wrapping it with a Similarity transform.
 /// @related Similar
 template <typename Shape>
@@ -196,6 +199,8 @@ inline Similar<Shape>& operator/=(
     s.xf = s.xf / xf;
     return s;
 }
+
+/// @} // group shape
 
 
 template <typename Shape, typename H>
