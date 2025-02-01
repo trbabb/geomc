@@ -71,7 +71,9 @@ public:
     Dilated(const Shape& s):shape(s) {}
     
     /// Dilate `s` by the amount `dilation`.
-    Dilated(const Shape& s, T dilation):shape(s), dilation(dilation) {}
+    Dilated(const Shape& s, T dilation):
+        shape(s),
+        dilation(std::max<T>(dilation, 0)) {}
     
     bool operator==(const Dilated& other) const {
         return shape == other.shape && dilation == other.dilation;
@@ -102,9 +104,11 @@ public:
     }
     
     /// Orthogonally project `p` to the surface of this shape.
-    Vec<T,N> project(Vec<T,N> p) const requires ProjectableObject<Shape> {
+    Vec<T,N> project(Vec<T,N> p) const
+            requires ProjectableObject<Shape> and ConvexObject<Shape>
+    {
         Vec<T,N> p_proj = shape.project(p);
-        Vec<T,N> dp = (p_proj - p).unit();
+        Vec<T,N> dp = shape.normal(p);
         if (shape.contains(p)) {
             // dilated projection is further away from the point
             return p_proj + dilation * dp;

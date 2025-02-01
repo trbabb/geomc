@@ -369,31 +369,52 @@ inline void rotmat(SimpleMatrix<T,4,4> *into, const Vec<T,3>& axis, T theta) {
 // rotation from a quaternion
 template <typename T> 
 void rotmat(SimpleMatrix<T,4,4>* into, const Quat<T>& q) {
-    T x    = q.x; //for convenience
-    T y    = q.y;
-    T z    = q.z;
-    T w    = q.w;
-    T x2   = x*x; // for speed
-    T y2   = y*y; // ...
-    T z2   = z*z;
-    T w2   = w*w;
-    T twox = 2*x;
-    T twoy = 2*y;
-    T twoz = 2*z;
-    T xy   = twox * y;
-    T xz   = twox * z;
-    T xw   = twox * w;
-    T yz   = twoy * z;
-    T yw   = twoy * w;
-    T zw   = twoz * w;
+    T x  = q.x; // for convenience
+    T y  = q.y;
+    T z  = q.z;
+    T w  = q.w;
+    T x2 = x * x;
+    T y2 = y * y;
+    T z2 = z * z;
+    T w2 = w * w;
+    T xy = 2 * x * y;
+    T xz = 2 * x * z;
+    T xw = 2 * x * w;
+    T yz = 2 * y * z;
+    T yw = 2 * y * w;
+    T zw = 2 * z * w;
     T m[4][4] = {
             {w2 + x2 - y2 - z2, xy - zw, xz + yw, 0},
             {xy + zw, w2 - x2 + y2 - z2, yz - xw, 0},
             {xz - yw, yz + xw, w2 - x2 - y2 + z2, 0},
             {0, 0, 0, 1}
     };
-    T *from = m[0];
-    std::copy(from, from+16, into->begin());
+    T* from = m[0];
+    std::copy(from, from + 16, into->begin());
+}
+
+// rotation from a quaternion
+template <typename T> 
+SimpleMatrix<T,3,3> rotmat(const Quat<T>& q) {
+    T x  = q.x;
+    T y  = q.y;
+    T z  = q.z;
+    T w  = q.w;
+    T x2 = x * x;
+    T y2 = y * y;
+    T z2 = z * z;
+    T w2 = w * w;
+    T xy = 2 * x * y;
+    T xz = 2 * x * z;
+    T xw = 2 * x * w;
+    T yz = 2 * y * z;
+    T yw = 2 * y * w;
+    T zw = 2 * z * w;
+    return {
+        {w2 + x2 - y2 - z2, xy - zw, xz + yw},
+        {xy + zw, w2 - x2 + y2 - z2, yz - xw},
+        {xz - yw, yz + xw, w2 - x2 - y2 + z2},
+    };
 }
 
 // rotation about an arbitrary point
@@ -407,9 +428,9 @@ void rotmat(
     T   c = std::cos(theta);
     T   s = std::sin(theta);
     T c_1 = 1 - c;
-    T  x2 = x*x;
-    T  y2 = y*y;
-    T  z2 = z*z;
+    T  x2 = x * x;
+    T  y2 = y * y;
+    T  z2 = z * z;
     
     const T q0 = diff_of_products(py, z, pz, y);
     const T q1 = diff_of_products(pz, x, px, z);
@@ -425,9 +446,9 @@ void rotmat(
     const T u2 = sum_of_products( t2, c_1, q2, s);
     
     T m[4][4] = {
-            {x2 + c*(y2 + z2), x*y*c_1 - z*s,     x*z*c_1 + y*s,    u0},
-            {x*y*c_1 + z*s,    y2 + c*(x2 + z2), y*z*c_1 - x*s,     u1},
-            {x*z*c_1 - y*s,    y*z*c_1 + x*s,     z2 + c*(x2 + y2), u2},
+            {x2 + c*(y2 + z2), x*y*c_1 - z*s,    x*z*c_1 + y*s,    u0},
+            {x*y*c_1 + z*s,    y2 + c*(x2 + z2), y*z*c_1 - x*s,    u1},
+            {x*z*c_1 - y*s,    y*z*c_1 + x*s,    z2 + c*(x2 + y2), u2},
             {0,                0,                0,                 1}
     };
     T *from = m[0];

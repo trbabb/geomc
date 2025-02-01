@@ -47,14 +47,23 @@ struct ShapeDistribution : public Dimensional<typename Shape::elem_t, Shape::N> 
  */
 #ifdef PARSING_DOXYGEN
 template <typename Shape>
-struct SampleShape : public detail::ShapeDistribution<Shape> {
-    using typename Dimensional<typename Shape::elem_t, Shape::N>::point_t;
+struct SampleShape {
+    Shape shape;
     
-    /// Draw a point from the interior of the shape.
-    template <typename Generator>
-    point_t operator()(Generator& rng);
+    using shape_type  = Shape;
+    using param_type  = Shape;
+    using result_type = typename Shape::point_t;
     
-    bool operator==(const SampleShape& other) const;
+    ShapeDistribution();
+    ShapeDistribution(const Shape& s);
+    
+    void  reset();
+    Shape param() const;
+    void  param(const Shape& s);
+    
+    result_type min() requires BoundedObject<Shape>;
+    result_type max() requires BoundedObject<Shape>;
+    bool operator==(const ShapeDistribution& other) const;
 };
 #else
 template <typename Shape>
