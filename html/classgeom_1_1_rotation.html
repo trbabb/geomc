@@ -175,7 +175,7 @@ class geom::Rotation&lt; T, N &gt;</div><p>A rotation in N-dimensional space. </
 <p>For transforms which include a translation and a scaling, see <a class="el" href="classgeom_1_1_similarity.html" title="A similarity transform, which is a rotation, scaling, and translation.">Similarity</a>.</p>
 <p>For nonuniform scaling or skew transforms, see <a class="el" href="classgeom_1_1_affine_transform.html" title="Affine transformation class.">AffineTransform</a>.</p>
 <p>Rotations are composed like transforms, with multiplication on the left: </p><pre class="fragment">Rotation&lt;T,N&gt; r1, r2;
-Rotation&lt;T,N&gt; r3 = r2 * r1; // rotation which applies r2, then r1
+Rotation&lt;T,N&gt; r3 = r2 * r1; // rotation which applies r1, then r2
 Vec&lt;T,N&gt; v = r3 * r1 * v0;  // apply r1 to v0, then r3 to the result
 </pre><p>Rotations can be inverted with the <code>/</code> operator: </p><pre class="fragment">Rotation&lt;T,N&gt; r1, r2;
 Rotation&lt;T,N&gt; r3 = r2 / r1; // rotation which takes r1 to r2
@@ -189,7 +189,7 @@ Vec&lt;T,N&gt; v = v0 / r3;       // apply the inverse of r3 to v0
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 31 2025 22:46:22 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Sat Feb 1 2025 12:23:16 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

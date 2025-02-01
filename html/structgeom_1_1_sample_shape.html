@@ -93,7 +93,6 @@ $(function(){ initResizable(false); });
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="structgeom_1_1_sample_shape-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">SampleShape&lt; Shape &gt; Struct Template Reference<div class="ingroups"><a class="el" href="group__random.html">Random</a></div></div></div>
 </div><!--header-->
@@ -103,16 +102,6 @@ $(function(){ initResizable(false); });
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_sample_geometry_8h_source.html">geomc/random/SampleGeometry.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for SampleShape&lt; Shape &gt;:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="structgeom_1_1_sample_shape.png" usemap="#SampleShape_3C_20Shape_20_3E_map" alt=""/>
-  <map id="SampleShape_3C_20Shape_20_3E_map" name="SampleShape_3C_20Shape_20_3E_map">
-<area href="structgeom_1_1detail_1_1_shape_distribution.html" alt="ShapeDistribution&lt; Shape &gt;" shape="rect" coords="0,56,242,80"/>
-<area href="structgeom_1_1_dimensional.html" alt="Dimensional&lt; Shape::elem_t, Shape::N &gt;" shape="rect" coords="0,0,242,24"/>
-  </map>
-</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
@@ -125,24 +114,15 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>param_type</b> = Sha
 <tr class="memitem:abb88df2e8bc0723cf54c6e944088a9b1" id="r_abb88df2e8bc0723cf54c6e944088a9b1"><td class="memItemLeft" align="right" valign="top"><a id="abb88df2e8bc0723cf54c6e944088a9b1" name="abb88df2e8bc0723cf54c6e944088a9b1"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>result_type</b> = typename Shape::point_t</td></tr>
 <tr class="separator:abb88df2e8bc0723cf54c6e944088a9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ce56f5f4fb0fe326b49a018b2b6efdb" id="r_a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="memItemLeft" align="right" valign="top"><a id="a6ce56f5f4fb0fe326b49a018b2b6efdb" name="a6ce56f5f4fb0fe326b49a018b2b6efdb"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
-<tr class="memdesc:a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The coordinate type of this object. <br /></td></tr>
-<tr class="separator:a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7b81c250ce370c724b88ffaac574884" id="r_ab7b81c250ce370c724b88ffaac574884"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a></td></tr>
-<tr class="memdesc:ab7b81c250ce370c724b88ffaac574884"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of a point in this object's space.  <br /></td></tr>
-<tr class="separator:ab7b81c250ce370c724b88ffaac574884"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7929311866ea11139d8aefb2e1465002" id="r_a7929311866ea11139d8aefb2e1465002"><td class="memTemplParams" colspan="2"><a id="a7929311866ea11139d8aefb2e1465002" name="a7929311866ea11139d8aefb2e1465002"></a>
-template&lt;typename Generator&gt; </td></tr>
-<tr class="memitem:a7929311866ea11139d8aefb2e1465002"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_point_type.html">point_t</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator()</b> (Generator &amp;rng)</td></tr>
-<tr class="memdesc:a7929311866ea11139d8aefb2e1465002"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a point from the interior of the shape. <br /></td></tr>
-<tr class="separator:a7929311866ea11139d8aefb2e1465002"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa4142b09824fcff753513456e8db26a" id="r_aaa4142b09824fcff753513456e8db26a"><td class="memItemLeft" align="right" valign="top"><a id="aaa4142b09824fcff753513456e8db26a" name="aaa4142b09824fcff753513456e8db26a"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="structgeom_1_1_sample_shape.html">SampleShape</a> &amp;other) const</td></tr>
-<tr class="separator:aaa4142b09824fcff753513456e8db26a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b2d819ff6a4bf3fe1f85c50b80503ce" id="r_a3b2d819ff6a4bf3fe1f85c50b80503ce"><td class="memItemLeft" align="right" valign="top"><a id="a3b2d819ff6a4bf3fe1f85c50b80503ce" name="a3b2d819ff6a4bf3fe1f85c50b80503ce"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>ShapeDistribution</b> ()</td></tr>
+<tr class="separator:a3b2d819ff6a4bf3fe1f85c50b80503ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07f4f2641294cf91220cb617440a535b" id="r_a07f4f2641294cf91220cb617440a535b"><td class="memItemLeft" align="right" valign="top"><a id="a07f4f2641294cf91220cb617440a535b" name="a07f4f2641294cf91220cb617440a535b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>ShapeDistribution</b> (const Shape &amp;s)</td></tr>
+<tr class="separator:a07f4f2641294cf91220cb617440a535b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad20897c5c8bd47f5d4005989bead0e55" id="r_ad20897c5c8bd47f5d4005989bead0e55"><td class="memItemLeft" align="right" valign="top"><a id="ad20897c5c8bd47f5d4005989bead0e55" name="ad20897c5c8bd47f5d4005989bead0e55"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>reset</b> ()</td></tr>
 <tr class="separator:ad20897c5c8bd47f5d4005989bead0e55"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -158,61 +138,28 @@ result_type&#160;</td><td class="memItemRight" valign="bottom"><b>min</b> ()</td
 <tr class="memitem:a6c1f5c9b8ee7c575034096dab7400e6f" id="r_a6c1f5c9b8ee7c575034096dab7400e6f"><td class="memItemLeft" align="right" valign="top"><a id="a6c1f5c9b8ee7c575034096dab7400e6f" name="a6c1f5c9b8ee7c575034096dab7400e6f"></a>
 result_type&#160;</td><td class="memItemRight" valign="bottom"><b>max</b> ()</td></tr>
 <tr class="separator:a6c1f5c9b8ee7c575034096dab7400e6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a5d249cb622c266023e0a805708229b" id="r_a7a5d249cb622c266023e0a805708229b"><td class="memItemLeft" align="right" valign="top"><a id="a7a5d249cb622c266023e0a805708229b" name="a7a5d249cb622c266023e0a805708229b"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const ShapeDistribution &amp;other) const =default</td></tr>
-<tr class="separator:a7a5d249cb622c266023e0a805708229b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88bc16b37899ae21e67084eb5f842907" id="r_a88bc16b37899ae21e67084eb5f842907"><td class="memItemLeft" align="right" valign="top"><a id="a88bc16b37899ae21e67084eb5f842907" name="a88bc16b37899ae21e67084eb5f842907"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const ShapeDistribution &amp;other) const</td></tr>
+<tr class="separator:a88bc16b37899ae21e67084eb5f842907"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a8b9f7758a8bd2bef680aeecc40bcfe04" id="r_a8b9f7758a8bd2bef680aeecc40bcfe04"><td class="memItemLeft" align="right" valign="top"><a id="a8b9f7758a8bd2bef680aeecc40bcfe04" name="a8b9f7758a8bd2bef680aeecc40bcfe04"></a>
 Shape&#160;</td><td class="memItemRight" valign="bottom"><b>shape</b></td></tr>
 <tr class="separator:a8b9f7758a8bd2bef680aeecc40bcfe04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:a964460830811452bb075cc15005440ba" id="r_a964460830811452bb075cc15005440ba"><td class="memItemLeft" align="right" valign="top"><a id="a964460830811452bb075cc15005440ba" name="a964460830811452bb075cc15005440ba"></a>
-static constexpr index_t&#160;</td><td class="memItemRight" valign="bottom"><b>N</b></td></tr>
-<tr class="memdesc:a964460830811452bb075cc15005440ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">The dimension of this object. <br /></td></tr>
-<tr class="separator:a964460830811452bb075cc15005440ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename Shape&gt;<br />
 struct geom::SampleShape&lt; Shape &gt;</div><p>Sample a point from a shape. </p>
 <p>Points inside the shape have uniform probability of being sampled. Use <code><a class="el" href="structgeom_1_1_sample_shape.html" title="Sample a point from a shape.">SampleShape</a>&lt;<a class="el" href="classgeom_1_1_hollow.html" title="Selects the boundary of a shape.">Hollow</a>&lt;Shape&gt;&gt;</code> to sample points only on the boundary of a shape.</p>
 <p>Specializations only exist for certain shapes. </p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="ab7b81c250ce370c724b88ffaac574884" name="ab7b81c250ce370c724b88ffaac574884"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7b81c250ce370c724b88ffaac574884">&#9670;&#160;</a></span>point_t</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="structgeom_1_1_point_type.html">point_t</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inherited">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The type of a point in this object's space. </p>
-<p>An N-vector of T if N &gt; 1, otherwise a T. </p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li>geomc/random/<a class="el" href="_sample_geometry_8h_source.html">SampleGeometry.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 31 2025 22:46:23 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Sat Feb 1 2025 12:23:16 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

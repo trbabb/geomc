@@ -302,7 +302,7 @@ class geom::Isometry&lt; T, N &gt;</div><p>A rigid rotation and translation. </p
 <p>Isometric transfroms do not have any skew or scales; they preserve shapes, angles, and distances.</p>
 <p>Isometries meet the <a class="el" href="conceptgeom_1_1_transform.html" title="Represents a means of transforming a point or vector.">Transform</a> concept. For transforms which include a scaling, see <a class="el" href="classgeom_1_1_similarity.html" title="A similarity transform, which is a rotation, scaling, and translation.">Similarity</a>. For nonuniform scaling or skew transforms, see <a class="el" href="classgeom_1_1_affine_transform.html" title="Affine transformation class.">AffineTransform</a>.</p>
 <p>Isometries compose like transforms, with multiplication on the left: </p><pre class="fragment">Isometry&lt;T,N&gt; i1, i2;
-Isometry&lt;T,N&gt; i3 = i2 * i1;  // isometry which applies i2, then i1
+Isometry&lt;T,N&gt; i3 = i2 * i1;  // isometry which applies i1, then i2
 Vec&lt;T,N&gt; v = i3 * i1 * v0;   // apply i1 to v0, then i3 to the result
 Sphere&lt;T,N&gt; s = i1 * sphere; // apply i1 to a sphere
 </pre><p>Isometries can be inverted with the <code>/</code> operator: </p><pre class="fragment">Isometry&lt;T,N&gt; i1, i2;
@@ -349,7 +349,7 @@ Isometry&lt;T,3&gt; i3 = i + Vec&lt;T,3&gt;(1,2,3); // i3 is i translated by (1,
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 31 2025 22:46:22 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Sat Feb 1 2025 12:23:16 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>
