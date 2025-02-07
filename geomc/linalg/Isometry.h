@@ -17,7 +17,7 @@ namespace geom {
  * Isometries compose like transforms, with multiplication on the left:
  *
  *     Isometry<T,N> i1, i2;
- *     Isometry<T,N> i3 = i2 * i1;  // isometry which applies i2, then i1
+ *     Isometry<T,N> i3 = i2 * i1;  // isometry which applies i1, then i2
  *     Vec<T,N> v = i3 * i1 * v0;   // apply i1 to v0, then i3 to the result
  *     Sphere<T,N> s = i1 * sphere; // apply i1 to a sphere
  *

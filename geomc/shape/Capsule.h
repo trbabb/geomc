@@ -102,6 +102,26 @@ public:
         return ptype::unit(p - nearest_axis_point(p));
     }
     
+    /// Measure of the shape's interior.
+    T measure_interior() const {
+        return (
+            // cap volume
+            measure_ball_interior(N, radius) +
+            // cylinder volume (interior of disk swept along axis)
+            measure_ball_interior(N - 1, radius) * (p1 - p0).mag()
+        );
+    }
+    
+    /// Measure of the shape's boundary.
+    T measure_boundary() const {
+        return (
+            // cap area (ND sphere)
+            measure_sphere_boundary(N, radius) +
+            // cylinder area (N-1 D sphere swept along axis)
+            measure_sphere_boundary(N - 1, radius) * (p1 - p0).mag()
+        );
+    }
+    
     /*
     xxx: todo: this. consider using https://www.shadertoy.com/view/Xt3SzX
     /// Shape-ray intersection test.

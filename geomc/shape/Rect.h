@@ -110,6 +110,15 @@ public:
     explicit constexpr Rect(point_t p):
         lo(p),
         hi(p) {}
+    
+    /**
+     * @brief Construct a Rect from lower-dimensional Rects.
+     */
+    template <index_t... J>
+    requires ((J + ...) == N)
+    constexpr Rect(const Rect<T,J>&... r):
+        lo(r.lo...),
+        hi(r.hi...) {}
 
 
     /****************************
@@ -803,7 +812,7 @@ public:
      *
      * @return The volume of this region.
      */
-    T volume() const {
+    T measure_interior() const {
         T vol = 1;
         point_t dim = dimensions();
         for (index_t axis = 0; axis < N; axis++) {
@@ -811,16 +820,48 @@ public:
         }
         return vol;
     }
-
+    
+    /**
+     * @brief Measure of the boundary of this Rect.
+     * 
+     * Measures the length/perimter/surface area of this Rect.
+     */
+    T measure_boundary() const {
+        return 2 * face_areas().sum();
+    }
+    
+    /**
+     * @brief Measure of the axial faces of this Rect.
+     *
+     * The `i`th component of the result is the area of the face perpendicular to the `i`th axis.
+     */
+    point_t face_areas() const {
+        point_t axial_areas;
+        T prod = 1;
+        point_t dims = dimensions();
+        // include all the extents preceding this axis (but not the axis itself)
+        for (index_t i = 0; i < N - 1; ++i) {
+            ptype::iterator(axial_areas)[i] = prod;
+            prod *= ptype::iterator(dims)[i];
+        }
+        // include all the extents following this axis (but not the axis itself)
+        prod = 1;
+        for (index_t i = N - 1; i >= 0; --i) {
+            ptype::iterator(axial_areas)[i] *= prod;
+            prod *= ptype::iterator(dims)[i];
+        }
+        return axial_areas;
+    }
+    
     /**
      * @brief Return a "normalized" length measure encoding the size of this box.
      *
      * Computed as the `N`th root of the volume.
      */
     auto length() const {
-        return std::pow(volume(), 1/(double)N);
+        return std::pow(measure_interior(), 1/(double)N);
     }
-
+    
     /**
      * @brief Empty region test.
      * @return `true` if and only if this region contains no points; which
@@ -968,6 +1009,8 @@ public:
      * Inverse operation of `unmap()`.
      *
      * Values of `s` between 0 and 1 correspond to points inside this Rect.
+     *
+     * @see remap_transform()
      */
     point_t remap(point_t s) const {
         // todo: template for integer type? beware endpoint measure.
@@ -978,8 +1021,37 @@ public:
      * @brief Find `p`'s fractional position within this Rect.
      *
      * Inverse operation of `remap()`.
+     *
+     * @see unmap_transform()
      */
     point_t unmap(point_t p) const {
+        return (p - lo) / (hi - lo);
+    }
+    
+    /**
+     * @brief Map the unit interval to the region, broadcasting to a different dimension.
+     *
+     * Requires that `N == 1`.
+     *
+     * Each coordinate of `s` is treated as a fraction within this 1-D Rect.
+     */
+    template <index_t M>
+    requires (N == 1 and M > 1)
+    Vec<T,M> remap(Vec<T,M> s) const {
+        return (point_t(1) - s) * lo + s * hi;
+    }
+    
+    /**
+     * @brief Find `p`'s fractional position within this Rect, broadcasting to a different dimension.
+     *
+     * Requires that `N == 1`.
+     *
+     * Each coordinate of the result is the fraction of the corresponding coordinate of `p`
+     * within this 1-D Rect.
+     */
+    template <index_t M>
+    requires (N == 1 and M > 1)
+    Vec<T,M> unmap(Vec<T,M> p) const {
         return (p - lo) / (hi - lo);
     }
 
@@ -1137,6 +1209,16 @@ struct Digest<Rect<T,N>, H> {
         return geom::hash_many<H>(nonce, r.lo, r.hi);
     }
 };
+
+#ifdef GEOMC_USE_STREAMS
+
+template <typename T, index_t N>
+std::ostream& operator<<(std::ostream& os, const Rect<T,N>& r) {
+    os << "[" << r.lo << " : " << r.hi << "]";
+    return os;
+}
+
+#endif
 
 
 } // end namespace geom

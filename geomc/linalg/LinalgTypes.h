@@ -267,6 +267,46 @@ namespace detail {
     };
     
     /**
+     * @brief The type of a vector in N dimensions with elements of type T.
+     *
+     * VecType<T,N> is a Vec<T,N> in dimension > 1, otherwise a T.
+     */
+    template <typename T, index_t N>
+    using VecType = typename PointType<T,N>::point_t;
+    
+    /**
+     * @brief Access the `n`th coordinate of a vector or scalar.
+     */
+    template <typename T, index_t N>
+    inline constexpr T& coord(Vec<T,N>& v, index_t n) {
+        return v[n];
+    }
+    
+    /**
+     * @brief Access the `n`th coordinate of a const vector or scalar.
+     */
+    template <typename T, index_t N>
+    inline constexpr T coord(const Vec<T,N>& v, index_t n) {
+        return v[n];
+    }
+    
+    /**
+     * @brief Access the `n`th coordinate of a 1-D vector (scalar).
+     */
+    template <typename T>
+    inline constexpr T& coord(T& v, index_t n) {
+        return v;
+    }
+    
+    /**
+     * @brief Access the `n`th coordinate of a const 1-D vector (scalar).
+     */
+    template <typename T>
+    inline constexpr T coord(const T& v, index_t n) {
+        return v;
+    }
+    
+    /**
      * @brief Concept for an object or operation that exists in a certain
      * dimension with a certain coordinate type.
      *

@@ -147,7 +147,7 @@ private:
     inline void advance(index_t n) {
         point_t dest = point_t(0);
         point_t dim  = region.dimensions();
-        index_t vol  = region.volume();
+        index_t vol  = region.measure_interior();
         
         for (index_t i = dim_last; i != dim_first - dim_increment; i -= dim_increment) {
             vol     = vol / dim[i];

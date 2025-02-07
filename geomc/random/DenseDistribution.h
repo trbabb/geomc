@@ -4,6 +4,10 @@
 #include <bit>
 #include <geomc/shape/Rect.h>
 
+// todo: we should use high order bits (higher quality) for the exponent
+//    and low order bits for the mantissa. exponent is more important for
+//    the distribution of the result.
+
 namespace geom {
 
 /**
@@ -19,7 +23,7 @@ namespace geom {
  * values in the range [0,1] with equal probability by directly constructing
  * the mantissa and exponent of a floating point number.
  *
- * Pharr and Humphreys discuss the method used here:
+ * Pharr discusses the method used here:
  *   https://pharr.org/matt/blog/2022/03/05/sampling-fp-unit-interval
  *
  * Non-float types fall back to std::uniform_real_distribution.
@@ -66,6 +70,7 @@ public:
             z   = std::countr_zero(r);
             exp = std::max<int32_t>(exp - z, 0);
             if (z < scale_bits or exp == 0) [[likely]] break;
+            // we will get here only with probability 2^-40
             scale_bits = 64;
             r = randbits(g);
         }
@@ -133,6 +138,7 @@ public:
             z   = std::countr_zero(r);
             exp = std::max<uint32_t>(exp - z, 0);
             if (z < scale_bits or exp == 0) [[likely]] break;
+            // we get here with probablity 2^-11
             scale_bits = 64;
             r = randbits(g);
         }

@@ -104,6 +104,11 @@ public:
         return r;
     }
     
+    /// Measure the interior (volume) of the shape.
+    T measure_interior() const requires InteriorMeasurableObject<Shape> {
+        return std::abs(geom::det(xf.mat)) * shape.measure_interior();
+    }
+    
     /// Ray-shape intersection.
     Rect<T,1> intersect(const Ray<T,N>& r) const requires RayIntersectableObject<Shape> {
         return shape.intersect(r / xf);
@@ -113,7 +118,6 @@ public:
     inline Transformed<Rect<T,N>> transformed_bounds() const requires BoundedObject<Shape> {
         return xf * shape.bounds();
     }
-    
     
 }; // class Transformed
 
@@ -228,7 +232,7 @@ public:
     }
     
     /// Compute the volume of this transformed Rect.
-    T volume() const {
+    T measure_interior() const {
         SimpleMatrix<T,N,N> mx;
         for (index_t i = 0; i < N; ++i) {
             // mult this basis vector by the length of the rect along that axis

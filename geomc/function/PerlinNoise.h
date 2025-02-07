@@ -27,16 +27,15 @@ class PerlinNoise : public Dimensional<T,N> {
     
 public:
     
-    typedef PointType<index_t,N>        gridtype;
-    typedef PointType<T,N>              pointtype;
-    typedef typename gridtype::point_t  grid_t;
+    using gridtype  = PointType<index_t,N>;
+    using pointtype = PointType<T,N>;
+    using grid_t    = typename gridtype::point_t;
     using typename Dimensional<T,N>::point_t;
     
-    std::shared_ptr<point_t[]> gradients;
+private:
+    std::shared_ptr<point_t[]> _gradients;
     
-    /**********************************
-     * Structors                      *
-     **********************************/
+public:
     
     /**
      * Construct a new perlin noise object with a `std::random_device` as a source of
@@ -49,27 +48,23 @@ public:
      * @param rng A source of random bits.
      */
     template <typename Generator>
-    PerlinNoise(Generator& rng): gradients(new point_t[N_GRADIENTS]) {
+    PerlinNoise(Generator& rng): _gradients(new point_t[N_GRADIENTS]) {
         if constexpr (N == 1) {
             // gradients should be in the range -1,1
             DenseUniformDistribution<T> dist(-1, 1);
             for (index_t i = 0; i < N_GRADIENTS; i++) {
-                gradients[i] = dist(rng);
+                _gradients[i] = dist(rng);
             }
         } else {
             // gradients are random unit vectors
             for (index_t i = 0; i < N_GRADIENTS; i++) {
-                gradients[i] = random_unit<T,N>(rng);
+                _gradients[i] = random_unit<T,N>(rng);
             }
         }
     }
     
-    /**********************************
-     * methods                        *
-     **********************************/
-     
-    static constexpr index_t n_gradients() {
-        return N_GRADIENTS;
+    T operator()(point_t pt) const {
+        return eval(pt);
     }
     
     /**
@@ -179,7 +174,7 @@ public:
     
 protected:
     
-    inline const point_t& get_grid_gradient(const grid_t& pt) const {
+    const point_t& get_grid_gradient(const grid_t& pt) const {
         uint64_t idx = 0;
         for (index_t i = 0; i < N; ++i) {
             // do an iterated linear congruential scramble, using Knuth's constants:
@@ -187,7 +182,7 @@ protected:
             idx = 6364136223846793005ULL * (k + idx) + 1442695040888963407ULL;
         }
         idx = static_cast<index_t>(positive_mod<uint64_t>(idx, N_GRADIENTS));
-        return gradients[idx];
+        return _gradients[idx];
     }
     
     

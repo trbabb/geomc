@@ -28,7 +28,7 @@ namespace geom {
  * Rotations are composed like transforms, with multiplication on the left:
  *
  *     Rotation<T,N> r1, r2;
- *     Rotation<T,N> r3 = r2 * r1; // rotation which applies r2, then r1
+ *     Rotation<T,N> r3 = r2 * r1; // rotation which applies r1, then r2
  *     Vec<T,N> v = r3 * r1 * v0;  // apply r1 to v0, then r3 to the result
  * 
  * Rotations can be inverted with the `/` operator:

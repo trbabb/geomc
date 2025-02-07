@@ -11,6 +11,7 @@
 //   - we do need to solve the last coordinate; there are as many coordiantes as verts
 // todo: wbn if barycentric() / unmap() projected to simplex subspace and gave coords
 //    anyway; then contains() could call this
+// todo: boundary measure
 
 // todo: orthogonal projection to a subspace is a very general linalg operation,
 //       and projection_contains() makes use of it. The operation that does this is
@@ -378,7 +379,7 @@ public:
      * If the simplex is not a full volume (i.e., the number of vertices is less than `N+1`),
      * then its volume is zero.
      */
-    T volume() const {
+    T measure_interior() const {
         if (n < N + 1) { return 0; }
         T k = 1;
         Vec<T,N> vs[N];
@@ -414,7 +415,7 @@ public:
             if (n == 3) return (pts[1] - pts[0]).cross(pts[2] - pts[0]).mag() / 2;
         }
         // full volume
-        if (n == N + 1) return volume();
+        if (n == N + 1) return measure_interior();
         // otherwise, construct the basis of the simplex.
         // we'll use it to compute the volume
         Vec<T,N> bases[N];

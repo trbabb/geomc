@@ -19,7 +19,7 @@ namespace geom {
  * Similarity transforms compose like transforms, with multiplication on the left:
  *
  *     Similarity<T,N> s1, s2;
- *     Similarity<T,N> s3 = s2 * s1; // similarity which applies s2, then s1
+ *     Similarity<T,N> s3 = s2 * s1; // similarity which applies s1, then s2
  *     Vec<T,N> v = s3 * s1 * v0;    // apply s1 to v0, then s3 to the result
  *     Sphere<T,N> s = s1 * sphere;  // apply s1 to a sphere
  *

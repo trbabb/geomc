@@ -8,7 +8,6 @@
 
 #include <algorithm>
 #include <geomc/linalg/Vec.h>
-#include <geomc/shape/Rect.h>
 #include <geomc/linalg/LinalgTypes.h>
 #include <geomc/linalg/mtxdetail/MatrixGlue.h>
 #include <geomc/linalg/mtxdetail/MatrixIterator.h>

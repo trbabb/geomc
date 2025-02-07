@@ -82,6 +82,16 @@ public:
         return shape.bounds();
     }
     
+    /**
+     * @brief Measure the boundary (surface area) of the shape.
+     *
+     * This is the same as the boundary of the inner shape. Hollow shapes
+     * do not have any volume, so this is their only meaningful measure.
+     */
+    T measure_boundary() const requires BoundaryMeasurableObject<Shape> {
+        return shape.measure_boundary();
+    }
+    
 };
 
 /// @ingroup shape

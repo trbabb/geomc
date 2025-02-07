@@ -303,6 +303,16 @@ public:
     }
     
     /**
+     * @brief Construct a new vector by concatenating two or more vectors.
+     */
+    template <index_t... M>
+    requires ((M + ...) == N) and (sizeof...(M) > 1)
+    constexpr Vec(const Vec<T,M> &...vecs) {
+        T *p = this->begin();
+        ((std::copy(vecs.begin(), vecs.end(), p), p += M), ...);
+    }
+    
+    /**
      * Construct a vector from a column of a matrix.
      * @param mtx_col A matrix column iterator (obtained via `mtx.col(i)`).
      */

@@ -1,12 +1,12 @@
+#pragma once
+#include <geomc/linalg/LinalgTypes.h>
+
 /* 
  * File:   VecStd.h
  * Author: tbabb
  *
  * Created on June 24, 2014, 2:43 AM
  */
-
-#ifndef VECSTD_H
-#define	VECSTD_H
 
 namespace std {
 
@@ -135,10 +135,24 @@ inline geom::Vec<T,N> log(const geom::Vec<T,N> &v) {
     return o;
 }
 
+template <typename T, index_t N>
+inline geom::Vec<T,N> pow(const geom::Vec<T,N> &v, const geom::Vec<T,N> &e) {
+    geom::Vec<T,N> o;
+    for (index_t i = 0; i < N; i++) { 
+        o[i] = std::pow(v[i], e[i]); 
+    }
+    return o;
+}
+
+template <typename T, index_t N>
+inline geom::Vec<T,N> pow(const geom::Vec<T,N> &v, T e) {
+    geom::Vec<T,N> o;
+    for (index_t i = 0; i < N; i++) { 
+        o[i] = std::pow(v[i], e); 
+    }
+    return o;
+}
+
 /// @} //ingroup linalg
 
 } // namespace std
-
-
-#endif	/* VECSTD_H */
-

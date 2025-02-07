@@ -163,6 +163,42 @@ concept SdfObject = DimensionalObject<Shape> and RegionObject<Shape> and
 };
 
 /**
+ * @brief A shape which can measure its interior region.
+ * 
+ * For a 2D shape, this is the area; for a 3D shape, this is the volume;
+ * higher-dimensional shapes measure their hypervolumes.
+ *
+ * These methods avoid the use of "area" and "volume" in their names to avoid
+ * confusion with the `measure_boundary()` method. ("Area" would measure the interior
+ * of a 2D shape, but the boundary of a 3D shape).
+ */
+template <typename Shape>
+concept InteriorMeasurableObject = DimensionalObject<Shape> and
+    requires (const Shape& s)
+{
+    { s.measure_interior() } -> std::convertible_to<typename Shape::elem_t>;
+};
+
+/**
+ * @brief A shape which can measure its boundary.
+ *
+ * For a 2D shape, this is its perimeter; for a 3D shape, this is its surface area;
+ * higher-dimensional shapes measure their (N-1)-hypervolumes.
+ */
+template <typename Shape>
+concept BoundaryMeasurableObject = DimensionalObject<Shape> and
+    requires (const Shape& s)
+{
+    { s.measure_boundary() } -> std::convertible_to<typename Shape::elem_t>;
+};
+
+/**
+ * @brief A shape which can measure both its surface area and volume.
+ */
+template <typename Shape>
+concept MeasurableObject = InteriorMeasurableObject<Shape> and BoundaryMeasurableObject<Shape>;
+
+/**
  * @brief A shape which can perform an orthogonal projection to its boundary.
  *
  * `ProjectionObject`s can also report their normal vectors— the direction

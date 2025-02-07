@@ -165,6 +165,28 @@ public:
         return base.bounds() * height;
     }
     
+    /// Measure the interior (volume) of the extrusion.
+    T measure_interior() const requires InteriorMeasurableObject<Shape> {
+        return base.measure_interior() * height.dimensions();
+    }
+    
+    /// Measure the boundary (surface area) of the extrusion.
+    T measure_boundary() const requires BoundaryMeasurableObject<Shape> {
+        T cap_area = 0;
+        // it is possible to extrude a boundary shape to make a "tube";
+        // in that case it will not have caps. only count the cap area if
+        // the shape has an interior.
+        if constexpr (InteriorMeasurableObject<Shape>) {
+            cap_area = 2 * base.measure_interior();
+        }
+        return (
+            // walls
+            base.measure_boundary() * height.dimensions() +
+            // caps
+            cap_area
+        );
+    }
+    
     /// Ray/shape intersection.
     Rect<T,1> intersect(const Ray<T,N>& r) const requires RayIntersectableObject<Shape> {
         Ray<T,N-1> r_base = r.template resized<N-1>();
@@ -190,7 +212,6 @@ public:
             return interval;
         }
     }
-
 
 }; // class extrusion
 

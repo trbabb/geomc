@@ -2,6 +2,7 @@
 
 #include <geomc/random/DenseDistribution.h>
 #include <geomc/shape/ShapeTypes.h>
+#include <random>
 
 namespace geom {
 namespace detail {
@@ -34,7 +35,15 @@ struct ShapeDistribution : public Dimensional<typename Shape::elem_t, Shape::N> 
 
 } // namespace detail
 
-/// @ingroup random
+/**
+ * @defgroup random Random
+ * @brief Sampling from random distributions.
+ *
+ * Classes conform to the patterns of the C++ `<random>` library and
+ * are intercompatible with it.
+ */
+
+/// @addtogroup random
 /// @{
 
 /**
@@ -90,8 +99,9 @@ public:
         // we pick barycentric coordinates and then normalize so they sum to 1.
         T s[N + 1];
         T sum = 0;
+        DenseUniformDistribution<T> u(0, 1);
         for (index_t i = 0; i < N + 1; ++i) {
-            T xi = e(rng);
+            T xi = u(rng);
             s[i] = xi;
             sum += xi;
         }
@@ -111,7 +121,6 @@ public:
 
 /**
  * @brief @brief Sample a point from the interior of a rect.
- * @ingroup random
  */
 template <typename T, index_t N>
 struct SampleShape<Rect<T,N>> : public detail::ShapeDistribution<Rect<T,N>> {
@@ -121,12 +130,18 @@ struct SampleShape<Rect<T,N>> : public detail::ShapeDistribution<Rect<T,N>> {
     template <typename Generator>
     point_t operator()(Generator& rng) {
         using ptype = PointType<T,N>;
-        DenseUniformDistribution<T> u(0, 1);
-        point_t p;
-        for (index_t i = 0; i < N; ++i) {
-            ptype::iterator(p)[i] = shape.lo[i] + u(rng) * (shape.hi[i] - shape.lo[i]);
+        if constexpr (N == 1) {
+            DenseUniformDistribution<T> u {shape.lo, shape.hi};
+            return u(rng);
+        } else {
+            DenseUniformDistribution<T> u(0, 1);
+            point_t p;
+            for (index_t i = 0; i < N; ++i) {
+                T s = u(rng);
+                ptype::iterator(p)[i] = s * shape.lo[i] + (1 - s) * shape.hi[i];
+            }
+            return p;
         }
-        return p;
     }
     
     bool operator==(const SampleShape& other) const = default;
@@ -135,7 +150,6 @@ struct SampleShape<Rect<T,N>> : public detail::ShapeDistribution<Rect<T,N>> {
 
 /**
  * @brief Sample a point from the interior of a sphere.
- * @ingroup random
  */
 template <typename T, index_t N>
 struct SampleShape<Sphere<T,N>> : public detail::ShapeDistribution<Sphere<T,N>> {
@@ -181,7 +195,6 @@ public:
 
 /**
  * @brief Sample a point from the surface of a sphere.
- * @ingroup random
  */
 template <typename T, index_t N>
 struct SampleShape<Hollow<Sphere<T,N>>> : public detail::ShapeDistribution<Hollow<Sphere<T,N>>> {
@@ -226,7 +239,6 @@ public:
 
 /**
  * @brief Sample a point from within a spherical shell.
- * @ingroup random
  */
 template <typename T, index_t N>
 struct SampleShape<SphericalShell<T,N>> : public detail::ShapeDistribution<SphericalShell<T,N>> {
@@ -277,7 +289,6 @@ public:
 
 /**
  * @brief Sample a point from the interior of a cylinder.
- * @ingroup random
  */
 template <typename T, index_t N>
 struct SampleShape<Cylinder<T,N>> : public detail::ShapeDistribution<Cylinder<T,N>> {
@@ -313,7 +324,6 @@ public:
 
 /**
  * @brief Sample a point from the interior of a transformed shape.
- * @ingroup random
  */
 template <typename Shape>
 struct SampleShape<Transformed<Shape>> : public detail::ShapeDistribution<Transformed<Shape>> {
@@ -352,7 +362,6 @@ public:
 
 /**
  * @brief Sample a point from the interior of a shape transformed by a Similarity.
- * @ingroup random
  */
 template <typename Shape>
 struct SampleShape<Similar<Shape>> : public detail::ShapeDistribution<Similar<Shape>> {
@@ -391,7 +400,6 @@ public:
 
 /**
  * @brief Sample a point from the interior of an extruded shape.
- * @ingroup random
  */
 template <typename Shape>
 struct SampleShape<Extruded<Shape>> : public detail::ShapeDistribution<Extruded<Shape>> {
@@ -427,6 +435,146 @@ public:
     bool operator==(const SampleShape& other) const {
         return shape == other.shape;
     }
+};
+
+
+/// @brief Sample a point from the boundary of a Rect.
+template <typename T, index_t N>
+struct SampleShape<Hollow<Rect<T,N>>> : public detail::ShapeDistribution<Hollow<Rect<T,N>>> {
+    using detail::ShapeDistribution<Hollow<Rect<T,N>>>::shape;
+    using typename Dimensional<T,N>::point_t;
+
+private:
+    point_t _face_areas;
+    T       _face_area_sum;
+public:
+    
+    SampleShape<Hollow<Rect<T,N>>>()        { param(shape); }
+    SampleShape(const Hollow<Rect<T,N>>& s) { param(s); }
+    
+    template <typename Generator>
+    point_t operator()(Generator& rng) {
+        using ptype = PointType<T,N>;
+        DenseUniformDistribution<T> u(0, 1);
+        // choose a point inside the box
+        point_t p;
+        for (index_t i = 0; i < N; ++i) {
+            T s = u(rng);
+            ptype::iterator(p)[i] = s * shape.lo[i] + (1 - s) * shape.hi[i];
+        }
+        // choose a face in proportion to its area
+        T sum = 0;
+        index_t side = 0;
+        T s = u(rng) * _face_area_sum;
+        while (sum < s and side < N) {
+            sum += _face_areas[side];
+            ++side;
+        }
+        // project the point onto the chosen face
+        T midpt = shape.lo[side] / 2 + shape.hi[side] / 2; // avoid overflow
+        p[side] = p[side] > midpt ? shape.hi[side] : shape.lo[side];
+        return p;
+    }
+    
+    void param(const Hollow<Rect<T,N>>& s) {
+        shape = s;
+        _face_areas    = shape.face_areas();
+        _face_area_sum = _face_areas.sum();
+    }
+    
+    bool operator==(const SampleShape& other) const = default;
+};
+
+
+/// @brief Sample a point from the boundary of an Extruded shape.
+template <typename Shape>
+struct SampleShape<Hollow<Extruded<Shape>>> : public detail::ShapeDistribution<Hollow<Extruded<Shape>>> {
+    using detail::ShapeDistribution<Hollow<Extruded<Shape>>>::shape;
+    using typename detail::ShapeDistribution<Hollow<Extruded<Shape>>>::shape_type;
+    using typename Dimensional<typename shape_type::elem_t, shape_type::N>::point_t;
+    using T = typename shape_type::elem_t;
+    using Dimensional<T,shape_type::N>::N;
+
+private:
+    SampleShape<Shape>         _face_shape_sampler;
+    SampleShape<Hollow<Shape>> _wall_sampler;
+    T _cap_area;
+    T _wall_area;
+public:
+    
+    SampleShape<Hollow<Extruded<Shape>>>()        { param(shape); }
+    SampleShape(const Hollow<Extruded<Shape>>& s) { param(s); }
+    
+    template <typename Generator>
+    point_t operator()(Generator& rng) {
+        DenseUniformDistribution<T> u(0, 1);
+        const Extruded<Shape>& extrusion = shape.shape;
+        T s = u(rng) * (_cap_area + _wall_area);
+        T h = u(rng);
+        if (s < _cap_area) {
+            // choose a point on the cap
+            return {
+                _face_shape_sampler(rng),
+                h > 0.5 ? extrusion.height.hi : extrusion.height.lo
+            };
+        } else {
+            // choose a point on the wall
+            return {
+                _wall_sampler(rng),
+                extrusion.height.remap(h)
+            };
+        }
+    }
+    
+    void param(const Hollow<Extruded<Shape>>& s) {
+        shape = s;
+        const Shape& face_shape = s.shape.base;
+        _face_shape_sampler.param(face_shape);
+        _wall_sampler.param(face_shape);
+        _cap_area  = face_shape.measure_interior();
+        _wall_area = face_shape.measure_boundary() * s.shape.height.dimensions();
+    }
+    
+    bool operator==(const SampleShape& other) const = default;
+};
+
+/// @brief Sample a point from the surface of an extruded shape with no endcaps.
+template <typename Shape>
+struct SampleShape<Hollow<Extruded<Hollow<Shape>>>> :
+        public detail::ShapeDistribution<Hollow<Extruded<Hollow<Shape>>>>
+{
+    using detail::ShapeDistribution<Hollow<Extruded<Hollow<Shape>>>>::shape;
+    using typename detail::ShapeDistribution<Hollow<Extruded<Hollow<Shape>>>>::shape_type;
+    using typename Dimensional<typename shape_type::elem_t, shape_type::N>::point_t;
+    using T = typename shape_type::elem_t;
+    using Dimensional<T,shape_type::N>::N;
+    using face_shape_t = Hollow<Shape>;
+
+private:
+    SampleShape<face_shape_t> _face_shape_sampler;
+public:
+    
+    SampleShape<shape_type>()        { param(shape); }
+    SampleShape(const shape_type& s) { param(s); }
+    
+    template <typename Generator>
+    point_t operator()(Generator& rng) {
+        DenseUniformDistribution<T> u(0, 1);
+        const Extruded<Shape>& extrusion = shape.shape;
+        T h = u(rng);
+        return {
+            face_shape_sampler(rng),
+            extrusion.height.remap(h)
+        };
+    }
+    
+    void param(const shape_type& s) {
+        shape = s;
+        const face_shape_t& face_shape = s.shape.base;
+        _face_shape_sampler.param(face_shape);
+    }
+    
+    bool operator==(const SampleShape& other) const = default;
 };
 
 /// @}

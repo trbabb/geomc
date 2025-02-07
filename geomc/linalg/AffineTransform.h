@@ -123,14 +123,14 @@ public:
     /**
      * @brief Transformation of a point.
      */
-    friend Vec<T,N> operator*(const AffineTransform<T,N>& xf, Vec<T,N> p) {
+    friend VecType<T,N> operator*(const AffineTransform<T,N>& xf, VecType<T,N> p) {
         return xf.apply(p);
     }
     
     /**
      * @brief Inverse transformation of a point (`xf`<sup>`-1`</sup>` * pt`)
      */
-    friend Vec<T,N> operator/(Vec<T,N> p, const AffineTransform<T,N>& xf) {
+    friend VecType<T,N> operator/(VecType<T,N> p, const AffineTransform<T,N>& xf) {
         return xf.apply_inverse(p);
     }
     
@@ -221,8 +221,8 @@ public:
     /**
      * @brief Transformation of a point.
      */
-    const Vec<T,N> apply(const Vec<T,N>& p) const {
-        Vec<T,N+1> p_hom(p,1);
+    const VecType<T,N> apply(const VecType<T,N>& p) const {
+        VecType<T,N+1> p_hom(p,1);
         p_hom = mat * p_hom;
         return p_hom.template resized<N>(); //c++ is awful
     }
@@ -230,11 +230,11 @@ public:
     /**
      * @brief Transformation of a direction vector; ignores any translation.
      */
-    const Vec<T,N> apply_direction(const Vec<T,N>& v) const {
-        Vec<T,N> o;
+    const VecType<T,N> apply_direction(const VecType<T,N>& v) const {
+        VecType<T,N> o;
         for (index_t r = 0; r < N; r++) {
             for (index_t c = 0; c < N; c++) {
-                o[r] += mat(r,c) * v[c];
+                o[r] += mat(r,c) * coord(v, c);
             }
         }
         return o;
@@ -245,12 +245,12 @@ public:
      * 
      * Preserves surface direction of geometry transformed by `this`. 
      */
-    const Vec<T,N> apply_normal(const Vec<T,N>& n) const {
+    const VecType<T,N> apply_normal(const VecType<T,N>& n) const {
         // normal matrix = txpose of inverse.
-        Vec<T,N> o;
+        VecType<T,N> o;
         for (index_t r = 0; r < N; r++) {
             for (index_t c = 0; c < N; c++) {
-                o[r] += inv(c,r) * n[c];
+                coord(o, r) += inv(c, r) * coord(n, c);
             }
         }
         return o;
@@ -259,8 +259,8 @@ public:
     /**
      * @brief Inverse transformation of a point.
      */
-    const Vec<T,N> apply_inverse(const Vec<T,N>& p) const {
-        Vec<T,N+1> p_hom(p,1);
+    const VecType<T,N> apply_inverse(const VecType<T,N>& p) const {
+        VecType<T,N+1> p_hom(p,1);
         p_hom = inv * p_hom; // this is returning a dynamic matrix for some reason.
         return p_hom.template resized<N>();
     }
@@ -268,11 +268,11 @@ public:
     /**
      * @brief Inverse transformation of a direction vector; ignores any translation.
      */
-    const Vec<T,N> apply_inverse_direction(const Vec<T,N>& v) const {
-        Vec<T,N> o;
+    const VecType<T,N> apply_inverse_direction(const VecType<T,N>& v) const {
+        VecType<T,N> o;
         for (index_t r = 0; r < N; r++) {
             for (index_t c = 0; c < N; c++) {
-                o[r] += inv(r,c) * v[c];
+                coord(o, r) += inv(r, c) * coord(v, c);
             }
         }
         return o;
@@ -281,12 +281,12 @@ public:
     /**
      * @brief Inverse transformation of a normal.
      */
-    const Vec<T,N> apply_inverse_normal(const Vec<T,N>& n) const {
+    const VecType<T,N> apply_inverse_normal(const VecType<T,N>& n) const {
         // txpose of inverse of inverse.
-        Vec<T,N> o;
+        VecType<T,N> o;
         for (index_t r = 0; r < N; r++) {
             for (index_t c = 0; c < N; c++) {
-                o[r] += mat(c,r) * n[c];
+                coord(o, r) += mat(c, r) * coord(n, c);
             }
         }
         return o;
@@ -818,6 +818,14 @@ inline AffineTransform<T,N> translation(const Vec<T,N>& tx) {
     return xfnew;
 }
 
+template <typename T>
+inline AffineTransform<T,1> translation(T tx) {
+    AffineTransform<T,1> xfnew;
+    xfnew.mat[0][1] =  tx;
+    xfnew.inv[0][1] = -tx;
+    return xfnew;
+}
+
 /**
  * Scale transform. 
  * @param sx Vector whose elements describe a scaling along each axis.
@@ -834,6 +842,14 @@ inline AffineTransform<T,N> scale(const Vec<T,N>& sx) {
     return xfnew;
 }
 
+template <typename T>
+inline AffineTransform<T,1> scale(T sx) {
+    AffineTransform<T,1> xfnew;
+    xfnew.mat[0][0] = sx;
+    xfnew.inv[0][0] = 1 / sx;
+    return xfnew;
+}
+
 /**
  * Arbitrary transformation.
  * @param mat `N x N` matrix representing an arbitrary transformation.
@@ -845,8 +861,10 @@ inline AffineTransform<T,N> transformation(const SimpleMatrix<T,N,N,Lyt,P>& mat)
     SimpleMatrix<T,N,N>  m_inv;
     AffineTransform<T,N> xfnew;
     
-    if (N == DYNAMIC_DIM and mat.rows() != mat.cols()) {
-        throw NonsquareMatrixException(mat.rows(), mat.cols());
+    if constexpr (N == DYNAMIC_DIM) {
+        if (mat.rows() != mat.cols()) {
+            throw NonsquareMatrixException(mat.rows(), mat.cols());
+        }
     }
     
     // calculate the inverse
@@ -880,8 +898,8 @@ inline AffineTransform<T,3> scale(T sx, T sy, T sz) {
  */
 template <typename T> 
 inline AffineTransform<T,2> scale(T sx, T sy) {
-        return scale(Vec<T,2>(sx,sy));
-    }
+    return scale(Vec<T,2>(sx,sy));
+}
 
 /**
  * 3D translation
@@ -899,6 +917,22 @@ inline AffineTransform<T,3> translation(T tx, T ty, T tz) {
 template <typename T> 
 inline AffineTransform<T,2> translation(T tx, T ty) {
     return translation(Vec<T,2>(tx,ty));
+}
+
+/**
+ * @brief Return a transformation which maps the unit interval to the region.
+ */
+template <typename T, index_t N>
+inline AffineTransform<T,N> remap_transform(const Rect<T,N>& region) {
+    return geom::translation(region.lo) * geom::scale(region.hi - region.lo);
+}
+
+/**
+ * @brief Return a transformation which maps the region to the unit interval.
+ */
+template <typename T, index_t N>
+inline AffineTransform<T,N> unmap_transform(const Rect<T,N>& region) {
+    return geom::scale(1 / (region.hi - region.lo)) * geom::translation(-region.lo);
 }
 
 

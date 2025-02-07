@@ -196,6 +196,21 @@ class Cylinder:
         return (d.dot(a) > 0 ? p1 : p0) + perp;
     }
     
+    /// Measure the interior (volume) of the cylinder.
+    T measure_interior() const {
+        return measure_ball_interior(N - 1, radius) * (p1 - p0).mag();
+    }
+    
+    /// Measure the boundary (surface area) of the cylinder.
+    T measure_boundary() const {
+        return (
+            // shaft area
+            measure_sphere_boundary(N - 1, radius) * (p1 - p0).mag() +
+            // two endcaps
+            2 * measure_ball_interior(N - 1, radius)
+        );
+    }
+    
     /// Ray/shape intersection test.
     Rect<T,1> intersect(const Ray<T,N>& ray) const {
         Vec<T,N> a = p1 - p0;

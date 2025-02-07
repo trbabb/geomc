@@ -1,5 +1,6 @@
 #pragma once
 
+#include <numbers>
 #include <geomc/linalg/Vec.h>
 #include <geomc/linalg/Similarity.h>
 #include <geomc/shape/Shape.h>
@@ -8,10 +9,32 @@
 // todo: r should be "radius"
 
 namespace geom {
+   
+/**
+ * @brief Formula for the volume of a `d` dimensional ball with radius `r`.
+ */
+template <typename T>
+constexpr T measure_ball_interior(index_t d, T r) {
+    if (d == 0) return 1;
+    if (d == 1) return 2 * r;
+    return 2 * std::numbers::pi_v<T> * r * r * measure_ball_interior(d - 2, r) / (T) d;
+}
+
+/**
+ * @brief Formula for the surface area of a `d` dimensional ball with radius `r`.
+ */
+template <typename T>
+constexpr T measure_sphere_boundary(index_t d, T r) {
+    constexpr T k = 2 * std::numbers::pi_v<T>;
+    if (d == 0) return 1;
+    if (d == 1) return 2;
+    if (d == 2) return k * r;
+    return k * r * r * measure_sphere_boundary(d - 2, r) / (T) (d - 2);
+}
 
 /** 
  * @ingroup shape
- * @brief An N-dimensional circle, sphere, or hypersphere.
+ * @brief An N-dimensional circle, sphere, or hypersphere with a filled interior.
  * 
  * `Circle<T>` is a template alias for `Sphere<T,2>`.
  */
@@ -117,6 +140,28 @@ public:
             // empty interval
             return Rect<T,1>();
         }
+    }
+    
+    /**
+     * @brief Measure the interior (volume) of the shape.
+     *
+     * If the sphere is 2D (a disk), this is the area of the disk.
+     * If the sphere is 3D (a ball), this is the volume of the ball.
+     * In higher dimensions, this is the hypervolume.
+     */
+    T measure_interior() const {
+        return measure_ball_interior(N, r);
+    }
+    
+    /**
+     * @brief Measure the boundary of the shape.
+     *
+     * If the sphere is 2D (a circle), this is the circumference of the circle.
+     * If the sphere is 3D (a sphere), this is the surface area of the sphere.
+     * In higher dimensions, this is the volume or hypervolume of the boundary.
+     */
+    T measure_boundary() const {
+        return measure_sphere_boundary(N, r);
     }
     
 }; /* Sphere<T,N> */

@@ -133,6 +133,16 @@ public:
         return xf * shape.project(p / xf);
     }
     
+    /// Measure the interior (volume) of the shape.
+    T measure_interior() const requires InteriorMeasurableObject<Shape> {
+        return xf.sx * shape.measure_interior();
+    }
+    
+    /// Measure the boundary (surface area) of the shape.
+    T measure_boundary() const requires BoundaryMeasurableObject<Shape> {
+        return xf.sx * shape.measure_boundary();
+    }
+    
 };
 
 /// @addtogroup shape
