@@ -1,12 +1,11 @@
+#pragma once
+
 /*
  * Vec3.h
  *
  *  Created on: Feb 22, 2009
  *      Author: Tim Babb
  */
-
-#ifndef VECTOR3D_H_
-#define VECTOR3D_H_
 
 #include <cctype>
 #include <geomc/linalg/vecdetail/VecBase.h>
@@ -366,7 +365,3 @@ namespace geom {
     template <typename T> const Vec<T,3> Vec<T,3>::Z_AXIS = Vec<T,3>(0,0,1);
 
 } //end namespace geom
-
-
-
-#endif /* VECTOR3D_H_ */

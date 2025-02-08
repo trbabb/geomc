@@ -132,8 +132,9 @@ public:
     }
 };
 
-/** @addtogroup linalg
- *  @{
+/**
+ * @addtogroup linalg
+ * @{
  */
 
 /// @brief Transform a point.

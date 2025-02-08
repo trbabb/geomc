@@ -13,6 +13,7 @@
 #include <geomc/shape/Plane.h>
 #include <geomc/shape/Extruded.h>
 #include <geomc/shape/Frustum.h>
+#include <geomc/shape/SphericalCap.h>
 
 #include "shape_generation.h"
 
@@ -66,7 +67,7 @@ bool validate_point(
         EXPECT_TRUE(s.bounds().contains(p));
         // pick a random support direction. the point should be inside
         // the bounds of the resultant plane.
-        if constexpr (N > 1) {
+        if constexpr (N > 1 and ConvexObject<Shape>) {
             validate_plane(s, p, rnd<T,N>(rng));
             
             // test all the cardinal axes as support directions. a valid point
@@ -306,6 +307,12 @@ TEST(TEST_MODULE_NAME, validate_sphere) {
     explore_shape<Sphere<double, 2>>(&rng, N_TESTS);
     explore_shape<Sphere<double, 3>>(&rng, N_TESTS);
     explore_shape<Sphere<double, 4>>(&rng, N_TESTS);
+}
+
+TEST(TEST_MODULE_NAME, validate_spherical_cap) {
+    // xxx todo: requires sampleshape
+    // explore_shape<SphericalCap<double, 2>>(&rng, N_TESTS);
+    // explore_shape<SphericalCap<double, 3>>(&rng, N_TESTS);
 }
 
 

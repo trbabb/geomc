@@ -79,6 +79,16 @@ public:
         return std::polar((T)1, radians);
     }
     
+    /// Represent this rotation as a matrix.
+    operator SimpleMatrix<T,2,2>() const {
+        T c = std::cos(radians);
+        T s = std::sin(radians);
+        return {
+            {c, -s},
+            {s,  c},
+        };
+    }
+    
     /// Cast the underlying coordinate type.
     template <typename U>
     explicit operator Rotation<U,2>() const {
@@ -250,6 +260,11 @@ public:
     /// Cast to quaternion.
     operator Quat<T>() const {
         return q;
+    }
+    
+    /// Represent this rotation as a matrix.
+    operator SimpleMatrix<T,3,3>() const {
+        return geom::rotmat(q);
     }
     
     /// Apply to a 3D vector.

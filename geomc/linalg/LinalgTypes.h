@@ -307,6 +307,22 @@ namespace detail {
     }
     
     /**
+     * @brief Compute the squared magnitude of a vector or scalar.
+     */
+    template <typename T, index_t N>
+    inline constexpr T mag2(const Vec<T,N>& v) {
+        return v.mag2();
+    }
+    
+    /**
+     * @brief Compute the square of a scalar.
+     */
+    template <typename T>
+    inline constexpr T mag2(T x) {
+        return x * x;
+    }
+    
+    /**
      * @brief Concept for an object or operation that exists in a certain
      * dimension with a certain coordinate type.
      *
