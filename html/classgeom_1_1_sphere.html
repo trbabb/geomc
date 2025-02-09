@@ -92,6 +92,7 @@ $(function(){ initResizable(false); });
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#related">Related Symbols</a> &#124;
@@ -100,7 +101,7 @@ $(function(){ initResizable(false); });
 </div><!--header-->
 <div class="contents">
 
-<p>An N-dimensional circle, sphere, or hypersphere.  
+<p>An N-dimensional circle, sphere, or hypersphere with a filled interior.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_sphere_8h_source.html">geomc/shape/Sphere.h</a>&gt;</code></p>
@@ -169,6 +170,12 @@ T&#160;</td><td class="memItemRight" valign="bottom"><b>sdf</b> (<a class="el" h
 <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, 1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>intersect</b> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;ray) const</td></tr>
 <tr class="memdesc:aee7e67d36552eea7dd1602308b133f92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shape-ray intersection test. <br /></td></tr>
 <tr class="separator:aee7e67d36552eea7dd1602308b133f92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55aae4fe1bce3c945d3540e53012a753" id="r_a55aae4fe1bce3c945d3540e53012a753"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a55aae4fe1bce3c945d3540e53012a753">measure_interior</a> () const</td></tr>
+<tr class="memdesc:a55aae4fe1bce3c945d3540e53012a753"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure the interior (volume) of the shape.  <br /></td></tr>
+<tr class="separator:a55aae4fe1bce3c945d3540e53012a753"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23c2da2517139d0feb90edfc644c9250" id="r_a23c2da2517139d0feb90edfc644c9250"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23c2da2517139d0feb90edfc644c9250">measure_boundary</a> () const</td></tr>
+<tr class="memdesc:a23c2da2517139d0feb90edfc644c9250"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure the boundary of the shape.  <br /></td></tr>
+<tr class="separator:a23c2da2517139d0feb90edfc644c9250"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga783e4812827599c0b116581ff94f4024" id="r_ga783e4812827599c0b116581ff94f4024"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__shape.html#ga783e4812827599c0b116581ff94f4024">intersects</a> (const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>, Shape &gt; &amp;other) const</td></tr>
 <tr class="memdesc:ga783e4812827599c0b116581ff94f4024"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classgeom_1_1_convex.html" title="Base class describing convex shapes in N-dimensional space.">Convex</a> shape overlap test.  <br /></td></tr>
 <tr class="separator:ga783e4812827599c0b116581ff94f4024"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -187,6 +194,12 @@ T&#160;</td><td class="memItemRight" valign="bottom"><b>sdf</b> (<a class="el" h
 <tr class="memitem:gaa7e52ba6a1acc0a13a0ce3e4a1a6af22" id="r_gaa7e52ba6a1acc0a13a0ce3e4a1a6af22"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__shape.html#gaa7e52ba6a1acc0a13a0ce3e4a1a6af22">contains</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; p) const</td></tr>
 <tr class="memdesc:gaa7e52ba6a1acc0a13a0ce3e4a1a6af22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shape-point overlap test.  <br /></td></tr>
 <tr class="separator:gaa7e52ba6a1acc0a13a0ce3e4a1a6af22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:acb8ff67a13a696b1eb2b0ef2764c89b2" id="r_acb8ff67a13a696b1eb2b0ef2764c89b2"><td class="memItemLeft" align="right" valign="top"><a id="acb8ff67a13a696b1eb2b0ef2764c89b2" name="acb8ff67a13a696b1eb2b0ef2764c89b2"></a>
+static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><b>admits_cusps</b> ()</td></tr>
+<tr class="separator:acb8ff67a13a696b1eb2b0ef2764c89b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -217,8 +230,8 @@ Related Symbols</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T, index_t N&gt;<br />
-class geom::Sphere&lt; T, N &gt;</div><p>An N-dimensional circle, sphere, or hypersphere. </p>
-<p><code><a class="el" href="group__shape.html#gad22cc7abb99ed4cfae44f16194efa400" title="A 2D circle.">Circle</a>&lt;T&gt;</code> is a template alias for <code><a class="el" href="classgeom_1_1_sphere.html" title="An N-dimensional circle, sphere, or hypersphere.">Sphere</a>&lt;T,2&gt;</code>. </p>
+class geom::Sphere&lt; T, N &gt;</div><p>An N-dimensional circle, sphere, or hypersphere with a filled interior. </p>
+<p><code><a class="el" href="group__shape.html#gad22cc7abb99ed4cfae44f16194efa400" title="A 2D circle.">Circle</a>&lt;T&gt;</code> is a template alias for <code><a class="el" href="classgeom_1_1_sphere.html" title="An N-dimensional circle, sphere, or hypersphere with a filled interior.">Sphere</a>&lt;T,2&gt;</code>. </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="ab7b81c250ce370c724b88ffaac574884" name="ab7b81c250ce370c724b88ffaac574884"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab7b81c250ce370c724b88ffaac574884">&#9670;&#160;</a></span>point_t</h2>
@@ -464,6 +477,66 @@ template&lt;typename T, index_t N&gt; </div>
 
 </div>
 </div>
+<a id="a23c2da2517139d0feb90edfc644c9250" name="a23c2da2517139d0feb90edfc644c9250"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23c2da2517139d0feb90edfc644c9250">&#9670;&#160;</a></span>measure_boundary()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, index_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T measure_boundary </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Measure the boundary of the shape. </p>
+<p>If the sphere is 2D (a circle), this is the circumference of the circle. If the sphere is 3D (a sphere), this is the surface area of the sphere. In higher dimensions, this is the volume or hypervolume of the boundary. </p>
+
+</div>
+</div>
+<a id="a55aae4fe1bce3c945d3540e53012a753" name="a55aae4fe1bce3c945d3540e53012a753"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55aae4fe1bce3c945d3540e53012a753">&#9670;&#160;</a></span>measure_interior()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, index_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T measure_interior </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Measure the interior (volume) of the shape. </p>
+<p>If the sphere is 2D (a disk), this is the area of the disk. If the sphere is 3D (a ball), this is the volume of the ball. In higher dimensions, this is the hypervolume. </p>
+
+</div>
+</div>
 <a id="gaa6d0f15e1bd534f449aea1238ac8a515" name="gaa6d0f15e1bd534f449aea1238ac8a515"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gaa6d0f15e1bd534f449aea1238ac8a515">&#9670;&#160;</a></span>normal()</h2>
 
@@ -556,7 +629,7 @@ template&lt;typename T, index_t N&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 1 2025 12:23:16 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Sat Feb 8 2025 18:58:10 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

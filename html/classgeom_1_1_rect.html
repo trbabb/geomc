@@ -142,6 +142,12 @@ Public Member Functions</h2></td></tr>
 constexpr&#160;</td><td class="memItemRight" valign="bottom"><b>Rect</b> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> p)</td></tr>
 <tr class="memdesc:a0b2fa6410435b8fae34894224c68c2af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a> containing only the point <code>p</code>. <br /></td></tr>
 <tr class="separator:a0b2fa6410435b8fae34894224c68c2af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d80caf4d7662e74880351b995569edd" id="r_a9d80caf4d7662e74880351b995569edd"><td class="memTemplParams" colspan="2"><a id="a9d80caf4d7662e74880351b995569edd" name="a9d80caf4d7662e74880351b995569edd"></a>
+template&lt;index_t... J&gt; <br />
+requires ((J + ...) == <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>)</td></tr>
+<tr class="memitem:a9d80caf4d7662e74880351b995569edd"><td class="memTemplItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Rect</b> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, J &gt; &amp;... r)</td></tr>
+<tr class="memdesc:a9d80caf4d7662e74880351b995569edd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a> from lower-dimensional Rects. <br /></td></tr>
+<tr class="separator:a9d80caf4d7662e74880351b995569edd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6bfd046801b158573dd590512a0362db" id="r_a6bfd046801b158573dd590512a0362db"><td class="memTemplParams" colspan="2">template&lt;typename... I&gt; <br />
 requires (... and std::convertible_to&lt;I, size_t&gt;)</td></tr>
 <tr class="memitem:a6bfd046801b158573dd590512a0362db"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, sizeof...(I)&gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a6bfd046801b158573dd590512a0362db">operator()</a> (I... indices) const</td></tr>
@@ -255,9 +261,15 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>intersects</b> (const
 <tr class="memitem:a3f36c09e245ec318c665df3270633760" id="r_a3f36c09e245ec318c665df3270633760"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3f36c09e245ec318c665df3270633760">minkowski_sum</a> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;other) const</td></tr>
 <tr class="memdesc:a3f36c09e245ec318c665df3270633760"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minkowski sum.  <br /></td></tr>
 <tr class="separator:a3f36c09e245ec318c665df3270633760"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ed7714934c91dbf15da96f2c7d68241" id="r_a4ed7714934c91dbf15da96f2c7d68241"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ed7714934c91dbf15da96f2c7d68241">volume</a> () const</td></tr>
-<tr class="memdesc:a4ed7714934c91dbf15da96f2c7d68241"><td class="mdescLeft">&#160;</td><td class="mdescRight">N-dimensional volume.  <br /></td></tr>
-<tr class="separator:a4ed7714934c91dbf15da96f2c7d68241"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55aae4fe1bce3c945d3540e53012a753" id="r_a55aae4fe1bce3c945d3540e53012a753"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a55aae4fe1bce3c945d3540e53012a753">measure_interior</a> () const</td></tr>
+<tr class="memdesc:a55aae4fe1bce3c945d3540e53012a753"><td class="mdescLeft">&#160;</td><td class="mdescRight">N-dimensional volume.  <br /></td></tr>
+<tr class="separator:a55aae4fe1bce3c945d3540e53012a753"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23c2da2517139d0feb90edfc644c9250" id="r_a23c2da2517139d0feb90edfc644c9250"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a23c2da2517139d0feb90edfc644c9250">measure_boundary</a> () const</td></tr>
+<tr class="memdesc:a23c2da2517139d0feb90edfc644c9250"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure of the boundary of this <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a>.  <br /></td></tr>
+<tr class="separator:a23c2da2517139d0feb90edfc644c9250"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d546f769e92da0cd733e94b1092f1f8" id="r_a1d546f769e92da0cd733e94b1092f1f8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d546f769e92da0cd733e94b1092f1f8">face_areas</a> () const</td></tr>
+<tr class="memdesc:a1d546f769e92da0cd733e94b1092f1f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure of the axial faces of this <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a>.  <br /></td></tr>
+<tr class="separator:a1d546f769e92da0cd733e94b1092f1f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd13283a1d00f345bca54ae105b609c2" id="r_afd13283a1d00f345bca54ae105b609c2"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd13283a1d00f345bca54ae105b609c2">length</a> () const</td></tr>
 <tr class="memdesc:afd13283a1d00f345bca54ae105b609c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a "normalized" length measure encoding the size of this box.  <br /></td></tr>
 <tr class="separator:afd13283a1d00f345bca54ae105b609c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -287,6 +299,16 @@ T&#160;</td><td class="memItemRight" valign="bottom"><b>sdf</b> (<a class="el" h
 <tr class="memitem:acf00c25e6537699c4f7b3e82c07d33f1" id="r_acf00c25e6537699c4f7b3e82c07d33f1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acf00c25e6537699c4f7b3e82c07d33f1">unmap</a> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> p) const</td></tr>
 <tr class="memdesc:acf00c25e6537699c4f7b3e82c07d33f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find <code>p</code>'s fractional position within this <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a>.  <br /></td></tr>
 <tr class="separator:acf00c25e6537699c4f7b3e82c07d33f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15a35430223c5a6178a1ef9387b56fab" id="r_a15a35430223c5a6178a1ef9387b56fab"><td class="memTemplParams" colspan="2">template&lt;index_t M&gt; <br />
+requires (<a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> == 1 and M &gt; 1)</td></tr>
+<tr class="memitem:a15a35430223c5a6178a1ef9387b56fab"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, M &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a15a35430223c5a6178a1ef9387b56fab">remap</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, M &gt; s) const</td></tr>
+<tr class="memdesc:a15a35430223c5a6178a1ef9387b56fab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map the unit interval to the region, broadcasting to a different dimension.  <br /></td></tr>
+<tr class="separator:a15a35430223c5a6178a1ef9387b56fab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1566f00eb4d2356ee78aa67e58ad0496" id="r_a1566f00eb4d2356ee78aa67e58ad0496"><td class="memTemplParams" colspan="2">template&lt;index_t M&gt; <br />
+requires (<a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> == 1 and M &gt; 1)</td></tr>
+<tr class="memitem:a1566f00eb4d2356ee78aa67e58ad0496"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, M &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a1566f00eb4d2356ee78aa67e58ad0496">unmap</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, M &gt; p) const</td></tr>
+<tr class="memdesc:a1566f00eb4d2356ee78aa67e58ad0496"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find <code>p</code>'s fractional position within this <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a>, broadcasting to a different dimension.  <br /></td></tr>
+<tr class="separator:a1566f00eb4d2356ee78aa67e58ad0496"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44cd02ca6ab35c05499174fedde957d0" id="r_a44cd02ca6ab35c05499174fedde957d0"><td class="memItemLeft" align="right" valign="top"><a id="a44cd02ca6ab35c05499174fedde957d0" name="a44cd02ca6ab35c05499174fedde957d0"></a>
 std::pair&lt; <a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a>, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>contact_vector</b> (const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;other) const</td></tr>
 <tr class="memdesc:a44cd02ca6ab35c05499174fedde957d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a vector which moves <code>this</code> into precise disjoint contact with <code>other</code>, and a boolean indicating whether the two shapes currently overlap. <br /></td></tr>
@@ -341,6 +363,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a69cf8c76a2cae6435b65941a18dbc2bf" id="r_a69cf8c76a2cae6435b65941a18dbc2bf"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a69cf8c76a2cae6435b65941a18dbc2bf">contains</a> (typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">::point_t</a> <a class="el" href="#a1d489526769f66aa383b611d208c6216">lo</a>, typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">::point_t</a> <a class="el" href="#a0ffa04769eee75de6100330b3395929a">hi</a>, typename <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">::point_t</a> pt)</td></tr>
 <tr class="memdesc:a69cf8c76a2cae6435b65941a18dbc2bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test whether a point is in the N-dimensional range <code>[lo, hi]</code>.  <br /></td></tr>
 <tr class="separator:a69cf8c76a2cae6435b65941a18dbc2bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb8ff67a13a696b1eb2b0ef2764c89b2" id="r_acb8ff67a13a696b1eb2b0ef2764c89b2"><td class="memItemLeft" align="right" valign="top"><a id="acb8ff67a13a696b1eb2b0ef2764c89b2" name="acb8ff67a13a696b1eb2b0ef2764c89b2"></a>
+static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><b>admits_cusps</b> ()</td></tr>
+<tr class="separator:acb8ff67a13a696b1eb2b0ef2764c89b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -876,6 +901,36 @@ template&lt;typename T, index_t N&gt; </div>
 
 </div>
 </div>
+<a id="a1d546f769e92da0cd733e94b1092f1f8" name="a1d546f769e92da0cd733e94b1092f1f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d546f769e92da0cd733e94b1092f1f8">&#9670;&#160;</a></span>face_areas()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, index_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> face_areas </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Measure of the axial faces of this <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a>. </p>
+<p>The <code>i</code>th component of the result is the area of the face perpendicular to the <code>i</code>th axis. </p>
+
+</div>
+</div>
 <a id="a41212062ddbbca0b52b2bc303ebca5c3" name="a41212062ddbbca0b52b2bc303ebca5c3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a41212062ddbbca0b52b2bc303ebca5c3">&#9670;&#160;</a></span>fitted_to()</h2>
 
@@ -1226,6 +1281,68 @@ template&lt;typename T, index_t N&gt; </div>
 
 <p>Return a "normalized" length measure encoding the size of this box. </p>
 <p>Computed as the <code>N</code>th root of the volume. </p>
+
+</div>
+</div>
+<a id="a23c2da2517139d0feb90edfc644c9250" name="a23c2da2517139d0feb90edfc644c9250"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23c2da2517139d0feb90edfc644c9250">&#9670;&#160;</a></span>measure_boundary()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, index_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T measure_boundary </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Measure of the boundary of this <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a>. </p>
+<p>Measures the length/perimter/surface area of this <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a>. </p>
+
+</div>
+</div>
+<a id="a55aae4fe1bce3c945d3540e53012a753" name="a55aae4fe1bce3c945d3540e53012a753"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55aae4fe1bce3c945d3540e53012a753">&#9670;&#160;</a></span>measure_interior()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, index_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T measure_interior </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>N-dimensional volume. </p>
+<p>Compute the measure of the region contained by this <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a> as the product of its dimensions. Result measures a length if <code>N</code> is 1; an area if <code>N</code> is 2; a volume if 3; etc.</p>
+<p>The volume of an empty or negative <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a> is 0.</p>
+<dl class="section return"><dt>Returns</dt><dd>The volume of this region. </dd></dl>
 
 </div>
 </div>
@@ -2056,7 +2173,7 @@ template&lt;typename T, index_t N&gt; </div>
 </div>
 </div>
 <a id="a45706c90c76d9cae91ce0522a8c14d27" name="a45706c90c76d9cae91ce0522a8c14d27"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45706c90c76d9cae91ce0522a8c14d27">&#9670;&#160;</a></span>remap()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a45706c90c76d9cae91ce0522a8c14d27">&#9670;&#160;</a></span>remap() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2083,7 +2200,42 @@ template&lt;typename T, index_t N&gt; </div>
 <p>Map the unit interval to the region. </p>
 <p>Remap <code>s</code> on the <code>[0,1]</code> interval to the extents of this <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a>. In other words, interpolate the corners of this <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a> using s as an interpolation parameter.</p>
 <p>Inverse operation of <code><a class="el" href="#acf00c25e6537699c4f7b3e82c07d33f1" title="Find p&#39;s fractional position within this Rect.">unmap()</a></code>.</p>
-<p>Values of <code>s</code> between 0 and 1 correspond to points inside this <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a>. </p>
+<p>Values of <code>s</code> between 0 and 1 correspond to points inside this <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a>.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespacegeom.html#a0a11c54736080d2b99c44339ed803f2a" title="Return a transformation which maps the unit interval to the region.">remap_transform()</a> </dd></dl>
+
+</div>
+</div>
+<a id="a15a35430223c5a6178a1ef9387b56fab" name="a15a35430223c5a6178a1ef9387b56fab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15a35430223c5a6178a1ef9387b56fab">&#9670;&#160;</a></span>remap() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, index_t N&gt; </div>
+<div class="memtemplate">
+template&lt;index_t M&gt; <br />
+requires (<a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> == 1 and M &gt; 1)</div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, M &gt; remap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, M &gt;</td>          <td class="paramname"><span class="paramname"><em>s</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Map the unit interval to the region, broadcasting to a different dimension. </p>
+<p>Requires that <code>N == 1</code>.</p>
+<p>Each coordinate of <code>s</code> is treated as a fraction within this 1-D <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a>. </p>
 
 </div>
 </div>
@@ -2198,7 +2350,7 @@ template&lt;typename T, index_t N&gt; </div>
 </div>
 </div>
 <a id="acf00c25e6537699c4f7b3e82c07d33f1" name="acf00c25e6537699c4f7b3e82c07d33f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf00c25e6537699c4f7b3e82c07d33f1">&#9670;&#160;</a></span>unmap()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acf00c25e6537699c4f7b3e82c07d33f1">&#9670;&#160;</a></span>unmap() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2223,25 +2375,29 @@ template&lt;typename T, index_t N&gt; </div>
 </div><div class="memdoc">
 
 <p>Find <code>p</code>'s fractional position within this <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a>. </p>
-<p>Inverse operation of <code><a class="el" href="#a45706c90c76d9cae91ce0522a8c14d27" title="Map the unit interval to the region.">remap()</a></code>. </p>
+<p>Inverse operation of <code><a class="el" href="#a45706c90c76d9cae91ce0522a8c14d27" title="Map the unit interval to the region.">remap()</a></code>.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespacegeom.html#a73500d71b6d7f27a11dd7ec845754828" title="Return a transformation which maps the region to the unit interval.">unmap_transform()</a> </dd></dl>
 
 </div>
 </div>
-<a id="a4ed7714934c91dbf15da96f2c7d68241" name="a4ed7714934c91dbf15da96f2c7d68241"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ed7714934c91dbf15da96f2c7d68241">&#9670;&#160;</a></span>volume()</h2>
+<a id="a1566f00eb4d2356ee78aa67e58ad0496" name="a1566f00eb4d2356ee78aa67e58ad0496"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1566f00eb4d2356ee78aa67e58ad0496">&#9670;&#160;</a></span>unmap() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T, index_t N&gt; </div>
+<div class="memtemplate">
+template&lt;index_t M&gt; <br />
+requires (<a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> == 1 and M &gt; 1)</div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">T volume </td>
+          <td class="memname"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, M &gt; unmap </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, M &gt;</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -2252,10 +2408,9 @@ template&lt;typename T, index_t N&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>N-dimensional volume. </p>
-<p>Compute the measure of the region contained by this <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a> as the product of its dimensions. Result measures a length if <code>N</code> is 1; an area if <code>N</code> is 2; a volume if 3; etc.</p>
-<p>The volume of an empty or negative <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a> is 0.</p>
-<dl class="section return"><dt>Returns</dt><dd>The volume of this region. </dd></dl>
+<p>Find <code>p</code>'s fractional position within this <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a>, broadcasting to a different dimension. </p>
+<p>Requires that <code>N == 1</code>.</p>
+<p>Each coordinate of the result is the fraction of the corresponding coordinate of <code>p</code> within this 1-D <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a>. </p>
 
 </div>
 </div>
@@ -2265,7 +2420,7 @@ template&lt;typename T, index_t N&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 1 2025 12:23:16 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

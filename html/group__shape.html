@@ -117,6 +117,15 @@ Concepts</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="conceptgeom_1_1_sdf_object.html">geom::SdfObject</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A shape which can report its exact signed distance field. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="conceptgeom_1_1_interior_measurable_object.html">geom::InteriorMeasurableObject</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A shape which can measure its interior region. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="conceptgeom_1_1_boundary_measurable_object.html">geom::BoundaryMeasurableObject</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A shape which can measure its boundary. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="conceptgeom_1_1_measurable_object.html">geom::MeasurableObject</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A shape which can measure both its surface area and volume. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="conceptgeom_1_1_projectable_object.html">geom::ProjectableObject</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A shape which can perform an orthogonal projection to its boundary. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -175,10 +184,13 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation of <a class="el" href="classgeom_1_1_any_convex.html" title="Helper class which virtualizes the static polymorphism of Convex shapes.">AnyConvex</a> for a specific Shape.  <a href="classgeom_1_1_any_convex_impl.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_sphere.html">Sphere&lt; T, N &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An N-dimensional circle, sphere, or hypersphere.  <a href="classgeom_1_1_sphere.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An N-dimensional circle, sphere, or hypersphere with a filled interior.  <a href="classgeom_1_1_sphere.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_simplex.html">Simplex&lt; T, N &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A simplex in N dimensions (e.g. a tetrahedron, triangle, line, point).  <a href="classgeom_1_1_simplex.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_spherical_cap.html">SphericalCap&lt; T, N &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The surface of a sphere within a certain angle from its pole.  <a href="classgeom_1_1_spherical_cap.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1_transformed.html">Transformed&lt; Shape &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A wrapper shape which transforms another arbitrary shape with an <a class="el" href="classgeom_1_1_affine_transform.html" title="Affine transformation class.">AffineTransform</a>.  <a href="classgeom_1_1_transformed.html#details">More...</a><br /></td></tr>
@@ -395,17 +407,17 @@ template&lt;typename Shape&gt; </td></tr>
 <tr class="memitem:gac893235ed6490a8f62e3ea111b86c817"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_plane.html">Plane</a>&lt; <a class="el" href="classgeom_1_1_dilated.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="classgeom_1_1_dilated.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#gac893235ed6490a8f62e3ea111b86c817">dilate</a> (<a class="el" href="classgeom_1_1_plane.html">Plane</a>&lt; <a class="el" href="classgeom_1_1_dilated.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="classgeom_1_1_dilated.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; p, <a class="el" href="classgeom_1_1_dilated.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a> <a class="el" href="classgeom_1_1_dilated.html#a2789cef1f2d4dccae56789570721d314">dilation</a>)</td></tr>
 <tr class="memdesc:gac893235ed6490a8f62e3ea111b86c817"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dilate the <a class="el" href="classgeom_1_1_plane.html" title="A geometric plane or hyperplane.">Plane</a> <code>p</code> by the amount <code>dilation</code>.  <br /></td></tr>
 <tr class="separator:gac893235ed6490a8f62e3ea111b86c817"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabfee46aa35c46d5dae69e3e520b01250" id="r_gabfee46aa35c46d5dae69e3e520b01250"><td class="memTemplParams" colspan="2">template&lt;typename <a class="el" href="classgeom_1_1_dilated.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, index_t N&gt; </td></tr>
-<tr class="memitem:gabfee46aa35c46d5dae69e3e520b01250"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_dilated.html">Dilated</a>&lt; <a class="el" href="classgeom_1_1_hollow.html">Hollow</a>&lt; <a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; <a class="el" href="classgeom_1_1_dilated.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="classgeom_1_1_dilated.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#gabfee46aa35c46d5dae69e3e520b01250">shell</a> (const <a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; <a class="el" href="classgeom_1_1_dilated.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="classgeom_1_1_dilated.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;s, <a class="el" href="classgeom_1_1_dilated.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a> thickness)</td></tr>
-<tr class="memdesc:gabfee46aa35c46d5dae69e3e520b01250"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a spherical shell with wall thickness <code>thickness</code> around the <a class="el" href="classgeom_1_1_sphere.html" title="An N-dimensional circle, sphere, or hypersphere.">Sphere</a> <code>s</code>.  <br /></td></tr>
-<tr class="separator:gabfee46aa35c46d5dae69e3e520b01250"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaae4afd7bb2147e71710ab57bae0a6da0" id="r_gaae4afd7bb2147e71710ab57bae0a6da0"><td class="memTemplParams" colspan="2">template&lt;typename <a class="el" href="classgeom_1_1_dilated.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, index_t N&gt; </td></tr>
 <tr class="memitem:gaae4afd7bb2147e71710ab57bae0a6da0"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_dilated.html">Dilated</a>&lt; <a class="el" href="classgeom_1_1_hollow.html">Hollow</a>&lt; <a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; <a class="el" href="classgeom_1_1_dilated.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="classgeom_1_1_dilated.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#gaae4afd7bb2147e71710ab57bae0a6da0">shell</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; <a class="el" href="classgeom_1_1_dilated.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="classgeom_1_1_dilated.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; center, <a class="el" href="classgeom_1_1_dilated.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a> r0, <a class="el" href="classgeom_1_1_dilated.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a> r1)</td></tr>
 <tr class="memdesc:gaae4afd7bb2147e71710ab57bae0a6da0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a spherical shell around <code>center</code>, with inner and outer radii <code>r0</code> and <code>r1</code>.  <br /></td></tr>
 <tr class="separator:gaae4afd7bb2147e71710ab57bae0a6da0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabfee46aa35c46d5dae69e3e520b01250" id="r_gabfee46aa35c46d5dae69e3e520b01250"><td class="memTemplParams" colspan="2">template&lt;typename <a class="el" href="classgeom_1_1_dilated.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, index_t N&gt; </td></tr>
+<tr class="memitem:gabfee46aa35c46d5dae69e3e520b01250"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_dilated.html">Dilated</a>&lt; <a class="el" href="classgeom_1_1_hollow.html">Hollow</a>&lt; <a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; <a class="el" href="classgeom_1_1_dilated.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="classgeom_1_1_dilated.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#gabfee46aa35c46d5dae69e3e520b01250">shell</a> (const <a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; <a class="el" href="classgeom_1_1_dilated.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="classgeom_1_1_dilated.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;s, <a class="el" href="classgeom_1_1_dilated.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a> thickness)</td></tr>
+<tr class="memdesc:gabfee46aa35c46d5dae69e3e520b01250"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a spherical shell with wall thickness <code>thickness</code> around the <a class="el" href="classgeom_1_1_sphere.html" title="An N-dimensional circle, sphere, or hypersphere with a filled interior.">Sphere</a> <code>s</code>.  <br /></td></tr>
+<tr class="separator:gabfee46aa35c46d5dae69e3e520b01250"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad3d2337ba8fe0283c4fbf8130918cc06" id="r_gad3d2337ba8fe0283c4fbf8130918cc06"><td class="memTemplParams" colspan="2">template&lt;typename <a class="el" href="classgeom_1_1_dilated.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, index_t N&gt; </td></tr>
 <tr class="memitem:gad3d2337ba8fe0283c4fbf8130918cc06"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; <a class="el" href="classgeom_1_1_dilated.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="classgeom_1_1_dilated.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#gad3d2337ba8fe0283c4fbf8130918cc06">dilate</a> (const <a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; <a class="el" href="classgeom_1_1_dilated.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="classgeom_1_1_dilated.html#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;s, <a class="el" href="classgeom_1_1_dilated.html#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a> <a class="el" href="classgeom_1_1_dilated.html#a2789cef1f2d4dccae56789570721d314">dilation</a>)</td></tr>
-<tr class="memdesc:gad3d2337ba8fe0283c4fbf8130918cc06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dilate the <a class="el" href="classgeom_1_1_sphere.html" title="An N-dimensional circle, sphere, or hypersphere.">Sphere</a> <code>s</code> by the amount <code>dilation</code>.  <br /></td></tr>
+<tr class="memdesc:gad3d2337ba8fe0283c4fbf8130918cc06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dilate the <a class="el" href="classgeom_1_1_sphere.html" title="An N-dimensional circle, sphere, or hypersphere with a filled interior.">Sphere</a> <code>s</code> by the amount <code>dilation</code>.  <br /></td></tr>
 <tr class="separator:gad3d2337ba8fe0283c4fbf8130918cc06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafcb8e9fd5d95c660b07ebce6c9013702" id="r_gafcb8e9fd5d95c660b07ebce6c9013702"><td class="memTemplParams" colspan="2"><a id="gafcb8e9fd5d95c660b07ebce6c9013702" name="gafcb8e9fd5d95c660b07ebce6c9013702"></a>
 template&lt;typename T, index_t N, typename Shape&gt; </td></tr>
@@ -1026,8 +1038,8 @@ template&lt;typename <a class="el" href="classgeom_1_1_dilated.html#a8d5a267c4e2
 </table>
 </div><div class="memdoc">
 
-<p>Dilate the <a class="el" href="classgeom_1_1_sphere.html" title="An N-dimensional circle, sphere, or hypersphere.">Sphere</a> <code>s</code> by the amount <code>dilation</code>. </p>
-<p>(This just adds the amount <code>dilation</code> to the <a class="el" href="classgeom_1_1_sphere.html" title="An N-dimensional circle, sphere, or hypersphere.">Sphere</a>'s radius). </p>
+<p>Dilate the <a class="el" href="classgeom_1_1_sphere.html" title="An N-dimensional circle, sphere, or hypersphere with a filled interior.">Sphere</a> <code>s</code> by the amount <code>dilation</code>. </p>
+<p>(This just adds the amount <code>dilation</code> to the <a class="el" href="classgeom_1_1_sphere.html" title="An N-dimensional circle, sphere, or hypersphere with a filled interior.">Sphere</a>'s radius). </p>
 
 </div>
 </div>
@@ -1282,8 +1294,8 @@ template&lt;typename <a class="el" href="classgeom_1_1_dilated.html#a8d5a267c4e2
 </table>
 </div><div class="memdoc">
 
-<p>Create a spherical shell with wall thickness <code>thickness</code> around the <a class="el" href="classgeom_1_1_sphere.html" title="An N-dimensional circle, sphere, or hypersphere.">Sphere</a> <code>s</code>. </p>
-<p>The wall will be centered on the <a class="el" href="classgeom_1_1_sphere.html" title="An N-dimensional circle, sphere, or hypersphere.">Sphere</a>'s surface. </p>
+<p>Create a spherical shell with wall thickness <code>thickness</code> around the <a class="el" href="classgeom_1_1_sphere.html" title="An N-dimensional circle, sphere, or hypersphere with a filled interior.">Sphere</a> <code>s</code>. </p>
+<p>The wall will be centered on the <a class="el" href="classgeom_1_1_sphere.html" title="An N-dimensional circle, sphere, or hypersphere with a filled interior.">Sphere</a>'s surface. </p>
 
 </div>
 </div>
@@ -1381,7 +1393,7 @@ template&lt;typename T, index_t N&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 1 2025 12:23:16 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

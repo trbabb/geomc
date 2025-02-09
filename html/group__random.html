@@ -92,6 +92,9 @@ $(function(){ initResizable(false); });
   <div class="headertitle"><div class="title">Random</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Sampling from random distributions.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -128,6 +131,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_sample_shape_3_01_cylinder_3_01_t_00_01_n_01_4_01_4.html">SampleShape&lt; Cylinder&lt; T, N &gt; &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sample a point from the interior of a cylinder.  <a href="structgeom_1_1_sample_shape_3_01_cylinder_3_01_t_00_01_n_01_4_01_4.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_sample_shape_3_01_spherical_cap_3_01_t_00_01_n_01_4_01_4.html">SampleShape&lt; SphericalCap&lt; T, N &gt; &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sample a point from the surface of a spherical cap.  <a href="structgeom_1_1_sample_shape_3_01_spherical_cap_3_01_t_00_01_n_01_4_01_4.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_sample_shape_3_01_transformed_3_01_shape_01_4_01_4.html">SampleShape&lt; Transformed&lt; Shape &gt; &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sample a point from the interior of a transformed shape.  <a href="structgeom_1_1_sample_shape_3_01_transformed_3_01_shape_01_4_01_4.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,6 +142,15 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_sample_shape_3_01_extruded_3_01_shape_01_4_01_4.html">SampleShape&lt; Extruded&lt; Shape &gt; &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sample a point from the interior of an extruded shape.  <a href="structgeom_1_1_sample_shape_3_01_extruded_3_01_shape_01_4_01_4.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_sample_shape_3_01_hollow_3_01_rect_3_01_t_00_01_n_01_4_01_4_01_4.html">SampleShape&lt; Hollow&lt; Rect&lt; T, N &gt; &gt; &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sample a point from the boundary of a <a class="el" href="classgeom_1_1_rect.html" title="An N-dimensional axis-aligned interval.">Rect</a>.  <a href="structgeom_1_1_sample_shape_3_01_hollow_3_01_rect_3_01_t_00_01_n_01_4_01_4_01_4.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_sample_shape_3_01_hollow_3_01_extruded_3_01_shape_01_4_01_4_01_4.html">SampleShape&lt; Hollow&lt; Extruded&lt; Shape &gt; &gt; &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sample a point from the boundary of an <a class="el" href="classgeom_1_1_extruded.html" title="An axis-aligned extrusion of an arbitrary N-1 dimensional Convex shape.">Extruded</a> shape.  <a href="structgeom_1_1_sample_shape_3_01_hollow_3_01_extruded_3_01_shape_01_4_01_4_01_4.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_sample_shape_3_01_hollow_3_01_extruded_3_01_hollow_3_01_shape_01_4_01_4_01_4_01_4.html">SampleShape&lt; Hollow&lt; Extruded&lt; Hollow&lt; Shape &gt; &gt; &gt; &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sample a point from the surface of an extruded shape with no endcaps.  <a href="structgeom_1_1_sample_shape_3_01_hollow_3_01_extruded_3_01_hollow_3_01_shape_01_4_01_4_01_4_01_4.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
@@ -162,6 +177,8 @@ template&lt;typename T, index_t N, typename Generator&gt; </td></tr>
 <tr class="separator:gabd3602868055aee6dd4f48dd10ea544d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>Sampling from random distributions. </p>
+<p>Classes conform to the patterns of the C++ <code>&lt;random&gt;</code> library and are intercompatible with it.</p>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="gad8d815ede88bb1da970d364d55930fe4" name="gad8d815ede88bb1da970d364d55930fe4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gad8d815ede88bb1da970d364d55930fe4">&#9670;&#160;</a></span>DefaultLCG</h2>
@@ -189,7 +206,7 @@ template&lt;typename T, index_t N, typename Generator&gt; </td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 1 2025 12:23:16 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

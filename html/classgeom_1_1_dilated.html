@@ -92,6 +92,7 @@ $(function(){ initResizable(false); });
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#related">Related Symbols</a> &#124;
@@ -180,6 +181,12 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>contains</b> (<a clas
 <tr class="memdesc:gaf1ce72ac22267627f5e7b46fc655bac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nearest point on the interior of the shape.  <br /></td></tr>
 <tr class="separator:gaf1ce72ac22267627f5e7b46fc655bac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:acb8ff67a13a696b1eb2b0ef2764c89b2" id="r_acb8ff67a13a696b1eb2b0ef2764c89b2"><td class="memItemLeft" align="right" valign="top"><a id="acb8ff67a13a696b1eb2b0ef2764c89b2" name="acb8ff67a13a696b1eb2b0ef2764c89b2"></a>
+static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><b>admits_cusps</b> ()</td></tr>
+<tr class="separator:acb8ff67a13a696b1eb2b0ef2764c89b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a8b9f7758a8bd2bef680aeecc40bcfe04" id="r_a8b9f7758a8bd2bef680aeecc40bcfe04"><td class="memItemLeft" align="right" valign="top"><a id="a8b9f7758a8bd2bef680aeecc40bcfe04" name="a8b9f7758a8bd2bef680aeecc40bcfe04"></a>
@@ -216,17 +223,17 @@ template&lt;typename Shape&gt; </td></tr>
 <tr class="memitem:gac893235ed6490a8f62e3ea111b86c817"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_plane.html">Plane</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#gac893235ed6490a8f62e3ea111b86c817">dilate</a> (<a class="el" href="classgeom_1_1_plane.html">Plane</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; p, <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a> <a class="el" href="#a2789cef1f2d4dccae56789570721d314">dilation</a>)</td></tr>
 <tr class="memdesc:gac893235ed6490a8f62e3ea111b86c817"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dilate the <a class="el" href="classgeom_1_1_plane.html" title="A geometric plane or hyperplane.">Plane</a> <code>p</code> by the amount <code>dilation</code>.  <br /></td></tr>
 <tr class="separator:gac893235ed6490a8f62e3ea111b86c817"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabfee46aa35c46d5dae69e3e520b01250" id="r_gabfee46aa35c46d5dae69e3e520b01250"><td class="memTemplParams" colspan="2">template&lt;typename <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, index_t N&gt; </td></tr>
-<tr class="memitem:gabfee46aa35c46d5dae69e3e520b01250"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_dilated.html">Dilated</a>&lt; <a class="el" href="classgeom_1_1_hollow.html">Hollow</a>&lt; <a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#gabfee46aa35c46d5dae69e3e520b01250">shell</a> (const <a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;s, <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a> thickness)</td></tr>
-<tr class="memdesc:gabfee46aa35c46d5dae69e3e520b01250"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a spherical shell with wall thickness <code>thickness</code> around the <a class="el" href="classgeom_1_1_sphere.html" title="An N-dimensional circle, sphere, or hypersphere.">Sphere</a> <code>s</code>.  <br /></td></tr>
-<tr class="separator:gabfee46aa35c46d5dae69e3e520b01250"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaae4afd7bb2147e71710ab57bae0a6da0" id="r_gaae4afd7bb2147e71710ab57bae0a6da0"><td class="memTemplParams" colspan="2">template&lt;typename <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, index_t N&gt; </td></tr>
 <tr class="memitem:gaae4afd7bb2147e71710ab57bae0a6da0"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_dilated.html">Dilated</a>&lt; <a class="el" href="classgeom_1_1_hollow.html">Hollow</a>&lt; <a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#gaae4afd7bb2147e71710ab57bae0a6da0">shell</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; center, <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a> r0, <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a> r1)</td></tr>
 <tr class="memdesc:gaae4afd7bb2147e71710ab57bae0a6da0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a spherical shell around <code>center</code>, with inner and outer radii <code>r0</code> and <code>r1</code>.  <br /></td></tr>
 <tr class="separator:gaae4afd7bb2147e71710ab57bae0a6da0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabfee46aa35c46d5dae69e3e520b01250" id="r_gabfee46aa35c46d5dae69e3e520b01250"><td class="memTemplParams" colspan="2">template&lt;typename <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, index_t N&gt; </td></tr>
+<tr class="memitem:gabfee46aa35c46d5dae69e3e520b01250"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_dilated.html">Dilated</a>&lt; <a class="el" href="classgeom_1_1_hollow.html">Hollow</a>&lt; <a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &gt; &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#gabfee46aa35c46d5dae69e3e520b01250">shell</a> (const <a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;s, <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a> thickness)</td></tr>
+<tr class="memdesc:gabfee46aa35c46d5dae69e3e520b01250"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a spherical shell with wall thickness <code>thickness</code> around the <a class="el" href="classgeom_1_1_sphere.html" title="An N-dimensional circle, sphere, or hypersphere with a filled interior.">Sphere</a> <code>s</code>.  <br /></td></tr>
+<tr class="separator:gabfee46aa35c46d5dae69e3e520b01250"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad3d2337ba8fe0283c4fbf8130918cc06" id="r_gad3d2337ba8fe0283c4fbf8130918cc06"><td class="memTemplParams" colspan="2">template&lt;typename <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, index_t N&gt; </td></tr>
 <tr class="memitem:gad3d2337ba8fe0283c4fbf8130918cc06"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#gad3d2337ba8fe0283c4fbf8130918cc06">dilate</a> (const <a class="el" href="classgeom_1_1_sphere.html">Sphere</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;s, <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a> <a class="el" href="#a2789cef1f2d4dccae56789570721d314">dilation</a>)</td></tr>
-<tr class="memdesc:gad3d2337ba8fe0283c4fbf8130918cc06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dilate the <a class="el" href="classgeom_1_1_sphere.html" title="An N-dimensional circle, sphere, or hypersphere.">Sphere</a> <code>s</code> by the amount <code>dilation</code>.  <br /></td></tr>
+<tr class="memdesc:gad3d2337ba8fe0283c4fbf8130918cc06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dilate the <a class="el" href="classgeom_1_1_sphere.html" title="An N-dimensional circle, sphere, or hypersphere with a filled interior.">Sphere</a> <code>s</code> by the amount <code>dilation</code>.  <br /></td></tr>
 <tr class="separator:gad3d2337ba8fe0283c4fbf8130918cc06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -360,7 +367,7 @@ class geom::Dilated&lt; Shape &gt;</div><p>A wrapper shape which dilates the ext
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 1 2025 12:23:16 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

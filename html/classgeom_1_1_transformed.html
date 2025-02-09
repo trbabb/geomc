@@ -92,6 +92,7 @@ $(function(){ initResizable(false); });
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#related">Related Symbols</a> &#124;
@@ -158,6 +159,10 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>contains</b> (<a clas
 <tr class="memitem:ab6154d4d7d8c9c87e636ff1c7729c1e8" id="r_ab6154d4d7d8c9c87e636ff1c7729c1e8"><td class="memItemLeft" align="right" valign="top"><a id="ab6154d4d7d8c9c87e636ff1c7729c1e8" name="ab6154d4d7d8c9c87e636ff1c7729c1e8"></a>
 <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; <a class="el" href="#a74b19b8257ab187a0cff6c483cb0683d">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>bounds</b> () const</td></tr>
 <tr class="separator:ab6154d4d7d8c9c87e636ff1c7729c1e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36389d1aebb3d2b10f5dd6e854a9539a" id="r_a36389d1aebb3d2b10f5dd6e854a9539a"><td class="memItemLeft" align="right" valign="top"><a id="a36389d1aebb3d2b10f5dd6e854a9539a" name="a36389d1aebb3d2b10f5dd6e854a9539a"></a>
+<a class="el" href="#a74b19b8257ab187a0cff6c483cb0683d">T</a>&#160;</td><td class="memItemRight" valign="bottom"><b>measure_interior</b> () const</td></tr>
+<tr class="memdesc:a36389d1aebb3d2b10f5dd6e854a9539a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure the interior (volume) of the shape. <br /></td></tr>
+<tr class="separator:a36389d1aebb3d2b10f5dd6e854a9539a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0d4bd9d2a2930747d2285d08d24def5" id="r_ab0d4bd9d2a2930747d2285d08d24def5"><td class="memItemLeft" align="right" valign="top"><a id="ab0d4bd9d2a2930747d2285d08d24def5" name="ab0d4bd9d2a2930747d2285d08d24def5"></a>
 <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; <a class="el" href="#a74b19b8257ab187a0cff6c483cb0683d">T</a>, 1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>intersect</b> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; <a class="el" href="#a74b19b8257ab187a0cff6c483cb0683d">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;r) const</td></tr>
 <tr class="memdesc:ab0d4bd9d2a2930747d2285d08d24def5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ray-shape intersection. <br /></td></tr>
@@ -172,6 +177,12 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>contains</b> (<a clas
 <tr class="memitem:ga783e4812827599c0b116581ff94f4024" id="r_ga783e4812827599c0b116581ff94f4024"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__shape.html#ga783e4812827599c0b116581ff94f4024">intersects</a> (const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; Shape::elem_t, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a>, Shape &gt; &amp;other) const</td></tr>
 <tr class="memdesc:ga783e4812827599c0b116581ff94f4024"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classgeom_1_1_convex.html" title="Base class describing convex shapes in N-dimensional space.">Convex</a> shape overlap test.  <br /></td></tr>
 <tr class="separator:ga783e4812827599c0b116581ff94f4024"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:acb8ff67a13a696b1eb2b0ef2764c89b2" id="r_acb8ff67a13a696b1eb2b0ef2764c89b2"><td class="memItemLeft" align="right" valign="top"><a id="acb8ff67a13a696b1eb2b0ef2764c89b2" name="acb8ff67a13a696b1eb2b0ef2764c89b2"></a>
+static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><b>admits_cusps</b> ()</td></tr>
+<tr class="separator:acb8ff67a13a696b1eb2b0ef2764c89b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -362,7 +373,7 @@ Transformed&lt;Cylinder&lt;double,3&gt;&gt; ocyl_b = xf * ocyl_a;
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 1 2025 12:23:16 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Sat Feb 8 2025 18:58:10 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

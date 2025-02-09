@@ -92,8 +92,6 @@ $(function(){ initResizable(false); });
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
@@ -118,15 +116,15 @@ Inheritance diagram for PerlinNoise&lt; T, N &gt;:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a8ba6280abf78f5e082b8251070ab51a7" id="r_a8ba6280abf78f5e082b8251070ab51a7"><td class="memItemLeft" align="right" valign="top"><a id="a8ba6280abf78f5e082b8251070ab51a7" name="a8ba6280abf78f5e082b8251070ab51a7"></a>
-typedef <a class="el" href="structgeom_1_1_point_type.html">PointType</a>&lt; index_t, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>gridtype</b></td></tr>
-<tr class="separator:a8ba6280abf78f5e082b8251070ab51a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f7a4aa294bf3f028da49e0ade389db9" id="r_a3f7a4aa294bf3f028da49e0ade389db9"><td class="memItemLeft" align="right" valign="top"><a id="a3f7a4aa294bf3f028da49e0ade389db9" name="a3f7a4aa294bf3f028da49e0ade389db9"></a>
-typedef <a class="el" href="structgeom_1_1_point_type.html">PointType</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>pointtype</b></td></tr>
-<tr class="separator:a3f7a4aa294bf3f028da49e0ade389db9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6afc340669928bf8f32bfd1101c6dadd" id="r_a6afc340669928bf8f32bfd1101c6dadd"><td class="memItemLeft" align="right" valign="top"><a id="a6afc340669928bf8f32bfd1101c6dadd" name="a6afc340669928bf8f32bfd1101c6dadd"></a>
-typedef <a class="el" href="classgeom_1_1_vec.html">gridtype::point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>grid_t</b></td></tr>
-<tr class="separator:a6afc340669928bf8f32bfd1101c6dadd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf3630289fa987ad6969b0ac65c1491e" id="r_adf3630289fa987ad6969b0ac65c1491e"><td class="memItemLeft" align="right" valign="top"><a id="adf3630289fa987ad6969b0ac65c1491e" name="adf3630289fa987ad6969b0ac65c1491e"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>gridtype</b> = <a class="el" href="structgeom_1_1_point_type.html">PointType</a>&lt;index_t,<a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>&gt;</td></tr>
+<tr class="separator:adf3630289fa987ad6969b0ac65c1491e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90ff8af4432119a20faa1b498976c107" id="r_a90ff8af4432119a20faa1b498976c107"><td class="memItemLeft" align="right" valign="top"><a id="a90ff8af4432119a20faa1b498976c107" name="a90ff8af4432119a20faa1b498976c107"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>pointtype</b> = <a class="el" href="structgeom_1_1_point_type.html">PointType</a>&lt;T,<a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>&gt;</td></tr>
+<tr class="separator:a90ff8af4432119a20faa1b498976c107"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9cdf39acfcb711bb51c761d9553ed47" id="r_aa9cdf39acfcb711bb51c761d9553ed47"><td class="memItemLeft" align="right" valign="top"><a id="aa9cdf39acfcb711bb51c761d9553ed47" name="aa9cdf39acfcb711bb51c761d9553ed47"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>grid_t</b> = typename <a class="el" href="classgeom_1_1_vec.html">gridtype::point_t</a></td></tr>
+<tr class="separator:aa9cdf39acfcb711bb51c761d9553ed47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ce56f5f4fb0fe326b49a018b2b6efdb" id="r_a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="memItemLeft" align="right" valign="top"><a id="a6ce56f5f4fb0fe326b49a018b2b6efdb" name="a6ce56f5f4fb0fe326b49a018b2b6efdb"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
 <tr class="memdesc:a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The coordinate type of this object. <br /></td></tr>
@@ -142,22 +140,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac5a512b4ee6f40a6dbd4674a1b89662b" id="r_ac5a512b4ee6f40a6dbd4674a1b89662b"><td class="memTemplParams" colspan="2">template&lt;typename Generator&gt; </td></tr>
 <tr class="memitem:ac5a512b4ee6f40a6dbd4674a1b89662b"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ac5a512b4ee6f40a6dbd4674a1b89662b">PerlinNoise</a> (Generator &amp;rng)</td></tr>
 <tr class="separator:ac5a512b4ee6f40a6dbd4674a1b89662b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49cdedd9ec074a91003f2a211435b280" id="r_a49cdedd9ec074a91003f2a211435b280"><td class="memItemLeft" align="right" valign="top"><a id="a49cdedd9ec074a91003f2a211435b280" name="a49cdedd9ec074a91003f2a211435b280"></a>
+T&#160;</td><td class="memItemRight" valign="bottom"><b>operator()</b> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> pt) const</td></tr>
+<tr class="separator:a49cdedd9ec074a91003f2a211435b280"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab383d7f0aef2e9f243dc69cd4c9bd5f2" id="r_ab383d7f0aef2e9f243dc69cd4c9bd5f2"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab383d7f0aef2e9f243dc69cd4c9bd5f2">eval</a> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> pt) const</td></tr>
 <tr class="separator:ab383d7f0aef2e9f243dc69cd4c9bd5f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d6d30ce618fed4b8965809c497cd158" id="r_a3d6d30ce618fed4b8965809c497cd158"><td class="memItemLeft" align="right" valign="top">std::pair&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3d6d30ce618fed4b8965809c497cd158">gradient</a> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> pt) const</td></tr>
 <tr class="separator:a3d6d30ce618fed4b8965809c497cd158"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ae3ef2451deb72ebeb220206bd4d7b3bf" id="r_ae3ef2451deb72ebeb220206bd4d7b3bf"><td class="memItemLeft" align="right" valign="top"><a id="ae3ef2451deb72ebeb220206bd4d7b3bf" name="ae3ef2451deb72ebeb220206bd4d7b3bf"></a>
-static constexpr index_t&#160;</td><td class="memItemRight" valign="bottom"><b>n_gradients</b> ()</td></tr>
-<tr class="separator:ae3ef2451deb72ebeb220206bd4d7b3bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:abdded41df9b98e642faf9a5d3bb42b78" id="r_abdded41df9b98e642faf9a5d3bb42b78"><td class="memItemLeft" align="right" valign="top"><a id="abdded41df9b98e642faf9a5d3bb42b78" name="abdded41df9b98e642faf9a5d3bb42b78"></a>
-std::shared_ptr&lt; <a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a>[]&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>gradients</b></td></tr>
-<tr class="separator:abdded41df9b98e642faf9a5d3bb42b78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -169,13 +158,13 @@ static constexpr index_t&#160;</td><td class="memItemRight" valign="bottom"><b>N
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a9faf591addce50964e737abd3e39181e" id="r_a9faf591addce50964e737abd3e39181e"><td class="memItemLeft" align="right" valign="top"><a id="a9faf591addce50964e737abd3e39181e" name="a9faf591addce50964e737abd3e39181e"></a>
-const <a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_grid_gradient</b> (const <a class="el" href="classgeom_1_1_vec.html">grid_t</a> &amp;pt) const</td></tr>
+const <a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>get_grid_gradient</b> (const grid_t &amp;pt) const</td></tr>
 <tr class="separator:a9faf591addce50964e737abd3e39181e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
 <tr class="memitem:aa3dfe414b0d90890ec3cba1923596a7f" id="r_aa3dfe414b0d90890ec3cba1923596a7f"><td class="memItemLeft" align="right" valign="top"><a id="aa3dfe414b0d90890ec3cba1923596a7f" name="aa3dfe414b0d90890ec3cba1923596a7f"></a>
-static <a class="el" href="classgeom_1_1_vec.html">grid_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>corner</b> (index_t i)</td></tr>
+static grid_t&#160;</td><td class="memItemRight" valign="bottom"><b>corner</b> (index_t i)</td></tr>
 <tr class="separator:aa3dfe414b0d90890ec3cba1923596a7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7952c3896275c246618f47f16dc5d5bc" id="r_a7952c3896275c246618f47f16dc5d5bc"><td class="memItemLeft" align="right" valign="top"><a id="a7952c3896275c246618f47f16dc5d5bc" name="a7952c3896275c246618f47f16dc5d5bc"></a>
 static T&#160;</td><td class="memItemRight" valign="bottom"><b>fade</b> (T t)</td></tr>
@@ -349,7 +338,7 @@ template&lt;typename T, index_t N&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 1 2025 12:23:16 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

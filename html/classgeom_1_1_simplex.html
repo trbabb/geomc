@@ -183,9 +183,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator!=</b> (const
 <tr class="memitem:a678815b8e47e4bbdf3e275a4a0973211" id="r_a678815b8e47e4bbdf3e275a4a0973211"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a678815b8e47e4bbdf3e275a4a0973211">is_facing</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;p, <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; *params=nullptr) const</td></tr>
 <tr class="memdesc:a678815b8e47e4bbdf3e275a4a0973211"><td class="mdescLeft">&#160;</td><td class="mdescRight">Project the point to the simplex along its orthogonal complement (if there is one) and test for containment.  <br /></td></tr>
 <tr class="separator:a678815b8e47e4bbdf3e275a4a0973211"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ed7714934c91dbf15da96f2c7d68241" id="r_a4ed7714934c91dbf15da96f2c7d68241"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4ed7714934c91dbf15da96f2c7d68241">volume</a> () const</td></tr>
-<tr class="memdesc:a4ed7714934c91dbf15da96f2c7d68241"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the signed volume of the simplex.  <br /></td></tr>
-<tr class="separator:a4ed7714934c91dbf15da96f2c7d68241"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55aae4fe1bce3c945d3540e53012a753" id="r_a55aae4fe1bce3c945d3540e53012a753"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a55aae4fe1bce3c945d3540e53012a753">measure_interior</a> () const</td></tr>
+<tr class="memdesc:a55aae4fe1bce3c945d3540e53012a753"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the signed volume of the simplex.  <br /></td></tr>
+<tr class="separator:a55aae4fe1bce3c945d3540e53012a753"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93adbab1bbc010a30df7886cb51972f0" id="r_a93adbab1bbc010a30df7886cb51972f0"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a93adbab1bbc010a30df7886cb51972f0">measure</a> () const</td></tr>
 <tr class="memdesc:a93adbab1bbc010a30df7886cb51972f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the positive volume of the simplex within the subspace that it spans.  <br /></td></tr>
 <tr class="separator:a93adbab1bbc010a30df7886cb51972f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -205,15 +205,15 @@ T&#160;</td><td class="memItemRight" valign="bottom"><b>sdf</b> (<a class="el" h
 <tr class="memitem:af6b114ac116212ade82c2dc529c78979" id="r_af6b114ac116212ade82c2dc529c78979"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af6b114ac116212ade82c2dc529c78979">clip</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;p, <a class="el" href="classgeom_1_1_simplex.html">Simplex</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; *onto=nullptr) const</td></tr>
 <tr class="memdesc:af6b114ac116212ade82c2dc529c78979"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ensure <code>p</code> lies within the simplex by orthogonally projecting it to the nearest point on the surface if it lies outside.  <br /></td></tr>
 <tr class="separator:af6b114ac116212ade82c2dc529c78979"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc79eb1eadde511b6204b63c88a1f43c" id="r_abc79eb1eadde511b6204b63c88a1f43c"><td class="memItemLeft" align="right" valign="top"><a id="abc79eb1eadde511b6204b63c88a1f43c" name="abc79eb1eadde511b6204b63c88a1f43c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>exclude</b> (index_t i)</td></tr>
-<tr class="separator:abc79eb1eadde511b6204b63c88a1f43c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2ec716fbad71b8b8f7c57c205f82798" id="r_aa2ec716fbad71b8b8f7c57c205f82798"><td class="memItemLeft" align="right" valign="top"><a id="aa2ec716fbad71b8b8f7c57c205f82798" name="aa2ec716fbad71b8b8f7c57c205f82798"></a>
 <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>+1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>remap</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>+1 &gt; s) const</td></tr>
 <tr class="separator:aa2ec716fbad71b8b8f7c57c205f82798"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd92dee9402e6c6f81d1c6e659e4cbfe" id="r_abd92dee9402e6c6f81d1c6e659e4cbfe"><td class="memItemLeft" align="right" valign="top"><a id="abd92dee9402e6c6f81d1c6e659e4cbfe" name="abd92dee9402e6c6f81d1c6e659e4cbfe"></a>
 <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>+1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>unmap</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;p) const</td></tr>
 <tr class="separator:abd92dee9402e6c6f81d1c6e659e4cbfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc79eb1eadde511b6204b63c88a1f43c" id="r_abc79eb1eadde511b6204b63c88a1f43c"><td class="memItemLeft" align="right" valign="top"><a id="abc79eb1eadde511b6204b63c88a1f43c" name="abc79eb1eadde511b6204b63c88a1f43c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>exclude</b> (index_t i)</td></tr>
+<tr class="separator:abc79eb1eadde511b6204b63c88a1f43c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6234d525bb854f84f0e1f316d1a4f81b" id="r_a6234d525bb854f84f0e1f316d1a4f81b"><td class="memItemLeft" align="right" valign="top"><a id="a6234d525bb854f84f0e1f316d1a4f81b" name="a6234d525bb854f84f0e1f316d1a4f81b"></a>
 <a class="el" href="classgeom_1_1_simplex.html">Simplex</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>excluded</b> (index_t i) const</td></tr>
 <tr class="memdesc:a6234d525bb854f84f0e1f316d1a4f81b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new sub-simplex by excluding the <code>i</code>th vertex in this simplex. <br /></td></tr>
@@ -246,6 +246,9 @@ static constexpr <a class="el" href="classgeom_1_1_simplex.html">Simplex</a>&#16
 <tr class="memitem:a1f8f986e065ad5cb486727ea60aad1ca" id="r_a1f8f986e065ad5cb486727ea60aad1ca"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="classgeom_1_1_simplex.html">Simplex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1f8f986e065ad5cb486727ea60aad1ca">regular_simplex</a> (index_t <a class="el" href="#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a>=<a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>+1)</td></tr>
 <tr class="memdesc:a1f8f986e065ad5cb486727ea60aad1ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a simplex with all edges of unit length and one edge along the x-axis.  <br /></td></tr>
 <tr class="separator:a1f8f986e065ad5cb486727ea60aad1ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb8ff67a13a696b1eb2b0ef2764c89b2" id="r_acb8ff67a13a696b1eb2b0ef2764c89b2"><td class="memItemLeft" align="right" valign="top"><a id="acb8ff67a13a696b1eb2b0ef2764c89b2" name="acb8ff67a13a696b1eb2b0ef2764c89b2"></a>
+static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><b>admits_cusps</b> ()</td></tr>
+<tr class="separator:acb8ff67a13a696b1eb2b0ef2764c89b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -630,6 +633,36 @@ template&lt;typename T, index_t N&gt; </div>
 
 </div>
 </div>
+<a id="a55aae4fe1bce3c945d3540e53012a753" name="a55aae4fe1bce3c945d3540e53012a753"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55aae4fe1bce3c945d3540e53012a753">&#9670;&#160;</a></span>measure_interior()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, index_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T measure_interior </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Compute the signed volume of the simplex. </p>
+<p>If the simplex is not a full volume (i.e., the number of vertices is less than <code>N+1</code>), then its volume is zero. </p>
+
+</div>
+</div>
 <a id="ad2e9f8f6645d5e3637c7f2fe868ddf1c" name="ad2e9f8f6645d5e3637c7f2fe868ddf1c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad2e9f8f6645d5e3637c7f2fe868ddf1c">&#9670;&#160;</a></span>operator==()</h2>
 
@@ -779,36 +812,6 @@ template&lt;typename T, index_t N&gt; </div>
 
 </div>
 </div>
-<a id="a4ed7714934c91dbf15da96f2c7d68241" name="a4ed7714934c91dbf15da96f2c7d68241"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ed7714934c91dbf15da96f2c7d68241">&#9670;&#160;</a></span>volume()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T, index_t N&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">T volume </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Compute the signed volume of the simplex. </p>
-<p>If the simplex is not a full volume (i.e., the number of vertices is less than <code>N+1</code>), then its volume is zero. </p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>geomc/shape/<a class="el" href="_shape_types_8h_source.html">ShapeTypes.h</a></li>
 <li>geomc/shape/<a class="el" href="_simplex_8h_source.html">Simplex.h</a></li>
@@ -816,7 +819,7 @@ template&lt;typename T, index_t N&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 1 2025 12:23:16 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Sat Feb 8 2025 18:58:10 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

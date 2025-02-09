@@ -274,67 +274,78 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>    }</div>
 </div>
 <div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    </div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Mx, <span class="keyword">typename</span> Ref&gt;</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    <span class="keyword">template</span> &lt;index_t... M&gt;</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>    <span class="keyword">requires</span> ((M + ...) == <a class="code hl_variable" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>) and (<span class="keyword">sizeof</span>...(M) &gt; 1)</div>
 <div class="foldopen" id="foldopen00310" data-start="{" data-end="}">
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno"><a class="line" href="classgeom_1_1_vec.html#a696315664382e3a7ba7792626216001d">  310</a></span>    <a class="code hl_function" href="classgeom_1_1_vec.html#a696315664382e3a7ba7792626216001d">Vec</a>(<a class="code hl_class" href="classgeom_1_1detail_1_1_mtx_col_iterator.html">detail::MtxColIterator&lt;Mx,Ref&gt;</a> mtx_col) {</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno"><a class="line" href="classgeom_1_1_vec.html#aadd615a8b698edf771e7456d095ae8d4">  310</a></span>    <span class="keyword">constexpr</span> <a class="code hl_function" href="classgeom_1_1_vec.html#aadd615a8b698edf771e7456d095ae8d4">Vec</a>(<span class="keyword">const</span> <a class="code hl_function" href="classgeom_1_1_vec.html#a82ee8ad6f7a24da21631005335440884">Vec&lt;T,M&gt;</a> &amp;...vecs) {</div>
 <div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>        T *p = this-&gt;<a class="code hl_function" href="classgeom_1_1detail_1_1_vec_base.html#af0a897cde3fdfce253880ea82e6ecae8">begin</a>();</div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>        <span class="keyword">const</span> index_t n = std::min(<a class="code hl_variable" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>, mtx_col-&gt;mtx-&gt;cols());</div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>        <span class="keywordflow">for</span> (index_t i = 0; i &lt; n; i++, p++, mtx_col++) {</div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>            *p = *mtx_col;</div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>        }</div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    }</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>        ((std::copy(vecs.<a class="code hl_function" href="classgeom_1_1detail_1_1_vec_base.html#af0a897cde3fdfce253880ea82e6ecae8">begin</a>(), vecs.<a class="code hl_function" href="classgeom_1_1detail_1_1_vec_base.html#a0dcd4e15c18bbf90a93bb95d82df23b5">end</a>(), p), p += M), ...);</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>    }</div>
 </div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>    </div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span><span class="preprocessor">#if __cplusplus &gt;= 201103L or PARSING_DOXYGEN</span></div>
-<div class="foldopen" id="foldopen00325" data-start="{" data-end="}">
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno"><a class="line" href="classgeom_1_1_vec.html#a25c6e027206a574467006feab51b2d34">  325</a></span>    <a class="code hl_function" href="classgeom_1_1_vec.html#a25c6e027206a574467006feab51b2d34">Vec</a>(<span class="keyword">const</span> std::initializer_list&lt;T&gt;&amp; items):</div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>        detail::VecCommon&lt; T,<a class="code hl_variable" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>,<a class="code hl_function" href="classgeom_1_1_vec.html#a82ee8ad6f7a24da21631005335440884">Vec</a>&lt;T,<a class="code hl_variable" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>&gt; &gt;(items.<a class="code hl_function" href="classgeom_1_1detail_1_1_vec_base.html#af0a897cde3fdfce253880ea82e6ecae8">begin</a>())</div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>    {</div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span><span class="preprocessor">#if __cplusplus &gt;= 201402L</span></div>
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>        <span class="comment">// items.size() not constexpr in c++11  D:&lt;</span></div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>        <span class="keyword">static_assert</span>(items.size() == <a class="code hl_variable" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>, <span class="stringliteral">&quot;Vector must be initialized with N items&quot;</span>);</div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    }</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>    </div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Mx, <span class="keyword">typename</span> Ref&gt;</div>
+<div class="foldopen" id="foldopen00320" data-start="{" data-end="}">
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno"><a class="line" href="classgeom_1_1_vec.html#a696315664382e3a7ba7792626216001d">  320</a></span>    <a class="code hl_function" href="classgeom_1_1_vec.html#a696315664382e3a7ba7792626216001d">Vec</a>(<a class="code hl_class" href="classgeom_1_1detail_1_1_mtx_col_iterator.html">detail::MtxColIterator&lt;Mx,Ref&gt;</a> mtx_col) {</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>        T *p = this-&gt;<a class="code hl_function" href="classgeom_1_1detail_1_1_vec_base.html#af0a897cde3fdfce253880ea82e6ecae8">begin</a>();</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>        <span class="keyword">const</span> index_t n = std::min(<a class="code hl_variable" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>, mtx_col-&gt;mtx-&gt;cols());</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>        <span class="keywordflow">for</span> (index_t i = 0; i &lt; n; i++, p++, mtx_col++) {</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>            *p = *mtx_col;</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        }</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>    }</div>
 </div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>    </div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>}; <span class="comment">/* class Vec */</span></div>
-</div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span> </div>
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N, <span class="keyword">typename</span> H&gt;</div>
-<div class="foldopen" id="foldopen00338" data-start="{" data-end="};">
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno"><a class="line" href="structgeom_1_1_digest_3_01_vec_3_01_t_00_01_n_01_4_00_01_h_01_4.html">  338</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structgeom_1_1_digest.html">Digest</a>&lt;<a class="code hl_class" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt;, H&gt; {</div>
-<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    H operator()(<span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> &amp;v)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>        H nonce = geom::truncated_constant&lt;H&gt;(0xc0da6f441f70ee90, 0x37217861ad19149b);</div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>        <span class="keywordflow">return</span> geom::hash_array(nonce, v.<a class="code hl_function" href="classgeom_1_1detail_1_1_vec_base.html#af0a897cde3fdfce253880ea82e6ecae8">begin</a>(), N);</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>    </div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span><span class="preprocessor">#if __cplusplus &gt;= 201103L or PARSING_DOXYGEN</span></div>
+<div class="foldopen" id="foldopen00335" data-start="{" data-end="}">
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno"><a class="line" href="classgeom_1_1_vec.html#a25c6e027206a574467006feab51b2d34">  335</a></span>    <a class="code hl_function" href="classgeom_1_1_vec.html#a25c6e027206a574467006feab51b2d34">Vec</a>(<span class="keyword">const</span> std::initializer_list&lt;T&gt;&amp; items):</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>        detail::VecCommon&lt; T,<a class="code hl_variable" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>,<a class="code hl_function" href="classgeom_1_1_vec.html#a82ee8ad6f7a24da21631005335440884">Vec</a>&lt;T,<a class="code hl_variable" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>&gt; &gt;(items.<a class="code hl_function" href="classgeom_1_1detail_1_1_vec_base.html#af0a897cde3fdfce253880ea82e6ecae8">begin</a>())</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>    {</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span><span class="preprocessor">#if __cplusplus &gt;= 201402L</span></div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>        <span class="comment">// items.size() not constexpr in c++11  D:&lt;</span></div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>        <span class="keyword">static_assert</span>(items.size() == <a class="code hl_variable" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>, <span class="stringliteral">&quot;Vector must be initialized with N items&quot;</span>);</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>    }</div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>};</div>
 </div>
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span> </div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>} <span class="comment">// namespace geom</span></div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>    </div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>}; <span class="comment">/* class Vec */</span></div>
+</div>
 <div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span> </div>
-<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span> </div>
-<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacestd.html">std</a> {</div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span> </div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="foldopen" id="foldopen00351" data-start="{" data-end="};">
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno"><a class="line" href="structstd_1_1hash_3_01geom_1_1_vec_3_01_t_00_01_n_01_4_01_4.html">  351</a></span><span class="keyword">struct </span>hash&lt;<a class="code hl_namespace" href="namespacegeom.html">geom</a>::Vec&lt;T,N&gt;&gt; {</div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>    <span class="keywordtype">size_t</span> operator()(<span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> &amp;v)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="namespacegeom.html#a2c079cb91a411f00bec52aacf6940071">geom::hash&lt;geom::Vec&lt;T,N&gt;</a>,<span class="keywordtype">size_t</span>&gt;(v);</div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>    }</div>
-<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>};</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N, <span class="keyword">typename</span> H&gt;</div>
+<div class="foldopen" id="foldopen00348" data-start="{" data-end="};">
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno"><a class="line" href="structgeom_1_1_digest_3_01_vec_3_01_t_00_01_n_01_4_00_01_h_01_4.html">  348</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structgeom_1_1_digest.html">Digest</a>&lt;<a class="code hl_class" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt;, H&gt; {</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>    H operator()(<span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> &amp;v)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>        H nonce = geom::truncated_constant&lt;H&gt;(0xc0da6f441f70ee90, 0x37217861ad19149b);</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>        <span class="keywordflow">return</span> geom::hash_array(nonce, v.<a class="code hl_function" href="classgeom_1_1detail_1_1_vec_base.html#af0a897cde3fdfce253880ea82e6ecae8">begin</a>(), N);</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>    }</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>};</div>
 </div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span> </div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>} <span class="comment">// namespace geom</span></div>
 <div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span> </div>
-<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>} <span class="comment">// end namespace std</span></div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span> </div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacestd.html">std</a> {</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span> </div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
+<div class="foldopen" id="foldopen00361" data-start="{" data-end="};">
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno"><a class="line" href="structstd_1_1hash_3_01geom_1_1_vec_3_01_t_00_01_n_01_4_01_4.html">  361</a></span><span class="keyword">struct </span>hash&lt;<a class="code hl_namespace" href="namespacegeom.html">geom</a>::Vec&lt;T,N&gt;&gt; {</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>    <span class="keywordtype">size_t</span> operator()(<span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_vec.html">geom::Vec&lt;T,N&gt;</a> &amp;v)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="namespacegeom.html#a2c079cb91a411f00bec52aacf6940071">geom::hash&lt;geom::Vec&lt;T,N&gt;</a>,<span class="keywordtype">size_t</span>&gt;(v);</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>    }</div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>};</div>
+</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span> </div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>} <span class="comment">// end namespace std</span></div>
 <div class="ttc" id="aclassgeom_1_1_quat_html"><div class="ttname"><a href="classgeom_1_1_quat.html">geom::Quat</a></div><div class="ttdoc">Quaternion class.</div><div class="ttdef"><b>Definition</b> Quaternion.h:23</div></div>
 <div class="ttc" id="aclassgeom_1_1_vec_html"><div class="ttname"><a href="classgeom_1_1_vec.html">geom::Vec</a></div><div class="ttdoc">A tuple of N elements of type T.</div><div class="ttdef"><b>Definition</b> Vec.h:269</div></div>
-<div class="ttc" id="aclassgeom_1_1_vec_html_a25c6e027206a574467006feab51b2d34"><div class="ttname"><a href="classgeom_1_1_vec.html#a25c6e027206a574467006feab51b2d34">geom::Vec::Vec</a></div><div class="ttdeci">Vec(const std::initializer_list&lt; T &gt; &amp;items)</div><div class="ttdef"><b>Definition</b> Vec.h:325</div></div>
+<div class="ttc" id="aclassgeom_1_1_vec_html_a25c6e027206a574467006feab51b2d34"><div class="ttname"><a href="classgeom_1_1_vec.html#a25c6e027206a574467006feab51b2d34">geom::Vec::Vec</a></div><div class="ttdeci">Vec(const std::initializer_list&lt; T &gt; &amp;items)</div><div class="ttdef"><b>Definition</b> Vec.h:335</div></div>
 <div class="ttc" id="aclassgeom_1_1_vec_html_a50c921325ab6fe661c7c080aaacfa735"><div class="ttname"><a href="classgeom_1_1_vec.html#a50c921325ab6fe661c7c080aaacfa735">geom::Vec::Vec</a></div><div class="ttdeci">constexpr Vec(const Vec&lt; U, N-1 &gt; &amp;v, T a)</div><div class="ttdef"><b>Definition</b> Vec.h:300</div></div>
-<div class="ttc" id="aclassgeom_1_1_vec_html_a696315664382e3a7ba7792626216001d"><div class="ttname"><a href="classgeom_1_1_vec.html#a696315664382e3a7ba7792626216001d">geom::Vec::Vec</a></div><div class="ttdeci">Vec(detail::MtxColIterator&lt; Mx, Ref &gt; mtx_col)</div><div class="ttdef"><b>Definition</b> Vec.h:310</div></div>
+<div class="ttc" id="aclassgeom_1_1_vec_html_a696315664382e3a7ba7792626216001d"><div class="ttname"><a href="classgeom_1_1_vec.html#a696315664382e3a7ba7792626216001d">geom::Vec::Vec</a></div><div class="ttdeci">Vec(detail::MtxColIterator&lt; Mx, Ref &gt; mtx_col)</div><div class="ttdef"><b>Definition</b> Vec.h:320</div></div>
 <div class="ttc" id="aclassgeom_1_1_vec_html_a82ee8ad6f7a24da21631005335440884"><div class="ttname"><a href="classgeom_1_1_vec.html#a82ee8ad6f7a24da21631005335440884">geom::Vec&lt; double, 2 &gt;::Vec</a></div><div class="ttdeci">constexpr Vec()</div><div class="ttdef"><b>Definition</b> Vec.h:278</div></div>
+<div class="ttc" id="aclassgeom_1_1_vec_html_aadd615a8b698edf771e7456d095ae8d4"><div class="ttname"><a href="classgeom_1_1_vec.html#aadd615a8b698edf771e7456d095ae8d4">geom::Vec::Vec</a></div><div class="ttdeci">constexpr Vec(const Vec&lt; T, M &gt; &amp;...vecs)</div><div class="ttdoc">Construct a new vector by concatenating two or more vectors.</div><div class="ttdef"><b>Definition</b> Vec.h:310</div></div>
 <div class="ttc" id="aclassgeom_1_1_vec_html_ac1d78c59b793ab585c09a5bf6ed4c9a0"><div class="ttname"><a href="classgeom_1_1_vec.html#ac1d78c59b793ab585c09a5bf6ed4c9a0">geom::Vec::Vec</a></div><div class="ttdeci">constexpr Vec(T a)</div><div class="ttdef"><b>Definition</b> Vec.h:285</div></div>
 <div class="ttc" id="aclassgeom_1_1_vec_html_af098193952fe60e68d6c8f853a596b22"><div class="ttname"><a href="classgeom_1_1_vec.html#af098193952fe60e68d6c8f853a596b22">geom::Vec::Vec</a></div><div class="ttdeci">constexpr Vec(const T a[N])</div><div class="ttdef"><b>Definition</b> Vec.h:291</div></div>
 <div class="ttc" id="aclassgeom_1_1detail_1_1_mtx_col_iterator_html"><div class="ttname"><a href="classgeom_1_1detail_1_1_mtx_col_iterator.html">geom::detail::MtxColIterator</a></div><div class="ttdef"><b>Definition</b> MatrixIterator.h:132</div></div>
+<div class="ttc" id="aclassgeom_1_1detail_1_1_vec_base_html_a0dcd4e15c18bbf90a93bb95d82df23b5"><div class="ttname"><a href="classgeom_1_1detail_1_1_vec_base.html#a0dcd4e15c18bbf90a93bb95d82df23b5">geom::detail::VecBase::end</a></div><div class="ttdeci">const T * end() const</div><div class="ttdef"><b>Definition</b> VecBase.h:97</div></div>
 <div class="ttc" id="aclassgeom_1_1detail_1_1_vec_base_html_a4839af7cf4a032c2fe9d5fcfd23a4681"><div class="ttname"><a href="classgeom_1_1detail_1_1_vec_base.html#a4839af7cf4a032c2fe9d5fcfd23a4681">geom::detail::VecCommon&lt; T, N, Vec&lt; T, N &gt; &gt;::get</a></div><div class="ttdeci">const T &amp; get(index_t idx) const</div><div class="ttdef"><b>Definition</b> VecBase.h:78</div></div>
 <div class="ttc" id="aclassgeom_1_1detail_1_1_vec_base_html_af0a897cde3fdfce253880ea82e6ecae8"><div class="ttname"><a href="classgeom_1_1detail_1_1_vec_base.html#af0a897cde3fdfce253880ea82e6ecae8">geom::detail::VecBase::begin</a></div><div class="ttdeci">const T * begin() const</div><div class="ttdef"><b>Definition</b> VecBase.h:92</div></div>
 <div class="ttc" id="aclassgeom_1_1detail_1_1_vec_common_html"><div class="ttname"><a href="classgeom_1_1detail_1_1_vec_common.html">geom::detail::VecCommon</a></div><div class="ttdoc">Common base for all Vec-derived classes. Do not instantiate directly.</div><div class="ttdef"><b>Definition</b> VecBase.h:321</div></div>
@@ -348,7 +359,7 @@ $(function(){ initResizable(false); });
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 1 2025 12:23:15 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

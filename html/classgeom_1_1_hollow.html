@@ -92,6 +92,7 @@ $(function(){ initResizable(false); });
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classgeom_1_1_hollow-members.html">List of all members</a>  </div>
@@ -161,9 +162,18 @@ T&#160;</td><td class="memItemRight" valign="bottom"><b>sdf</b> (<a class="el" h
 <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>bounds</b> () const</td></tr>
 <tr class="memdesc:a9169a12164a1950abed5f76c559691e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the axis-aligned bounding box of the shape. <br /></td></tr>
 <tr class="separator:a9169a12164a1950abed5f76c559691e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afabbb2f32d7fe83dec992e14929fb0e1" id="r_afabbb2f32d7fe83dec992e14929fb0e1"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afabbb2f32d7fe83dec992e14929fb0e1">measure_boundary</a> () const</td></tr>
+<tr class="memdesc:afabbb2f32d7fe83dec992e14929fb0e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure the boundary (surface area) of the shape.  <br /></td></tr>
+<tr class="separator:afabbb2f32d7fe83dec992e14929fb0e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa7e52ba6a1acc0a13a0ce3e4a1a6af22" id="r_gaa7e52ba6a1acc0a13a0ce3e4a1a6af22"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__shape.html#gaa7e52ba6a1acc0a13a0ce3e4a1a6af22">contains</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; Shape::elem_t, N &gt; p) const</td></tr>
 <tr class="memdesc:gaa7e52ba6a1acc0a13a0ce3e4a1a6af22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shape-point overlap test.  <br /></td></tr>
 <tr class="separator:gaa7e52ba6a1acc0a13a0ce3e4a1a6af22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:acb8ff67a13a696b1eb2b0ef2764c89b2" id="r_acb8ff67a13a696b1eb2b0ef2764c89b2"><td class="memItemLeft" align="right" valign="top"><a id="acb8ff67a13a696b1eb2b0ef2764c89b2" name="acb8ff67a13a696b1eb2b0ef2764c89b2"></a>
+static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><b>admits_cusps</b> ()</td></tr>
+<tr class="separator:acb8ff67a13a696b1eb2b0ef2764c89b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -238,13 +248,43 @@ class geom::Hollow&lt; Shape &gt;</div><p>Selects the boundary of a shape. </p>
 
 </div>
 </div>
+<a id="afabbb2f32d7fe83dec992e14929fb0e1" name="afabbb2f32d7fe83dec992e14929fb0e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afabbb2f32d7fe83dec992e14929fb0e1">&#9670;&#160;</a></span>measure_boundary()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Shape&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T measure_boundary </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Measure the boundary (surface area) of the shape. </p>
+<p>This is the same as the boundary of the inner shape. <a class="el" href="classgeom_1_1_hollow.html" title="Selects the boundary of a shape.">Hollow</a> shapes do not have any volume, so this is their only meaningful measure. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>geomc/shape/<a class="el" href="_hollow_8h_source.html">Hollow.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 1 2025 12:23:16 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

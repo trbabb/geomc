@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['sdfobject_0',['SdfObject',['../conceptgeom_1_1_sdf_object.html',1,'geom']]]
+  ['projectableobject_0',['ProjectableObject',['../conceptgeom_1_1_projectable_object.html',1,'geom']]]
 ];

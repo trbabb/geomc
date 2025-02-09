@@ -8,6 +8,7 @@ var searchData=
   ['unit_5',['unit',['../classgeom_1_1detail_1_1_vec_common.html#aa61519ef33773b71e3132b7d717a03fd',1,'geom::detail::VecCommon::unit()'],['../classgeom_1_1detail_1_1_vec_common.html#aa61519ef33773b71e3132b7d717a03fd',1,'geom::Vec&lt; T, 2 &gt;::unit()'],['../classgeom_1_1detail_1_1_vec_common.html#aa61519ef33773b71e3132b7d717a03fd',1,'geom::Vec&lt; T, 3 &gt;::unit()'],['../classgeom_1_1detail_1_1_vec_common.html#aa61519ef33773b71e3132b7d717a03fd',1,'geom::Vec&lt; T, 4 &gt;::unit()']]],
   ['unit_5finterval_6',['unit_interval',['../classgeom_1_1_rect.html#a6509deedabc0ba4dd5d0ef91abd8a2b2',1,'geom::Rect']]],
   ['unmanagedstorage_7',['UnmanagedStorage',['../structgeom_1_1_unmanaged_storage.html',1,'geom']]],
-  ['unmap_8',['unmap',['../classgeom_1_1_rect.html#acf00c25e6537699c4f7b3e82c07d33f1',1,'geom::Rect']]],
-  ['use_9',['Use',['../structgeom_1_1_dual.html#autotoc_md1',1,'Use'],['../group__matrix.html#autotoc_md9',1,'Use']]]
+  ['unmap_8',['unmap',['../classgeom_1_1_rect.html#acf00c25e6537699c4f7b3e82c07d33f1',1,'geom::Rect::unmap(point_t p) const'],['../classgeom_1_1_rect.html#a1566f00eb4d2356ee78aa67e58ad0496',1,'geom::Rect::unmap(Vec&lt; T, M &gt; p) const']]],
+  ['unmap_5ftransform_9',['unmap_transform',['../namespacegeom.html#a73500d71b6d7f27a11dd7ec845754828',1,'geom']]],
+  ['use_10',['Use',['../structgeom_1_1_dual.html#autotoc_md1',1,'Use'],['../group__matrix.html#autotoc_md9',1,'Use']]]
 ];

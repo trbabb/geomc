@@ -92,6 +92,7 @@ $(function(){ initResizable(false); });
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#related">Related Symbols</a> &#124;
@@ -193,6 +194,14 @@ T&#160;</td><td class="memItemRight" valign="bottom"><b>sdf</b> (<a class="el" h
 <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>project</b> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; p) const</td></tr>
 <tr class="memdesc:a9e57fd00e7d076a23e33a60062c5d005"><td class="mdescLeft">&#160;</td><td class="mdescRight">Orthogonally project <code>p</code> to the surface of this shape. <br /></td></tr>
 <tr class="separator:a9e57fd00e7d076a23e33a60062c5d005"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36389d1aebb3d2b10f5dd6e854a9539a" id="r_a36389d1aebb3d2b10f5dd6e854a9539a"><td class="memItemLeft" align="right" valign="top"><a id="a36389d1aebb3d2b10f5dd6e854a9539a" name="a36389d1aebb3d2b10f5dd6e854a9539a"></a>
+T&#160;</td><td class="memItemRight" valign="bottom"><b>measure_interior</b> () const</td></tr>
+<tr class="memdesc:a36389d1aebb3d2b10f5dd6e854a9539a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure the interior (volume) of the shape. <br /></td></tr>
+<tr class="separator:a36389d1aebb3d2b10f5dd6e854a9539a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afabbb2f32d7fe83dec992e14929fb0e1" id="r_afabbb2f32d7fe83dec992e14929fb0e1"><td class="memItemLeft" align="right" valign="top"><a id="afabbb2f32d7fe83dec992e14929fb0e1" name="afabbb2f32d7fe83dec992e14929fb0e1"></a>
+T&#160;</td><td class="memItemRight" valign="bottom"><b>measure_boundary</b> () const</td></tr>
+<tr class="memdesc:afabbb2f32d7fe83dec992e14929fb0e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure the boundary (surface area) of the shape. <br /></td></tr>
+<tr class="separator:afabbb2f32d7fe83dec992e14929fb0e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf6af4e3e4e412edc6e07c9d7721e3a6c" id="r_gaf6af4e3e4e412edc6e07c9d7721e3a6c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__shape.html#gaf6af4e3e4e412edc6e07c9d7721e3a6c">convex_support</a> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> d) const</td></tr>
 <tr class="memdesc:gaf6af4e3e4e412edc6e07c9d7721e3a6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geometric convex support function.  <br /></td></tr>
 <tr class="separator:gaf6af4e3e4e412edc6e07c9d7721e3a6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -205,6 +214,12 @@ T&#160;</td><td class="memItemRight" valign="bottom"><b>sdf</b> (<a class="el" h
 <tr class="memitem:gaa7e52ba6a1acc0a13a0ce3e4a1a6af22" id="r_gaa7e52ba6a1acc0a13a0ce3e4a1a6af22"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__shape.html#gaa7e52ba6a1acc0a13a0ce3e4a1a6af22">contains</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; Shape::elem_t, N &gt; p) const</td></tr>
 <tr class="memdesc:gaa7e52ba6a1acc0a13a0ce3e4a1a6af22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shape-point overlap test.  <br /></td></tr>
 <tr class="separator:gaa7e52ba6a1acc0a13a0ce3e4a1a6af22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:acb8ff67a13a696b1eb2b0ef2764c89b2" id="r_acb8ff67a13a696b1eb2b0ef2764c89b2"><td class="memItemLeft" align="right" valign="top"><a id="acb8ff67a13a696b1eb2b0ef2764c89b2" name="acb8ff67a13a696b1eb2b0ef2764c89b2"></a>
+static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><b>admits_cusps</b> ()</td></tr>
+<tr class="separator:acb8ff67a13a696b1eb2b0ef2764c89b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -448,7 +463,7 @@ template&lt;typename Shape&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 1 2025 12:23:16 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Sat Feb 8 2025 18:58:10 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

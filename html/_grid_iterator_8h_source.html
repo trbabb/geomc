@@ -205,7 +205,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <span class="keyword">inline</span> <span class="keywordtype">void</span> advance(index_t n) {</div>
 <div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        <a class="code hl_typedef" href="classgeom_1_1_grid_iterator.html#a4a0e3e1855b80e670018f5318d4278bf">point_t</a> dest = <a class="code hl_typedef" href="classgeom_1_1_grid_iterator.html#a4a0e3e1855b80e670018f5318d4278bf">point_t</a>(0);</div>
 <div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <a class="code hl_typedef" href="classgeom_1_1_grid_iterator.html#a4a0e3e1855b80e670018f5318d4278bf">point_t</a> dim  = <a class="code hl_variable" href="classgeom_1_1_grid_iterator.html#ade6957c546b8892a6c3e6faa5b6dda3b">region</a>.dimensions();</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        index_t vol  = <a class="code hl_variable" href="classgeom_1_1_grid_iterator.html#ade6957c546b8892a6c3e6faa5b6dda3b">region</a>.volume();</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        index_t vol  = <a class="code hl_variable" href="classgeom_1_1_grid_iterator.html#ade6957c546b8892a6c3e6faa5b6dda3b">region</a>.measure_interior();</div>
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        </div>
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        <span class="keywordflow">for</span> (index_t i = dim_last; i != dim_first - dim_increment; i -= dim_increment) {</div>
 <div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>            vol     = vol / dim[i];</div>
@@ -335,7 +335,7 @@ $(function(){ initResizable(false); });
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 1 2025 12:23:15 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

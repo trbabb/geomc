@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['projectableobject_0',['ProjectableObject',['../conceptgeom_1_1_projectable_object.html',1,'geom']]]
+  ['interiormeasurableobject_0',['InteriorMeasurableObject',['../conceptgeom_1_1_interior_measurable_object.html',1,'geom']]]
 ];

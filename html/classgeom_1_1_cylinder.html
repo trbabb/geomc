@@ -92,6 +92,7 @@ $(function(){ initResizable(false); });
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classgeom_1_1_cylinder-members.html">List of all members</a>  </div>
@@ -163,6 +164,14 @@ T&#160;</td><td class="memItemRight" valign="bottom"><b>sdf</b> (<a class="el" h
 <tr class="memitem:ab3817bcebe246da3c713de1f8638cf7c" id="r_ab3817bcebe246da3c713de1f8638cf7c"><td class="memItemLeft" align="right" valign="top"><a id="ab3817bcebe246da3c713de1f8638cf7c" name="ab3817bcebe246da3c713de1f8638cf7c"></a>
 <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>convex_support</b> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; d) const</td></tr>
 <tr class="separator:ab3817bcebe246da3c713de1f8638cf7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55aae4fe1bce3c945d3540e53012a753" id="r_a55aae4fe1bce3c945d3540e53012a753"><td class="memItemLeft" align="right" valign="top"><a id="a55aae4fe1bce3c945d3540e53012a753" name="a55aae4fe1bce3c945d3540e53012a753"></a>
+T&#160;</td><td class="memItemRight" valign="bottom"><b>measure_interior</b> () const</td></tr>
+<tr class="memdesc:a55aae4fe1bce3c945d3540e53012a753"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure the interior (volume) of the cylinder. <br /></td></tr>
+<tr class="separator:a55aae4fe1bce3c945d3540e53012a753"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23c2da2517139d0feb90edfc644c9250" id="r_a23c2da2517139d0feb90edfc644c9250"><td class="memItemLeft" align="right" valign="top"><a id="a23c2da2517139d0feb90edfc644c9250" name="a23c2da2517139d0feb90edfc644c9250"></a>
+T&#160;</td><td class="memItemRight" valign="bottom"><b>measure_boundary</b> () const</td></tr>
+<tr class="memdesc:a23c2da2517139d0feb90edfc644c9250"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure the boundary (surface area) of the cylinder. <br /></td></tr>
+<tr class="separator:a23c2da2517139d0feb90edfc644c9250"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee7e67d36552eea7dd1602308b133f92" id="r_aee7e67d36552eea7dd1602308b133f92"><td class="memItemLeft" align="right" valign="top"><a id="aee7e67d36552eea7dd1602308b133f92" name="aee7e67d36552eea7dd1602308b133f92"></a>
 <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, 1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>intersect</b> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;ray) const</td></tr>
 <tr class="memdesc:aee7e67d36552eea7dd1602308b133f92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ray/shape intersection test. <br /></td></tr>
@@ -176,6 +185,12 @@ T&#160;</td><td class="memItemRight" valign="bottom"><b>sdf</b> (<a class="el" h
 <tr class="memitem:gaf1ce72ac22267627f5e7b46fc655bac5" id="r_gaf1ce72ac22267627f5e7b46fc655bac5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__shape.html#gaf1ce72ac22267627f5e7b46fc655bac5">clip</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; p) const</td></tr>
 <tr class="memdesc:gaf1ce72ac22267627f5e7b46fc655bac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nearest point on the interior of the shape.  <br /></td></tr>
 <tr class="separator:gaf1ce72ac22267627f5e7b46fc655bac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:acb8ff67a13a696b1eb2b0ef2764c89b2" id="r_acb8ff67a13a696b1eb2b0ef2764c89b2"><td class="memItemLeft" align="right" valign="top"><a id="acb8ff67a13a696b1eb2b0ef2764c89b2" name="acb8ff67a13a696b1eb2b0ef2764c89b2"></a>
+static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><b>admits_cusps</b> ()</td></tr>
+<tr class="separator:acb8ff67a13a696b1eb2b0ef2764c89b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -404,7 +419,7 @@ template&lt;typename T, index_t N&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 1 2025 12:23:16 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

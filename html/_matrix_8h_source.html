@@ -641,7 +641,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00880" name="l00880"></a><span class="lineno">  880</span><span class="comment"> *********************************/</span></div>
 <div class="line"><a id="l00881" name="l00881"></a><span class="lineno">  881</span></div>
 <div class="line"><a id="l00890" name="l00890"></a><span class="lineno">  890</span><span class="preprocessor">#ifdef PARSING_DOXYGEN</span></div>
-<div class="line"><a id="l00891" name="l00891"></a><span class="lineno"><a class="line" href="group__matrix.html#gad75facb4800e7572c6ab6fb65d010a40">  891</a></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> U <span class="keyword">typename</span> Matrix, <span class="keyword">typename</span> Matrix&gt; <span class="keywordtype">void</span> <a class="code hl_function" href="group__matrix.html#gad75facb4800e7572c6ab6fb65d010a40">scale</a>(Matrix1 *d, U k, <span class="keyword">const</span> Matrix &amp;m) {}</div>
+<div class="line"><a id="l00891" name="l00891"></a><span class="lineno"><a class="line" href="group__matrix.html#gad75facb4800e7572c6ab6fb65d010a40">  891</a></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> U <span class="keyword">typename</span> Matrix, <span class="keyword">typename</span> Matrix&gt; <span class="keywordtype">void</span> scale(Matrix1 *d, U k, <span class="keyword">const</span> Matrix &amp;m) {}</div>
 <div class="line"><a id="l00892" name="l00892"></a><span class="lineno">  892</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00893" name="l00893"></a><span class="lineno">  893</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> U, <span class="keyword">typename</span> Mx, <span class="keyword">typename</span> Md&gt;</div>
 <div class="line"><a id="l00894" name="l00894"></a><span class="lineno">  894</span><span class="keyword">typename</span> std::enable_if&lt;</div>
@@ -650,7 +650,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00897" name="l00897"></a><span class="lineno">  897</span>    detail::MatrixDimensionMatch&lt;Mx,Md&gt;::isStaticMatch,</div>
 <div class="line"><a id="l00898" name="l00898"></a><span class="lineno">  898</span>    <span class="keywordtype">void</span></div>
 <div class="line"><a id="l00899" name="l00899"></a><span class="lineno">  899</span>&gt;::type </div>
-<div class="line"><a id="l00900" name="l00900"></a><span class="lineno">  900</span><a class="code hl_function" href="group__matrix.html#gad75facb4800e7572c6ab6fb65d010a40">scale</a>(Md *d, U k, <span class="keyword">const</span> Mx &amp;m) {</div>
+<div class="line"><a id="l00900" name="l00900"></a><span class="lineno">  900</span>scale(Md *d, U k, <span class="keyword">const</span> Mx &amp;m) {</div>
 <div class="line"><a id="l00901" name="l00901"></a><span class="lineno">  901</span>    <span class="keyword">typedef</span> detail::_ImplMatrixScale&lt;Mx&gt; scale_t;</div>
 <div class="line"><a id="l00902" name="l00902"></a><span class="lineno">  902</span><span class="preprocessor">#ifdef GEOMC_MTX_CHECK_DIMS</span></div>
 <div class="line"><a id="l00903" name="l00903"></a><span class="lineno">  903</span>    detail::MatrixDimensionMatch&lt;Mx,Md&gt;::check(m,*d);</div>
@@ -659,7 +659,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00906" name="l00906"></a><span class="lineno">  906</span>}</div>
 <div class="line"><a id="l00907" name="l00907"></a><span class="lineno">  907</span></div>
 <div class="line"><a id="l00916" name="l00916"></a><span class="lineno">  916</span><span class="preprocessor">#ifdef PARSING_DOXYGEN</span></div>
-<div class="line"><a id="l00917" name="l00917"></a><span class="lineno"><a class="line" href="group__matrix.html#ga001a4668f21e018822b92cd7ecec0cb3">  917</a></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> U, <span class="keyword">typename</span> Matrix&gt; Matrix <a class="code hl_function" href="group__matrix.html#gad75facb4800e7572c6ab6fb65d010a40">scale</a>(U k, <span class="keyword">const</span> Matrix &amp;m) {}</div>
+<div class="line"><a id="l00917" name="l00917"></a><span class="lineno"><a class="line" href="group__matrix.html#ga001a4668f21e018822b92cd7ecec0cb3">  917</a></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> U, <span class="keyword">typename</span> Matrix&gt; Matrix scale(U k, <span class="keyword">const</span> Matrix &amp;m) {}</div>
 <div class="line"><a id="l00918" name="l00918"></a><span class="lineno">  918</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00919" name="l00919"></a><span class="lineno">  919</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> U, <span class="keyword">typename</span> Mx&gt;</div>
 <div class="line"><a id="l00920" name="l00920"></a><span class="lineno">  920</span><span class="keyword">typename</span> std::enable_if&lt;</div>
@@ -667,7 +667,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00922" name="l00922"></a><span class="lineno">  922</span>    std::is_scalar&lt;U&gt;::value,</div>
 <div class="line"><a id="l00923" name="l00923"></a><span class="lineno">  923</span>    <span class="keyword">typename</span> detail::_ImplMatrixScale&lt;Mx&gt;::return_t</div>
 <div class="line"><a id="l00924" name="l00924"></a><span class="lineno">  924</span>&gt;::type </div>
-<div class="line"><a id="l00925" name="l00925"></a><span class="lineno">  925</span><a class="code hl_function" href="group__matrix.html#gad75facb4800e7572c6ab6fb65d010a40">scale</a>(U k, <span class="keyword">const</span> Mx &amp;m) {</div>
+<div class="line"><a id="l00925" name="l00925"></a><span class="lineno">  925</span>scale(U k, <span class="keyword">const</span> Mx &amp;m) {</div>
 <div class="line"><a id="l00926" name="l00926"></a><span class="lineno">  926</span>    <span class="keyword">typedef</span> detail::_ImplMatrixScale&lt;Mx&gt; scale_t;</div>
 <div class="line"><a id="l00927" name="l00927"></a><span class="lineno">  927</span>    <span class="keyword">typedef</span> <span class="keyword">typename</span> scale_t::return_t return_t;</div>
 <div class="line"><a id="l00928" name="l00928"></a><span class="lineno">  928</span>    return_t into = return_t(m.rows(), m.cols());</div>
@@ -687,7 +687,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00948" name="l00948"></a><span class="lineno">  948</span>    detail::IsMatrix&lt;Mx&gt;::val and std::is_scalar&lt;U&gt;::value,</div>
 <div class="line"><a id="l00949" name="l00949"></a><span class="lineno">  949</span>    <span class="keyword">typename</span> detail::_ImplMatrixScale&lt;Mx&gt;::return_t</div>
 <div class="line"><a id="l00950" name="l00950"></a><span class="lineno">  950</span>&gt;::type <a class="code hl_function" href="namespacegeom.html#a469605eae3a001fbf0bee6e894532f3c">operator*</a>(U k, <span class="keyword">const</span> Mx &amp;m) {</div>
-<div class="line"><a id="l00951" name="l00951"></a><span class="lineno">  951</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="group__matrix.html#gad75facb4800e7572c6ab6fb65d010a40">scale</a>(k,m);</div>
+<div class="line"><a id="l00951" name="l00951"></a><span class="lineno">  951</span>    <span class="keywordflow">return</span> scale(k,m);</div>
 <div class="line"><a id="l00952" name="l00952"></a><span class="lineno">  952</span>}</div>
 <div class="line"><a id="l00953" name="l00953"></a><span class="lineno">  953</span></div>
 <div class="line"><a id="l00960" name="l00960"></a><span class="lineno">  960</span><span class="preprocessor">#ifdef PARSING_DOXYGEN</span></div>
@@ -698,7 +698,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00965" name="l00965"></a><span class="lineno">  965</span>    detail::IsMatrix&lt;Mx&gt;::val and std::is_scalar&lt;U&gt;::value,</div>
 <div class="line"><a id="l00966" name="l00966"></a><span class="lineno">  966</span>    <span class="keyword">typename</span> detail::_ImplMatrixScale&lt;Mx&gt;::return_t</div>
 <div class="line"><a id="l00967" name="l00967"></a><span class="lineno">  967</span>&gt;::type <a class="code hl_function" href="namespacegeom.html#a469605eae3a001fbf0bee6e894532f3c">operator*</a>(<span class="keyword">const</span> Mx &amp;m, U k) {</div>
-<div class="line"><a id="l00968" name="l00968"></a><span class="lineno">  968</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="group__matrix.html#gad75facb4800e7572c6ab6fb65d010a40">scale</a>(k,m);</div>
+<div class="line"><a id="l00968" name="l00968"></a><span class="lineno">  968</span>    <span class="keywordflow">return</span> scale(k,m);</div>
 <div class="line"><a id="l00969" name="l00969"></a><span class="lineno">  969</span>}</div>
 <div class="line"><a id="l00970" name="l00970"></a><span class="lineno">  970</span></div>
 <div class="line"><a id="l00978" name="l00978"></a><span class="lineno">  978</span><span class="preprocessor">#ifdef PARSING_DOXYGEN</span></div>
@@ -830,7 +830,6 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="agroup__matrix_html_ga2f898de1c92712aa01388d9302bb61da"><div class="ttname"><a href="group__matrix.html#ga2f898de1c92712aa01388d9302bb61da">geom::operator!=</a></div><div class="ttdeci">bool operator!=(const Matrix1 &amp;a, const Matrix2 &amp;b)</div><div class="ttdef"><b>Definition</b> Matrix.h:1102</div></div>
 <div class="ttc" id="agroup__matrix_html_gaa944b9a37e5ff0157724b7625d004674"><div class="ttname"><a href="group__matrix.html#gaa944b9a37e5ff0157724b7625d004674">geom::add</a></div><div class="ttdeci">void add(Matrix *d, const Matrix1 &amp;a, const Matrix2 &amp;b)</div><div class="ttdef"><b>Definition</b> Matrix.h:780</div></div>
 <div class="ttc" id="agroup__matrix_html_gad0bdc9a1392c82fa16cda590742b442a"><div class="ttname"><a href="group__matrix.html#gad0bdc9a1392c82fa16cda590742b442a">geom::sub</a></div><div class="ttdeci">void sub(Matrix *d, const Matrix1 &amp;a, const Matrix2 &amp;b)</div><div class="ttdef"><b>Definition</b> Matrix.h:806</div></div>
-<div class="ttc" id="agroup__matrix_html_gad75facb4800e7572c6ab6fb65d010a40"><div class="ttname"><a href="group__matrix.html#gad75facb4800e7572c6ab6fb65d010a40">geom::scale</a></div><div class="ttdeci">void scale(Matrix1 *d, U k, const Matrix &amp;m)</div><div class="ttdef"><b>Definition</b> Matrix.h:891</div></div>
 <div class="ttc" id="agroup__matrix_html_gaddebe98a06082a435254a640ba53e28c"><div class="ttname"><a href="group__matrix.html#gaddebe98a06082a435254a640ba53e28c">geom::mtx_aliases_storage</a></div><div class="ttdeci">bool mtx_aliases_storage(const Ma &amp;a, const Mb &amp;b)</div><div class="ttdef"><b>Definition</b> Matrix.h:311</div></div>
 <div class="ttc" id="agroup__matrix_html_gaf4cc58853d04688d1bf2dc0ed7feb78b"><div class="ttname"><a href="group__matrix.html#gaf4cc58853d04688d1bf2dc0ed7feb78b">geom::mul</a></div><div class="ttdeci">Matrix &amp; mul(Matrix *into, const Matrix1 &amp;a, const Matrix2 &amp;b)</div><div class="ttdef"><b>Definition</b> Matrix.h:363</div></div>
 <div class="ttc" id="anamespacegeom_html"><div class="ttname"><a href="namespacegeom.html">geom</a></div><div class="ttdoc">Namespace of all geomc functions and classes.</div><div class="ttdef"><b>Definition</b> Deque.h:10</div></div>
@@ -844,7 +843,7 @@ $(function(){ initResizable(false); });
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 1 2025 12:23:15 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>
