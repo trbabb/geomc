@@ -61,7 +61,7 @@ public:
     using Convex<T,N,Similar<Shape>>::intersects;
     
     /// @brief Intersecion with another similar shape.
-    /// Requires that the our shape can intersect the other shape's base shape.
+    /// Available if our shape can intersect the other shape's base shape.
     template <typename S>
     bool intersects(const Similar<S>& s) const 
         requires requires (const Similar<Shape> s, const S b) { s.intersects(b); }
@@ -74,7 +74,7 @@ public:
     }
     
     /// @brief Intersection with another shape.
-    /// Requires that the other shape can be transformed into our space
+    /// Available if the other shape can be transformed into our space
     /// while preserving its type.
     template <typename S>
     bool intersects(const S& s) const 
@@ -222,6 +222,16 @@ struct Digest<Similar<Shape>, H> {
         return geom::hash_many<H>(nonce, s.shape, s.xf);
     }
 };
+
+#ifdef GEOMC_USE_STREAMS
+
+template <typename Shape>
+std::ostream& operator<<(std::ostream& os, const Similar<Shape>& s) {
+    os << "Similar(" << s.shape << ", " << s.xf << ")";
+    return os;
+}
+
+#endif
 
 } // namespace geom
 

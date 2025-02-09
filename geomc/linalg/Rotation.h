@@ -383,4 +383,19 @@ struct Digest<Rotation<T,3>, H> {
     }
 };
 
+
+#ifdef GEOMC_USE_STREAMS
+
+template <typename T, index_t N>
+std::ostream& operator<<(std::ostream& os, const Rotation<T,N>& rot) {
+    if constexpr (N == 2) {
+        os << "Rx(" << rot.radians << ")"; // Rx(1.14264)
+    } else if constexpr (N == 3) {
+        os << "Rx" << rot.q;  // Rx(0.1, 0.2, 0.3, 0.4)
+    }
+    return os;
+}
+
+#endif
+
 } // namespace geom

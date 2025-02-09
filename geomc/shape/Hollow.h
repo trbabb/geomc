@@ -151,6 +151,16 @@ struct Digest<Hollow<Shape>, H> {
     }
 };
 
+#ifdef GEOMC_USE_STREAMS
+
+template <typename Shape>
+std::ostream& operator<<(std::ostream& os, const Hollow<Shape>& h) {
+    os << "Hollow(" << h.shape << ")";
+    return os;
+}
+
+#endif
+
 }  // namespace geom
 
 template <typename Shape>

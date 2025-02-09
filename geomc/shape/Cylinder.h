@@ -235,7 +235,7 @@ class Cylinder:
         
         // construct an interval holding the ray's overlap with the infinite cylinder
         if (k0 != 0 and quadratic_solve(roots, k0, k1, k2)) {
-            interval = Rect<T,1>::spanning_corners(roots[0], roots[1]);
+            interval = Rect<T,1>::from_corners(roots[0], roots[1]);
         } else if (k2 < 0) {
             // if there is no intersection, then it might be the case that 
             // the ray points exactly down the interior of the cylinder, which
@@ -259,7 +259,7 @@ class Cylinder:
             T s0 = -z0 / m;
             T s1 = -z1 / m;
             // intersect the slab with the cylinder
-            interval &= Rect<T,1>::spanning_corners(s0, s1);
+            interval &= Rect<T,1>::from_corners(s0, s1);
         } else if (s < 0 or s > 1) {
             // ray is parallel to the slab and outside of it
             return Rect<T,1>::empty;
@@ -330,6 +330,16 @@ struct Digest<Cylinder<T,N>,H> {
         return geom::hash_many<H>(nonce, c.p0, c.p1, c.radius);
     }
 };
+
+#ifdef GEOMC_USE_STREAMS
+
+template <typename T, index_t N>
+std::ostream& operator<<(std::ostream& os, const Cylinder<T,N>& cyl) {
+    os << "Cylinder(" << cyl.p0 << ", " << cyl.p1 << ", " << cyl.radius << ")";
+    return os;
+}
+
+#endif
 
     
 } // namespace geom

@@ -193,7 +193,7 @@ public:
         T p_hi_x = hi.fraction_on(ray.direction);
         
         // construct the interval of overlap with the infinite frustum.
-        s = Rect<T,1>::spanning_corners(
+        s = Rect<T,1>::from_corners(
             p_lo_x / p_lo_y - o_x,
             p_hi_x / p_hi_y - o_x
         );
@@ -308,6 +308,16 @@ struct Digest<Frustum<Shape>, H> {
         return geom::hash_many<H>(nonce, s.base, s.height);
     }
 };
+
+#ifdef GEOMC_USE_STREAMS
+
+template <typename Shape>
+std::ostream& operator<<(std::ostream& os, const Frustum<Shape>& f) {
+    os << "Frustum(" << f.base << ", " << f.height << ")";
+    return os;
+}
+
+#endif
 
 } // namespace geom
 

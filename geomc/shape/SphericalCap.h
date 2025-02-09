@@ -219,4 +219,32 @@ public:
     
 };
 
+
+template <typename T, index_t N, typename H>
+struct Digest<SphericalCap<T,N>, H> {
+    H operator()(const SphericalCap<T,N>& cap) const {
+        H nonce = geom::truncated_constant<H>(0x5a092e17fac3e8c8, 0x3c6d5c1c20e8fda8);
+        return geom::hash_many<H>(nonce, cap.half_angle_radians);
+    }
+};
+
+#ifdef GEOMC_USE_STREAMS
+
+template <typename T, index_t N>
+std::ostream& operator<<(std::ostream& os, const SphericalCap<T,N>& cap) {
+    os << "SphericalCap(" << cap.half_angle_radians << ")";
+    return os;
+}
+
+#endif
+
+
 } // namespace geom
+
+
+template <typename T, index_t N>
+struct std::hash<geom::SphericalCap<T,N>> {
+    size_t operator()(const geom::SphericalCap<T,N> &cap) const {
+        return geom::hash<geom::SphericalCap<T,N>, size_t>(cap);
+    }
+};

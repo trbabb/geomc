@@ -278,7 +278,7 @@ public:
                     if (k_i != 0) {
                         T s0 =     -p_i  / k_i;
                         T s1 = (1 - p_i) / k_i;
-                        interval &= Rect<T,1>::spanning_corners(s0, s1);
+                        interval &= Rect<T,1>::from_corners(s0, s1);
                     } else if (p_i < 0 or p_i > 1) {
                         // if p_i is outside (0, 1) then no value of `s` can solve w_i in
                         // (0, 1), because with k = 0 there is no dependency on s!
@@ -683,6 +683,21 @@ struct Digest<Simplex<T,N>, H> {
         return geom::hash_array<H>(nonce, s.pts, s.n);
     }
 };
+
+#ifdef GEOMC_USE_STREAMS
+
+template <typename T, index_t N>
+std::ostream& operator<<(std::ostream& os, const Simplex<T,N>& s) {
+    os << "Simplex(";
+    for (index_t i = 0; i < s.n; ++i) {
+        if (i > 0) os << ", ";
+        os << s.pts[i];
+    }
+    os << ")";
+    return os;
+}
+
+#endif
 
 } // namespace geom
 

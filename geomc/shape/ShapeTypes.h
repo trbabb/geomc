@@ -15,14 +15,14 @@
 
 namespace geom {
     
-/** @addtogroup shape 
-    *  @{
-    */
-
+/**
+ * @addtogroup shape 
+ * @{
+ */
 
 /** 
-    * @brief Array traversal order, specified in terms of which axes to increment first.
-    */
+ * @brief Array traversal order, specified in terms of which axes to increment first.
+ */
 enum ArrayOrder {
     /**
         * @brief Array traversal by incrementing the first coordinate in the 

@@ -267,6 +267,16 @@ struct Digest<Plane<T,N>, H> {
     }
 };
 
+#ifdef GEOMC_USE_STREAMS
+
+template <typename T, index_t N>
+std::ostream& operator<<(std::ostream& os, const Plane<T,N>& p) {
+    os << "Plane(" << p.normal << ", " << p.d << ")";
+    return os;
+}
+
+#endif
+
 } // namespace geom
 
 

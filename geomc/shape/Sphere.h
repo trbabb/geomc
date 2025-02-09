@@ -137,7 +137,7 @@ public:
         T c = x0.mag2() - r2;
         T roots[2];
         if (quadratic_solve(roots, a, b, c)) {
-            return Rect<T,1>::spanning_corners(roots[0], roots[1]);
+            return Rect<T,1>::from_corners(roots[0], roots[1]);
         } else {
             // empty interval
             return Rect<T,1>();
@@ -212,6 +212,16 @@ struct Digest<Sphere<T,N>, H> {
         return geom::hash_many<H>(nonce, s.center, s.r);
     }
 };
+
+#ifdef GEOMC_USE_STREAMS
+
+template <typename T, index_t N>
+std::ostream& operator<<(std::ostream& os, const Sphere<T,N>& s) {
+    os << "Sphere(" << s.center << "," << s.r << ")";
+    return os;
+}
+
+#endif
 
 } /* namespace geom */
 

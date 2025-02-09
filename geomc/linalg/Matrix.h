@@ -1131,8 +1131,9 @@ operator<<(std::ostream &s, const Mx &mtx) {
         if (r == mtx.rows() - 1){
             // last row, close the matrix.
             s << "]";
+        } else {
+            s << std::endl;
         }
-        s << std::endl;
     }
     return s;
 }

@@ -208,7 +208,7 @@ public:
     }
     
 #ifdef GEOMC_USE_STREAMS
-    friend std::ostream &operator<<(std::ostream& stream, const AffineTransform<T,N> xf) {
+    friend std::ostream& operator<<(std::ostream& stream, const AffineTransform<T,N> xf) {
         stream << xf.mat;
         return stream;
     }

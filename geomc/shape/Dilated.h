@@ -266,6 +266,16 @@ struct Digest<Dilated<Shape>, H> {
     }
 };
 
+#ifdef GEOMC_USE_STREAMS
+
+template <typename Shape>
+std::ostream& operator<<(std::ostream& os, const Dilated<Shape>& d) {
+    os << "Dilated(" << d.shape << ", " << d.dilation << ")";
+    return os;
+}
+
+#endif
+
 } // namespace geom
 
 

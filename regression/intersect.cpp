@@ -47,7 +47,7 @@ void random_box(AffineBox<T,N>* r, rng_t* rng) {
     r->xf *= scale(Vec<T,N>(range(*rng)));
     r->xf *= translation(rnd<T,N>(rng).unit());
     ShapeSampler<Rect<T,N>> box{{-1,1}};
-    r->shape = Rect<T,N>::spanning_corners(box(rng), box(rng));
+    r->shape = Rect<T,N>::from_corners(box(rng), box(rng));
 }
 
 template <typename T, index_t N>

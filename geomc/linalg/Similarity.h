@@ -242,4 +242,14 @@ struct Digest<Similarity<T,N>, H> {
     }
 };
 
+#ifdef GEOMC_USE_STREAMS
+
+template <typename T, index_t N>
+std::ostream& operator<<(std::ostream& os, const Similarity<T,N>& xf) {
+    os << "Similarity(" << "Sx(" << xf.sx << "), " << xf.rx << ", " << "Tx" << xf.tx << ")";
+    return os;
+}
+
+#endif
+
 } // namespace geom

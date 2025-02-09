@@ -348,7 +348,6 @@ TEST(TEST_MODULE_NAME, validate_spherical_cap) {
     explore_shape<SphericalCap<double, 3>>(&rng, N_TESTS);
 }
 
-
 TEST(TEST_MODULE_NAME, validate_extruded) {
     explore_compound_shape<Extruded, double>(&rng, std::max(N_TESTS / 4, 1));
 }

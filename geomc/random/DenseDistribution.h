@@ -46,7 +46,7 @@ public:
     constexpr DenseUniformDistribution(Rect<float,1> range):
         _range(range) {}
     constexpr DenseUniformDistribution(float a, float b):
-        _range(Rect<float,1>::spanning_corners(a, b)) {}
+        _range(Rect<float,1>::from_corners(a, b)) {}
     
     template <typename Generator>
     float operator()(Generator& g) const {
@@ -114,7 +114,7 @@ public:
     constexpr DenseUniformDistribution(Rect<double,1> range):
         _range(range) {}
     constexpr DenseUniformDistribution(double a, double b):
-        _range(Rect<double,1>::spanning_corners(a, b)) {}
+        _range(Rect<double,1>::from_corners(a, b)) {}
     
     template <typename Generator>
     double operator()(Generator& g) const {
@@ -184,7 +184,7 @@ public:
     constexpr DenseUniformDistribution(param_type range):
         _range(range) {}
     constexpr DenseUniformDistribution(T a, T b):
-        _range(Rect<dual_t,1>::spanning_corners(a, b)) {}
+        _range(Rect<dual_t,1>::from_corners(a, b)) {}
     
     template <typename Generator>
     Dual<T,P> operator()(Generator& g) const {

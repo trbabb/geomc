@@ -1,7 +1,8 @@
-#if __cplusplus > 201103L
-#include <type_traits>
-#endif
+#pragma once
 
+#include <type_traits>
+#include <string>
+#include <cxxabi.h>
 
 namespace geom {
 

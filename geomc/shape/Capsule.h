@@ -48,7 +48,7 @@ public:
     }
     
     Rect<T,N> bounds() const {
-        return Rect<T,N>::spanning_corners(p0, p1).dilated(radius);
+        return Rect<T,N>::from_corners(p0, p1).dilated(radius);
     }
     
     Vec<T,N> axis() const {
@@ -148,7 +148,7 @@ public:
         
         // construct an interval holding the ray's overlap with the infinite cylinder
         if (k0 != 0 and quadratic_solve(roots, k0, k1, k2)) {
-            interval = Rect<T,1>::spanning_corners(roots[0], roots[1]);
+            interval = Rect<T,1>::from_corners(roots[0], roots[1]);
         } else if (k2 < 0) {
             // if there is no intersection, then it might be the case that 
             // the ray points exactly down the interior of the cylinder, which
@@ -219,6 +219,16 @@ struct Digest<Capsule<T,N>, H> {
         return geom::hash_many<H>(nonce, c.p0, c.p1, c.radius);
     }
 };
+
+#ifdef GEOMC_USE_STREAMS
+
+template <typename T, index_t N>
+std::ostream& operator<<(std::ostream& os, const Capsule<T,N>& cap) {
+    os << "Capsule(" << cap.p0 << "," << cap.p1 << "," << cap.radius << ")";
+    return os;
+}
+
+#endif
 
 } /* namespace geom */
 

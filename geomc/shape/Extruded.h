@@ -208,7 +208,7 @@ public:
             return height.contains(h) ? interval : Rect<T,1>::empty;
         } else {
             // trace the height slab and intersect its interval
-            interval &= Rect<T,1>::spanning_corners(
+            interval &= Rect<T,1>::from_corners(
                 (height.lo - h) / dH,
                 (height.hi - h) / dH);
             return interval;
@@ -248,6 +248,16 @@ struct Digest<Extruded<Shape>, H> {
         return geom::hash_many<H>(nonce, s.base, s.height);
     }
 };
+
+#ifdef GEOMC_USE_STREAMS
+
+template <typename Shape>
+std::ostream& operator<<(std::ostream& os, const Extruded<Shape>& e) {
+    os << "Extruded(" << e.shape << ", " << e.height << ")";
+    return os;
+}
+
+#endif
 
 } // namespace geom
 

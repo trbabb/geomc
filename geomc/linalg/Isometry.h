@@ -232,4 +232,14 @@ struct Digest<Isometry<T,N>, H> {
     }
 };
 
+#ifdef GEOMC_USE_STREAMS
+
+template <typename T, index_t N>
+std::ostream& operator<<(std::ostream& os, const Isometry<T,N>& xf) {
+    os << "Isometry(" << xf.rx << ", " << "Tx" << xf.tx << ")";
+    return os;
+}
+
+#endif
+
 } // namespace geom

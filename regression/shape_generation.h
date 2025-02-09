@@ -260,7 +260,7 @@ template <typename T, index_t N>
 struct RandomShape<Rect<T,N>> {
     static Rect<T,N> rnd_shape(rng_t* rng) {
         auto tx = 10* rnd<T,N>(rng);
-        return Rect<T,N>::spanning_corners(
+        return Rect<T,N>::from_corners(
             5 * rnd<T,N>(rng) + tx,
             5 * rnd<T,N>(rng) + tx
         );
@@ -311,7 +311,7 @@ struct RandomShape<Frustum<Shape>> {
     static Frustum<Shape> rnd_shape(rng_t* rng) {
         return Frustum<Shape>(
             RandomShape<Shape>::rnd_shape(rng),
-            Rect<T,1>::spanning_corners(
+            Rect<T,1>::from_corners(
                 5 * rnd<T>(rng),
                 5 * rnd<T>(rng)
             ));
@@ -326,7 +326,7 @@ struct RandomShape<Extruded<Shape>> {
     static Extruded<Shape> rnd_shape(rng_t* rng) {
         return Extruded<Shape>(
                 RandomShape<Shape>::rnd_shape(rng),
-                Rect<T,1>::spanning_corners(
+                Rect<T,1>::from_corners(
                     5 * rnd<T>(rng),
                     5 * rnd<T>(rng)
                 )

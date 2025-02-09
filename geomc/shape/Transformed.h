@@ -406,6 +406,19 @@ struct Digest<Transformed<Shape>, H> {
     }
 };
 
+#ifdef GEOMC_USE_STREAMS
+
+template <typename Shape>
+std::ostream& operator<<(std::ostream& os, const Transformed<Shape>& d) {
+    os << "Transformed(" << std::endl << 
+        d.shape << ", " << std::endl << 
+        d.xf    << std::endl << // affine transforms are multiline
+    ")";
+    return os;
+}
+
+#endif
+
 } // namespace geom
 
 

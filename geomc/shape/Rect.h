@@ -147,7 +147,7 @@ public:
             typename Rect<T,N>::point_t c,
             typename Rect<T,N>::point_t dims)
     {
-        return Rect<T,N>::spanning_corners(
+        return Rect<T,N>::from_corners(
             c -  dims / 2,
             c + (dims - endpoint_measure) / 2
         );
@@ -155,17 +155,17 @@ public:
 
     /**
      * @brief Construct a Rect from a corner point and an extent.
-     * @param corner Arbitrary corner point.
+     * @param edge Arbitrary corner point.
      * @param dims Lengths of each axis relative to given corner. Lengths may be negative.
      * @return A new Rect with one corner at `corner`.
      */
-    inline static Rect<T,N> from_corner(
-            typename Rect<T,N>::point_t corner,
+    inline static Rect<T,N> from_edge(
+            typename Rect<T,N>::point_t edge,
             typename Rect<T,N>::point_t dims)
     {
-        return Rect<T,N>::spanning_corners(
-            corner,
-            corner + dims - endpoint_measure);
+        return Rect<T,N>::from_corners(
+            edge,
+            edge + dims - endpoint_measure);
     }
 
     /**
@@ -174,7 +174,7 @@ public:
      * @param c2 The corner opposite `c1`
      * @return A new Rect with corners at `c1` and `c2`.
      */
-    inline static Rect<T,N> spanning_corners(
+    inline static Rect<T,N> from_corners(
             point_t c1,
             point_t c2)
     {
@@ -225,8 +225,8 @@ public:
                          typename Rect<T,N>::point_t hi,
                          typename Rect<T,N>::point_t pt) {
         for (index_t axis = 0; axis < N; axis++) {
-            T v = ptype::iterator(pt)[axis];
-            if (v < ptype::iterator(lo)[axis] or v > ptype::iterator(hi)[axis]) {
+            T v = coord(pt, axis);
+            if (v < coord(lo, axis) or v > coord(hi, axis)) {
                 return false;
             }
         }
@@ -253,11 +253,9 @@ public:
     requires (... and std::convertible_to<I, size_t>)
     Rect<T,sizeof...(I)> operator()(I... indices) const {
         constexpr index_t M = sizeof...(I);
-        const T* lo_p = ptype::iterator(lo);
-        const T* hi_p = ptype::iterator(hi);
         Rect<T,M> out {
-            point_t{ lo_p[indices]...},
-            point_t{ hi_p[indices]...}
+            point_t{ coord(lo, indices)...},
+            point_t{ coord(hi, indices)...}
         };
         return out;
     }
@@ -274,11 +272,9 @@ public:
     requires (... and std::convertible_to<I, size_t>)
     Rect<T,sizeof...(I)> operator[](I... indices) const {
         constexpr index_t M = sizeof...(I);
-        const T* lo_p = ptype::iterator(lo);
-        const T* hi_p = ptype::iterator(hi);
         Rect<T,M> out {
-            point_t{ lo_p[indices]...},
-            point_t{ hi_p[indices]...}
+            point_t{ coord(lo, indices)...},
+            point_t{ coord(hi, indices)...}
         };
         return out;
     }
@@ -437,15 +433,15 @@ public:
         //   • (-a) - (-b) = -(a - b)
         Rect<T,N> out;
         for (index_t i = 0; i < N; ++i) {
-            T b_lo = ptype::iterator(other.lo)[i];
-            T a_lo = ptype::iterator(lo)[i];
-            T a_hi = ptype::iterator(hi)[i];
-            T b_hi = ptype::iterator(other.hi)[i];
+            T b_lo = coord(other.lo, i);
+            T a_lo = coord(lo, i);
+            T a_hi = coord(hi, i);
+            T b_hi = coord(other.hi, i);
             if (b_lo > b_hi) continue;
             bool pick_lo = b_lo < a_lo;
             bool pick_hi = b_hi > a_hi;
-            ptype::iterator(lo)[i] = pick_lo ? a_hi : std::min(a_hi, b_lo);
-            ptype::iterator(hi)[i] = pick_hi ? a_lo : std::max(b_hi, a_lo);
+            coord(lo, i) = pick_lo ? a_hi : std::min(a_hi, b_lo);
+            coord(hi, i) = pick_hi ? a_lo : std::max(b_hi, a_lo);
         }
         return out;
     }
@@ -592,10 +588,8 @@ public:
      */
     bool contains(point_t pt) const {
         for (index_t axis = 0; axis < N; axis++) {
-            T v = ptype::iterator(pt)[axis];
-            if (v < ptype::iterator(lo)[axis] or
-                v > ptype::iterator(hi)[axis])
-            {
+            T v = coord(pt, axis);
+            if (v < coord(lo, axis) or v > coord(hi, axis)) {
                 return false;
             }
         }
@@ -612,8 +606,8 @@ public:
     bool contains(const Rect<T,N>& box) const {
         for (index_t axis = 0; axis < N; axis++) {
             // inner box must not protrude along any axis
-            if (ptype::iterator(box.lo)[axis] < ptype::iterator(lo)[axis] or
-                ptype::iterator(box.hi)[axis] > ptype::iterator(hi)[axis])
+            if (coord(box.lo, axis) < coord(lo, axis) or
+                coord(box.hi, axis) > coord(hi, axis))
             {
                 return false;
             }
@@ -626,8 +620,8 @@ public:
      */
     Rect<T,1> axis(size_t k) const {
         return {
-            ptype::iterator(lo)[k],
-            ptype::iterator(hi)[k]
+            coord(lo, k),
+            coord(hi, k)
         };
     }
 
@@ -638,8 +632,8 @@ public:
     bool intersects(const Rect<T,N>& box) const {
         for (index_t axis = 0; axis < N; axis++) {
             // disjoint on this axis?
-            if (ptype::iterator(hi)[axis]     <= ptype::iterator(box.lo)[axis] or
-                ptype::iterator(box.hi)[axis] <= ptype::iterator(lo)[axis]) {
+            if (coord(hi, axis)     <= coord(box.lo, axis) or
+                coord(box.hi, axis) <= coord(lo, axis)) {
                 return false;
             }
         }
@@ -735,13 +729,9 @@ public:
      */
     Rect<T,N> abs() const {
         Rect<T,N> out;
-        T* lo_i     = ptype::iterator(lo);
-        T* hi_i     = ptype::iterator(hi);
-        T* out_lo_i = ptype::iterator(out.lo);
-        T* out_hi_i = ptype::iterator(out.hi);
         for (index_t i = 0; i < N; ++i) {
-            out_lo_i[i] = std::min(lo_i[i], hi_i[i]);
-            out_hi_i[i] = std::max(lo_i[i], hi_i[i]);
+            coord(out.lo, i) = std::min(coord(lo, i), coord(hi, i));
+            coord(out.hi, i) = std::max(coord(lo, i), coord(hi, i));
         }
         return out;
     }
@@ -761,24 +751,14 @@ public:
      *
      * @param other Rect to contain.
      */
-    Rect<T,N> fitted_to(Rect<T,N> other) const
-#if __cplusplus >= 202002L
-    requires (not std::integral<T>)
-#endif
-    {
-        static_assert(
-            not std::is_integral<T>::value,
-            "fitted_to() is not available for integral types"
-        );
+    Rect<T,N> fitted_to(Rect<T,N> other) const requires (not std::integral<T>) {
         T max_ratio = 0;
         point_t d0 = dimensions();
         point_t d1 = other.dimensions();
-        auto d0p = ptype::iterator(d0);
-        auto d1p = ptype::iterator(d1);
         // find the dimension which constrains the final size:
         for (index_t i = 0; i < N; ++i) {
             // do not try to "expand" any dimensions which are empty:
-            auto ratio = (d0p[i] == 0) ? 0 : (d1p[i] / d0p[i]);
+            auto ratio = (coord(d0, i) == 0) ? 0 : (coord(d1, i) / coord(d0, i));
             max_ratio = std::max(max_ratio, std::abs(ratio));
         }
         return Rect<T,N>::from_center(other.center(), d0 * max_ratio);
@@ -818,7 +798,7 @@ public:
         T vol = 1;
         point_t dim = dimensions();
         for (index_t axis = 0; axis < N; axis++) {
-            vol *= std::max(ptype::iterator(dim)[axis], (T)0);
+            vol *= std::max(coord(dim, axis), (T)0);
         }
         return vol;
     }
@@ -843,14 +823,14 @@ public:
         point_t dims = dimensions();
         // include all the extents preceding this axis (but not the axis itself)
         for (index_t i = 0; i < N - 1; ++i) {
-            ptype::iterator(axial_areas)[i] = prod;
-            prod *= ptype::iterator(dims)[i];
+            coord(axial_areas, i) = prod;
+            prod *= coord(dims, i);
         }
         // include all the extents following this axis (but not the axis itself)
         prod = 1;
         for (index_t i = N - 1; i >= 0; --i) {
-            ptype::iterator(axial_areas)[i] *= prod;
-            prod *= ptype::iterator(dims)[i];
+            coord(axial_areas, i) *= prod;
+            prod *= coord(dims, i);
         }
         return axial_areas;
     }
@@ -871,8 +851,8 @@ public:
      */
     bool is_empty() const {
         for (index_t axis = 0; axis < N; axis++) {
-            T hi_i = ptype::iterator(hi)[axis];
-            T lo_i = ptype::iterator(lo)[axis];
+            T hi_i = coord(hi, axis);
+            T lo_i = coord(lo, axis);
             if (hi_i < lo_i) {
                 return true;
             }
@@ -905,9 +885,9 @@ public:
             T winning_coord   = 0;
             T best_distance   = std::numeric_limits<T>::max();
             for (index_t i = 0; i < N; ++i) {
-                T   p_i = ptype::iterator(p) [i];
-                T  lo_i = ptype::iterator(lo)[i];
-                T  hi_i = ptype::iterator(hi)[i];
+                T   p_i = coord(p,  i);
+                T  lo_i = coord(lo, i);
+                T  hi_i = coord(hi, i);
                 T to_lo = std::abs(p_i - lo_i);
                 T to_hi = std::abs(p_i - hi_i);
                 T  dist = std::min(to_lo, to_hi);
@@ -946,15 +926,15 @@ public:
         index_t exterior_sign;
         
         for (index_t i = 0; i < N; ++i) {
-            T x    = ptype::iterator(p)[i];
-            T lo_i = ptype::iterator(lo)[i];
-            T hi_i = ptype::iterator(hi)[i];
-            ptype::iterator(clipped)[i] = std::min(hi_i, std::max(lo_i, x));
+            T x    = coord(p,  i);
+            T lo_i = coord(lo, i);
+            T hi_i = coord(hi, i);
+            coord(clipped, i) = std::min(hi_i, std::max(lo_i, x));
             bool is_out = x < lo_i or x > hi_i;
             outside += is_out;
             // compute distances to the two bounding planes
-            T d0 = std::abs(x - ptype::iterator(lo)[i]);
-            T d1 = std::abs(x - ptype::iterator(hi)[i]);
+            T d0 = std::abs(x - coord(lo, i));
+            T d1 = std::abs(x - coord(hi, i));
             T d_min = std::min(d0, d1);
             if (d_min < nearest_plane) {
                 nearest_axis  = i;
@@ -969,12 +949,12 @@ public:
         if (outside == 0) {
             // we're contained by the range. return a normal pointing toward the nearest face.
             point_t n;
-            ptype::iterator(n)[nearest_axis] = nearest_sign;
+            coord(n, nearest_axis) = nearest_sign;
             return n;
         } else if (outside == 1) {
             // we're outside the range, but project to an axial face. return its normal
             point_t n;
-            ptype::iterator(n)[exterior_axis] = exterior_sign;
+            coord(n, exterior_axis) = exterior_sign;
             return n;
         } else {
             // the nearest point is on a corner / edge.
@@ -999,7 +979,7 @@ public:
      * zero if `p` is inside.
      */
     T dist2(point_t p) const {
-        return ptype::mag2(p - clip(p));
+        return mag2(p - clip(p));
     }
 
     /**
@@ -1077,7 +1057,7 @@ public:
             overlap[i] = r0.intersects(r1);
             all_overlap = all_overlap and overlap[i];
             auto s = std::abs(d0) < std::abs(d1) ? d0 : d1;
-            ptype::iterator(v)[i] = s;
+            coord(v, i) = s;
             if (std::abs(s) < std::abs(shortest_val)) {
                 shortest_val  = s;
                 shortest_axis = i;
@@ -1089,14 +1069,14 @@ public:
             // other axes overlap. (and separating other axes will just increase the
             // displacement distance)
             v = {};
-            ptype::iterator(v)[shortest_axis] = shortest_val;
+            coord(v, shortest_axis) = shortest_val;
         } else {
             // if the two rects don't overlap, then close the gap on all
             // non-overlapping axes
             for (index_t i = 0; i < N; ++i) {
                 if (overlap[i]) {
                     // overlap on this axis.
-                    ptype::iterator(v)[i] = 0;
+                    coord(v, i) = 0;
                 }
             }
         }
@@ -1106,8 +1086,8 @@ public:
     point_t convex_support(point_t d) const {
         point_t o;
         for (index_t i = 0; i < N; i++) {
-            T a = ptype::iterator(d)[i];
-            ptype::iterator(o)[i] = ptype::iterator(a < 0 ? lo : hi)[i];
+            T a = coord(d, i);
+            coord(o, i) = coord(a < 0 ? lo : hi, i);
         }
         return o;
     }
@@ -1116,10 +1096,10 @@ public:
     Rect<T,1> intersect(const Ray<T,N>& r) const {
         Rect<T,1> interval = Rect<T,1>::full;
         for (index_t axis = 0; axis < N; ++axis) {
-            T dx   = ptype::iterator(r.direction)[axis];
-            T o_i  = ptype::iterator(r.origin)[axis];
-            T lo_i = ptype::iterator(lo)[axis];
-            T hi_i = ptype::iterator(hi)[axis];
+            T dx   = coord(r.direction, axis);
+            T o_i  = coord(r.origin,    axis);
+            T lo_i = coord(lo, axis);
+            T hi_i = coord(hi, axis);
             if (dx == 0) {
                 // ray direction is tangent to the test planes; no intersection on this axis.
                 if (o_i < lo_i or o_i > hi_i) {
@@ -1127,7 +1107,7 @@ public:
                     return Rect<T,1>();
                 }
             } else {
-                interval &= Rect<T,1>::spanning_corners(
+                interval &= Rect<T,1>::from_corners(
                     (hi_i - o_i) / dx,
                     (lo_i - o_i) / dx);
             }

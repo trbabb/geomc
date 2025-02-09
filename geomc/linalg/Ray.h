@@ -122,7 +122,7 @@ inline typename PointType<T,N>::point_t operator*(T s, const Ray<T,N> r) {
 /** @ingroup linalg
  * Ray stream output, in the form:
  * 
- *     <(x0, x1, x2, ... ), (v0, v1, v2, ...)>
+ *     <(x0, x1, x2, ... ) + s * (v0, v1, v2, ...)>
  * where `x` is the origin and `v` is the direction.
  * @related Ray
  */
