@@ -183,7 +183,7 @@ template <typename Shape>
 void validate_ray(rng_t* rng, const Shape& s, index_t trials) {
     SCOPED_TRACE("Validate ray " + name<Shape>());
     if constexpr (RayIntersectableObject<Shape>) {
-        typedef typename Shape::elem_t T;
+        using T = typename Shape::elem_t;
         constexpr index_t N = Shape::N;
         auto sampler = ShapeSampler<Shape>(s);
         for (index_t i = 0; i < trials; ++i) {
@@ -204,9 +204,9 @@ void validate_ray(rng_t* rng, const Shape& s, index_t trials) {
             EXPECT_NEAR(interval.dist2(0), 0, 1e-5);
             // ray in the opposite direction should still intersect
             EXPECT_TRUE(not s.intersect(Ray<T,N>{p, -v}).is_empty());
-            // a ray displaced randomly along V should still intersect
             auto k = rnd<T>(rng);
-            EXPECT_TRUE(not s.intersect(Ray<T,N>{ray.at_multiple(k), v}).is_empty());
+            // a ray displaced randomly along V should still intersect
+            EXPECT_FALSE(s.intersect(Ray<T,N>{ray.at_multiple(k), v}).is_empty());
             if constexpr (SdfObject<Shape>) {
                 // the ray hit should be very near the surface, if it exists
                 EXPECT_NEAR(s.sdf(ray.at_multiple(interval.lo)), 0, 1e-5);

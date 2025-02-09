@@ -25,9 +25,11 @@ namespace geom {
  * @ingroup shape
  */
 template <typename T, index_t N>
-requires (N > 1)
-struct SphericalCap : public Dimensional<T,N> {
+class SphericalCap : public Dimensional<T,N> {
+public:
     using typename Dimensional<T,N>::point_t;
+    
+    static_assert(N > 1, "SphericalCap must be at least 2D.");
     
     /// Angle between the polar axis and the edge of the cap, in radians.
     T half_angle_radians;

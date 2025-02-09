@@ -62,6 +62,7 @@ template <typename T, index_t N> class Rect;
 template <typename T, index_t N> class Cylinder;
 template <typename T, index_t N> class Simplex;
 template <typename T, index_t N> class Capsule;
+template <typename T, index_t N> class SphericalCap;
 template <typename Shape>        class Extruded;
 template <typename Shape>        class Transformed;
 template <typename Shape>        class Similar;
@@ -70,9 +71,9 @@ template <typename Shape>        class Dilated;
 template <typename Shape>        class Hollow;
 
 /**
-    * @brief Convenience typedef for transformed Rects.
-    * @related Transformed
-    */
+ * @brief Convenience typedef for transformed Rects.
+ * @related Transformed
+ */
 template <typename T, index_t N>
 using AffineBox = Transformed<Rect<T,N>>;
 

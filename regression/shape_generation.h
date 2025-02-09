@@ -24,7 +24,7 @@ using namespace geom;
 
 using rng_t = pcg64;
 
-rng_t rng(6839552994771556349ULL);
+rng_t rng(0x41e754ec0ffa0b67ULL);
 
 
 /****************************
