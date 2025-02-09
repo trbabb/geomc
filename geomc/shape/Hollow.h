@@ -45,6 +45,8 @@ public:
         return shape == other.shape;
     }
     
+    static constexpr bool admits_cusps() { return Shape::admits_cusps(); }
+    
     /**
      * @brief Shape-point intersection test. Always returns `false`, because 
      * hollow shapes are infinitely thin.

@@ -232,6 +232,8 @@ public:
         }
         return true;
     }
+    
+    static constexpr bool admits_cusps() { return false; }
 
     /*****************************
      * Operators                 *
@@ -973,6 +975,7 @@ public:
             // we're outside the range, but project to an axial face. return its normal
             point_t n;
             ptype::iterator(n)[exterior_axis] = exterior_sign;
+            return n;
         } else {
             // the nearest point is on a corner / edge.
             // draw a vector from that point to `p` and unitize.

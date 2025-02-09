@@ -76,6 +76,8 @@ public:
         center(c),
         r(r) {}
     
+    static constexpr bool admits_cusps() { return false; }
+    
     bool operator==(const Sphere& other) const {
         return center == other.center && r == other.r;
     }

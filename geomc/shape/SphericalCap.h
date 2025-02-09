@@ -14,12 +14,18 @@ namespace geom {
  * the edge of the cap. The pole is the final axis in N-dimensional space.
  *
  * The cap is a surface, and has no interior. It is concave towards the origin.
- *
- * To orient or scale the dome, wrap it with a Similar<Shape>.
- *
+ * 
+ * In 2D, the cap is an arc centered on the Y+ axis. In 3D, it's a cap centered on Z+.
+ * 
+ * It is valid for the cap to extend beyond the equator. The half angle is
+ * canonically between 0 and π.
+ * 
+ * To orient or scale the cap, wrap it with a Similar<Shape>.
+ * 
  * @ingroup shape
  */
 template <typename T, index_t N>
+requires (N > 1)
 struct SphericalCap : public Dimensional<T,N> {
     using typename Dimensional<T,N>::point_t;
     
@@ -28,7 +34,9 @@ struct SphericalCap : public Dimensional<T,N> {
     
     /// Construct a spherical cap with the given half-angle.
     SphericalCap(T radians):
-        half_angle_radians(half_angle_radians) {}
+        half_angle_radians(radians) {}
+        
+    static constexpr bool admits_cusps() { return true; }
     
     /// Shape equality.
     bool operator==(const SphericalCap& other) const {
@@ -54,7 +62,7 @@ struct SphericalCap : public Dimensional<T,N> {
             T s = std::sin(half_angle_radians);
             T c = std::cos(half_angle_radians);
             T z = p[N - 1];
-            T x = p_proj.mag();
+            T x = mag(p_proj);
             T dx = x - s;
             T dz = z - c;
             return std::sqrt(dx * dx + dz * dz);
@@ -86,7 +94,11 @@ struct SphericalCap : public Dimensional<T,N> {
             VecType<T,N-1> p_proj = p.template resized<N-1>();
             T s = std::sin(half_angle_radians);
             T c = std::cos(half_angle_radians);
-            return point_t(p_proj.with_length(s), c);
+            if constexpr (N > 2) {
+                return point_t(p_proj.with_length(s), c);
+            } else {
+                return point_t(s, c);
+            }
         }
     }
     
@@ -132,10 +144,11 @@ struct SphericalCap : public Dimensional<T,N> {
      */
     Rect<T,1> intersect(const Ray<T,N>& ray) const {
         Rect<T,1> sphere_interval = Sphere<T,N>().intersect(ray);
+        if (sphere_interval.is_empty()) return sphere_interval;
         T ab[2] = {sphere_interval.lo, sphere_interval.hi};
-        Rect<T,1> out_interval = Rect<T,1>::empty;
+        Rect<T,1> out_interval;
         for (index_t i = 0; i < 2; ++i) {
-            T p = ray * ab[i];
+            Vec<T,N> p = ray * ab[i];
             if (is_inside_angle(p)) {
                 out_interval |= ab[i];
             }
@@ -170,14 +183,19 @@ struct SphericalCap : public Dimensional<T,N> {
         T m2 = p.mag2();
         T z  = p[N - 1];
         if (m2 == 0) return true;
-        constexpr T pi = std::numbers::pi_v<T>;
+        T t = geom::positive_mod<T>(half_angle_radians / std::numbers::pi_v<T>, 2);
+        // half-turns from the axis, in [-0.5, 0.5]
+        // 0 is the equatorial plane, -0.5 is +pole, 0.5 is -pole
+        T u = 0.5 - std::abs(1 - t);
         // split into two cases for better numerical precision
-        if (std::abs(half_angle_radians - pi / 2) <= pi / 4) {
+        if (std::abs(u) < 0.25){
             // point is closer to the equatorial plane;
             // test based on the height above the equatorial plane,
             // where angle mostly affects height
             T c = std::cos(half_angle_radians);
-            return z * z / m2 >= c * c;
+            T s_cap = c < 0 ? -1 : 1;
+            T s_pt  = z < 0 ? -1 : 1;
+            return s_pt * z * z / m2 >= s_cap * c * c;
         } else {
             // point is closer to the axis;
             // test based on the distance from the axis,
@@ -185,14 +203,14 @@ struct SphericalCap : public Dimensional<T,N> {
             T s  = std::sin(half_angle_radians);
             VecType<T,N-1> p_base = p.template resized<N-1>();
             T k = mag2(p_base) / m2;
-            if (half_angle_radians < pi / 2) {
+            if (u < 0) {
                 // angle is above the equator; area nearest the axis is included.
                 // everything below the equator is excluded.
                 return k <= s * s and z > 0;
             } else {
                 // angle is below the equator; area nearest the axis is excluded.
                 // everything above the equator is included.
-                return k >= s * s or z < 0;
+                return k >= s * s or z > 0;
             }
         }
     }

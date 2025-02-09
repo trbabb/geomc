@@ -41,6 +41,8 @@ public:
     /// Wrap a shape with an identity transform.
     Similar(const Shape& shape):
         shape(shape) {}
+        
+    static constexpr bool admits_cusps() { return Shape::admits_cusps(); }
     
     bool operator==(const Similar& other) const {
         return shape == other.shape && xf == other.xf;

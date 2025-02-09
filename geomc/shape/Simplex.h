@@ -144,6 +144,8 @@ public:
         return s;
     }
     
+    static constexpr bool admits_cusps() { return true; }
+    
     /// Get the `i`th vertex in this simplex.
     Vec<T,N>& operator[](index_t i) {
         return pts[i];
@@ -531,7 +533,6 @@ public:
         if (onto) *onto = proj.projected_face();
         return proj.projected_point();
     }
-    
     
     void exclude(index_t i) {
         std::copy(pts + i + 1, pts + n, pts + i);

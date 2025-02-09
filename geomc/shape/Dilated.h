@@ -74,6 +74,8 @@ public:
     Dilated(const Shape& s, T dilation):
         shape(s),
         dilation(std::max<T>(dilation, 0)) {}
+        
+    static constexpr bool admits_cusps() { return false; }
     
     bool operator==(const Dilated& other) const {
         return shape == other.shape && dilation == other.dilation;

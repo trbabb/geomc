@@ -323,6 +323,22 @@ namespace detail {
     }
     
     /**
+     * @brief Compute the magnitude of a vector or scalar.
+     */
+    template <typename T, index_t N>
+    inline constexpr T mag(const Vec<T,N>& v) {
+        return v.mag();
+    }
+    
+    /**
+     * @brief Compute the absolute value of a scalar.
+     */
+    template <typename T>
+    inline constexpr T mag(T x) {
+        return std::abs(x);
+    }
+    
+    /**
      * @brief Concept for an object or operation that exists in a certain
      * dimension with a certain coordinate type.
      *

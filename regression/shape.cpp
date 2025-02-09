@@ -1,7 +1,8 @@
-#include "geomc/shape/ShapeTypes.h"
 #define TEST_MODULE_NAME Shape
 
 // #include <iostream>
+
+#include <cxxabi.h>
 
 #include <gtest/gtest.h>
 
@@ -42,6 +43,19 @@ using namespace geom;
 
 // rng_t rng(18374691138699945602ULL);
 
+std::string demangle(const std::string& name) {
+    int status = 0;
+    std::unique_ptr<char, void(*)(void*)> res {
+        abi::__cxa_demangle(name.c_str(), NULL, NULL, &status),
+        std::free
+    };
+    return (status == 0) ? res.get() : name.c_str();
+}
+
+template <typename T>
+std::string name() {
+    return demangle(typeid(T).name());
+}
 
 /****************************
  * shape calisthenics       *
@@ -60,6 +74,7 @@ bool validate_point(
         rng_t* rng, 
         const Shape& s, 
         const typename Shape::point_t& p) {
+    SCOPED_TRACE("Validate point " + name<Shape>());
     typedef typename Shape::elem_t T;
     constexpr index_t N = Shape::N;
     if (s.contains(p)) {
@@ -91,7 +106,8 @@ bool validate_point(
 
 template <typename Shape>
 void validate_sdf(rng_t* rng, const Shape& s, index_t trials) {
-    if constexpr (SdfObject<Shape>) {
+    SCOPED_TRACE("Validate SDF " + name<Shape>());
+    if constexpr (SdfObject<Shape> and InteriorMeasurableObject<Shape>) {
         typedef typename Shape::elem_t T;
         constexpr index_t N = Shape::N;
         auto bb   = s.bounds();
@@ -107,6 +123,7 @@ void validate_sdf(rng_t* rng, const Shape& s, index_t trials) {
 
 template <typename Shape>
 void validate_projection(rng_t* rng, const Shape& s, index_t trials) {
+    SCOPED_TRACE("Validate projection " + name<Shape>());
     if constexpr (ProjectableObject<Shape>) {
         typedef typename Shape::elem_t T;
         typedef typename Shape::point_t point_t;
@@ -139,8 +156,11 @@ void validate_projection(rng_t* rng, const Shape& s, index_t trials) {
             // xxx failing for, like, every shape. probably a flaw with the test
             // BOOST_CHECK_SMALL(std::abs(n.unit().dot(axis.unit())) - 1, 1e-3);
             
-            // a ray intersection should agree with project() about where the shape is
-            if constexpr (RayIntersectableObject<Shape>) {
+            // a ray intersection should agree with project() about where the shape is.
+            // nb: if the shape has a cusp (any point where two surfaces meet at an angle
+            // more acute than 90 degrees), then some points will project to the cusp
+            // and the ray may miss that measure-zero region by precision error alone.
+            if constexpr (RayIntersectableObject<Shape> and not Shape::admits_cusps()) {
                 // cast a ray from the point along the projection direction.
                 Ray<T,N> r = Ray<T,N>(p, -axis);
                 Rect<T,1> interval = s.intersect(r);
@@ -161,6 +181,7 @@ void validate_projection(rng_t* rng, const Shape& s, index_t trials) {
 
 template <typename Shape>
 void validate_ray(rng_t* rng, const Shape& s, index_t trials) {
+    SCOPED_TRACE("Validate ray " + name<Shape>());
     if constexpr (RayIntersectableObject<Shape>) {
         typedef typename Shape::elem_t T;
         constexpr index_t N = Shape::N;
@@ -176,13 +197,20 @@ void validate_ray(rng_t* rng, const Shape& s, index_t trials) {
             auto interval = s.intersect(ray);
             // ray goes through a point in the shape. ray hit should reflect that:
             EXPECT_TRUE(not interval.is_empty());
-            // the ray origin is a point in the shape; s=0 should be in the overlap region
-            EXPECT_TRUE(interval.contains(0));
+            // the ray origin is a point in the shape; s=0 should be in the overlap region.
+            // (some shapes may be surfaces, and the intersection region could be a single
+            // value, which may miss zero exactly due to precision. check that 0 is within
+            // or close to the intersection interval).
+            EXPECT_NEAR(interval.dist2(0), 0, 1e-5);
             // ray in the opposite direction should still intersect
             EXPECT_TRUE(not s.intersect(Ray<T,N>{p, -v}).is_empty());
             // a ray displaced randomly along V should still intersect
             auto k = rnd<T>(rng);
             EXPECT_TRUE(not s.intersect(Ray<T,N>{ray.at_multiple(k), v}).is_empty());
+            if constexpr (SdfObject<Shape>) {
+                // the ray hit should be very near the surface, if it exists
+                EXPECT_NEAR(s.sdf(ray.at_multiple(interval.lo)), 0, 1e-5);
+            }
         }
     }
 }
@@ -190,6 +218,7 @@ void validate_ray(rng_t* rng, const Shape& s, index_t trials) {
 
 template <typename Shape>
 void exercise_shape(rng_t* rng, const Shape& s, index_t trials) {
+    SCOPED_TRACE("Exercise shape " + name<Shape>());
     typedef typename Shape::elem_t  T;
     typedef typename Shape::point_t point_t;
     constexpr index_t N = Shape::N;
@@ -202,8 +231,11 @@ void exercise_shape(rng_t* rng, const Shape& s, index_t trials) {
     for (index_t i = 0; i < trials; ++i) {
         // validate a point near the shape's bbox
         validate_point<Shape>(rng, s, rnd<T,N>(rng) * dims + c);
-        // validate a point definitely in the shape
-        EXPECT_TRUE(validate_point<Shape>(rng, s, sampler(rng)));
+        if constexpr (InteriorMeasurableObject<Shape>) {
+            // validate a point definitely in the shape
+            // (if there are points in the shape)
+            EXPECT_TRUE(validate_point<Shape>(rng, s, sampler(rng)));
+        }
         // validate a point near the origin
         validate_point<Shape>(rng, s, rnd<T,N>(rng));
     }
@@ -216,6 +248,7 @@ void exercise_shape(rng_t* rng, const Shape& s, index_t trials) {
 
 template <typename Shape>
 void explore_shape(rng_t* rng, index_t shapes) {
+    SCOPED_TRACE("Explore shape " + name<Shape>());
     for (index_t i = 0; i < shapes; ++i) {
         Shape s = RandomShape<Shape>::rnd_shape(rng);
         exercise_shape<Shape>(rng, s, 50);
@@ -238,6 +271,7 @@ void explore_simplex(rng_t* rng, index_t shapes) {
 
 template <template <typename> class Outer, typename T, bool test_degenerate=false>
 void explore_compound_shape(rng_t* rng, index_t shapes) {
+    SCOPED_TRACE("compound shape");
     index_t fewer_shapes = std::max<index_t>(shapes / 10, 1);
     explore_shape<Outer<Rect<T, 2>>>(rng, shapes);
     explore_shape<Outer<Rect<T, 3>>>(rng, shapes);
@@ -310,9 +344,8 @@ TEST(TEST_MODULE_NAME, validate_sphere) {
 }
 
 TEST(TEST_MODULE_NAME, validate_spherical_cap) {
-    // xxx todo: requires sampleshape
-    // explore_shape<SphericalCap<double, 2>>(&rng, N_TESTS);
-    // explore_shape<SphericalCap<double, 3>>(&rng, N_TESTS);
+    explore_shape<SphericalCap<double, 2>>(&rng, N_TESTS);
+    explore_shape<SphericalCap<double, 3>>(&rng, N_TESTS);
 }
 
 
@@ -320,7 +353,7 @@ TEST(TEST_MODULE_NAME, validate_extruded) {
     explore_compound_shape<Extruded, double>(&rng, std::max(N_TESTS / 4, 1));
 }
 
-TEST(TEST_MODULE_NAME, validate_oriented) {
+TEST(TEST_MODULE_NAME, validate_transformed) {
     explore_compound_shape<Transformed, double>(&rng, std::max(N_TESTS / 4, 1));
 }
 

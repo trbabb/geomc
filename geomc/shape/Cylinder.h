@@ -53,6 +53,8 @@ class Cylinder:
         p1(p1),
         radius(radius) {}
     
+    static constexpr bool admits_cusps() { return false; }
+    
     /// Shape-point intersection test.
     bool contains(Vec<T,N> p) const {
         Vec<T,N> a = p1 - p0;

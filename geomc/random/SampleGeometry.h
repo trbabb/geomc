@@ -299,17 +299,19 @@ private:
     SampleShape<Sphere<T,N-1>> _sphere;
 public:
     
+    using detail::ShapeDistribution<Cylinder<T,N>>::ShapeDistribution;
+    
     template <typename Generator>
     point_t operator()(Generator& rng) {
-        constexpr point_t _Z = {{(T) 0}, (T) 1};
+        constexpr point_t _Z = {VecType<T,N-1>((T)0), (T)1};
         DenseUniformDistribution<T> unif {0,1};
         // pick a point on the cap
-        auto base = _sphere(rng) * shape.radius;
+        Vec<T,N> base {_sphere(rng) * shape.radius, 0};
         point_t axis = shape.p1 - shape.p0;
         // reorient the cap distribution to be perpendicular to the axis
         base = base.align(_Z, axis.unit());
         // pick a distance along the axis direction and follow it away from the base
-        return base + unif(rng) * axis + shape.p0;
+        return base + (unif(rng) * axis) + shape.p0;
     }
     
     void reset() {
@@ -319,6 +321,49 @@ public:
     bool operator==(const SampleShape& other) const {
         return shape == other.shape;
     }
+};
+
+
+/**
+ * @brief Sample a point from the surface of a spherical cap.
+ */
+template <typename T, index_t N>
+requires (N == 2 or N == 3)
+struct SampleShape<SphericalCap<T,N>> : public detail::ShapeDistribution<SphericalCap<T,N>> {
+    using detail::ShapeDistribution<SphericalCap<T,N>>::shape;
+    using typename Dimensional<T,N>::point_t;
+    
+    template <typename Generator>
+    point_t operator()(Generator& rng) {
+        DenseUniformDistribution<T> uniform {0, 1};
+        constexpr T pi = std::numbers::pi_v<T>;
+        T half_angle = std::clamp<T>(shape.half_angle_radians, 0, pi);
+        if constexpr (N == 2) {
+            T u = uniform(rng);
+            // pick theta in [-half_angle, +half_angle]
+            T theta = u * half_angle - (1 - u) * half_angle;
+            return {
+                std::sin(theta),
+                std::cos(theta)
+            };
+        } else if constexpr (N == 3) {
+            T u = uniform(rng);
+            T v = uniform(rng);
+            // we pick a height with uniform probability
+            // (because a slice through the sphere with thickness t at height h
+            // has unchanging area regardless of h). 
+            T min_h = std::cos(half_angle);
+            T h = u * min_h + (1 - u);
+            T r = std::sqrt(1 - h * h);
+            T theta = v * 2 * pi;
+            return {
+                r * std::cos(theta),
+                r * std::sin(theta),
+                h
+            };
+        }
+    }
+    
 };
 
 

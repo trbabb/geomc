@@ -67,6 +67,8 @@ public:
     Transformed(const Shape& s, const AffineTransform<T,N>& xf):
         shape(s),
         xf(xf) {}
+        
+    static constexpr bool admits_cusps() { return true; }
     
     bool operator==(const Transformed& other) const {
         return shape == other.shape && xf == other.xf;

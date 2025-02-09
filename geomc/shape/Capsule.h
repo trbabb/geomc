@@ -41,6 +41,8 @@ public:
         p1(p1),
         radius(r) {}
     
+    static constexpr bool admits_cusps() { return false; }
+    
     bool operator==(const Capsule& other) const {
         return radius == other.radius and p0 == other.p0 and p1 == other.p1;
     }

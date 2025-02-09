@@ -11,6 +11,8 @@
 #include <geomc/shape/Plane.h>
 #include <geomc/shape/Extruded.h>
 #include <geomc/shape/Frustum.h>
+#include <geomc/shape/SphericalCap.h>
+#include <geomc/random/SampleGeometry.h>
 
 using namespace geom;
 
@@ -216,6 +218,17 @@ struct ShapeSampler<Transformed<Shape>> {
     }
 };
 
+template <typename T, index_t N>
+struct ShapeSampler<SphericalCap<T,N>> {
+    SphericalCap<T,N> shape;
+    ShapeSampler(const SphericalCap<T,N>& s):shape(s) {}
+    
+    Vec<T,N> operator()(rng_t* rng) {
+        SampleShape<SphericalCap<T,N>> sampler(shape);
+        return sampler(*rng);
+    }
+};
+
 
 /****************************
  * random shape generation  *
@@ -263,6 +276,15 @@ struct RandomShape<Simplex<T,N>> {
             s |= 5 * rnd<T,N>(rng) + tx;
         }
         return s;
+    }
+};
+
+template <typename T, index_t N>
+struct RandomShape<SphericalCap<T,N>> {
+    static SphericalCap<T,N> rnd_shape(rng_t* rng) {
+        constexpr T pi = std::numbers::pi_v<T>;
+        std::uniform_real_distribution<T> u(0, pi);
+        return {u(*rng)};
     }
 };
 

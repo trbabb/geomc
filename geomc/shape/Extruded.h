@@ -58,6 +58,8 @@ public:
     Extruded(const Shape& base, T h0, T h1):
         base(base),
         height(std::min(h0, h1), std::max(h0, h1)) {}
+        
+    static constexpr bool admits_cusps() { return Shape::admits_cusps(); }
     
     bool operator==(const Extruded<Shape>& other) const {
         return base == other.base && height == other.height;

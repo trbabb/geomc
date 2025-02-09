@@ -88,6 +88,7 @@ public:
         base(base),
         height(h) {}
     
+    static constexpr bool admits_cusps() { return true; }
     
     bool operator==(const Frustum& other) const {
         return base == other.base && height == other.height;
