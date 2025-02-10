@@ -70,6 +70,14 @@ template <typename Shape>        class Frustum;
 template <typename Shape>        class Dilated;
 template <typename Shape>        class Hollow;
 
+// splines
+template <typename T, index_t N, typename Derived> class CubicSpline;
+template <typename T, index_t N> class BezierSpline;
+template <typename T, index_t N> class BSpline;
+template <typename T, index_t N> class CatromSpline;
+template <typename T, index_t N> class HermiteSpline;
+template <typename T, index_t N> class PolynomialSpline;
+
 /**
  * @brief Convenience typedef for transformed Rects.
  * @related Transformed
