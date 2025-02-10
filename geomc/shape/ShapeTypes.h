@@ -78,6 +78,12 @@ template <typename T, index_t N> class CatromSpline;
 template <typename T, index_t N> class HermiteSpline;
 template <typename T, index_t N> class PolynomialSpline;
 
+// paths
+template <typename T, index_t N> class BSplinePath;
+template <typename T, index_t N> class CatromSplinePath;
+template <typename T, index_t N> class BezierPath;
+template <typename T, index_t N> class HermitePath;
+
 /**
  * @brief Convenience typedef for transformed Rects.
  * @related Transformed
