@@ -9,9 +9,16 @@
 
 #include <geomc/linalg/LinalgTypes.h>
 
-/** @defgroup shape Shape
- *  @brief Shape-related functions and classes.
+/** 
+ * @defgroup shape Shape
+ * @brief Shape-related functions and classes.
  */
+ 
+ /**
+  * @defgroup spline Spline
+  * @brief Splines and curves.
+  * @ingroup shape
+  */
 
 namespace geom {
     
@@ -70,6 +77,13 @@ template <typename Shape>        class Frustum;
 template <typename Shape>        class Dilated;
 template <typename Shape>        class Hollow;
 
+/// @} // end group shape
+
+/**
+ * @addtogroup spline
+ * @{
+ */
+
 // splines
 template <typename T, index_t N, typename Derived> class CubicSpline;
 template <typename T, index_t N> class BezierSpline;
@@ -83,6 +97,13 @@ template <typename T, index_t N> class BSplinePath;
 template <typename T, index_t N> class CatromSplinePath;
 template <typename T, index_t N> class BezierPath;
 template <typename T, index_t N> class HermitePath;
+
+/// @} // end group spline
+
+/**
+ * @addtogroup shape
+ * @{
+ */
 
 /**
  * @brief Convenience typedef for transformed Rects.

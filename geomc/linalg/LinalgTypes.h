@@ -13,14 +13,6 @@
  *  @brief Linear algebra functions and classes.
  */
 
-//vector convenience macros
-
-/** @ingroup linalg 
- *  @{
- */
-
-// @}  // ingroup linalg
-
 // type definitions
 
 namespace geom {

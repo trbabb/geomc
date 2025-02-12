@@ -8,16 +8,28 @@
 // todo: make sure this works with N = 1
 
 namespace geom {
+namespace detail {
+    
+template <typename T, index_t N, typename S>
+inline S _make_spline(const SimpleMatrix<T,4,N>& mx) {
+  if constexpr (N > 1) {
+      return S {
+          mx.row(0),
+          mx.row(1),
+          mx.row(2),
+          mx.row(3)
+      };
+  } else {
+      return S {
+          mx(0, 0),
+          mx(1, 0),
+          mx(2, 0),
+          mx(3, 0)
+      };
+  }
+}
 
-/**
- * @addtogroup shape
- * @{
- */
-
-/**
- * @defgroup spline
- * @brief Splines and curves.
- */
+} // namespace detail
 
 /**
  * @addtogroup spline
@@ -26,11 +38,11 @@ namespace geom {
 
 /**
  * @brief Concept for a cubic spline.
- *
+ * 
  * A cubic spline is a curve defined by four control points, and a basis matrix.
  * The control points have different meanings for each type of spline,
  * but all cubic splines are interconvertible.
- *
+ * 
  * The basis matrix converts control points to cubic polynomial coefficients.
  * The resultant vector has the coefficients in order of increasing power.
  */
@@ -97,15 +109,10 @@ public:
     /// Convert to another type of cubic spline.
     template <CubicSplineObject<T,N> Spline>
     constexpr operator Spline() const {
-        WrapperMatrix<T,4,N> b = {control_points()};
+        WrapperMatrix<T,4,N> b = {PointType<T,N>::iterator(control_points()[0])};
         // (4 x 4) * (4 x N) = (4 x N)
         SimpleMatrix<T,4,N> coeffs = Spline::inverse_basis() * b;
-        return Spline {
-            coeffs.row(0),
-            coeffs.row(1),
-            coeffs.row(2),
-            coeffs.row(3)
-        };
+        return detail::_make_spline<T,N,Spline>(coeffs);
     }
     
     /// Get a const array of the four control points.
@@ -138,6 +145,7 @@ public:
                 coord(k2, axis),
                 coord(k3, axis)
             };
+            // find the zeroes of the derivative
             T results[2];
             bool ok = geom::quadratic_solve(results, k[3] * 3, k[2] * 2, k[1]);
             if (ok) {
@@ -182,25 +190,6 @@ class CubicSpline : public Dimensional<T,N> {
     const Derived& derived() const { return static_cast<const Derived&>(*this); }
           Derived& derived()       { return static_cast<      Derived&>(*this); }
     
-    template <typename U, index_t M, typename S>
-    S _make_spline(const SimpleMatrix<T,4,N>& mx) const {
-        if constexpr (M > 1) {
-            return S {
-                mx.row(0),
-                mx.row(1),
-                mx.row(2),
-                mx.row(3)
-            };
-        } else {
-            return S {
-                mx(0, 0),
-                mx(1, 0),
-                mx(2, 0),
-                mx(3, 0)
-            };
-        }
-    }
-    
 public:
     
     /// Convert to another type of cubic spline.
@@ -211,7 +200,7 @@ public:
         WrapperMatrix<T,4,N> b = {ptype::iterator(derived().control_points()[0])};
         // (4 x 4) * (4 x N) = (4 x N)
         SimpleMatrix<T,4,N> coeffs = Spline::inverse_basis() * Derived::basis() * b;
-        return _make_spline<T,N,Spline>(coeffs);
+        return detail::_make_spline<T,N,Spline>(coeffs);
     }
     
     /// Convert this spline to its coefficient representation.
@@ -219,7 +208,7 @@ public:
         using ptype = PointType<T,N>;
         WrapperMatrix<T,4,N> b = {ptype::iterator(derived().control_points()[0])};
         SimpleMatrix<T,4,N> coeffs = Derived::basis() * b;
-        return _make_spline<T,N,PolynomialSpline<T,N>>(coeffs);
+        return detail::_make_spline<T,N,PolynomialSpline<T,N>>(coeffs);
     }
     
     /// Evaluate the spline at a given parameter value.
@@ -633,6 +622,5 @@ HermiteSpline<T,N> operator/(
 
 
 /// @} // addtogroup spline
-/// @} // addtogroup shape
 
 } // namespace geom

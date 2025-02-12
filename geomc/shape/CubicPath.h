@@ -11,8 +11,6 @@ namespace geom {
 //   distance-finding, ray intersection, etc.
 
 /**
- * @addtogroup shape
- * @{
  * @addtogroup spline
  * @{
  */
@@ -20,7 +18,7 @@ namespace geom {
 /**
  * @brief Base class for a path defined by a sequence of concatenated splines.
  */
-template <typename T, index_t N, CubicSpline<T,N> S, typename Derived>
+template <typename T, index_t N, CubicSplineObject<T,N> S, typename Derived>
 class SplinePath : public Dimensional<T,N> {
     
           Derived& derived()       { return static_cast<      Derived&>(*this); }
@@ -51,7 +49,7 @@ public:
     VecType<T,N> operator()(T s) const {
         std::optional<size_t> i = segment(s);
         if (not i) { return {}; }
-        Spline<T,N> spline = derived()[*i].value();
+        Spline spline = derived()[*i].value();
         return spline(s - i);
     }
     
@@ -63,7 +61,7 @@ public:
     VecType<T,N> velocity(T s) const {
         std::optional<size_t> i = segment(s);
         if (not i) return {};
-        Spline<T,N> spline = (*this)[*i].value();
+        Spline spline = (*this)[*i].value();
         return spline.velocity(s - i);
     }
     
@@ -75,7 +73,7 @@ public:
     VecType<T,N> acceleration(T s) const {
         std::optional<size_t> i = segment(s);
         if (not i) return {};
-        Spline<T,N> spline = (*this)[*i].value();
+        Spline spline = (*this)[*i].value();
         return spline.acceleration(s - i);
     }
     
@@ -216,7 +214,7 @@ template <typename T, index_t N>
 class BezierPath : public SplinePath<T,N,BezierSpline<T,N>,BezierPath<T,N>> {
 private:
     std::vector<VecType<T,N>> knots;
-    std::vector<VecTye<T,N>>  tangents;
+    std::vector<VecType<T,N>> tangents;
     
 public:
     
@@ -368,6 +366,14 @@ public:
         return Knot {knot, t};
     }
     
+    /**
+     * @brief Remove all knots and their tangents from the path.
+     */
+    void clear() {
+        knots.clear();
+        tangents.clear();
+    }
+    
 };
 
 
@@ -435,6 +441,5 @@ public:
 };
 
 /// @} // addtogroup spline
-/// @} // addtogroup shape
 
 } // namespace geom

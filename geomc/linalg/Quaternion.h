@@ -96,12 +96,12 @@ public:
      * @return A quaternion rotating `v` into alignment with `alignWith`.
      */
     static inline Quat<T> rotation_direction_align(
-            const Vec<T,3>& v,
-            const Vec<T,3>& align_with)
+            const Vec<T,3>& unit_v,
+            const Vec<T,3>& unit_align_with)
     {
-        Vec<T,3> axis = v ^ align_with;
-        T d = v.dot(align_with);
-        return Quat<T>(axis, d);
+        Vec<T,3> axis = unit_v ^ unit_align_with;
+        T c = unit_v.dot(unit_align_with);
+        return Quat<T>(axis, 1 + c);
     }
 
     /*******************************
