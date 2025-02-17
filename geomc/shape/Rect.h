@@ -143,10 +143,7 @@ public:
      * @param dims Lengths of each axis; may be negative.
      * @return A new Rect with its center at `c`.
      */
-    inline static Rect<T,N> from_center(
-            typename Rect<T,N>::point_t c,
-            typename Rect<T,N>::point_t dims)
-    {
+    inline static Rect<T,N> from_center(VecType<T,N> c, VecType<T,N> dims) {
         return Rect<T,N>::from_corners(
             c -  dims / 2,
             c + (dims - endpoint_measure) / 2
@@ -159,10 +156,7 @@ public:
      * @param dims Lengths of each axis relative to given corner. Lengths may be negative.
      * @return A new Rect with one corner at `corner`.
      */
-    inline static Rect<T,N> from_edge(
-            typename Rect<T,N>::point_t edge,
-            typename Rect<T,N>::point_t dims)
-    {
+    inline static Rect<T,N> from_edge(VecType<T,N> edge, VecType<T,N> dims) {
         return Rect<T,N>::from_corners(
             edge,
             edge + dims - endpoint_measure);
@@ -189,7 +183,7 @@ public:
      * @param dims Lengths of each axis.
      * @return Rect<T,N> A new Rect with its center at the origin.
      */
-    inline static Rect<T,N> from_size(typename Rect<T,N>::point_t dims) {
+    inline static Rect<T,N> from_size(VecType<T,N> dims) {
         return Rect<T,N>::from_center({}, dims);
     }
 
@@ -221,9 +215,7 @@ public:
      * @param pt Test point
      * @return `true` if `pt` is inside the exremes
      */
-    static bool contains(typename Rect<T,N>::point_t lo,
-                         typename Rect<T,N>::point_t hi,
-                         typename Rect<T,N>::point_t pt) {
+    static bool contains(VecType<T,N> lo, VecType<T,N> hi, VecType<T,N> pt) {
         for (index_t axis = 0; axis < N; axis++) {
             T v = coord(pt, axis);
             if (v < coord(lo, axis) or v > coord(hi, axis)) {
@@ -572,8 +564,7 @@ public:
      * @return A new Rect, with elements all of type `U`.
      */
     template <typename U, index_t M> operator Rect<U,M>() const {
-        return Rect<U,M>((typename Rect<U,M>::point_t) lo,
-                         (typename Rect<U,M>::point_t) hi);
+        return Rect<U,M>(VecType<U,M>{lo}, VecType<U,M>{hi});
     }
 
 
@@ -1146,12 +1137,12 @@ constexpr T max() {
 
 
 template <typename T, index_t N>
-inline Rect<T,N> operator+(typename Rect<T,N>::point_t p, const Rect<T,N>& r) {
+inline Rect<T,N> operator+(VecType<T,N> p, const Rect<T,N>& r) {
     return r + p;
 }
 
 template <typename T, index_t N>
-inline Rect<T,N> operator-(typename Rect<T,N>::point_t p, const Rect<T,N>& r) {
+inline Rect<T,N> operator-(VecType<T,N> p, const Rect<T,N>& r) {
     return r - p;
 }
 
