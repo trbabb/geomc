@@ -337,7 +337,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>                    <span class="keywordflow">if</span> (k_i != 0) {</div>
 <div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>                        T s0 =     -p_i  / k_i;</div>
 <div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>                        T s1 = (1 - p_i) / k_i;</div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>                        interval &amp;= <a class="code hl_function" href="classgeom_1_1_rect.html#ad79e1f25bef5525ef3cf931a42aea52b">Rect&lt;T,1&gt;::spanning_corners</a>(s0, s1);</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>                        interval &amp;= <a class="code hl_function" href="classgeom_1_1_rect.html#a6bc19a221e6e2bab59427c2be992760b">Rect&lt;T,1&gt;::from_corners</a>(s0, s1);</div>
 <div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>                    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (p_i &lt; 0 or p_i &gt; 1) {</div>
 <div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>                        <span class="comment">// if p_i is outside (0, 1) then no value of `s` can solve w_i in</span></div>
 <div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>                        <span class="comment">// (0, 1), because with k = 0 there is no dependency on s!</span></div>
@@ -554,185 +554,166 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span>    }</div>
 </div>
 <div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span>    </div>
-<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>    <a class="code hl_class" href="classgeom_1_1_vec.html">Vec&lt;T,N+1&gt;</a> remap(<span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_vec.html">Vec&lt;T,N+1&gt;</a> s)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>        s = s / s.<a class="code hl_function" href="classgeom_1_1detail_1_1_vec_common.html#a3897602215e918b73f64df481e8f7aa7">sum</a>();</div>
-<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>        <a class="code hl_class" href="classgeom_1_1_vec.html">Vec&lt;T,N+1&gt;</a> p = {};</div>
-<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span>        <span class="keywordflow">for</span> (index_t i = 0; i &lt; <a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a>; ++i) {</div>
-<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span>            p += <a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[i] * s[i];</div>
-<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span>        }</div>
-<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span>        <span class="keywordflow">return</span> p;</div>
-<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span>    }</div>
-<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span>    </div>
-<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>    Vec&lt;T,N+1&gt; unmap(<span class="keyword">const</span> Vec&lt;T,N&gt;&amp; p)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>        <span class="comment">// todo: account for simplexes with fewer than N+1 vertices</span></div>
-<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a> &lt; <a class="code hl_variable" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> + 1) <span class="keywordflow">return</span> {};</div>
-<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>        <span class="comment">// solve for barycentric coordinates x:</span></div>
-<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>        <span class="comment">// Σ (1, v[i]) * x[i] = (1, p)</span></div>
-<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>        </div>
-<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>        <span class="keyword">const</span> index_t K = <a class="code hl_variable" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> + 1;</div>
-<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>        T m[K * K];</div>
-<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span>        T x[K];</div>
-<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>        <span class="keywordflow">for</span> (index_t i = 0; i &lt; K; ++i) {</div>
-<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span>            <span class="keyword">const</span> T* v = <a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[i].begin();</div>
-<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>            m[i * K] = 1;</div>
-<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>            std::copy(v, v + <a class="code hl_variable" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a>, m + i * K + 1);</div>
-<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>        }</div>
-<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>        x[0] = 1;</div>
-<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>        std::copy(p.begin(), p.end(), x + 1);</div>
-<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>        </div>
-<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>        <span class="comment">// (no solution means a degenerate simplex, which has zero volume, so empty)</span></div>
-<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>        <span class="keywordflow">if</span> (not <a class="code hl_function" href="group__linalg.html#gae0e08296d62b0948b5d07a7e07fb5a3b">linear_solve&lt;T,false&gt;</a>((T*) m, K, 1, (T*) x, 1)) <span class="keywordflow">return</span> {};</div>
-<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>        <span class="comment">// skip solving for the sum of the weights         ⤴︎</span></div>
-<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>        <span class="comment">// we don&#39;t need it, and we know it&#39;s 1.</span></div>
-<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>        </div>
-<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>        <span class="keywordflow">return</span> Vec&lt;T,N+1&gt;(x);</div>
-<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>    }</div>
-<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>    </div>
-<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>    <span class="keywordtype">void</span> exclude(index_t i) {</div>
-<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span>        std::copy(<a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a> + i + 1, <a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a> + <a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a>, <a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a> + i);</div>
-<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>        <a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a> -= 1;</div>
-<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span>    }</div>
-<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span>    </div>
-<div class="foldopen" id="foldopen00579" data-start="{" data-end="}">
-<div class="line"><a id="l00579" name="l00579"></a><span class="lineno"><a class="line" href="classgeom_1_1_simplex.html#a6234d525bb854f84f0e1f316d1a4f81b">  579</a></span>    <a class="code hl_function" href="classgeom_1_1_simplex.html#afe26869274f8915bf38907d1b7e30fdf">Simplex&lt;T,N&gt;</a> <a class="code hl_function" href="classgeom_1_1_simplex.html#a6234d525bb854f84f0e1f316d1a4f81b">excluded</a>(index_t i)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span>        <a class="code hl_function" href="classgeom_1_1_simplex.html#afe26869274f8915bf38907d1b7e30fdf">Simplex&lt;T,N&gt;</a> s;</div>
-<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>        index_t c = 0;</div>
-<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>        <span class="keywordflow">for</span> (index_t j = 0; j &lt; <a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a>; ++j) {</div>
-<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>            <span class="keywordflow">if</span> (i != j) s.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[c++] = <a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[j];</div>
-<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>        }</div>
-<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>        s.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a> = <a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a> - 1;</div>
-<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>        <span class="keywordflow">return</span> s;</div>
-<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>    }</div>
+<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>    <span class="keywordtype">void</span> exclude(index_t i) {</div>
+<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>        std::copy(<a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a> + i + 1, <a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a> + <a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a>, <a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a> + i);</div>
+<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>        <a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a> -= 1;</div>
+<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span>    }</div>
+<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span>    </div>
+<div class="foldopen" id="foldopen00545" data-start="{" data-end="}">
+<div class="line"><a id="l00545" name="l00545"></a><span class="lineno"><a class="line" href="classgeom_1_1_simplex.html#a6234d525bb854f84f0e1f316d1a4f81b">  545</a></span>    <a class="code hl_function" href="classgeom_1_1_simplex.html#afe26869274f8915bf38907d1b7e30fdf">Simplex&lt;T,N&gt;</a> <a class="code hl_function" href="classgeom_1_1_simplex.html#a6234d525bb854f84f0e1f316d1a4f81b">excluded</a>(index_t i)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>        <a class="code hl_function" href="classgeom_1_1_simplex.html#afe26869274f8915bf38907d1b7e30fdf">Simplex&lt;T,N&gt;</a> s;</div>
+<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span>        index_t c = 0;</div>
+<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>        <span class="keywordflow">for</span> (index_t j = 0; j &lt; <a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a>; ++j) {</div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>            <span class="keywordflow">if</span> (i != j) s.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[c++] = <a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[j];</div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>        }</div>
+<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>        s.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a> = <a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a> - 1;</div>
+<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>        <span class="keywordflow">return</span> s;</div>
+<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>    }</div>
 </div>
-<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>    </div>
-<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>    <a class="code hl_class" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> convex_support(<a class="code hl_class" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> d)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span>        <a class="code hl_class" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> o = <a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[0];</div>
-<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>        T m = <a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[0].<a class="code hl_function" href="classgeom_1_1detail_1_1_vec_common.html#a04a681153dda4557172f45c08c0e85c3">dot</a>(d);</div>
-<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>        <span class="keywordflow">for</span> (index_t i = 1; i &lt; <a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a>; ++i) {</div>
-<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>            T t = <a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[i].dot(d);</div>
-<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>            <span class="keywordflow">if</span> (t &gt; m) {</div>
-<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span>                m = t;</div>
-<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span>                o = <a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[i];</div>
-<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>            }</div>
-<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>        }</div>
-<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>        <span class="keywordflow">return</span> o;</div>
-<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>    }</div>
-<div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span> </div>
-<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span> </div>
-<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>}; <span class="comment">// class simplex</span></div>
+<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span>    </div>
+<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>    <a class="code hl_class" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> convex_support(<a class="code hl_class" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> d)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span>        <a class="code hl_class" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> o = <a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[0];</div>
+<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>        T m = <a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[0].<a class="code hl_function" href="classgeom_1_1detail_1_1_vec_common.html#a04a681153dda4557172f45c08c0e85c3">dot</a>(d);</div>
+<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>        <span class="keywordflow">for</span> (index_t i = 1; i &lt; <a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a>; ++i) {</div>
+<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>            T t = <a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[i].dot(d);</div>
+<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>            <span class="keywordflow">if</span> (t &gt; m) {</div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>                m = t;</div>
+<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>                o = <a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[i];</div>
+<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>            }</div>
+<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>        }</div>
+<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>        <span class="keywordflow">return</span> o;</div>
+<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>    }</div>
+<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span> </div>
+<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span> </div>
+<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>}; <span class="comment">// class simplex</span></div>
 </div>
-<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span></div>
-<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span></div>
-<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="foldopen" id="foldopen00612" data-start="{" data-end="}">
-<div class="line"><a id="l00612" name="l00612"></a><span class="lineno"><a class="line" href="group__shape.html#gaadd5da73e25bca26ccff5f66a123391f">  612</a></span><a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a> <a class="code hl_function" href="group__shape.html#gaadd5da73e25bca26ccff5f66a123391f">operator*</a>(<span class="keyword">const</span> Similarity&lt;T,N&gt;&amp; xf, <span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a>&amp; s) {</div>
-<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>    <a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a> s2 = s;</div>
-<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>    <span class="keywordflow">for</span> (index_t i = 0; i &lt; s2.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a>; ++i) {</div>
-<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>        s2.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[i] = xf * s2.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[i];</div>
-<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>    }</div>
-<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span>    <span class="keywordflow">return</span> s2;</div>
-<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>}</div>
+<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span></div>
+<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span></div>
+<div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
+<div class="foldopen" id="foldopen00578" data-start="{" data-end="}">
+<div class="line"><a id="l00578" name="l00578"></a><span class="lineno"><a class="line" href="group__shape.html#gaadd5da73e25bca26ccff5f66a123391f">  578</a></span><a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a> <a class="code hl_function" href="group__shape.html#gaadd5da73e25bca26ccff5f66a123391f">operator*</a>(<span class="keyword">const</span> Similarity&lt;T,N&gt;&amp; xf, <span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a>&amp; s) {</div>
+<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>    <a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a> s2 = s;</div>
+<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span>    <span class="keywordflow">for</span> (index_t i = 0; i &lt; s2.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a>; ++i) {</div>
+<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>        s2.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[i] = xf * s2.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[i];</div>
+<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>    }</div>
+<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>    <span class="keywordflow">return</span> s2;</div>
+<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>}</div>
 </div>
-<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span></div>
-<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="foldopen" id="foldopen00624" data-start="{" data-end="}">
-<div class="line"><a id="l00624" name="l00624"></a><span class="lineno"><a class="line" href="group__shape.html#gadbe87324395c1ff3563cfa1f1a74de0d">  624</a></span><a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a> <a class="code hl_function" href="group__shape.html#gadbe87324395c1ff3563cfa1f1a74de0d">operator/</a>(<span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a>&amp; s, <span class="keyword">const</span> Similarity&lt;T,N&gt;&amp; xf) {</div>
-<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>    <a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a> s2 = s;</div>
-<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span>    <span class="keywordflow">for</span> (index_t i = 0; i &lt; s2.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a>; ++i) {</div>
-<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span>        s2.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[i] = s2.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[i] / xf;</div>
-<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span>    }</div>
-<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span>    <span class="keywordflow">return</span> s2;</div>
-<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span>}</div>
+<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span></div>
+<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
+<div class="foldopen" id="foldopen00590" data-start="{" data-end="}">
+<div class="line"><a id="l00590" name="l00590"></a><span class="lineno"><a class="line" href="group__shape.html#gadbe87324395c1ff3563cfa1f1a74de0d">  590</a></span><a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a> <a class="code hl_function" href="group__shape.html#gadbe87324395c1ff3563cfa1f1a74de0d">operator/</a>(<span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a>&amp; s, <span class="keyword">const</span> Similarity&lt;T,N&gt;&amp; xf) {</div>
+<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>    <a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a> s2 = s;</div>
+<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>    <span class="keywordflow">for</span> (index_t i = 0; i &lt; s2.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a>; ++i) {</div>
+<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>        s2.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[i] = s2.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[i] / xf;</div>
+<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>    }</div>
+<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span>    <span class="keywordflow">return</span> s2;</div>
+<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span>}</div>
 </div>
-<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span></div>
-<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="foldopen" id="foldopen00636" data-start="{" data-end="}">
-<div class="line"><a id="l00636" name="l00636"></a><span class="lineno"><a class="line" href="group__shape.html#gafb56943be219022c304321a144a5b67a">  636</a></span><a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a> <a class="code hl_function" href="group__shape.html#gafb56943be219022c304321a144a5b67a">operator*</a>(<span class="keyword">const</span> Isometry&lt;T,N&gt;&amp; xf, <span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a>&amp; s) {</div>
-<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span>    <a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a> s2 = s;</div>
-<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span>    <span class="keywordflow">for</span> (index_t i = 0; i &lt; s2.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a>; ++i) {</div>
-<div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span>        s2.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[i] = xf * s2.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[i];</div>
-<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span>    }</div>
-<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span>    <span class="keywordflow">return</span> s2;</div>
-<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>}</div>
+<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span></div>
+<div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
+<div class="foldopen" id="foldopen00602" data-start="{" data-end="}">
+<div class="line"><a id="l00602" name="l00602"></a><span class="lineno"><a class="line" href="group__shape.html#gafb56943be219022c304321a144a5b67a">  602</a></span><a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a> <a class="code hl_function" href="group__shape.html#gafb56943be219022c304321a144a5b67a">operator*</a>(<span class="keyword">const</span> Isometry&lt;T,N&gt;&amp; xf, <span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a>&amp; s) {</div>
+<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>    <a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a> s2 = s;</div>
+<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>    <span class="keywordflow">for</span> (index_t i = 0; i &lt; s2.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a>; ++i) {</div>
+<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span>        s2.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[i] = xf * s2.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[i];</div>
+<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>    }</div>
+<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span>    <span class="keywordflow">return</span> s2;</div>
+<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span>}</div>
 </div>
-<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span></div>
-<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="foldopen" id="foldopen00648" data-start="{" data-end="}">
-<div class="line"><a id="l00648" name="l00648"></a><span class="lineno"><a class="line" href="group__shape.html#gab9265c05554738c22729dfd0b828a3f0">  648</a></span><a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a> <a class="code hl_function" href="group__shape.html#gab9265c05554738c22729dfd0b828a3f0">operator/</a>(<span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a>&amp; s, <span class="keyword">const</span> Isometry&lt;T,N&gt;&amp; xf) {</div>
-<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span>    <a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a> s2 = s;</div>
-<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span>    <span class="keywordflow">for</span> (index_t i = 0; i &lt; s2.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a>; ++i) {</div>
-<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>        s2.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[i] = s2.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[i] / xf;</div>
-<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>    }</div>
-<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>    <span class="keywordflow">return</span> s2;</div>
-<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>}</div>
+<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span></div>
+<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
+<div class="foldopen" id="foldopen00614" data-start="{" data-end="}">
+<div class="line"><a id="l00614" name="l00614"></a><span class="lineno"><a class="line" href="group__shape.html#gab9265c05554738c22729dfd0b828a3f0">  614</a></span><a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a> <a class="code hl_function" href="group__shape.html#gab9265c05554738c22729dfd0b828a3f0">operator/</a>(<span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a>&amp; s, <span class="keyword">const</span> Isometry&lt;T,N&gt;&amp; xf) {</div>
+<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>    <a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a> s2 = s;</div>
+<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>    <span class="keywordflow">for</span> (index_t i = 0; i &lt; s2.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a>; ++i) {</div>
+<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span>        s2.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[i] = s2.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[i] / xf;</div>
+<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>    }</div>
+<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span>    <span class="keywordflow">return</span> s2;</div>
+<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span>}</div>
 </div>
-<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span></div>
-<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="foldopen" id="foldopen00669" data-start="{" data-end="}">
-<div class="line"><a id="l00669" name="l00669"></a><span class="lineno"><a class="line" href="group__shape.html#gaeb38390a4818ba9f64af8bd33a9087d5">  669</a></span><span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="group__shape.html#gaeb38390a4818ba9f64af8bd33a9087d5">trace_simplex</a>(<span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> verts[N], <span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_ray.html">Ray&lt;T,N&gt;</a>&amp; ray, <a class="code hl_class" href="classgeom_1_1_vec.html">Vec&lt;T,N-1&gt;</a>* uv, T* s) {</div>
-<div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span>    <span class="comment">/* Solve for u,v coordinates along the edges radiating from `verts[0]`:</span></div>
-<div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span><span class="comment">    A + u(B-A) + v(C-A)      = o + sV</span></div>
-<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span><span class="comment">        u(B-A) + v(C-A) - sV = o - A</span></div>
-<div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span><span class="comment">    Mx = o - A</span></div>
-<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span><span class="comment">    */</span></div>
-<div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span>    </div>
-<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>    <span class="comment">// todo: cramer&#39;s rule might be used in 3d for faster linear solve. </span></div>
-<div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span>    <span class="comment">//       (note: is unstable).</span></div>
-<div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span>    </div>
-<div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span>    <span class="comment">// compute bases</span></div>
-<div class="line"><a id="l00680" name="l00680"></a><span class="lineno">  680</span>    <a class="code hl_class" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> bases[N];</div>
-<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span>    <span class="keywordflow">for</span> (index_t i = 1; i &lt; N; ++i) {</div>
-<div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span>        bases[i - 1] = verts[i] - verts[0];</div>
-<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span>    }</div>
-<div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span>    bases[N - 1] = -ray.<a class="code hl_variable" href="classgeom_1_1_ray.html#afb0feb4a94a8f6a5e4fa5b567a9241a2">direction</a>;</div>
-<div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span>    </div>
-<div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span>    <span class="comment">// linear solve</span></div>
-<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span>    <a class="code hl_class" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> x = ray.<a class="code hl_variable" href="classgeom_1_1_ray.html#ae35e0ea34c12b6f71b9ca03de71119a1">origin</a> - verts[0];</div>
-<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span>    index_t skip = uv ? 0 : N - 1;</div>
-<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span>    <span class="keywordflow">if</span> (not <a class="code hl_function" href="group__linalg.html#gae0e08296d62b0948b5d07a7e07fb5a3b">linear_solve</a>(bases, 1, &amp;x, skip)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span>    </div>
-<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span>    <span class="comment">// inside simplex?</span></div>
-<div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span>    T sum = 0;</div>
-<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>    <span class="keywordflow">for</span> (index_t i = 0; i &lt; N - 1; ++i) {</div>
-<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>        <span class="keywordflow">if</span> (x[i] &lt; 0) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span>        sum += x[i];</div>
-<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>    }</div>
-<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>    <span class="keywordflow">if</span> (sum &gt; 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>    </div>
-<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span>    <span class="comment">// output result</span></div>
-<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span>    *s  = x[N];</div>
-<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span>    <span class="keywordflow">if</span> (uv) *uv = x.template resized&lt;N-1&gt;();</div>
-<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span>}</div>
+<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span></div>
+<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
+<div class="foldopen" id="foldopen00635" data-start="{" data-end="}">
+<div class="line"><a id="l00635" name="l00635"></a><span class="lineno"><a class="line" href="group__shape.html#gaeb38390a4818ba9f64af8bd33a9087d5">  635</a></span><span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="group__shape.html#gaeb38390a4818ba9f64af8bd33a9087d5">trace_simplex</a>(<span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> verts[N], <span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_ray.html">Ray&lt;T,N&gt;</a>&amp; ray, <a class="code hl_class" href="classgeom_1_1_vec.html">Vec&lt;T,N-1&gt;</a>* uv, T* s) {</div>
+<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span>    <span class="comment">/* Solve for u,v coordinates along the edges radiating from `verts[0]`:</span></div>
+<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span><span class="comment">    A + u(B-A) + v(C-A)      = o + sV</span></div>
+<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span><span class="comment">        u(B-A) + v(C-A) - sV = o - A</span></div>
+<div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span><span class="comment">    Mx = o - A</span></div>
+<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span><span class="comment">    */</span></div>
+<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span>    </div>
+<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>    <span class="comment">// todo: cramer&#39;s rule might be used in 3d for faster linear solve. </span></div>
+<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span>    <span class="comment">//       (note: is unstable).</span></div>
+<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span>    </div>
+<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>    <span class="comment">// compute bases</span></div>
+<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span>    <a class="code hl_class" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> bases[N];</div>
+<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span>    <span class="keywordflow">for</span> (index_t i = 1; i &lt; N; ++i) {</div>
+<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span>        bases[i - 1] = verts[i] - verts[0];</div>
+<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span>    }</div>
+<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span>    bases[N - 1] = -ray.<a class="code hl_variable" href="classgeom_1_1_ray.html#afb0feb4a94a8f6a5e4fa5b567a9241a2">direction</a>;</div>
+<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>    </div>
+<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>    <span class="comment">// linear solve</span></div>
+<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>    <a class="code hl_class" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> x = ray.<a class="code hl_variable" href="classgeom_1_1_ray.html#ae35e0ea34c12b6f71b9ca03de71119a1">origin</a> - verts[0];</div>
+<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>    index_t skip = uv ? 0 : N - 1;</div>
+<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>    <span class="keywordflow">if</span> (not <a class="code hl_function" href="group__linalg.html#gae0e08296d62b0948b5d07a7e07fb5a3b">linear_solve</a>(bases, 1, &amp;x, skip)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>    </div>
+<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>    <span class="comment">// inside simplex?</span></div>
+<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>    T sum = 0;</div>
+<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>    <span class="keywordflow">for</span> (index_t i = 0; i &lt; N - 1; ++i) {</div>
+<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>        <span class="keywordflow">if</span> (x[i] &lt; 0) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span>        sum += x[i];</div>
+<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>    }</div>
+<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span>    <span class="keywordflow">if</span> (sum &gt; 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>    </div>
+<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>    <span class="comment">// output result</span></div>
+<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>    *s  = x[N];</div>
+<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>    <span class="keywordflow">if</span> (uv) *uv = x.template resized&lt;N-1&gt;();</div>
+<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span>}</div>
 </div>
+<div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span> </div>
+<div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span><span class="keyword">using </span>Triangle = Simplex&lt;T,2&gt;;</div>
+<div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span> </div>
+<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span><span class="keyword">using </span>Tetrahedron = Simplex&lt;T,3&gt;;</div>
+<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span></div>
+<div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span> </div>
+<div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N, <span class="keyword">typename</span> H&gt;</div>
+<div class="foldopen" id="foldopen00680" data-start="{" data-end="};">
+<div class="line"><a id="l00680" name="l00680"></a><span class="lineno"><a class="line" href="structgeom_1_1_digest_3_01_simplex_3_01_t_00_01_n_01_4_00_01_h_01_4.html">  680</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structgeom_1_1_digest.html">Digest</a>&lt;<a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex</a>&lt;T,N&gt;, H&gt; {</div>
+<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span>    H operator()(<span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a>&amp; s)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span>        H nonce = geom::truncated_constant&lt;H&gt;(0x8159bb983f797983, 0xe8904e94430f7555);</div>
+<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span>        <span class="keywordflow">return</span> geom::hash_array&lt;H&gt;(nonce, s.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>, s.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a>);</div>
+<div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span>    }</div>
+<div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span>};</div>
+</div>
+<div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span> </div>
+<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span><span class="preprocessor">#ifdef GEOMC_USE_STREAMS</span></div>
+<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span> </div>
+<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
+<div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span>std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, <span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a>&amp; s) {</div>
+<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span>    os &lt;&lt; <span class="stringliteral">&quot;Simplex(&quot;</span>;</div>
+<div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span>    <span class="keywordflow">for</span> (index_t i = 0; i &lt; s.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a>; ++i) {</div>
+<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>        <span class="keywordflow">if</span> (i &gt; 0) os &lt;&lt; <span class="stringliteral">&quot;, &quot;</span>;</div>
+<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>        os &lt;&lt; s.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>[i];</div>
+<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span>    }</div>
+<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>    os &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
+<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>    <span class="keywordflow">return</span> os;</div>
+<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>}</div>
+<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span> </div>
+<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span> </div>
+<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>} <span class="comment">// namespace geom</span></div>
+<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span> </div>
 <div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span> </div>
-<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span><span class="keyword">using </span>Triangle = Simplex&lt;T,2&gt;;</div>
-<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span> </div>
-<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span><span class="keyword">using </span>Tetrahedron = Simplex&lt;T,3&gt;;</div>
-<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span></div>
-<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span> </div>
-<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N, <span class="keyword">typename</span> H&gt;</div>
-<div class="foldopen" id="foldopen00714" data-start="{" data-end="};">
-<div class="line"><a id="l00714" name="l00714"></a><span class="lineno"><a class="line" href="structgeom_1_1_digest_3_01_simplex_3_01_t_00_01_n_01_4_00_01_h_01_4.html">  714</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structgeom_1_1_digest.html">Digest</a>&lt;<a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex</a>&lt;T,N&gt;, H&gt; {</div>
-<div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span>    H operator()(<span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_simplex.html">Simplex&lt;T,N&gt;</a>&amp; s)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span>        H nonce = geom::truncated_constant&lt;H&gt;(0x8159bb983f797983, 0xe8904e94430f7555);</div>
-<div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span>        <span class="keywordflow">return</span> geom::hash_array&lt;H&gt;(nonce, s.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f">pts</a>, s.<a class="code hl_variable" href="classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80">n</a>);</div>
-<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span>    }</div>
-<div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span>};</div>
-</div>
-<div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span> </div>
-<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span>} <span class="comment">// namespace geom</span></div>
-<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span> </div>
-<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span> </div>
-<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
-<div class="foldopen" id="foldopen00725" data-start="{" data-end="};">
-<div class="line"><a id="l00725" name="l00725"></a><span class="lineno"><a class="line" href="structstd_1_1hash_3_01geom_1_1_simplex_3_01_t_00_01_n_01_4_01_4.html">  725</a></span><span class="keyword">struct </span>std::hash&lt;<a class="code hl_namespace" href="namespacegeom.html">geom</a>::Simplex&lt;T,N&gt;&gt; {</div>
-<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span>    <span class="keywordtype">size_t</span> operator()(<span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_simplex.html">geom::Simplex&lt;T,N&gt;</a> &amp;s)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="namespacegeom.html#a2c079cb91a411f00bec52aacf6940071">geom::hash&lt;geom::Simplex&lt;T,N&gt;</a>, <span class="keywordtype">size_t</span>&gt;(s);</div>
-<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span>    }</div>
-<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>};</div>
+<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, index_t N&gt;</div>
+<div class="foldopen" id="foldopen00706" data-start="{" data-end="};">
+<div class="line"><a id="l00706" name="l00706"></a><span class="lineno"><a class="line" href="structstd_1_1hash_3_01geom_1_1_simplex_3_01_t_00_01_n_01_4_01_4.html">  706</a></span><span class="keyword">struct </span>std::hash&lt;<a class="code hl_namespace" href="namespacegeom.html">geom</a>::Simplex&lt;T,N&gt;&gt; {</div>
+<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>    <span class="keywordtype">size_t</span> operator()(<span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_simplex.html">geom::Simplex&lt;T,N&gt;</a> &amp;s)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="namespacegeom.html#a2c079cb91a411f00bec52aacf6940071">geom::hash&lt;geom::Simplex&lt;T,N&gt;</a>, <span class="keywordtype">size_t</span>&gt;(s);</div>
+<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>    }</div>
+<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>};</div>
 </div>
 <div class="ttc" id="aclassgeom_1_1_affine_transform_html"><div class="ttname"><a href="classgeom_1_1_affine_transform.html">geom::AffineTransform</a></div><div class="ttdoc">Affine transformation class.</div><div class="ttdef"><b>Definition</b> AffineTransform.h:87</div></div>
 <div class="ttc" id="aclassgeom_1_1_convex_html"><div class="ttname"><a href="classgeom_1_1_convex.html">geom::Convex</a></div><div class="ttdoc">Base class describing convex shapes in N-dimensional space.</div><div class="ttdef"><b>Definition</b> Shape.h:89</div></div>
@@ -743,9 +724,9 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aclassgeom_1_1_rect_html"><div class="ttname"><a href="classgeom_1_1_rect.html">geom::Rect</a></div><div class="ttdoc">An N-dimensional axis-aligned interval.</div><div class="ttdef"><b>Definition</b> Rect.h:68</div></div>
 <div class="ttc" id="aclassgeom_1_1_rect_html_a0ffa04769eee75de6100330b3395929a"><div class="ttname"><a href="classgeom_1_1_rect.html#a0ffa04769eee75de6100330b3395929a">geom::Rect::hi</a></div><div class="ttdeci">point_t hi</div><div class="ttdoc">Upper extremes.</div><div class="ttdef"><b>Definition</b> Rect.h:78</div></div>
 <div class="ttc" id="aclassgeom_1_1_rect_html_a1d489526769f66aa383b611d208c6216"><div class="ttname"><a href="classgeom_1_1_rect.html#a1d489526769f66aa383b611d208c6216">geom::Rect::lo</a></div><div class="ttdeci">point_t lo</div><div class="ttdoc">Lower extremes.</div><div class="ttdef"><b>Definition</b> Rect.h:76</div></div>
+<div class="ttc" id="aclassgeom_1_1_rect_html_a6bc19a221e6e2bab59427c2be992760b"><div class="ttname"><a href="classgeom_1_1_rect.html#a6bc19a221e6e2bab59427c2be992760b">geom::Rect::from_corners</a></div><div class="ttdeci">static Rect&lt; T, N &gt; from_corners(point_t c1, point_t c2)</div><div class="ttdoc">Construct a Rect containing the two corners c1 and c2.</div><div class="ttdef"><b>Definition</b> Rect.h:171</div></div>
 <div class="ttc" id="aclassgeom_1_1_rect_html_a9783c97bd49c3fbd5baf56be4072a78f"><div class="ttname"><a href="classgeom_1_1_rect.html#a9783c97bd49c3fbd5baf56be4072a78f">geom::Rect::empty</a></div><div class="ttdeci">static const Rect&lt; T, N &gt; empty</div><div class="ttdoc">A Rect that contains no points.</div><div class="ttdef"><b>Definition</b> Rect.h:138</div></div>
 <div class="ttc" id="aclassgeom_1_1_rect_html_ac55a905a26b3e5bbc1c4ac8bb3733c7c"><div class="ttname"><a href="classgeom_1_1_rect.html#ac55a905a26b3e5bbc1c4ac8bb3733c7c">geom::Rect::full</a></div><div class="ttdeci">static const Rect&lt; T, N &gt; full</div><div class="ttdoc">A Rect that contains all points.</div><div class="ttdef"><b>Definition</b> Rect.h:135</div></div>
-<div class="ttc" id="aclassgeom_1_1_rect_html_ad79e1f25bef5525ef3cf931a42aea52b"><div class="ttname"><a href="classgeom_1_1_rect.html#ad79e1f25bef5525ef3cf931a42aea52b">geom::Rect::spanning_corners</a></div><div class="ttdeci">static Rect&lt; T, N &gt; spanning_corners(point_t c1, point_t c2)</div><div class="ttdoc">Construct a Rect containing the two corners c1 and c2.</div><div class="ttdef"><b>Definition</b> Rect.h:177</div></div>
 <div class="ttc" id="aclassgeom_1_1_sdf_evaluable_html"><div class="ttname"><a href="classgeom_1_1_sdf_evaluable.html">geom::SdfEvaluable</a></div><div class="ttdoc">Base class describing N-dimensional shapes which implement a signed distance function.</div><div class="ttdef"><b>Definition</b> Shape.h:187</div></div>
 <div class="ttc" id="aclassgeom_1_1_simplex_html"><div class="ttname"><a href="classgeom_1_1_simplex.html">geom::Simplex</a></div><div class="ttdoc">A simplex in N dimensions (e.g. a tetrahedron, triangle, line, point).</div><div class="ttdef"><b>Definition</b> Simplex.h:92</div></div>
 <div class="ttc" id="aclassgeom_1_1_simplex_html_a0ec7dc417dde1341c49481940dbaff28"><div class="ttname"><a href="classgeom_1_1_simplex.html#a0ec7dc417dde1341c49481940dbaff28">geom::Simplex::operator/=</a></div><div class="ttdeci">Simplex&lt; T, N &gt; &amp; operator/=(const AffineTransform&lt; T, N &gt; &amp;xf)</div><div class="ttdoc">Apply an inverse transformation to the points of this Simplex.</div><div class="ttdef"><b>Definition</b> Simplex.h:215</div></div>
@@ -756,7 +737,7 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aclassgeom_1_1_simplex_html_a45d19e657d2d727cbef8da5c6b69ed2f"><div class="ttname"><a href="classgeom_1_1_simplex.html#a45d19e657d2d727cbef8da5c6b69ed2f">geom::Simplex::operator|</a></div><div class="ttdeci">Simplex&lt; T, N &gt; operator|(const Vec&lt; T, N &gt; &amp;p) const</div><div class="ttdoc">Return a copy of this simplex with an additional vertex at p.</div><div class="ttdef"><b>Definition</b> Simplex.h:184</div></div>
 <div class="ttc" id="aclassgeom_1_1_simplex_html_a4d39af9ce1b03fce6e85bea7c2373e8e"><div class="ttname"><a href="classgeom_1_1_simplex.html#a4d39af9ce1b03fce6e85bea7c2373e8e">geom::Simplex::operator[]</a></div><div class="ttdeci">Vec&lt; T, N &gt; operator[](index_t i) const</div><div class="ttdoc">Get the ith vertex in this simplex.</div><div class="ttdef"><b>Definition</b> Simplex.h:155</div></div>
 <div class="ttc" id="aclassgeom_1_1_simplex_html_a55aae4fe1bce3c945d3540e53012a753"><div class="ttname"><a href="classgeom_1_1_simplex.html#a55aae4fe1bce3c945d3540e53012a753">geom::Simplex::measure_interior</a></div><div class="ttdeci">T measure_interior() const</div><div class="ttdoc">Compute the signed volume of the simplex.</div><div class="ttdef"><b>Definition</b> Simplex.h:384</div></div>
-<div class="ttc" id="aclassgeom_1_1_simplex_html_a6234d525bb854f84f0e1f316d1a4f81b"><div class="ttname"><a href="classgeom_1_1_simplex.html#a6234d525bb854f84f0e1f316d1a4f81b">geom::Simplex::excluded</a></div><div class="ttdeci">Simplex&lt; T, N &gt; excluded(index_t i) const</div><div class="ttdoc">Create a new sub-simplex by excluding the ith vertex in this simplex.</div><div class="ttdef"><b>Definition</b> Simplex.h:579</div></div>
+<div class="ttc" id="aclassgeom_1_1_simplex_html_a6234d525bb854f84f0e1f316d1a4f81b"><div class="ttname"><a href="classgeom_1_1_simplex.html#a6234d525bb854f84f0e1f316d1a4f81b">geom::Simplex::excluded</a></div><div class="ttdeci">Simplex&lt; T, N &gt; excluded(index_t i) const</div><div class="ttdoc">Create a new sub-simplex by excluding the ith vertex in this simplex.</div><div class="ttdef"><b>Definition</b> Simplex.h:545</div></div>
 <div class="ttc" id="aclassgeom_1_1_simplex_html_a678815b8e47e4bbdf3e275a4a0973211"><div class="ttname"><a href="classgeom_1_1_simplex.html#a678815b8e47e4bbdf3e275a4a0973211">geom::Simplex::is_facing</a></div><div class="ttdeci">bool is_facing(const Vec&lt; T, N &gt; &amp;p, Vec&lt; T, N &gt; *params=nullptr) const</div><div class="ttdoc">Project the point to the simplex along its orthogonal complement (if there is one) and test for conta...</div><div class="ttdef"><b>Definition</b> Simplex.h:313</div></div>
 <div class="ttc" id="aclassgeom_1_1_simplex_html_a841a53d6f4e83fdcf1aedec6692a9c92"><div class="ttname"><a href="classgeom_1_1_simplex.html#a841a53d6f4e83fdcf1aedec6692a9c92">geom::Simplex::contains</a></div><div class="ttdeci">bool contains(const Vec&lt; T, N &gt; &amp;p) const</div><div class="ttdoc">Simplex-point intersection test.</div><div class="ttdef"><b>Definition</b> Simplex.h:454</div></div>
 <div class="ttc" id="aclassgeom_1_1_simplex_html_a84ed84fda97672e0cae4e8e8f49d4002"><div class="ttname"><a href="classgeom_1_1_simplex.html#a84ed84fda97672e0cae4e8e8f49d4002">geom::Simplex::insert</a></div><div class="ttdeci">void insert(Vec&lt; T, N &gt; p)</div><div class="ttdoc">Extend this simplex to include p by adding p as a vertex.</div><div class="ttdef"><b>Definition</b> Simplex.h:227</div></div>
@@ -776,7 +757,6 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aclassgeom_1_1detail_1_1_vec_base_html_a0dcd4e15c18bbf90a93bb95d82df23b5"><div class="ttname"><a href="classgeom_1_1detail_1_1_vec_base.html#a0dcd4e15c18bbf90a93bb95d82df23b5">geom::detail::VecBase::end</a></div><div class="ttdeci">const T * end() const</div><div class="ttdef"><b>Definition</b> VecBase.h:97</div></div>
 <div class="ttc" id="aclassgeom_1_1detail_1_1_vec_base_html_af0a897cde3fdfce253880ea82e6ecae8"><div class="ttname"><a href="classgeom_1_1detail_1_1_vec_base.html#af0a897cde3fdfce253880ea82e6ecae8">geom::detail::VecBase::begin</a></div><div class="ttdeci">const T * begin() const</div><div class="ttdef"><b>Definition</b> VecBase.h:92</div></div>
 <div class="ttc" id="aclassgeom_1_1detail_1_1_vec_common_html_a04a681153dda4557172f45c08c0e85c3"><div class="ttname"><a href="classgeom_1_1detail_1_1_vec_common.html#a04a681153dda4557172f45c08c0e85c3">geom::detail::VecCommon::dot</a></div><div class="ttdeci">T dot(const self_t &amp;v) const</div><div class="ttdoc">Dot product.</div><div class="ttdef"><b>Definition</b> VecBase.h:549</div></div>
-<div class="ttc" id="aclassgeom_1_1detail_1_1_vec_common_html_a3897602215e918b73f64df481e8f7aa7"><div class="ttname"><a href="classgeom_1_1detail_1_1_vec_common.html#a3897602215e918b73f64df481e8f7aa7">geom::detail::VecCommon::sum</a></div><div class="ttdeci">T sum() const</div><div class="ttdoc">Sum the elements of the vector.</div><div class="ttdef"><b>Definition</b> VecBase.h:599</div></div>
 <div class="ttc" id="aclassgeom_1_1detail_1_1_vec_common_html_a5992718d38b129ad5ff2272d9c3e867c"><div class="ttname"><a href="classgeom_1_1detail_1_1_vec_common.html#a5992718d38b129ad5ff2272d9c3e867c">geom::detail::VecCommon::mag2</a></div><div class="ttdeci">T mag2() const</div><div class="ttdoc">Squared magnitude.</div><div class="ttdef"><b>Definition</b> VecBase.h:569</div></div>
 <div class="ttc" id="agroup__linalg_html_gacce6ee33921b1f589ee9b031f3561fa9"><div class="ttname"><a href="group__linalg.html#gacce6ee33921b1f589ee9b031f3561fa9">geom::nullspace</a></div><div class="ttdeci">bool nullspace(const Vec&lt; T, N &gt; bases[], index_t n, Vec&lt; T, N &gt; null_basis[])</div><div class="ttdoc">Compute the null space of a vector basis.</div><div class="ttdef"><b>Definition</b> Orthogonal.h:136</div></div>
 <div class="ttc" id="agroup__linalg_html_gae0e08296d62b0948b5d07a7e07fb5a3b"><div class="ttname"><a href="group__linalg.html#gae0e08296d62b0948b5d07a7e07fb5a3b">geom::linear_solve</a></div><div class="ttdeci">bool linear_solve(T *a, index_t n, index_t m, T *x, index_t skip=0)</div><div class="ttdoc">Solve the matrix equation AX = B for the matrix X, given matrices A and B.</div><div class="ttdef"><b>Definition</b> LUDecomp.h:390</div></div>
@@ -784,16 +764,16 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="agroup__matrix_html_ga5fb9242302749765e7f213454c8bf3b3"><div class="ttname"><a href="group__matrix.html#ga5fb9242302749765e7f213454c8bf3b3">geom::det3x3</a></div><div class="ttdeci">T det3x3(const T m[9])</div><div class="ttdoc">Compute the 3x3 matrix determinant.</div><div class="ttdef"><b>Definition</b> MatrixDet.h:63</div></div>
 <div class="ttc" id="agroup__matrix_html_gaabd373e2258b3a0ad89c871606d463e1"><div class="ttname"><a href="group__matrix.html#gaabd373e2258b3a0ad89c871606d463e1">geom::det2x2</a></div><div class="ttdeci">T det2x2(T a, T b, T c, T d)</div><div class="ttdoc">Compute the 2x2 matrix determinant from individual parameters.</div><div class="ttdef"><b>Definition</b> MatrixDet.h:51</div></div>
 <div class="ttc" id="agroup__matrix_html_gaf4cc58853d04688d1bf2dc0ed7feb78b"><div class="ttname"><a href="group__matrix.html#gaf4cc58853d04688d1bf2dc0ed7feb78b">geom::mul</a></div><div class="ttdeci">Matrix &amp; mul(Matrix *into, const Matrix1 &amp;a, const Matrix2 &amp;b)</div><div class="ttdef"><b>Definition</b> Matrix.h:363</div></div>
-<div class="ttc" id="agroup__shape_html_gaadd5da73e25bca26ccff5f66a123391f"><div class="ttname"><a href="group__shape.html#gaadd5da73e25bca26ccff5f66a123391f">geom::Similarity::operator*</a></div><div class="ttdeci">Simplex&lt; T, N &gt; operator*(const Similarity&lt; T, N &gt; &amp;xf, const Simplex&lt; T, N &gt; &amp;s)</div><div class="ttdoc">Transform a simplex by a similarity transform.</div><div class="ttdef"><b>Definition</b> Simplex.h:612</div></div>
-<div class="ttc" id="agroup__shape_html_gab9265c05554738c22729dfd0b828a3f0"><div class="ttname"><a href="group__shape.html#gab9265c05554738c22729dfd0b828a3f0">geom::Isometry::operator/</a></div><div class="ttdeci">Simplex&lt; T, N &gt; operator/(const Simplex&lt; T, N &gt; &amp;s, const Isometry&lt; T, N &gt; &amp;xf)</div><div class="ttdoc">Inverse-transform a simplex by an isometry.</div><div class="ttdef"><b>Definition</b> Simplex.h:648</div></div>
-<div class="ttc" id="agroup__shape_html_gadbe87324395c1ff3563cfa1f1a74de0d"><div class="ttname"><a href="group__shape.html#gadbe87324395c1ff3563cfa1f1a74de0d">geom::Similarity::operator/</a></div><div class="ttdeci">Simplex&lt; T, N &gt; operator/(const Simplex&lt; T, N &gt; &amp;s, const Similarity&lt; T, N &gt; &amp;xf)</div><div class="ttdoc">Inverse-transform a simplex by a similarity transform.</div><div class="ttdef"><b>Definition</b> Simplex.h:624</div></div>
-<div class="ttc" id="agroup__shape_html_gaeb38390a4818ba9f64af8bd33a9087d5"><div class="ttname"><a href="group__shape.html#gaeb38390a4818ba9f64af8bd33a9087d5">geom::trace_simplex</a></div><div class="ttdeci">bool trace_simplex(const Vec&lt; T, N &gt; verts[N], const Ray&lt; T, N &gt; &amp;ray, Vec&lt; T, N-1 &gt; *uv, T *s)</div><div class="ttdef"><b>Definition</b> Simplex.h:669</div></div>
-<div class="ttc" id="agroup__shape_html_gafb56943be219022c304321a144a5b67a"><div class="ttname"><a href="group__shape.html#gafb56943be219022c304321a144a5b67a">geom::Isometry::operator*</a></div><div class="ttdeci">Simplex&lt; T, N &gt; operator*(const Isometry&lt; T, N &gt; &amp;xf, const Simplex&lt; T, N &gt; &amp;s)</div><div class="ttdoc">Transform a simplex by an isometry.</div><div class="ttdef"><b>Definition</b> Simplex.h:636</div></div>
+<div class="ttc" id="agroup__shape_html_gaadd5da73e25bca26ccff5f66a123391f"><div class="ttname"><a href="group__shape.html#gaadd5da73e25bca26ccff5f66a123391f">geom::Similarity::operator*</a></div><div class="ttdeci">Simplex&lt; T, N &gt; operator*(const Similarity&lt; T, N &gt; &amp;xf, const Simplex&lt; T, N &gt; &amp;s)</div><div class="ttdoc">Transform a simplex by a similarity transform.</div><div class="ttdef"><b>Definition</b> Simplex.h:578</div></div>
+<div class="ttc" id="agroup__shape_html_gab9265c05554738c22729dfd0b828a3f0"><div class="ttname"><a href="group__shape.html#gab9265c05554738c22729dfd0b828a3f0">geom::Isometry::operator/</a></div><div class="ttdeci">Simplex&lt; T, N &gt; operator/(const Simplex&lt; T, N &gt; &amp;s, const Isometry&lt; T, N &gt; &amp;xf)</div><div class="ttdoc">Inverse-transform a simplex by an isometry.</div><div class="ttdef"><b>Definition</b> Simplex.h:614</div></div>
+<div class="ttc" id="agroup__shape_html_gadbe87324395c1ff3563cfa1f1a74de0d"><div class="ttname"><a href="group__shape.html#gadbe87324395c1ff3563cfa1f1a74de0d">geom::Similarity::operator/</a></div><div class="ttdeci">Simplex&lt; T, N &gt; operator/(const Simplex&lt; T, N &gt; &amp;s, const Similarity&lt; T, N &gt; &amp;xf)</div><div class="ttdoc">Inverse-transform a simplex by a similarity transform.</div><div class="ttdef"><b>Definition</b> Simplex.h:590</div></div>
+<div class="ttc" id="agroup__shape_html_gaeb38390a4818ba9f64af8bd33a9087d5"><div class="ttname"><a href="group__shape.html#gaeb38390a4818ba9f64af8bd33a9087d5">geom::trace_simplex</a></div><div class="ttdeci">bool trace_simplex(const Vec&lt; T, N &gt; verts[N], const Ray&lt; T, N &gt; &amp;ray, Vec&lt; T, N-1 &gt; *uv, T *s)</div><div class="ttdef"><b>Definition</b> Simplex.h:635</div></div>
+<div class="ttc" id="agroup__shape_html_gafb56943be219022c304321a144a5b67a"><div class="ttname"><a href="group__shape.html#gafb56943be219022c304321a144a5b67a">geom::Isometry::operator*</a></div><div class="ttdeci">Simplex&lt; T, N &gt; operator*(const Isometry&lt; T, N &gt; &amp;xf, const Simplex&lt; T, N &gt; &amp;s)</div><div class="ttdoc">Transform a simplex by an isometry.</div><div class="ttdef"><b>Definition</b> Simplex.h:602</div></div>
 <div class="ttc" id="anamespacegeom_html"><div class="ttname"><a href="namespacegeom.html">geom</a></div><div class="ttdoc">Namespace of all geomc functions and classes.</div><div class="ttdef"><b>Definition</b> Deque.h:10</div></div>
 <div class="ttc" id="anamespacegeom_html_a2c079cb91a411f00bec52aacf6940071"><div class="ttname"><a href="namespacegeom.html#a2c079cb91a411f00bec52aacf6940071">geom::hash</a></div><div class="ttdeci">H hash(const T &amp;obj)</div><div class="ttdoc">Produce a hash of an object.</div><div class="ttdef"><b>Definition</b> Hash.h:203</div></div>
 <div class="ttc" id="anamespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdoc">Functions to extend support of stdlib to geomc classes.</div><div class="ttdef"><b>Definition</b> DualFunctions.h:266</div></div>
 <div class="ttc" id="astructgeom_1_1_digest_html"><div class="ttname"><a href="structgeom_1_1_digest.html">geom::Digest</a></div><div class="ttdoc">Partially-specializable hash function object for arbitrary object and hash types.</div><div class="ttdef"><b>Definition</b> Hash.h:54</div></div>
-<div class="ttc" id="astructgeom_1_1_dimensional_html_a964460830811452bb075cc15005440ba"><div class="ttname"><a href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">geom::Simplex&lt; T, 2 &gt;::N</a></div><div class="ttdeci">static constexpr index_t N</div><div class="ttdef"><b>Definition</b> LinalgTypes.h:256</div></div>
+<div class="ttc" id="astructgeom_1_1_dimensional_html_a964460830811452bb075cc15005440ba"><div class="ttname"><a href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">geom::Simplex&lt; T, 2 &gt;::N</a></div><div class="ttdeci">static constexpr index_t N</div><div class="ttdef"><b>Definition</b> LinalgTypes.h:246</div></div>
 <div class="ttc" id="astructgeom_1_1_dual_html_a26145af3a962a47e0bdfe8bf48a77328"><div class="ttname"><a href="structgeom_1_1_dual.html#a26145af3a962a47e0bdfe8bf48a77328">geom::Dual::min</a></div><div class="ttdeci">geom::Dual&lt; T, P &gt; min(const geom::Dual&lt; T, P &gt; &amp;d1, const geom::Dual&lt; T, P &gt; &amp;d2)</div><div class="ttdoc">Minimum.</div><div class="ttdef"><b>Definition</b> DualFunctions.h:515</div></div>
 <div class="ttc" id="astructgeom_1_1detail_1_1_simplex_projection_html"><div class="ttname"><a href="structgeom_1_1detail_1_1_simplex_projection.html">geom::detail::SimplexProjection</a></div><div class="ttdef"><b>Definition</b> SimplexProject.h:228</div></div>
 <div class="ttc" id="astructgeom_1_1detail_1_1_simplex_projection_html_a306e50a97ff77199dd822a2d590235c6"><div class="ttname"><a href="structgeom_1_1detail_1_1_simplex_projection.html#a306e50a97ff77199dd822a2d590235c6">geom::detail::SimplexProjection::projected_face</a></div><div class="ttdeci">Simplex&lt; T, N &gt; projected_face() const</div><div class="ttdoc">Extract the face to which p projects.</div><div class="ttdef"><b>Definition</b> SimplexProject.h:370</div></div>
@@ -801,7 +781,7 @@ $(function(){ initResizable(false); });
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon Feb 17 2025 15:19:54 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

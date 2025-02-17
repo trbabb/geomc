@@ -419,16 +419,29 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>};</div>
 </div>
 <div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span> </div>
-<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span>} <span class="comment">// namespace geom</span></div>
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span><span class="preprocessor">#ifdef GEOMC_USE_STREAMS</span></div>
 <div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span> </div>
-<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span> </div>
-<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Shape&gt;</div>
-<div class="foldopen" id="foldopen00413" data-start="{" data-end="};">
-<div class="line"><a id="l00413" name="l00413"></a><span class="lineno"><a class="line" href="structstd_1_1hash_3_01geom_1_1_transformed_3_01_shape_01_4_01_4.html">  413</a></span><span class="keyword">struct </span>std::hash&lt;<a class="code hl_namespace" href="namespacegeom.html">geom</a>::Transformed&lt;Shape&gt;&gt; {</div>
-<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>    <span class="keywordtype">size_t</span> operator()(<span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_transformed.html">geom::Transformed&lt;Shape&gt;</a> &amp;s)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="namespacegeom.html#a2c079cb91a411f00bec52aacf6940071">geom::hash&lt;geom::Transformed&lt;Shape&gt;</a>, <span class="keywordtype">size_t</span>&gt;(s);</div>
-<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span>    }</div>
-<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>};</div>
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Shape&gt;</div>
+<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, <span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_transformed.html">Transformed&lt;Shape&gt;</a>&amp; d) {</div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>    os &lt;&lt; <span class="stringliteral">&quot;Transformed(&quot;</span> &lt;&lt; std::endl &lt;&lt; </div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>        d.shape &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; std::endl &lt;&lt; </div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>        d.xf    &lt;&lt; std::endl &lt;&lt; <span class="comment">// affine transforms are multiline</span></div>
+<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span>    <span class="stringliteral">&quot;)&quot;</span>;</div>
+<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>    <span class="keywordflow">return</span> os;</div>
+<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span>}</div>
+<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span> </div>
+<div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span> </div>
+<div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span>} <span class="comment">// namespace geom</span></div>
+<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span> </div>
+<div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span> </div>
+<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Shape&gt;</div>
+<div class="foldopen" id="foldopen00426" data-start="{" data-end="};">
+<div class="line"><a id="l00426" name="l00426"></a><span class="lineno"><a class="line" href="structstd_1_1hash_3_01geom_1_1_transformed_3_01_shape_01_4_01_4.html">  426</a></span><span class="keyword">struct </span>std::hash&lt;<a class="code hl_namespace" href="namespacegeom.html">geom</a>::Transformed&lt;Shape&gt;&gt; {</div>
+<div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span>    <span class="keywordtype">size_t</span> operator()(<span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_transformed.html">geom::Transformed&lt;Shape&gt;</a> &amp;s)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="namespacegeom.html#a2c079cb91a411f00bec52aacf6940071">geom::hash&lt;geom::Transformed&lt;Shape&gt;</a>, <span class="keywordtype">size_t</span>&gt;(s);</div>
+<div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span>    }</div>
+<div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span>};</div>
 </div>
 <div class="ttc" id="aclassgeom_1_1_affine_transform_html"><div class="ttname"><a href="classgeom_1_1_affine_transform.html">geom::AffineTransform</a></div><div class="ttdoc">Affine transformation class.</div><div class="ttdef"><b>Definition</b> AffineTransform.h:87</div></div>
 <div class="ttc" id="aclassgeom_1_1_convex_html"><div class="ttname"><a href="classgeom_1_1_convex.html">geom::Convex</a></div><div class="ttdoc">Base class describing convex shapes in N-dimensional space.</div><div class="ttdef"><b>Definition</b> Shape.h:89</div></div>
@@ -450,11 +463,11 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aclassgeom_1_1_transformed_html_ad8331653910a5a034f8238e6a8fbb9b1"><div class="ttname"><a href="classgeom_1_1_transformed.html#ad8331653910a5a034f8238e6a8fbb9b1">geom::Transformed&lt; Frustum&lt; Rect&lt; T, N-1 &gt; &gt; &gt;::N</a></div><div class="ttdeci">static constexpr size_t N</div><div class="ttdef"><b>Definition</b> Transformed.h:53</div></div>
 <div class="ttc" id="aclassgeom_1_1_transformed_html_afd705435b41a23208bb28b8a1b77b3a4"><div class="ttname"><a href="classgeom_1_1_transformed.html#afd705435b41a23208bb28b8a1b77b3a4">geom::Transformed::Transformed</a></div><div class="ttdeci">Transformed()</div><div class="ttdoc">Wrap a default-constructed Shape with the identity transformation.</div><div class="ttdef"><b>Definition</b> Transformed.h:61</div></div>
 <div class="ttc" id="aclassgeom_1_1_vec_html"><div class="ttname"><a href="classgeom_1_1_vec.html">geom::Vec</a></div><div class="ttdoc">A tuple of N elements of type T.</div><div class="ttdef"><b>Definition</b> Vec.h:269</div></div>
-<div class="ttc" id="aconceptgeom_1_1_bounded_object_html"><div class="ttname"><a href="conceptgeom_1_1_bounded_object.html">geom::BoundedObject</a></div><div class="ttdoc">A shape which can efficiently report its bounding box.</div><div class="ttdef"><b>Definition</b> ShapeTypes.h:120</div></div>
-<div class="ttc" id="aconceptgeom_1_1_convex_object_html"><div class="ttname"><a href="conceptgeom_1_1_convex_object.html">geom::ConvexObject</a></div><div class="ttdoc">A convex shape which implements its convex support function.</div><div class="ttdef"><b>Definition</b> ShapeTypes.h:131</div></div>
-<div class="ttc" id="aconceptgeom_1_1_interior_measurable_object_html"><div class="ttname"><a href="conceptgeom_1_1_interior_measurable_object.html">geom::InteriorMeasurableObject</a></div><div class="ttdoc">A shape which can measure its interior region.</div><div class="ttdef"><b>Definition</b> ShapeTypes.h:177</div></div>
-<div class="ttc" id="aconceptgeom_1_1_ray_intersectable_object_html"><div class="ttname"><a href="conceptgeom_1_1_ray_intersectable_object.html">geom::RayIntersectableObject</a></div><div class="ttdoc">A shape which can be intersected by a ray.</div><div class="ttdef"><b>Definition</b> ShapeTypes.h:141</div></div>
-<div class="ttc" id="aconceptgeom_1_1_region_object_html"><div class="ttname"><a href="conceptgeom_1_1_region_object.html">geom::RegionObject</a></div><div class="ttdoc">A shape which can test for point containment.</div><div class="ttdef"><b>Definition</b> ShapeTypes.h:149</div></div>
+<div class="ttc" id="aconceptgeom_1_1_bounded_object_html"><div class="ttname"><a href="conceptgeom_1_1_bounded_object.html">geom::BoundedObject</a></div><div class="ttdoc">A shape which can efficiently report its bounding box.</div><div class="ttdef"><b>Definition</b> ShapeTypes.h:155</div></div>
+<div class="ttc" id="aconceptgeom_1_1_convex_object_html"><div class="ttname"><a href="conceptgeom_1_1_convex_object.html">geom::ConvexObject</a></div><div class="ttdoc">A convex shape which implements its convex support function.</div><div class="ttdef"><b>Definition</b> ShapeTypes.h:166</div></div>
+<div class="ttc" id="aconceptgeom_1_1_interior_measurable_object_html"><div class="ttname"><a href="conceptgeom_1_1_interior_measurable_object.html">geom::InteriorMeasurableObject</a></div><div class="ttdoc">A shape which can measure its interior region.</div><div class="ttdef"><b>Definition</b> ShapeTypes.h:212</div></div>
+<div class="ttc" id="aconceptgeom_1_1_ray_intersectable_object_html"><div class="ttname"><a href="conceptgeom_1_1_ray_intersectable_object.html">geom::RayIntersectableObject</a></div><div class="ttdoc">A shape which can be intersected by a ray.</div><div class="ttdef"><b>Definition</b> ShapeTypes.h:176</div></div>
+<div class="ttc" id="aconceptgeom_1_1_region_object_html"><div class="ttname"><a href="conceptgeom_1_1_region_object.html">geom::RegionObject</a></div><div class="ttdoc">A shape which can test for point containment.</div><div class="ttdef"><b>Definition</b> ShapeTypes.h:184</div></div>
 <div class="ttc" id="agroup__matrix_html_ga297152d2373501d0a7bc70cf1f75af97"><div class="ttname"><a href="group__matrix.html#ga297152d2373501d0a7bc70cf1f75af97">geom::det_destructive</a></div><div class="ttdeci">T det_destructive(T *m, index_t n)</div><div class="ttdoc">Destructively compute the determinant of a square matrix.</div><div class="ttdef"><b>Definition</b> MatrixDet.h:117</div></div>
 <div class="ttc" id="agroup__matrix_html_gad1cc4a7f753961c1b26bba5e66e0c007"><div class="ttname"><a href="group__matrix.html#gad1cc4a7f753961c1b26bba5e66e0c007">geom::det</a></div><div class="ttdeci">T det(const SimpleMatrix&lt; T, M, N, Lyt, P &gt; &amp;m)</div><div class="ttdoc">Compute the determinant of a square matrix.</div><div class="ttdef"><b>Definition</b> MatrixDet.h:166</div></div>
 <div class="ttc" id="agroup__shape_html_ga06a97b6eb308f4e074ad252f31b20ca1"><div class="ttname"><a href="group__shape.html#ga06a97b6eb308f4e074ad252f31b20ca1">geom::Transformed::operator*</a></div><div class="ttdeci">Transformed&lt; Shape &gt; operator*(const AffineTransform&lt; typename Shape::elem_t, Shape::N &gt; &amp;xf, const Transformed&lt; Shape &gt; &amp;s)</div><div class="ttdoc">Transform the transformed shape s by xf.</div><div class="ttdef"><b>Definition</b> Transformed.h:282</div></div>
@@ -474,7 +487,7 @@ $(function(){ initResizable(false); });
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon Feb 17 2025 15:19:54 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

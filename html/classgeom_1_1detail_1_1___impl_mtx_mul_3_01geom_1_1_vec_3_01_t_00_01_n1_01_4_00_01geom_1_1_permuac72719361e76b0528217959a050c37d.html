@@ -99,25 +99,25 @@ $(function(){ initResizable(false); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:abdcd5686b1b49afd5fee9fc2dc5b6da8" id="r_abdcd5686b1b49afd5fee9fc2dc5b6da8"><td class="memItemLeft" align="right" valign="top"><a id="abdcd5686b1b49afd5fee9fc2dc5b6da8" name="abdcd5686b1b49afd5fee9fc2dc5b6da8"></a>
-typedef <a class="el" href="structgeom_1_1detail_1_1___impl_vector_like_matrix.html">_ImplVectorLikeMatrix</a>&lt; T, N1, ORIENT_VEC_ROW &gt;::type&#160;</td><td class="memItemRight" valign="bottom"><b>return_t</b></td></tr>
-<tr class="separator:abdcd5686b1b49afd5fee9fc2dc5b6da8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab21296155bd175b5f9ed108b25a59f3a" id="r_ab21296155bd175b5f9ed108b25a59f3a"><td class="memItemLeft" align="right" valign="top"><a id="ab21296155bd175b5f9ed108b25a59f3a" name="ab21296155bd175b5f9ed108b25a59f3a"></a>
 typedef <a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; typename <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N1 &gt;::elem_t, <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N1 &gt;::ROWDIM, <a class="el" href="classgeom_1_1_permutation_matrix.html">geom::PermutationMatrix</a>&lt; N2 &gt;::COLDIM &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>return_t</b></td></tr>
 <tr class="separator:ab21296155bd175b5f9ed108b25a59f3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdcd5686b1b49afd5fee9fc2dc5b6da8" id="r_abdcd5686b1b49afd5fee9fc2dc5b6da8"><td class="memItemLeft" align="right" valign="top"><a id="abdcd5686b1b49afd5fee9fc2dc5b6da8" name="abdcd5686b1b49afd5fee9fc2dc5b6da8"></a>
+typedef <a class="el" href="structgeom_1_1detail_1_1___impl_vector_like_matrix.html">_ImplVectorLikeMatrix</a>&lt; T, N1, ORIENT_VEC_ROW &gt;::type&#160;</td><td class="memItemRight" valign="bottom"><b>return_t</b></td></tr>
+<tr class="separator:abdcd5686b1b49afd5fee9fc2dc5b6da8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a1afd8fd91be1cb0dbc295eef10da78c7" id="r_a1afd8fd91be1cb0dbc295eef10da78c7"><td class="memItemLeft" align="right" valign="top"><a id="a1afd8fd91be1cb0dbc295eef10da78c7" name="a1afd8fd91be1cb0dbc295eef10da78c7"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>mul</b> (<a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N1 &gt; *d, const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N1 &gt; &amp;a, const <a class="el" href="classgeom_1_1_permutation_matrix.html">geom::PermutationMatrix</a>&lt; N2 &gt; &amp;b)</td></tr>
 <tr class="separator:a1afd8fd91be1cb0dbc295eef10da78c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b6b4e70859a699a853036b14776b831" id="r_a3b6b4e70859a699a853036b14776b831"><td class="memItemLeft" align="right" valign="top"><a id="a3b6b4e70859a699a853036b14776b831" name="a3b6b4e70859a699a853036b14776b831"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>mul</b> (Md *d, const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N1 &gt; &amp;a, const <a class="el" href="classgeom_1_1_permutation_matrix.html">geom::PermutationMatrix</a>&lt; N2 &gt; &amp;b)</td></tr>
+<tr class="separator:a3b6b4e70859a699a853036b14776b831"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e63a50c2b4bdb5449b9d2192e08796d" id="r_a6e63a50c2b4bdb5449b9d2192e08796d"><td class="memTemplParams" colspan="2"><a id="a6e63a50c2b4bdb5449b9d2192e08796d" name="a6e63a50c2b4bdb5449b9d2192e08796d"></a>
 template&lt;typename Md&gt; </td></tr>
 <tr class="memitem:a6e63a50c2b4bdb5449b9d2192e08796d"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>mul</b> (Md *d, const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N1 &gt; &amp;a, const <a class="el" href="classgeom_1_1_permutation_matrix.html">geom::PermutationMatrix</a>&lt; N2 &gt; &amp;b, typename std::enable_if&lt; std::is_base_of&lt; <a class="el" href="classgeom_1_1detail_1_1_matrix_base.html">geom::detail::MatrixBase</a>&lt; typename Md::elem_t, Md::ROWDIM, Md::COLDIM, typename Md::recurring_t &gt;, Md &gt;::value &gt;::type *dummy=0)</td></tr>
 <tr class="separator:a6e63a50c2b4bdb5449b9d2192e08796d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b6b4e70859a699a853036b14776b831" id="r_a3b6b4e70859a699a853036b14776b831"><td class="memItemLeft" align="right" valign="top"><a id="a3b6b4e70859a699a853036b14776b831" name="a3b6b4e70859a699a853036b14776b831"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>mul</b> (Md *d, const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N1 &gt; &amp;a, const <a class="el" href="classgeom_1_1_permutation_matrix.html">geom::PermutationMatrix</a>&lt; N2 &gt; &amp;b)</td></tr>
-<tr class="separator:a3b6b4e70859a699a853036b14776b831"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a467147893a5dccf117104d1f8b79bad4" id="r_a467147893a5dccf117104d1f8b79bad4"><td class="memItemLeft" align="right" valign="top"><a id="a467147893a5dccf117104d1f8b79bad4" name="a467147893a5dccf117104d1f8b79bad4"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>mul_acc</b> (Md *d, const <a class="el" href="classgeom_1_1_vec.html">geom::Vec</a>&lt; T, N1 &gt; &amp;a, const <a class="el" href="classgeom_1_1_permutation_matrix.html">geom::PermutationMatrix</a>&lt; N2 &gt; &amp;b)</td></tr>
 <tr class="separator:a467147893a5dccf117104d1f8b79bad4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,7 +128,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>mul_acc</b> (M
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 8 2025 18:58:10 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon Feb 17 2025 15:19:55 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

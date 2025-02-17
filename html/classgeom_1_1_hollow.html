@@ -134,40 +134,40 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Hollow</b> (const Shape &amp;<a class="el" href="#a8b9f7758a8bd2bef680aeecc40bcfe04">shape</a>)</td></tr>
 <tr class="memdesc:a2ad0e0bf9c52441d749344c07573e88a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrap a shape with a similarity transform. <br /></td></tr>
 <tr class="separator:a2ad0e0bf9c52441d749344c07573e88a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa688633f5df04d6b27d23e1e9272cd51" id="r_aa688633f5df04d6b27d23e1e9272cd51"><td class="memItemLeft" align="right" valign="top"><a id="aa688633f5df04d6b27d23e1e9272cd51" name="aa688633f5df04d6b27d23e1e9272cd51"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="classgeom_1_1_hollow.html">Hollow</a> &amp;other) const</td></tr>
-<tr class="memdesc:aa688633f5df04d6b27d23e1e9272cd51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shape equality test. <br /></td></tr>
-<tr class="separator:aa688633f5df04d6b27d23e1e9272cd51"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc8cdd02245869235052671393db9f68" id="r_acc8cdd02245869235052671393db9f68"><td class="memItemLeft" align="right" valign="top"><a id="acc8cdd02245869235052671393db9f68" name="acc8cdd02245869235052671393db9f68"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>contains</b> (typename Shape::point_t p) const</td></tr>
-<tr class="memdesc:acc8cdd02245869235052671393db9f68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shape-point intersection test. Always returns <code>false</code>, because hollow shapes are infinitely thin. <br /></td></tr>
-<tr class="separator:acc8cdd02245869235052671393db9f68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad26bd0eec53ef3fcdf7db1bea0e691b3" id="r_ad26bd0eec53ef3fcdf7db1bea0e691b3"><td class="memItemLeft" align="right" valign="top"><a id="ad26bd0eec53ef3fcdf7db1bea0e691b3" name="ad26bd0eec53ef3fcdf7db1bea0e691b3"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>project</b> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; p) const</td></tr>
-<tr class="memdesc:ad26bd0eec53ef3fcdf7db1bea0e691b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Project a point to the surface of this shape. <br /></td></tr>
-<tr class="separator:ad26bd0eec53ef3fcdf7db1bea0e691b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1ce72ac22267627f5e7b46fc655bac5" id="r_af1ce72ac22267627f5e7b46fc655bac5"><td class="memItemLeft" align="right" valign="top"><a id="af1ce72ac22267627f5e7b46fc655bac5" name="af1ce72ac22267627f5e7b46fc655bac5"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>clip</b> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; p) const</td></tr>
-<tr class="memdesc:af1ce72ac22267627f5e7b46fc655bac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nearest point on the interior of the shape to <code>p</code>; the same as <code>project(p)</code>, since hollow shapes do not have an interior. <br /></td></tr>
-<tr class="separator:af1ce72ac22267627f5e7b46fc655bac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa6d0f15e1bd534f449aea1238ac8a515" id="r_aa6d0f15e1bd534f449aea1238ac8a515"><td class="memItemLeft" align="right" valign="top"><a id="aa6d0f15e1bd534f449aea1238ac8a515" name="aa6d0f15e1bd534f449aea1238ac8a515"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>normal</b> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; p) const</td></tr>
-<tr class="memdesc:aa6d0f15e1bd534f449aea1238ac8a515"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normal vector at point <code>p</code>. <br /></td></tr>
-<tr class="separator:aa6d0f15e1bd534f449aea1238ac8a515"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c316602f81afe64de89a23c552c285f" id="r_a9c316602f81afe64de89a23c552c285f"><td class="memItemLeft" align="right" valign="top"><a id="a9c316602f81afe64de89a23c552c285f" name="a9c316602f81afe64de89a23c552c285f"></a>
-T&#160;</td><td class="memItemRight" valign="bottom"><b>sdf</b> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; p) const</td></tr>
-<tr class="memdesc:a9c316602f81afe64de89a23c552c285f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signed distance function. <br /></td></tr>
-<tr class="separator:a9c316602f81afe64de89a23c552c285f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9169a12164a1950abed5f76c559691e8" id="r_a9169a12164a1950abed5f76c559691e8"><td class="memItemLeft" align="right" valign="top"><a id="a9169a12164a1950abed5f76c559691e8" name="a9169a12164a1950abed5f76c559691e8"></a>
 <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>bounds</b> () const</td></tr>
 <tr class="memdesc:a9169a12164a1950abed5f76c559691e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the axis-aligned bounding box of the shape. <br /></td></tr>
 <tr class="separator:a9169a12164a1950abed5f76c559691e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afabbb2f32d7fe83dec992e14929fb0e1" id="r_afabbb2f32d7fe83dec992e14929fb0e1"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afabbb2f32d7fe83dec992e14929fb0e1">measure_boundary</a> () const</td></tr>
-<tr class="memdesc:afabbb2f32d7fe83dec992e14929fb0e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure the boundary (surface area) of the shape.  <br /></td></tr>
-<tr class="separator:afabbb2f32d7fe83dec992e14929fb0e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1ce72ac22267627f5e7b46fc655bac5" id="r_af1ce72ac22267627f5e7b46fc655bac5"><td class="memItemLeft" align="right" valign="top"><a id="af1ce72ac22267627f5e7b46fc655bac5" name="af1ce72ac22267627f5e7b46fc655bac5"></a>
+<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>clip</b> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; p) const</td></tr>
+<tr class="memdesc:af1ce72ac22267627f5e7b46fc655bac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nearest point on the interior of the shape to <code>p</code>; the same as <code>project(p)</code>, since hollow shapes do not have an interior. <br /></td></tr>
+<tr class="separator:af1ce72ac22267627f5e7b46fc655bac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc8cdd02245869235052671393db9f68" id="r_acc8cdd02245869235052671393db9f68"><td class="memItemLeft" align="right" valign="top"><a id="acc8cdd02245869235052671393db9f68" name="acc8cdd02245869235052671393db9f68"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>contains</b> (typename Shape::point_t p) const</td></tr>
+<tr class="memdesc:acc8cdd02245869235052671393db9f68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shape-point intersection test. Always returns <code>false</code>, because hollow shapes are infinitely thin. <br /></td></tr>
+<tr class="separator:acc8cdd02245869235052671393db9f68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa7e52ba6a1acc0a13a0ce3e4a1a6af22" id="r_gaa7e52ba6a1acc0a13a0ce3e4a1a6af22"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__shape.html#gaa7e52ba6a1acc0a13a0ce3e4a1a6af22">contains</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; Shape::elem_t, N &gt; p) const</td></tr>
 <tr class="memdesc:gaa7e52ba6a1acc0a13a0ce3e4a1a6af22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shape-point overlap test.  <br /></td></tr>
 <tr class="separator:gaa7e52ba6a1acc0a13a0ce3e4a1a6af22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afabbb2f32d7fe83dec992e14929fb0e1" id="r_afabbb2f32d7fe83dec992e14929fb0e1"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afabbb2f32d7fe83dec992e14929fb0e1">measure_boundary</a> () const</td></tr>
+<tr class="memdesc:afabbb2f32d7fe83dec992e14929fb0e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure the boundary (surface area) of the shape.  <br /></td></tr>
+<tr class="separator:afabbb2f32d7fe83dec992e14929fb0e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6d0f15e1bd534f449aea1238ac8a515" id="r_aa6d0f15e1bd534f449aea1238ac8a515"><td class="memItemLeft" align="right" valign="top"><a id="aa6d0f15e1bd534f449aea1238ac8a515" name="aa6d0f15e1bd534f449aea1238ac8a515"></a>
+<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>normal</b> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; p) const</td></tr>
+<tr class="memdesc:aa6d0f15e1bd534f449aea1238ac8a515"><td class="mdescLeft">&#160;</td><td class="mdescRight">Normal vector at point <code>p</code>. <br /></td></tr>
+<tr class="separator:aa6d0f15e1bd534f449aea1238ac8a515"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa688633f5df04d6b27d23e1e9272cd51" id="r_aa688633f5df04d6b27d23e1e9272cd51"><td class="memItemLeft" align="right" valign="top"><a id="aa688633f5df04d6b27d23e1e9272cd51" name="aa688633f5df04d6b27d23e1e9272cd51"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="classgeom_1_1_hollow.html">Hollow</a> &amp;other) const</td></tr>
+<tr class="memdesc:aa688633f5df04d6b27d23e1e9272cd51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shape equality test. <br /></td></tr>
+<tr class="separator:aa688633f5df04d6b27d23e1e9272cd51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad26bd0eec53ef3fcdf7db1bea0e691b3" id="r_ad26bd0eec53ef3fcdf7db1bea0e691b3"><td class="memItemLeft" align="right" valign="top"><a id="ad26bd0eec53ef3fcdf7db1bea0e691b3" name="ad26bd0eec53ef3fcdf7db1bea0e691b3"></a>
+<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>project</b> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; p) const</td></tr>
+<tr class="memdesc:ad26bd0eec53ef3fcdf7db1bea0e691b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Project a point to the surface of this shape. <br /></td></tr>
+<tr class="separator:ad26bd0eec53ef3fcdf7db1bea0e691b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c316602f81afe64de89a23c552c285f" id="r_a9c316602f81afe64de89a23c552c285f"><td class="memItemLeft" align="right" valign="top"><a id="a9c316602f81afe64de89a23c552c285f" name="a9c316602f81afe64de89a23c552c285f"></a>
+T&#160;</td><td class="memItemRight" valign="bottom"><b>sdf</b> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; p) const</td></tr>
+<tr class="memdesc:a9c316602f81afe64de89a23c552c285f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signed distance function. <br /></td></tr>
+<tr class="separator:a9c316602f81afe64de89a23c552c285f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -284,7 +284,7 @@ template&lt;typename Shape&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon Feb 17 2025 15:19:55 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

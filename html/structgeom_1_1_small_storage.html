@@ -109,75 +109,34 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>SmallStorage</b> ()</td></tr>
 <tr class="memdesc:a9d154251b0ee259ce9321430227103a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an array with zero items, but capcity for N. <br /></td></tr>
 <tr class="separator:a9d154251b0ee259ce9321430227103a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e96c12e293e192a92a269749652bc7b" id="r_a9e96c12e293e192a92a269749652bc7b"><td class="memItemLeft" align="right" valign="top"><a id="a9e96c12e293e192a92a269749652bc7b" name="a9e96c12e293e192a92a269749652bc7b"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>SmallStorage</b> (size_t n)</td></tr>
-<tr class="memdesc:a9e96c12e293e192a92a269749652bc7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an array containing <code>n</code> default-constructed items. <br /></td></tr>
-<tr class="separator:a9e96c12e293e192a92a269749652bc7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa910f3b50a5be632ee7ba2a032337e17" id="r_aa910f3b50a5be632ee7ba2a032337e17"><td class="memItemLeft" align="right" valign="top"><a id="aa910f3b50a5be632ee7ba2a032337e17" name="aa910f3b50a5be632ee7ba2a032337e17"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>SmallStorage</b> (std::initializer_list&lt; T &gt; items)</td></tr>
-<tr class="memdesc:aa910f3b50a5be632ee7ba2a032337e17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an array by move-constructing the items in the given initializer list. <br /></td></tr>
-<tr class="separator:aa910f3b50a5be632ee7ba2a032337e17"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3005eac96852466db4360054619f47fc" id="r_a3005eac96852466db4360054619f47fc"><td class="memItemLeft" align="right" valign="top"><a id="a3005eac96852466db4360054619f47fc" name="a3005eac96852466db4360054619f47fc"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>SmallStorage</b> (const T *items, size_t n)</td></tr>
-<tr class="memdesc:a3005eac96852466db4360054619f47fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an array of <code>n</code> items by copy-constructing the items from the given array. <br /></td></tr>
-<tr class="separator:a3005eac96852466db4360054619f47fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28a78143a09bddcede7c6ba67a61e737" id="r_a28a78143a09bddcede7c6ba67a61e737"><td class="memItemLeft" align="right" valign="top"><a id="a28a78143a09bddcede7c6ba67a61e737" name="a28a78143a09bddcede7c6ba67a61e737"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>SmallStorage</b> (const T &amp;value, size_t count)</td></tr>
-<tr class="memdesc:a28a78143a09bddcede7c6ba67a61e737"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an array containing <code>count</code> copies of <code>value</code>. <br /></td></tr>
-<tr class="separator:a28a78143a09bddcede7c6ba67a61e737"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a855ea627cf750c883af3aa2dcd96ad" id="r_a4a855ea627cf750c883af3aa2dcd96ad"><td class="memItemLeft" align="right" valign="top"><a id="a4a855ea627cf750c883af3aa2dcd96ad" name="a4a855ea627cf750c883af3aa2dcd96ad"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>SmallStorage</b> (const <a class="el" href="structgeom_1_1_small_storage.html">SmallStorage</a>&lt; T, N &gt; &amp;other)</td></tr>
 <tr class="memdesc:a4a855ea627cf750c883af3aa2dcd96ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an array containing the elements of <code>other</code>. <br /></td></tr>
 <tr class="separator:a4a855ea627cf750c883af3aa2dcd96ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28a78143a09bddcede7c6ba67a61e737" id="r_a28a78143a09bddcede7c6ba67a61e737"><td class="memItemLeft" align="right" valign="top"><a id="a28a78143a09bddcede7c6ba67a61e737" name="a28a78143a09bddcede7c6ba67a61e737"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>SmallStorage</b> (const T &amp;value, size_t count)</td></tr>
+<tr class="memdesc:a28a78143a09bddcede7c6ba67a61e737"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an array containing <code>count</code> copies of <code>value</code>. <br /></td></tr>
+<tr class="separator:a28a78143a09bddcede7c6ba67a61e737"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3005eac96852466db4360054619f47fc" id="r_a3005eac96852466db4360054619f47fc"><td class="memItemLeft" align="right" valign="top"><a id="a3005eac96852466db4360054619f47fc" name="a3005eac96852466db4360054619f47fc"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>SmallStorage</b> (const T *items, size_t n)</td></tr>
+<tr class="memdesc:a3005eac96852466db4360054619f47fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an array of <code>n</code> items by copy-constructing the items from the given array. <br /></td></tr>
+<tr class="separator:a3005eac96852466db4360054619f47fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e96c12e293e192a92a269749652bc7b" id="r_a9e96c12e293e192a92a269749652bc7b"><td class="memItemLeft" align="right" valign="top"><a id="a9e96c12e293e192a92a269749652bc7b" name="a9e96c12e293e192a92a269749652bc7b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>SmallStorage</b> (size_t n)</td></tr>
+<tr class="memdesc:a9e96c12e293e192a92a269749652bc7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an array containing <code>n</code> default-constructed items. <br /></td></tr>
+<tr class="separator:a9e96c12e293e192a92a269749652bc7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b9b54847e482d79950193922941f830" id="r_a1b9b54847e482d79950193922941f830"><td class="memItemLeft" align="right" valign="top"><a id="a1b9b54847e482d79950193922941f830" name="a1b9b54847e482d79950193922941f830"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>SmallStorage</b> (<a class="el" href="structgeom_1_1_small_storage.html">SmallStorage</a>&lt; T, N &gt; &amp;&amp;other)</td></tr>
 <tr class="memdesc:a1b9b54847e482d79950193922941f830"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the contents of <code>other</code> to this array. <br /></td></tr>
 <tr class="separator:a1b9b54847e482d79950193922941f830"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa910f3b50a5be632ee7ba2a032337e17" id="r_aa910f3b50a5be632ee7ba2a032337e17"><td class="memItemLeft" align="right" valign="top"><a id="aa910f3b50a5be632ee7ba2a032337e17" name="aa910f3b50a5be632ee7ba2a032337e17"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>SmallStorage</b> (std::initializer_list&lt; T &gt; items)</td></tr>
+<tr class="memdesc:aa910f3b50a5be632ee7ba2a032337e17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an array by move-constructing the items in the given initializer list. <br /></td></tr>
+<tr class="separator:aa910f3b50a5be632ee7ba2a032337e17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0676c90dd37c4e402a609cbaa92979e1" id="r_a0676c90dd37c4e402a609cbaa92979e1"><td class="memItemLeft" align="right" valign="top"><a id="a0676c90dd37c4e402a609cbaa92979e1" name="a0676c90dd37c4e402a609cbaa92979e1"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>~SmallStorage</b> ()</td></tr>
 <tr class="memdesc:a0676c90dd37c4e402a609cbaa92979e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy this array and its contents. <br /></td></tr>
 <tr class="separator:a0676c90dd37c4e402a609cbaa92979e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad10ddd35e7d2108cb4956ad7011891cf" id="r_ad10ddd35e7d2108cb4956ad7011891cf"><td class="memItemLeft" align="right" valign="top"><a id="ad10ddd35e7d2108cb4956ad7011891cf" name="ad10ddd35e7d2108cb4956ad7011891cf"></a>
-<a class="el" href="structgeom_1_1_small_storage.html">SmallStorage</a>&lt; T, N &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="structgeom_1_1_small_storage.html">SmallStorage</a>&lt; T, N &gt; &amp;&amp;other)</td></tr>
-<tr class="memdesc:ad10ddd35e7d2108cb4956ad7011891cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the contents of <code>other</code> into this array. <br /></td></tr>
-<tr class="separator:ad10ddd35e7d2108cb4956ad7011891cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade24a9b544c8b416cf4f91089570a8a7" id="r_ade24a9b544c8b416cf4f91089570a8a7"><td class="memItemLeft" align="right" valign="top"><a id="ade24a9b544c8b416cf4f91089570a8a7" name="ade24a9b544c8b416cf4f91089570a8a7"></a>
-<a class="el" href="structgeom_1_1_small_storage.html">SmallStorage</a>&lt; T, N &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="structgeom_1_1_small_storage.html">SmallStorage</a>&lt; T, N &gt; &amp;other)</td></tr>
-<tr class="memdesc:ade24a9b544c8b416cf4f91089570a8a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy the contents of <code>other</code> into this array. <br /></td></tr>
-<tr class="separator:ade24a9b544c8b416cf4f91089570a8a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf949d6503bf19c5c4555cfe90446bf0" id="r_abf949d6503bf19c5c4555cfe90446bf0"><td class="memItemLeft" align="right" valign="top"><a id="abf949d6503bf19c5c4555cfe90446bf0" name="abf949d6503bf19c5c4555cfe90446bf0"></a>
-T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (size_t i)</td></tr>
-<tr class="memdesc:abf949d6503bf19c5c4555cfe90446bf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the <code>i</code>th item. <br /></td></tr>
-<tr class="separator:abf949d6503bf19c5c4555cfe90446bf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f0a61dd9e694fa1ce1afec4f006e2c9" id="r_a8f0a61dd9e694fa1ce1afec4f006e2c9"><td class="memItemLeft" align="right" valign="top"><a id="a8f0a61dd9e694fa1ce1afec4f006e2c9" name="a8f0a61dd9e694fa1ce1afec4f006e2c9"></a>
-const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (size_t i) const</td></tr>
-<tr class="memdesc:a8f0a61dd9e694fa1ce1afec4f006e2c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the <code>i</code>th const item. <br /></td></tr>
-<tr class="separator:a8f0a61dd9e694fa1ce1afec4f006e2c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90a285d3deb303b8ce684a1e4fdfe032" id="r_a90a285d3deb303b8ce684a1e4fdfe032"><td class="memItemLeft" align="right" valign="top"><a id="a90a285d3deb303b8ce684a1e4fdfe032" name="a90a285d3deb303b8ce684a1e4fdfe032"></a>
-T *&#160;</td><td class="memItemRight" valign="bottom"><b>begin</b> ()</td></tr>
-<tr class="separator:a90a285d3deb303b8ce684a1e4fdfe032"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0a897cde3fdfce253880ea82e6ecae8" id="r_af0a897cde3fdfce253880ea82e6ecae8"><td class="memItemLeft" align="right" valign="top"><a id="af0a897cde3fdfce253880ea82e6ecae8" name="af0a897cde3fdfce253880ea82e6ecae8"></a>
-const T *&#160;</td><td class="memItemRight" valign="bottom"><b>begin</b> () const</td></tr>
-<tr class="separator:af0a897cde3fdfce253880ea82e6ecae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92bbd66755f5a6d8442cf8e5aec2b494" id="r_a92bbd66755f5a6d8442cf8e5aec2b494"><td class="memItemLeft" align="right" valign="top"><a id="a92bbd66755f5a6d8442cf8e5aec2b494" name="a92bbd66755f5a6d8442cf8e5aec2b494"></a>
-T *&#160;</td><td class="memItemRight" valign="bottom"><b>end</b> ()</td></tr>
-<tr class="separator:a92bbd66755f5a6d8442cf8e5aec2b494"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0dcd4e15c18bbf90a93bb95d82df23b5" id="r_a0dcd4e15c18bbf90a93bb95d82df23b5"><td class="memItemLeft" align="right" valign="top"><a id="a0dcd4e15c18bbf90a93bb95d82df23b5" name="a0dcd4e15c18bbf90a93bb95d82df23b5"></a>
-const T *&#160;</td><td class="memItemRight" valign="bottom"><b>end</b> () const</td></tr>
-<tr class="separator:a0dcd4e15c18bbf90a93bb95d82df23b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a380c79ae3cff23f2de4705dcca4730f6" id="r_a380c79ae3cff23f2de4705dcca4730f6"><td class="memItemLeft" align="right" valign="top"><a id="a380c79ae3cff23f2de4705dcca4730f6" name="a380c79ae3cff23f2de4705dcca4730f6"></a>
-T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>push_back</b> (const T &amp;item)</td></tr>
-<tr class="memdesc:a380c79ae3cff23f2de4705dcca4730f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a copy of the given item to the end of the array, increasing its size by 1. <br /></td></tr>
-<tr class="separator:a380c79ae3cff23f2de4705dcca4730f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b0f4f782c68271bac6ef31dacade58e" id="r_a3b0f4f782c68271bac6ef31dacade58e"><td class="memTemplParams" colspan="2"><a id="a3b0f4f782c68271bac6ef31dacade58e" name="a3b0f4f782c68271bac6ef31dacade58e"></a>
-template&lt;typename... Args&gt; </td></tr>
-<tr class="memitem:a3b0f4f782c68271bac6ef31dacade58e"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>emplace_back</b> (Args &amp;&amp;... args)</td></tr>
-<tr class="memdesc:a3b0f4f782c68271bac6ef31dacade58e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new item at the end of the array from the given constructor arguments. <br /></td></tr>
-<tr class="separator:a3b0f4f782c68271bac6ef31dacade58e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6387f00397fd1e0b9663c3d35e8ebe3" id="r_ad6387f00397fd1e0b9663c3d35e8ebe3"><td class="memItemLeft" align="right" valign="top"><a id="ad6387f00397fd1e0b9663c3d35e8ebe3" name="ad6387f00397fd1e0b9663c3d35e8ebe3"></a>
-std::optional&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>pop_back</b> ()</td></tr>
-<tr class="memdesc:ad6387f00397fd1e0b9663c3d35e8ebe3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the last item from the array and return it, if one exists. <br /></td></tr>
-<tr class="separator:ad6387f00397fd1e0b9663c3d35e8ebe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a557503c0b752dd1bd74295f499129f" id="r_a4a557503c0b752dd1bd74295f499129f"><td class="memItemLeft" align="right" valign="top"><a id="a4a557503c0b752dd1bd74295f499129f" name="a4a557503c0b752dd1bd74295f499129f"></a>
 T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>back</b> ()</td></tr>
 <tr class="memdesc:a4a557503c0b752dd1bd74295f499129f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the last item in the array. <br /></td></tr>
@@ -186,37 +145,12 @@ T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>back</b> ()</td></
 const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>back</b> () const</td></tr>
 <tr class="memdesc:a8fea989cf23be90deab03db615b7f15b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the last const item in the array. <br /></td></tr>
 <tr class="separator:a8fea989cf23be90deab03db615b7f15b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa67f6e1a9bbaab0d994aecdc06835f6b" id="r_aa67f6e1a9bbaab0d994aecdc06835f6b"><td class="memItemLeft" align="right" valign="top"><a id="aa67f6e1a9bbaab0d994aecdc06835f6b" name="aa67f6e1a9bbaab0d994aecdc06835f6b"></a>
-T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>front</b> ()</td></tr>
-<tr class="memdesc:aa67f6e1a9bbaab0d994aecdc06835f6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the first item in the array. <br /></td></tr>
-<tr class="separator:aa67f6e1a9bbaab0d994aecdc06835f6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d40292ba6768942d50c7b0d31fad424" id="r_a2d40292ba6768942d50c7b0d31fad424"><td class="memItemLeft" align="right" valign="top"><a id="a2d40292ba6768942d50c7b0d31fad424" name="a2d40292ba6768942d50c7b0d31fad424"></a>
-const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>front</b> () const</td></tr>
-<tr class="memdesc:a2d40292ba6768942d50c7b0d31fad424"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the first const item in the array. <br /></td></tr>
-<tr class="separator:a2d40292ba6768942d50c7b0d31fad424"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc1e16b293a89a9ccc9541058b5ca560" id="r_adc1e16b293a89a9ccc9541058b5ca560"><td class="memItemLeft" align="right" valign="top"><a id="adc1e16b293a89a9ccc9541058b5ca560" name="adc1e16b293a89a9ccc9541058b5ca560"></a>
-T *&#160;</td><td class="memItemRight" valign="bottom"><b>data</b> ()</td></tr>
-<tr class="memdesc:adc1e16b293a89a9ccc9541058b5ca560"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a pointer to the underlying array that backs this <code><a class="el" href="structgeom_1_1_small_storage.html" title="Array storage which does not allocate from the heap unless the requested size is larger than a thresh...">SmallStorage</a></code>. <br /></td></tr>
-<tr class="separator:adc1e16b293a89a9ccc9541058b5ca560"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ae7e1f6885eb47c11062cc74e6a6e19" id="r_a4ae7e1f6885eb47c11062cc74e6a6e19"><td class="memItemLeft" align="right" valign="top"><a id="a4ae7e1f6885eb47c11062cc74e6a6e19" name="a4ae7e1f6885eb47c11062cc74e6a6e19"></a>
-const T *&#160;</td><td class="memItemRight" valign="bottom"><b>data</b> () const</td></tr>
-<tr class="memdesc:a4ae7e1f6885eb47c11062cc74e6a6e19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a const pointer to the underlying array that backs this <code><a class="el" href="structgeom_1_1_small_storage.html" title="Array storage which does not allocate from the heap unless the requested size is larger than a thresh...">SmallStorage</a></code>. <br /></td></tr>
-<tr class="separator:a4ae7e1f6885eb47c11062cc74e6a6e19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a259cb5a711406a8c3e5d937eb9350cca" id="r_a259cb5a711406a8c3e5d937eb9350cca"><td class="memItemLeft" align="right" valign="top"><a id="a259cb5a711406a8c3e5d937eb9350cca" name="a259cb5a711406a8c3e5d937eb9350cca"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><b>size</b> () const</td></tr>
-<tr class="memdesc:a259cb5a711406a8c3e5d937eb9350cca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of items in the array. <br /></td></tr>
-<tr class="separator:a259cb5a711406a8c3e5d937eb9350cca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4467736f0474dbd710ce40de488cd7e" id="r_ae4467736f0474dbd710ce40de488cd7e"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
-<tr class="memitem:ae4467736f0474dbd710ce40de488cd7e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ae4467736f0474dbd710ce40de488cd7e">resize</a> (size_t count, const Args &amp;... args)</td></tr>
-<tr class="separator:ae4467736f0474dbd710ce40de488cd7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3632066c674348d9aa9c5ee15a903509" id="r_a3632066c674348d9aa9c5ee15a903509"><td class="memItemLeft" align="right" valign="top"><a id="a3632066c674348d9aa9c5ee15a903509" name="a3632066c674348d9aa9c5ee15a903509"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>reserve</b> (size_t count)</td></tr>
-<tr class="memdesc:a3632066c674348d9aa9c5ee15a903509"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ensure there is capacity for at least <code>count</code> items without reallocating. <br /></td></tr>
-<tr class="separator:a3632066c674348d9aa9c5ee15a903509"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a644718bb2fb240de962dc3c9a1fdf0dc" id="r_a644718bb2fb240de962dc3c9a1fdf0dc"><td class="memItemLeft" align="right" valign="top"><a id="a644718bb2fb240de962dc3c9a1fdf0dc" name="a644718bb2fb240de962dc3c9a1fdf0dc"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>empty</b> () const</td></tr>
-<tr class="memdesc:a644718bb2fb240de962dc3c9a1fdf0dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true iff the array contains no items. <br /></td></tr>
-<tr class="separator:a644718bb2fb240de962dc3c9a1fdf0dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90a285d3deb303b8ce684a1e4fdfe032" id="r_a90a285d3deb303b8ce684a1e4fdfe032"><td class="memItemLeft" align="right" valign="top"><a id="a90a285d3deb303b8ce684a1e4fdfe032" name="a90a285d3deb303b8ce684a1e4fdfe032"></a>
+T *&#160;</td><td class="memItemRight" valign="bottom"><b>begin</b> ()</td></tr>
+<tr class="separator:a90a285d3deb303b8ce684a1e4fdfe032"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0a897cde3fdfce253880ea82e6ecae8" id="r_af0a897cde3fdfce253880ea82e6ecae8"><td class="memItemLeft" align="right" valign="top"><a id="af0a897cde3fdfce253880ea82e6ecae8" name="af0a897cde3fdfce253880ea82e6ecae8"></a>
+const T *&#160;</td><td class="memItemRight" valign="bottom"><b>begin</b> () const</td></tr>
+<tr class="separator:af0a897cde3fdfce253880ea82e6ecae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7223528283cd4e5872e0cc716bf9bd9d" id="r_a7223528283cd4e5872e0cc716bf9bd9d"><td class="memItemLeft" align="right" valign="top"><a id="a7223528283cd4e5872e0cc716bf9bd9d" name="a7223528283cd4e5872e0cc716bf9bd9d"></a>
 size_t&#160;</td><td class="memItemRight" valign="bottom"><b>capacity</b> () const</td></tr>
 <tr class="memdesc:a7223528283cd4e5872e0cc716bf9bd9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of items the array can contain without reallocating. <br /></td></tr>
@@ -225,10 +159,76 @@ size_t&#160;</td><td class="memItemRight" valign="bottom"><b>capacity</b> () con
 void&#160;</td><td class="memItemRight" valign="bottom"><b>clear</b> ()</td></tr>
 <tr class="memdesc:ac8bb3912a3ce86b15842e79d0b421204"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove all the items from the array. <br /></td></tr>
 <tr class="separator:ac8bb3912a3ce86b15842e79d0b421204"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc1e16b293a89a9ccc9541058b5ca560" id="r_adc1e16b293a89a9ccc9541058b5ca560"><td class="memItemLeft" align="right" valign="top"><a id="adc1e16b293a89a9ccc9541058b5ca560" name="adc1e16b293a89a9ccc9541058b5ca560"></a>
+T *&#160;</td><td class="memItemRight" valign="bottom"><b>data</b> ()</td></tr>
+<tr class="memdesc:adc1e16b293a89a9ccc9541058b5ca560"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a pointer to the underlying array that backs this <code><a class="el" href="structgeom_1_1_small_storage.html" title="Array storage which does not allocate from the heap unless the requested size is larger than a thresh...">SmallStorage</a></code>. <br /></td></tr>
+<tr class="separator:adc1e16b293a89a9ccc9541058b5ca560"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ae7e1f6885eb47c11062cc74e6a6e19" id="r_a4ae7e1f6885eb47c11062cc74e6a6e19"><td class="memItemLeft" align="right" valign="top"><a id="a4ae7e1f6885eb47c11062cc74e6a6e19" name="a4ae7e1f6885eb47c11062cc74e6a6e19"></a>
+const T *&#160;</td><td class="memItemRight" valign="bottom"><b>data</b> () const</td></tr>
+<tr class="memdesc:a4ae7e1f6885eb47c11062cc74e6a6e19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a const pointer to the underlying array that backs this <code><a class="el" href="structgeom_1_1_small_storage.html" title="Array storage which does not allocate from the heap unless the requested size is larger than a thresh...">SmallStorage</a></code>. <br /></td></tr>
+<tr class="separator:a4ae7e1f6885eb47c11062cc74e6a6e19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b0f4f782c68271bac6ef31dacade58e" id="r_a3b0f4f782c68271bac6ef31dacade58e"><td class="memTemplParams" colspan="2"><a id="a3b0f4f782c68271bac6ef31dacade58e" name="a3b0f4f782c68271bac6ef31dacade58e"></a>
+template&lt;typename... Args&gt; </td></tr>
+<tr class="memitem:a3b0f4f782c68271bac6ef31dacade58e"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>emplace_back</b> (Args &amp;&amp;... args)</td></tr>
+<tr class="memdesc:a3b0f4f782c68271bac6ef31dacade58e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new item at the end of the array from the given constructor arguments. <br /></td></tr>
+<tr class="separator:a3b0f4f782c68271bac6ef31dacade58e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a644718bb2fb240de962dc3c9a1fdf0dc" id="r_a644718bb2fb240de962dc3c9a1fdf0dc"><td class="memItemLeft" align="right" valign="top"><a id="a644718bb2fb240de962dc3c9a1fdf0dc" name="a644718bb2fb240de962dc3c9a1fdf0dc"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>empty</b> () const</td></tr>
+<tr class="memdesc:a644718bb2fb240de962dc3c9a1fdf0dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true iff the array contains no items. <br /></td></tr>
+<tr class="separator:a644718bb2fb240de962dc3c9a1fdf0dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92bbd66755f5a6d8442cf8e5aec2b494" id="r_a92bbd66755f5a6d8442cf8e5aec2b494"><td class="memItemLeft" align="right" valign="top"><a id="a92bbd66755f5a6d8442cf8e5aec2b494" name="a92bbd66755f5a6d8442cf8e5aec2b494"></a>
+T *&#160;</td><td class="memItemRight" valign="bottom"><b>end</b> ()</td></tr>
+<tr class="separator:a92bbd66755f5a6d8442cf8e5aec2b494"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dcd4e15c18bbf90a93bb95d82df23b5" id="r_a0dcd4e15c18bbf90a93bb95d82df23b5"><td class="memItemLeft" align="right" valign="top"><a id="a0dcd4e15c18bbf90a93bb95d82df23b5" name="a0dcd4e15c18bbf90a93bb95d82df23b5"></a>
+const T *&#160;</td><td class="memItemRight" valign="bottom"><b>end</b> () const</td></tr>
+<tr class="separator:a0dcd4e15c18bbf90a93bb95d82df23b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa67f6e1a9bbaab0d994aecdc06835f6b" id="r_aa67f6e1a9bbaab0d994aecdc06835f6b"><td class="memItemLeft" align="right" valign="top"><a id="aa67f6e1a9bbaab0d994aecdc06835f6b" name="aa67f6e1a9bbaab0d994aecdc06835f6b"></a>
+T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>front</b> ()</td></tr>
+<tr class="memdesc:aa67f6e1a9bbaab0d994aecdc06835f6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the first item in the array. <br /></td></tr>
+<tr class="separator:aa67f6e1a9bbaab0d994aecdc06835f6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d40292ba6768942d50c7b0d31fad424" id="r_a2d40292ba6768942d50c7b0d31fad424"><td class="memItemLeft" align="right" valign="top"><a id="a2d40292ba6768942d50c7b0d31fad424" name="a2d40292ba6768942d50c7b0d31fad424"></a>
+const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>front</b> () const</td></tr>
+<tr class="memdesc:a2d40292ba6768942d50c7b0d31fad424"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the first const item in the array. <br /></td></tr>
+<tr class="separator:a2d40292ba6768942d50c7b0d31fad424"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade24a9b544c8b416cf4f91089570a8a7" id="r_ade24a9b544c8b416cf4f91089570a8a7"><td class="memItemLeft" align="right" valign="top"><a id="ade24a9b544c8b416cf4f91089570a8a7" name="ade24a9b544c8b416cf4f91089570a8a7"></a>
+<a class="el" href="structgeom_1_1_small_storage.html">SmallStorage</a>&lt; T, N &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="structgeom_1_1_small_storage.html">SmallStorage</a>&lt; T, N &gt; &amp;other)</td></tr>
+<tr class="memdesc:ade24a9b544c8b416cf4f91089570a8a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy the contents of <code>other</code> into this array. <br /></td></tr>
+<tr class="separator:ade24a9b544c8b416cf4f91089570a8a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad10ddd35e7d2108cb4956ad7011891cf" id="r_ad10ddd35e7d2108cb4956ad7011891cf"><td class="memItemLeft" align="right" valign="top"><a id="ad10ddd35e7d2108cb4956ad7011891cf" name="ad10ddd35e7d2108cb4956ad7011891cf"></a>
+<a class="el" href="structgeom_1_1_small_storage.html">SmallStorage</a>&lt; T, N &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="structgeom_1_1_small_storage.html">SmallStorage</a>&lt; T, N &gt; &amp;&amp;other)</td></tr>
+<tr class="memdesc:ad10ddd35e7d2108cb4956ad7011891cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the contents of <code>other</code> into this array. <br /></td></tr>
+<tr class="separator:ad10ddd35e7d2108cb4956ad7011891cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12aecd497c5b5f0985e1235a4952f6fc" id="r_a12aecd497c5b5f0985e1235a4952f6fc"><td class="memItemLeft" align="right" valign="top"><a id="a12aecd497c5b5f0985e1235a4952f6fc" name="a12aecd497c5b5f0985e1235a4952f6fc"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="structgeom_1_1_small_storage.html">SmallStorage</a>&lt; T, N &gt; &amp;other) const</td></tr>
 <tr class="memdesc:a12aecd497c5b5f0985e1235a4952f6fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return true iff all the items in <code>this</code> and <code>other</code> are equal and in equal order. <br /></td></tr>
 <tr class="separator:a12aecd497c5b5f0985e1235a4952f6fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf949d6503bf19c5c4555cfe90446bf0" id="r_abf949d6503bf19c5c4555cfe90446bf0"><td class="memItemLeft" align="right" valign="top"><a id="abf949d6503bf19c5c4555cfe90446bf0" name="abf949d6503bf19c5c4555cfe90446bf0"></a>
+T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (size_t i)</td></tr>
+<tr class="memdesc:abf949d6503bf19c5c4555cfe90446bf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the <code>i</code>th item. <br /></td></tr>
+<tr class="separator:abf949d6503bf19c5c4555cfe90446bf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f0a61dd9e694fa1ce1afec4f006e2c9" id="r_a8f0a61dd9e694fa1ce1afec4f006e2c9"><td class="memItemLeft" align="right" valign="top"><a id="a8f0a61dd9e694fa1ce1afec4f006e2c9" name="a8f0a61dd9e694fa1ce1afec4f006e2c9"></a>
+const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator[]</b> (size_t i) const</td></tr>
+<tr class="memdesc:a8f0a61dd9e694fa1ce1afec4f006e2c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the <code>i</code>th const item. <br /></td></tr>
+<tr class="separator:a8f0a61dd9e694fa1ce1afec4f006e2c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6387f00397fd1e0b9663c3d35e8ebe3" id="r_ad6387f00397fd1e0b9663c3d35e8ebe3"><td class="memItemLeft" align="right" valign="top"><a id="ad6387f00397fd1e0b9663c3d35e8ebe3" name="ad6387f00397fd1e0b9663c3d35e8ebe3"></a>
+std::optional&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>pop_back</b> ()</td></tr>
+<tr class="memdesc:ad6387f00397fd1e0b9663c3d35e8ebe3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the last item from the array and return it, if one exists. <br /></td></tr>
+<tr class="separator:ad6387f00397fd1e0b9663c3d35e8ebe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a380c79ae3cff23f2de4705dcca4730f6" id="r_a380c79ae3cff23f2de4705dcca4730f6"><td class="memItemLeft" align="right" valign="top"><a id="a380c79ae3cff23f2de4705dcca4730f6" name="a380c79ae3cff23f2de4705dcca4730f6"></a>
+T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>push_back</b> (const T &amp;item)</td></tr>
+<tr class="memdesc:a380c79ae3cff23f2de4705dcca4730f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a copy of the given item to the end of the array, increasing its size by 1. <br /></td></tr>
+<tr class="separator:a380c79ae3cff23f2de4705dcca4730f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3632066c674348d9aa9c5ee15a903509" id="r_a3632066c674348d9aa9c5ee15a903509"><td class="memItemLeft" align="right" valign="top"><a id="a3632066c674348d9aa9c5ee15a903509" name="a3632066c674348d9aa9c5ee15a903509"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>reserve</b> (size_t count)</td></tr>
+<tr class="memdesc:a3632066c674348d9aa9c5ee15a903509"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ensure there is capacity for at least <code>count</code> items without reallocating. <br /></td></tr>
+<tr class="separator:a3632066c674348d9aa9c5ee15a903509"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4467736f0474dbd710ce40de488cd7e" id="r_ae4467736f0474dbd710ce40de488cd7e"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
+<tr class="memitem:ae4467736f0474dbd710ce40de488cd7e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#ae4467736f0474dbd710ce40de488cd7e">resize</a> (size_t count, const Args &amp;... args)</td></tr>
+<tr class="separator:ae4467736f0474dbd710ce40de488cd7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a259cb5a711406a8c3e5d937eb9350cca" id="r_a259cb5a711406a8c3e5d937eb9350cca"><td class="memItemLeft" align="right" valign="top"><a id="a259cb5a711406a8c3e5d937eb9350cca" name="a259cb5a711406a8c3e5d937eb9350cca"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><b>size</b> () const</td></tr>
+<tr class="memdesc:a259cb5a711406a8c3e5d937eb9350cca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of items in the array. <br /></td></tr>
+<tr class="separator:a259cb5a711406a8c3e5d937eb9350cca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -297,7 +297,7 @@ template&lt;typename... Args&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 8 2025 18:58:10 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon Feb 17 2025 15:19:55 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

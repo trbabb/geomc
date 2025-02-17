@@ -105,19 +105,15 @@ typedef <a class="el" href="classgeom_1_1_permutation_matrix.html">geom::Permuta
 <tr class="memitem:a9d49725e48a6397de6d70974f8db9a63" id="r_a9d49725e48a6397de6d70974f8db9a63"><td class="memItemLeft" align="right" valign="top"><a id="a9d49725e48a6397de6d70974f8db9a63" name="a9d49725e48a6397de6d70974f8db9a63"></a>
 typedef <a class="el" href="classgeom_1_1_permutation_matrix.html">geom::PermutationMatrix</a>&lt; N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Mb</b></td></tr>
 <tr class="separator:a9d49725e48a6397de6d70974f8db9a63"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2472f35a89d9d79328163cfd1bf4c58" id="r_af2472f35a89d9d79328163cfd1bf4c58"><td class="memItemLeft" align="right" valign="top"><a id="af2472f35a89d9d79328163cfd1bf4c58" name="af2472f35a89d9d79328163cfd1bf4c58"></a>
-typedef <a class="el" href="classgeom_1_1_permutation_matrix.html">geom::PermutationMatrix</a>&lt;((M&lt; N) ? M :N)&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>return_t</b></td></tr>
-<tr class="separator:af2472f35a89d9d79328163cfd1bf4c58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab21296155bd175b5f9ed108b25a59f3a" id="r_ab21296155bd175b5f9ed108b25a59f3a"><td class="memItemLeft" align="right" valign="top"><a id="ab21296155bd175b5f9ed108b25a59f3a" name="ab21296155bd175b5f9ed108b25a59f3a"></a>
 typedef <a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; typename <a class="el" href="classgeom_1_1_permutation_matrix.html">geom::PermutationMatrix</a>&lt; M &gt;::elem_t, <a class="el" href="classgeom_1_1_permutation_matrix.html">geom::PermutationMatrix</a>&lt; M &gt;::ROWDIM, <a class="el" href="classgeom_1_1_permutation_matrix.html">geom::PermutationMatrix</a>&lt; N &gt;::COLDIM &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>return_t</b></td></tr>
 <tr class="separator:ab21296155bd175b5f9ed108b25a59f3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2472f35a89d9d79328163cfd1bf4c58" id="r_af2472f35a89d9d79328163cfd1bf4c58"><td class="memItemLeft" align="right" valign="top"><a id="af2472f35a89d9d79328163cfd1bf4c58" name="af2472f35a89d9d79328163cfd1bf4c58"></a>
+typedef <a class="el" href="classgeom_1_1_permutation_matrix.html">geom::PermutationMatrix</a>&lt;((M&lt; N) ? M :N)&gt;&#160;</td><td class="memItemRight" valign="bottom"><b>return_t</b></td></tr>
+<tr class="separator:af2472f35a89d9d79328163cfd1bf4c58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aaab49740d8d1a991a1814c371f0dedbb" id="r_aaab49740d8d1a991a1814c371f0dedbb"><td class="memTemplParams" colspan="2"><a id="aaab49740d8d1a991a1814c371f0dedbb" name="aaab49740d8d1a991a1814c371f0dedbb"></a>
-template&lt;typename Md&gt; </td></tr>
-<tr class="memitem:aaab49740d8d1a991a1814c371f0dedbb"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>mul</b> (Md *d, const <a class="el" href="classgeom_1_1_permutation_matrix.html">Ma</a> &amp;a, const <a class="el" href="classgeom_1_1_permutation_matrix.html">Ma</a> &amp;b)</td></tr>
-<tr class="separator:aaab49740d8d1a991a1814c371f0dedbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa8764adae50d10452342b773748f1f2" id="r_aaa8764adae50d10452342b773748f1f2"><td class="memTemplParams" colspan="2"><a id="aaa8764adae50d10452342b773748f1f2" name="aaa8764adae50d10452342b773748f1f2"></a>
 template&lt;index_t K&gt; </td></tr>
 <tr class="memitem:aaa8764adae50d10452342b773748f1f2"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>mul</b> (<a class="el" href="classgeom_1_1_permutation_matrix.html">geom::PermutationMatrix</a>&lt; K &gt; *d, const <a class="el" href="classgeom_1_1_permutation_matrix.html">Ma</a> &amp;a, const <a class="el" href="classgeom_1_1_permutation_matrix.html">Mb</a> &amp;b)</td></tr>
@@ -125,6 +121,10 @@ template&lt;index_t K&gt; </td></tr>
 <tr class="memitem:a3b6b4e70859a699a853036b14776b831" id="r_a3b6b4e70859a699a853036b14776b831"><td class="memItemLeft" align="right" valign="top"><a id="a3b6b4e70859a699a853036b14776b831" name="a3b6b4e70859a699a853036b14776b831"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>mul</b> (Md *d, const <a class="el" href="classgeom_1_1_permutation_matrix.html">geom::PermutationMatrix</a>&lt; M &gt; &amp;a, const <a class="el" href="classgeom_1_1_permutation_matrix.html">geom::PermutationMatrix</a>&lt; N &gt; &amp;b)</td></tr>
 <tr class="separator:a3b6b4e70859a699a853036b14776b831"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaab49740d8d1a991a1814c371f0dedbb" id="r_aaab49740d8d1a991a1814c371f0dedbb"><td class="memTemplParams" colspan="2"><a id="aaab49740d8d1a991a1814c371f0dedbb" name="aaab49740d8d1a991a1814c371f0dedbb"></a>
+template&lt;typename Md&gt; </td></tr>
+<tr class="memitem:aaab49740d8d1a991a1814c371f0dedbb"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>mul</b> (Md *d, const <a class="el" href="classgeom_1_1_permutation_matrix.html">Ma</a> &amp;a, const <a class="el" href="classgeom_1_1_permutation_matrix.html">Ma</a> &amp;b)</td></tr>
+<tr class="separator:aaab49740d8d1a991a1814c371f0dedbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a467147893a5dccf117104d1f8b79bad4" id="r_a467147893a5dccf117104d1f8b79bad4"><td class="memItemLeft" align="right" valign="top"><a id="a467147893a5dccf117104d1f8b79bad4" name="a467147893a5dccf117104d1f8b79bad4"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>mul_acc</b> (Md *d, const <a class="el" href="classgeom_1_1_permutation_matrix.html">geom::PermutationMatrix</a>&lt; M &gt; &amp;a, const <a class="el" href="classgeom_1_1_permutation_matrix.html">geom::PermutationMatrix</a>&lt; N &gt; &amp;b)</td></tr>
 <tr class="separator:a467147893a5dccf117104d1f8b79bad4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -135,7 +135,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>mul_acc</b> (M
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 8 2025 18:58:10 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon Feb 17 2025 15:19:55 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

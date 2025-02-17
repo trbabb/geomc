@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['order_0',['order',['../classgeom_1_1_grid_iterator.html#ae1381cf07052bb3f14b6d427d85ed089',1,'geom::GridIterator::order'],['../classgeom_1_1_grid_iterator.html#ae1381cf07052bb3f14b6d427d85ed089',1,'geom::GridIterator&lt; T, 1, Order &gt;::order']]],
-  ['origin_1',['origin',['../classgeom_1_1_ray.html#ae35e0ea34c12b6f71b9ca03de71119a1',1,'geom::Ray']]]
+  ['n_0',['N',['../structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba',1,'geom::Dimensional::N'],['../classgeom_1_1_dilated.html#ad8331653910a5a034f8238e6a8fbb9b1',1,'geom::Dilated::N'],['../classgeom_1_1_extruded.html#ad8331653910a5a034f8238e6a8fbb9b1',1,'geom::Extruded::N'],['../classgeom_1_1_frustum.html#ad8331653910a5a034f8238e6a8fbb9b1',1,'geom::Frustum::N'],['../classgeom_1_1_transformed.html#ad8331653910a5a034f8238e6a8fbb9b1',1,'geom::Transformed::N'],['../structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba',1,'geom::Vec&lt; T, 2 &gt;::N'],['../structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba',1,'geom::Vec&lt; T, 3 &gt;::N'],['../structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba',1,'geom::Vec&lt; T, 4 &gt;::N']]],
+  ['n_1',['n',['../classgeom_1_1_simplex.html#ad263263cbf9ff4b8aa1c5d4ef63a9c80',1,'geom::Simplex']]],
+  ['node_5farity_2',['node_arity',['../structgeom_1_1_k_d_tree_1_1_k_d_structure_params.html#a063fd9413f9182661f7b0fbb628d6f81',1,'geom::KDTree::KDStructureParams']]],
+  ['normal_3',['normal',['../classgeom_1_1_plane.html#a97a283c4b6e5c00898477c179ff36c9d',1,'geom::Plane']]]
 ];

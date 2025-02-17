@@ -113,22 +113,22 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a7f9cb14106b6a7d3bce38bf258fb4d83" id="r_a7f9cb14106b6a7d3bce38bf258fb4d83"><td class="memItemLeft" align="right" valign="top"><a id="a7f9cb14106b6a7d3bce38bf258fb4d83" name="a7f9cb14106b6a7d3bce38bf258fb4d83"></a>
-typedef <a class="el" href="classgeom_1_1_k_d_tree_1_1_k_d_node_iterator.html">KDNodeIterator</a>&lt; false &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>node_iterator</b></td></tr>
-<tr class="memdesc:a7f9cb14106b6a7d3bce38bf258fb4d83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterator over the internal tree nodes. <br /></td></tr>
-<tr class="separator:a7f9cb14106b6a7d3bce38bf258fb4d83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad624d1bd59f0a59980d1b38833aec630" id="r_ad624d1bd59f0a59980d1b38833aec630"><td class="memItemLeft" align="right" valign="top"><a id="ad624d1bd59f0a59980d1b38833aec630" name="ad624d1bd59f0a59980d1b38833aec630"></a>
 typedef <a class="el" href="classgeom_1_1_k_d_tree_1_1_k_d_node_iterator.html">KDNodeIterator</a>&lt; true &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>const_node_iterator</b></td></tr>
 <tr class="memdesc:ad624d1bd59f0a59980d1b38833aec630"><td class="mdescLeft">&#160;</td><td class="mdescRight">Const iterator over the internal tree nodes. <br /></td></tr>
 <tr class="separator:ad624d1bd59f0a59980d1b38833aec630"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcb40812849bbfdec7327aee47b7cb03" id="r_abcb40812849bbfdec7327aee47b7cb03"><td class="memItemLeft" align="right" valign="top"><a id="abcb40812849bbfdec7327aee47b7cb03" name="abcb40812849bbfdec7327aee47b7cb03"></a>
-typedef std::list&lt; Object &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><b>object_iterator</b></td></tr>
-<tr class="memdesc:abcb40812849bbfdec7327aee47b7cb03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterator over objects. <br /></td></tr>
-<tr class="separator:abcb40812849bbfdec7327aee47b7cb03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a890c2bc21165572b2be784a116b00b5b" id="r_a890c2bc21165572b2be784a116b00b5b"><td class="memItemLeft" align="right" valign="top"><a id="a890c2bc21165572b2be784a116b00b5b" name="a890c2bc21165572b2be784a116b00b5b"></a>
 typedef std::list&lt; Object &gt;::const_iterator&#160;</td><td class="memItemRight" valign="bottom"><b>const_object_iterator</b></td></tr>
 <tr class="memdesc:a890c2bc21165572b2be784a116b00b5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Const iterator over objects. <br /></td></tr>
 <tr class="separator:a890c2bc21165572b2be784a116b00b5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f9cb14106b6a7d3bce38bf258fb4d83" id="r_a7f9cb14106b6a7d3bce38bf258fb4d83"><td class="memItemLeft" align="right" valign="top"><a id="a7f9cb14106b6a7d3bce38bf258fb4d83" name="a7f9cb14106b6a7d3bce38bf258fb4d83"></a>
+typedef <a class="el" href="classgeom_1_1_k_d_tree_1_1_k_d_node_iterator.html">KDNodeIterator</a>&lt; false &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>node_iterator</b></td></tr>
+<tr class="memdesc:a7f9cb14106b6a7d3bce38bf258fb4d83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterator over the internal tree nodes. <br /></td></tr>
+<tr class="separator:a7f9cb14106b6a7d3bce38bf258fb4d83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcb40812849bbfdec7327aee47b7cb03" id="r_abcb40812849bbfdec7327aee47b7cb03"><td class="memItemLeft" align="right" valign="top"><a id="abcb40812849bbfdec7327aee47b7cb03" name="abcb40812849bbfdec7327aee47b7cb03"></a>
+typedef std::list&lt; Object &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><b>object_iterator</b></td></tr>
+<tr class="memdesc:abcb40812849bbfdec7327aee47b7cb03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterator over objects. <br /></td></tr>
+<tr class="separator:abcb40812849bbfdec7327aee47b7cb03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -145,44 +145,44 @@ template&lt;typename ObjectIterator&gt; </td></tr>
 <tr class="memitem:ab91a812258b10f969331de5a8d10f989"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>KDTree</b> (ObjectIterator <a class="el" href="#ad82100fde5705b4b7f0f3e473a3b7a68">begin</a>, ObjectIterator <a class="el" href="#a4522f956a262bb379743238c48041bd4">end</a>, const <a class="el" href="structgeom_1_1_k_d_tree_1_1_k_d_structure_params.html">KDStructureParams</a> params=DefaultParameters)</td></tr>
 <tr class="memdesc:ab91a812258b10f969331de5a8d10f989"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a <a class="el" href="classgeom_1_1_k_d_tree.html" title="A hierarchical spatial index.">KDTree</a> initialized with the objects contained in the interval [begin, end). <br /></td></tr>
 <tr class="separator:ab91a812258b10f969331de5a8d10f989"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ec358712bd195d17e7439aa0c9f9ed1" id="r_a8ec358712bd195d17e7439aa0c9f9ed1"><td class="memItemLeft" align="right" valign="top"><a id="a8ec358712bd195d17e7439aa0c9f9ed1" name="a8ec358712bd195d17e7439aa0c9f9ed1"></a>
-index_t&#160;</td><td class="memItemRight" valign="bottom"><b>nobjects</b> () const</td></tr>
-<tr class="memdesc:a8ec358712bd195d17e7439aa0c9f9ed1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of data objects in the tree. <br /></td></tr>
-<tr class="separator:a8ec358712bd195d17e7439aa0c9f9ed1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad82100fde5705b4b7f0f3e473a3b7a68" id="r_ad82100fde5705b4b7f0f3e473a3b7a68"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a7f9cb14106b6a7d3bce38bf258fb4d83">node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad82100fde5705b4b7f0f3e473a3b7a68">begin</a> ()</td></tr>
 <tr class="separator:ad82100fde5705b4b7f0f3e473a3b7a68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4522f956a262bb379743238c48041bd4" id="r_a4522f956a262bb379743238c48041bd4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a7f9cb14106b6a7d3bce38bf258fb4d83">node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4522f956a262bb379743238c48041bd4">end</a> ()</td></tr>
-<tr class="separator:a4522f956a262bb379743238c48041bd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a00de11b29bcbc81323bce607802b472d" id="r_a00de11b29bcbc81323bce607802b472d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ad624d1bd59f0a59980d1b38833aec630">const_node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a00de11b29bcbc81323bce607802b472d">begin</a> () const</td></tr>
 <tr class="separator:a00de11b29bcbc81323bce607802b472d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe50ea780c22d59588c69b36842be72a" id="r_abe50ea780c22d59588c69b36842be72a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ad624d1bd59f0a59980d1b38833aec630">const_node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe50ea780c22d59588c69b36842be72a">end</a> () const</td></tr>
-<tr class="separator:abe50ea780c22d59588c69b36842be72a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac526307c77b26e504c8c447a98e85699" id="r_ac526307c77b26e504c8c447a98e85699"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#abcb40812849bbfdec7327aee47b7cb03">object_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac526307c77b26e504c8c447a98e85699">insert</a> (const <a class="el" href="#a7f9cb14106b6a7d3bce38bf258fb4d83">node_iterator</a> &amp;node, const Object &amp;obj)</td></tr>
-<tr class="separator:ac526307c77b26e504c8c447a98e85699"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6494f90953df3fc356458135285bc3b" id="r_ab6494f90953df3fc356458135285bc3b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#abcb40812849bbfdec7327aee47b7cb03">object_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6494f90953df3fc356458135285bc3b">erase</a> (const <a class="el" href="#abcb40812849bbfdec7327aee47b7cb03">object_iterator</a> &amp;obj, const <a class="el" href="#a7f9cb14106b6a7d3bce38bf258fb4d83">node_iterator</a> &amp;node)</td></tr>
-<tr class="separator:ab6494f90953df3fc356458135285bc3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3b1a172b3f129d432a6e2d60a93e6d3" id="r_af3b1a172b3f129d432a6e2d60a93e6d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af3b1a172b3f129d432a6e2d60a93e6d3">rebalance</a> (const <a class="el" href="#a7f9cb14106b6a7d3bce38bf258fb4d83">node_iterator</a> &amp;node)</td></tr>
-<tr class="separator:af3b1a172b3f129d432a6e2d60a93e6d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac2bf93497a4976b9f6793d8666b409c" id="r_aac2bf93497a4976b9f6793d8666b409c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac2bf93497a4976b9f6793d8666b409c">rebalance</a> ()</td></tr>
-<tr class="separator:aac2bf93497a4976b9f6793d8666b409c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab992f78cab305bbc8a871167e0872879" id="r_ab992f78cab305bbc8a871167e0872879"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab992f78cab305bbc8a871167e0872879">rebalance</a> (const <a class="el" href="structgeom_1_1_k_d_tree_1_1_k_d_structure_params.html">KDStructureParams</a> &amp;newParams)</td></tr>
-<tr class="separator:ab992f78cab305bbc8a871167e0872879"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f770d47abea5b9cba92e5710af6ae04" id="r_a0f770d47abea5b9cba92e5710af6ae04"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a7f9cb14106b6a7d3bce38bf258fb4d83">node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0f770d47abea5b9cba92e5710af6ae04">erase</a> (const <a class="el" href="#a7f9cb14106b6a7d3bce38bf258fb4d83">node_iterator</a> &amp;node)</td></tr>
-<tr class="separator:a0f770d47abea5b9cba92e5710af6ae04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6288b6c241eafc6ad98ab1fe97587215" id="r_a6288b6c241eafc6ad98ab1fe97587215"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6288b6c241eafc6ad98ab1fe97587215">clear</a> (const <a class="el" href="#a7f9cb14106b6a7d3bce38bf258fb4d83">node_iterator</a> &amp;node)</td></tr>
 <tr class="separator:a6288b6c241eafc6ad98ab1fe97587215"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4522f956a262bb379743238c48041bd4" id="r_a4522f956a262bb379743238c48041bd4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a7f9cb14106b6a7d3bce38bf258fb4d83">node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4522f956a262bb379743238c48041bd4">end</a> ()</td></tr>
+<tr class="separator:a4522f956a262bb379743238c48041bd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe50ea780c22d59588c69b36842be72a" id="r_abe50ea780c22d59588c69b36842be72a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ad624d1bd59f0a59980d1b38833aec630">const_node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abe50ea780c22d59588c69b36842be72a">end</a> () const</td></tr>
+<tr class="separator:abe50ea780c22d59588c69b36842be72a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f770d47abea5b9cba92e5710af6ae04" id="r_a0f770d47abea5b9cba92e5710af6ae04"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a7f9cb14106b6a7d3bce38bf258fb4d83">node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0f770d47abea5b9cba92e5710af6ae04">erase</a> (const <a class="el" href="#a7f9cb14106b6a7d3bce38bf258fb4d83">node_iterator</a> &amp;node)</td></tr>
+<tr class="separator:a0f770d47abea5b9cba92e5710af6ae04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6494f90953df3fc356458135285bc3b" id="r_ab6494f90953df3fc356458135285bc3b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#abcb40812849bbfdec7327aee47b7cb03">object_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6494f90953df3fc356458135285bc3b">erase</a> (const <a class="el" href="#abcb40812849bbfdec7327aee47b7cb03">object_iterator</a> &amp;obj, const <a class="el" href="#a7f9cb14106b6a7d3bce38bf258fb4d83">node_iterator</a> &amp;node)</td></tr>
+<tr class="separator:ab6494f90953df3fc356458135285bc3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abdadb5be5024ffa343d7f3cbafc5e558" id="r_abdadb5be5024ffa343d7f3cbafc5e558"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abdadb5be5024ffa343d7f3cbafc5e558">flatten</a> (const <a class="el" href="#a7f9cb14106b6a7d3bce38bf258fb4d83">node_iterator</a> &amp;node)</td></tr>
 <tr class="separator:abdadb5be5024ffa343d7f3cbafc5e558"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a992a8da924b065e29b9393011bc813ab" id="r_a992a8da924b065e29b9393011bc813ab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a7f9cb14106b6a7d3bce38bf258fb4d83">node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a992a8da924b065e29b9393011bc813ab">insertChild</a> (const <a class="el" href="#a7f9cb14106b6a7d3bce38bf258fb4d83">node_iterator</a> &amp;node)</td></tr>
-<tr class="separator:a992a8da924b065e29b9393011bc813ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4399e00891da3fd3458c707378410bc" id="r_ab4399e00891da3fd3458c707378410bc"><td class="memItemLeft" align="right" valign="top">const Object &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab4399e00891da3fd3458c707378410bc">nearest</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;p) const</td></tr>
-<tr class="separator:ab4399e00891da3fd3458c707378410bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11d5f315571ab2c510ee4c50ee65f39e" id="r_a11d5f315571ab2c510ee4c50ee65f39e"><td class="memItemLeft" align="right" valign="top">Object &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11d5f315571ab2c510ee4c50ee65f39e">nearest</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;p)</td></tr>
-<tr class="separator:a11d5f315571ab2c510ee4c50ee65f39e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae678fd69d583290dfd8cdddd2b8ae21e" id="r_ae678fd69d583290dfd8cdddd2b8ae21e"><td class="memItemLeft" align="right" valign="top"><a id="ae678fd69d583290dfd8cdddd2b8ae21e" name="ae678fd69d583290dfd8cdddd2b8ae21e"></a>
 const <a class="el" href="structgeom_1_1_k_d_tree_1_1_k_d_structure_params.html">KDStructureParams</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getStructureParams</b> ()</td></tr>
 <tr class="memdesc:ae678fd69d583290dfd8cdddd2b8ae21e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the parameters describing the current tree-balancing strategy. <br /></td></tr>
 <tr class="separator:ae678fd69d583290dfd8cdddd2b8ae21e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac526307c77b26e504c8c447a98e85699" id="r_ac526307c77b26e504c8c447a98e85699"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#abcb40812849bbfdec7327aee47b7cb03">object_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac526307c77b26e504c8c447a98e85699">insert</a> (const <a class="el" href="#a7f9cb14106b6a7d3bce38bf258fb4d83">node_iterator</a> &amp;node, const Object &amp;obj)</td></tr>
+<tr class="separator:ac526307c77b26e504c8c447a98e85699"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a992a8da924b065e29b9393011bc813ab" id="r_a992a8da924b065e29b9393011bc813ab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a7f9cb14106b6a7d3bce38bf258fb4d83">node_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a992a8da924b065e29b9393011bc813ab">insertChild</a> (const <a class="el" href="#a7f9cb14106b6a7d3bce38bf258fb4d83">node_iterator</a> &amp;node)</td></tr>
+<tr class="separator:a992a8da924b065e29b9393011bc813ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11d5f315571ab2c510ee4c50ee65f39e" id="r_a11d5f315571ab2c510ee4c50ee65f39e"><td class="memItemLeft" align="right" valign="top">Object &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a11d5f315571ab2c510ee4c50ee65f39e">nearest</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;p)</td></tr>
+<tr class="separator:a11d5f315571ab2c510ee4c50ee65f39e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4399e00891da3fd3458c707378410bc" id="r_ab4399e00891da3fd3458c707378410bc"><td class="memItemLeft" align="right" valign="top">const Object &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab4399e00891da3fd3458c707378410bc">nearest</a> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt; &amp;p) const</td></tr>
+<tr class="separator:ab4399e00891da3fd3458c707378410bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ec358712bd195d17e7439aa0c9f9ed1" id="r_a8ec358712bd195d17e7439aa0c9f9ed1"><td class="memItemLeft" align="right" valign="top"><a id="a8ec358712bd195d17e7439aa0c9f9ed1" name="a8ec358712bd195d17e7439aa0c9f9ed1"></a>
+index_t&#160;</td><td class="memItemRight" valign="bottom"><b>nobjects</b> () const</td></tr>
+<tr class="memdesc:a8ec358712bd195d17e7439aa0c9f9ed1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of data objects in the tree. <br /></td></tr>
+<tr class="separator:a8ec358712bd195d17e7439aa0c9f9ed1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac2bf93497a4976b9f6793d8666b409c" id="r_aac2bf93497a4976b9f6793d8666b409c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac2bf93497a4976b9f6793d8666b409c">rebalance</a> ()</td></tr>
+<tr class="separator:aac2bf93497a4976b9f6793d8666b409c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab992f78cab305bbc8a871167e0872879" id="r_ab992f78cab305bbc8a871167e0872879"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab992f78cab305bbc8a871167e0872879">rebalance</a> (const <a class="el" href="structgeom_1_1_k_d_tree_1_1_k_d_structure_params.html">KDStructureParams</a> &amp;newParams)</td></tr>
+<tr class="separator:ab992f78cab305bbc8a871167e0872879"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3b1a172b3f129d432a6e2d60a93e6d3" id="r_af3b1a172b3f129d432a6e2d60a93e6d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af3b1a172b3f129d432a6e2d60a93e6d3">rebalance</a> (const <a class="el" href="#a7f9cb14106b6a7d3bce38bf258fb4d83">node_iterator</a> &amp;node)</td></tr>
+<tr class="separator:af3b1a172b3f129d432a6e2d60a93e6d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T, index_t N, typename Object, typename NodeData&gt;<br />
@@ -641,7 +641,7 @@ template&lt;typename T, index_t N, typename Object, typename NodeData&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon Feb 17 2025 15:19:55 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

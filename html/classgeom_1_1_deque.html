@@ -108,6 +108,14 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Deque</b> ()</td></tr>
 <tr class="memdesc:a41ebad440badfe713f3ffbbec2eac93f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new empty circular buffer, with capacity for <code>N</code> items. <br /></td></tr>
 <tr class="separator:a41ebad440badfe713f3ffbbec2eac93f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b4e322d164b7d4fe8103f957170a451" id="r_a9b4e322d164b7d4fe8103f957170a451"><td class="memItemLeft" align="right" valign="top"><a id="a9b4e322d164b7d4fe8103f957170a451" name="a9b4e322d164b7d4fe8103f957170a451"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Deque</b> (const <a class="el" href="classgeom_1_1_deque.html">Deque</a>&lt; T, N &gt; &amp;other)</td></tr>
+<tr class="memdesc:a9b4e322d164b7d4fe8103f957170a451"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new circular buffer containing copies of all the items in <code>other</code>. <br /></td></tr>
+<tr class="separator:a9b4e322d164b7d4fe8103f957170a451"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4a822c7c6eff06c03e8bec9f911e500" id="r_ab4a822c7c6eff06c03e8bec9f911e500"><td class="memItemLeft" align="right" valign="top"><a id="ab4a822c7c6eff06c03e8bec9f911e500" name="ab4a822c7c6eff06c03e8bec9f911e500"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Deque</b> (<a class="el" href="classgeom_1_1_deque.html">Deque</a>&lt; T, N &gt; &amp;&amp;other)</td></tr>
+<tr class="memdesc:ab4a822c7c6eff06c03e8bec9f911e500"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the contents of <code>other</code> to a new <a class="el" href="classgeom_1_1_deque.html" title="A lightweight double ended queue backed by a flat array.">Deque</a>. <br /></td></tr>
+<tr class="separator:ab4a822c7c6eff06c03e8bec9f911e500"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a564fb66d469e2133ffc868bfc60351f1" id="r_a564fb66d469e2133ffc868bfc60351f1"><td class="memItemLeft" align="right" valign="top"><a id="a564fb66d469e2133ffc868bfc60351f1" name="a564fb66d469e2133ffc868bfc60351f1"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Deque</b> (index_t <a class="el" href="#a0596b876ff48c08b565dbf152e720f4d">capacity</a>)</td></tr>
 <tr class="memdesc:a564fb66d469e2133ffc868bfc60351f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new empty circular buffer, with space for at least <code>capacity</code> items. <br /></td></tr>
@@ -117,14 +125,34 @@ template&lt;typename InputIterator&gt; </td></tr>
 <tr class="memitem:a96c4f1066084049759f97038891fe778"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>Deque</b> (InputIterator begin, index_t count)</td></tr>
 <tr class="memdesc:a96c4f1066084049759f97038891fe778"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new circular buffer by copying <code>count</code> items in the sequence starting at <code>begin</code>. <br /></td></tr>
 <tr class="separator:a96c4f1066084049759f97038891fe778"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b4e322d164b7d4fe8103f957170a451" id="r_a9b4e322d164b7d4fe8103f957170a451"><td class="memItemLeft" align="right" valign="top"><a id="a9b4e322d164b7d4fe8103f957170a451" name="a9b4e322d164b7d4fe8103f957170a451"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Deque</b> (const <a class="el" href="classgeom_1_1_deque.html">Deque</a>&lt; T, N &gt; &amp;other)</td></tr>
-<tr class="memdesc:a9b4e322d164b7d4fe8103f957170a451"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new circular buffer containing copies of all the items in <code>other</code>. <br /></td></tr>
-<tr class="separator:a9b4e322d164b7d4fe8103f957170a451"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4a822c7c6eff06c03e8bec9f911e500" id="r_ab4a822c7c6eff06c03e8bec9f911e500"><td class="memItemLeft" align="right" valign="top"><a id="ab4a822c7c6eff06c03e8bec9f911e500" name="ab4a822c7c6eff06c03e8bec9f911e500"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Deque</b> (<a class="el" href="classgeom_1_1_deque.html">Deque</a>&lt; T, N &gt; &amp;&amp;other)</td></tr>
-<tr class="memdesc:ab4a822c7c6eff06c03e8bec9f911e500"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the contents of <code>other</code> to a new <a class="el" href="classgeom_1_1_deque.html" title="A lightweight double ended queue backed by a flat array.">Deque</a>. <br /></td></tr>
-<tr class="separator:ab4a822c7c6eff06c03e8bec9f911e500"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a557503c0b752dd1bd74295f499129f" id="r_a4a557503c0b752dd1bd74295f499129f"><td class="memItemLeft" align="right" valign="top"><a id="a4a557503c0b752dd1bd74295f499129f" name="a4a557503c0b752dd1bd74295f499129f"></a>
+T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>back</b> ()</td></tr>
+<tr class="memdesc:a4a557503c0b752dd1bd74295f499129f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a reference to the item at the end of the buffer. <br /></td></tr>
+<tr class="separator:a4a557503c0b752dd1bd74295f499129f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fea989cf23be90deab03db615b7f15b" id="r_a8fea989cf23be90deab03db615b7f15b"><td class="memItemLeft" align="right" valign="top"><a id="a8fea989cf23be90deab03db615b7f15b" name="a8fea989cf23be90deab03db615b7f15b"></a>
+const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>back</b> () const</td></tr>
+<tr class="memdesc:a8fea989cf23be90deab03db615b7f15b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a const reference to the item at the end of the buffer. <br /></td></tr>
+<tr class="separator:a8fea989cf23be90deab03db615b7f15b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0596b876ff48c08b565dbf152e720f4d" id="r_a0596b876ff48c08b565dbf152e720f4d"><td class="memItemLeft" align="right" valign="top"><a id="a0596b876ff48c08b565dbf152e720f4d" name="a0596b876ff48c08b565dbf152e720f4d"></a>
+index_t&#160;</td><td class="memItemRight" valign="bottom"><b>capacity</b> () const</td></tr>
+<tr class="memdesc:a0596b876ff48c08b565dbf152e720f4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the total number of items that can be accommodated without an additional memory allocation. <br /></td></tr>
+<tr class="separator:a0596b876ff48c08b565dbf152e720f4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8bb3912a3ce86b15842e79d0b421204" id="r_ac8bb3912a3ce86b15842e79d0b421204"><td class="memItemLeft" align="right" valign="top"><a id="ac8bb3912a3ce86b15842e79d0b421204" name="ac8bb3912a3ce86b15842e79d0b421204"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>clear</b> ()</td></tr>
+<tr class="memdesc:ac8bb3912a3ce86b15842e79d0b421204"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty the buffer of all items. <br /></td></tr>
+<tr class="separator:ac8bb3912a3ce86b15842e79d0b421204"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa67f6e1a9bbaab0d994aecdc06835f6b" id="r_aa67f6e1a9bbaab0d994aecdc06835f6b"><td class="memItemLeft" align="right" valign="top"><a id="aa67f6e1a9bbaab0d994aecdc06835f6b" name="aa67f6e1a9bbaab0d994aecdc06835f6b"></a>
+T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>front</b> ()</td></tr>
+<tr class="memdesc:aa67f6e1a9bbaab0d994aecdc06835f6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a reference to the item at the beginning of the buffer. <br /></td></tr>
+<tr class="separator:aa67f6e1a9bbaab0d994aecdc06835f6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d40292ba6768942d50c7b0d31fad424" id="r_a2d40292ba6768942d50c7b0d31fad424"><td class="memItemLeft" align="right" valign="top"><a id="a2d40292ba6768942d50c7b0d31fad424" name="a2d40292ba6768942d50c7b0d31fad424"></a>
+const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>front</b> () const</td></tr>
+<tr class="memdesc:a2d40292ba6768942d50c7b0d31fad424"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a const reference to the item at the beginning of the buffer. <br /></td></tr>
+<tr class="separator:a2d40292ba6768942d50c7b0d31fad424"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b78f93e209a1ad2cfdf3f2a386770e4" id="r_a9b78f93e209a1ad2cfdf3f2a386770e4"><td class="memItemLeft" align="right" valign="top"><a id="a9b78f93e209a1ad2cfdf3f2a386770e4" name="a9b78f93e209a1ad2cfdf3f2a386770e4"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator!=</b> (const <a class="el" href="classgeom_1_1_deque.html">Deque</a>&lt; T, N &gt; &amp;other)</td></tr>
+<tr class="memdesc:a9b78f93e209a1ad2cfdf3f2a386770e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inequality operator. <br /></td></tr>
+<tr class="separator:a9b78f93e209a1ad2cfdf3f2a386770e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af296bf622107b0630b1ada019f5e7112" id="r_af296bf622107b0630b1ada019f5e7112"><td class="memItemLeft" align="right" valign="top"><a id="af296bf622107b0630b1ada019f5e7112" name="af296bf622107b0630b1ada019f5e7112"></a>
 <a class="el" href="classgeom_1_1_deque.html">Deque</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classgeom_1_1_deque.html">Deque</a> &amp;other)</td></tr>
 <tr class="memdesc:af296bf622107b0630b1ada019f5e7112"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator. <br /></td></tr>
@@ -133,27 +161,22 @@ template&lt;typename InputIterator&gt; </td></tr>
 <a class="el" href="classgeom_1_1_deque.html">Deque</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classgeom_1_1_deque.html">Deque</a> &amp;&amp;other)</td></tr>
 <tr class="memdesc:a25b086b34d847ccdc26ea802d5613a01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the contents of <code>other</code> to this buffer. <br /></td></tr>
 <tr class="separator:a25b086b34d847ccdc26ea802d5613a01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ceacc850cc77c3d774b5527f50431f7" id="r_a3ceacc850cc77c3d774b5527f50431f7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3ceacc850cc77c3d774b5527f50431f7">operator==</a> (const <a class="el" href="classgeom_1_1_deque.html">Deque</a>&lt; T, N &gt; &amp;other)</td></tr>
+<tr class="memdesc:a3ceacc850cc77c3d774b5527f50431f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality operator.  <br /></td></tr>
+<tr class="separator:a3ceacc850cc77c3d774b5527f50431f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a657eb179035d6112e1006d82ad1b3c47" id="r_a657eb179035d6112e1006d82ad1b3c47"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a657eb179035d6112e1006d82ad1b3c47">operator[]</a> (index_t i)</td></tr>
 <tr class="memdesc:a657eb179035d6112e1006d82ad1b3c47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <code>i</code>th element in the buffer.  <br /></td></tr>
 <tr class="separator:a657eb179035d6112e1006d82ad1b3c47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a76b02b5d32090c2edd5145b2bae437" id="r_a6a76b02b5d32090c2edd5145b2bae437"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a76b02b5d32090c2edd5145b2bae437">operator[]</a> (index_t i) const</td></tr>
 <tr class="memdesc:a6a76b02b5d32090c2edd5145b2bae437"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <code>i</code>th (const) element in the buffer.  <br /></td></tr>
 <tr class="separator:a6a76b02b5d32090c2edd5145b2bae437"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ceacc850cc77c3d774b5527f50431f7" id="r_a3ceacc850cc77c3d774b5527f50431f7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3ceacc850cc77c3d774b5527f50431f7">operator==</a> (const <a class="el" href="classgeom_1_1_deque.html">Deque</a>&lt; T, N &gt; &amp;other)</td></tr>
-<tr class="memdesc:a3ceacc850cc77c3d774b5527f50431f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality operator.  <br /></td></tr>
-<tr class="separator:a3ceacc850cc77c3d774b5527f50431f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b78f93e209a1ad2cfdf3f2a386770e4" id="r_a9b78f93e209a1ad2cfdf3f2a386770e4"><td class="memItemLeft" align="right" valign="top"><a id="a9b78f93e209a1ad2cfdf3f2a386770e4" name="a9b78f93e209a1ad2cfdf3f2a386770e4"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator!=</b> (const <a class="el" href="classgeom_1_1_deque.html">Deque</a>&lt; T, N &gt; &amp;other)</td></tr>
-<tr class="memdesc:a9b78f93e209a1ad2cfdf3f2a386770e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inequality operator. <br /></td></tr>
-<tr class="separator:a9b78f93e209a1ad2cfdf3f2a386770e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b678238a21dd0a25a3d8a67c11abb45" id="r_a7b678238a21dd0a25a3d8a67c11abb45"><td class="memItemLeft" align="right" valign="top"><a id="a7b678238a21dd0a25a3d8a67c11abb45" name="a7b678238a21dd0a25a3d8a67c11abb45"></a>
-index_t&#160;</td><td class="memItemRight" valign="bottom"><b>size</b> () const</td></tr>
-<tr class="memdesc:a7b678238a21dd0a25a3d8a67c11abb45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of items in the buffer. <br /></td></tr>
-<tr class="separator:a7b678238a21dd0a25a3d8a67c11abb45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0596b876ff48c08b565dbf152e720f4d" id="r_a0596b876ff48c08b565dbf152e720f4d"><td class="memItemLeft" align="right" valign="top"><a id="a0596b876ff48c08b565dbf152e720f4d" name="a0596b876ff48c08b565dbf152e720f4d"></a>
-index_t&#160;</td><td class="memItemRight" valign="bottom"><b>capacity</b> () const</td></tr>
-<tr class="memdesc:a0596b876ff48c08b565dbf152e720f4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the total number of items that can be accommodated without an additional memory allocation. <br /></td></tr>
-<tr class="separator:a0596b876ff48c08b565dbf152e720f4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6387f00397fd1e0b9663c3d35e8ebe3" id="r_ad6387f00397fd1e0b9663c3d35e8ebe3"><td class="memItemLeft" align="right" valign="top"><a id="ad6387f00397fd1e0b9663c3d35e8ebe3" name="ad6387f00397fd1e0b9663c3d35e8ebe3"></a>
+std::optional&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>pop_back</b> ()</td></tr>
+<tr class="memdesc:ad6387f00397fd1e0b9663c3d35e8ebe3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the element at the end of the buffer, if there is one. <br /></td></tr>
+<tr class="separator:ad6387f00397fd1e0b9663c3d35e8ebe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0da2e6b9dcc26a1f391aa7d02c7a6de0" id="r_a0da2e6b9dcc26a1f391aa7d02c7a6de0"><td class="memItemLeft" align="right" valign="top">std::optional&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0da2e6b9dcc26a1f391aa7d02c7a6de0">pop_front</a> ()</td></tr>
+<tr class="memdesc:a0da2e6b9dcc26a1f391aa7d02c7a6de0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the first element in the buffer, if there is one.  <br /></td></tr>
+<tr class="separator:a0da2e6b9dcc26a1f391aa7d02c7a6de0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af931ea27a6a7ce7ad79d7451b3ba8504" id="r_af931ea27a6a7ce7ad79d7451b3ba8504"><td class="memTemplParams" colspan="2"><a id="af931ea27a6a7ce7ad79d7451b3ba8504" name="af931ea27a6a7ce7ad79d7451b3ba8504"></a>
 template&lt;typename U&gt; </td></tr>
 <tr class="memitem:af931ea27a6a7ce7ad79d7451b3ba8504"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>push_back</b> (U &amp;&amp;t)</td></tr>
@@ -163,37 +186,14 @@ template&lt;typename U&gt; </td></tr>
 <tr class="memitem:a1c384d52a2723c3c6c1d1cfd2fac825e"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="#a1c384d52a2723c3c6c1d1cfd2fac825e">push_front</a> (U &amp;&amp;t)</td></tr>
 <tr class="memdesc:a1c384d52a2723c3c6c1d1cfd2fac825e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an element to the beginning of the buffer.  <br /></td></tr>
 <tr class="separator:a1c384d52a2723c3c6c1d1cfd2fac825e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0da2e6b9dcc26a1f391aa7d02c7a6de0" id="r_a0da2e6b9dcc26a1f391aa7d02c7a6de0"><td class="memItemLeft" align="right" valign="top">std::optional&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0da2e6b9dcc26a1f391aa7d02c7a6de0">pop_front</a> ()</td></tr>
-<tr class="memdesc:a0da2e6b9dcc26a1f391aa7d02c7a6de0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the first element in the buffer, if there is one.  <br /></td></tr>
-<tr class="separator:a0da2e6b9dcc26a1f391aa7d02c7a6de0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6387f00397fd1e0b9663c3d35e8ebe3" id="r_ad6387f00397fd1e0b9663c3d35e8ebe3"><td class="memItemLeft" align="right" valign="top"><a id="ad6387f00397fd1e0b9663c3d35e8ebe3" name="ad6387f00397fd1e0b9663c3d35e8ebe3"></a>
-std::optional&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>pop_back</b> ()</td></tr>
-<tr class="memdesc:ad6387f00397fd1e0b9663c3d35e8ebe3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the element at the end of the buffer, if there is one. <br /></td></tr>
-<tr class="separator:ad6387f00397fd1e0b9663c3d35e8ebe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa67f6e1a9bbaab0d994aecdc06835f6b" id="r_aa67f6e1a9bbaab0d994aecdc06835f6b"><td class="memItemLeft" align="right" valign="top"><a id="aa67f6e1a9bbaab0d994aecdc06835f6b" name="aa67f6e1a9bbaab0d994aecdc06835f6b"></a>
-T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>front</b> ()</td></tr>
-<tr class="memdesc:aa67f6e1a9bbaab0d994aecdc06835f6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a reference to the item at the beginning of the buffer. <br /></td></tr>
-<tr class="separator:aa67f6e1a9bbaab0d994aecdc06835f6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d40292ba6768942d50c7b0d31fad424" id="r_a2d40292ba6768942d50c7b0d31fad424"><td class="memItemLeft" align="right" valign="top"><a id="a2d40292ba6768942d50c7b0d31fad424" name="a2d40292ba6768942d50c7b0d31fad424"></a>
-const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>front</b> () const</td></tr>
-<tr class="memdesc:a2d40292ba6768942d50c7b0d31fad424"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a const reference to the item at the beginning of the buffer. <br /></td></tr>
-<tr class="separator:a2d40292ba6768942d50c7b0d31fad424"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a557503c0b752dd1bd74295f499129f" id="r_a4a557503c0b752dd1bd74295f499129f"><td class="memItemLeft" align="right" valign="top"><a id="a4a557503c0b752dd1bd74295f499129f" name="a4a557503c0b752dd1bd74295f499129f"></a>
-T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>back</b> ()</td></tr>
-<tr class="memdesc:a4a557503c0b752dd1bd74295f499129f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a reference to the item at the end of the buffer. <br /></td></tr>
-<tr class="separator:a4a557503c0b752dd1bd74295f499129f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8fea989cf23be90deab03db615b7f15b" id="r_a8fea989cf23be90deab03db615b7f15b"><td class="memItemLeft" align="right" valign="top"><a id="a8fea989cf23be90deab03db615b7f15b" name="a8fea989cf23be90deab03db615b7f15b"></a>
-const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>back</b> () const</td></tr>
-<tr class="memdesc:a8fea989cf23be90deab03db615b7f15b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a const reference to the item at the end of the buffer. <br /></td></tr>
-<tr class="separator:a8fea989cf23be90deab03db615b7f15b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8bb3912a3ce86b15842e79d0b421204" id="r_ac8bb3912a3ce86b15842e79d0b421204"><td class="memItemLeft" align="right" valign="top"><a id="ac8bb3912a3ce86b15842e79d0b421204" name="ac8bb3912a3ce86b15842e79d0b421204"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>clear</b> ()</td></tr>
-<tr class="memdesc:ac8bb3912a3ce86b15842e79d0b421204"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty the buffer of all items. <br /></td></tr>
-<tr class="separator:ac8bb3912a3ce86b15842e79d0b421204"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a209f1bb0c1a7b2c520cad21621f853" id="r_a5a209f1bb0c1a7b2c520cad21621f853"><td class="memItemLeft" align="right" valign="top"><a id="a5a209f1bb0c1a7b2c520cad21621f853" name="a5a209f1bb0c1a7b2c520cad21621f853"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>reserve</b> (index_t new_cap)</td></tr>
 <tr class="memdesc:a5a209f1bb0c1a7b2c520cad21621f853"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increase the capacity of the circular buffer to a value that's greater or equal to <code>new_cap</code>. If <code>new_cap</code> is greater than the current capacity, then new storage is allocated; otherwise the method does nothing. <br /></td></tr>
 <tr class="separator:a5a209f1bb0c1a7b2c520cad21621f853"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b678238a21dd0a25a3d8a67c11abb45" id="r_a7b678238a21dd0a25a3d8a67c11abb45"><td class="memItemLeft" align="right" valign="top"><a id="a7b678238a21dd0a25a3d8a67c11abb45" name="a7b678238a21dd0a25a3d8a67c11abb45"></a>
+index_t&#160;</td><td class="memItemRight" valign="bottom"><b>size</b> () const</td></tr>
+<tr class="memdesc:a7b678238a21dd0a25a3d8a67c11abb45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of items in the buffer. <br /></td></tr>
+<tr class="separator:a7b678238a21dd0a25a3d8a67c11abb45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -381,7 +381,7 @@ template&lt;typename U&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon Feb 17 2025 15:19:55 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

@@ -99,12 +99,12 @@ $(function(){ initResizable(false); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:acff1a46a780fb6d1cd081bd6ecbcc8bc" id="r_acff1a46a780fb6d1cd081bd6ecbcc8bc"><td class="memItemLeft" align="right" valign="top"><a id="acff1a46a780fb6d1cd081bd6ecbcc8bc" name="acff1a46a780fb6d1cd081bd6ecbcc8bc"></a>
-typedef <a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; T, L, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>return_t</b></td></tr>
-<tr class="separator:acff1a46a780fb6d1cd081bd6ecbcc8bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab21296155bd175b5f9ed108b25a59f3a" id="r_ab21296155bd175b5f9ed108b25a59f3a"><td class="memItemLeft" align="right" valign="top"><a id="ab21296155bd175b5f9ed108b25a59f3a" name="ab21296155bd175b5f9ed108b25a59f3a"></a>
 typedef <a class="el" href="classgeom_1_1_simple_matrix.html">SimpleMatrix</a>&lt; typename <a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; T, L, M1 &gt;::elem_t, <a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; T, L, M1 &gt;::ROWDIM, <a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; T, M2, N &gt;::COLDIM &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>return_t</b></td></tr>
 <tr class="separator:ab21296155bd175b5f9ed108b25a59f3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acff1a46a780fb6d1cd081bd6ecbcc8bc" id="r_acff1a46a780fb6d1cd081bd6ecbcc8bc"><td class="memItemLeft" align="right" valign="top"><a id="acff1a46a780fb6d1cd081bd6ecbcc8bc" name="acff1a46a780fb6d1cd081bd6ecbcc8bc"></a>
+typedef <a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; T, L, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>return_t</b></td></tr>
+<tr class="separator:acff1a46a780fb6d1cd081bd6ecbcc8bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -112,24 +112,24 @@ Static Public Member Functions</h2></td></tr>
 template&lt;typename U, index_t I, index_t J&gt; </td></tr>
 <tr class="memitem:ab89f96a2998e3ec75b559fe56a7c662b"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>mul</b> (<a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; U, I, J &gt; *d, const <a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; T, L, M1 &gt; &amp;a, const <a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; T, M2, N &gt; &amp;b)</td></tr>
 <tr class="separator:ab89f96a2998e3ec75b559fe56a7c662b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7b2a85ecf5491b7c0a837b4dbabebb4" id="r_af7b2a85ecf5491b7c0a837b4dbabebb4"><td class="memTemplParams" colspan="2"><a id="af7b2a85ecf5491b7c0a837b4dbabebb4" name="af7b2a85ecf5491b7c0a837b4dbabebb4"></a>
-template&lt;typename U, index_t I, index_t J&gt; </td></tr>
-<tr class="memitem:af7b2a85ecf5491b7c0a837b4dbabebb4"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>mul_acc</b> (<a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; U, I, J &gt; *d, const <a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; T, L, M1 &gt; &amp;a, const <a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; T, M2, N &gt; &amp;b)</td></tr>
-<tr class="separator:af7b2a85ecf5491b7c0a837b4dbabebb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b6b4e70859a699a853036b14776b831" id="r_a3b6b4e70859a699a853036b14776b831"><td class="memItemLeft" align="right" valign="top"><a id="a3b6b4e70859a699a853036b14776b831" name="a3b6b4e70859a699a853036b14776b831"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>mul</b> (Md *d, const <a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; T, L, M1 &gt; &amp;a, const <a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; T, M2, N &gt; &amp;b)</td></tr>
+<tr class="separator:a3b6b4e70859a699a853036b14776b831"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d6ace68eedc43602eac8e9ac04d3855" id="r_a8d6ace68eedc43602eac8e9ac04d3855"><td class="memTemplParams" colspan="2"><a id="a8d6ace68eedc43602eac8e9ac04d3855" name="a8d6ace68eedc43602eac8e9ac04d3855"></a>
 template&lt;typename Md&gt; </td></tr>
 <tr class="memitem:a8d6ace68eedc43602eac8e9ac04d3855"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>mul</b> (Md *d, const <a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; T, L, M1 &gt; &amp;a, const <a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; T, M2, N &gt; &amp;b)</td></tr>
 <tr class="separator:a8d6ace68eedc43602eac8e9ac04d3855"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7b2a85ecf5491b7c0a837b4dbabebb4" id="r_af7b2a85ecf5491b7c0a837b4dbabebb4"><td class="memTemplParams" colspan="2"><a id="af7b2a85ecf5491b7c0a837b4dbabebb4" name="af7b2a85ecf5491b7c0a837b4dbabebb4"></a>
+template&lt;typename U, index_t I, index_t J&gt; </td></tr>
+<tr class="memitem:af7b2a85ecf5491b7c0a837b4dbabebb4"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>mul_acc</b> (<a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; U, I, J &gt; *d, const <a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; T, L, M1 &gt; &amp;a, const <a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; T, M2, N &gt; &amp;b)</td></tr>
+<tr class="separator:af7b2a85ecf5491b7c0a837b4dbabebb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a467147893a5dccf117104d1f8b79bad4" id="r_a467147893a5dccf117104d1f8b79bad4"><td class="memItemLeft" align="right" valign="top"><a id="a467147893a5dccf117104d1f8b79bad4" name="a467147893a5dccf117104d1f8b79bad4"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>mul_acc</b> (Md *d, const <a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; T, L, M1 &gt; &amp;a, const <a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; T, M2, N &gt; &amp;b)</td></tr>
+<tr class="separator:a467147893a5dccf117104d1f8b79bad4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e79ddc5ca090dfec9554553489802fc" id="r_a5e79ddc5ca090dfec9554553489802fc"><td class="memTemplParams" colspan="2"><a id="a5e79ddc5ca090dfec9554553489802fc" name="a5e79ddc5ca090dfec9554553489802fc"></a>
 template&lt;typename Md&gt; </td></tr>
 <tr class="memitem:a5e79ddc5ca090dfec9554553489802fc"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>mul_acc</b> (Md *d, const <a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; T, L, M1 &gt; &amp;a, const <a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; T, M2, N &gt; &amp;b)</td></tr>
 <tr class="separator:a5e79ddc5ca090dfec9554553489802fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b6b4e70859a699a853036b14776b831" id="r_a3b6b4e70859a699a853036b14776b831"><td class="memItemLeft" align="right" valign="top"><a id="a3b6b4e70859a699a853036b14776b831" name="a3b6b4e70859a699a853036b14776b831"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>mul</b> (Md *d, const <a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; T, L, M1 &gt; &amp;a, const <a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; T, M2, N &gt; &amp;b)</td></tr>
-<tr class="separator:a3b6b4e70859a699a853036b14776b831"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a467147893a5dccf117104d1f8b79bad4" id="r_a467147893a5dccf117104d1f8b79bad4"><td class="memItemLeft" align="right" valign="top"><a id="a467147893a5dccf117104d1f8b79bad4" name="a467147893a5dccf117104d1f8b79bad4"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>mul_acc</b> (Md *d, const <a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; T, L, M1 &gt; &amp;a, const <a class="el" href="classgeom_1_1_diag_matrix.html">geom::DiagMatrix</a>&lt; T, M2, N &gt; &amp;b)</td></tr>
-<tr class="separator:a467147893a5dccf117104d1f8b79bad4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>geomc/linalg/mtxdetail/<a class="el" href="_matrix_mult_8h_source.html">MatrixMult.h</a></li>
@@ -137,7 +137,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>mul_acc</b> (M
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 8 2025 18:58:10 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon Feb 17 2025 15:19:55 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

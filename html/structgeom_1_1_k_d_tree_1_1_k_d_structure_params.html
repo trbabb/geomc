@@ -107,22 +107,22 @@ Public Attributes</h2></td></tr>
 <a class="el" href="group__shape.html#ga7a6d185fa30835f2dad16775f601446f">KDAxisChoice</a>&#160;</td><td class="memItemRight" valign="bottom"><b>axis</b></td></tr>
 <tr class="memdesc:a16669401f7791db5ea760b38f6c6d358"><td class="mdescLeft">&#160;</td><td class="mdescRight">Strategy for choosing an axis to split when subdividing a node. <br /></td></tr>
 <tr class="separator:a16669401f7791db5ea760b38f6c6d358"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ffeda6cd34ee68d52ffe4374b0c7c80" id="r_a0ffeda6cd34ee68d52ffe4374b0c7c80"><td class="memItemLeft" align="right" valign="top"><a id="a0ffeda6cd34ee68d52ffe4374b0c7c80" name="a0ffeda6cd34ee68d52ffe4374b0c7c80"></a>
-<a class="el" href="group__shape.html#gaedead3dfc83fef09fb8925fe63429df1">KDPivotChoice</a>&#160;</td><td class="memItemRight" valign="bottom"><b>pivot</b></td></tr>
-<tr class="memdesc:a0ffeda6cd34ee68d52ffe4374b0c7c80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Strategy for choosing a pivot value when subdividing a node. <br /></td></tr>
-<tr class="separator:a0ffeda6cd34ee68d52ffe4374b0c7c80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75625203498ac85cdf4d37b23cc2bb40" id="r_a75625203498ac85cdf4d37b23cc2bb40"><td class="memItemLeft" align="right" valign="top"><a id="a75625203498ac85cdf4d37b23cc2bb40" name="a75625203498ac85cdf4d37b23cc2bb40"></a>
 <a class="el" href="group__shape.html#ga611cf03037c0db7c4856806508335f7a">KDInsertionChoice</a>&#160;</td><td class="memItemRight" valign="bottom"><b>insert</b></td></tr>
 <tr class="memdesc:a75625203498ac85cdf4d37b23cc2bb40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Strategy for insertion of an object into an existing node. <br /></td></tr>
 <tr class="separator:a75625203498ac85cdf4d37b23cc2bb40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a063fd9413f9182661f7b0fbb628d6f81" id="r_a063fd9413f9182661f7b0fbb628d6f81"><td class="memItemLeft" align="right" valign="top"><a id="a063fd9413f9182661f7b0fbb628d6f81" name="a063fd9413f9182661f7b0fbb628d6f81"></a>
-index_t&#160;</td><td class="memItemRight" valign="bottom"><b>node_arity</b></td></tr>
-<tr class="memdesc:a063fd9413f9182661f7b0fbb628d6f81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of children an internal node can have. <br /></td></tr>
-<tr class="separator:a063fd9413f9182661f7b0fbb628d6f81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a660ea640a443b3d4241edc7060e286d5" id="r_a660ea640a443b3d4241edc7060e286d5"><td class="memItemLeft" align="right" valign="top"><a id="a660ea640a443b3d4241edc7060e286d5" name="a660ea640a443b3d4241edc7060e286d5"></a>
 index_t&#160;</td><td class="memItemRight" valign="bottom"><b>leaf_arity</b></td></tr>
 <tr class="memdesc:a660ea640a443b3d4241edc7060e286d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of data objects a leaf node can have. <br /></td></tr>
 <tr class="separator:a660ea640a443b3d4241edc7060e286d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a063fd9413f9182661f7b0fbb628d6f81" id="r_a063fd9413f9182661f7b0fbb628d6f81"><td class="memItemLeft" align="right" valign="top"><a id="a063fd9413f9182661f7b0fbb628d6f81" name="a063fd9413f9182661f7b0fbb628d6f81"></a>
+index_t&#160;</td><td class="memItemRight" valign="bottom"><b>node_arity</b></td></tr>
+<tr class="memdesc:a063fd9413f9182661f7b0fbb628d6f81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of children an internal node can have. <br /></td></tr>
+<tr class="separator:a063fd9413f9182661f7b0fbb628d6f81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ffeda6cd34ee68d52ffe4374b0c7c80" id="r_a0ffeda6cd34ee68d52ffe4374b0c7c80"><td class="memItemLeft" align="right" valign="top"><a id="a0ffeda6cd34ee68d52ffe4374b0c7c80" name="a0ffeda6cd34ee68d52ffe4374b0c7c80"></a>
+<a class="el" href="group__shape.html#gaedead3dfc83fef09fb8925fe63429df1">KDPivotChoice</a>&#160;</td><td class="memItemRight" valign="bottom"><b>pivot</b></td></tr>
+<tr class="memdesc:a0ffeda6cd34ee68d52ffe4374b0c7c80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Strategy for choosing a pivot value when subdividing a node. <br /></td></tr>
+<tr class="separator:a0ffeda6cd34ee68d52ffe4374b0c7c80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T, index_t N, typename Object, typename NodeData&gt;<br />
@@ -133,7 +133,7 @@ struct geom::KDTree&lt; T, N, Object, NodeData &gt;::KDStructureParams</div><p>S
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon Feb 17 2025 15:19:55 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

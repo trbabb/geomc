@@ -100,15 +100,19 @@ $(function(){ initResizable(false); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae8bbeb25bc56d027d5c99c11bdd77351" id="r_ae8bbeb25bc56d027d5c99c11bdd77351"><td class="memItemLeft" align="right" valign="top"><a id="ae8bbeb25bc56d027d5c99c11bdd77351" name="ae8bbeb25bc56d027d5c99c11bdd77351"></a>
-const <a class="el" href="classgeom_1_1_simplex.html">Simplex</a>&lt; T, N &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>simplex</b> () const</td></tr>
-<tr class="separator:ae8bbeb25bc56d027d5c99c11bdd77351"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a767c26038121c6fba4df9eb4d30a0235" id="r_a767c26038121c6fba4df9eb4d30a0235"><td class="memItemLeft" align="right" valign="top"><a id="a767c26038121c6fba4df9eb4d30a0235" name="a767c26038121c6fba4df9eb4d30a0235"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>intersects</b> (const <a class="el" href="classgeom_1_1_any_convex.html">AnyConvex</a>&lt; T, N &gt; &amp;shape_a, const <a class="el" href="classgeom_1_1_any_convex.html">AnyConvex</a>&lt; T, N &gt; &amp;shape_b)</td></tr>
 <tr class="separator:a767c26038121c6fba4df9eb4d30a0235"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8bbeb25bc56d027d5c99c11bdd77351" id="r_ae8bbeb25bc56d027d5c99c11bdd77351"><td class="memItemLeft" align="right" valign="top"><a id="ae8bbeb25bc56d027d5c99c11bdd77351" name="ae8bbeb25bc56d027d5c99c11bdd77351"></a>
+const <a class="el" href="classgeom_1_1_simplex.html">Simplex</a>&lt; T, N &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>simplex</b> () const</td></tr>
+<tr class="separator:ae8bbeb25bc56d027d5c99c11bdd77351"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
+<tr class="memitem:a3bc6cf073312c96d48e813b642cd048c" id="r_a3bc6cf073312c96d48e813b642cd048c"><td class="memItemLeft" align="right" valign="top"><a id="a3bc6cf073312c96d48e813b642cd048c" name="a3bc6cf073312c96d48e813b642cd048c"></a>
+index_t&#160;</td><td class="memItemRight" valign="bottom"><b>iterations</b> = 0</td></tr>
+<tr class="memdesc:a3bc6cf073312c96d48e813b642cd048c"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of GJK iterations taken to produce the last intersection result. <br /></td></tr>
+<tr class="separator:a3bc6cf073312c96d48e813b642cd048c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abfb60eeef9b25603913c19476df4bbb8" id="r_abfb60eeef9b25603913c19476df4bbb8"><td class="memItemLeft" align="right" valign="top"><a id="abfb60eeef9b25603913c19476df4bbb8" name="abfb60eeef9b25603913c19476df4bbb8"></a>
 index_t&#160;</td><td class="memItemRight" valign="bottom"><b>max_iterations</b> = 10 * (1 &lt;&lt; (N - 2))</td></tr>
 <tr class="separator:abfb60eeef9b25603913c19476df4bbb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -116,10 +120,6 @@ index_t&#160;</td><td class="memItemRight" valign="bottom"><b>max_iterations</b>
 <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>separation_axis</b> = <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt;T,N&gt;::unit_x</td></tr>
 <tr class="memdesc:a08573f859a1d56b814a682ce6f64f999"><td class="mdescLeft">&#160;</td><td class="mdescRight">axis separating the shapes in the previous intersection test, if they overlapped. <br /></td></tr>
 <tr class="separator:a08573f859a1d56b814a682ce6f64f999"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3bc6cf073312c96d48e813b642cd048c" id="r_a3bc6cf073312c96d48e813b642cd048c"><td class="memItemLeft" align="right" valign="top"><a id="a3bc6cf073312c96d48e813b642cd048c" name="a3bc6cf073312c96d48e813b642cd048c"></a>
-index_t&#160;</td><td class="memItemRight" valign="bottom"><b>iterations</b> = 0</td></tr>
-<tr class="memdesc:a3bc6cf073312c96d48e813b642cd048c"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of GJK iterations taken to produce the last intersection result. <br /></td></tr>
-<tr class="separator:a3bc6cf073312c96d48e813b642cd048c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad85c2f63b4dd8590937cf8facd1fe7c7" id="r_ad85c2f63b4dd8590937cf8facd1fe7c7"><td class="memItemLeft" align="right" valign="top"><a id="ad85c2f63b4dd8590937cf8facd1fe7c7" name="ad85c2f63b4dd8590937cf8facd1fe7c7"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>was_degenerate</b> = false</td></tr>
 <tr class="memdesc:ad85c2f63b4dd8590937cf8facd1fe7c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">set to <code>true</code> iff the last intersection test resulted in a degenerate simplex <br /></td></tr>
@@ -127,18 +127,18 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>was_degenerate</b> = 
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a85e83c095bd961d9473576dea2054360" id="r_a85e83c095bd961d9473576dea2054360"><td class="memItemLeft" align="right" valign="top"><a id="a85e83c095bd961d9473576dea2054360" name="a85e83c095bd961d9473576dea2054360"></a>
-<a class="el" href="classgeom_1_1_simplex.html">Simplex</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>simplex_a</b></td></tr>
-<tr class="separator:a85e83c095bd961d9473576dea2054360"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d1681c549fdb41a1f5362c7fd8aa3fe" id="r_a2d1681c549fdb41a1f5362c7fd8aa3fe"><td class="memItemLeft" align="right" valign="top"><a id="a2d1681c549fdb41a1f5362c7fd8aa3fe" name="a2d1681c549fdb41a1f5362c7fd8aa3fe"></a>
-<a class="el" href="classgeom_1_1_simplex.html">Simplex</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>simplex_b</b></td></tr>
-<tr class="separator:a2d1681c549fdb41a1f5362c7fd8aa3fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11929fcf57c97d016344ef29c5bf59cb" id="r_a11929fcf57c97d016344ef29c5bf59cb"><td class="memItemLeft" align="right" valign="top"><a id="a11929fcf57c97d016344ef29c5bf59cb" name="a11929fcf57c97d016344ef29c5bf59cb"></a>
 <a class="el" href="classgeom_1_1_simplex.html">Simplex</a>&lt; T, N &gt; *&#160;</td><td class="memItemRight" valign="bottom"><b>cur_simplex</b> = &amp;simplex_a</td></tr>
 <tr class="separator:a11929fcf57c97d016344ef29c5bf59cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ac85ab6f946ec29d2db318c87c83deb" id="r_a1ac85ab6f946ec29d2db318c87c83deb"><td class="memItemLeft" align="right" valign="top"><a id="a1ac85ab6f946ec29d2db318c87c83deb" name="a1ac85ab6f946ec29d2db318c87c83deb"></a>
 <a class="el" href="classgeom_1_1_simplex.html">Simplex</a>&lt; T, N &gt; *&#160;</td><td class="memItemRight" valign="bottom"><b>next_simplex</b> = &amp;simplex_b</td></tr>
 <tr class="separator:a1ac85ab6f946ec29d2db318c87c83deb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85e83c095bd961d9473576dea2054360" id="r_a85e83c095bd961d9473576dea2054360"><td class="memItemLeft" align="right" valign="top"><a id="a85e83c095bd961d9473576dea2054360" name="a85e83c095bd961d9473576dea2054360"></a>
+<a class="el" href="classgeom_1_1_simplex.html">Simplex</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>simplex_a</b></td></tr>
+<tr class="separator:a85e83c095bd961d9473576dea2054360"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d1681c549fdb41a1f5362c7fd8aa3fe" id="r_a2d1681c549fdb41a1f5362c7fd8aa3fe"><td class="memItemLeft" align="right" valign="top"><a id="a2d1681c549fdb41a1f5362c7fd8aa3fe" name="a2d1681c549fdb41a1f5362c7fd8aa3fe"></a>
+<a class="el" href="classgeom_1_1_simplex.html">Simplex</a>&lt; T, N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>simplex_b</b></td></tr>
+<tr class="separator:a2d1681c549fdb41a1f5362c7fd8aa3fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>geomc/shape/<a class="el" href="_intersect_8h_source.html">Intersect.h</a></li>
@@ -146,7 +146,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon Feb 17 2025 15:19:55 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

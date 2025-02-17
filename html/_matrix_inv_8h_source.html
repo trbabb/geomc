@@ -307,7 +307,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>                <a class="code hl_struct" href="structgeom_1_1_small_storage.html">SmallStorage&lt;T,64&gt;</a> buf(n * n); <span class="comment">// try not to alloc</span></div>
 <div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>                WrapperMatrix&lt;T,0,0,Lyt&gt; bmx(buf.get(), n, n);</div>
 <div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>                detail::_mtxcopy(&amp;bmx, m);</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="group__matrix.html#gab986054b9ddd706256dbebf46b924e22">geom::invNxN</a>(into-&gt;data_begin(), bmx.data_begin(), n);</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>                <span class="keywordflow">return</span> <a class="code hl_function" href="group__matrix.html#gab986054b9ddd706256dbebf46b924e22">geom::invNxN</a>(into-&gt;data_begin(), bmx.<a class="code hl_function" href="classgeom_1_1_simple_matrix.html#a59c12518deb3a751dd244ed1694ff1aa">data_begin</a>(), n);</div>
 <div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        }</div>
 <div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    }</div>
 <div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>};</div>
@@ -491,7 +491,7 @@ $(function(){ initResizable(false); });
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon Feb 17 2025 15:19:54 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

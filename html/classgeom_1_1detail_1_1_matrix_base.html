@@ -124,10 +124,10 @@ Inheritance diagram for MatrixBase&lt; T, M, N, Derived &gt;:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a3fa2115cdbb245c2f609f654a9888f14" id="r_a3fa2115cdbb245c2f609f654a9888f14"><td class="memItemLeft" align="right" valign="top"><a id="a3fa2115cdbb245c2f609f654a9888f14" name="a3fa2115cdbb245c2f609f654a9888f14"></a>
-typedef T&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
-<tr class="memdesc:a3fa2115cdbb245c2f609f654a9888f14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element type. <br /></td></tr>
-<tr class="separator:a3fa2115cdbb245c2f609f654a9888f14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a397f56fccbefef08fb851582da2c76e7" id="r_a397f56fccbefef08fb851582da2c76e7"><td class="memItemLeft" align="right" valign="top"><a id="a397f56fccbefef08fb851582da2c76e7" name="a397f56fccbefef08fb851582da2c76e7"></a>
+typedef <a class="el" href="classgeom_1_1detail_1_1_mtx_col_iterator.html">MtxColIterator</a>&lt; const Derived, const <a class="el" href="#a3fa2115cdbb245c2f609f654a9888f14">elem_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>const_col_iterator</b></td></tr>
+<tr class="memdesc:a397f56fccbefef08fb851582da2c76e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read-only iterator over the elements of a column. <br /></td></tr>
+<tr class="separator:a397f56fccbefef08fb851582da2c76e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6721ac7e2267e00c7f5fa946759fd591" id="r_a6721ac7e2267e00c7f5fa946759fd591"><td class="memItemLeft" align="right" valign="top"><a id="a6721ac7e2267e00c7f5fa946759fd591" name="a6721ac7e2267e00c7f5fa946759fd591"></a>
 typedef <a class="el" href="classgeom_1_1detail_1_1_mtx_subset_iterator.html">MtxSubsetIterator</a>&lt; const Derived, const <a class="el" href="#a3fa2115cdbb245c2f609f654a9888f14">elem_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>const_iterator</b></td></tr>
 <tr class="memdesc:a6721ac7e2267e00c7f5fa946759fd591"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read-only row-major iterator over matrix elements. <br /></td></tr>
@@ -140,53 +140,53 @@ typedef <a class="el" href="#a6721ac7e2267e00c7f5fa946759fd591">const_iterator</
 typedef <a class="el" href="classgeom_1_1detail_1_1_mtx_row_iterator.html">MtxRowIterator</a>&lt; const Derived, const <a class="el" href="#a3fa2115cdbb245c2f609f654a9888f14">elem_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>const_row_iterator</b></td></tr>
 <tr class="memdesc:a16e96efe832ce3c400eebad6f386a08b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read-only iterator over the elments of a row. <br /></td></tr>
 <tr class="separator:a16e96efe832ce3c400eebad6f386a08b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a397f56fccbefef08fb851582da2c76e7" id="r_a397f56fccbefef08fb851582da2c76e7"><td class="memItemLeft" align="right" valign="top"><a id="a397f56fccbefef08fb851582da2c76e7" name="a397f56fccbefef08fb851582da2c76e7"></a>
-typedef <a class="el" href="classgeom_1_1detail_1_1_mtx_col_iterator.html">MtxColIterator</a>&lt; const Derived, const <a class="el" href="#a3fa2115cdbb245c2f609f654a9888f14">elem_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>const_col_iterator</b></td></tr>
-<tr class="memdesc:a397f56fccbefef08fb851582da2c76e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read-only iterator over the elements of a column. <br /></td></tr>
-<tr class="separator:a397f56fccbefef08fb851582da2c76e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad69cc632b03e7ece958855f66febbf8a" id="r_ad69cc632b03e7ece958855f66febbf8a"><td class="memItemLeft" align="right" valign="top"><a id="ad69cc632b03e7ece958855f66febbf8a" name="ad69cc632b03e7ece958855f66febbf8a"></a>
-typedef <a class="el" href="structgeom_1_1_storage.html">Storage</a>&lt; <a class="el" href="structgeom_1_1storage__token__t.html">storage_token_t</a>, <a class="el" href="structgeom_1_1detail_1_1___impl_storage_obj_count.html">_ImplStorageObjCount</a>&lt; Derived &gt;::count &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>storagebuffer_t</b></td></tr>
-<tr class="separator:ad69cc632b03e7ece958855f66febbf8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fa2115cdbb245c2f609f654a9888f14" id="r_a3fa2115cdbb245c2f609f654a9888f14"><td class="memItemLeft" align="right" valign="top"><a id="a3fa2115cdbb245c2f609f654a9888f14" name="a3fa2115cdbb245c2f609f654a9888f14"></a>
+typedef T&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
+<tr class="memdesc:a3fa2115cdbb245c2f609f654a9888f14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element type. <br /></td></tr>
+<tr class="separator:a3fa2115cdbb245c2f609f654a9888f14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8b6ea30b6a837b659c2aa2050fc9b42" id="r_ad8b6ea30b6a837b659c2aa2050fc9b42"><td class="memItemLeft" align="right" valign="top"><a id="ad8b6ea30b6a837b659c2aa2050fc9b42" name="ad8b6ea30b6a837b659c2aa2050fc9b42"></a>
 typedef Derived&#160;</td><td class="memItemRight" valign="bottom"><b>recurring_t</b></td></tr>
 <tr class="separator:ad8b6ea30b6a837b659c2aa2050fc9b42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad69cc632b03e7ece958855f66febbf8a" id="r_ad69cc632b03e7ece958855f66febbf8a"><td class="memItemLeft" align="right" valign="top"><a id="ad69cc632b03e7ece958855f66febbf8a" name="ad69cc632b03e7ece958855f66febbf8a"></a>
+typedef <a class="el" href="structgeom_1_1_storage.html">Storage</a>&lt; <a class="el" href="structgeom_1_1storage__token__t.html">storage_token_t</a>, <a class="el" href="structgeom_1_1detail_1_1___impl_storage_obj_count.html">_ImplStorageObjCount</a>&lt; Derived &gt;::count &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>storagebuffer_t</b></td></tr>
+<tr class="separator:ad69cc632b03e7ece958855f66febbf8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a050e908ffa6a1d5cc35bc9a7623a6d7d" id="r_a050e908ffa6a1d5cc35bc9a7623a6d7d"><td class="memItemLeft" align="right" valign="top">index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a050e908ffa6a1d5cc35bc9a7623a6d7d">rows</a> () const</td></tr>
-<tr class="separator:a050e908ffa6a1d5cc35bc9a7623a6d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:accbfc8d86ae8e5873086b93570f29898" id="r_accbfc8d86ae8e5873086b93570f29898"><td class="memItemLeft" align="right" valign="top">index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#accbfc8d86ae8e5873086b93570f29898">cols</a> () const</td></tr>
-<tr class="separator:accbfc8d86ae8e5873086b93570f29898"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3274c6af11b0231011a52960bfe36afc" id="r_a3274c6af11b0231011a52960bfe36afc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1detail_1_1_mtx_row_iterator.html">derived_const_row_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3274c6af11b0231011a52960bfe36afc">operator[]</a> (index_t i) const</td></tr>
-<tr class="separator:a3274c6af11b0231011a52960bfe36afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a555533678f10427e78adc1a6a3f9b8e1" id="r_a555533678f10427e78adc1a6a3f9b8e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a16e96efe832ce3c400eebad6f386a08b">const_row_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a555533678f10427e78adc1a6a3f9b8e1">row</a> (index_t i) const</td></tr>
-<tr class="separator:a555533678f10427e78adc1a6a3f9b8e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c63073b3f6c2ec9d420dafd725b32f4" id="r_a6c63073b3f6c2ec9d420dafd725b32f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a397f56fccbefef08fb851582da2c76e7">const_col_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6c63073b3f6c2ec9d420dafd725b32f4">col</a> (index_t i) const</td></tr>
-<tr class="separator:a6c63073b3f6c2ec9d420dafd725b32f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10104741b711719d98b331bf1388da42" id="r_a10104741b711719d98b331bf1388da42"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a3fa2115cdbb245c2f609f654a9888f14">elem_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a10104741b711719d98b331bf1388da42">operator()</a> (index_t <a class="el" href="#a555533678f10427e78adc1a6a3f9b8e1">row</a>, index_t <a class="el" href="#a6c63073b3f6c2ec9d420dafd725b32f4">col</a>) const</td></tr>
-<tr class="separator:a10104741b711719d98b331bf1388da42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29305669b60ca1680752e2fc3592ba99" id="r_a29305669b60ca1680752e2fc3592ba99"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a6721ac7e2267e00c7f5fa946759fd591">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a29305669b60ca1680752e2fc3592ba99">begin</a> () const</td></tr>
 <tr class="separator:a29305669b60ca1680752e2fc3592ba99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c63073b3f6c2ec9d420dafd725b32f4" id="r_a6c63073b3f6c2ec9d420dafd725b32f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a397f56fccbefef08fb851582da2c76e7">const_col_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6c63073b3f6c2ec9d420dafd725b32f4">col</a> (index_t i) const</td></tr>
+<tr class="separator:a6c63073b3f6c2ec9d420dafd725b32f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accbfc8d86ae8e5873086b93570f29898" id="r_accbfc8d86ae8e5873086b93570f29898"><td class="memItemLeft" align="right" valign="top">index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#accbfc8d86ae8e5873086b93570f29898">cols</a> () const</td></tr>
+<tr class="separator:accbfc8d86ae8e5873086b93570f29898"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:accf9a4bd0c34d4a5f6a7dab66ea10cdc" id="r_accf9a4bd0c34d4a5f6a7dab66ea10cdc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a6721ac7e2267e00c7f5fa946759fd591">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#accf9a4bd0c34d4a5f6a7dab66ea10cdc">end</a> () const</td></tr>
 <tr class="separator:accf9a4bd0c34d4a5f6a7dab66ea10cdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66c9fc538dfc058c587dadfa037fb8d3" id="r_a66c9fc538dfc058c587dadfa037fb8d3"><td class="memItemLeft" align="right" valign="top"><a id="a66c9fc538dfc058c587dadfa037fb8d3" name="a66c9fc538dfc058c587dadfa037fb8d3"></a>
+<a class="el" href="structgeom_1_1_storage.html">storagebuffer_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_storage_token_buffer</b> () const</td></tr>
+<tr class="separator:a66c9fc538dfc058c587dadfa037fb8d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10104741b711719d98b331bf1388da42" id="r_a10104741b711719d98b331bf1388da42"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a3fa2115cdbb245c2f609f654a9888f14">elem_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a10104741b711719d98b331bf1388da42">operator()</a> (index_t <a class="el" href="#a555533678f10427e78adc1a6a3f9b8e1">row</a>, index_t <a class="el" href="#a6c63073b3f6c2ec9d420dafd725b32f4">col</a>) const</td></tr>
+<tr class="separator:a10104741b711719d98b331bf1388da42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3274c6af11b0231011a52960bfe36afc" id="r_a3274c6af11b0231011a52960bfe36afc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1detail_1_1_mtx_row_iterator.html">derived_const_row_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3274c6af11b0231011a52960bfe36afc">operator[]</a> (index_t i) const</td></tr>
+<tr class="separator:a3274c6af11b0231011a52960bfe36afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af0d2dea34e1e9d6ef48371659586f8ba" id="r_af0d2dea34e1e9d6ef48371659586f8ba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a0ab7cb536f7fca1642c656df61b7a423">const_region_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af0d2dea34e1e9d6ef48371659586f8ba">region_begin</a> (const <a class="el" href="classgeom_1_1_rect.html">MatrixRegion</a> &amp;r) const</td></tr>
 <tr class="separator:af0d2dea34e1e9d6ef48371659586f8ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef8f8d9aaa9f3064fa0df4a01c8f06d3" id="r_aef8f8d9aaa9f3064fa0df4a01c8f06d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a0ab7cb536f7fca1642c656df61b7a423">const_region_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef8f8d9aaa9f3064fa0df4a01c8f06d3">region_end</a> (const <a class="el" href="classgeom_1_1_rect.html">MatrixRegion</a> &amp;r) const</td></tr>
 <tr class="separator:aef8f8d9aaa9f3064fa0df4a01c8f06d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66c9fc538dfc058c587dadfa037fb8d3" id="r_a66c9fc538dfc058c587dadfa037fb8d3"><td class="memItemLeft" align="right" valign="top"><a id="a66c9fc538dfc058c587dadfa037fb8d3" name="a66c9fc538dfc058c587dadfa037fb8d3"></a>
-<a class="el" href="structgeom_1_1_storage.html">storagebuffer_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_storage_token_buffer</b> () const</td></tr>
-<tr class="separator:a66c9fc538dfc058c587dadfa037fb8d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a555533678f10427e78adc1a6a3f9b8e1" id="r_a555533678f10427e78adc1a6a3f9b8e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a16e96efe832ce3c400eebad6f386a08b">const_row_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a555533678f10427e78adc1a6a3f9b8e1">row</a> (index_t i) const</td></tr>
+<tr class="separator:a555533678f10427e78adc1a6a3f9b8e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a050e908ffa6a1d5cc35bc9a7623a6d7d" id="r_a050e908ffa6a1d5cc35bc9a7623a6d7d"><td class="memItemLeft" align="right" valign="top">index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a050e908ffa6a1d5cc35bc9a7623a6d7d">rows</a> () const</td></tr>
+<tr class="separator:a050e908ffa6a1d5cc35bc9a7623a6d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:afb43ca7e08410dfa69acd4a1d9b5edcc" id="r_afb43ca7e08410dfa69acd4a1d9b5edcc"><td class="memItemLeft" align="right" valign="top"><a id="afb43ca7e08410dfa69acd4a1d9b5edcc" name="afb43ca7e08410dfa69acd4a1d9b5edcc"></a>
-static constexpr index_t&#160;</td><td class="memItemRight" valign="bottom"><b>ROWDIM</b> = M</td></tr>
-<tr class="memdesc:afb43ca7e08410dfa69acd4a1d9b5edcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Row dimension template parameter. <br /></td></tr>
-<tr class="separator:afb43ca7e08410dfa69acd4a1d9b5edcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a643399d868a033b2094898484fce3456" id="r_a643399d868a033b2094898484fce3456"><td class="memItemLeft" align="right" valign="top"><a id="a643399d868a033b2094898484fce3456" name="a643399d868a033b2094898484fce3456"></a>
 static constexpr index_t&#160;</td><td class="memItemRight" valign="bottom"><b>COLDIM</b> = N</td></tr>
 <tr class="memdesc:a643399d868a033b2094898484fce3456"><td class="mdescLeft">&#160;</td><td class="mdescRight">Column dimension template parameter. <br /></td></tr>
 <tr class="separator:a643399d868a033b2094898484fce3456"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb43ca7e08410dfa69acd4a1d9b5edcc" id="r_afb43ca7e08410dfa69acd4a1d9b5edcc"><td class="memItemLeft" align="right" valign="top"><a id="afb43ca7e08410dfa69acd4a1d9b5edcc" name="afb43ca7e08410dfa69acd4a1d9b5edcc"></a>
+static constexpr index_t&#160;</td><td class="memItemRight" valign="bottom"><b>ROWDIM</b> = M</td></tr>
+<tr class="memdesc:afb43ca7e08410dfa69acd4a1d9b5edcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Row dimension template parameter. <br /></td></tr>
+<tr class="separator:afb43ca7e08410dfa69acd4a1d9b5edcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a29305669b60ca1680752e2fc3592ba99" name="a29305669b60ca1680752e2fc3592ba99"></a>
@@ -517,7 +517,7 @@ template&lt;typename T, index_t M, index_t N, typename Derived&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 8 2025 18:58:10 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon Feb 17 2025 15:19:55 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

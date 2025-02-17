@@ -134,15 +134,6 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Ray</b> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> o, <a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> v)</td></tr>
 <tr class="memdesc:a26d01da4317ff4a0f2ccf433c1a62acd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a ray through the point <code>o</code> with direction <code>v</code>. <br /></td></tr>
 <tr class="separator:a26d01da4317ff4a0f2ccf433c1a62acd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae38caa10f49da196db394e163c41a8d7" id="r_ae38caa10f49da196db394e163c41a8d7"><td class="memItemLeft" align="right" valign="top"><a id="ae38caa10f49da196db394e163c41a8d7" name="ae38caa10f49da196db394e163c41a8d7"></a>
-<a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator-</b> () const</td></tr>
-<tr class="memdesc:ae38caa10f49da196db394e163c41a8d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a ray pointing in the opposite direction. <br /></td></tr>
-<tr class="separator:ae38caa10f49da196db394e163c41a8d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35e785ad94d5dfbbae8ccad99395ae99" id="r_a35e785ad94d5dfbbae8ccad99395ae99"><td class="memTemplParams" colspan="2"><a id="a35e785ad94d5dfbbae8ccad99395ae99" name="a35e785ad94d5dfbbae8ccad99395ae99"></a>
-template&lt;index_t M&gt; </td></tr>
-<tr class="memitem:a35e785ad94d5dfbbae8ccad99395ae99"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, M &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>resized</b> () const</td></tr>
-<tr class="memdesc:a35e785ad94d5dfbbae8ccad99395ae99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the dimensionality of this <a class="el" href="classgeom_1_1_ray.html" title="Ray class.">Ray</a>. <br /></td></tr>
-<tr class="separator:a35e785ad94d5dfbbae8ccad99395ae99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aafbbbb00ea8d43522e0708f9032ba428" id="r_aafbbbb00ea8d43522e0708f9032ba428"><td class="memItemLeft" align="right" valign="top"><a id="aafbbbb00ea8d43522e0708f9032ba428" name="aafbbbb00ea8d43522e0708f9032ba428"></a>
 <a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>at_distance</b> (T d) const</td></tr>
 <tr class="memdesc:aafbbbb00ea8d43522e0708f9032ba428"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the point along this ray's direction, at distance <code>d</code> from the ray origin. <br /></td></tr>
@@ -151,29 +142,38 @@ template&lt;index_t M&gt; </td></tr>
 <a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>at_multiple</b> (T s) const</td></tr>
 <tr class="memdesc:afbdecfc47e10c42a55857974e65bfdc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the point <code>origin + s * direction</code>. <br /></td></tr>
 <tr class="separator:afbdecfc47e10c42a55857974e65bfdc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a344530de02a251cd1ae62e832000d65a" id="r_a344530de02a251cd1ae62e832000d65a"><td class="memItemLeft" align="right" valign="top"><a id="a344530de02a251cd1ae62e832000d65a" name="a344530de02a251cd1ae62e832000d65a"></a>
-<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>project</b> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> p) const</td></tr>
-<tr class="memdesc:a344530de02a251cd1ae62e832000d65a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the point on the ray nearest to <code>p</code> by orhtogonally projecting <code>p</code> onto it. <br /></td></tr>
-<tr class="separator:a344530de02a251cd1ae62e832000d65a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a808ba350c436adc64f2d5a2d72ddbb44" id="r_a808ba350c436adc64f2d5a2d72ddbb44"><td class="memItemLeft" align="right" valign="top"><a id="a808ba350c436adc64f2d5a2d72ddbb44" name="a808ba350c436adc64f2d5a2d72ddbb44"></a>
-T&#160;</td><td class="memItemRight" valign="bottom"><b>sdf</b> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> p) const</td></tr>
-<tr class="memdesc:a808ba350c436adc64f2d5a2d72ddbb44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signed distance from <code>p</code> to the nearest point on the ray. <br /></td></tr>
-<tr class="separator:a808ba350c436adc64f2d5a2d72ddbb44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5eb8167191b5145105bae3def35ff60" id="r_ac5eb8167191b5145105bae3def35ff60"><td class="memItemLeft" align="right" valign="top"><a id="ac5eb8167191b5145105bae3def35ff60" name="ac5eb8167191b5145105bae3def35ff60"></a>
 T&#160;</td><td class="memItemRight" valign="bottom"><b>dist2</b> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> p) const</td></tr>
 <tr class="memdesc:ac5eb8167191b5145105bae3def35ff60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the square of the distance from <code>p</code> to the nearest point on the ray. <br /></td></tr>
 <tr class="separator:ac5eb8167191b5145105bae3def35ff60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae38caa10f49da196db394e163c41a8d7" id="r_ae38caa10f49da196db394e163c41a8d7"><td class="memItemLeft" align="right" valign="top"><a id="ae38caa10f49da196db394e163c41a8d7" name="ae38caa10f49da196db394e163c41a8d7"></a>
+<a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator-</b> () const</td></tr>
+<tr class="memdesc:ae38caa10f49da196db394e163c41a8d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a ray pointing in the opposite direction. <br /></td></tr>
+<tr class="separator:ae38caa10f49da196db394e163c41a8d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a344530de02a251cd1ae62e832000d65a" id="r_a344530de02a251cd1ae62e832000d65a"><td class="memItemLeft" align="right" valign="top"><a id="a344530de02a251cd1ae62e832000d65a" name="a344530de02a251cd1ae62e832000d65a"></a>
+<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>project</b> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> p) const</td></tr>
+<tr class="memdesc:a344530de02a251cd1ae62e832000d65a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the point on the ray nearest to <code>p</code> by orhtogonally projecting <code>p</code> onto it. <br /></td></tr>
+<tr class="separator:a344530de02a251cd1ae62e832000d65a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35e785ad94d5dfbbae8ccad99395ae99" id="r_a35e785ad94d5dfbbae8ccad99395ae99"><td class="memTemplParams" colspan="2"><a id="a35e785ad94d5dfbbae8ccad99395ae99" name="a35e785ad94d5dfbbae8ccad99395ae99"></a>
+template&lt;index_t M&gt; </td></tr>
+<tr class="memitem:a35e785ad94d5dfbbae8ccad99395ae99"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, M &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>resized</b> () const</td></tr>
+<tr class="memdesc:a35e785ad94d5dfbbae8ccad99395ae99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change the dimensionality of this <a class="el" href="classgeom_1_1_ray.html" title="Ray class.">Ray</a>. <br /></td></tr>
+<tr class="separator:a35e785ad94d5dfbbae8ccad99395ae99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a808ba350c436adc64f2d5a2d72ddbb44" id="r_a808ba350c436adc64f2d5a2d72ddbb44"><td class="memItemLeft" align="right" valign="top"><a id="a808ba350c436adc64f2d5a2d72ddbb44" name="a808ba350c436adc64f2d5a2d72ddbb44"></a>
+T&#160;</td><td class="memItemRight" valign="bottom"><b>sdf</b> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> p) const</td></tr>
+<tr class="memdesc:a808ba350c436adc64f2d5a2d72ddbb44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signed distance from <code>p</code> to the nearest point on the ray. <br /></td></tr>
+<tr class="separator:a808ba350c436adc64f2d5a2d72ddbb44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ae35e0ea34c12b6f71b9ca03de71119a1" id="r_ae35e0ea34c12b6f71b9ca03de71119a1"><td class="memItemLeft" align="right" valign="top"><a id="ae35e0ea34c12b6f71b9ca03de71119a1" name="ae35e0ea34c12b6f71b9ca03de71119a1"></a>
-<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>origin</b></td></tr>
-<tr class="memdesc:ae35e0ea34c12b6f71b9ca03de71119a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Origin of ray. <br /></td></tr>
-<tr class="separator:ae35e0ea34c12b6f71b9ca03de71119a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb0feb4a94a8f6a5e4fa5b567a9241a2" id="r_afb0feb4a94a8f6a5e4fa5b567a9241a2"><td class="memItemLeft" align="right" valign="top"><a id="afb0feb4a94a8f6a5e4fa5b567a9241a2" name="afb0feb4a94a8f6a5e4fa5b567a9241a2"></a>
 <a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>direction</b></td></tr>
 <tr class="memdesc:afb0feb4a94a8f6a5e4fa5b567a9241a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Direction of ray. <br /></td></tr>
 <tr class="separator:afb0feb4a94a8f6a5e4fa5b567a9241a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae35e0ea34c12b6f71b9ca03de71119a1" id="r_ae35e0ea34c12b6f71b9ca03de71119a1"><td class="memItemLeft" align="right" valign="top"><a id="ae35e0ea34c12b6f71b9ca03de71119a1" name="ae35e0ea34c12b6f71b9ca03de71119a1"></a>
+<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>origin</b></td></tr>
+<tr class="memdesc:ae35e0ea34c12b6f71b9ca03de71119a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Origin of ray. <br /></td></tr>
+<tr class="separator:ae35e0ea34c12b6f71b9ca03de71119a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -191,37 +191,37 @@ template&lt;typename T, index_t N&gt; </td></tr>
 <tr class="memitem:ga815ae6911ff04bae0bdd1251c2e1c5ab"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf, const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;ray)</td></tr>
 <tr class="memdesc:ga815ae6911ff04bae0bdd1251c2e1c5ab"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="conceptgeom_1_1_transform.html" title="Represents a means of transforming a point or vector.">Transform</a> a ray. <br /></td></tr>
 <tr class="separator:ga815ae6911ff04bae0bdd1251c2e1c5ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae0b3deed3ce32eb682016e2c0a9e79a1" id="r_gae0b3deed3ce32eb682016e2c0a9e79a1"><td class="memTemplParams" colspan="2">
-template&lt;typename T, index_t N&gt; </td></tr>
-<tr class="memitem:gae0b3deed3ce32eb682016e2c0a9e79a1"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;ray, const <a class="el" href="classgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf)</td></tr>
-<tr class="memdesc:gae0b3deed3ce32eb682016e2c0a9e79a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse-transform a ray. <br /></td></tr>
-<tr class="separator:gae0b3deed3ce32eb682016e2c0a9e79a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7efb4b66812c0eb52598fcdb906acecc" id="r_ga7efb4b66812c0eb52598fcdb906acecc"><td class="memTemplParams" colspan="2">template&lt;typename T, index_t N&gt; </td></tr>
 <tr class="memitem:ga7efb4b66812c0eb52598fcdb906acecc"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_point_type.html">PointType</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">::point_t</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#ga7efb4b66812c0eb52598fcdb906acecc">operator*</a> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; r, T s)</td></tr>
 <tr class="separator:ga7efb4b66812c0eb52598fcdb906acecc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaa88feeec02ee429ccf6c09643ce4f3cc" id="r_gaa88feeec02ee429ccf6c09643ce4f3cc"><td class="memTemplParams" colspan="2">template&lt;typename T, index_t N&gt; </td></tr>
-<tr class="memitem:gaa88feeec02ee429ccf6c09643ce4f3cc"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_point_type.html">PointType</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">::point_t</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gaa88feeec02ee429ccf6c09643ce4f3cc">operator*</a> (T s, const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; r)</td></tr>
-<tr class="separator:gaa88feeec02ee429ccf6c09643ce4f3cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9e417b7daa0690dc53aab6f289fa1a5d" id="r_ga9e417b7daa0690dc53aab6f289fa1a5d"><td class="memTemplParams" colspan="2">
 template&lt;typename T, index_t N&gt; </td></tr>
 <tr class="memitem:ga9e417b7daa0690dc53aab6f289fa1a5d"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;rot, <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; ray)</td></tr>
 <tr class="memdesc:ga9e417b7daa0690dc53aab6f289fa1a5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a rotation to a ray. <br /></td></tr>
 <tr class="separator:ga9e417b7daa0690dc53aab6f289fa1a5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab6d58d7c4b82bb06c70d9b4aef8739d3" id="r_gab6d58d7c4b82bb06c70d9b4aef8739d3"><td class="memTemplParams" colspan="2">
-template&lt;typename T, index_t N&gt; </td></tr>
-<tr class="memitem:gab6d58d7c4b82bb06c70d9b4aef8739d3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/</b> (<a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; ray, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;rot)</td></tr>
-<tr class="memdesc:gab6d58d7c4b82bb06c70d9b4aef8739d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply the inverse of a rotation to a ray. <br /></td></tr>
-<tr class="separator:gab6d58d7c4b82bb06c70d9b4aef8739d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga89f4eb23251780f34e61620d02381b6a" id="r_ga89f4eb23251780f34e61620d02381b6a"><td class="memTemplParams" colspan="2">
 template&lt;typename T, index_t N&gt; </td></tr>
 <tr class="memitem:ga89f4eb23251780f34e61620d02381b6a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;i, const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;ray)</td></tr>
 <tr class="memdesc:ga89f4eb23251780f34e61620d02381b6a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="conceptgeom_1_1_transform.html" title="Represents a means of transforming a point or vector.">Transform</a> a ray. <br /></td></tr>
 <tr class="separator:ga89f4eb23251780f34e61620d02381b6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa88feeec02ee429ccf6c09643ce4f3cc" id="r_gaa88feeec02ee429ccf6c09643ce4f3cc"><td class="memTemplParams" colspan="2">template&lt;typename T, index_t N&gt; </td></tr>
+<tr class="memitem:gaa88feeec02ee429ccf6c09643ce4f3cc"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_point_type.html">PointType</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">::point_t</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__linalg.html#gaa88feeec02ee429ccf6c09643ce4f3cc">operator*</a> (T s, const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; r)</td></tr>
+<tr class="separator:gaa88feeec02ee429ccf6c09643ce4f3cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae0b3deed3ce32eb682016e2c0a9e79a1" id="r_gae0b3deed3ce32eb682016e2c0a9e79a1"><td class="memTemplParams" colspan="2">
+template&lt;typename T, index_t N&gt; </td></tr>
+<tr class="memitem:gae0b3deed3ce32eb682016e2c0a9e79a1"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;ray, const <a class="el" href="classgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;xf)</td></tr>
+<tr class="memdesc:gae0b3deed3ce32eb682016e2c0a9e79a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse-transform a ray. <br /></td></tr>
+<tr class="separator:gae0b3deed3ce32eb682016e2c0a9e79a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga5e80efe22523c563e999bb691c2fec0e" id="r_ga5e80efe22523c563e999bb691c2fec0e"><td class="memTemplParams" colspan="2">
 template&lt;typename T, index_t N&gt; </td></tr>
 <tr class="memitem:ga5e80efe22523c563e999bb691c2fec0e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;ray, const <a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;i)</td></tr>
 <tr class="memdesc:ga5e80efe22523c563e999bb691c2fec0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse-transform a ray. <br /></td></tr>
 <tr class="separator:ga5e80efe22523c563e999bb691c2fec0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab6d58d7c4b82bb06c70d9b4aef8739d3" id="r_gab6d58d7c4b82bb06c70d9b4aef8739d3"><td class="memTemplParams" colspan="2">
+template&lt;typename T, index_t N&gt; </td></tr>
+<tr class="memitem:gab6d58d7c4b82bb06c70d9b4aef8739d3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator/</b> (<a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; ray, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;rot)</td></tr>
+<tr class="memdesc:gab6d58d7c4b82bb06c70d9b4aef8739d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply the inverse of a rotation to a ray. <br /></td></tr>
+<tr class="separator:gab6d58d7c4b82bb06c70d9b4aef8739d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T, index_t N&gt;<br />
@@ -269,7 +269,7 @@ class geom::Ray&lt; T, N &gt;</div><p><a class="el" href="classgeom_1_1_ray.html
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon Feb 17 2025 15:19:55 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

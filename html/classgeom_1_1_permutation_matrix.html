@@ -117,10 +117,10 @@ Inheritance diagram for PermutationMatrix&lt; N &gt;:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a3fa2115cdbb245c2f609f654a9888f14" id="r_a3fa2115cdbb245c2f609f654a9888f14"><td class="memItemLeft" align="right" valign="top"><a id="a3fa2115cdbb245c2f609f654a9888f14" name="a3fa2115cdbb245c2f609f654a9888f14"></a>
-typedef bool&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
-<tr class="memdesc:a3fa2115cdbb245c2f609f654a9888f14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element type. <br /></td></tr>
-<tr class="separator:a3fa2115cdbb245c2f609f654a9888f14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a397f56fccbefef08fb851582da2c76e7" id="r_a397f56fccbefef08fb851582da2c76e7"><td class="memItemLeft" align="right" valign="top"><a id="a397f56fccbefef08fb851582da2c76e7" name="a397f56fccbefef08fb851582da2c76e7"></a>
+typedef MtxColIterator&lt; const <a class="el" href="classgeom_1_1_permutation_matrix.html">PermutationMatrix</a>&lt; N &gt;, const <a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a3fa2115cdbb245c2f609f654a9888f14">elem_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>const_col_iterator</b></td></tr>
+<tr class="memdesc:a397f56fccbefef08fb851582da2c76e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read-only iterator over the elements of a column. <br /></td></tr>
+<tr class="separator:a397f56fccbefef08fb851582da2c76e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6721ac7e2267e00c7f5fa946759fd591" id="r_a6721ac7e2267e00c7f5fa946759fd591"><td class="memItemLeft" align="right" valign="top"><a id="a6721ac7e2267e00c7f5fa946759fd591" name="a6721ac7e2267e00c7f5fa946759fd591"></a>
 typedef MtxSubsetIterator&lt; const <a class="el" href="classgeom_1_1_permutation_matrix.html">PermutationMatrix</a>&lt; N &gt;, const <a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a3fa2115cdbb245c2f609f654a9888f14">elem_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>const_iterator</b></td></tr>
 <tr class="memdesc:a6721ac7e2267e00c7f5fa946759fd591"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read-only row-major iterator over matrix elements. <br /></td></tr>
@@ -133,16 +133,16 @@ typedef <a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a6721ac7e22
 typedef MtxRowIterator&lt; const <a class="el" href="classgeom_1_1_permutation_matrix.html">PermutationMatrix</a>&lt; N &gt;, const <a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a3fa2115cdbb245c2f609f654a9888f14">elem_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>const_row_iterator</b></td></tr>
 <tr class="memdesc:a16e96efe832ce3c400eebad6f386a08b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read-only iterator over the elments of a row. <br /></td></tr>
 <tr class="separator:a16e96efe832ce3c400eebad6f386a08b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a397f56fccbefef08fb851582da2c76e7" id="r_a397f56fccbefef08fb851582da2c76e7"><td class="memItemLeft" align="right" valign="top"><a id="a397f56fccbefef08fb851582da2c76e7" name="a397f56fccbefef08fb851582da2c76e7"></a>
-typedef MtxColIterator&lt; const <a class="el" href="classgeom_1_1_permutation_matrix.html">PermutationMatrix</a>&lt; N &gt;, const <a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a3fa2115cdbb245c2f609f654a9888f14">elem_t</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>const_col_iterator</b></td></tr>
-<tr class="memdesc:a397f56fccbefef08fb851582da2c76e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read-only iterator over the elements of a column. <br /></td></tr>
-<tr class="separator:a397f56fccbefef08fb851582da2c76e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad69cc632b03e7ece958855f66febbf8a" id="r_ad69cc632b03e7ece958855f66febbf8a"><td class="memItemLeft" align="right" valign="top"><a id="ad69cc632b03e7ece958855f66febbf8a" name="ad69cc632b03e7ece958855f66febbf8a"></a>
-typedef <a class="el" href="structgeom_1_1_storage.html">Storage</a>&lt; <a class="el" href="structgeom_1_1storage__token__t.html">storage_token_t</a>, _ImplStorageObjCount&lt; <a class="el" href="classgeom_1_1_permutation_matrix.html">PermutationMatrix</a>&lt; N &gt; &gt;::count &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>storagebuffer_t</b></td></tr>
-<tr class="separator:ad69cc632b03e7ece958855f66febbf8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fa2115cdbb245c2f609f654a9888f14" id="r_a3fa2115cdbb245c2f609f654a9888f14"><td class="memItemLeft" align="right" valign="top"><a id="a3fa2115cdbb245c2f609f654a9888f14" name="a3fa2115cdbb245c2f609f654a9888f14"></a>
+typedef bool&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
+<tr class="memdesc:a3fa2115cdbb245c2f609f654a9888f14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element type. <br /></td></tr>
+<tr class="separator:a3fa2115cdbb245c2f609f654a9888f14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad8b6ea30b6a837b659c2aa2050fc9b42" id="r_ad8b6ea30b6a837b659c2aa2050fc9b42"><td class="memItemLeft" align="right" valign="top"><a id="ad8b6ea30b6a837b659c2aa2050fc9b42" name="ad8b6ea30b6a837b659c2aa2050fc9b42"></a>
 typedef <a class="el" href="classgeom_1_1_permutation_matrix.html">PermutationMatrix</a>&lt; N &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>recurring_t</b></td></tr>
 <tr class="separator:ad8b6ea30b6a837b659c2aa2050fc9b42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad69cc632b03e7ece958855f66febbf8a" id="r_ad69cc632b03e7ece958855f66febbf8a"><td class="memItemLeft" align="right" valign="top"><a id="ad69cc632b03e7ece958855f66febbf8a" name="ad69cc632b03e7ece958855f66febbf8a"></a>
+typedef <a class="el" href="structgeom_1_1_storage.html">Storage</a>&lt; <a class="el" href="structgeom_1_1storage__token__t.html">storage_token_t</a>, _ImplStorageObjCount&lt; <a class="el" href="classgeom_1_1_permutation_matrix.html">PermutationMatrix</a>&lt; N &gt; &gt;::count &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>storagebuffer_t</b></td></tr>
+<tr class="separator:ad69cc632b03e7ece958855f66febbf8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -150,93 +150,93 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af6bd5099dfdc0f89049029861eb7497f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2edfbf9c4151e9245f006460512e11e" id="r_ab2edfbf9c4151e9245f006460512e11e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2edfbf9c4151e9245f006460512e11e">PermutationMatrix</a> (index_t n)</td></tr>
 <tr class="separator:ab2edfbf9c4151e9245f006460512e11e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad4d06c8a5e85d9c33247477d8a10000" id="r_aad4d06c8a5e85d9c33247477d8a10000"><td class="memItemLeft" align="right" valign="top">index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aad4d06c8a5e85d9c33247477d8a10000">sign</a> ()</td></tr>
-<tr class="separator:aad4d06c8a5e85d9c33247477d8a10000"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a050e908ffa6a1d5cc35bc9a7623a6d7d" id="r_a050e908ffa6a1d5cc35bc9a7623a6d7d"><td class="memItemLeft" align="right" valign="top">index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a050e908ffa6a1d5cc35bc9a7623a6d7d">rows</a> () const</td></tr>
-<tr class="separator:a050e908ffa6a1d5cc35bc9a7623a6d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29305669b60ca1680752e2fc3592ba99" id="r_a29305669b60ca1680752e2fc3592ba99"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a6721ac7e2267e00c7f5fa946759fd591">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a29305669b60ca1680752e2fc3592ba99">begin</a> () const</td></tr>
+<tr class="separator:a29305669b60ca1680752e2fc3592ba99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c63073b3f6c2ec9d420dafd725b32f4" id="r_a6c63073b3f6c2ec9d420dafd725b32f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a397f56fccbefef08fb851582da2c76e7">const_col_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a6c63073b3f6c2ec9d420dafd725b32f4">col</a> (index_t i) const</td></tr>
+<tr class="separator:a6c63073b3f6c2ec9d420dafd725b32f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:accbfc8d86ae8e5873086b93570f29898" id="r_accbfc8d86ae8e5873086b93570f29898"><td class="memItemLeft" align="right" valign="top">index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#accbfc8d86ae8e5873086b93570f29898">cols</a> () const</td></tr>
 <tr class="separator:accbfc8d86ae8e5873086b93570f29898"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a644a391edd6b2d3f7129d48a727657b7" id="r_a644a391edd6b2d3f7129d48a727657b7"><td class="memItemLeft" align="right" valign="top">const index_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a644a391edd6b2d3f7129d48a727657b7">getRowSources</a> () const</td></tr>
-<tr class="separator:a644a391edd6b2d3f7129d48a727657b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa316ccb7e6fe9e1c32e47e056e108cd5" id="r_aa316ccb7e6fe9e1c32e47e056e108cd5"><td class="memItemLeft" align="right" valign="top">const index_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa316ccb7e6fe9e1c32e47e056e108cd5">getColSources</a> () const</td></tr>
-<tr class="separator:aa316ccb7e6fe9e1c32e47e056e108cd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adafd86e8729b20cb906a1cb08a491ae2" id="r_adafd86e8729b20cb906a1cb08a491ae2"><td class="memItemLeft" align="right" valign="top">const index_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adafd86e8729b20cb906a1cb08a491ae2">getColDestinations</a> () const</td></tr>
-<tr class="separator:adafd86e8729b20cb906a1cb08a491ae2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ed9c74483da4283766e75a2584c89f8" id="r_a0ed9c74483da4283766e75a2584c89f8"><td class="memItemLeft" align="right" valign="top">const index_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0ed9c74483da4283766e75a2584c89f8">getRowDestinations</a> () const</td></tr>
-<tr class="separator:a0ed9c74483da4283766e75a2584c89f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69a553329cf999320568cdf56adfa688" id="r_a69a553329cf999320568cdf56adfa688"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a69a553329cf999320568cdf56adfa688">setRowSources</a> (const index_t *p)</td></tr>
-<tr class="separator:a69a553329cf999320568cdf56adfa688"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8600fca4c0c0281db16dd8065a78e1c8" id="r_a8600fca4c0c0281db16dd8065a78e1c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8600fca4c0c0281db16dd8065a78e1c8">setColSources</a> (const index_t *p)</td></tr>
-<tr class="separator:a8600fca4c0c0281db16dd8065a78e1c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bbc2bf578614028a9b57f122dc7c725" id="r_a8bbc2bf578614028a9b57f122dc7c725"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8bbc2bf578614028a9b57f122dc7c725">setRowDestinations</a> (const index_t *p)</td></tr>
-<tr class="separator:a8bbc2bf578614028a9b57f122dc7c725"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68e708a87cf62ad1fe21bebdafacf6ec" id="r_a68e708a87cf62ad1fe21bebdafacf6ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a68e708a87cf62ad1fe21bebdafacf6ec">setColDestinations</a> (const index_t *p)</td></tr>
-<tr class="separator:a68e708a87cf62ad1fe21bebdafacf6ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad70c3a3cc903645bd3353e718019ff84" id="r_ad70c3a3cc903645bd3353e718019ff84"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad70c3a3cc903645bd3353e718019ff84">swap_rows</a> (index_t a, index_t b)</td></tr>
-<tr class="separator:ad70c3a3cc903645bd3353e718019ff84"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a319b436521ffef3ca422966868933d8d" id="r_a319b436521ffef3ca422966868933d8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a319b436521ffef3ca422966868933d8d">swap_cols</a> (index_t a, index_t b)</td></tr>
-<tr class="separator:a319b436521ffef3ca422966868933d8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ca58b4e76861fd4b889f4b69cf3a64e" id="r_a7ca58b4e76861fd4b889f4b69cf3a64e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ca58b4e76861fd4b889f4b69cf3a64e">operator()</a> (index_t <a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a555533678f10427e78adc1a6a3f9b8e1">row</a>, index_t <a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a6c63073b3f6c2ec9d420dafd725b32f4">col</a>) const</td></tr>
-<tr class="separator:a7ca58b4e76861fd4b889f4b69cf3a64e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79dfa5c941b9fba57de0155b59f0f084" id="r_a79dfa5c941b9fba57de0155b59f0f084"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a79dfa5c941b9fba57de0155b59f0f084">set_identity</a> ()</td></tr>
-<tr class="separator:a79dfa5c941b9fba57de0155b59f0f084"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3a99ffb20127be48232d12260e934dc" id="r_af3a99ffb20127be48232d12260e934dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af3a99ffb20127be48232d12260e934dc">transpose</a> ()</td></tr>
-<tr class="separator:af3a99ffb20127be48232d12260e934dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accf9a4bd0c34d4a5f6a7dab66ea10cdc" id="r_accf9a4bd0c34d4a5f6a7dab66ea10cdc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a6721ac7e2267e00c7f5fa946759fd591">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#accf9a4bd0c34d4a5f6a7dab66ea10cdc">end</a> () const</td></tr>
+<tr class="separator:accf9a4bd0c34d4a5f6a7dab66ea10cdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66c9fc538dfc058c587dadfa037fb8d3" id="r_a66c9fc538dfc058c587dadfa037fb8d3"><td class="memItemLeft" align="right" valign="top"><a id="a66c9fc538dfc058c587dadfa037fb8d3" name="a66c9fc538dfc058c587dadfa037fb8d3"></a>
+<a class="el" href="structgeom_1_1_storage.html">storagebuffer_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_storage_token_buffer</b> () const</td></tr>
+<tr class="separator:a66c9fc538dfc058c587dadfa037fb8d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21f738007a35ab6a07b551b14de3c59d" id="r_a21f738007a35ab6a07b551b14de3c59d"><td class="memItemLeft" align="right" valign="top"><a id="a21f738007a35ab6a07b551b14de3c59d" name="a21f738007a35ab6a07b551b14de3c59d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>get_storage_tokens</b> (<a class="el" href="structgeom_1_1storage__token__t.html">storage_token_t</a> *buf) const</td></tr>
 <tr class="separator:a21f738007a35ab6a07b551b14de3c59d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b7f312e54a64ed1c0ff435c0d06e014" id="r_a1b7f312e54a64ed1c0ff435c0d06e014"><td class="memItemLeft" align="right" valign="top"><a id="a1b7f312e54a64ed1c0ff435c0d06e014" name="a1b7f312e54a64ed1c0ff435c0d06e014"></a>
-constexpr index_t&#160;</td><td class="memItemRight" valign="bottom"><b>storage_token_count</b> () const</td></tr>
-<tr class="separator:a1b7f312e54a64ed1c0ff435c0d06e014"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adafd86e8729b20cb906a1cb08a491ae2" id="r_adafd86e8729b20cb906a1cb08a491ae2"><td class="memItemLeft" align="right" valign="top">const index_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adafd86e8729b20cb906a1cb08a491ae2">getColDestinations</a> () const</td></tr>
+<tr class="separator:adafd86e8729b20cb906a1cb08a491ae2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa316ccb7e6fe9e1c32e47e056e108cd5" id="r_aa316ccb7e6fe9e1c32e47e056e108cd5"><td class="memItemLeft" align="right" valign="top">const index_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa316ccb7e6fe9e1c32e47e056e108cd5">getColSources</a> () const</td></tr>
+<tr class="separator:aa316ccb7e6fe9e1c32e47e056e108cd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ed9c74483da4283766e75a2584c89f8" id="r_a0ed9c74483da4283766e75a2584c89f8"><td class="memItemLeft" align="right" valign="top">const index_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0ed9c74483da4283766e75a2584c89f8">getRowDestinations</a> () const</td></tr>
+<tr class="separator:a0ed9c74483da4283766e75a2584c89f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a644a391edd6b2d3f7129d48a727657b7" id="r_a644a391edd6b2d3f7129d48a727657b7"><td class="memItemLeft" align="right" valign="top">const index_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a644a391edd6b2d3f7129d48a727657b7">getRowSources</a> () const</td></tr>
+<tr class="separator:a644a391edd6b2d3f7129d48a727657b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ca58b4e76861fd4b889f4b69cf3a64e" id="r_a7ca58b4e76861fd4b889f4b69cf3a64e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ca58b4e76861fd4b889f4b69cf3a64e">operator()</a> (index_t <a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a555533678f10427e78adc1a6a3f9b8e1">row</a>, index_t <a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a6c63073b3f6c2ec9d420dafd725b32f4">col</a>) const</td></tr>
+<tr class="separator:a7ca58b4e76861fd4b889f4b69cf3a64e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3274c6af11b0231011a52960bfe36afc" id="r_a3274c6af11b0231011a52960bfe36afc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1detail_1_1_mtx_row_iterator.html">derived_const_row_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a3274c6af11b0231011a52960bfe36afc">operator[]</a> (index_t i) const</td></tr>
 <tr class="separator:a3274c6af11b0231011a52960bfe36afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a555533678f10427e78adc1a6a3f9b8e1" id="r_a555533678f10427e78adc1a6a3f9b8e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a16e96efe832ce3c400eebad6f386a08b">const_row_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a555533678f10427e78adc1a6a3f9b8e1">row</a> (index_t i) const</td></tr>
-<tr class="separator:a555533678f10427e78adc1a6a3f9b8e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c63073b3f6c2ec9d420dafd725b32f4" id="r_a6c63073b3f6c2ec9d420dafd725b32f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a397f56fccbefef08fb851582da2c76e7">const_col_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a6c63073b3f6c2ec9d420dafd725b32f4">col</a> (index_t i) const</td></tr>
-<tr class="separator:a6c63073b3f6c2ec9d420dafd725b32f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29305669b60ca1680752e2fc3592ba99" id="r_a29305669b60ca1680752e2fc3592ba99"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a6721ac7e2267e00c7f5fa946759fd591">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a29305669b60ca1680752e2fc3592ba99">begin</a> () const</td></tr>
-<tr class="separator:a29305669b60ca1680752e2fc3592ba99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:accf9a4bd0c34d4a5f6a7dab66ea10cdc" id="r_accf9a4bd0c34d4a5f6a7dab66ea10cdc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a6721ac7e2267e00c7f5fa946759fd591">const_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#accf9a4bd0c34d4a5f6a7dab66ea10cdc">end</a> () const</td></tr>
-<tr class="separator:accf9a4bd0c34d4a5f6a7dab66ea10cdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af0d2dea34e1e9d6ef48371659586f8ba" id="r_af0d2dea34e1e9d6ef48371659586f8ba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a0ab7cb536f7fca1642c656df61b7a423">const_region_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#af0d2dea34e1e9d6ef48371659586f8ba">region_begin</a> (const <a class="el" href="classgeom_1_1_rect.html">MatrixRegion</a> &amp;r) const</td></tr>
 <tr class="separator:af0d2dea34e1e9d6ef48371659586f8ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef8f8d9aaa9f3064fa0df4a01c8f06d3" id="r_aef8f8d9aaa9f3064fa0df4a01c8f06d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a0ab7cb536f7fca1642c656df61b7a423">const_region_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#aef8f8d9aaa9f3064fa0df4a01c8f06d3">region_end</a> (const <a class="el" href="classgeom_1_1_rect.html">MatrixRegion</a> &amp;r) const</td></tr>
 <tr class="separator:aef8f8d9aaa9f3064fa0df4a01c8f06d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66c9fc538dfc058c587dadfa037fb8d3" id="r_a66c9fc538dfc058c587dadfa037fb8d3"><td class="memItemLeft" align="right" valign="top"><a id="a66c9fc538dfc058c587dadfa037fb8d3" name="a66c9fc538dfc058c587dadfa037fb8d3"></a>
-<a class="el" href="structgeom_1_1_storage.html">storagebuffer_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_storage_token_buffer</b> () const</td></tr>
-<tr class="separator:a66c9fc538dfc058c587dadfa037fb8d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a555533678f10427e78adc1a6a3f9b8e1" id="r_a555533678f10427e78adc1a6a3f9b8e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a16e96efe832ce3c400eebad6f386a08b">const_row_iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgeom_1_1detail_1_1_matrix_base.html#a555533678f10427e78adc1a6a3f9b8e1">row</a> (index_t i) const</td></tr>
+<tr class="separator:a555533678f10427e78adc1a6a3f9b8e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a050e908ffa6a1d5cc35bc9a7623a6d7d" id="r_a050e908ffa6a1d5cc35bc9a7623a6d7d"><td class="memItemLeft" align="right" valign="top">index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a050e908ffa6a1d5cc35bc9a7623a6d7d">rows</a> () const</td></tr>
+<tr class="separator:a050e908ffa6a1d5cc35bc9a7623a6d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79dfa5c941b9fba57de0155b59f0f084" id="r_a79dfa5c941b9fba57de0155b59f0f084"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a79dfa5c941b9fba57de0155b59f0f084">set_identity</a> ()</td></tr>
+<tr class="separator:a79dfa5c941b9fba57de0155b59f0f084"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68e708a87cf62ad1fe21bebdafacf6ec" id="r_a68e708a87cf62ad1fe21bebdafacf6ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a68e708a87cf62ad1fe21bebdafacf6ec">setColDestinations</a> (const index_t *p)</td></tr>
+<tr class="separator:a68e708a87cf62ad1fe21bebdafacf6ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8600fca4c0c0281db16dd8065a78e1c8" id="r_a8600fca4c0c0281db16dd8065a78e1c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8600fca4c0c0281db16dd8065a78e1c8">setColSources</a> (const index_t *p)</td></tr>
+<tr class="separator:a8600fca4c0c0281db16dd8065a78e1c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bbc2bf578614028a9b57f122dc7c725" id="r_a8bbc2bf578614028a9b57f122dc7c725"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8bbc2bf578614028a9b57f122dc7c725">setRowDestinations</a> (const index_t *p)</td></tr>
+<tr class="separator:a8bbc2bf578614028a9b57f122dc7c725"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69a553329cf999320568cdf56adfa688" id="r_a69a553329cf999320568cdf56adfa688"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a69a553329cf999320568cdf56adfa688">setRowSources</a> (const index_t *p)</td></tr>
+<tr class="separator:a69a553329cf999320568cdf56adfa688"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad4d06c8a5e85d9c33247477d8a10000" id="r_aad4d06c8a5e85d9c33247477d8a10000"><td class="memItemLeft" align="right" valign="top">index_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aad4d06c8a5e85d9c33247477d8a10000">sign</a> ()</td></tr>
+<tr class="separator:aad4d06c8a5e85d9c33247477d8a10000"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b7f312e54a64ed1c0ff435c0d06e014" id="r_a1b7f312e54a64ed1c0ff435c0d06e014"><td class="memItemLeft" align="right" valign="top"><a id="a1b7f312e54a64ed1c0ff435c0d06e014" name="a1b7f312e54a64ed1c0ff435c0d06e014"></a>
+constexpr index_t&#160;</td><td class="memItemRight" valign="bottom"><b>storage_token_count</b> () const</td></tr>
+<tr class="separator:a1b7f312e54a64ed1c0ff435c0d06e014"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a319b436521ffef3ca422966868933d8d" id="r_a319b436521ffef3ca422966868933d8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a319b436521ffef3ca422966868933d8d">swap_cols</a> (index_t a, index_t b)</td></tr>
+<tr class="separator:a319b436521ffef3ca422966868933d8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad70c3a3cc903645bd3353e718019ff84" id="r_ad70c3a3cc903645bd3353e718019ff84"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad70c3a3cc903645bd3353e718019ff84">swap_rows</a> (index_t a, index_t b)</td></tr>
+<tr class="separator:ad70c3a3cc903645bd3353e718019ff84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3a99ffb20127be48232d12260e934dc" id="r_af3a99ffb20127be48232d12260e934dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af3a99ffb20127be48232d12260e934dc">transpose</a> ()</td></tr>
+<tr class="separator:af3a99ffb20127be48232d12260e934dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:afb43ca7e08410dfa69acd4a1d9b5edcc" id="r_afb43ca7e08410dfa69acd4a1d9b5edcc"><td class="memItemLeft" align="right" valign="top"><a id="afb43ca7e08410dfa69acd4a1d9b5edcc" name="afb43ca7e08410dfa69acd4a1d9b5edcc"></a>
-static constexpr index_t&#160;</td><td class="memItemRight" valign="bottom"><b>ROWDIM</b></td></tr>
-<tr class="memdesc:afb43ca7e08410dfa69acd4a1d9b5edcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Row dimension template parameter. <br /></td></tr>
-<tr class="separator:afb43ca7e08410dfa69acd4a1d9b5edcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a643399d868a033b2094898484fce3456" id="r_a643399d868a033b2094898484fce3456"><td class="memItemLeft" align="right" valign="top"><a id="a643399d868a033b2094898484fce3456" name="a643399d868a033b2094898484fce3456"></a>
 static constexpr index_t&#160;</td><td class="memItemRight" valign="bottom"><b>COLDIM</b></td></tr>
 <tr class="memdesc:a643399d868a033b2094898484fce3456"><td class="mdescLeft">&#160;</td><td class="mdescRight">Column dimension template parameter. <br /></td></tr>
 <tr class="separator:a643399d868a033b2094898484fce3456"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb43ca7e08410dfa69acd4a1d9b5edcc" id="r_afb43ca7e08410dfa69acd4a1d9b5edcc"><td class="memItemLeft" align="right" valign="top"><a id="afb43ca7e08410dfa69acd4a1d9b5edcc" name="afb43ca7e08410dfa69acd4a1d9b5edcc"></a>
+static constexpr index_t&#160;</td><td class="memItemRight" valign="bottom"><b>ROWDIM</b></td></tr>
+<tr class="memdesc:afb43ca7e08410dfa69acd4a1d9b5edcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Row dimension template parameter. <br /></td></tr>
+<tr class="separator:afb43ca7e08410dfa69acd4a1d9b5edcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:ad9fea8a098c996d62ec2675579f66c84" id="r_ad9fea8a098c996d62ec2675579f66c84"><td class="memItemLeft" align="right" valign="top"><a id="ad9fea8a098c996d62ec2675579f66c84" name="ad9fea8a098c996d62ec2675579f66c84"></a>
-index_t&#160;</td><td class="memItemRight" valign="bottom"><b>_rows</b> () const</td></tr>
-<tr class="separator:ad9fea8a098c996d62ec2675579f66c84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd509d88d71d25d09fe174b4930899f7" id="r_acd509d88d71d25d09fe174b4930899f7"><td class="memItemLeft" align="right" valign="top"><a id="acd509d88d71d25d09fe174b4930899f7" name="acd509d88d71d25d09fe174b4930899f7"></a>
 index_t&#160;</td><td class="memItemRight" valign="bottom"><b>_cols</b> () const</td></tr>
 <tr class="separator:acd509d88d71d25d09fe174b4930899f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ccd29a396f60578f7e98ec5648c3e81" id="r_a7ccd29a396f60578f7e98ec5648c3e81"><td class="memItemLeft" align="right" valign="top"><a id="a7ccd29a396f60578f7e98ec5648c3e81" name="a7ccd29a396f60578f7e98ec5648c3e81"></a>
-index_t *&#160;</td><td class="memItemRight" valign="bottom"><b>getSrcData</b> ()</td></tr>
-<tr class="separator:a7ccd29a396f60578f7e98ec5648c3e81"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c8578bf28eb9be173ef25e36e91020d" id="r_a3c8578bf28eb9be173ef25e36e91020d"><td class="memItemLeft" align="right" valign="top"><a id="a3c8578bf28eb9be173ef25e36e91020d" name="a3c8578bf28eb9be173ef25e36e91020d"></a>
-const index_t *&#160;</td><td class="memItemRight" valign="bottom"><b>getSrcData</b> () const</td></tr>
-<tr class="separator:a3c8578bf28eb9be173ef25e36e91020d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9fea8a098c996d62ec2675579f66c84" id="r_ad9fea8a098c996d62ec2675579f66c84"><td class="memItemLeft" align="right" valign="top"><a id="ad9fea8a098c996d62ec2675579f66c84" name="ad9fea8a098c996d62ec2675579f66c84"></a>
+index_t&#160;</td><td class="memItemRight" valign="bottom"><b>_rows</b> () const</td></tr>
+<tr class="separator:ad9fea8a098c996d62ec2675579f66c84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30e5286a80e967be476dde13157fa8ea" id="r_a30e5286a80e967be476dde13157fa8ea"><td class="memItemLeft" align="right" valign="top"><a id="a30e5286a80e967be476dde13157fa8ea" name="a30e5286a80e967be476dde13157fa8ea"></a>
 index_t *&#160;</td><td class="memItemRight" valign="bottom"><b>getDstData</b> ()</td></tr>
 <tr class="separator:a30e5286a80e967be476dde13157fa8ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1ef6a60a16d8827a578656b961877cf" id="r_ad1ef6a60a16d8827a578656b961877cf"><td class="memItemLeft" align="right" valign="top"><a id="ad1ef6a60a16d8827a578656b961877cf" name="ad1ef6a60a16d8827a578656b961877cf"></a>
 const index_t *&#160;</td><td class="memItemRight" valign="bottom"><b>getDstData</b> () const</td></tr>
 <tr class="separator:ad1ef6a60a16d8827a578656b961877cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ccd29a396f60578f7e98ec5648c3e81" id="r_a7ccd29a396f60578f7e98ec5648c3e81"><td class="memItemLeft" align="right" valign="top"><a id="a7ccd29a396f60578f7e98ec5648c3e81" name="a7ccd29a396f60578f7e98ec5648c3e81"></a>
+index_t *&#160;</td><td class="memItemRight" valign="bottom"><b>getSrcData</b> ()</td></tr>
+<tr class="separator:a7ccd29a396f60578f7e98ec5648c3e81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c8578bf28eb9be173ef25e36e91020d" id="r_a3c8578bf28eb9be173ef25e36e91020d"><td class="memItemLeft" align="right" valign="top"><a id="a3c8578bf28eb9be173ef25e36e91020d" name="a3c8578bf28eb9be173ef25e36e91020d"></a>
+const index_t *&#160;</td><td class="memItemRight" valign="bottom"><b>getSrcData</b> () const</td></tr>
+<tr class="separator:a3c8578bf28eb9be173ef25e36e91020d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5477c9524d44fcb9771564755b535300" id="r_a5477c9524d44fcb9771564755b535300"><td class="memItemLeft" align="right" valign="top"><a id="a5477c9524d44fcb9771564755b535300" name="a5477c9524d44fcb9771564755b535300"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>swapPointers</b> ()</td></tr>
 <tr class="separator:a5477c9524d44fcb9771564755b535300"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1061,7 +1061,7 @@ template&lt;index_t N&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon Feb 17 2025 15:19:55 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

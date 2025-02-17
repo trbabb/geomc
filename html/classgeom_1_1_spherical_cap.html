@@ -130,41 +130,41 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>SphericalCap</b> (T <a class="el" href="group__function.html#gafc626fc3cd2071df5d90391fd2ea3db5">radians</a>)</td></tr>
 <tr class="memdesc:a389425f4dc09dc4b6cde41bbe14bcc0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a spherical cap with the given half-angle. <br /></td></tr>
 <tr class="separator:a389425f4dc09dc4b6cde41bbe14bcc0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31ebfc62f8513c7536304dc3b05a026d" id="r_a31ebfc62f8513c7536304dc3b05a026d"><td class="memItemLeft" align="right" valign="top"><a id="a31ebfc62f8513c7536304dc3b05a026d" name="a31ebfc62f8513c7536304dc3b05a026d"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="classgeom_1_1_spherical_cap.html">SphericalCap</a> &amp;other) const</td></tr>
-<tr class="memdesc:a31ebfc62f8513c7536304dc3b05a026d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shape equality. <br /></td></tr>
-<tr class="separator:a31ebfc62f8513c7536304dc3b05a026d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9169a12164a1950abed5f76c559691e8" id="r_a9169a12164a1950abed5f76c559691e8"><td class="memItemLeft" align="right" valign="top"><a id="a9169a12164a1950abed5f76c559691e8" name="a9169a12164a1950abed5f76c559691e8"></a>
 <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>bounds</b> () const</td></tr>
 <tr class="memdesc:a9169a12164a1950abed5f76c559691e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Axis aligned bounding box. <br /></td></tr>
 <tr class="separator:a9169a12164a1950abed5f76c559691e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a808ba350c436adc64f2d5a2d72ddbb44" id="r_a808ba350c436adc64f2d5a2d72ddbb44"><td class="memItemLeft" align="right" valign="top"><a id="a808ba350c436adc64f2d5a2d72ddbb44" name="a808ba350c436adc64f2d5a2d72ddbb44"></a>
-T&#160;</td><td class="memItemRight" valign="bottom"><b>sdf</b> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> p) const</td></tr>
-<tr class="memdesc:a808ba350c436adc64f2d5a2d72ddbb44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signed distance function. <br /></td></tr>
-<tr class="separator:a808ba350c436adc64f2d5a2d72ddbb44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafeae7577841ddb31e8f397b9490c0da" id="r_aafeae7577841ddb31e8f397b9490c0da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aafeae7577841ddb31e8f397b9490c0da">clip</a> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> p) const</td></tr>
+<tr class="memdesc:aafeae7577841ddb31e8f397b9490c0da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clamp the coordinates of <code>p</code> to lie within this shape.  <br /></td></tr>
+<tr class="separator:aafeae7577841ddb31e8f397b9490c0da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5199865c0123c4150c3e1d88ab2f0d6a" id="r_a5199865c0123c4150c3e1d88ab2f0d6a"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5199865c0123c4150c3e1d88ab2f0d6a">contains</a> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> p) const</td></tr>
 <tr class="memdesc:a5199865c0123c4150c3e1d88ab2f0d6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point containment test. Always false, because the shape is a surface.  <br /></td></tr>
 <tr class="separator:a5199865c0123c4150c3e1d88ab2f0d6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a344530de02a251cd1ae62e832000d65a" id="r_a344530de02a251cd1ae62e832000d65a"><td class="memItemLeft" align="right" valign="top"><a id="a344530de02a251cd1ae62e832000d65a" name="a344530de02a251cd1ae62e832000d65a"></a>
-<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>project</b> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> p) const</td></tr>
-<tr class="memdesc:a344530de02a251cd1ae62e832000d65a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Project the point <code>p</code> orthogonally onto the surface of the cap. <br /></td></tr>
-<tr class="separator:a344530de02a251cd1ae62e832000d65a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee7e67d36552eea7dd1602308b133f92" id="r_aee7e67d36552eea7dd1602308b133f92"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, 1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aee7e67d36552eea7dd1602308b133f92">intersect</a> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;ray) const</td></tr>
+<tr class="memdesc:aee7e67d36552eea7dd1602308b133f92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intersect the cap with a ray.  <br /></td></tr>
+<tr class="separator:aee7e67d36552eea7dd1602308b133f92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6ec243b86330687ac17b3f56d3101ea" id="r_ad6ec243b86330687ac17b3f56d3101ea"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad6ec243b86330687ac17b3f56d3101ea">is_inside_angle</a> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> p) const</td></tr>
+<tr class="memdesc:ad6ec243b86330687ac17b3f56d3101ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test whether the point <code>p</code> is inside the cap's angle.  <br /></td></tr>
+<tr class="separator:ad6ec243b86330687ac17b3f56d3101ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af65c07de42f8d9e7a46debceb2a21c9d" id="r_af65c07de42f8d9e7a46debceb2a21c9d"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af65c07de42f8d9e7a46debceb2a21c9d">measure_boundary</a> () const</td></tr>
+<tr class="memdesc:af65c07de42f8d9e7a46debceb2a21c9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure the boundary (surface area) of the shape.  <br /></td></tr>
+<tr class="separator:af65c07de42f8d9e7a46debceb2a21c9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71dfb3e38e96d7b794bba530e91e46a5" id="r_a71dfb3e38e96d7b794bba530e91e46a5"><td class="memItemLeft" align="right" valign="top"><a id="a71dfb3e38e96d7b794bba530e91e46a5" name="a71dfb3e38e96d7b794bba530e91e46a5"></a>
 <a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>normal</b> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> p) const</td></tr>
 <tr class="memdesc:a71dfb3e38e96d7b794bba530e91e46a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outward-facing direction. <br /></td></tr>
 <tr class="separator:a71dfb3e38e96d7b794bba530e91e46a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aafeae7577841ddb31e8f397b9490c0da" id="r_aafeae7577841ddb31e8f397b9490c0da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aafeae7577841ddb31e8f397b9490c0da">clip</a> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> p) const</td></tr>
-<tr class="memdesc:aafeae7577841ddb31e8f397b9490c0da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clamp the coordinates of <code>p</code> to lie within this shape.  <br /></td></tr>
-<tr class="separator:aafeae7577841ddb31e8f397b9490c0da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee7e67d36552eea7dd1602308b133f92" id="r_aee7e67d36552eea7dd1602308b133f92"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; T, 1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aee7e67d36552eea7dd1602308b133f92">intersect</a> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;ray) const</td></tr>
-<tr class="memdesc:aee7e67d36552eea7dd1602308b133f92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intersect the cap with a ray.  <br /></td></tr>
-<tr class="separator:aee7e67d36552eea7dd1602308b133f92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af65c07de42f8d9e7a46debceb2a21c9d" id="r_af65c07de42f8d9e7a46debceb2a21c9d"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af65c07de42f8d9e7a46debceb2a21c9d">measure_boundary</a> () const</td></tr>
-<tr class="memdesc:af65c07de42f8d9e7a46debceb2a21c9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure the boundary (surface area) of the shape.  <br /></td></tr>
-<tr class="separator:af65c07de42f8d9e7a46debceb2a21c9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6ec243b86330687ac17b3f56d3101ea" id="r_ad6ec243b86330687ac17b3f56d3101ea"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad6ec243b86330687ac17b3f56d3101ea">is_inside_angle</a> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> p) const</td></tr>
-<tr class="memdesc:ad6ec243b86330687ac17b3f56d3101ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test whether the point <code>p</code> is inside the cap's angle.  <br /></td></tr>
-<tr class="separator:ad6ec243b86330687ac17b3f56d3101ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31ebfc62f8513c7536304dc3b05a026d" id="r_a31ebfc62f8513c7536304dc3b05a026d"><td class="memItemLeft" align="right" valign="top"><a id="a31ebfc62f8513c7536304dc3b05a026d" name="a31ebfc62f8513c7536304dc3b05a026d"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="classgeom_1_1_spherical_cap.html">SphericalCap</a> &amp;other) const</td></tr>
+<tr class="memdesc:a31ebfc62f8513c7536304dc3b05a026d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shape equality. <br /></td></tr>
+<tr class="separator:a31ebfc62f8513c7536304dc3b05a026d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a344530de02a251cd1ae62e832000d65a" id="r_a344530de02a251cd1ae62e832000d65a"><td class="memItemLeft" align="right" valign="top"><a id="a344530de02a251cd1ae62e832000d65a" name="a344530de02a251cd1ae62e832000d65a"></a>
+<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>project</b> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> p) const</td></tr>
+<tr class="memdesc:a344530de02a251cd1ae62e832000d65a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Project the point <code>p</code> orthogonally onto the surface of the cap. <br /></td></tr>
+<tr class="separator:a344530de02a251cd1ae62e832000d65a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a808ba350c436adc64f2d5a2d72ddbb44" id="r_a808ba350c436adc64f2d5a2d72ddbb44"><td class="memItemLeft" align="right" valign="top"><a id="a808ba350c436adc64f2d5a2d72ddbb44" name="a808ba350c436adc64f2d5a2d72ddbb44"></a>
+T&#160;</td><td class="memItemRight" valign="bottom"><b>sdf</b> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> p) const</td></tr>
+<tr class="memdesc:a808ba350c436adc64f2d5a2d72ddbb44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signed distance function. <br /></td></tr>
+<tr class="separator:a808ba350c436adc64f2d5a2d72ddbb44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -380,7 +380,7 @@ template&lt;typename T, index_t N&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 8 2025 18:58:10 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon Feb 17 2025 15:19:55 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

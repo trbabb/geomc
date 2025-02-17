@@ -99,21 +99,25 @@ $(function(){ initResizable(false); });
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a7b7c8fb7c8e5f502d3b64acbdf30d678" id="r_a7b7c8fb7c8e5f502d3b64acbdf30d678"><td class="memItemLeft" align="right" valign="top"><a id="a7b7c8fb7c8e5f502d3b64acbdf30d678" name="a7b7c8fb7c8e5f502d3b64acbdf30d678"></a>
-typedef const T *&#160;</td><td class="memItemRight" valign="bottom"><b>const_row_iterator</b></td></tr>
-<tr class="separator:a7b7c8fb7c8e5f502d3b64acbdf30d678"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96d197d529c5c59b2bffd9f680b190f4" id="r_a96d197d529c5c59b2bffd9f680b190f4"><td class="memItemLeft" align="right" valign="top"><a id="a96d197d529c5c59b2bffd9f680b190f4" name="a96d197d529c5c59b2bffd9f680b190f4"></a>
-typedef <a class="el" href="structgeom_1_1_transpose_iterator.html">TransposeIterator</a>&lt; T, true &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>const_col_iterator</b></td></tr>
-<tr class="separator:a96d197d529c5c59b2bffd9f680b190f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd8c4bb02eaa4a6e767daa085d850b78" id="r_abd8c4bb02eaa4a6e767daa085d850b78"><td class="memItemLeft" align="right" valign="top"><a id="abd8c4bb02eaa4a6e767daa085d850b78" name="abd8c4bb02eaa4a6e767daa085d850b78"></a>
-typedef T *&#160;</td><td class="memItemRight" valign="bottom"><b>row_iterator</b></td></tr>
-<tr class="separator:abd8c4bb02eaa4a6e767daa085d850b78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a47cd504d5b185bfb71c95444412604e3" id="r_a47cd504d5b185bfb71c95444412604e3"><td class="memItemLeft" align="right" valign="top"><a id="a47cd504d5b185bfb71c95444412604e3" name="a47cd504d5b185bfb71c95444412604e3"></a>
 typedef <a class="el" href="structgeom_1_1_transpose_iterator.html">TransposeIterator</a>&lt; T, false &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>col_iterator</b></td></tr>
 <tr class="separator:a47cd504d5b185bfb71c95444412604e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96d197d529c5c59b2bffd9f680b190f4" id="r_a96d197d529c5c59b2bffd9f680b190f4"><td class="memItemLeft" align="right" valign="top"><a id="a96d197d529c5c59b2bffd9f680b190f4" name="a96d197d529c5c59b2bffd9f680b190f4"></a>
+typedef <a class="el" href="structgeom_1_1_transpose_iterator.html">TransposeIterator</a>&lt; T, true &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>const_col_iterator</b></td></tr>
+<tr class="separator:a96d197d529c5c59b2bffd9f680b190f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b7c8fb7c8e5f502d3b64acbdf30d678" id="r_a7b7c8fb7c8e5f502d3b64acbdf30d678"><td class="memItemLeft" align="right" valign="top"><a id="a7b7c8fb7c8e5f502d3b64acbdf30d678" name="a7b7c8fb7c8e5f502d3b64acbdf30d678"></a>
+typedef const T *&#160;</td><td class="memItemRight" valign="bottom"><b>const_row_iterator</b></td></tr>
+<tr class="separator:a7b7c8fb7c8e5f502d3b64acbdf30d678"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd8c4bb02eaa4a6e767daa085d850b78" id="r_abd8c4bb02eaa4a6e767daa085d850b78"><td class="memItemLeft" align="right" valign="top"><a id="abd8c4bb02eaa4a6e767daa085d850b78" name="abd8c4bb02eaa4a6e767daa085d850b78"></a>
+typedef T *&#160;</td><td class="memItemRight" valign="bottom"><b>row_iterator</b></td></tr>
+<tr class="separator:abd8c4bb02eaa4a6e767daa085d850b78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ad13875cb376677bcb1337068ceba19c5" id="r_ad13875cb376677bcb1337068ceba19c5"><td class="memTemplParams" colspan="2"><a id="ad13875cb376677bcb1337068ceba19c5" name="ad13875cb376677bcb1337068ceba19c5"></a>
+template&lt;bool Const&gt; </td></tr>
+<tr class="memitem:ad13875cb376677bcb1337068ceba19c5"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="structgeom_1_1_transpose_iterator.html">TransposeIterator</a>&lt; T, Const &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>col</b> (typename <a class="el" href="structstd_1_1conditional.html">std::conditional</a>&lt; Const, const T *, T * &gt;::type base, index_t c, index_t rows, index_t cols)</td></tr>
+<tr class="separator:ad13875cb376677bcb1337068ceba19c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1eda00ad162fd3aa00240674facfb71f" id="r_a1eda00ad162fd3aa00240674facfb71f"><td class="memItemLeft" align="right" valign="top"><a id="a1eda00ad162fd3aa00240674facfb71f" name="a1eda00ad162fd3aa00240674facfb71f"></a>
 static index_t&#160;</td><td class="memItemRight" valign="bottom"><b>index</b> (index_t r, index_t c, index_t rows, index_t cols)</td></tr>
 <tr class="separator:a1eda00ad162fd3aa00240674facfb71f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,10 +125,6 @@ static index_t&#160;</td><td class="memItemRight" valign="bottom"><b>index</b> (
 template&lt;bool Const&gt; </td></tr>
 <tr class="memitem:ad08a82d2701b80ce3256171d5b4c32b6"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="structstd_1_1conditional.html">std::conditional</a>&lt; Const, constT *, T * &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><b>row</b> (typename <a class="el" href="structstd_1_1conditional.html">std::conditional</a>&lt; Const, const T *, T * &gt;::type base, index_t r, index_t rows, index_t cols)</td></tr>
 <tr class="separator:ad08a82d2701b80ce3256171d5b4c32b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad13875cb376677bcb1337068ceba19c5" id="r_ad13875cb376677bcb1337068ceba19c5"><td class="memTemplParams" colspan="2"><a id="ad13875cb376677bcb1337068ceba19c5" name="ad13875cb376677bcb1337068ceba19c5"></a>
-template&lt;bool Const&gt; </td></tr>
-<tr class="memitem:ad13875cb376677bcb1337068ceba19c5"><td class="memTemplItemLeft" align="right" valign="top">static <a class="el" href="structgeom_1_1_transpose_iterator.html">TransposeIterator</a>&lt; T, Const &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>col</b> (typename <a class="el" href="structstd_1_1conditional.html">std::conditional</a>&lt; Const, const T *, T * &gt;::type base, index_t c, index_t rows, index_t cols)</td></tr>
-<tr class="separator:ad13875cb376677bcb1337068ceba19c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>geomc/linalg/mtxdetail/<a class="el" href="_matrix_layout_8h_source.html">MatrixLayout.h</a></li>
@@ -132,7 +132,7 @@ template&lt;bool Const&gt; </td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon Feb 17 2025 15:19:55 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

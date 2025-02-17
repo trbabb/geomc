@@ -100,31 +100,31 @@ $(function(){ initResizable(false); });
 <h2 class="groupheader">Concept definition</h2>
 <div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Xf, <span class="keyword">typename</span> T, index_t N&gt;</div>
 <div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="conceptgeom_1_1_transform.html">geom::Transform</a> =  <span class="keyword">requires</span> (Xf xf, <a class="code hl_class" href="classgeom_1_1_vec.html">Vec&lt;T,N&gt;</a> p) {</div>
-<div class="line">        </div>
-<div class="line">        { xf * p } -&gt; std::convertible_to&lt;Vec&lt;T,N&gt;&gt;;</div>
-<div class="line">        </div>
-<div class="line">        { p / xf } -&gt; std::convertible_to&lt;Vec&lt;T,N&gt;&gt;;</div>
-<div class="line">        </div>
-<div class="line">        { xf * xf } -&gt; std::convertible_to&lt;Xf&gt;;</div>
-<div class="line">        </div>
-<div class="line">        { xf.inverse() } -&gt; std::convertible_to&lt;Xf&gt;;</div>
-<div class="line">        </div>
-<div class="line">        { xf.apply_direction(p) } -&gt; std::convertible_to&lt;Vec&lt;T,N&gt;&gt;;</div>
-<div class="line">        </div>
-<div class="line">        { xf.apply_inverse_direction(p) } -&gt; std::convertible_to&lt;Vec&lt;T,N&gt;&gt;;</div>
-<div class="line">        </div>
-<div class="line">        { xf *= xf } -&gt; std::convertible_to&lt;Xf&gt;;</div>
-<div class="line">        </div>
-<div class="line">        { xf /= xf } -&gt; std::convertible_to&lt;Xf&gt;;</div>
-<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    { xf * p } -&gt; std::convertible_to&lt;Vec&lt;T,N&gt;&gt;;</div>
+<div class="line">    </div>
+<div class="line">    { p / xf } -&gt; std::convertible_to&lt;Vec&lt;T,N&gt;&gt;;</div>
+<div class="line">    </div>
+<div class="line">    { xf * xf } -&gt; std::convertible_to&lt;Xf&gt;;</div>
+<div class="line">    </div>
+<div class="line">    { xf.inverse() } -&gt; std::convertible_to&lt;Xf&gt;;</div>
+<div class="line">    </div>
+<div class="line">    { xf.apply_direction(p) } -&gt; std::convertible_to&lt;Vec&lt;T,N&gt;&gt;;</div>
+<div class="line">    </div>
+<div class="line">    { xf.apply_inverse_direction(p) } -&gt; std::convertible_to&lt;Vec&lt;T,N&gt;&gt;;</div>
+<div class="line">    </div>
+<div class="line">    { xf *= xf } -&gt; std::convertible_to&lt;Xf&gt;;</div>
+<div class="line">    </div>
+<div class="line">    { xf /= xf } -&gt; std::convertible_to&lt;Xf&gt;;</div>
+<div class="line">}</div>
 <div class="ttc" id="aclassgeom_1_1_vec_html"><div class="ttname"><a href="classgeom_1_1_vec.html">geom::Vec</a></div><div class="ttdoc">A tuple of N elements of type T.</div><div class="ttdef"><b>Definition</b> Vec.h:269</div></div>
-<div class="ttc" id="aconceptgeom_1_1_transform_html"><div class="ttname"><a href="conceptgeom_1_1_transform.html">geom::Transform</a></div><div class="ttdoc">Represents a means of transforming a point or vector.</div><div class="ttdef"><b>Definition</b> LinalgTypes.h:135</div></div>
+<div class="ttc" id="aconceptgeom_1_1_transform_html"><div class="ttname"><a href="conceptgeom_1_1_transform.html">geom::Transform</a></div><div class="ttdoc">Represents a means of transforming a point or vector.</div><div class="ttdef"><b>Definition</b> LinalgTypes.h:125</div></div>
 </div><!-- fragment --><a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents a means of transforming a point or vector. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 8 2025 18:58:10 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon Feb 17 2025 15:19:55 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

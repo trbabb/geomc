@@ -18,12 +18,15 @@ var searchData=
   ['hash_3c_20geom_3a_3asimplematrix_3c_20t_2c_20m_2c_20n_20_3e_20_3e_15',['hash&lt; geom::SimpleMatrix&lt; T, M, N &gt; &gt;',['../structstd_1_1hash_3_01geom_1_1_simple_matrix_3_01_t_00_01_m_00_01_n_01_4_01_4.html',1,'std']]],
   ['hash_3c_20geom_3a_3asimplex_3c_20t_2c_20n_20_3e_20_3e_16',['hash&lt; geom::Simplex&lt; T, N &gt; &gt;',['../structstd_1_1hash_3_01geom_1_1_simplex_3_01_t_00_01_n_01_4_01_4.html',1,'std']]],
   ['hash_3c_20geom_3a_3asphere_3c_20t_2c_20n_20_3e_20_3e_17',['hash&lt; geom::Sphere&lt; T, N &gt; &gt;',['../structstd_1_1hash_3_01geom_1_1_sphere_3_01_t_00_01_n_01_4_01_4.html',1,'std']]],
-  ['hash_3c_20geom_3a_3atransformed_3c_20shape_20_3e_20_3e_18',['hash&lt; geom::Transformed&lt; Shape &gt; &gt;',['../structstd_1_1hash_3_01geom_1_1_transformed_3_01_shape_01_4_01_4.html',1,'std']]],
-  ['hash_3c_20geom_3a_3avec_3c_20t_2c_20n_20_3e_20_3e_19',['hash&lt; geom::Vec&lt; T, N &gt; &gt;',['../structstd_1_1hash_3_01geom_1_1_vec_3_01_t_00_01_n_01_4_01_4.html',1,'std']]],
-  ['hash_5fcombine_20',['hash_combine',['../namespacegeom.html#a1b94893ba657748522b03a58a5d88095',1,'geom']]],
-  ['height_21',['height',['../classgeom_1_1_extruded.html#ac7ea7326f3c37fdcd29fb3a40c06d82e',1,'geom::Extruded::height'],['../classgeom_1_1_frustum.html#ac7ea7326f3c37fdcd29fb3a40c06d82e',1,'geom::Frustum::height']]],
-  ['hi_22',['hi',['../classgeom_1_1_rect.html#a0ffa04769eee75de6100330b3395929a',1,'geom::Rect']]],
-  ['hollow_23',['Hollow',['../classgeom_1_1_hollow.html',1,'Hollow&lt; Shape &gt;'],['../classgeom_1_1_hollow.html#a9e063f3411bea988ee4f755eb34cf8ad',1,'geom::Hollow::Hollow()'],['../classgeom_1_1_hollow.html#a2ad0e0bf9c52441d749344c07573e88a',1,'geom::Hollow::Hollow(const Shape &amp;shape)']]],
-  ['hollow_3c_20rect_3c_20t_2c_20n_20_3e_20_3e_24',['Hollow&lt; Rect&lt; T, N &gt; &gt;',['../classgeom_1_1_hollow.html',1,'geom']]],
-  ['hollow_3c_20sphere_3c_20t_2c_20n_20_3e_20_3e_25',['Hollow&lt; Sphere&lt; T, N &gt; &gt;',['../classgeom_1_1_hollow.html',1,'geom']]]
+  ['hash_3c_20geom_3a_3asphericalcap_3c_20t_2c_20n_20_3e_20_3e_18',['hash&lt; geom::SphericalCap&lt; T, N &gt; &gt;',['../structstd_1_1hash_3_01geom_1_1_spherical_cap_3_01_t_00_01_n_01_4_01_4.html',1,'std']]],
+  ['hash_3c_20geom_3a_3atransformed_3c_20shape_20_3e_20_3e_19',['hash&lt; geom::Transformed&lt; Shape &gt; &gt;',['../structstd_1_1hash_3_01geom_1_1_transformed_3_01_shape_01_4_01_4.html',1,'std']]],
+  ['hash_3c_20geom_3a_3avec_3c_20t_2c_20n_20_3e_20_3e_20',['hash&lt; geom::Vec&lt; T, N &gt; &gt;',['../structstd_1_1hash_3_01geom_1_1_vec_3_01_t_00_01_n_01_4_01_4.html',1,'std']]],
+  ['hash_5fcombine_21',['hash_combine',['../namespacegeom.html#a1b94893ba657748522b03a58a5d88095',1,'geom']]],
+  ['height_22',['height',['../classgeom_1_1_extruded.html#ac7ea7326f3c37fdcd29fb3a40c06d82e',1,'geom::Extruded::height'],['../classgeom_1_1_frustum.html#ac7ea7326f3c37fdcd29fb3a40c06d82e',1,'geom::Frustum::height']]],
+  ['hermitepath_23',['HermitePath',['../classgeom_1_1_hermite_path.html',1,'HermitePath&lt; T, N &gt;'],['../classgeom_1_1_hermite_path.html#ac300af176012997a71e14294f6071fc7',1,'geom::HermitePath::HermitePath()=default'],['../classgeom_1_1_hermite_path.html#a9ff05dc9c4f7a17cc8d5e2a60b1b1d2b',1,'geom::HermitePath::HermitePath(const std::initializer_list&lt; Knot &gt; knots)'],['../classgeom_1_1_hermite_path.html#a799625d78b808234126b2c7d636f1cee',1,'geom::HermitePath::HermitePath(const HermiteSpline&lt; T, N &gt; &amp;segment)']]],
+  ['hermitespline_24',['HermiteSpline',['../classgeom_1_1_hermite_spline.html',1,'HermiteSpline&lt; T, N &gt;'],['../classgeom_1_1_hermite_spline.html#ab606c260e7ead1750194574ab6a9cc6e',1,'geom::HermiteSpline::HermiteSpline(VecType&lt; T, N &gt; p0, VecType&lt; T, N &gt; v0, VecType&lt; T, N &gt; p1, VecType&lt; T, N &gt; v1)'],['../classgeom_1_1_hermite_spline.html#a16abe6ad6e1a2a2e6f1465d563bd27e9',1,'geom::HermiteSpline::HermiteSpline(const VecType&lt; T, N &gt; pts[4])']]],
+  ['hi_25',['hi',['../classgeom_1_1_rect.html#a0ffa04769eee75de6100330b3395929a',1,'geom::Rect']]],
+  ['hollow_26',['Hollow',['../classgeom_1_1_hollow.html',1,'Hollow&lt; Shape &gt;'],['../classgeom_1_1_hollow.html#a9e063f3411bea988ee4f755eb34cf8ad',1,'geom::Hollow::Hollow()'],['../classgeom_1_1_hollow.html#a2ad0e0bf9c52441d749344c07573e88a',1,'geom::Hollow::Hollow(const Shape &amp;shape)']]],
+  ['hollow_3c_20rect_3c_20t_2c_20n_20_3e_20_3e_27',['Hollow&lt; Rect&lt; T, N &gt; &gt;',['../classgeom_1_1_hollow.html',1,'geom']]],
+  ['hollow_3c_20sphere_3c_20t_2c_20n_20_3e_20_3e_28',['Hollow&lt; Sphere&lt; T, N &gt; &gt;',['../classgeom_1_1_hollow.html',1,'geom']]]
 ];

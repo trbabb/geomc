@@ -120,10 +120,6 @@ Inheritance diagram for Frustum&lt; Shape &gt;:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a8d5a267c4e2ff99ea42c1b1454d4b8ee" id="r_a8d5a267c4e2ff99ea42c1b1454d4b8ee"><td class="memItemLeft" align="right" valign="top"><a id="a8d5a267c4e2ff99ea42c1b1454d4b8ee" name="a8d5a267c4e2ff99ea42c1b1454d4b8ee"></a>
-typedef Shape::elem_t&#160;</td><td class="memItemRight" valign="bottom"><b>T</b></td></tr>
-<tr class="memdesc:a8d5a267c4e2ff99ea42c1b1454d4b8ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">The coordinate type of this Shape. <br /></td></tr>
-<tr class="separator:a8d5a267c4e2ff99ea42c1b1454d4b8ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe40b48714b9a6feec365e68e1499a9f" id="r_abe40b48714b9a6feec365e68e1499a9f"><td class="memItemLeft" align="right" valign="top"><a id="abe40b48714b9a6feec365e68e1499a9f" name="abe40b48714b9a6feec365e68e1499a9f"></a>
 typedef <a class="el" href="structgeom_1_1_point_type.html">PointType</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, Shape::N &gt;<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">::point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><b>base_point_t</b></td></tr>
 <tr class="memdesc:abe40b48714b9a6feec365e68e1499a9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Point type of the base shape. <br /></td></tr>
@@ -135,6 +131,10 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
 <tr class="memitem:ab7b81c250ce370c724b88ffaac574884" id="r_ab7b81c250ce370c724b88ffaac574884"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a></td></tr>
 <tr class="memdesc:ab7b81c250ce370c724b88ffaac574884"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of a point in this object's space.  <br /></td></tr>
 <tr class="separator:ab7b81c250ce370c724b88ffaac574884"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d5a267c4e2ff99ea42c1b1454d4b8ee" id="r_a8d5a267c4e2ff99ea42c1b1454d4b8ee"><td class="memItemLeft" align="right" valign="top"><a id="a8d5a267c4e2ff99ea42c1b1454d4b8ee" name="a8d5a267c4e2ff99ea42c1b1454d4b8ee"></a>
+typedef Shape::elem_t&#160;</td><td class="memItemRight" valign="bottom"><b>T</b></td></tr>
+<tr class="memdesc:a8d5a267c4e2ff99ea42c1b1454d4b8ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">The coordinate type of this Shape. <br /></td></tr>
+<tr class="separator:a8d5a267c4e2ff99ea42c1b1454d4b8ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -142,26 +142,14 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Frustum</b> ()</td></tr>
 <tr class="memdesc:a6768c58ca61f1f5d3b4a0192abd0695b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a pyramid with its tip at the origin and a default-constructed cross-sectional base at h=1. <br /></td></tr>
 <tr class="separator:a6768c58ca61f1f5d3b4a0192abd0695b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcd5d33ee496b1afc821995b54b50cdf" id="r_afcd5d33ee496b1afc821995b54b50cdf"><td class="memItemLeft" align="right" valign="top"><a id="afcd5d33ee496b1afc821995b54b50cdf" name="afcd5d33ee496b1afc821995b54b50cdf"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Frustum</b> (const Shape &amp;<a class="el" href="#ac455e04eb947652ac9742654014de84b">base</a>, <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a> h0, <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a> h1)</td></tr>
-<tr class="memdesc:afcd5d33ee496b1afc821995b54b50cdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classgeom_1_1_frustum.html" title="An N-dimensional frustum (truncated pyramid) with an arbitrary Convex shape as its base,...">Frustum</a> having <code>base</code> as a cross section, and spanning heights between <code>h0</code> and <code>h1</code>. <br /></td></tr>
-<tr class="separator:afcd5d33ee496b1afc821995b54b50cdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a00d422d4785f2cf0968d59dced067baa" id="r_a00d422d4785f2cf0968d59dced067baa"><td class="memItemLeft" align="right" valign="top"><a id="a00d422d4785f2cf0968d59dced067baa" name="a00d422d4785f2cf0968d59dced067baa"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Frustum</b> (const Shape &amp;<a class="el" href="#ac455e04eb947652ac9742654014de84b">base</a>, const <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, 1 &gt; &amp;h)</td></tr>
 <tr class="memdesc:a00d422d4785f2cf0968d59dced067baa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classgeom_1_1_frustum.html" title="An N-dimensional frustum (truncated pyramid) with an arbitrary Convex shape as its base,...">Frustum</a> having <code>base</code> as a cross section, and spanning the height range <code>h</code>. <br /></td></tr>
 <tr class="separator:a00d422d4785f2cf0968d59dced067baa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a381be8b97830e3a461b70c4d6625eb55" id="r_a381be8b97830e3a461b70c4d6625eb55"><td class="memItemLeft" align="right" valign="top"><a id="a381be8b97830e3a461b70c4d6625eb55" name="a381be8b97830e3a461b70c4d6625eb55"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="classgeom_1_1_frustum.html">Frustum</a> &amp;other) const</td></tr>
-<tr class="separator:a381be8b97830e3a461b70c4d6625eb55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58954d5ddf616678fae8c7ccbe385792" id="r_a58954d5ddf616678fae8c7ccbe385792"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a58954d5ddf616678fae8c7ccbe385792">contains</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; p) const</td></tr>
-<tr class="separator:a58954d5ddf616678fae8c7ccbe385792"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbcc8337662880b5bce42c6a936d9591" id="r_abbcc8337662880b5bce42c6a936d9591"><td class="memItemLeft" align="right" valign="top"><a id="abbcc8337662880b5bce42c6a936d9591" name="abbcc8337662880b5bce42c6a936d9591"></a>
-<a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, 1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>intersect</b> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;ray) const</td></tr>
-<tr class="memdesc:abbcc8337662880b5bce42c6a936d9591"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ray-shape intersection. <br /></td></tr>
-<tr class="separator:abbcc8337662880b5bce42c6a936d9591"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91b6600fe55753ac95042bf18cce6af3" id="r_a91b6600fe55753ac95042bf18cce6af3"><td class="memItemLeft" align="right" valign="top"><a id="a91b6600fe55753ac95042bf18cce6af3" name="a91b6600fe55753ac95042bf18cce6af3"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>convex_support</b> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; d) const</td></tr>
-<tr class="separator:a91b6600fe55753ac95042bf18cce6af3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcd5d33ee496b1afc821995b54b50cdf" id="r_afcd5d33ee496b1afc821995b54b50cdf"><td class="memItemLeft" align="right" valign="top"><a id="afcd5d33ee496b1afc821995b54b50cdf" name="afcd5d33ee496b1afc821995b54b50cdf"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Frustum</b> (const Shape &amp;<a class="el" href="#ac455e04eb947652ac9742654014de84b">base</a>, <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a> h0, <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a> h1)</td></tr>
+<tr class="memdesc:afcd5d33ee496b1afc821995b54b50cdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classgeom_1_1_frustum.html" title="An N-dimensional frustum (truncated pyramid) with an arbitrary Convex shape as its base,...">Frustum</a> having <code>base</code> as a cross section, and spanning heights between <code>h0</code> and <code>h1</code>. <br /></td></tr>
+<tr class="separator:afcd5d33ee496b1afc821995b54b50cdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6154d4d7d8c9c87e636ff1c7729c1e8" id="r_ab6154d4d7d8c9c87e636ff1c7729c1e8"><td class="memItemLeft" align="right" valign="top"><a id="ab6154d4d7d8c9c87e636ff1c7729c1e8" name="ab6154d4d7d8c9c87e636ff1c7729c1e8"></a>
 <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>bounds</b> () const</td></tr>
 <tr class="separator:ab6154d4d7d8c9c87e636ff1c7729c1e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -169,12 +157,24 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
 <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, 1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>clipped_height</b> () const</td></tr>
 <tr class="memdesc:afdf5f4d3692b75db2d83020cd71fc527"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the height range of this <a class="el" href="classgeom_1_1_frustum.html" title="An N-dimensional frustum (truncated pyramid) with an arbitrary Convex shape as its base,...">Frustum</a> after it has been clipped by the origin. <br /></td></tr>
 <tr class="separator:afdf5f4d3692b75db2d83020cd71fc527"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58954d5ddf616678fae8c7ccbe385792" id="r_a58954d5ddf616678fae8c7ccbe385792"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a58954d5ddf616678fae8c7ccbe385792">contains</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; p) const</td></tr>
+<tr class="separator:a58954d5ddf616678fae8c7ccbe385792"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf6af4e3e4e412edc6e07c9d7721e3a6c" id="r_gaf6af4e3e4e412edc6e07c9d7721e3a6c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__shape.html#gaf6af4e3e4e412edc6e07c9d7721e3a6c">convex_support</a> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> d) const</td></tr>
 <tr class="memdesc:gaf6af4e3e4e412edc6e07c9d7721e3a6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geometric convex support function.  <br /></td></tr>
 <tr class="separator:gaf6af4e3e4e412edc6e07c9d7721e3a6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91b6600fe55753ac95042bf18cce6af3" id="r_a91b6600fe55753ac95042bf18cce6af3"><td class="memItemLeft" align="right" valign="top"><a id="a91b6600fe55753ac95042bf18cce6af3" name="a91b6600fe55753ac95042bf18cce6af3"></a>
+<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>convex_support</b> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; d) const</td></tr>
+<tr class="separator:a91b6600fe55753ac95042bf18cce6af3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbcc8337662880b5bce42c6a936d9591" id="r_abbcc8337662880b5bce42c6a936d9591"><td class="memItemLeft" align="right" valign="top"><a id="abbcc8337662880b5bce42c6a936d9591" name="abbcc8337662880b5bce42c6a936d9591"></a>
+<a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, 1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>intersect</b> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;ray) const</td></tr>
+<tr class="memdesc:abbcc8337662880b5bce42c6a936d9591"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ray-shape intersection. <br /></td></tr>
+<tr class="separator:abbcc8337662880b5bce42c6a936d9591"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga783e4812827599c0b116581ff94f4024" id="r_ga783e4812827599c0b116581ff94f4024"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__shape.html#ga783e4812827599c0b116581ff94f4024">intersects</a> (const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; Shape::elem_t, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a>, Shape &gt; &amp;other) const</td></tr>
 <tr class="memdesc:ga783e4812827599c0b116581ff94f4024"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classgeom_1_1_convex.html" title="Base class describing convex shapes in N-dimensional space.">Convex</a> shape overlap test.  <br /></td></tr>
 <tr class="separator:ga783e4812827599c0b116581ff94f4024"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a381be8b97830e3a461b70c4d6625eb55" id="r_a381be8b97830e3a461b70c4d6625eb55"><td class="memItemLeft" align="right" valign="top"><a id="a381be8b97830e3a461b70c4d6625eb55" name="a381be8b97830e3a461b70c4d6625eb55"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="classgeom_1_1_frustum.html">Frustum</a> &amp;other) const</td></tr>
+<tr class="separator:a381be8b97830e3a461b70c4d6625eb55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -204,11 +204,6 @@ static constexpr size_t&#160;</td><td class="memItemRight" valign="bottom"><b>N<
 Related Symbols</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p>(Note that these are not member symbols.) </p>
 </td></tr>
-<tr class="memitem:ga42fcd4e2055d13089bfb8f005bc5cea8" id="r_ga42fcd4e2055d13089bfb8f005bc5cea8"><td class="memTemplParams" colspan="2">
-template&lt;typename <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, index_t N&gt; </td></tr>
-<tr class="memitem:ga42fcd4e2055d13089bfb8f005bc5cea8"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ViewFrustum</b> = <a class="el" href="classgeom_1_1_transformed.html">Transformed</a>&lt; <a class="el" href="classgeom_1_1_frustum.html">Frustum</a>&lt; <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt;<a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>,<a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a>-1&gt; &gt; &gt;</td></tr>
-<tr class="memdesc:ga42fcd4e2055d13089bfb8f005bc5cea8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience typedef for oriented, rectangular, N-dimensional Frustums. <br /></td></tr>
-<tr class="separator:ga42fcd4e2055d13089bfb8f005bc5cea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga86013a376afaab585adcd3c34fb11be4" id="r_ga86013a376afaab585adcd3c34fb11be4"><td class="memTemplParams" colspan="2">template&lt;typename <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>&gt; </td></tr>
 <tr class="memitem:ga86013a376afaab585adcd3c34fb11be4"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="group__shape.html#ga86013a376afaab585adcd3c34fb11be4">Cone</a> = <a class="el" href="classgeom_1_1_frustum.html">Frustum</a>&lt;Circle&lt;<a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>&gt;&gt;</td></tr>
 <tr class="memdesc:ga86013a376afaab585adcd3c34fb11be4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience typedef for a 3D cone with its tip at the origin.  <br /></td></tr>
@@ -218,6 +213,11 @@ template&lt;typename Shape&gt; </td></tr>
 <tr class="memitem:gaa4b2ee8ee8bc1b476b567cdff66c85ed"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_frustum.html">Frustum</a>&lt; Shape &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>frustum</b> (const Shape &amp;s, typename Shape::elem_t h0, typename Shape::elem_t h1)</td></tr>
 <tr class="memdesc:gaa4b2ee8ee8bc1b476b567cdff66c85ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience function to raise the shape <code>s</code> into a frustum between heights <code>h0</code> and <code>h1</code>, by wrapping <code>s</code> in the <code><a class="el" href="classgeom_1_1_frustum.html" title="An N-dimensional frustum (truncated pyramid) with an arbitrary Convex shape as its base,...">Frustum</a></code> template. <br /></td></tr>
 <tr class="separator:gaa4b2ee8ee8bc1b476b567cdff66c85ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga42fcd4e2055d13089bfb8f005bc5cea8" id="r_ga42fcd4e2055d13089bfb8f005bc5cea8"><td class="memTemplParams" colspan="2">
+template&lt;typename <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, index_t N&gt; </td></tr>
+<tr class="memitem:ga42fcd4e2055d13089bfb8f005bc5cea8"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>ViewFrustum</b> = <a class="el" href="classgeom_1_1_transformed.html">Transformed</a>&lt; <a class="el" href="classgeom_1_1_frustum.html">Frustum</a>&lt; <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt;<a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>,<a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a>-1&gt; &gt; &gt;</td></tr>
+<tr class="memdesc:ga42fcd4e2055d13089bfb8f005bc5cea8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience typedef for oriented, rectangular, N-dimensional Frustums. <br /></td></tr>
+<tr class="separator:ga42fcd4e2055d13089bfb8f005bc5cea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename Shape&gt;<br />
@@ -357,7 +357,7 @@ template&lt;typename Shape&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon Feb 17 2025 15:19:55 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

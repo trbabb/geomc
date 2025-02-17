@@ -118,9 +118,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8e3898f0a5ee534da82a42232de2b192" id="r_a8e3898f0a5ee534da82a42232de2b192"><td class="memItemLeft" align="right" valign="top"><a id="a8e3898f0a5ee534da82a42232de2b192" name="a8e3898f0a5ee534da82a42232de2b192"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>TransposeIterator</b> (pointer_t base, index_t major, index_t minor, index_t i=0)</td></tr>
 <tr class="separator:a8e3898f0a5ee534da82a42232de2b192"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a376c5cf876faa6e98d15408cd1b93821" id="r_a376c5cf876faa6e98d15408cd1b93821"><td class="memItemLeft" align="right" valign="top"><a id="a376c5cf876faa6e98d15408cd1b93821" name="a376c5cf876faa6e98d15408cd1b93821"></a>
-pointer_t&#160;</td><td class="memItemRight" valign="bottom"><b>offs</b> () const</td></tr>
-<tr class="separator:a376c5cf876faa6e98d15408cd1b93821"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b6f338c29e8c244a0d49e9a28617b67" id="r_a5b6f338c29e8c244a0d49e9a28617b67"><td class="memItemLeft" align="right" valign="top"><a id="a5b6f338c29e8c244a0d49e9a28617b67" name="a5b6f338c29e8c244a0d49e9a28617b67"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>advance</b> (index_t dx)</td></tr>
+<tr class="separator:a5b6f338c29e8c244a0d49e9a28617b67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af998f1201f6ff5160003144e5818b8ba" id="r_af998f1201f6ff5160003144e5818b8ba"><td class="memItemLeft" align="right" valign="top"><a id="af998f1201f6ff5160003144e5818b8ba" name="af998f1201f6ff5160003144e5818b8ba"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>decrement</b> ()</td></tr>
+<tr class="separator:af998f1201f6ff5160003144e5818b8ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ad77c8b390fcd6483572706e658b7f9" id="r_a8ad77c8b390fcd6483572706e658b7f9"><td class="memItemLeft" align="right" valign="top"><a id="a8ad77c8b390fcd6483572706e658b7f9" name="a8ad77c8b390fcd6483572706e658b7f9"></a>
+ref_t&#160;</td><td class="memItemRight" valign="bottom"><b>dereference</b> () const</td></tr>
+<tr class="separator:a8ad77c8b390fcd6483572706e658b7f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab688c4aa1fa30f1af552a5f336791bca" id="r_ab688c4aa1fa30f1af552a5f336791bca"><td class="memTemplParams" colspan="2"><a id="ab688c4aa1fa30f1af552a5f336791bca" name="ab688c4aa1fa30f1af552a5f336791bca"></a>
+template&lt;bool K&gt; </td></tr>
+<tr class="memitem:ab688c4aa1fa30f1af552a5f336791bca"><td class="memTemplItemLeft" align="right" valign="top">index_t&#160;</td><td class="memTemplItemRight" valign="bottom"><b>distance_to</b> (const <a class="el" href="structgeom_1_1_transpose_iterator.html">TransposeIterator</a>&lt; T, K &gt; &amp;other) const</td></tr>
+<tr class="separator:ab688c4aa1fa30f1af552a5f336791bca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ea8d6b909fd46837900ada7196221c9" id="r_a5ea8d6b909fd46837900ada7196221c9"><td class="memItemLeft" align="right" valign="top"><a id="a5ea8d6b909fd46837900ada7196221c9" name="a5ea8d6b909fd46837900ada7196221c9"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>equal</b> (const T *other) const</td></tr>
 <tr class="separator:a5ea8d6b909fd46837900ada7196221c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -131,34 +141,24 @@ template&lt;bool K&gt; </td></tr>
 <tr class="memitem:aeb2624c7a86b765725fd80cd426e147d" id="r_aeb2624c7a86b765725fd80cd426e147d"><td class="memItemLeft" align="right" valign="top"><a id="aeb2624c7a86b765725fd80cd426e147d" name="aeb2624c7a86b765725fd80cd426e147d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>increment</b> ()</td></tr>
 <tr class="separator:aeb2624c7a86b765725fd80cd426e147d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af998f1201f6ff5160003144e5818b8ba" id="r_af998f1201f6ff5160003144e5818b8ba"><td class="memItemLeft" align="right" valign="top"><a id="af998f1201f6ff5160003144e5818b8ba" name="af998f1201f6ff5160003144e5818b8ba"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>decrement</b> ()</td></tr>
-<tr class="separator:af998f1201f6ff5160003144e5818b8ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b6f338c29e8c244a0d49e9a28617b67" id="r_a5b6f338c29e8c244a0d49e9a28617b67"><td class="memItemLeft" align="right" valign="top"><a id="a5b6f338c29e8c244a0d49e9a28617b67" name="a5b6f338c29e8c244a0d49e9a28617b67"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>advance</b> (index_t dx)</td></tr>
-<tr class="separator:a5b6f338c29e8c244a0d49e9a28617b67"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ad77c8b390fcd6483572706e658b7f9" id="r_a8ad77c8b390fcd6483572706e658b7f9"><td class="memItemLeft" align="right" valign="top"><a id="a8ad77c8b390fcd6483572706e658b7f9" name="a8ad77c8b390fcd6483572706e658b7f9"></a>
-ref_t&#160;</td><td class="memItemRight" valign="bottom"><b>dereference</b> () const</td></tr>
-<tr class="separator:a8ad77c8b390fcd6483572706e658b7f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab688c4aa1fa30f1af552a5f336791bca" id="r_ab688c4aa1fa30f1af552a5f336791bca"><td class="memTemplParams" colspan="2"><a id="ab688c4aa1fa30f1af552a5f336791bca" name="ab688c4aa1fa30f1af552a5f336791bca"></a>
-template&lt;bool K&gt; </td></tr>
-<tr class="memitem:ab688c4aa1fa30f1af552a5f336791bca"><td class="memTemplItemLeft" align="right" valign="top">index_t&#160;</td><td class="memTemplItemRight" valign="bottom"><b>distance_to</b> (const <a class="el" href="structgeom_1_1_transpose_iterator.html">TransposeIterator</a>&lt; T, K &gt; &amp;other) const</td></tr>
-<tr class="separator:ab688c4aa1fa30f1af552a5f336791bca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a376c5cf876faa6e98d15408cd1b93821" id="r_a376c5cf876faa6e98d15408cd1b93821"><td class="memItemLeft" align="right" valign="top"><a id="a376c5cf876faa6e98d15408cd1b93821" name="a376c5cf876faa6e98d15408cd1b93821"></a>
+pointer_t&#160;</td><td class="memItemRight" valign="bottom"><b>offs</b> () const</td></tr>
+<tr class="separator:a376c5cf876faa6e98d15408cd1b93821"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a980f00721dad599270e70eb9139d9ed5" id="r_a980f00721dad599270e70eb9139d9ed5"><td class="memItemLeft" align="right" valign="top"><a id="a980f00721dad599270e70eb9139d9ed5" name="a980f00721dad599270e70eb9139d9ed5"></a>
 const pointer_t&#160;</td><td class="memItemRight" valign="bottom"><b>base</b></td></tr>
 <tr class="separator:a980f00721dad599270e70eb9139d9ed5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cd9fe43a8ec3481659fa8388e3719c9" id="r_a9cd9fe43a8ec3481659fa8388e3719c9"><td class="memItemLeft" align="right" valign="top"><a id="a9cd9fe43a8ec3481659fa8388e3719c9" name="a9cd9fe43a8ec3481659fa8388e3719c9"></a>
+index_t&#160;</td><td class="memItemRight" valign="bottom"><b>i</b></td></tr>
+<tr class="separator:a9cd9fe43a8ec3481659fa8388e3719c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a081357dbfcf094b04d3a2ba140278414" id="r_a081357dbfcf094b04d3a2ba140278414"><td class="memItemLeft" align="right" valign="top"><a id="a081357dbfcf094b04d3a2ba140278414" name="a081357dbfcf094b04d3a2ba140278414"></a>
 const index_t&#160;</td><td class="memItemRight" valign="bottom"><b>major</b></td></tr>
 <tr class="separator:a081357dbfcf094b04d3a2ba140278414"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80c9e073d2eda7cbc38c92304289614e" id="r_a80c9e073d2eda7cbc38c92304289614e"><td class="memItemLeft" align="right" valign="top"><a id="a80c9e073d2eda7cbc38c92304289614e" name="a80c9e073d2eda7cbc38c92304289614e"></a>
 const index_t&#160;</td><td class="memItemRight" valign="bottom"><b>minor</b></td></tr>
 <tr class="separator:a80c9e073d2eda7cbc38c92304289614e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cd9fe43a8ec3481659fa8388e3719c9" id="r_a9cd9fe43a8ec3481659fa8388e3719c9"><td class="memItemLeft" align="right" valign="top"><a id="a9cd9fe43a8ec3481659fa8388e3719c9" name="a9cd9fe43a8ec3481659fa8388e3719c9"></a>
-index_t&#160;</td><td class="memItemRight" valign="bottom"><b>i</b></td></tr>
-<tr class="separator:a9cd9fe43a8ec3481659fa8388e3719c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a596bafef7dde9bfe9b7b1b74a5dcc753" id="r_a596bafef7dde9bfe9b7b1b74a5dcc753"><td class="memItemLeft" align="right" valign="top"><a id="a596bafef7dde9bfe9b7b1b74a5dcc753" name="a596bafef7dde9bfe9b7b1b74a5dcc753"></a>
 pointer_t&#160;</td><td class="memItemRight" valign="bottom"><b>p</b></td></tr>
 <tr class="separator:a596bafef7dde9bfe9b7b1b74a5dcc753"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -169,7 +169,7 @@ pointer_t&#160;</td><td class="memItemRight" valign="bottom"><b>p</b></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 8 2025 18:58:10 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon Feb 17 2025 15:19:55 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

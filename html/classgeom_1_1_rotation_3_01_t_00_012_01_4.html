@@ -130,52 +130,72 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac38950755d6839e6647ffc5b6eb78629" id="r_ac38950755d6839e6647ffc5b6eb78629"><td class="memItemLeft" align="right" valign="top"><a id="ac38950755d6839e6647ffc5b6eb78629" name="ac38950755d6839e6647ffc5b6eb78629"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Rotation</b> (T radians)</td></tr>
 <tr class="separator:ac38950755d6839e6647ffc5b6eb78629"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b25c9e4ceeb35cd4aac6e5f11f15485" id="r_a4b25c9e4ceeb35cd4aac6e5f11f15485"><td class="memItemLeft" align="right" valign="top"><a id="a4b25c9e4ceeb35cd4aac6e5f11f15485" name="a4b25c9e4ceeb35cd4aac6e5f11f15485"></a>
-<a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>transform</b> () const</td></tr>
-<tr class="memdesc:a4b25c9e4ceeb35cd4aac6e5f11f15485"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represent as an affine transform. <br /></td></tr>
-<tr class="separator:a4b25c9e4ceeb35cd4aac6e5f11f15485"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c14f664b5a14473eadf565b05ce54d9" id="r_a0c14f664b5a14473eadf565b05ce54d9"><td class="memItemLeft" align="right" valign="top"><a id="a0c14f664b5a14473eadf565b05ce54d9" name="a0c14f664b5a14473eadf565b05ce54d9"></a>
+T&#160;</td><td class="memItemRight" valign="bottom"><b>angle</b> () const</td></tr>
+<tr class="memdesc:a0c14f664b5a14473eadf565b05ce54d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the angle component of the rotation. <br /></td></tr>
+<tr class="separator:a0c14f664b5a14473eadf565b05ce54d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bd5bbeda40d0d7f2c65fef68cfd40f1" id="r_a7bd5bbeda40d0d7f2c65fef68cfd40f1"><td class="memItemLeft" align="right" valign="top"><a id="a7bd5bbeda40d0d7f2c65fef68cfd40f1" name="a7bd5bbeda40d0d7f2c65fef68cfd40f1"></a>
+<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>apply_direction</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 2 &gt; &amp;v) const</td></tr>
+<tr class="memdesc:a7bd5bbeda40d0d7f2c65fef68cfd40f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply to a direction vector (conorming to <a class="el" href="conceptgeom_1_1_transform.html" title="Represents a means of transforming a point or vector.">Transform</a> concept) <br /></td></tr>
+<tr class="separator:a7bd5bbeda40d0d7f2c65fef68cfd40f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a495a9c0fcee04fb1b59fa7e0cfdfd750" id="r_a495a9c0fcee04fb1b59fa7e0cfdfd750"><td class="memItemLeft" align="right" valign="top"><a id="a495a9c0fcee04fb1b59fa7e0cfdfd750" name="a495a9c0fcee04fb1b59fa7e0cfdfd750"></a>
+<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>apply_inverse_direction</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 2 &gt; &amp;v) const</td></tr>
+<tr class="memdesc:a495a9c0fcee04fb1b59fa7e0cfdfd750"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply inverse rotation to a direction vector (conforming to <a class="el" href="conceptgeom_1_1_transform.html" title="Represents a means of transforming a point or vector.">Transform</a> concept) <br /></td></tr>
+<tr class="separator:a495a9c0fcee04fb1b59fa7e0cfdfd750"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2eac8ec4da90c1d85e1116964d5bf981" id="r_a2eac8ec4da90c1d85e1116964d5bf981"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2eac8ec4da90c1d85e1116964d5bf981">canonical</a> () const</td></tr>
+<tr class="separator:a2eac8ec4da90c1d85e1116964d5bf981"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a107879563e8f2997682f97a0c43bc8aa" id="r_a107879563e8f2997682f97a0c43bc8aa"><td class="memItemLeft" align="right" valign="top"><a id="a107879563e8f2997682f97a0c43bc8aa" name="a107879563e8f2997682f97a0c43bc8aa"></a>
+<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>exp</b> () const</td></tr>
+<tr class="separator:a107879563e8f2997682f97a0c43bc8aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33f04fa15a82f87569e913a959eb68f0" id="r_a33f04fa15a82f87569e913a959eb68f0"><td class="memItemLeft" align="right" valign="top"><a id="a33f04fa15a82f87569e913a959eb68f0" name="a33f04fa15a82f87569e913a959eb68f0"></a>
+<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>inv</b> () const</td></tr>
+<tr class="memdesc:a33f04fa15a82f87569e913a959eb68f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the inverse rotation. <br /></td></tr>
+<tr class="separator:a33f04fa15a82f87569e913a959eb68f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace66ffda59acc91108c01cccf96e5fd0" id="r_ace66ffda59acc91108c01cccf96e5fd0"><td class="memItemLeft" align="right" valign="top"><a id="ace66ffda59acc91108c01cccf96e5fd0" name="ace66ffda59acc91108c01cccf96e5fd0"></a>
+<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>log</b> () const</td></tr>
+<tr class="separator:ace66ffda59acc91108c01cccf96e5fd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5c9c2f113d33001c45e955db351e092" id="r_ab5c9c2f113d33001c45e955db351e092"><td class="memItemLeft" align="right" valign="top"><a id="ab5c9c2f113d33001c45e955db351e092" name="ab5c9c2f113d33001c45e955db351e092"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>operator AffineTransform&lt; T, 2 &gt;</b> () const</td></tr>
 <tr class="memdesc:ab5c9c2f113d33001c45e955db351e092"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cast to affine transform. <br /></td></tr>
 <tr class="separator:ab5c9c2f113d33001c45e955db351e092"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33153d6b35d8e4fd2511c297079982d8" id="r_a33153d6b35d8e4fd2511c297079982d8"><td class="memItemLeft" align="right" valign="top"><a id="a33153d6b35d8e4fd2511c297079982d8" name="a33153d6b35d8e4fd2511c297079982d8"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>operator std::complex&lt; T &gt;</b> () const</td></tr>
-<tr class="memdesc:a33153d6b35d8e4fd2511c297079982d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cast to complex number. <br /></td></tr>
-<tr class="separator:a33153d6b35d8e4fd2511c297079982d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9b4da1151fab15114124ae88f68bf09" id="r_ad9b4da1151fab15114124ae88f68bf09"><td class="memItemLeft" align="right" valign="top"><a id="ad9b4da1151fab15114124ae88f68bf09" name="ad9b4da1151fab15114124ae88f68bf09"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>operator SimpleMatrix&lt; T, 2, 2 &gt;</b> () const</td></tr>
-<tr class="memdesc:ad9b4da1151fab15114124ae88f68bf09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represent this rotation as a matrix. <br /></td></tr>
-<tr class="separator:ad9b4da1151fab15114124ae88f68bf09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b8b54813080deb5eaaafd6394b02b0e" id="r_a5b8b54813080deb5eaaafd6394b02b0e"><td class="memItemLeft" align="right" valign="top"><a id="a5b8b54813080deb5eaaafd6394b02b0e" name="a5b8b54813080deb5eaaafd6394b02b0e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>operator Rotation&lt; T, 3 &gt;</b> () const</td></tr>
+<tr class="memdesc:a5b8b54813080deb5eaaafd6394b02b0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cast to a 3D rotation. <br /></td></tr>
+<tr class="separator:a5b8b54813080deb5eaaafd6394b02b0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec6cf115887f1c0a1b7746190e321a52" id="r_aec6cf115887f1c0a1b7746190e321a52"><td class="memTemplParams" colspan="2"><a id="aec6cf115887f1c0a1b7746190e321a52" name="aec6cf115887f1c0a1b7746190e321a52"></a>
 template&lt;typename U&gt; </td></tr>
 <tr class="memitem:aec6cf115887f1c0a1b7746190e321a52"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator Rotation&lt; U, 2 &gt;</b> () const</td></tr>
 <tr class="memdesc:aec6cf115887f1c0a1b7746190e321a52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cast the underlying coordinate type. <br /></td></tr>
 <tr class="separator:aec6cf115887f1c0a1b7746190e321a52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b8b54813080deb5eaaafd6394b02b0e" id="r_a5b8b54813080deb5eaaafd6394b02b0e"><td class="memItemLeft" align="right" valign="top"><a id="a5b8b54813080deb5eaaafd6394b02b0e" name="a5b8b54813080deb5eaaafd6394b02b0e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>operator Rotation&lt; T, 3 &gt;</b> () const</td></tr>
-<tr class="memdesc:a5b8b54813080deb5eaaafd6394b02b0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cast to a 3D rotation. <br /></td></tr>
-<tr class="separator:a5b8b54813080deb5eaaafd6394b02b0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe35586a4e0efa4fcb7eb367a4bf0c7f" id="r_abe35586a4e0efa4fcb7eb367a4bf0c7f"><td class="memTemplParams" colspan="2"><a id="abe35586a4e0efa4fcb7eb367a4bf0c7f" name="abe35586a4e0efa4fcb7eb367a4bf0c7f"></a>
 template&lt;typename U&gt; </td></tr>
 <tr class="memitem:abe35586a4e0efa4fcb7eb367a4bf0c7f"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator Rotation&lt; U, 3 &gt;</b> () const</td></tr>
 <tr class="memdesc:abe35586a4e0efa4fcb7eb367a4bf0c7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cast to a 3D rotation and change the coordinate type. <br /></td></tr>
 <tr class="separator:abe35586a4e0efa4fcb7eb367a4bf0c7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1f2d179342f0d9b04fc26333427d7ee" id="r_ad1f2d179342f0d9b04fc26333427d7ee"><td class="memItemLeft" align="right" valign="top"><a id="ad1f2d179342f0d9b04fc26333427d7ee" name="ad1f2d179342f0d9b04fc26333427d7ee"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 2 &gt; &amp;v) const</td></tr>
-<tr class="memdesc:ad1f2d179342f0d9b04fc26333427d7ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply to a 2D vector. <br /></td></tr>
-<tr class="separator:ad1f2d179342f0d9b04fc26333427d7ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7bd5bbeda40d0d7f2c65fef68cfd40f1" id="r_a7bd5bbeda40d0d7f2c65fef68cfd40f1"><td class="memItemLeft" align="right" valign="top"><a id="a7bd5bbeda40d0d7f2c65fef68cfd40f1" name="a7bd5bbeda40d0d7f2c65fef68cfd40f1"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>apply_direction</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 2 &gt; &amp;v) const</td></tr>
-<tr class="memdesc:a7bd5bbeda40d0d7f2c65fef68cfd40f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply to a direction vector (conorming to <a class="el" href="conceptgeom_1_1_transform.html" title="Represents a means of transforming a point or vector.">Transform</a> concept) <br /></td></tr>
-<tr class="separator:a7bd5bbeda40d0d7f2c65fef68cfd40f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9b4da1151fab15114124ae88f68bf09" id="r_ad9b4da1151fab15114124ae88f68bf09"><td class="memItemLeft" align="right" valign="top"><a id="ad9b4da1151fab15114124ae88f68bf09" name="ad9b4da1151fab15114124ae88f68bf09"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>operator SimpleMatrix&lt; T, 2, 2 &gt;</b> () const</td></tr>
+<tr class="memdesc:ad9b4da1151fab15114124ae88f68bf09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represent this rotation as a matrix. <br /></td></tr>
+<tr class="separator:ad9b4da1151fab15114124ae88f68bf09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33153d6b35d8e4fd2511c297079982d8" id="r_a33153d6b35d8e4fd2511c297079982d8"><td class="memItemLeft" align="right" valign="top"><a id="a33153d6b35d8e4fd2511c297079982d8" name="a33153d6b35d8e4fd2511c297079982d8"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>operator std::complex&lt; T &gt;</b> () const</td></tr>
+<tr class="memdesc:a33153d6b35d8e4fd2511c297079982d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cast to complex number. <br /></td></tr>
+<tr class="separator:a33153d6b35d8e4fd2511c297079982d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8b16d6ca50b293846281518524ce357" id="r_ac8b16d6ca50b293846281518524ce357"><td class="memItemLeft" align="right" valign="top"><a id="ac8b16d6ca50b293846281518524ce357" name="ac8b16d6ca50b293846281518524ce357"></a>
 <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt; &amp;other) const</td></tr>
 <tr class="memdesc:ac8b16d6ca50b293846281518524ce357"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compose rotation. <br /></td></tr>
 <tr class="separator:ac8b16d6ca50b293846281518524ce357"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1f2d179342f0d9b04fc26333427d7ee" id="r_ad1f2d179342f0d9b04fc26333427d7ee"><td class="memItemLeft" align="right" valign="top"><a id="ad1f2d179342f0d9b04fc26333427d7ee" name="ad1f2d179342f0d9b04fc26333427d7ee"></a>
+<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 2 &gt; &amp;v) const</td></tr>
+<tr class="memdesc:ad1f2d179342f0d9b04fc26333427d7ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply to a 2D vector. <br /></td></tr>
+<tr class="separator:ad1f2d179342f0d9b04fc26333427d7ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1e92959b0e9eeb2c100852e2f0a1047" id="r_aa1e92959b0e9eeb2c100852e2f0a1047"><td class="memItemLeft" align="right" valign="top"><a id="aa1e92959b0e9eeb2c100852e2f0a1047" name="aa1e92959b0e9eeb2c100852e2f0a1047"></a>
 <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*=</b> (const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt; &amp;other)</td></tr>
 <tr class="memdesc:aa1e92959b0e9eeb2c100852e2f0a1047"><td class="mdescLeft">&#160;</td><td class="mdescRight">In-place compose rotation. <br /></td></tr>
 <tr class="separator:aa1e92959b0e9eeb2c100852e2f0a1047"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68ff1e1350119ad6205e3bbf9da806b5" id="r_a68ff1e1350119ad6205e3bbf9da806b5"><td class="memItemLeft" align="right" valign="top"><a id="a68ff1e1350119ad6205e3bbf9da806b5" name="a68ff1e1350119ad6205e3bbf9da806b5"></a>
+<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*=</b> (T s)</td></tr>
+<tr class="memdesc:a68ff1e1350119ad6205e3bbf9da806b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">In-place scaling of a rotation. <br /></td></tr>
+<tr class="separator:a68ff1e1350119ad6205e3bbf9da806b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87eb5b0306cfa30bb18e5d976bae95bd" id="r_a87eb5b0306cfa30bb18e5d976bae95bd"><td class="memItemLeft" align="right" valign="top"><a id="a87eb5b0306cfa30bb18e5d976bae95bd" name="a87eb5b0306cfa30bb18e5d976bae95bd"></a>
 <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt; &amp;other) const</td></tr>
 <tr class="memdesc:a87eb5b0306cfa30bb18e5d976bae95bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find the rotation that takes <code>other</code> to <code>this</code>. <br /></td></tr>
@@ -184,30 +204,10 @@ template&lt;typename U&gt; </td></tr>
 <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator/=</b> (const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt; &amp;other)</td></tr>
 <tr class="memdesc:adda01b44b11d81c5bfc43046cc5f0292"><td class="mdescLeft">&#160;</td><td class="mdescRight">In-place apply inverse. <br /></td></tr>
 <tr class="separator:adda01b44b11d81c5bfc43046cc5f0292"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a495a9c0fcee04fb1b59fa7e0cfdfd750" id="r_a495a9c0fcee04fb1b59fa7e0cfdfd750"><td class="memItemLeft" align="right" valign="top"><a id="a495a9c0fcee04fb1b59fa7e0cfdfd750" name="a495a9c0fcee04fb1b59fa7e0cfdfd750"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>apply_inverse_direction</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 2 &gt; &amp;v) const</td></tr>
-<tr class="memdesc:a495a9c0fcee04fb1b59fa7e0cfdfd750"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply inverse rotation to a direction vector (conforming to <a class="el" href="conceptgeom_1_1_transform.html" title="Represents a means of transforming a point or vector.">Transform</a> concept) <br /></td></tr>
-<tr class="separator:a495a9c0fcee04fb1b59fa7e0cfdfd750"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68ff1e1350119ad6205e3bbf9da806b5" id="r_a68ff1e1350119ad6205e3bbf9da806b5"><td class="memItemLeft" align="right" valign="top"><a id="a68ff1e1350119ad6205e3bbf9da806b5" name="a68ff1e1350119ad6205e3bbf9da806b5"></a>
-<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*=</b> (T s)</td></tr>
-<tr class="memdesc:a68ff1e1350119ad6205e3bbf9da806b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">In-place scaling of a rotation. <br /></td></tr>
-<tr class="separator:a68ff1e1350119ad6205e3bbf9da806b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a107879563e8f2997682f97a0c43bc8aa" id="r_a107879563e8f2997682f97a0c43bc8aa"><td class="memItemLeft" align="right" valign="top"><a id="a107879563e8f2997682f97a0c43bc8aa" name="a107879563e8f2997682f97a0c43bc8aa"></a>
-<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>exp</b> () const</td></tr>
-<tr class="separator:a107879563e8f2997682f97a0c43bc8aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace66ffda59acc91108c01cccf96e5fd0" id="r_ace66ffda59acc91108c01cccf96e5fd0"><td class="memItemLeft" align="right" valign="top"><a id="ace66ffda59acc91108c01cccf96e5fd0" name="ace66ffda59acc91108c01cccf96e5fd0"></a>
-<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>log</b> () const</td></tr>
-<tr class="separator:ace66ffda59acc91108c01cccf96e5fd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c14f664b5a14473eadf565b05ce54d9" id="r_a0c14f664b5a14473eadf565b05ce54d9"><td class="memItemLeft" align="right" valign="top"><a id="a0c14f664b5a14473eadf565b05ce54d9" name="a0c14f664b5a14473eadf565b05ce54d9"></a>
-T&#160;</td><td class="memItemRight" valign="bottom"><b>angle</b> () const</td></tr>
-<tr class="memdesc:a0c14f664b5a14473eadf565b05ce54d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the angle component of the rotation. <br /></td></tr>
-<tr class="separator:a0c14f664b5a14473eadf565b05ce54d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2eac8ec4da90c1d85e1116964d5bf981" id="r_a2eac8ec4da90c1d85e1116964d5bf981"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2eac8ec4da90c1d85e1116964d5bf981">canonical</a> () const</td></tr>
-<tr class="separator:a2eac8ec4da90c1d85e1116964d5bf981"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33f04fa15a82f87569e913a959eb68f0" id="r_a33f04fa15a82f87569e913a959eb68f0"><td class="memItemLeft" align="right" valign="top"><a id="a33f04fa15a82f87569e913a959eb68f0" name="a33f04fa15a82f87569e913a959eb68f0"></a>
-<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>inv</b> () const</td></tr>
-<tr class="memdesc:a33f04fa15a82f87569e913a959eb68f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compute the inverse rotation. <br /></td></tr>
-<tr class="separator:a33f04fa15a82f87569e913a959eb68f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b25c9e4ceeb35cd4aac6e5f11f15485" id="r_a4b25c9e4ceeb35cd4aac6e5f11f15485"><td class="memItemLeft" align="right" valign="top"><a id="a4b25c9e4ceeb35cd4aac6e5f11f15485" name="a4b25c9e4ceeb35cd4aac6e5f11f15485"></a>
+<a class="el" href="classgeom_1_1_affine_transform.html">AffineTransform</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>transform</b> () const</td></tr>
+<tr class="memdesc:a4b25c9e4ceeb35cd4aac6e5f11f15485"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represent as an affine transform. <br /></td></tr>
+<tr class="separator:a4b25c9e4ceeb35cd4aac6e5f11f15485"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -232,94 +232,10 @@ static constexpr index_t&#160;</td><td class="memItemRight" valign="bottom"><b>N
 Related Symbols</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p>(Note that these are not member symbols.) </p>
 </td></tr>
-<tr class="memitem:ga7615f360ac8da6707495e2911f5907d4" id="r_ga7615f360ac8da6707495e2911f5907d4"><td class="memItemLeft" align="right" valign="top"><a id="ga7615f360ac8da6707495e2911f5907d4" name="ga7615f360ac8da6707495e2911f5907d4"></a>
-<a class="el" href="classgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;r, const <a class="el" href="classgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;i)</td></tr>
-<tr class="memdesc:ga7615f360ac8da6707495e2911f5907d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a rotation to an isometry. <br /></td></tr>
-<tr class="separator:ga7615f360ac8da6707495e2911f5907d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0c60d91ab2c72bf62c124fed6eb9d761" id="r_ga0c60d91ab2c72bf62c124fed6eb9d761"><td class="memItemLeft" align="right" valign="top"><a id="ga0c60d91ab2c72bf62c124fed6eb9d761" name="ga0c60d91ab2c72bf62c124fed6eb9d761"></a>
-<a class="el" href="classgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;i, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;r)</td></tr>
-<tr class="memdesc:ga0c60d91ab2c72bf62c124fed6eb9d761"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply an isometry to a rotation. <br /></td></tr>
-<tr class="separator:ga0c60d91ab2c72bf62c124fed6eb9d761"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2a584a223fbec1eeb5a089cc79f94453" id="r_ga2a584a223fbec1eeb5a089cc79f94453"><td class="memItemLeft" align="right" valign="top"><a id="ga2a584a223fbec1eeb5a089cc79f94453" name="ga2a584a223fbec1eeb5a089cc79f94453"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 2 &gt; &amp;v, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt; &amp;r)</td></tr>
-<tr class="memdesc:ga2a584a223fbec1eeb5a089cc79f94453"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply the inverse of a rotation to a vector. <br /></td></tr>
-<tr class="separator:ga2a584a223fbec1eeb5a089cc79f94453"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga638bc32848020a356fba18e6771840d7" id="r_ga638bc32848020a356fba18e6771840d7"><td class="memItemLeft" align="right" valign="top"><a id="ga638bc32848020a356fba18e6771840d7" name="ga638bc32848020a356fba18e6771840d7"></a>
-<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (T s, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt; &amp;o)</td></tr>
-<tr class="memdesc:ga638bc32848020a356fba18e6771840d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extend a rotation. <br /></td></tr>
-<tr class="separator:ga638bc32848020a356fba18e6771840d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga64542158ba9943d2eacd79d01fee1f57" id="r_ga64542158ba9943d2eacd79d01fee1f57"><td class="memItemLeft" align="right" valign="top"><a id="ga64542158ba9943d2eacd79d01fee1f57" name="ga64542158ba9943d2eacd79d01fee1f57"></a>
-<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt; &amp;o, T s)</td></tr>
-<tr class="memdesc:ga64542158ba9943d2eacd79d01fee1f57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extend a rotation. <br /></td></tr>
-<tr class="separator:ga64542158ba9943d2eacd79d01fee1f57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaff2481019a86516eb617e6d93d2c18e9" id="r_gaff2481019a86516eb617e6d93d2c18e9"><td class="memItemLeft" align="right" valign="top"><a id="gaff2481019a86516eb617e6d93d2c18e9" name="gaff2481019a86516eb617e6d93d2c18e9"></a>
 <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mix</b> (T s, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt; &amp;a, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt; &amp;b)</td></tr>
 <tr class="memdesc:gaff2481019a86516eb617e6d93d2c18e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimally interpolate two rotations. <br /></td></tr>
 <tr class="separator:gaff2481019a86516eb617e6d93d2c18e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga18926547cad6145c9b5711482ebec031" id="r_ga18926547cad6145c9b5711482ebec031"><td class="memItemLeft" align="right" valign="top"><a id="ga18926547cad6145c9b5711482ebec031" name="ga18926547cad6145c9b5711482ebec031"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt; &amp;v, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; &amp;r)</td></tr>
-<tr class="memdesc:ga18926547cad6145c9b5711482ebec031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply the inverse of a rotation to a vector. <br /></td></tr>
-<tr class="separator:ga18926547cad6145c9b5711482ebec031"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga50de35381de1982c798ab821e0332300" id="r_ga50de35381de1982c798ab821e0332300"><td class="memItemLeft" align="right" valign="top"><a id="ga50de35381de1982c798ab821e0332300" name="ga50de35381de1982c798ab821e0332300"></a>
-<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (T s, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; &amp;o)</td></tr>
-<tr class="memdesc:ga50de35381de1982c798ab821e0332300"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extend a rotation. <br /></td></tr>
-<tr class="separator:ga50de35381de1982c798ab821e0332300"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2de9173ac717a94add23816990198034" id="r_ga2de9173ac717a94add23816990198034"><td class="memItemLeft" align="right" valign="top"><a id="ga2de9173ac717a94add23816990198034" name="ga2de9173ac717a94add23816990198034"></a>
-<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; &amp;o, T s)</td></tr>
-<tr class="memdesc:ga2de9173ac717a94add23816990198034"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extend a rotation. <br /></td></tr>
-<tr class="separator:ga2de9173ac717a94add23816990198034"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8af1fb6e2b6230b40ff407008b86c96f" id="r_ga8af1fb6e2b6230b40ff407008b86c96f"><td class="memItemLeft" align="right" valign="top"><a id="ga8af1fb6e2b6230b40ff407008b86c96f" name="ga8af1fb6e2b6230b40ff407008b86c96f"></a>
-<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mix</b> (T s, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; &amp;a, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; &amp;b)</td></tr>
-<tr class="memdesc:ga8af1fb6e2b6230b40ff407008b86c96f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimally interpolate two rotations. <br /></td></tr>
-<tr class="separator:ga8af1fb6e2b6230b40ff407008b86c96f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf3c6395f538544550c2ac053ba1e2e4f" id="r_gaf3c6395f538544550c2ac053ba1e2e4f"><td class="memItemLeft" align="right" valign="top"><a id="gaf3c6395f538544550c2ac053ba1e2e4f" name="gaf3c6395f538544550c2ac053ba1e2e4f"></a>
-<a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;r, const <a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;i)</td></tr>
-<tr class="memdesc:gaf3c6395f538544550c2ac053ba1e2e4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a rotation to a similarity. <br /></td></tr>
-<tr class="separator:gaf3c6395f538544550c2ac053ba1e2e4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad17ab89a4e1981d29a49a00937b58888" id="r_gad17ab89a4e1981d29a49a00937b58888"><td class="memItemLeft" align="right" valign="top"><a id="gad17ab89a4e1981d29a49a00937b58888" name="gad17ab89a4e1981d29a49a00937b58888"></a>
-<a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;i, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;r)</td></tr>
-<tr class="memdesc:gad17ab89a4e1981d29a49a00937b58888"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a similarity to a rotation. <br /></td></tr>
-<tr class="separator:gad17ab89a4e1981d29a49a00937b58888"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7615f360ac8da6707495e2911f5907d4" id="r_ga7615f360ac8da6707495e2911f5907d4"><td class="memItemLeft" align="right" valign="top"><a id="ga7615f360ac8da6707495e2911f5907d4" name="ga7615f360ac8da6707495e2911f5907d4"></a>
-<a class="el" href="classgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;r, const <a class="el" href="classgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;i)</td></tr>
-<tr class="memdesc:ga7615f360ac8da6707495e2911f5907d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a rotation to an isometry. <br /></td></tr>
-<tr class="separator:ga7615f360ac8da6707495e2911f5907d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0c60d91ab2c72bf62c124fed6eb9d761" id="r_ga0c60d91ab2c72bf62c124fed6eb9d761"><td class="memItemLeft" align="right" valign="top"><a id="ga0c60d91ab2c72bf62c124fed6eb9d761" name="ga0c60d91ab2c72bf62c124fed6eb9d761"></a>
-<a class="el" href="classgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;i, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;r)</td></tr>
-<tr class="memdesc:ga0c60d91ab2c72bf62c124fed6eb9d761"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply an isometry to a rotation. <br /></td></tr>
-<tr class="separator:ga0c60d91ab2c72bf62c124fed6eb9d761"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga638bc32848020a356fba18e6771840d7" id="r_ga638bc32848020a356fba18e6771840d7"><td class="memItemLeft" align="right" valign="top"><a id="ga638bc32848020a356fba18e6771840d7" name="ga638bc32848020a356fba18e6771840d7"></a>
-<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (T s, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt; &amp;o)</td></tr>
-<tr class="memdesc:ga638bc32848020a356fba18e6771840d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extend a rotation. <br /></td></tr>
-<tr class="separator:ga638bc32848020a356fba18e6771840d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga64542158ba9943d2eacd79d01fee1f57" id="r_ga64542158ba9943d2eacd79d01fee1f57"><td class="memItemLeft" align="right" valign="top"><a id="ga64542158ba9943d2eacd79d01fee1f57" name="ga64542158ba9943d2eacd79d01fee1f57"></a>
-<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt; &amp;o, T s)</td></tr>
-<tr class="memdesc:ga64542158ba9943d2eacd79d01fee1f57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extend a rotation. <br /></td></tr>
-<tr class="separator:ga64542158ba9943d2eacd79d01fee1f57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga50de35381de1982c798ab821e0332300" id="r_ga50de35381de1982c798ab821e0332300"><td class="memItemLeft" align="right" valign="top"><a id="ga50de35381de1982c798ab821e0332300" name="ga50de35381de1982c798ab821e0332300"></a>
-<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (T s, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; &amp;o)</td></tr>
-<tr class="memdesc:ga50de35381de1982c798ab821e0332300"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extend a rotation. <br /></td></tr>
-<tr class="separator:ga50de35381de1982c798ab821e0332300"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2de9173ac717a94add23816990198034" id="r_ga2de9173ac717a94add23816990198034"><td class="memItemLeft" align="right" valign="top"><a id="ga2de9173ac717a94add23816990198034" name="ga2de9173ac717a94add23816990198034"></a>
-<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; &amp;o, T s)</td></tr>
-<tr class="memdesc:ga2de9173ac717a94add23816990198034"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extend a rotation. <br /></td></tr>
-<tr class="separator:ga2de9173ac717a94add23816990198034"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf3c6395f538544550c2ac053ba1e2e4f" id="r_gaf3c6395f538544550c2ac053ba1e2e4f"><td class="memItemLeft" align="right" valign="top"><a id="gaf3c6395f538544550c2ac053ba1e2e4f" name="gaf3c6395f538544550c2ac053ba1e2e4f"></a>
-<a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;r, const <a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;i)</td></tr>
-<tr class="memdesc:gaf3c6395f538544550c2ac053ba1e2e4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a rotation to a similarity. <br /></td></tr>
-<tr class="separator:gaf3c6395f538544550c2ac053ba1e2e4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gad17ab89a4e1981d29a49a00937b58888" id="r_gad17ab89a4e1981d29a49a00937b58888"><td class="memItemLeft" align="right" valign="top"><a id="gad17ab89a4e1981d29a49a00937b58888" name="gad17ab89a4e1981d29a49a00937b58888"></a>
-<a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;i, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;r)</td></tr>
-<tr class="memdesc:gad17ab89a4e1981d29a49a00937b58888"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a similarity to a rotation. <br /></td></tr>
-<tr class="separator:gad17ab89a4e1981d29a49a00937b58888"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2a584a223fbec1eeb5a089cc79f94453" id="r_ga2a584a223fbec1eeb5a089cc79f94453"><td class="memItemLeft" align="right" valign="top"><a id="ga2a584a223fbec1eeb5a089cc79f94453" name="ga2a584a223fbec1eeb5a089cc79f94453"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 2 &gt; &amp;v, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt; &amp;r)</td></tr>
-<tr class="memdesc:ga2a584a223fbec1eeb5a089cc79f94453"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply the inverse of a rotation to a vector. <br /></td></tr>
-<tr class="separator:ga2a584a223fbec1eeb5a089cc79f94453"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga18926547cad6145c9b5711482ebec031" id="r_ga18926547cad6145c9b5711482ebec031"><td class="memItemLeft" align="right" valign="top"><a id="ga18926547cad6145c9b5711482ebec031" name="ga18926547cad6145c9b5711482ebec031"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt; &amp;v, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; &amp;r)</td></tr>
-<tr class="memdesc:ga18926547cad6145c9b5711482ebec031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply the inverse of a rotation to a vector. <br /></td></tr>
-<tr class="separator:ga18926547cad6145c9b5711482ebec031"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaff2481019a86516eb617e6d93d2c18e9" id="r_gaff2481019a86516eb617e6d93d2c18e9"><td class="memItemLeft" align="right" valign="top"><a id="gaff2481019a86516eb617e6d93d2c18e9" name="gaff2481019a86516eb617e6d93d2c18e9"></a>
 <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mix</b> (T s, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt; &amp;a, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt; &amp;b)</td></tr>
 <tr class="memdesc:gaff2481019a86516eb617e6d93d2c18e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimally interpolate two rotations. <br /></td></tr>
@@ -328,6 +244,90 @@ Related Symbols</h2></td></tr>
 <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mix</b> (T s, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; &amp;a, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; &amp;b)</td></tr>
 <tr class="memdesc:ga8af1fb6e2b6230b40ff407008b86c96f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimally interpolate two rotations. <br /></td></tr>
 <tr class="separator:ga8af1fb6e2b6230b40ff407008b86c96f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8af1fb6e2b6230b40ff407008b86c96f" id="r_ga8af1fb6e2b6230b40ff407008b86c96f"><td class="memItemLeft" align="right" valign="top"><a id="ga8af1fb6e2b6230b40ff407008b86c96f" name="ga8af1fb6e2b6230b40ff407008b86c96f"></a>
+<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>mix</b> (T s, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; &amp;a, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; &amp;b)</td></tr>
+<tr class="memdesc:ga8af1fb6e2b6230b40ff407008b86c96f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimally interpolate two rotations. <br /></td></tr>
+<tr class="separator:ga8af1fb6e2b6230b40ff407008b86c96f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0c60d91ab2c72bf62c124fed6eb9d761" id="r_ga0c60d91ab2c72bf62c124fed6eb9d761"><td class="memItemLeft" align="right" valign="top"><a id="ga0c60d91ab2c72bf62c124fed6eb9d761" name="ga0c60d91ab2c72bf62c124fed6eb9d761"></a>
+<a class="el" href="classgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;i, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;r)</td></tr>
+<tr class="memdesc:ga0c60d91ab2c72bf62c124fed6eb9d761"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply an isometry to a rotation. <br /></td></tr>
+<tr class="separator:ga0c60d91ab2c72bf62c124fed6eb9d761"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0c60d91ab2c72bf62c124fed6eb9d761" id="r_ga0c60d91ab2c72bf62c124fed6eb9d761"><td class="memItemLeft" align="right" valign="top"><a id="ga0c60d91ab2c72bf62c124fed6eb9d761" name="ga0c60d91ab2c72bf62c124fed6eb9d761"></a>
+<a class="el" href="classgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;i, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;r)</td></tr>
+<tr class="memdesc:ga0c60d91ab2c72bf62c124fed6eb9d761"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply an isometry to a rotation. <br /></td></tr>
+<tr class="separator:ga0c60d91ab2c72bf62c124fed6eb9d761"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga64542158ba9943d2eacd79d01fee1f57" id="r_ga64542158ba9943d2eacd79d01fee1f57"><td class="memItemLeft" align="right" valign="top"><a id="ga64542158ba9943d2eacd79d01fee1f57" name="ga64542158ba9943d2eacd79d01fee1f57"></a>
+<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt; &amp;o, T s)</td></tr>
+<tr class="memdesc:ga64542158ba9943d2eacd79d01fee1f57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extend a rotation. <br /></td></tr>
+<tr class="separator:ga64542158ba9943d2eacd79d01fee1f57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga64542158ba9943d2eacd79d01fee1f57" id="r_ga64542158ba9943d2eacd79d01fee1f57"><td class="memItemLeft" align="right" valign="top"><a id="ga64542158ba9943d2eacd79d01fee1f57" name="ga64542158ba9943d2eacd79d01fee1f57"></a>
+<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt; &amp;o, T s)</td></tr>
+<tr class="memdesc:ga64542158ba9943d2eacd79d01fee1f57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extend a rotation. <br /></td></tr>
+<tr class="separator:ga64542158ba9943d2eacd79d01fee1f57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2de9173ac717a94add23816990198034" id="r_ga2de9173ac717a94add23816990198034"><td class="memItemLeft" align="right" valign="top"><a id="ga2de9173ac717a94add23816990198034" name="ga2de9173ac717a94add23816990198034"></a>
+<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; &amp;o, T s)</td></tr>
+<tr class="memdesc:ga2de9173ac717a94add23816990198034"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extend a rotation. <br /></td></tr>
+<tr class="separator:ga2de9173ac717a94add23816990198034"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2de9173ac717a94add23816990198034" id="r_ga2de9173ac717a94add23816990198034"><td class="memItemLeft" align="right" valign="top"><a id="ga2de9173ac717a94add23816990198034" name="ga2de9173ac717a94add23816990198034"></a>
+<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; &amp;o, T s)</td></tr>
+<tr class="memdesc:ga2de9173ac717a94add23816990198034"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extend a rotation. <br /></td></tr>
+<tr class="separator:ga2de9173ac717a94add23816990198034"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7615f360ac8da6707495e2911f5907d4" id="r_ga7615f360ac8da6707495e2911f5907d4"><td class="memItemLeft" align="right" valign="top"><a id="ga7615f360ac8da6707495e2911f5907d4" name="ga7615f360ac8da6707495e2911f5907d4"></a>
+<a class="el" href="classgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;r, const <a class="el" href="classgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;i)</td></tr>
+<tr class="memdesc:ga7615f360ac8da6707495e2911f5907d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a rotation to an isometry. <br /></td></tr>
+<tr class="separator:ga7615f360ac8da6707495e2911f5907d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7615f360ac8da6707495e2911f5907d4" id="r_ga7615f360ac8da6707495e2911f5907d4"><td class="memItemLeft" align="right" valign="top"><a id="ga7615f360ac8da6707495e2911f5907d4" name="ga7615f360ac8da6707495e2911f5907d4"></a>
+<a class="el" href="classgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;r, const <a class="el" href="classgeom_1_1_isometry.html">Isometry</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;i)</td></tr>
+<tr class="memdesc:ga7615f360ac8da6707495e2911f5907d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a rotation to an isometry. <br /></td></tr>
+<tr class="separator:ga7615f360ac8da6707495e2911f5907d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf3c6395f538544550c2ac053ba1e2e4f" id="r_gaf3c6395f538544550c2ac053ba1e2e4f"><td class="memItemLeft" align="right" valign="top"><a id="gaf3c6395f538544550c2ac053ba1e2e4f" name="gaf3c6395f538544550c2ac053ba1e2e4f"></a>
+<a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;r, const <a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;i)</td></tr>
+<tr class="memdesc:gaf3c6395f538544550c2ac053ba1e2e4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a rotation to a similarity. <br /></td></tr>
+<tr class="separator:gaf3c6395f538544550c2ac053ba1e2e4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf3c6395f538544550c2ac053ba1e2e4f" id="r_gaf3c6395f538544550c2ac053ba1e2e4f"><td class="memItemLeft" align="right" valign="top"><a id="gaf3c6395f538544550c2ac053ba1e2e4f" name="gaf3c6395f538544550c2ac053ba1e2e4f"></a>
+<a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;r, const <a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;i)</td></tr>
+<tr class="memdesc:gaf3c6395f538544550c2ac053ba1e2e4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a rotation to a similarity. <br /></td></tr>
+<tr class="separator:gaf3c6395f538544550c2ac053ba1e2e4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad17ab89a4e1981d29a49a00937b58888" id="r_gad17ab89a4e1981d29a49a00937b58888"><td class="memItemLeft" align="right" valign="top"><a id="gad17ab89a4e1981d29a49a00937b58888" name="gad17ab89a4e1981d29a49a00937b58888"></a>
+<a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;i, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;r)</td></tr>
+<tr class="memdesc:gad17ab89a4e1981d29a49a00937b58888"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a similarity to a rotation. <br /></td></tr>
+<tr class="separator:gad17ab89a4e1981d29a49a00937b58888"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad17ab89a4e1981d29a49a00937b58888" id="r_gad17ab89a4e1981d29a49a00937b58888"><td class="memItemLeft" align="right" valign="top"><a id="gad17ab89a4e1981d29a49a00937b58888" name="gad17ab89a4e1981d29a49a00937b58888"></a>
+<a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (const <a class="el" href="classgeom_1_1_similarity.html">Similarity</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;i, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, <a class="el" href="structgeom_1_1_dimensional.html#a964460830811452bb075cc15005440ba">N</a> &gt; &amp;r)</td></tr>
+<tr class="memdesc:gad17ab89a4e1981d29a49a00937b58888"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply a similarity to a rotation. <br /></td></tr>
+<tr class="separator:gad17ab89a4e1981d29a49a00937b58888"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga638bc32848020a356fba18e6771840d7" id="r_ga638bc32848020a356fba18e6771840d7"><td class="memItemLeft" align="right" valign="top"><a id="ga638bc32848020a356fba18e6771840d7" name="ga638bc32848020a356fba18e6771840d7"></a>
+<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (T s, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt; &amp;o)</td></tr>
+<tr class="memdesc:ga638bc32848020a356fba18e6771840d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extend a rotation. <br /></td></tr>
+<tr class="separator:ga638bc32848020a356fba18e6771840d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga638bc32848020a356fba18e6771840d7" id="r_ga638bc32848020a356fba18e6771840d7"><td class="memItemLeft" align="right" valign="top"><a id="ga638bc32848020a356fba18e6771840d7" name="ga638bc32848020a356fba18e6771840d7"></a>
+<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (T s, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt; &amp;o)</td></tr>
+<tr class="memdesc:ga638bc32848020a356fba18e6771840d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extend a rotation. <br /></td></tr>
+<tr class="separator:ga638bc32848020a356fba18e6771840d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga50de35381de1982c798ab821e0332300" id="r_ga50de35381de1982c798ab821e0332300"><td class="memItemLeft" align="right" valign="top"><a id="ga50de35381de1982c798ab821e0332300" name="ga50de35381de1982c798ab821e0332300"></a>
+<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (T s, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; &amp;o)</td></tr>
+<tr class="memdesc:ga50de35381de1982c798ab821e0332300"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extend a rotation. <br /></td></tr>
+<tr class="separator:ga50de35381de1982c798ab821e0332300"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga50de35381de1982c798ab821e0332300" id="r_ga50de35381de1982c798ab821e0332300"><td class="memItemLeft" align="right" valign="top"><a id="ga50de35381de1982c798ab821e0332300" name="ga50de35381de1982c798ab821e0332300"></a>
+<a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator*</b> (T s, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; &amp;o)</td></tr>
+<tr class="memdesc:ga50de35381de1982c798ab821e0332300"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extend a rotation. <br /></td></tr>
+<tr class="separator:ga50de35381de1982c798ab821e0332300"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2a584a223fbec1eeb5a089cc79f94453" id="r_ga2a584a223fbec1eeb5a089cc79f94453"><td class="memItemLeft" align="right" valign="top"><a id="ga2a584a223fbec1eeb5a089cc79f94453" name="ga2a584a223fbec1eeb5a089cc79f94453"></a>
+<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 2 &gt; &amp;v, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt; &amp;r)</td></tr>
+<tr class="memdesc:ga2a584a223fbec1eeb5a089cc79f94453"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply the inverse of a rotation to a vector. <br /></td></tr>
+<tr class="separator:ga2a584a223fbec1eeb5a089cc79f94453"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2a584a223fbec1eeb5a089cc79f94453" id="r_ga2a584a223fbec1eeb5a089cc79f94453"><td class="memItemLeft" align="right" valign="top"><a id="ga2a584a223fbec1eeb5a089cc79f94453" name="ga2a584a223fbec1eeb5a089cc79f94453"></a>
+<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 2 &gt; &amp;v, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 2 &gt; &amp;r)</td></tr>
+<tr class="memdesc:ga2a584a223fbec1eeb5a089cc79f94453"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply the inverse of a rotation to a vector. <br /></td></tr>
+<tr class="separator:ga2a584a223fbec1eeb5a089cc79f94453"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga18926547cad6145c9b5711482ebec031" id="r_ga18926547cad6145c9b5711482ebec031"><td class="memItemLeft" align="right" valign="top"><a id="ga18926547cad6145c9b5711482ebec031" name="ga18926547cad6145c9b5711482ebec031"></a>
+<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt; &amp;v, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; &amp;r)</td></tr>
+<tr class="memdesc:ga18926547cad6145c9b5711482ebec031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply the inverse of a rotation to a vector. <br /></td></tr>
+<tr class="separator:ga18926547cad6145c9b5711482ebec031"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga18926547cad6145c9b5711482ebec031" id="r_ga18926547cad6145c9b5711482ebec031"><td class="memItemLeft" align="right" valign="top"><a id="ga18926547cad6145c9b5711482ebec031" name="ga18926547cad6145c9b5711482ebec031"></a>
+<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>operator/</b> (const <a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; T, 3 &gt; &amp;v, const <a class="el" href="classgeom_1_1_rotation.html">Rotation</a>&lt; T, 3 &gt; &amp;r)</td></tr>
+<tr class="memdesc:ga18926547cad6145c9b5711482ebec031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Apply the inverse of a rotation to a vector. <br /></td></tr>
+<tr class="separator:ga18926547cad6145c9b5711482ebec031"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
@@ -396,7 +396,7 @@ template&lt;typename T&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon Feb 17 2025 15:19:55 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

@@ -122,10 +122,6 @@ Inheritance diagram for Extruded&lt; Shape &gt;:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a8d5a267c4e2ff99ea42c1b1454d4b8ee" id="r_a8d5a267c4e2ff99ea42c1b1454d4b8ee"><td class="memItemLeft" align="right" valign="top"><a id="a8d5a267c4e2ff99ea42c1b1454d4b8ee" name="a8d5a267c4e2ff99ea42c1b1454d4b8ee"></a>
-typedef Shape::elem_t&#160;</td><td class="memItemRight" valign="bottom"><b>T</b></td></tr>
-<tr class="memdesc:a8d5a267c4e2ff99ea42c1b1454d4b8ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">The coordinate type of this Shape. <br /></td></tr>
-<tr class="separator:a8d5a267c4e2ff99ea42c1b1454d4b8ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ce56f5f4fb0fe326b49a018b2b6efdb" id="r_a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="memItemLeft" align="right" valign="top"><a id="a6ce56f5f4fb0fe326b49a018b2b6efdb" name="a6ce56f5f4fb0fe326b49a018b2b6efdb"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
 <tr class="memdesc:a6ce56f5f4fb0fe326b49a018b2b6efdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The coordinate type of this object. <br /></td></tr>
@@ -133,6 +129,10 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>elem_t</b></td></tr>
 <tr class="memitem:ab7b81c250ce370c724b88ffaac574884" id="r_ab7b81c250ce370c724b88ffaac574884"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a></td></tr>
 <tr class="memdesc:ab7b81c250ce370c724b88ffaac574884"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of a point in this object's space.  <br /></td></tr>
 <tr class="separator:ab7b81c250ce370c724b88ffaac574884"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d5a267c4e2ff99ea42c1b1454d4b8ee" id="r_a8d5a267c4e2ff99ea42c1b1454d4b8ee"><td class="memItemLeft" align="right" valign="top"><a id="a8d5a267c4e2ff99ea42c1b1454d4b8ee" name="a8d5a267c4e2ff99ea42c1b1454d4b8ee"></a>
+typedef Shape::elem_t&#160;</td><td class="memItemRight" valign="bottom"><b>T</b></td></tr>
+<tr class="memdesc:a8d5a267c4e2ff99ea42c1b1454d4b8ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">The coordinate type of this Shape. <br /></td></tr>
+<tr class="separator:a8d5a267c4e2ff99ea42c1b1454d4b8ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -152,47 +152,47 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Extruded</b> (const Shape &amp;<a class="el" href="#ac455e04eb947652ac9742654014de84b">base</a>, <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a> h0, <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a> h1)</td></tr>
 <tr class="memdesc:ac5881715575914a540058b11143b0451"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an extrusion with cross section <code>base</code>, and height ranging between <code>h0</code> and <code>h1</code>. <br /></td></tr>
 <tr class="separator:ac5881715575914a540058b11143b0451"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a30fa18d7b806462cbf6461d9a587fef2" id="r_a30fa18d7b806462cbf6461d9a587fef2"><td class="memItemLeft" align="right" valign="top"><a id="a30fa18d7b806462cbf6461d9a587fef2" name="a30fa18d7b806462cbf6461d9a587fef2"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="classgeom_1_1_extruded.html">Extruded</a>&lt; Shape &gt; &amp;other) const</td></tr>
-<tr class="separator:a30fa18d7b806462cbf6461d9a587fef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58954d5ddf616678fae8c7ccbe385792" id="r_a58954d5ddf616678fae8c7ccbe385792"><td class="memItemLeft" align="right" valign="top"><a id="a58954d5ddf616678fae8c7ccbe385792" name="a58954d5ddf616678fae8c7ccbe385792"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>contains</b> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; p) const</td></tr>
-<tr class="separator:a58954d5ddf616678fae8c7ccbe385792"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6c34d88763d808aa3393430f675bcc8" id="r_ac6c34d88763d808aa3393430f675bcc8"><td class="memItemLeft" align="right" valign="top"><a id="ac6c34d88763d808aa3393430f675bcc8" name="ac6c34d88763d808aa3393430f675bcc8"></a>
-<a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>&#160;</td><td class="memItemRight" valign="bottom"><b>sdf</b> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; p) const</td></tr>
-<tr class="separator:ac6c34d88763d808aa3393430f675bcc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6eaff8d2ec48942d658c407c5e63f3c" id="r_ad6eaff8d2ec48942d658c407c5e63f3c"><td class="memItemLeft" align="right" valign="top"><a id="ad6eaff8d2ec48942d658c407c5e63f3c" name="ad6eaff8d2ec48942d658c407c5e63f3c"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>normal</b> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; p) const</td></tr>
-<tr class="separator:ad6eaff8d2ec48942d658c407c5e63f3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e57fd00e7d076a23e33a60062c5d005" id="r_a9e57fd00e7d076a23e33a60062c5d005"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9e57fd00e7d076a23e33a60062c5d005">project</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; p) const</td></tr>
-<tr class="separator:a9e57fd00e7d076a23e33a60062c5d005"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91b6600fe55753ac95042bf18cce6af3" id="r_a91b6600fe55753ac95042bf18cce6af3"><td class="memItemLeft" align="right" valign="top"><a id="a91b6600fe55753ac95042bf18cce6af3" name="a91b6600fe55753ac95042bf18cce6af3"></a>
-<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>convex_support</b> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; d) const</td></tr>
-<tr class="separator:a91b6600fe55753ac95042bf18cce6af3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6154d4d7d8c9c87e636ff1c7729c1e8" id="r_ab6154d4d7d8c9c87e636ff1c7729c1e8"><td class="memItemLeft" align="right" valign="top"><a id="ab6154d4d7d8c9c87e636ff1c7729c1e8" name="ab6154d4d7d8c9c87e636ff1c7729c1e8"></a>
 <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>bounds</b> () const</td></tr>
 <tr class="separator:ab6154d4d7d8c9c87e636ff1c7729c1e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36389d1aebb3d2b10f5dd6e854a9539a" id="r_a36389d1aebb3d2b10f5dd6e854a9539a"><td class="memItemLeft" align="right" valign="top"><a id="a36389d1aebb3d2b10f5dd6e854a9539a" name="a36389d1aebb3d2b10f5dd6e854a9539a"></a>
-<a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>&#160;</td><td class="memItemRight" valign="bottom"><b>measure_interior</b> () const</td></tr>
-<tr class="memdesc:a36389d1aebb3d2b10f5dd6e854a9539a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure the interior (volume) of the extrusion. <br /></td></tr>
-<tr class="separator:a36389d1aebb3d2b10f5dd6e854a9539a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afabbb2f32d7fe83dec992e14929fb0e1" id="r_afabbb2f32d7fe83dec992e14929fb0e1"><td class="memItemLeft" align="right" valign="top"><a id="afabbb2f32d7fe83dec992e14929fb0e1" name="afabbb2f32d7fe83dec992e14929fb0e1"></a>
-<a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>&#160;</td><td class="memItemRight" valign="bottom"><b>measure_boundary</b> () const</td></tr>
-<tr class="memdesc:afabbb2f32d7fe83dec992e14929fb0e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure the boundary (surface area) of the extrusion. <br /></td></tr>
-<tr class="separator:afabbb2f32d7fe83dec992e14929fb0e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf1ce72ac22267627f5e7b46fc655bac5" id="r_gaf1ce72ac22267627f5e7b46fc655bac5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; Shape::elem_t, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__shape.html#gaf1ce72ac22267627f5e7b46fc655bac5">clip</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; Shape::elem_t, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; p) const</td></tr>
+<tr class="memdesc:gaf1ce72ac22267627f5e7b46fc655bac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nearest point on the interior of the shape.  <br /></td></tr>
+<tr class="separator:gaf1ce72ac22267627f5e7b46fc655bac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58954d5ddf616678fae8c7ccbe385792" id="r_a58954d5ddf616678fae8c7ccbe385792"><td class="memItemLeft" align="right" valign="top"><a id="a58954d5ddf616678fae8c7ccbe385792" name="a58954d5ddf616678fae8c7ccbe385792"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>contains</b> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; p) const</td></tr>
+<tr class="separator:a58954d5ddf616678fae8c7ccbe385792"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf6af4e3e4e412edc6e07c9d7721e3a6c" id="r_gaf6af4e3e4e412edc6e07c9d7721e3a6c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__shape.html#gaf6af4e3e4e412edc6e07c9d7721e3a6c">convex_support</a> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> d) const</td></tr>
+<tr class="memdesc:gaf6af4e3e4e412edc6e07c9d7721e3a6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geometric convex support function.  <br /></td></tr>
+<tr class="separator:gaf6af4e3e4e412edc6e07c9d7721e3a6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91b6600fe55753ac95042bf18cce6af3" id="r_a91b6600fe55753ac95042bf18cce6af3"><td class="memItemLeft" align="right" valign="top"><a id="a91b6600fe55753ac95042bf18cce6af3" name="a91b6600fe55753ac95042bf18cce6af3"></a>
+<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>convex_support</b> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; d) const</td></tr>
+<tr class="separator:a91b6600fe55753ac95042bf18cce6af3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0d4bd9d2a2930747d2285d08d24def5" id="r_ab0d4bd9d2a2930747d2285d08d24def5"><td class="memItemLeft" align="right" valign="top"><a id="ab0d4bd9d2a2930747d2285d08d24def5" name="ab0d4bd9d2a2930747d2285d08d24def5"></a>
 <a class="el" href="classgeom_1_1_rect.html">Rect</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, 1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>intersect</b> (const <a class="el" href="classgeom_1_1_ray.html">Ray</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; &amp;r) const</td></tr>
 <tr class="memdesc:ab0d4bd9d2a2930747d2285d08d24def5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ray/shape intersection. <br /></td></tr>
 <tr class="separator:ab0d4bd9d2a2930747d2285d08d24def5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf6af4e3e4e412edc6e07c9d7721e3a6c" id="r_gaf6af4e3e4e412edc6e07c9d7721e3a6c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__shape.html#gaf6af4e3e4e412edc6e07c9d7721e3a6c">convex_support</a> (<a class="el" href="structgeom_1_1_dimensional.html#ab7b81c250ce370c724b88ffaac574884">point_t</a> d) const</td></tr>
-<tr class="memdesc:gaf6af4e3e4e412edc6e07c9d7721e3a6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Geometric convex support function.  <br /></td></tr>
-<tr class="separator:gaf6af4e3e4e412edc6e07c9d7721e3a6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga783e4812827599c0b116581ff94f4024" id="r_ga783e4812827599c0b116581ff94f4024"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__shape.html#ga783e4812827599c0b116581ff94f4024">intersects</a> (const <a class="el" href="classgeom_1_1_convex.html">Convex</a>&lt; Shape::elem_t, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a>, Shape &gt; &amp;other) const</td></tr>
 <tr class="memdesc:ga783e4812827599c0b116581ff94f4024"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classgeom_1_1_convex.html" title="Base class describing convex shapes in N-dimensional space.">Convex</a> shape overlap test.  <br /></td></tr>
 <tr class="separator:ga783e4812827599c0b116581ff94f4024"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf1ce72ac22267627f5e7b46fc655bac5" id="r_gaf1ce72ac22267627f5e7b46fc655bac5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; Shape::elem_t, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__shape.html#gaf1ce72ac22267627f5e7b46fc655bac5">clip</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; Shape::elem_t, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; p) const</td></tr>
-<tr class="memdesc:gaf1ce72ac22267627f5e7b46fc655bac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nearest point on the interior of the shape.  <br /></td></tr>
-<tr class="separator:gaf1ce72ac22267627f5e7b46fc655bac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afabbb2f32d7fe83dec992e14929fb0e1" id="r_afabbb2f32d7fe83dec992e14929fb0e1"><td class="memItemLeft" align="right" valign="top"><a id="afabbb2f32d7fe83dec992e14929fb0e1" name="afabbb2f32d7fe83dec992e14929fb0e1"></a>
+<a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>&#160;</td><td class="memItemRight" valign="bottom"><b>measure_boundary</b> () const</td></tr>
+<tr class="memdesc:afabbb2f32d7fe83dec992e14929fb0e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure the boundary (surface area) of the extrusion. <br /></td></tr>
+<tr class="separator:afabbb2f32d7fe83dec992e14929fb0e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36389d1aebb3d2b10f5dd6e854a9539a" id="r_a36389d1aebb3d2b10f5dd6e854a9539a"><td class="memItemLeft" align="right" valign="top"><a id="a36389d1aebb3d2b10f5dd6e854a9539a" name="a36389d1aebb3d2b10f5dd6e854a9539a"></a>
+<a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>&#160;</td><td class="memItemRight" valign="bottom"><b>measure_interior</b> () const</td></tr>
+<tr class="memdesc:a36389d1aebb3d2b10f5dd6e854a9539a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measure the interior (volume) of the extrusion. <br /></td></tr>
+<tr class="separator:a36389d1aebb3d2b10f5dd6e854a9539a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6eaff8d2ec48942d658c407c5e63f3c" id="r_ad6eaff8d2ec48942d658c407c5e63f3c"><td class="memItemLeft" align="right" valign="top"><a id="ad6eaff8d2ec48942d658c407c5e63f3c" name="ad6eaff8d2ec48942d658c407c5e63f3c"></a>
+<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>normal</b> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; p) const</td></tr>
+<tr class="separator:ad6eaff8d2ec48942d658c407c5e63f3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30fa18d7b806462cbf6461d9a587fef2" id="r_a30fa18d7b806462cbf6461d9a587fef2"><td class="memItemLeft" align="right" valign="top"><a id="a30fa18d7b806462cbf6461d9a587fef2" name="a30fa18d7b806462cbf6461d9a587fef2"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="classgeom_1_1_extruded.html">Extruded</a>&lt; Shape &gt; &amp;other) const</td></tr>
+<tr class="separator:a30fa18d7b806462cbf6461d9a587fef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e57fd00e7d076a23e33a60062c5d005" id="r_a9e57fd00e7d076a23e33a60062c5d005"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9e57fd00e7d076a23e33a60062c5d005">project</a> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; p) const</td></tr>
+<tr class="separator:a9e57fd00e7d076a23e33a60062c5d005"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6c34d88763d808aa3393430f675bcc8" id="r_ac6c34d88763d808aa3393430f675bcc8"><td class="memItemLeft" align="right" valign="top"><a id="ac6c34d88763d808aa3393430f675bcc8" name="ac6c34d88763d808aa3393430f675bcc8"></a>
+<a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>&#160;</td><td class="memItemRight" valign="bottom"><b>sdf</b> (<a class="el" href="classgeom_1_1_vec.html">Vec</a>&lt; <a class="el" href="#a8d5a267c4e2ff99ea42c1b1454d4b8ee">T</a>, <a class="el" href="#ad8331653910a5a034f8238e6a8fbb9b1">N</a> &gt; p) const</td></tr>
+<tr class="separator:ac6c34d88763d808aa3393430f675bcc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -389,7 +389,7 @@ template&lt;typename Shape&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon Feb 17 2025 15:19:55 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>

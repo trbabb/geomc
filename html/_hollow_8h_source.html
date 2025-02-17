@@ -222,15 +222,25 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>};</div>
 </div>
 <div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>}  <span class="comment">// namespace geom</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="preprocessor">#ifdef GEOMC_USE_STREAMS</span></div>
 <div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
 <div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Shape&gt;</div>
-<div class="foldopen" id="foldopen00157" data-start="{" data-end="};">
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno"><a class="line" href="structstd_1_1hash_3_01geom_1_1_hollow_3_01_shape_01_4_01_4.html">  157</a></span><span class="keyword">struct </span>std::hash&lt;<a class="code hl_namespace" href="namespacegeom.html">geom</a>::Hollow&lt;Shape&gt;&gt; {</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <span class="keywordtype">size_t</span> operator()(<span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_hollow.html">geom::Hollow&lt;Shape&gt;</a> &amp;s)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="namespacegeom.html#a2c079cb91a411f00bec52aacf6940071">geom::hash&lt;geom::Hollow&lt;Shape&gt;</a>, <span class="keywordtype">size_t</span>&gt;(s);</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    }</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>};</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, <span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_hollow.html">Hollow&lt;Shape&gt;</a>&amp; h) {</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    os &lt;&lt; <span class="stringliteral">&quot;Hollow(&quot;</span> &lt;&lt; h.<a class="code hl_variable" href="classgeom_1_1_hollow.html#a8b9f7758a8bd2bef680aeecc40bcfe04">shape</a> &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <span class="keywordflow">return</span> os;</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>}</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>}  <span class="comment">// namespace geom</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Shape&gt;</div>
+<div class="foldopen" id="foldopen00167" data-start="{" data-end="};">
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="structstd_1_1hash_3_01geom_1_1_hollow_3_01_shape_01_4_01_4.html">  167</a></span><span class="keyword">struct </span>std::hash&lt;<a class="code hl_namespace" href="namespacegeom.html">geom</a>::Hollow&lt;Shape&gt;&gt; {</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    <span class="keywordtype">size_t</span> operator()(<span class="keyword">const</span> <a class="code hl_class" href="classgeom_1_1_hollow.html">geom::Hollow&lt;Shape&gt;</a> &amp;s)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="namespacegeom.html#a2c079cb91a411f00bec52aacf6940071">geom::hash&lt;geom::Hollow&lt;Shape&gt;</a>, <span class="keywordtype">size_t</span>&gt;(s);</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    }</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>};</div>
 </div>
 <div class="ttc" id="aclassgeom_1_1_hollow_html"><div class="ttname"><a href="classgeom_1_1_hollow.html">geom::Hollow</a></div><div class="ttdoc">Selects the boundary of a shape.</div><div class="ttdef"><b>Definition</b> Hollow.h:26</div></div>
 <div class="ttc" id="aclassgeom_1_1_hollow_html_a2ad0e0bf9c52441d749344c07573e88a"><div class="ttname"><a href="classgeom_1_1_hollow.html#a2ad0e0bf9c52441d749344c07573e88a">geom::Hollow::Hollow</a></div><div class="ttdeci">Hollow(const Shape &amp;shape)</div><div class="ttdoc">Wrap a shape with a similarity transform.</div><div class="ttdef"><b>Definition</b> Hollow.h:40</div></div>
@@ -247,8 +257,8 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aclassgeom_1_1_projectable_html"><div class="ttname"><a href="classgeom_1_1_projectable.html">geom::Projectable</a></div><div class="ttdoc">Base class describing N-dimensional shapes which implement the ability to project an arbitrary point ...</div><div class="ttdef"><b>Definition</b> Shape.h:226</div></div>
 <div class="ttc" id="aclassgeom_1_1_rect_html"><div class="ttname"><a href="classgeom_1_1_rect.html">geom::Rect</a></div><div class="ttdoc">An N-dimensional axis-aligned interval.</div><div class="ttdef"><b>Definition</b> Rect.h:68</div></div>
 <div class="ttc" id="aclassgeom_1_1_vec_html"><div class="ttname"><a href="classgeom_1_1_vec.html">geom::Vec</a></div><div class="ttdoc">A tuple of N elements of type T.</div><div class="ttdef"><b>Definition</b> Vec.h:269</div></div>
-<div class="ttc" id="aconceptgeom_1_1_boundary_measurable_object_html"><div class="ttname"><a href="conceptgeom_1_1_boundary_measurable_object.html">geom::BoundaryMeasurableObject</a></div><div class="ttdoc">A shape which can measure its boundary.</div><div class="ttdef"><b>Definition</b> ShapeTypes.h:190</div></div>
-<div class="ttc" id="aconceptgeom_1_1_transformable_html"><div class="ttname"><a href="conceptgeom_1_1_transformable.html">geom::Transformable</a></div><div class="ttdef"><b>Definition</b> LinalgTypes.h:157</div></div>
+<div class="ttc" id="aconceptgeom_1_1_boundary_measurable_object_html"><div class="ttname"><a href="conceptgeom_1_1_boundary_measurable_object.html">geom::BoundaryMeasurableObject</a></div><div class="ttdoc">A shape which can measure its boundary.</div><div class="ttdef"><b>Definition</b> ShapeTypes.h:225</div></div>
+<div class="ttc" id="aconceptgeom_1_1_transformable_html"><div class="ttname"><a href="conceptgeom_1_1_transformable.html">geom::Transformable</a></div><div class="ttdef"><b>Definition</b> LinalgTypes.h:147</div></div>
 <div class="ttc" id="agroup__shape_html_ga6391888f31342d53bf54679464dce3fb"><div class="ttname"><a href="group__shape.html#ga6391888f31342d53bf54679464dce3fb">geom::Hollow::operator/=</a></div><div class="ttdeci">Hollow&lt; Shape &gt; &amp; operator/=(Hollow&lt; Shape &gt; &amp;s, const Xf &amp;xf)</div><div class="ttdoc">In-place inverse transform a hollow shape.</div><div class="ttdef"><b>Definition</b> Hollow.h:139</div></div>
 <div class="ttc" id="agroup__shape_html_gaba535c0347afbe4fed0f1c2ccde5fc97"><div class="ttname"><a href="group__shape.html#gaba535c0347afbe4fed0f1c2ccde5fc97">geom::Hollow::operator*=</a></div><div class="ttdeci">Hollow&lt; Shape &gt; &amp; operator*=(Hollow&lt; Shape &gt; &amp;s, const Xf &amp;xf)</div><div class="ttdoc">In-place transform a hollow shape.</div><div class="ttdef"><b>Definition</b> Hollow.h:128</div></div>
 <div class="ttc" id="agroup__shape_html_gac99e0a0eec9d2241e2455a8f5a291075"><div class="ttname"><a href="group__shape.html#gac99e0a0eec9d2241e2455a8f5a291075">geom::Hollow::operator*</a></div><div class="ttdeci">Hollow&lt; Shape &gt; operator*(const Xf &amp;xf, const Hollow&lt; Shape &gt; &amp;s)</div><div class="ttdoc">Transform a hollow shape.</div><div class="ttdef"><b>Definition</b> Hollow.h:108</div></div>
@@ -259,7 +269,7 @@ $(function(){ initResizable(false); });
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Feb 8 2025 18:58:09 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
+Generated on Mon Feb 17 2025 15:19:54 for geomc by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2
 </small></address>
 </div><!-- doc-content -->
 </body>
