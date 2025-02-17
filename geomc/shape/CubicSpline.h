@@ -47,9 +47,9 @@ inline S _make_spline(const SimpleMatrix<T,4,N>& mx) {
  * The resultant vector has the coefficients in order of increasing power.
  */
 template <typename S, typename T, index_t N>
-concept CubicSplineObject = requires (S s, const VecType<T,N> pts[4]) {
-    S(pts);
-    S(pts[0], pts[1], pts[2], pts[3]);
+concept CubicSplineObject = requires (S s, const VecType<T,N> control_pts[4]) {
+    S(control_pts);
+    S(control_pts[0], control_pts[1], control_pts[2], control_pts[3]);
     { S::basis()         } -> std::convertible_to<const SimpleMatrix<T,4,4>&>;
     { S::inverse_basis() } -> std::convertible_to<const SimpleMatrix<T,4,4>&>;
     { s.control_points() } -> std::convertible_to<const VecType<T,N>*>;
@@ -139,7 +139,7 @@ public:
         // look for inflection points between the endpoints.
         // where does each coordinate reach an extreme?
         for (index_t axis = 0; axis < N; ++axis) {
-            T k = Vec<T,4> {
+            Vec<T,4> k = {
                 coord(k0, axis),
                 coord(k1, axis),
                 coord(k2, axis),

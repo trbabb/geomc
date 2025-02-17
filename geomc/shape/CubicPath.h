@@ -104,6 +104,9 @@ public:
 template <typename T, index_t N>
 class BSplinePath : public SplinePath<T,N,BSpline<T,N>,BSplinePath<T,N>> {
 public:
+    
+    using Knot = VecType<T,N>;
+    
     /// The sequence of guide knots.
     std::vector<VecType<T,N>> knots;
     
@@ -158,6 +161,9 @@ public:
 template <typename T, index_t N>
 class CatromSplinePath : public SplinePath<T,N,CatromSpline<T,N>,CatromSplinePath<T,N>> {
 public:
+    
+    using Knot = VecType<T,N>;
+    
     /// The sequence of knots which the path passes through.
     std::vector<VecType<T,N>> knots;
     
@@ -280,7 +286,7 @@ public:
     }
     
     /**
-     * @brief Set the tangents for the `i`th knot in the path.
+     * @brief Set the tangents on either side of the `i`th knot in the path.
      *  
      * If `i` is the first or last knot, then only the inward tangent
      * is set.
@@ -329,10 +335,10 @@ public:
     /**
      * @brief Add a knot to the path, with tangents for the new segment.
      */
-    void add_knot(VecType<T,N> knot, const Tangent& t) {
-        knots.push_back(knot);
-        tangents.push_back(t.t0);
-        tangents.push_back(t.t1);
+    void add_knot(const Knot& k) {
+        knots.push_back(k.knot);
+        tangents.push_back(k.t.t0);
+        tangents.push_back(k.t.t1);
     }
     
     /**
@@ -389,6 +395,7 @@ public:
 template <typename T, index_t N>
 class HermitePath : public SplinePath<T,N,HermiteSpline<T,N>,HermitePath<T,N>> {
 public:
+    
     /// A knot in a Hermite path, along with its tangent velocity.
     struct Knot {
         /// The position of the knot.
