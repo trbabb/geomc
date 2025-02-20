@@ -174,7 +174,8 @@ public:
     {
         return Rect<T,N>(
             std::min(c1, c2),
-            std::max(c1, c2));
+            std::max(c1, c2)
+        );
     }
 
     /**
@@ -564,7 +565,7 @@ public:
      * @return A new Rect, with elements all of type `U`.
      */
     template <typename U, index_t M> operator Rect<U,M>() const {
-        return Rect<U,M>(VecType<U,M>{lo}, VecType<U,M>{hi});
+        return Rect<U,M>((VecType<U,M>) lo, (VecType<U,M>) hi);
     }
 
 
