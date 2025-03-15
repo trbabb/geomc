@@ -15,11 +15,7 @@ namespace geom {
  * For arbitrarily-transformed shapes, see Transformed.
  */
 template <typename Shape>
-class Similar:
-    public Convex          <typename Shape::elem_t, Shape::N, Similar<Shape>>,
-    public RayIntersectable<typename Shape::elem_t, Shape::N, Similar<Shape>>,
-    public Projectable     <typename Shape::elem_t, Shape::N, Similar<Shape>>
-{
+class Similar: public Dimensional<typename Shape::elem_t, Shape::N> {
 public:
     using elem_t = typename Shape::elem_t;
     static constexpr index_t N = Shape::N;
@@ -49,7 +45,7 @@ public:
     }
     
     /// Shape-point intersection test.
-    bool contains(typename Shape::point_t p) const {
+    bool contains(typename Shape::point_t p) const requires RegionObject<Shape> {
         return shape.contains(p / xf);
     }
     
@@ -59,6 +55,14 @@ public:
     }
      
     using Convex<T,N,Similar<Shape>>::intersects;
+    
+    template <ConvexObject S>
+    bool intersects(const S& other) const {
+        return geom::intersects(
+            as_any_convex(*this),
+            as_any_convex(other)
+        );
+    }
     
     /// @brief Intersecion with another similar shape.
     /// Available if our shape can intersect the other shape's base shape.
@@ -133,6 +137,11 @@ public:
     /// Orthogonally project `p` to the surface of this shape.
     Vec<T,N> project(Vec<T,N> p) const requires ProjectableObject<Shape> {
         return xf * shape.project(p / xf);
+    }
+    
+    /// Nearest point on the interior of the shape.
+    Vec<T,N> clip(Vec<T,N> p) const requires ProjectableObject<Shape> {
+        return contains(p) ? p : project(p);
     }
     
     /// Measure the interior (volume) of the shape.

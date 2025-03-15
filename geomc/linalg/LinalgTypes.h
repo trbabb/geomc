@@ -100,15 +100,15 @@ typedef Ray<index_t,3> Ray3i;
 typedef Ray<index_t,2> Ray2i;
 
 // Matrix
-typedef SimpleMatrix<double,4,4>  SimpleMatrix4d;
-typedef SimpleMatrix<double,3,3>  SimpleMatrix3d;
-typedef SimpleMatrix<double,2,2>  SimpleMatrix2d;
-typedef SimpleMatrix<double,0,0>  SimpleMatrixNd;
+typedef SimpleMatrix<double,4,4> SimpleMatrix4d;
+typedef SimpleMatrix<double,3,3> SimpleMatrix3d;
+typedef SimpleMatrix<double,2,2> SimpleMatrix2d;
+typedef SimpleMatrix<double,0,0> SimpleMatrixNd;
 
-typedef SimpleMatrix<float,4,4>   SimpleMatrix4f;
-typedef SimpleMatrix<float,3,3>   SimpleMatrix3f;
-typedef SimpleMatrix<float,2,2>   SimpleMatrix2f;
-typedef SimpleMatrix<float,0,0>   SimpleMatrixNf;
+typedef SimpleMatrix<float,4,4>  SimpleMatrix4f;
+typedef SimpleMatrix<float,3,3>  SimpleMatrix3f;
+typedef SimpleMatrix<float,2,2>  SimpleMatrix2f;
+typedef SimpleMatrix<float,0,0>  SimpleMatrixNf;
 
 // AffineTransform
 typedef AffineTransform<double,3> AffineTransform3d;
@@ -340,6 +340,11 @@ concept DimensionalObject = (Obj::N > 0) and requires {
     { Obj::N } -> std::convertible_to<index_t>;
     typename Obj::point_t;
 };
+
+template <typename Obj, typename T, index_t N>
+concept NDimensional = DimensionalObject<Obj> and
+    std::same_as<typename Obj::elem_t, T> and
+    Obj::N == N;
 
 template <typename T>
 struct VectorDimension {

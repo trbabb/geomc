@@ -74,6 +74,8 @@ namespace geom {
      */
     template <typename T> class Vec<T,3> : public detail::VecCommon< T, 3, Vec<T,3> > {
     public:
+    
+        using base_t = detail::VecCommon<T,3,Vec<T,3>>;
 
         // to prevent c++20 ambiguity warnings:
         using detail::VecCommon<T,3,Vec<T,3>>::operator==;
@@ -90,7 +92,7 @@ namespace geom {
          *===========================*/
 
         /// Construct vector with all elements set to 0.
-        constexpr Vec():detail::VecCommon< T, 3, Vec<T,3> >() {}
+        constexpr Vec() {}
         
         /**
          * @brief Construct a vector with `(x, y)` taken from the 2D vector `xy`,
@@ -104,10 +106,10 @@ namespace geom {
         }
 
         /// Construct a vector with all elements set to `a`.
-        constexpr Vec(T a):detail::VecCommon< T, 3, Vec<T,3> >(a) {}
+        constexpr Vec(T a):base_t(a) {}
 
         /// Construct a vector with elements copied from the 3-element array `v`.
-        constexpr Vec(const T v[3]):detail::VecCommon< T, 3, Vec<T,3> >(v) {}
+        constexpr Vec(const T v[3]):base_t(v) {}
         
         /// Construct a vector with elements `(x, y, z)`.
         constexpr Vec(T x, T y, T z) {
@@ -130,10 +132,10 @@ namespace geom {
          *===========================*/
         
         // do not hide these; we want to overload them: 
-        using detail::VecCommon< T, 3, Vec<T,3> >::add;
-        using detail::VecCommon< T, 3, Vec<T,3> >::sub;
-        using detail::VecCommon< T, 3, Vec<T,3> >::scale;
-        using detail::VecCommon< T, 3, Vec<T,3> >::dot;
+        using base_t::add;
+        using base_t::sub;
+        using base_t::scale;
+        using base_t::dot;
         
         /// @return `(dx, dy, dz)` added with `this`
         Vec<T,3> add(T dx, T dy, T dz) const {

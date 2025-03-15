@@ -13,9 +13,8 @@ namespace geom {
  */
 template <typename T, index_t N>
 class Capsule:
-    public Convex          <T,N,Capsule<T,N>>,
-    public RayIntersectable<T,N,Capsule<T,N>>,
-    public Projectable     <T,N,Capsule<T,N>>
+    public Convex      <T,N,Capsule<T,N>>,
+    public Projectable <T,N,Capsule<T,N>>
 {
     typedef PointType<T,N> ptype;
 public:

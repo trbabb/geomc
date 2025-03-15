@@ -182,7 +182,7 @@ public:
      * @return `true` if and only if this plane passes through `s`.
      */
     inline bool intersects(const Sphere<T,N> &s) const {
-        return distance(s.center) >= s.r;
+        return distance(s.center) >= s.radius;
     }
     
     /**

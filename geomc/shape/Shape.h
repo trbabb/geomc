@@ -6,7 +6,6 @@
  *      Author: tbabb
  */
 
-#include <type_traits>
 #include <geomc/shape/ShapeTypes.h>
 #include <geomc/shape/Rect.h>
 
@@ -115,8 +114,9 @@ class Convex : public Bounded<T,N,Derived> {
      * 
      * @return True if and only if this convex shape overlaps `other`; false otherwise.
      */
-    template <typename Shape>
-    bool intersects(const Convex<T,N,Shape>& other) const {
+    template <ConvexObject Shape>
+    requires (Shape::N == N) and std::same_as<T, typename Shape::elem_t>
+    bool intersects(const Shape& other) const {
         return geom::intersects(
             as_any_convex(*this),
             as_any_convex(other)
@@ -302,11 +302,12 @@ protected:
 };
 
 /// Implementation of AnyConvex for a specific Shape.
-template <typename Shape>
+template <ConvexObject Shape>
 class AnyConvexImpl: public AnyConvex<typename Shape::elem_t, Shape::N> {
 public:
-    typedef typename Shape::elem_t T;
-    static constexpr index_t N = Shape::N;
+    using typename Dimensional<typename Shape::elem_t, Shape::N>::elem_t;
+    using Dimensional<typename Shape::elem_t, Shape::N>::N;
+    using T = elem_t;
     using typename AnyConvex<T,N>::point_t;
     
     Shape shape;

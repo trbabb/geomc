@@ -22,16 +22,11 @@ namespace geom {
  *     auto cylinder2 = extrude(Circle<double>(), 0, 1);
  */
 template <typename Shape>
-class Extruded :
-    public Convex          <typename Shape::elem_t, Shape::N+1, Extruded<Shape>>,
-    public RayIntersectable<typename Shape::elem_t, Shape::N+1, Extruded<Shape>>,
-    public Projectable     <typename Shape::elem_t, Shape::N+1, Extruded<Shape>>
-{
+class Extruded: public Dimensional<typename Shape::elem_t, Shape::N + 1> {
 public:
-    /// The coordinate type of this Shape
-    typedef typename Shape::elem_t T;
-    /// The dimension of this Shape
-    static constexpr size_t N = Shape::N + 1;
+    using typename Dimensional<typename Shape::elem_t, Shape::N + 1>::elem_t;
+    using Dimensional<typename Shape::elem_t, Shape::N + 1>::N;
+    using T = elem_t;
     
     /// Cross-section of this extrusion at the h = 0 plane.
     Shape base;
@@ -148,6 +143,10 @@ public:
         return p.dist2(wall_pt) < p.dist2(cap_pt) ? wall_pt : cap_pt;
     }
     
+    Vec<T,N> clip(Vec<T,N> p) const requires ProjectableObject<Shape> {
+        return contains(p) ? p : project(p);
+    }
+    
     Vec<T,N> convex_support(Vec<T,N> d) const requires ConvexObject<Shape> {
         Vec<T,N-1> d_ = d.template resized<N-1>();
         
@@ -165,6 +164,15 @@ public:
     
     Rect<T,N> bounds() const requires BoundedObject<Shape> {
         return base.bounds() * height;
+    }
+    
+    template <ConvexObject S>
+    requires ConvexObject<Shape> and (S::N == N) and std::same_as<T, typename S::elem_t>
+    bool intersects(const S& other) const {
+        return geom::intersects(
+            as_any_convex(*this),
+            as_any_convex(other)
+        );
     }
     
     /// Measure the interior (volume) of the extrusion.

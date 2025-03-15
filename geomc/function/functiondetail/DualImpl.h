@@ -138,13 +138,13 @@ struct Dual {
      *******************************/
    
     /// Construct a Dual default value and 0 derivative.
-    constexpr Dual():dx(0) {}
+    constexpr Dual():x(0), dx(0) {}
     
     /// Construct a Dual with value `x` and 0 derivative.
-    constexpr Dual(T x):x(x),dx(0) {}
+    constexpr Dual(T x):x(x), dx(0) {}
     
     /// Construct a Dual with value `x` and derivative `dx`.
-    constexpr Dual(T x, T dx):x(x),dx(dx) {}
+    constexpr Dual(T x, T dx):x(x), dx(dx) {}
     
     /// Construct a Dual from one with a different discontinuity policy.
     template <DiscontinuityPolicy DP1>

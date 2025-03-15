@@ -35,7 +35,7 @@ public:
     T half_angle_radians;
     
     /// Construct a spherical cap with the given half-angle.
-    SphericalCap(T radians):
+    explicit SphericalCap(T radians):
         half_angle_radians(radians) {}
         
     static constexpr bool admits_cusps() { return true; }

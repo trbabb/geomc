@@ -48,10 +48,7 @@ namespace geom {
  * templated type alias for `Transformed<Frustum<Rect>>`. 
  */
 template <typename Shape>
-class Frustum: 
-    public Convex          <typename Shape::elem_t, Shape::N+1, Frustum<Shape>>,
-    public RayIntersectable<typename Shape::elem_t, Shape::N+1, Frustum<Shape>>
-{
+class Frustum: public Dimensional<typename Shape::elem_t, Shape::N+1> {
 public:
     /// The coordinate type of this Shape
     typedef typename Shape::elem_t T;
@@ -239,6 +236,15 @@ public:
         // make two rects for the top and bottom faces;
         // union them; extrude by the height:
         return ((b0 * h.lo) | (b0 * h.hi)) * h; // purdy!!
+    }
+    
+    template <ConvexObject S>
+    requires ConvexObject<Shape> and (Shape::N == N) and std::same_as<typename S::elem_t, T>
+    bool intersects(const S& other) const {
+        return geom::intersects(
+            as_any_convex(*this),
+            as_any_convex(other)
+        );
     }
     
     /// Return the height range of this Frustum after it has been clipped by the origin.

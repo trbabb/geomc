@@ -19,15 +19,12 @@ namespace geom {
  * the `Dilated` shape wrapper.
  */
 template <typename Shape>
-class Hollow:
-    public Projectable<typename Shape::elem_t, Shape::N, Hollow<Shape>>
+class Hollow: public Dimensional<typename Shape::elem_t, Shape::N> {
+public:
     // - hollow shapes are in general not convex
     // - hollow shapes do not have one ray-intersection interval
-{
-public:
-    using elem_t = typename Shape::elem_t;
-    static constexpr index_t N = Shape::N;
-    
+    using typename Dimensional<typename Shape::elem_t, Shape::N>::elem_t;
+    using Dimensional<elem_t, Shape::N>::N;
     using T = elem_t;
     
     /// Solid shape.
@@ -51,12 +48,12 @@ public:
      * @brief Shape-point intersection test. Always returns `false`, because 
      * hollow shapes are infinitely thin.
      */
-    bool contains(typename Shape::point_t p) const {
+    bool contains(typename Shape::point_t p) const requires RegionObject<Shape> {
         return false; // hollow shapes are infinitely thin
     }
     
     /// Project a point to the surface of this shape.
-    Vec<T,N> project(Vec<T,N> p) const {
+    Vec<T,N> project(Vec<T,N> p) const requires ProjectableObject<Shape> {
         return shape.project(p);
     }
     
@@ -64,23 +61,23 @@ public:
      * @brief Nearest point on the interior of the shape to `p`; the same as
      * `project(p)`, since hollow shapes do not have an interior.
      */
-    Vec<T,N> clip(Vec<T,N> p) const {
+    Vec<T,N> clip(Vec<T,N> p) const requires ProjectableObject<Shape> {
         return shape.project(p);
     }
     
     /// Normal vector at point `p`.
-    Vec<T,N> normal(Vec<T,N> p) const {
+    Vec<T,N> normal(Vec<T,N> p) const requires ProjectableObject<Shape> {
         T sign = shape.contains(p) ? -1 : 1;
         return sign * shape.normal(p);
     }
     
     /// Signed distance function.
-    T sdf(Vec<T,N> p) const {
+    T sdf(Vec<T,N> p) const requires SdfObject<Shape> {
         return std::abs(shape.sdf(p));
     }
     
     /// Compute the axis-aligned bounding box of the shape.
-    Rect<T,N> bounds() const {
+    Rect<T,N> bounds() const requires BoundedObject<Shape> {
         return shape.bounds();
     }
     

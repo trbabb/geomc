@@ -50,14 +50,14 @@ public:
     /// Center of the sphere.
     point_t center;
     /// Radius of the sphere.
-    T r;
-
+    T radius;
+    
     /**
      * Construct a sphere at the origin with radius 1.
      */
     constexpr Sphere():
         center((T)0),
-        r(1) {}
+        radius(1) {}
     
     /**
      * Construct a sphere with center at the origin, having radius `r`.
@@ -65,7 +65,7 @@ public:
      */
     constexpr Sphere(T r):
         center((T)0),
-        r(r) {}
+        radius(r) {}
     
     /**
      * Construct a sphere with center at the point `c`, having radius `r`.
@@ -74,22 +74,22 @@ public:
      */
     constexpr Sphere(const point_t& c, T r):
         center(c),
-        r(r) {}
+        radius(r) {}
     
     static constexpr bool admits_cusps() { return false; }
     
     bool operator==(const Sphere& other) const {
-        return center == other.center && r == other.r;
+        return center == other.center && radius == other.radius;
     }
     
     Rect<T,N> bounds() const {
-        point_t rvec(r);
+        point_t rvec(radius);
         return Rect<T,N>(center - rvec, center + rvec);
     }
     
     /// Shape-point intersection test.
     inline bool contains(point_t p) const {
-        return ptype::mag2(center - p) <= r * r;
+        return ptype::mag2(center - p) <= radius * radius;
     }
     
     /**
@@ -98,27 +98,27 @@ public:
      * @return `true` if `s` overlaps with this sphere's volume, false otherwise.
      */
     bool intersects(Sphere s) const {
-        return ptype::mag2(center - s.center) <= r * r;
+        return ptype::mag2(center - s.center) <= radius * radius;
     }
     
     bool intersects(const Rect<T,N>& rect) const {
-        return rect.dist2(r) <= r * r;
+        return rect.dist2(radius) <= radius * radius;
     }
     
     point_t convex_support(point_t d) const {
-        return center + ptype::unit(d) * r;
+        return center + ptype::unit(d) * radius;
     }
     
     /// Signed distance function.
     inline T sdf(point_t p) const {
-        return ptype::mag(p - center) - r;
+        return ptype::mag(p - center) - radius;
     }
     
     /**
      * Return the point `p` orthogonally projected onto the surface of the shape.
      */
     inline point_t project(point_t p) const {
-        return ptype::unit(p - center) * r + center;
+        return ptype::unit(p - center) * radius + center;
     }
     
     /// Outward-facing direction.
@@ -128,7 +128,7 @@ public:
     
     /// Shape-ray intersection test.
     Rect<T,1> intersect(const Ray<T,N>& ray) const {
-        T r2 = r * r;
+        T r2 = radius * radius;
         Vec<T,N> dir = ray.direction;
         Vec<T,N> x0 = center - ray.origin;
         // solve for s such  that ||s * ray - ctr|| == radius
@@ -152,7 +152,7 @@ public:
      * In higher dimensions, this is the hypervolume.
      */
     T measure_interior() const {
-        return measure_ball_interior(N, r);
+        return measure_ball_interior(N, radius);
     }
     
     /**
@@ -163,7 +163,7 @@ public:
      * In higher dimensions, this is the volume or hypervolume of the boundary.
      */
     T measure_boundary() const {
-        return measure_sphere_boundary(N, r);
+        return measure_sphere_boundary(N, radius);
     }
     
 }; /* Sphere<T,N> */
@@ -176,7 +176,7 @@ public:
 /// @related Similarity
 template <typename T, index_t N>
 Sphere<T,N> operator*(const Similarity<T,N>& xf, const Sphere<T,N>& s) {
-    return Sphere<T,N>(xf * s.center, s.r * xf.sx);
+    return Sphere<T,N>(xf * s.center, s.radius * xf.sx);
 }
 
 /// @brief Inverse-transform a sphere by a similarity transform.
@@ -184,7 +184,7 @@ Sphere<T,N> operator*(const Similarity<T,N>& xf, const Sphere<T,N>& s) {
 /// @related Similarity
 template <typename T, index_t N>
 Sphere<T,N> operator/(const Sphere<T,N>& s, const Similarity<T,N>& xf) {
-    return Sphere<T,N>(xf / s.center, s.r / xf.sx);
+    return Sphere<T,N>(xf / s.center, s.radius / xf.sx);
 }
 
 /// @brief Transform a sphere by an isometry.
@@ -192,7 +192,7 @@ Sphere<T,N> operator/(const Sphere<T,N>& s, const Similarity<T,N>& xf) {
 /// @related Isometry
 template <typename T, index_t N>
 Sphere<T,N> operator*(const Isometry<T,N>& xf, const Sphere<T,N>& s) {
-    return Sphere<T,N>(xf * s.center, s.r);
+    return Sphere<T,N>(xf * s.center, s.radius);
 }
 
 /// @brief Inverse-transform a sphere by an isometry.
@@ -200,7 +200,7 @@ Sphere<T,N> operator*(const Isometry<T,N>& xf, const Sphere<T,N>& s) {
 /// @related Isometry
 template <typename T, index_t N>
 Sphere<T,N> operator/(const Sphere<T,N>& s, const Isometry<T,N>& xf) {
-    return Sphere<T,N>(xf / s.center, s.r);
+    return Sphere<T,N>(xf / s.center, s.radius);
 }
 
 /// @} // addtogroup shape
@@ -209,7 +209,7 @@ template <typename T, index_t N, typename H>
 struct Digest<Sphere<T,N>, H> {
     H operator()(const Sphere<T,N>& s) const {
         H nonce = geom::truncated_constant<H>(0x948904c693a7ddeb, 0xd121a1f8ce15ac6c);
-        return geom::hash_many<H>(nonce, s.center, s.r);
+        return geom::hash_many<H>(nonce, s.center, s.radius);
     }
 };
 
@@ -217,7 +217,7 @@ struct Digest<Sphere<T,N>, H> {
 
 template <typename T, index_t N>
 std::ostream& operator<<(std::ostream& os, const Sphere<T,N>& s) {
-    os << "Sphere(" << s.center << "," << s.r << ")";
+    os << "Sphere(" << s.center << "," << s.radius << ")";
     return os;
 }
 

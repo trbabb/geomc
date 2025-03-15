@@ -42,10 +42,7 @@ namespace geom {
  * 
  */
 template <typename Shape>
-class Transformed:
-    public Convex          <typename Shape::elem_t, Shape::N, Transformed<Shape>>,
-    public RayIntersectable<typename Shape::elem_t, Shape::N, Transformed<Shape>>
-{
+class Transformed: public Dimensional<typename Shape::elem_t, Shape::N> {
 public:
     /// The coordinate type of this Shape
     using T = typename Shape::elem_t;
@@ -108,7 +105,26 @@ public:
     
     /// Measure the interior (volume) of the shape.
     T measure_interior() const requires InteriorMeasurableObject<Shape> {
-        return std::abs(geom::det(xf.mat)) * shape.measure_interior();
+        // exclude the translation component
+        SimpleMatrix<T,N,N> m = xf.direction_matrix();
+        T s = 1;
+        if constexpr (N <= 4) {
+            // in-place det is defined and fast for 4x4 and smaller
+            s = geom::det(m);
+        } else {
+            // avoid copying the matrix in the case where it's large
+            s = geom::det_destructive(m.data_begin(), N);
+        }
+        return std::abs(s) * shape.measure_interior();
+    }
+    
+    template <ConvexObject S>
+    requires NDimensional<S,T,N>
+    bool intersects(const S& other) const {
+        return geom::intersects(
+            as_any_convex(*this),
+            as_any_convex(other)
+        );
     }
     
     /// Ray-shape intersection.
@@ -129,10 +145,7 @@ public:
  * @brief Partial specialization of Transformed for Rects.
  */
 template <typename T, index_t N>
-class Transformed<Rect<T,N>>:
-    public Convex<T,N,Transformed<Rect<T,N>>>,
-    public RayIntersectable<T,N,Transformed<Rect<T,N>>>
-{    
+class Transformed<Rect<T,N>> : public Dimensional<T,N> {    
 public:
     
     /// Un-transformed extents.
@@ -200,7 +213,14 @@ public:
         return shape.contains(p);
     }
     
-    using Convex<T,N,Transformed<Rect<T,N>>>::intersects;
+    template <ConvexObject S>
+    requires NDimensional<S,T,N>
+    bool intersects(const S& other) const {
+        return geom::intersects(
+            as_any_convex(*this),
+            as_any_convex(other)
+        );
+    }
     
     /**
      * Test whether this Transformed<Rect> overlaps an axis-aligned Rect.

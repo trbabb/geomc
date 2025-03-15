@@ -6,8 +6,6 @@
  *      Author: tbabb
  */
 
-//TODO: This should not accept DYNAMIC_DIM.
-
 #include <algorithm>
 
 #include <geomc/Hash.h>
@@ -39,6 +37,8 @@
 //       transposing, or tricks with layout templates.
 //       >> Can we change or template this choice so that at the very least, 
 //          the user has the capability to choose their desired convention?
+//       >> edit: I think that's a bad idea. let's follow the Math convention,
+//          and also not overcomplicate things with pointless degrees of freedom.
 
 namespace geom {
     
@@ -327,7 +327,9 @@ public:
     }
     
     /**
-     * @brief Return the 3x3 matrix which transforms direction vectors.
+     * @brief Return the NxN matrix which transforms direction vectors.
+     * 
+     * Discard the translation component of the transform.
      */
     const SimpleMatrix<T,N,N> direction_matrix() const {
         SimpleMatrix<T,N,N> m;
@@ -339,7 +341,7 @@ public:
         return m;
     }
     
-}; //end AffineTransform class
+}; // end AffineTransform class
 
 /*******************************
  * Matrix Construction         *

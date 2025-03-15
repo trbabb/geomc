@@ -163,8 +163,8 @@ T detNxN(const T* m, index_t n) {
  * @param m The square matrix whose determinant is to be computed.
  */
 template <typename T, index_t M, index_t N, MatrixLayout Lyt, StoragePolicy P>
+requires (M == N or M * N == 0)
 inline T det(const SimpleMatrix<T, M, N, Lyt, P>& m) {
-    static_assert(N * M == 0 or M == N, "Determinant only defined for square matrices.");
     if (M * N == 0 and m.rows() != m.cols()) return 0;
     return det(m.data_begin(), m.rows());
 }

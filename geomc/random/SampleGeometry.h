@@ -1,8 +1,10 @@
 #pragma once
 
+#include <random>
+#include <numbers>
+
 #include <geomc/random/DenseDistribution.h>
 #include <geomc/shape/ShapeTypes.h>
-#include <random>
 
 namespace geom {
 namespace detail {
@@ -175,7 +177,7 @@ public:
                 }
                 // if the point is outside the unit sphere, reject it and try again
             } while (ptype::mag2(out) > 1);
-            return shape.r * out + shape.center;
+            return shape.radius * out + shape.center;
         } else {
             // draw a multivariate gaussian, then project it onto the sphere
             DenseUniformDistribution<T> u_01(0,1);
@@ -183,7 +185,7 @@ public:
             for (index_t i = 0; i < N; ++i) {
                 p[i] = _gauss(rng);
             }
-            return p.unit() * shape.r * std::pow(u_01(rng), 1 / (T)N) + shape.center;
+            return p.unit() * shape.radius * std::pow(u_01(rng), 1 / (T)N) + shape.center;
         }
     }
     
@@ -227,7 +229,7 @@ public:
             for (index_t i = 0; i < N; ++i) {
                 p[i] = _gauss(rng);
             }
-            return p.unit() * shape.r + shape.center;
+            return p.unit() * shape.radius + shape.center;
         }
     }
     
@@ -372,6 +374,9 @@ struct SampleShape<SphericalCap<T,N>> : public detail::ShapeDistribution<Spheric
  */
 template <typename Shape>
 struct SampleShape<Transformed<Shape>> : public detail::ShapeDistribution<Transformed<Shape>> {
+    // todo: we should restrict this to shapes which have an interior;
+    //   hollow shapes will not be uniformly sampled because the transform
+    //   does not isotropically preserve areas.
     using detail::ShapeDistribution<Transformed<Shape>>::shape;
     
 private:

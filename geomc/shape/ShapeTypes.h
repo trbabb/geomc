@@ -58,10 +58,6 @@ template <typename T, index_t N, typename Derived> class Projectable;
 template <typename T, index_t N, typename Derived> class SdfEvaluable;
 template <typename T, index_t N, typename Derived> class RayIntersectable;
 
-// virtualization helper
-template <typename T, index_t N> class AnyConvex;
-template <typename Shape>        class AnyConvexImpl;
-
 // shapes
 template <typename T, index_t N> class Plane;
 template <typename T, index_t N> class Sphere;
@@ -140,11 +136,6 @@ template <typename T, index_t N, typename Object, typename NodeData=void*>
 template <typename T, index_t N, ArrayOrder Order=ARRAYORDER_FIRST_DIM_CONSECUTIVE>
     class GridIterator;
 
-template <typename T, index_t N>
-bool intersects(
-    const AnyConvex<T,N>& shape_a,
-    const AnyConvex<T,N>& shape_b
-);
 
 ///////////// Shape Concepts //////////////
 
@@ -252,6 +243,21 @@ concept ProjectableObject = DimensionalObject<Shape> and SdfObject<Shape> and
     { s.normal(p)  } -> std::convertible_to<typename Shape::point_t>;
     { s.clip(p)    } -> std::convertible_to<typename Shape::point_t>;
 };
+
+
+///////////// Intersection helpers //////////////
+
+// these make reference to the Concepts and so need to be down here
+
+// virtualization helper
+template <typename T, index_t N> class AnyConvex;
+template <ConvexObject Shape>    class AnyConvexImpl;
+
+template <typename T, index_t N>
+bool intersects(
+    const AnyConvex<T,N>& shape_a,
+    const AnyConvex<T,N>& shape_b
+);
 
 /// @} // addtogroup shape
     

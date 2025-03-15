@@ -123,7 +123,7 @@ struct ShapeSampler<Sphere<T,N>> {
     Vec<T,N> operator()(rng_t* rng) {
         std::uniform_real_distribution<T> u(0,1);
         auto p = PointType<T,N>::unit(rnd<T,N>(rng));
-        p = p * shape.r * std::pow(u(*rng), 1./N) + shape.center;
+        p = p * shape.radius * std::pow(u(*rng), 1./N) + shape.center;
         return p;
     }
 };
@@ -134,7 +134,7 @@ struct ShapeSampler<Sphere<T,1>> {
     ShapeSampler(const Sphere<T,1>& s):shape(s) {}
     
     T operator()(rng_t* rng) {
-        std::uniform_real_distribution<T> u(shape.center - shape.r, shape.center + shape.r);
+        std::uniform_real_distribution<T> u(shape.center - shape.radius, shape.center + shape.radius);
         return u(*rng);
     }
 };

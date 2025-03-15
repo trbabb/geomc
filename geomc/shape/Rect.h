@@ -61,11 +61,7 @@ namespace geom {
  * using a GridIterator object, which abstracts away the boundary logic for you.
  */
 template <typename T, index_t N>
-class Rect:
-    public Convex          <T,N,Rect<T,N>>,
-    public Projectable     <T,N,Rect<T,N>>,
-    public RayIntersectable<T,N,Rect<T,N>>
-{
+class Rect: public Dimensional<T,N> {
 protected:
     typedef PointType<T,N> ptype;
 
@@ -564,7 +560,8 @@ public:
      *
      * @return A new Rect, with elements all of type `U`.
      */
-    template <typename U, index_t M> operator Rect<U,M>() const {
+    template <typename U, index_t M>
+    operator Rect<U,M>() const {
         return Rect<U,M>((VecType<U,M>) lo, (VecType<U,M>) hi);
     }
 
@@ -644,6 +641,15 @@ public:
 
     bool intersects(const Sphere<T,N>& sph) const {
         return sph.intersects(*this);
+    }
+    
+    template <ConvexObject Shape>
+    requires (Shape::N == N) and std::same_as<T, typename Shape::elem_t>
+    bool intersects(const Shape& other) const {
+        return geom::intersects(
+            as_any_convex(*this),
+            as_any_convex(other)
+        );
     }
 
     /**

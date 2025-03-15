@@ -49,10 +49,7 @@ namespace geom {
  * which has overrides for certain shapes that are innately dilatable.
  */
 template <typename Shape>
-class Dilated: 
-    public Convex     <typename Shape::elem_t, Shape::N, Dilated<Shape>>,
-    public Projectable<typename Shape::elem_t, Shape::N, Dilated<Shape>>
-{
+class Dilated: public Dimensional<typename Shape::elem_t, Shape::N> {
 public:
     /// The coordinate type of this Shape
     typedef typename Shape::elem_t T;
@@ -91,18 +88,27 @@ public:
         return shape.sdf(p) - dilation;
     }
     
-    Vec<T,N> normal(Vec<T,N> p) const requires ProjectableObject<Shape> {
-        // we are dilating the shape along the normal, so the normal is unchanged
-        return shape.normal(p);
-    }
-    
     Vec<T,N> convex_support(Vec<T,N> d) const requires ConvexObject<Shape> {
         Vec<T,N> p = shape.convex_support(d);
         return p + d.unit() * dilation;
     }
     
+    template <ConvexObject S>
+    requires ConvexObject<Shape> and (S::N == N) and std::same_as<T, typename S::elem_t>
+    bool intersects(const S& other) const {
+        return geom::intersects(
+            as_any_convex(*this),
+            as_any_convex(other)
+        );
+    }
+    
     Rect<T,N> bounds() const requires BoundedObject<Shape> {
         return shape.bounds().dilated(dilation);
+    }
+    
+    Vec<T,N> normal(Vec<T,N> p) const requires ProjectableObject<Shape> {
+        // we are dilating the shape along the normal, so the normal is unchanged
+        return shape.normal(p);
     }
     
     /// Orthogonally project `p` to the surface of this shape.
@@ -118,6 +124,10 @@ public:
             // dilated projection is more toward point
             return p_proj - dilation * dp;
         }
+    }
+    
+    Vec<T,N> clip(Vec<T,N> p) const requires ProjectableObject<Shape> {
+        return contains(p) ? project(p) : p;
     }
     
     // todo: trace()
@@ -184,7 +194,7 @@ inline Dilated<Hollow<Sphere<T,N>>> shell(Vec<T,N> center, T r0, T r1) {
 template <typename T, index_t N>
 inline Dilated<Hollow<Sphere<T,N>>> shell(const Sphere<T,N>& s, T thickness) {
     T t = thickness / 2;
-    return shell(s.center, s.r - t, s.r + t);
+    return shell(s.center, s.radius - t, s.radius + t);
 }
 
 /**
@@ -196,7 +206,7 @@ inline Dilated<Hollow<Sphere<T,N>>> shell(const Sphere<T,N>& s, T thickness) {
  */
 template <typename T, index_t N>
 inline Sphere<T,N> dilate(const Sphere<T,N>& s, T dilation) {
-    return Sphere<T,N>(s.center, std::max(s.r + dilation, 0));
+    return Sphere<T,N>(s.center, std::max(s.radius + dilation, 0));
 }
 
 /**
