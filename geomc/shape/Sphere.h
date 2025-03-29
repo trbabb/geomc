@@ -39,12 +39,8 @@ constexpr T measure_sphere_boundary(index_t d, T r) {
  * `Circle<T>` is a template alias for `Sphere<T,2>`.
  */
 template <typename T, index_t N>
-class Sphere:
-    public Convex          <T,N,Sphere<T,N>>,
-    public RayIntersectable<T,N,Sphere<T,N>>,
-    public Projectable     <T,N,Sphere<T,N>>
-{
-    typedef PointType<T,N> ptype;
+class Sphere: public Dimensional<T,N> {
+    using ptype = PointType<T,N>;
 public:
     using typename Dimensional<T,N>::point_t;
     /// Center of the sphere.
@@ -105,6 +101,15 @@ public:
         return rect.dist2(radius) <= radius * radius;
     }
     
+    template <ConvexObject Shape>
+    requires (Shape::N == N) and std::same_as<T, typename Shape::elem_t>
+    bool intersects(const Shape& other) const {
+        return geom::intersects(
+            as_any_convex(*this),
+            as_any_convex(other)
+        );
+    }
+    
     point_t convex_support(point_t d) const {
         return center + ptype::unit(d) * radius;
     }
@@ -117,13 +122,23 @@ public:
     /**
      * Return the point `p` orthogonally projected onto the surface of the shape.
      */
-    inline point_t project(point_t p) const {
+    point_t project(point_t p) const {
         return ptype::unit(p - center) * radius + center;
     }
     
     /// Outward-facing direction.
-    inline point_t normal(point_t p) const {
+    point_t normal(point_t p) const {
         return ptype::unit(p - center);
+    }
+    
+    point_t clip(point_t p) const {
+        point_t dx = p - center;
+        T d2 = ptype::mag2(dx);
+        if (d2 > radius * radius) {
+            return center + radius * dx / std::sqrt(d2);
+        } else {
+            return p;
+        }
     }
     
     /// Shape-ray intersection test.

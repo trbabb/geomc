@@ -528,6 +528,16 @@ public:
         *this = (*this) / a;
         return *this;
     }
+    
+    /**
+     * @brief Negate all coordinates.
+     *
+     * The volume of the box keeps its sign; i.e., if it is nonempty,
+     * its negation is nonempty.
+     */
+    Rect<T,N> operator-() const {
+        return {-hi, -lo};
+    }
 
     /**
      * @brief Interval cartesian product.
@@ -696,6 +706,17 @@ public:
         point_t diff = (dim - dimensions()) / 2;
         lo = lo - diff;
         hi = hi + diff;
+    }
+    
+    /**
+     * @brief Return the `i`th corner point of the Rect.
+     */
+    point_t corner(index_t i) const {
+        point_t c;
+        for (index_t j = 0; j < N; ++j) {
+            coord(c, j) = (i & (1 << j)) ? coord(hi, j) : coord(lo, j);
+        }
+        return c;
     }
 
     /**

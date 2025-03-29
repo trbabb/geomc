@@ -1,3 +1,4 @@
+#pragma once
 /*
  * PermutationMatrix.h
  *
@@ -17,9 +18,6 @@
 // todo: apply in-place method. see:
 //     http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.29.2256&rep=rep1&type=pdf
 //     (Fich, Munro, Poblete; "Permuting in place")
-
-#ifndef PERMUTATIONMATRIX_H_
-#define PERMUTATIONMATRIX_H_
 
 #include <utility>
 #include <geomc/Storage.h>
@@ -498,5 +496,3 @@ index_t permutation_sign(index_t* p, index_t n) {
 
 
 };
-
-#endif /* PERMUTATIONMATRIX_H_ */

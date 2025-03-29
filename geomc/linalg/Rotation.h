@@ -241,6 +241,7 @@ public:
     Rotation(Vec<T,3> axis, T angle):
         q(Quat<T>::rotation_from_axis_angle(axis, angle)) {}
     
+    /// Rotation aligning two unit vectors. 
     static Rotation<T,3> align_vectors(const Vec<T,3>& dir, const Vec<T,3>& align_with) {
         return {
             Quat<T>::rotation_direction_align(dir, align_with)

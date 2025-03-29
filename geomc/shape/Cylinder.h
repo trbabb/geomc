@@ -23,12 +23,8 @@ namespace geom {
  * If `p0 == p1`, the behavior is undefined.
  */
 template <typename T, index_t N>
-class Cylinder: 
-    public Convex          <T,N,Cylinder<T,N>>,
-    public RayIntersectable<T,N,Cylinder<T,N>>,
-    public Projectable     <T,N,Cylinder<T,N>>
-{
-    public:
+class Cylinder: public Dimensional<T,N> {
+public:
     /// Axis endpoint.
     Vec<T,N> p0;
     /// Axis endpoint.
@@ -70,6 +66,10 @@ class Cylinder:
     
     bool operator==(const Cylinder<T,N>& other) const {
         return p0 == other.p0 and p1 == other.p1 and radius == other.radius;
+    }
+    
+    Vec<T,N> axis() const {
+        return p1 - p0;
     }
     
     /// Signed distance function.
@@ -171,6 +171,11 @@ class Cylinder:
         return n.unit();
     }
     
+    Vec<T,N> clip(Vec<T,N> p) const {
+        if (contains(p)) return p;
+        return project(p);
+    }
+    
     /**
      * @return An axis-aligned bounding box completely containing this
      * cylinder.
@@ -196,6 +201,15 @@ class Cylinder:
         Vec<T,N> a = p1 - p0;
         Vec<T,N> perp = (d - d.project_on(a)).unit() * radius;
         return (d.dot(a) > 0 ? p1 : p0) + perp;
+    }
+    
+    template <ConvexObject Shape>
+    requires (Shape::N == N) and std::same_as<T, typename Shape::elem_t>
+    bool intersects(const Shape& other) const {
+        return geom::intersects(
+            as_any_convex(*this),
+            as_any_convex(other)
+        );
     }
     
     /// Measure the interior (volume) of the cylinder.

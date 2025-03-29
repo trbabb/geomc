@@ -1,3 +1,5 @@
+#pragma once
+
 /* Matrix.h
  *  
  * Created on: Oct 27, 2010
@@ -249,9 +251,6 @@
 // TODO: there should be a diagonal iterator.
 //       this should be the only writeable iterator belonging to the diagMatrix.
 // TODO: iterators for nonzero entries.
-
-#ifndef MATRIX_H_
-#define MATRIX_H_
 
 #include <type_traits>
 
@@ -684,6 +683,7 @@ transpose(Md *into, const Mx &m) {
 template <typename Matrix1> Matrix transpose(const Matrix1 &m) {}
 #endif
 template <typename Mx>
+[[nodiscard]]
 typename std::enable_if<
             detail::IsMatrix<Mx>::val, 
             typename detail::_ImplMtxTxpose<Mx>::return_t>::type
@@ -1143,5 +1143,3 @@ operator<<(std::ostream &s, const Mx &mtx) {
 } // namespace geom
 
 /// @} //ingroup linalg
-
-#endif /* MATRIX_H_ */

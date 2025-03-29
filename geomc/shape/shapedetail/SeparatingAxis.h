@@ -1,12 +1,11 @@
+#pragma once
+
 /* 
  * File:   SeparatingAxis.h
  * Author: tbabb
  *
  * Created on May 26, 2014, 11:27 PM
  */
-
-#ifndef SEPARATINGAXIS_H
-#define	SEPARATINGAXIS_H
 
 #include <type_traits>
 
@@ -228,8 +227,4 @@ class RectIntersector<T, N,
     
     
 } // namespace detail
-    
 } // namespace geom
-
-
-#endif	/* SEPARATINGAXIS_H */

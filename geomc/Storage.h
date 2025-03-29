@@ -1,12 +1,10 @@
+#pragma once
 /* 
  * File:   Storage.h
  * Author: tbabb
  *
  * Created on December 24, 2014, 4:06 PM
  */
-
-#ifndef STORAGE_H
-#define STORAGE_H
 
 #include <geomc/geomc_defs.h>
 
@@ -460,5 +458,3 @@ struct GenericStorage<T,N,STORAGE_UNIQUE> : public UniqueStorage<T,N> {
 
 
 } // end namespace geom
-
-#endif  /* STORAGE_H */

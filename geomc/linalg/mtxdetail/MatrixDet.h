@@ -1,5 +1,4 @@
-#ifndef _MATRIXDET_H_
-#define _MATRIXDET_H_
+#pragma once
 
 #include <geomc/SmallStorage.h>
 #include <geomc/linalg/LUDecomp.h>
@@ -230,6 +229,3 @@ inline index_t det(const PermutationMatrix<N>& m) {
 /// @} // ingroup matrix
 
 } // namespace geom
-
-
-#endif

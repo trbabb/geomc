@@ -10,7 +10,6 @@
 
 #include <cmath>
 #include <algorithm>
-#include <concepts>
 
 #include <geomc/function/functiondetail/UtilDetail.h>
 
@@ -63,7 +62,7 @@ inline T sum_of_products(T a, T b, T c, T d) {
 /**
  * @brief Fused multiply-add.
  *
- * Compute `a * b + c` using a fused multiply add operation (if available), which may be both more
+ * Compute `m * x + b` using a fused multiply add operation (if available), which may be both more
  * performant and more precise than multiple instructions.
  *
  * Overloaded such that the calculation falls back to an ordinary composite multiply-add if a fused
@@ -71,8 +70,8 @@ inline T sum_of_products(T a, T b, T c, T d) {
  * possibly losing precision).
  */
 template <typename T>
-inline T multiply_add(T a, T b, T c) {
-    return detail::_ImplFMADot<T>::multiply_add(a, b, c);
+inline T multiply_add(T m, T x, T b) {
+    return detail::_ImplFMADot<T>::multiply_add(m, x, b);
 }
 
 // todo: it would be more consistent with the shape sub-library

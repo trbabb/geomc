@@ -356,14 +356,22 @@ struct VectorDimension<Vec<T,M>> {
     static constexpr index_t N = M;
 };
 
+namespace detail {
+
 template <typename T>
 struct CoordType {
-    typedef T coord_t;
+    using elem_t = T; // default to T for scalar types
 };
 
-template <typename T, index_t N>
-struct CoordType<Vec<T,N>> {
-    typedef T coord_t;
+template <DimensionalObject T>
+struct CoordType<T> {
+    // for dimensional objects, use the elem_t defined in the object
+    using elem_t = typename T::elem_t;
 };
-    
+
+} // namespace detail
+
+template <typename T>
+using Coordinate = typename detail::CoordType<T>::elem_t;
+
 } // namespace geom

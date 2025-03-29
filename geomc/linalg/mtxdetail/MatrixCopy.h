@@ -1,12 +1,10 @@
+#pragma once
 /* 
  * File:   MatrixCopy.h
  * Author: tbabb
  *
  * Created on September 14, 2013, 6:56 PM
  */
-
-#ifndef MATRIXCOPY_H
-#define	MATRIXCOPY_H
 
 #include <geomc/linalg/LinalgTypes.h>
 #include <geomc/linalg/mtxdetail/MatrixGlue.h>
@@ -126,6 +124,3 @@ void mtxcopy(Md* into, const Ms& src,
 /// @} // addtogroup matrix
 
 }; // namespace geom
-
-#endif	/* MATRIXCOPY_H */
-

@@ -58,12 +58,12 @@ public:
      * Example: `Quat<float> q = {0, 0, 0, 1};`
      * @param items A brace-initializer list.
      */
-    Quat(const std::initializer_list<T>& items):
+    constexpr Quat(const std::initializer_list<T>& items):
             detail::VecCommon< T,4,Quat<T>>(items.begin()) {
-        // items.size() not constexpr in c++11  D:<
         static_assert(
             items.size() == 4,
-            "Quaternion must be initialized with 4 elements");
+            "Quaternion must be initialized with 4 elements"
+        );
     }
     
     /*******************************
@@ -173,15 +173,15 @@ public:
     Quat<T> mult(const Quat<T>& q) const {
         Quat<T> result;
         
-        const T x = detail::VecBase<T,4>::x;
-        const T y = detail::VecBase<T,4>::y;
-        const T z = detail::VecBase<T,4>::z;
-        const T w = detail::VecBase<T,4>::w;
+        const T x = this->x;
+        const T y = this->y;
+        const T z = this->z;
+        const T w = this->w;
         
-        result.x = w*q.x + x*q.w + y*q.z - z*q.y;
-        result.y = w*q.y - x*q.z + y*q.w + z*q.x;
-        result.z = w*q.z + x*q.y - y*q.x + z*q.w;
-        result.w = w*q.w - x*q.x - y*q.y - z*q.z;
+        result.x =  sum_of_products(w, q.x, x, q.w) + diff_of_products(y, q.z, z, q.y);
+        result.y = diff_of_products(w, q.y, x, q.z) +  sum_of_products(y, q.w, z, q.x);
+        result.z =  sum_of_products(w, q.z, x, q.y) -  sum_of_products(y, q.x, z, q.w);
+        result.w = diff_of_products(w, q.w, x, q.x) - diff_of_products(y, q.y, z, q.z);
         
         return result;
     }

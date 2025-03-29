@@ -32,24 +32,32 @@ inline DefaultLCG create_rng() {
  * with mean 0 and variance 1.
  */
 template <typename T, index_t N, typename Generator>
-inline Vec<T,N> random_gaussian(Generator& rng) {
+inline VecType<T,N> random_gaussian(Generator& rng) {
     std::normal_distribution<T> gauss(0, 1);
-    Vec<T,N> v;
-    for (index_t i = 0; i < N; ++i) {
-        v[i] = gauss(rng);
+    if constexpr (N == 1) {
+        return gauss(rng);
+    } else {
+        Vec<T,N> v;
+        for (index_t i = 0; i < N; ++i) {
+            v[i] = gauss(rng);
+        }
+        return v;
     }
-    return v;
 }
 
 /**
  * @brief Generate a random vector with unit length.
  */
 template <typename T, index_t N, typename Generator>
-inline Vec<T,N> random_unit(Generator& rng) {
-    Vec<T,N> p;
-    if constexpr (N <= 3) {
+inline VecType<T,N> random_unit(Generator& rng) {
+    if constexpr (N == 1) {
+        // sample from {-1, 1}
+        std::uniform_int_distribution<int> coin(0, 1);
+        return coin(rng) ? 1 : -1;
+    } else if constexpr (N <= 3) {
         // rejection sampling
         DenseUniformDistribution<T> unif {-1,1};
+        Vec<T,N> p;
         do {
             // generate a point in the signed unit box
             for (index_t i = 0; i < N; ++i) {
@@ -61,11 +69,12 @@ inline Vec<T,N> random_unit(Generator& rng) {
     } else {
         // draw a multivariate gaussian, then project it onto the sphere
         std::normal_distribution<T> gauss(0, 1);
+        Vec<T,N> p;
         for (index_t i = 0; i < N; ++i) {
             p[i] = gauss(rng);
         }
+        return p.unit();
     }
-    return p.unit();
 }
 
 /// @}

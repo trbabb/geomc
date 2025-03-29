@@ -1,12 +1,10 @@
+#pragma once
 /* 
  * File:   Basis.h
  * Author: tbabb
  *
  * Created on December 24, 2014, 3:51 PM
  */
-
-#ifndef BASIS_H
-#define	BASIS_H
 
 #include <math.h>
 #include <numeric>
@@ -149,5 +147,3 @@ inline T chebyshev(index_t kind, index_t n, T x) {
 /// @} // group function
 
 } // end namespace geom
-
-#endif	/* BASIS_H */

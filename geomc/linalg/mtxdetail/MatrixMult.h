@@ -1,12 +1,10 @@
+#pragma once
 /*
  * MatrixMult.h
  *
  *  Created on: Jun 23, 2013
  *      Author: tbabb
  */
-
-#ifndef MATRIXMULT_H_
-#define MATRIXMULT_H_
 
 #include <type_traits>
 #include <geomc/linalg/LinalgTypes.h>
@@ -414,8 +412,5 @@ public:
 
 #undef REQUIRE_MATRIX_T
 
-}; // namespace geom
-}; // namespace detail
-
-
-#endif /* MATRIXMULT_H_ */
+} // namespace geom
+} // namespace detail

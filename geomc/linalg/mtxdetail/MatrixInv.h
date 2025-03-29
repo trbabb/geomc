@@ -1,12 +1,10 @@
+#pragma once
 /*
  * MatrixInv.h
  *
  *  Created on: Jul 18, 2013
  *      Author: tbabb
  */
-
-#ifndef MATRIXINV_H_
-#define MATRIXINV_H_
 
 #include <algorithm>
 
@@ -409,7 +407,5 @@ public:
 template <typename T>
 class _ImplMtxInv<T*> {};
 
-}; // namespace detail
-}; // namespace geom
-
-#endif /* MATRIXINV_H_ */
+} // namespace detail
+} // namespace geom

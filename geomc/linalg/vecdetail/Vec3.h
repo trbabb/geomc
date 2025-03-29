@@ -219,8 +219,8 @@ namespace geom {
         }
         
         /**
-         * Convert this euclidean point to spherical coordinates `(r, elevation, azimuth)`,
-         * with both angles in radians. Elevation is the angle from the +z axis in the 
+         * Convert this euclidean point to spherical coordinates `(r, polar, azimuth)`,
+         * with both angles in radians. Polar angle is the angle from the +z axis in the 
          * range `(0, pi)`, and azimuth is the angle about +z from the +x axis
          * in the range `(-pi, pi)`.
          * 
@@ -237,19 +237,19 @@ namespace geom {
         }
         
         /**
-         * Construct a point from spherical coordinates `(r, elevation, azimuth)`,
-         * to euclidean coordinates, where `r` is the radius, `eleveation`
+         * Construct a point from spherical coordinates `(r, polar, azimuth)`,
+         * to euclidean coordinates, where `r` is the radius, `polar`
          * is the angle from the +z axis, and `azimuth` is the angle about z+ from
          * the x+ axis.
          * 
          * @return A euclidean point constructed from spherical coordinates.
          */
-        static Vec<T,3> from_spherical(T r, T elev, T azi) {
+        static Vec<T,3> from_spherical(T r, T polar, T azi) {
             Vec<T,3> out;
-            T rsinelev = r * std::sin(elev);
-            out.x = rsinelev * std::cos(azi);
-            out.y = rsinelev * std::sin(azi);
-            out.z = r * std::cos(elev);
+            T rsinpolar = r * std::sin(polar);
+            out.x = rsinpolar * std::cos(azi);
+            out.y = rsinpolar * std::sin(azi);
+            out.z = r * std::cos(polar);
             return out;
         }
 

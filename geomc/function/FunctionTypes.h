@@ -1,12 +1,10 @@
+#pragma once
 /*
  * FunctionTypes.h
  *
  *  Created on: Mar 16, 2013
  *      Author: tbabb
  */
-
-#ifndef FUNCTIONTYPES_H_
-#define FUNCTIONTYPES_H_
 
 #include <geomc/linalg/LinalgTypes.h>
 
@@ -55,5 +53,3 @@ enum Interpolation {
 /// @} // addtogroup function
 
 } // namespace geom
-
-#endif /* FUNCTIONTYPES_H_ */

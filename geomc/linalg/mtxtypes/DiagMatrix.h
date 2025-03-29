@@ -1,12 +1,11 @@
+#pragma once
+
 /*
  * DiagMatrix.h
  *
  *  Created on: Apr 28, 2013
  *      Author: tbabb
  */
-
-#ifndef DIAGMATRIX_H_
-#define DIAGMATRIX_H_
 
 #include <geomc/linalg/mtxdetail/MatrixBase.h>
 
@@ -170,5 +169,3 @@ public:
 
 
 }; // end namespace geom
-
-#endif /* DIAGMATRIX_H_ */

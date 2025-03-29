@@ -1,12 +1,10 @@
+#pragma once
 /*
  * LUDecomp.h
  *
  *  Created on: Jul 11, 2013
  *      Author: tbabb
  */
-
-#ifndef LUDECOMP_H_
-#define LUDECOMP_H_
 
 #include <type_traits>
 #include <geomc/SmallStorage.h>
@@ -446,5 +444,3 @@ inline bool linear_solve(Vec<T,N> bases[N], index_t m, Vec<T,N>* x, index_t skip
 /// @}  ingroup linalg
 
 }  // namespace geom
-
-#endif /* LUDECOMP_H_ */

@@ -238,14 +238,19 @@ public:
      * @param b1 OritentedRect to test against.
      * @return `true` if and only if `this` overlaps with `b1`; `false` otherwise.
      */
-    bool intersects(const Transformed< Rect<T,N> >& b1) {
+    bool intersects(const Transformed<Rect<T,N>>& b1) {
         // we will make ourselves axis-aligned; this is the same as applying
         // the inverse of our xf. We apply the inverse of xf to b1 too,
         // to preserve the relationhip between the us. From this, we
         // fallback to an ORect <-> Rect test.
-        Transformed< Rect<T,N> > b1_in_b0 = b1 / xf;
+        Transformed<Rect<T,N>> b1_in_b0 = b1 / xf;
         
         return b1_in_b0.intersects(shape);
+    }
+    
+    /// Return the `i`th corner of the transformed box.
+    Vec<T,N> corner(index_t i) const {
+        return xf * shape.corner(i);
     }
     
     /// Ray-shape intersection.

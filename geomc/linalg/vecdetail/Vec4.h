@@ -1,12 +1,10 @@
+#pragma once
 /*
  * Vec4.h
  *
  *  Created on: Feb 22, 2009
  *      Author: Tim Babb
  */
-
-#ifndef VECTOR4D_H_
-#define VECTOR4D_H_
 
 #include <cctype>
 #include <algorithm>
@@ -32,6 +30,25 @@ namespace geom {
         T b = ((rgba & 0x0000ff00) >> 8)  / detail::_RGBChannelConversion<T>::factor;
         T a =  (rgba & 0x000000ff)        / detail::_RGBChannelConversion<T>::factor;
         return Vec<T,4>(r,g,b,a);
+    }
+    
+    /**
+     * @brief Composite two non-premultiplied colors over each other.
+     */
+    template <typename T>
+    const Vec<T,4> composite_over(Vec<T,4> fg, Vec<T,4> bg) {
+        Vec<T,3> c_fg = fg.template resized<3>();
+        Vec<T,3> c_bg = bg.template resized<3>();
+        T a_fg = fg.w;
+        T a_bg = bg.w;
+        T a_out = a_fg + (1 - a_fg) * a_bg;
+        if (a_out == 0) {
+            return fg + bg;
+        }
+        return {
+            (c_fg * a_fg + c_bg * a_bg * (1 - a_fg)) / a_out,
+            a_out
+        };
     }
 
     /*===========================*
@@ -144,5 +161,3 @@ namespace geom {
     template <typename T> const Vec<T,4> Vec<T,4>::W_AXIS = Vec<T,4>(0,0,0,1);
 
 } //end namespace geom
-
-#endif /* VECTOR4D_H_ */

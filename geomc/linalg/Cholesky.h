@@ -1,5 +1,4 @@
-#ifndef __CHOLESKY_H__
-#define __CHOLESKY_H__
+#pragma once
 
 #include <type_traits>
 #include <geomc/linalg/Matrix.h>
@@ -93,5 +92,3 @@ cholesky(SimpleMatrix<T,M,N,Lyt,P>* m) {
 /// @}  // ingroup linalg
     
 }
-
-#endif

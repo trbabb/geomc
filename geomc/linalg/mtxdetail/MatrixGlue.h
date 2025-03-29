@@ -1,12 +1,10 @@
+#pragma once
 /*
  * MatrixGlue.h
  *
  *  Created on: Jan 28, 2013
  *      Author: tbabb
  */
-
-#ifndef MATRIXGLUE_H_
-#define MATRIXGLUE_H_
 
 #include <type_traits>
 
@@ -459,7 +457,3 @@ struct _ImplMtxResult <Ma, Mb, Md,
 
 } /* namespace detail */
 } /* namespace geom */
-
-
-
-#endif /* MATRIXGLUE_H_ */

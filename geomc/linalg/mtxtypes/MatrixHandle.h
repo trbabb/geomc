@@ -1,12 +1,10 @@
+#pragma once
 /*
  * MatrixHandle.h
  *
  *  Created on: Apr 28, 2013
  *      Author: tbabb
  */
-
-#ifndef GENERALMATRIX_H_
-#define GENERALMATRIX_H_
 
 #include <geomc/linalg/mtxdetail/MatrixBase.h>
 
@@ -110,7 +108,4 @@ public:
     }
 };
 
-}; // end namespace geom
-
-
-#endif /* GENERALMATRIX_H_ */
+} // end namespace geom

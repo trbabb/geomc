@@ -138,7 +138,7 @@ requires (
     and std::is_arithmetic_v<H> // T not a class type
 )
 struct Digest<T, H> {
-    H operator()(const T& x) const {
+    H operator()(T x) const {
         constexpr size_t Ts = sizeof(T);
         constexpr size_t Hs = sizeof(H);
         // this ought to always be possible because arithmetic types
@@ -188,11 +188,14 @@ struct Digest<std::string_view, H> {
 template <typename... Ts, typename H>
 struct Digest<std::tuple<Ts...>, H> {
     H operator()(const std::tuple<Ts...>& t) const {
-        H nonce = truncated_constant<H>(0xf804bbd33c7e7769, 0x439588acee006cd0);
-        // xxx: todo: use index_sequence_for<Ts...>() to avoid ambiguity
-        return hash_combine_many(
-            nonce,
-            geom::hash<Ts,H>(std::get<Ts>(t))...
+        return std::apply(
+            [](const Ts&... elems) {
+                return hash_combine_many(
+                    truncated_constant<H>(0xf804bbd33c7e7769, 0x439588acee006cd0),
+                    geom::hash<Ts, H>(elems)...
+                );
+            },
+            t
         );
     }
 };
@@ -242,30 +245,6 @@ inline constexpr H hash_combine(H h0, H h1) {
 }
 
 template <typename H>
-inline constexpr H hash_combine_many(H h) {
-    return h;
-}
-
-template <typename H, typename... Hs>
-inline constexpr H hash_combine_many(H h, Hs... hashes) {
-    return hash_combine(h, hash_combine_many(hashes...));
-}
-
-template <typename T, typename H>
-inline H hash_array(H nonce, const T* objs, size_t count) {
-    H h = nonce;
-    for (size_t i = 0; i < count; ++i) {
-        h = hash_combine(h, geom::hash<T,H>(objs[i]));
-    }
-    return h;
-}
-
-template <typename H, typename... Ts>
-inline H hash_many(H nonce, const Ts&... objs) {
-    return hash_combine_many(nonce, geom::hash<Ts,H>(objs)...);
-}
-
-template <typename H>
 inline H hash_bytes(H nonce, const void* obj, size_t size) {
     const char* bytes = reinterpret_cast<const char*>(obj);
     if constexpr (sizeof(size_t) >= sizeof(H)) {
@@ -291,6 +270,32 @@ inline H hash_bytes(H nonce, const void* obj, size_t size) {
             return (((H) out[0]) << 64) | out[1];
         }
     }
+}
+
+template <typename H>
+inline constexpr H hash_combine_many(H h) {
+    return h;
+}
+
+template <typename H, typename... Hs>
+inline constexpr H hash_combine_many(H h, Hs... hashes) {
+    constexpr size_t N = sizeof...(Hs);
+    H hs[N] {hashes...};
+    return hash_bytes<H>(h, hs, N * sizeof(H));
+}
+
+template <typename T, typename H>
+inline H hash_array(H nonce, const T* objs, size_t count) {
+    H h = nonce;
+    for (size_t i = 0; i < count; ++i) {
+        h = hash_combine(h, geom::hash<T,H>(objs[i]));
+    }
+    return h;
+}
+
+template <typename H, typename... Ts>
+inline H hash_many(H nonce, const Ts&... objs) {
+    return hash_combine_many(nonce, geom::hash<Ts,H>(objs)...);
 }
 
 

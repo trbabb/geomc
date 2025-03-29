@@ -53,8 +53,6 @@ public:
     operator Transformed<Shape>() const {
         return Transformed<Shape>(shape, xf);
     }
-     
-    using Convex<T,N,Similar<Shape>>::intersects;
     
     template <ConvexObject S>
     bool intersects(const S& other) const {
@@ -113,6 +111,10 @@ public:
             r.hi[axis] = p_hi[axis];
         }
         return r;
+    }
+    
+    Vec<T,N> corner(index_t i) const requires std::same_as<Shape,Rect<T,N>> {
+        return xf * shape.corner(i);
     }
     
     Similar<Rect<T,N>> transformed_bounds() const requires BoundedObject<Shape> {

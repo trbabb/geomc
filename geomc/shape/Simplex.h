@@ -85,11 +85,7 @@ bool trace_simplex(const Vec<T,N> verts[N], const Ray<T,N>& ray, Vec<T,N-1>* uv,
  * spans a subspace of the space in which it is embedded.
  */
 template <typename T, index_t N>
-class Simplex:
-    public Convex          <T,N,Simplex<T,N>>,
-    public RayIntersectable<T,N,Simplex<T,N>>,
-    public SdfEvaluable    <T,N,Simplex<T,N>>
-{
+class Simplex: public Dimensional<T,N> {
 public:
 
     /// Vertices of this simplex.
@@ -564,7 +560,23 @@ public:
         }
         return o;
     }
-
+    
+    Rect<T,N> bounds() const {
+        Rect<T,N> r = Rect<T,N>::empty;
+        for (index_t i = 0; i < n; ++i) {
+            r |= pts[i];
+        }
+        return r;
+    }
+    
+    template <ConvexObject Shape>
+    requires (Shape::N == N) and std::same_as<T, typename Shape::elem_t>
+    bool intersects(const Shape& other) const {
+        return geom::intersects(
+            as_any_convex(*this),
+            as_any_convex(other)
+        );
+    }
 
 }; // class simplex
 

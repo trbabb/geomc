@@ -12,11 +12,8 @@ namespace geom {
  * @brief An N-dimensional capsule shape
  */
 template <typename T, index_t N>
-class Capsule:
-    public Convex      <T,N,Capsule<T,N>>,
-    public Projectable <T,N,Capsule<T,N>>
-{
-    typedef PointType<T,N> ptype;
+class Capsule: public Dimensional<T,N> {
+    using ptype = PointType<T,N>;
 public:
     using typename Dimensional<T,N>::point_t;
     /// endpoints of the capsule axis.
@@ -75,6 +72,15 @@ public:
         return sdf(s.center) <= s.r;
     }
     
+    template <ConvexObject Shape>
+    requires (Shape::N == N) and std::same_as<T, typename Shape::elem_t>
+    bool intersects(const Shape& other) const {
+        return geom::intersects(
+            as_any_convex(*this),
+            as_any_convex(other)
+        );
+    }
+    
     point_t convex_support(point_t d) const {
         point_t axis = p1 - p0;
         point_t p = d.dot(axis) >= 0 ? p1 : p0;
@@ -101,6 +107,10 @@ public:
     /// Outward-facing direction.
     point_t normal(point_t p) const {
         return ptype::unit(p - nearest_axis_point(p));
+    }
+    
+    point_t clip(point_t p) const {
+        return contains(p) ? p : project(p);
     }
     
     /// Measure of the shape's interior.

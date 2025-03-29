@@ -1,12 +1,10 @@
+#pragma once
 /*
  * MatrixFunctionImpl.h
  *
  *  Created on: Jan 28, 2013
  *      Author: tbabb
  */
-
-#ifndef MATRIXFUNCTIONIMPL_H_
-#define MATRIXFUNCTIONIMPL_H_
 
 #include <algorithm>
 #include <geomc/linalg/LinalgTypes.h>
@@ -251,5 +249,3 @@ bool mtxequal(const geom::PermutationMatrix<N>& a, const geom::PermutationMatrix
 
 }; /* namespace geom::detail */
 }; /* namespace geom */
-
-#endif /* MATRIXFUNCTIONIMPL_H_ */

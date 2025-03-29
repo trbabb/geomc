@@ -420,7 +420,7 @@ SimpleMatrix<T,3,3> rotmat(const Quat<T>& q) {
 }
 
 // rotation about an arbitrary point
-template <typename T> 
+template <typename T>
 void rotmat(
         SimpleMatrix<T,4,4>* into, 
         T x,  T y,  T z, 
@@ -628,26 +628,26 @@ void rotmat(
     T   c = std::cos(theta);
     T   s = std::sin(theta);
     T c_1 = 1 - c;
-    T  x2 = x*x;
-    T  y2 = y*y;
-    T  z2 = z*z;
-    T xyc = x*y*c_1;
-    T xzc = x*z*c_1;
-    T yzc = y*z*c_1;
-    T da  = x2 + c*(y2 + z2);
-    T db  = y2 + c*(x2 + z2);
-    T dc  = z2 + c*(x2 + y2);
+    T  x2 = x * x;
+    T  y2 = y * y;
+    T  z2 = z * z;
+    T xyc = x * y * c_1;
+    T xzc = x * z * c_1;
+    T yzc = y * z * c_1;
+    T da  = multiply_add(c, y2 + z2, x2);
+    T db  = multiply_add(c, x2 + z2, y2);
+    T dc  = multiply_add(c, x2 + y2, z2);
     
     T fac[4][4] = {
-        {da,  xyc, xzc, (px*(y2 + z2) - x*(py*y + pz*z))*c_1},
-        {xyc, db,  yzc, (py*(x2 + z2) - y*(px*x + pz*z))*c_1},
-        {xzc, yzc, dc,  (pz*(x2 + y2) - z*(px*x + py*y))*c_1},
+        {da,  xyc, xzc, diff_of_products(px, y2 + z2, x, sum_of_products(py, y, pz, z)) * c_1},
+        {xyc, db,  yzc, diff_of_products(py, x2 + z2, y, sum_of_products(px, x, pz, z)) * c_1},
+        {xzc, yzc, dc,  diff_of_products(pz, x2 + y2, z, sum_of_products(px, x, py, y)) * c_1},
         {0,   0,   0,   1}
     };
     T sterms[3][4] = {
-        {0,   -z*s, y*s, (py*z - pz*y)*s},
-        {z*s,  0,  -x*s, (pz*x - px*z)*s},
-        {-y*s, x*s, 0,   (px*y - py*x)*s}
+        {0,   -z*s, y*s, diff_of_products(py, z, pz, y) * s},
+        {z*s,  0,  -x*s, diff_of_products(pz, x, px, z) * s},
+        {-y*s, x*s, 0,   diff_of_products(px, y, py, x) * s}
     };
     
     // pre-fill output matrices.

@@ -89,6 +89,7 @@ struct SampleShape {};
 template <typename T, index_t N>
 struct SampleShape<Simplex<T,N>> : public detail::ShapeDistribution<Simplex<T,N>> {
     using detail::ShapeDistribution<Simplex<T,N>>::shape;
+    using detail::ShapeDistribution<Simplex<T,N>>::ShapeDistribution;
     using typename Dimensional<T,N>::point_t;
     
 private:
@@ -127,6 +128,7 @@ public:
 template <typename T, index_t N>
 struct SampleShape<Rect<T,N>> : public detail::ShapeDistribution<Rect<T,N>> {
     using detail::ShapeDistribution<Rect<T,N>>::shape;
+    using detail::ShapeDistribution<Rect<T,N>>::ShapeDistribution;
     using typename Dimensional<T,N>::point_t;
     
     template <typename Generator>
@@ -156,6 +158,7 @@ struct SampleShape<Rect<T,N>> : public detail::ShapeDistribution<Rect<T,N>> {
 template <typename T, index_t N>
 struct SampleShape<Sphere<T,N>> : public detail::ShapeDistribution<Sphere<T,N>> {
     using detail::ShapeDistribution<Sphere<T,N>>::shape;
+    using detail::ShapeDistribution<Sphere<T,N>>::ShapeDistribution;
     using typename Dimensional<T,N>::point_t;
 
 private:
@@ -201,6 +204,7 @@ public:
 template <typename T, index_t N>
 struct SampleShape<Hollow<Sphere<T,N>>> : public detail::ShapeDistribution<Hollow<Sphere<T,N>>> {
     using detail::ShapeDistribution<Hollow<Sphere<T,N>>>::shape;
+    using detail::ShapeDistribution<Hollow<Sphere<T,N>>>::ShapeDistribution;
     using typename Dimensional<T,N>::point_t;
 
 private:
@@ -245,6 +249,7 @@ public:
 template <typename T, index_t N>
 struct SampleShape<SphericalShell<T,N>> : public detail::ShapeDistribution<SphericalShell<T,N>> {
     using detail::ShapeDistribution<SphericalShell<T,N>>::shape;
+    using detail::ShapeDistribution<SphericalShell<T,N>>::ShapeDistribution;
     using typename Dimensional<T,N>::point_t;
 
 private:
@@ -295,6 +300,7 @@ public:
 template <typename T, index_t N>
 struct SampleShape<Cylinder<T,N>> : public detail::ShapeDistribution<Cylinder<T,N>> {
     using detail::ShapeDistribution<Cylinder<T,N>>::shape;
+    using detail::ShapeDistribution<Cylinder<T,N>>::ShapeDistribution;
     using typename Dimensional<T,N>::point_t;
 
 private:
@@ -333,6 +339,7 @@ template <typename T, index_t N>
 requires (N == 2 or N == 3)
 struct SampleShape<SphericalCap<T,N>> : public detail::ShapeDistribution<SphericalCap<T,N>> {
     using detail::ShapeDistribution<SphericalCap<T,N>>::shape;
+    using detail::ShapeDistribution<SphericalCap<T,N>>::ShapeDistribution;
     using typename Dimensional<T,N>::point_t;
     
     template <typename Generator>
@@ -588,13 +595,13 @@ public:
     bool operator==(const SampleShape& other) const = default;
 };
 
-/// @brief Sample a point from the surface of an extruded shape with no endcaps.
+/// @brief Sample a point from the an extruded shape with no endcaps.
 template <typename Shape>
-struct SampleShape<Hollow<Extruded<Hollow<Shape>>>> :
-        public detail::ShapeDistribution<Hollow<Extruded<Hollow<Shape>>>>
+struct SampleShape<Extruded<Hollow<Shape>>> :
+        public detail::ShapeDistribution<Extruded<Hollow<Shape>>>
 {
-    using detail::ShapeDistribution<Hollow<Extruded<Hollow<Shape>>>>::shape;
-    using typename detail::ShapeDistribution<Hollow<Extruded<Hollow<Shape>>>>::shape_type;
+    using detail::ShapeDistribution<Extruded<Hollow<Shape>>>::shape;
+    using typename detail::ShapeDistribution<Extruded<Hollow<Shape>>>::shape_type;
     using typename Dimensional<typename shape_type::elem_t, shape_type::N>::point_t;
     using T = typename shape_type::elem_t;
     using Dimensional<T,shape_type::N>::N;
@@ -609,22 +616,21 @@ public:
     
     template <typename Generator>
     point_t operator()(Generator& rng) {
-        DenseUniformDistribution<T> u(0, 1);
-        const Extruded<Shape>& extrusion = shape.shape;
-        T h = u(rng);
+        DenseUniformDistribution<T> u(shape.height);
         return {
-            face_shape_sampler(rng),
-            extrusion.height.remap(h)
+            _face_shape_sampler(rng),
+            u(rng)
         };
     }
     
     void param(const shape_type& s) {
         shape = s;
-        const face_shape_t& face_shape = s.shape.base;
-        _face_shape_sampler.param(face_shape);
+        _face_shape_sampler.param(s.base);
     }
     
-    bool operator==(const SampleShape& other) const = default;
+    bool operator==(const SampleShape& other) const {
+        return other.shape == shape;
+    }
 };
 
 /// @}
