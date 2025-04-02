@@ -284,7 +284,7 @@ struct RandomShape<SphericalCap<T,N>> {
     static SphericalCap<T,N> rnd_shape(rng_t* rng) {
         constexpr T pi = std::numbers::pi_v<T>;
         std::uniform_real_distribution<T> u(0, pi);
-        return {u(*rng)};
+        return SphericalCap<T,N>{u(*rng)};
     }
 };
 

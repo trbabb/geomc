@@ -155,7 +155,8 @@ public:
     inline static Rect<T,N> from_edge(VecType<T,N> edge, VecType<T,N> dims) {
         return Rect<T,N>::from_corners(
             edge,
-            edge + dims - endpoint_measure);
+            edge + dims - endpoint_measure
+        );
     }
 
     /**
