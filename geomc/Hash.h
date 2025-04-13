@@ -21,6 +21,22 @@ void siphash(
               uint8_t* out,
         const size_t   out_len);
 
+template <std::integral H>
+constexpr H _lcg_multiplier() {
+    if constexpr (sizeof(H) == 16) {
+        return (H(0x2360ed051fc65da4) << 64) | 0x4385df649fccf645;
+    } else if constexpr (sizeof(H) == 8) {
+        return 0x5851f42d4c957f2d;
+    } else if constexpr (sizeof(H) == 4) {
+        return 0x8088405;
+    } else {
+        static_assert(
+            sizeof(H) >= 4 and sizeof(H) <= 16 and is_power_of_two(sizeof(H)),
+            "bit width not supported for _lcg_multiplier()"
+        );
+    }
+}
+
 } // namespace detail
 
 
@@ -38,7 +54,7 @@ constexpr H truncated_constant(uint64_t k0, uint64_t k1) {
 template <typename T, typename H>
 constexpr H type_constant() {
     size_t t_id = std::type_index(typeid(T)).hash_code();
-    return truncated_constant<H>(0xdb8f3e91a1d0cde7, t_id);
+    return truncated_constant<H>(0xdb8f3e91a1d0cde7, 0xcce839a533c83da ^ t_id);
 }
 
 /**
@@ -50,6 +66,7 @@ inline constexpr H hash_combine(H h0, H h1) {
     //   - multipliers can be taken from "good" lcgs
     //   - for 128 bit, you can use from PCG:
     //     0x2360ed051fc65da4'4385df649fccf645
+    //   - https://github.com/imneme/pcg-cpp/blob/master/include/pcg_random.hpp#L162
     if constexpr (sizeof(H) == 16) {
         // constant 0x9e3779b97f4a7c15f39cc0605cedc834 calculated
         // with a multiprecision library; k = 2^128 / phi
@@ -134,23 +151,37 @@ inline constexpr H hash_combine_many(H h, Hs... hashes) {
 template <typename T, typename H=std::size_t>
 struct Digest {};
 
-
 /**
  * @brief Specialize for `T` to disable the use of `std::hash` for `Digest<T>`.
  *
  * This can be used to disambiguate specializations of `Digest` with certain
  * templated custom types. (Most templates will not be ambiguous).
+ *
+ * Example usage:
+ * 
+ *     template <>
+ *     struct geom::disable_std_hash_fallback<MyType> : std::true_type {};
+ *
  */
 template <typename T>
 struct disable_std_hash_fallback : std::false_type {};
 
+template <typename T>
+concept natively_std_hashable = requires (T obj) {
+    std::hash<T>{}(obj);
+} and not disable_std_hash_fallback<T>::value;
 
 // if std::hash is defined for T and there are enough
 // bits in size_t to fill a H, use that
-template <typename T, typename H>
+template <natively_std_hashable T, typename H>
 requires (
-    sizeof(H) <= sizeof(size_t)
-    and not disable_std_hash_fallback<T>::value
+    // std::hash<T> can fill an H
+    sizeof(H) <= sizeof(size_t) or
+    // not more bits of entropy in T than what std::hash<T> gives;
+    // so might as well use std::hash<T>.
+    // also require that T does not have any internal pointers which might
+    // lead to more entropy; we can guarantee that if T is arithmetic or enum.
+    (sizeof(T) <= sizeof(size_t) and (std::is_arithmetic_v<T> or std::is_enum_v<T>))
 )
 struct Digest<T, H> {
     H operator()(const T& obj) const {
@@ -174,12 +205,12 @@ struct Digest<H,H> {
 // we'll just use its bits directly.
 template <typename T, typename H>
 requires (
-        sizeof(H) > sizeof(size_t)  // std::hash cannot fill an H
-    and sizeof(H) > sizeof(T)       // not enough bits in T to fill an H,
-    and sizeof(T) > sizeof(size_t)  // but T is bigger than size_t,
-                                    // so we get more bits than std::hash;
-                                    // might as well use all available bits directly
-    and (std::is_arithmetic_v<H> or std::is_enum_v<H>)
+    (std::is_arithmetic_v<H> or std::is_enum_v<H>)
+    and sizeof(H) >  sizeof(size_t)  // std::hash cannot fill an H
+    and sizeof(H) >= sizeof(T)       // and not more bits than an H,
+    and sizeof(T) >  sizeof(size_t)  // but T is bigger than size_t,
+                                     // so we get more bits than std::hash;
+                                     // might as well use all available bits directly
 )
 struct Digest<T, H> {
     H operator()(const T& x) const {
@@ -210,33 +241,21 @@ struct Digest<T, H> {
 
 // digest an arithmetic type by folding its bits.
 // if H is larger than size_t, we can't use std::hash; and
-// if T is arithmetic and (over-) fills an H, then we hash it by treating it
+// if T is arithmetic and over-fills an H, then we hash it by treating it
 // as an array of Hs.
 template <typename T, typename H>
 requires (
     sizeof(H) > sizeof(size_t)  // std::hash cannot fill an H
-    and sizeof(H) <= sizeof(T)  // T's bits can fill or overfill an H
+    and sizeof(H) < sizeof(T)   // T's bits overfill an H
     and std::is_arithmetic_v<H> // T not a class type
 )
 struct Digest<T, H> {
     H operator()(T x) const {
-        constexpr size_t Ts = sizeof(T);
-        constexpr size_t Hs = sizeof(H);
-        // this ought to always be possible because arithmetic types
-        // are generally always a power of two number of bytes
-        static_assert(
-            Ts % Hs == 0,
-            "hash_combine expects that sizeof(T) is a multiple of sizeof(H)"
-        );
         if constexpr (std::floating_point<T>) {
             x = x + (T)0; // force -0 to +0
         }
-        const H* v = reinterpret_cast<const H*>(&x);
-        H h = v[0];
-        for (size_t i = 1; i < Ts / Hs; ++i) {
-            h = hash_combine(h, v[i]);
-        }
-        return h;
+        H nonce = truncated_constant<H>(0x42d6c1a0dc8135b0, 0xb4eae59a413afc23);
+        return geom::hash_bytes(nonce, &x, sizeof(T));
     }
 };
 

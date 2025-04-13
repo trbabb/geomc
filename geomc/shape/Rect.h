@@ -573,7 +573,17 @@ public:
      */
     template <typename U, index_t M>
     operator Rect<U,M>() const {
-        return Rect<U,M>((VecType<U,M>) lo, (VecType<U,M>) hi);
+        if constexpr (M == N) {
+            return Rect<U,M>(
+                VecType<U,N>(lo),
+                VecType<U,N>(hi)
+            );
+        } else {
+            return Rect<U,M>(
+                VecType<U,N>(lo).template resized<M>(),
+                VecType<U,N>(hi).template resized<M>()
+            );
+        }
     }
 
 
