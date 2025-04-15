@@ -692,7 +692,7 @@ template <typename T, index_t N, typename H>
 struct Digest<Simplex<T,N>, H> {
     H operator()(const Simplex<T,N>& s) const {
         H nonce = geom::truncated_constant<H>(0x8159bb983f797983, 0xe8904e94430f7555);
-        return geom::hash_array<H>(nonce, s.pts, s.n);
+        return geom::hash_array<Vec<T,N>,H>(nonce, s.pts, s.n);
     }
 };
 

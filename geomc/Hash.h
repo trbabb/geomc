@@ -323,11 +323,12 @@ struct Digest<std::variant<Ts...>, H> {
             // nonce unique to variant
             geom::truncated_constant<H>(0xc073bebcbe0daa53, 0x9100685c51aa2de4),
             // entropy unique to the active alternative
-            geom::hash<H>(v.index()),
+            geom::hash<size_t,H>(v.index()),
             // hash the value
             std::visit(
-                [](const auto& x) {
-                    return geom::hash(x);
+                [](const auto& x) -> H {
+                    using T = std::decay_t<decltype(x)>;
+                    return geom::hash<T,H>(x);
                 },
                 v
             )
