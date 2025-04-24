@@ -54,7 +54,7 @@ constexpr H truncated_constant(uint64_t k0, uint64_t k1) {
 template <typename T, typename H>
 constexpr H type_constant() {
     size_t t_id = std::type_index(typeid(T)).hash_code();
-    return truncated_constant<H>(0xdb8f3e91a1d0cde7, 0xcce839a533c83da ^ t_id);
+    return truncated_constant<H>(0xdb8f3e91a1d0cde7 * t_id, 0xcce839a533c83da ^ t_id);
 }
 
 /**
@@ -177,8 +177,9 @@ template <natively_std_hashable T, typename H>
 requires (
     // std::hash<T> can fill an H
     sizeof(H) <= sizeof(size_t) or
+    // or size_t might underfill an H, but there are
     // not more bits of entropy in T than what std::hash<T> gives;
-    // so might as well use std::hash<T>.
+    // so might as well use std::hash<T> which may mix entropy better.
     // also require that T does not have any internal pointers which might
     // lead to more entropy; we can guarantee that if T is arithmetic or enum.
     (sizeof(T) <= sizeof(size_t) and (std::is_arithmetic_v<T> or std::is_enum_v<T>))
@@ -205,6 +206,7 @@ struct Digest<H,H> {
 // we'll just use its bits directly.
 template <typename T, typename H>
 requires (
+    // no internal indirection or padding
     (std::is_arithmetic_v<H> or std::is_enum_v<H>)
     and sizeof(H) >  sizeof(size_t)  // std::hash cannot fill an H
     and sizeof(H) >= sizeof(T)       // and not more bits than an H,
@@ -267,7 +269,7 @@ struct Digest<std::string, H> {
     H operator()(const std::string& s) const {
         // should match std::string view below:
         H nonce = truncated_constant<H>(0xf10749c80725844e, 0xe88cfd8ec23556e4);
-        return hash_bytes<H>(0, s.data(), s.size());
+        return hash_bytes<H>(nonce, s.data(), s.size());
     }
 };
 
@@ -279,7 +281,7 @@ struct Digest<std::string_view, H> {
     H operator()(const std::string_view& s) const {
         // should match std::string above:
         H nonce = truncated_constant<H>(0xf10749c80725844e, 0xe88cfd8ec23556e4);
-        return hash_bytes<H>(0, s.data(), s.size());
+        return hash_bytes<H>(nonce, s.data(), s.size());
     }
 };
 

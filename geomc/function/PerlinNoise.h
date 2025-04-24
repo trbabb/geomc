@@ -176,15 +176,15 @@ protected:
     
     const point_t& get_grid_gradient(const grid_t& pt) const {
         uint64_t idx = 0;
+        auto m = gridtype::iterator(pt);
         for (index_t i = 0; i < N; ++i) {
             // do an iterated linear congruential scramble, using Knuth's constants:
-            uint64_t k = static_cast<uint64_t>(gridtype::iterator(pt)[i]);
+            uint64_t k = static_cast<uint64_t>(m[i]);
             idx = 6364136223846793005ULL * (k + idx) + 1442695040888963407ULL;
         }
         idx = static_cast<index_t>(positive_mod<uint64_t>(idx, N_GRADIENTS));
         return _gradients[idx];
     }
-    
     
     static inline grid_t corner(index_t i) {
         grid_t cnr;

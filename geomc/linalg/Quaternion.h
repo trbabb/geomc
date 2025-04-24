@@ -52,19 +52,6 @@ public:
     /// Construct a quaternion from the 4D vector `v`.
     Quat(const Vec<T,4>& v):detail::VecCommon< T, 4, Quat<T>>(v.begin()) {}
 
-    /**
-     * Construct a quaternion from a brace-initialization list. (c++11)
-     *
-     * Example: `Quat<float> q = {0, 0, 0, 1};`
-     * @param items A brace-initializer list.
-     */
-    constexpr Quat(const std::initializer_list<T>& items):
-            detail::VecCommon< T,4,Quat<T>>(items.begin()) {
-        static_assert(
-            items.size() == 4,
-            "Quaternion must be initialized with 4 elements"
-        );
-    }
     
     /*******************************
      * Static constructors         *
@@ -91,17 +78,18 @@ public:
      
     /**
      * @brief Rotation to align one vector with another.
-     * @param v Unit vector to align.
-     * @param alignWith Unit direction to align with.
+     * @param v Vector to align.
+     * @param align_with Direction to align with.
      * @return A quaternion rotating `v` into alignment with `alignWith`.
      */
     static inline Quat<T> rotation_direction_align(
-            const Vec<T,3>& unit_v,
-            const Vec<T,3>& unit_align_with)
+            const Vec<T,3>& v,
+            const Vec<T,3>& align_with)
     {
-        Vec<T,3> axis = unit_v ^ unit_align_with;
-        T c = unit_v.dot(unit_align_with);
-        return Quat<T>(axis, 1 + c);
+        Vec<T,3> axis = v ^ align_with;
+        T m = std::sqrt(v.mag2() * align_with.mag2());
+        T c = v.dot(align_with);
+        return Quat<T>(axis, m + c).unit();
     }
 
     /*******************************
@@ -178,12 +166,19 @@ public:
         const T z = this->z;
         const T w = this->w;
         
-        result.x =  sum_of_products(w, q.x, x, q.w) + diff_of_products(y, q.z, z, q.y);
-        result.y = diff_of_products(w, q.y, x, q.z) +  sum_of_products(y, q.w, z, q.x);
-        result.z =  sum_of_products(w, q.z, x, q.y) -  sum_of_products(y, q.x, z, q.w);
-        result.w = diff_of_products(w, q.w, x, q.x) - diff_of_products(y, q.y, z, q.z);
+        // return {
+        //     w*q.x + x*q.w + y*q.z - z*q.y,
+        //     w*q.y - x*q.z + y*q.w + z*q.x,
+        //     w*q.z + x*q.y - y*q.x + z*q.w,
+        //     w*q.w - x*q.x - y*q.y - z*q.z,
+        // };
         
-        return result;
+        return {
+             sum_of_products(w, q.x, x, q.w) + diff_of_products(y, q.z, z, q.y),
+            diff_of_products(w, q.y, x, q.z) +  sum_of_products(y, q.w, z, q.x),
+             sum_of_products(w, q.z, x, q.y) - diff_of_products(y, q.x, z, q.w),
+            diff_of_products(w, q.w, x, q.x) -  sum_of_products(y, q.y, z, q.z)
+        };
     }
     
     T angle() const {

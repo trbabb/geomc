@@ -4,7 +4,7 @@ Code Style
 Braces and indents
 ------------------
 
-**Never** indent with tabs; use four spaces. (Almost all editors can be configured to insert spaces when the `tab` key is pressed).
+Never indent with tabs; use four spaces. (Almost all editors can be configured to insert spaces when the `tab` key is pressed).
 
 K&R indent style, with an exception for the case of wrapped long lines (explained later). 
 
@@ -32,9 +32,9 @@ Only a single-line block body can be without braces:
 Naming style
 ------------
 
-Class names are `UpperCamelCase`; variables, methods, and function names are `snake_case`:
+Class and struct names are `UpperCamelCase`; variables, methods, and function names are `snake_case`:
 
-    class ThingDoer {
+    struct ThingDoer {
         void do_thing();
     };
     
@@ -49,7 +49,7 @@ Class names are `UpperCamelCase`; variables, methods, and function names are `sn
     typedef std::make_signed<size_t>::type index_t;
     
     template <typename T>
-    class SomeContainer {
+    struct SomeContainer {
         typedef T elem_t;
         
         // ...
@@ -60,19 +60,21 @@ Wrapping lines
 
 It is best for lines to be 95 columns or fewer.
 
-Long or complicatedly-nested function calls should break each top-level argument onto its own line, having an indent at least one block deeper than the beginning of the fuction name. It is preferable to wrap the line before the first argument (rather than indent more deeply to align with it).
+Long or complicatedly-nested function calls should break each top-level argument onto its own line, indenting one block deeper than the line it begins on. The first argument should be on its own line, so that all arguments are aligned. The closing parenthesis is on its own line, removing the one-block indent. The opening parenthesis of the function call is on the same line as the function name.
 
     int x = some_fn_call(
-                1,
-                myVariable,
-                anotherFunctionCall(5, z, 22),
-                NUM_DOLPHINS);
+        1,
+        myVariable,
+        anotherFunctionCall(5, z, 22),
+        NUM_DOLPHINS
+    );
 
 Complicated function signatures follow this pattern: 
 
 * Long argument lists are broken into one argument per line. 
 * Wrapped arguments should be indented one block beyond the function body.
 * Whenever a block-opening expression is line-wrapped, the opening brace goes on its own line.
+* The closing parenthesis is on the same line as the last argument.
 
 <b></b>
 
@@ -129,6 +131,8 @@ It is good to highlight parallel structure by aligning similar elements vertical
     int myvar_2   =  func(2, 255, 0);
     int myvar_3   = thing(1,   0, 0);
 
+Prefer also to keep place values aligned.
+
 This makes it easy to examine similarities and differences, reducing mental workload, and making errors much easier to find. Here's an example:
 
     if (a_n->n_items != b_n->n_items) return false;
@@ -145,7 +149,7 @@ When in doubt about whether to justify left or right, prefer to keep digit place
 
 This principle is not restricted to blocks of assignments; it works elsewhere:
 
-    class Foo {
+    struct Foo {
         int       thing_foo(int a, int b);
         int       other(int a);
         SomeClass boop(int a);
@@ -189,10 +193,10 @@ Enclose each branch of a ternary "if" in parentheses unless it is a single token
 If the sub-expressions are long, then each clause may be on its own (parenthesized) line, with the delimiting character on the beginning of the line:
 
     int x = (complicated_predicate_of(x, y) and z > 0)
-                ? expression_if_true(x, z, x * y * z)
-                : expression_if_false(x, x * x);
+        ? expression_if_true(x, z, x * y * z)
+        : expression_if_false(x, x * x);
 
-This makes it easier to read which sub-expressions belong to the true and false branches.
+This makes it easier to read which sub-expressions belong to the true and false branches. Again, indent one past the opening line.
 
 If a ternary "if" doesn't fit into three lines as above, it is usually better to use an ordinary "if/else" block statement.
 
@@ -201,7 +205,15 @@ Standard guidelines about wrapping and indenting apply.
 Defines
 -------
 
-All `#define`s which are not single tokens must be parenthesized:
+Prefer static constexpr variables over `#define` macros. This is because `#define` macros are not type-safe, and can lead to unexpected behavior when substituted into code.
+
+    // xxx: bad style:
+    #define NUM_DOLPHINS 1000
+    
+    // this is better:
+    static constexpr int NUM_DOLPHINS = 1000;
+
+If defines are used, `#define`s which are not single tokens must be parenthesized:
 
     #define NUM_DOLPHINS (INT_MAX / 2)
 
@@ -217,6 +229,8 @@ This is because unexpected things may happen once tokens are substituted:
     // expands to `206`, not `1000`!
     // this substitutes to `100 * 2 + 3 * 2`— not what you expected!
     100 * FOO(2 + 3, 2)
+
+For this reason, it is again overwhelmingly preferred to use `constexpr` functions instead of `#define` macros.
 
 Line breaks
 -----------
@@ -300,7 +314,7 @@ Classes
 
 Classes list member variables first, followed by constructors and destructors, followed by member functions:
 
-    class Foo {
+    struct Foo {
         float x;
         float y;
         Quat<float> q;
@@ -322,6 +336,25 @@ Initializer lists have one init per line. There is no space between the function
         // ...
     }
 
+Private members and method should be prefixed with _underscore.
+
+    struct Foo {
+    private:
+        int _private_member;
+        
+        void _private_method() {
+            // ...
+        }
+    public:
+        int public_member;
+        
+        void public_method() {
+            // ...
+        }
+    };
+
+Use `struct` instead of `class` in all cases, and control access with `private:` and `public:` blocks. Consistency avoids confusion and mismatches between declarations and definitions. `struct` is chosen because this is idiomatic for POD types, and it is a good idea to keep the same style for all data structures.
+
 Comments
 --------
 
@@ -340,6 +373,18 @@ Comment as though you'll have all your memory of working on the code wiped
 before the next time you'll touch it. This is closer to the truth than many
 people tend to admit, and is also a good method for empathizing with future
 maintainers who are not yourself!
+
+Todos and xxx's indicate specific problem levels. Use them precisely:
+
+    // todo: this indicates a possible improvement or future feature
+
+    // xxx: this indicates a known bug or problem that needs to be fixed.
+
+Code should not be checked in with `// xxx` comments! If you absolutely *must* check in broken code, you *must* file a corresponding issue. Include the issue number in the xxx comment:
+
+    // xxx: this is broken, see issue #1234
+
+Do not comment out code. If code paths must be disabled, use `#if`s or `if constexpr ()`s to disable them. Always comment why the code is disabled and what it is for.
 
 Conditionals
 ------------
@@ -360,6 +405,8 @@ If an `if` statement has both a true and a false branch, the condition statement
     } else {
         a();
     }
+
+All other things being equal, it is slightly better to have the common branch be first.
 
 Programming
 ===========
@@ -420,4 +467,3 @@ Objects that are passed by reference should be *always* declared const:
 The above makes it obvious at the call site whether a function will modify an argument:
 
     invert(&dst, src);
-

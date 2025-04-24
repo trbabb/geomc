@@ -285,7 +285,7 @@ public:
     
     /// In-place compose rotation.
     Rotation<T,3>& operator*=(const Rotation<T,3>& other) {
-        q = q * other.q;
+        q = (q * other.q).unit();
         return *this;
     }
     

@@ -13,8 +13,10 @@ Import("lib")
 
 arch = env['ARCH']
 
+test_pkgs = ['gtest', 'gtest_main']
+
 test_env = env.Clone()
-test_env.Append(LIBS=['gtest', 'gtest_main', lib])
+test_env.Append(LIBS=[lib])
 test_env.Append(CPPPATH=['.'])
 
 test_sources = Glob('*.cpp')
@@ -22,6 +24,9 @@ test_sources = Glob('*.cpp')
 wasm_flags = {
     'ALLOW_MEMORY_GROWTH' : 1,
 }
+
+for pkg in test_pkgs:
+    test_env.ParseConfig(f"pkg-config --cflags --libs {pkg}")
 
 if arch == 'wasm':
     wasm_opts = (('-s', f'{k}={v}') for k,v in wasm_flags.items())
@@ -37,7 +42,7 @@ for p in test_sources:
         target = f'#/html/regression/{name}.html'
     else:
         target = f'#/bin/{arch}/regression/{name}'
-    prog = test_env.Program(target, 
+    prog = test_env.Program(target,
         source=p,
         depends=['geomc'])
     if arch == 'wasm':

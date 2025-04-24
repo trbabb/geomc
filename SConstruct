@@ -55,8 +55,11 @@ env = Environment(
     COMPILATIONDB_USE_ABSPATH=True,
 )
 env.AddMethod(subst_wasm_flags)
-
 env.Tool('compilation_db')
+
+if env['PLATFORM'] == 'darwin':
+    # homebrew / pkgconfig not in the path by default
+    env.AppendENVPath('PATH', ['/opt/homebrew/bin','/usr/local/bin'])
 
 if debug:
     env.Append(CXXFLAGS='-g')
@@ -103,7 +106,7 @@ Export("env")
 
 # data = SConscript('objects/SConscript', variant_dir='build/objects')
 lib  = SConscript('geomc/SConscript',      variant_dir=f'build/{arch}/geomc')
-test = SConscript('regression/SConscript', variant_dir=f'build/{arch}/regression', 
+test = SConscript('regression/SConscript', variant_dir=f'build/{arch}/regression',
     exports={'lib': lib}
 )
 comp_db = env.CompilationDatabase(target='compile_commands.json')
