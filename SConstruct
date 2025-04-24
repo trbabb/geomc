@@ -51,7 +51,6 @@ env = Environment(
     ],
     LIBS=[],
     CPPPATH=['#'],
-    ENV={'PKG_CONFIG_PATH': pkg_config_path},
     COMPILATIONDB_USE_ABSPATH=True,
 )
 env.AddMethod(subst_wasm_flags)
@@ -60,6 +59,8 @@ env.Tool('compilation_db')
 if env['PLATFORM'] == 'darwin':
     # homebrew / pkgconfig not in the path by default
     env.AppendENVPath('PATH', ['/opt/homebrew/bin','/usr/local/bin'])
+    env.Append(CPPPATH=['/opt/homebrew/include', '/usr/local/include'])
+    env.Append(LIBPATH=['/opt/homebrew/lib', '/usr/local/lib'])
 
 if debug:
     env.Append(CXXFLAGS='-g')

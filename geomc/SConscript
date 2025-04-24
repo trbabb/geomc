@@ -10,6 +10,7 @@ lib_headers = [
     Glob('*.h'),   Glob('*/*.h'),   Glob('*/*/*.h'),   Glob('*/*/*/*.h'),
     Glob('*.hpp'), Glob('*/*.hpp'), Glob('*/*/*.hpp'), Glob('*/*/*/*.hpp')
 ]
+lib_sources = list(itertools.chain.from_iterable(lib_sources))
 
 if env['ARCH'] == 'native':
     install_root = '/usr/local'
