@@ -3,6 +3,7 @@
 #include <string_view>
 #include <functional>
 #include <typeindex>
+#include <span>
 
 #include <geomc/function/Utils.h>
 
@@ -50,12 +51,8 @@ constexpr H truncated_constant(uint64_t k0, uint64_t k1) {
     }
 }
 
-
 template <typename T, typename H>
-constexpr H type_constant() {
-    size_t t_id = std::type_index(typeid(T)).hash_code();
-    return truncated_constant<H>(0xdb8f3e91a1d0cde7 * t_id, 0xcce839a533c83da ^ t_id);
-}
+constexpr H type_constant();
 
 /**
  * @brief Combine two hashes into one.
@@ -139,6 +136,10 @@ inline constexpr H hash_combine_many(H h, Hs... hashes) {
     return hash_bytes<H>(h, hs, N * sizeof(H));
 }
 
+// fwd decl
+template <typename T, typename H>
+inline H hash_array(H nonce, const T* objs, size_t count);
+
 
 /**
  * @brief Partially-specializable hash function object for arbitrary
@@ -184,7 +185,7 @@ requires (
     // lead to more entropy; we can guarantee that if T is arithmetic or enum.
     (sizeof(T) <= sizeof(size_t) and (std::is_arithmetic_v<T> or std::is_enum_v<T>))
 )
-struct Digest<T, H> {
+struct Digest<T,H> {
     H operator()(const T& obj) const {
         return std::hash<T>{}(obj);
     }
@@ -244,7 +245,7 @@ struct Digest<T, H> {
 // digest an arithmetic type by folding its bits.
 // if H is larger than size_t, we can't use std::hash; and
 // if T is arithmetic and over-fills an H, then we hash it by treating it
-// as an array of Hs.
+// as an array of bytes.
 template <typename T, typename H>
 requires (
     sizeof(H) > sizeof(size_t)  // std::hash cannot fill an H
@@ -261,30 +262,84 @@ struct Digest<T, H> {
     }
 };
 
-
-// digest a string
 template <typename H>
-requires (sizeof(H) > sizeof(size_t))
-struct Digest<std::string, H> {
-    H operator()(const std::string& s) const {
-        // should match std::string view below:
-        H nonce = truncated_constant<H>(0xf10749c80725844e, 0xe88cfd8ec23556e4);
-        return hash_bytes<H>(nonce, s.data(), s.size());
+struct Digest<std::type_index, H> {
+    H operator()(const std::type_index& t) const {
+        size_t t_id = t.hash_code();
+        return truncated_constant<H>(0xdb8f3e91a1d0cde7 * t_id, 0xcce839a533c83da ^ t_id);
     }
 };
-
 
 // digest a string view
 template <typename H>
-requires (sizeof(H) > sizeof(size_t))
+requires (sizeof(H) > sizeof(size_t)) // do not fall back to std::hash
 struct Digest<std::string_view, H> {
     H operator()(const std::string_view& s) const {
-        // should match std::string above:
         H nonce = truncated_constant<H>(0xf10749c80725844e, 0xe88cfd8ec23556e4);
         return hash_bytes<H>(nonce, s.data(), s.size());
     }
 };
 
+// digest a string
+template <typename H>
+requires (sizeof(H) > sizeof(size_t)) // do not fall back to std::hash
+struct Digest<std::string, H> {
+    H operator()(const std::string& s) const {
+        return Digest<std::string_view,H>{}(s);
+    }
+};
+
+// digest a flat char array
+template <typename H, size_t N>
+requires (sizeof(H) > sizeof(size_t)) // do not fall back to std::hash
+struct Digest<char[N], H> {
+    H operator()(const char s[N]) const {
+        return Digest<std::string_view,H>{}({s, N});
+    }
+};
+
+// digest const char*
+template <typename H>
+requires (sizeof(H) > sizeof(size_t)) // do not fall back to std::hash
+struct Digest<const char*, H> {
+    H operator()(const char* s) const {
+        return Digest<std::string_view,H>{}(s);
+    }
+};
+
+// digest a span
+template <typename T, typename H>
+struct Digest<std::span<T>, H> {
+    H operator()(const std::span<const T>& s) const {
+        // hash the span as an array of T
+        H type_nonce = geom::type_constant<T,H>();
+        return geom::hash_array<T,H>(type_nonce, s.data(), s.size());
+    }
+};
+
+// digest an initializer list
+template <typename T, typename H>
+struct Digest<std::initializer_list<T>, H> {
+    H operator()(std::initializer_list<T> v) const {
+        return Digest<std::span<T>, H>{}(std::span<const T>(v.begin(), v.size()));
+    }
+};
+
+// digest a vector
+template <typename T, typename H>
+struct Digest<std::vector<T>, H> {
+    H operator()(const std::vector<T>& v) const {
+        return Digest<std::span<T>, H>{}(std::span<const T>(v.data(), v.size()));
+    }
+};
+
+// digest an array
+template <typename T, size_t N, typename H>
+struct Digest<std::array<T, N>, H> {
+    H operator()(const std::array<T, N>& arr) const {
+        return Digest<std::span<T>, H>{}(std::span<const T>(arr.data(), arr.size()));
+    }
+};
 
 // digest a tuple
 template <typename... Ts, typename H>
@@ -298,6 +353,19 @@ struct Digest<std::tuple<Ts...>, H> {
                 );
             },
             t
+        );
+    }
+};
+
+
+// digest a pair
+template <typename T1, typename T2, typename H>
+struct Digest<std::pair<T1, T2>, H> {
+    H operator()(const std::pair<T1, T2>& p) const {
+        return hash_combine_many(
+            truncated_constant<H>(0x124d178a6d5aa1c0, 0xadc8b434b74ba082),
+            geom::hash<T1, H>(p.first),
+            geom::hash<T2, H>(p.second)
         );
     }
 };
@@ -341,7 +409,7 @@ struct Digest<std::variant<Ts...>, H> {
 
 /// Produce a hash of an object.
 template <typename T, typename H>
-H hash(const T& obj) {
+inline H hash(const T& obj) {
     return Digest<T,H>{}(obj);
 }
 
@@ -357,6 +425,11 @@ inline H hash_array(H nonce, const T* objs, size_t count) {
 template <typename H, typename... Ts>
 inline H hash_many(H nonce, const Ts&... objs) {
     return hash_combine_many(nonce, geom::hash<Ts,H>(objs)...);
+}
+
+template <typename T, typename H>
+constexpr H type_constant() {
+    return Digest<std::type_index, H>{}(std::type_index(typeid(T)));
 }
 
 
