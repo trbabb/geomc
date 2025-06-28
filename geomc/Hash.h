@@ -167,6 +167,11 @@ struct Digest {};
 template <typename T>
 struct disable_std_hash_fallback : std::false_type {};
 
+// std::hash uses the pointer value for const char*, not the string contents.
+// override this to construct a string_view and hash the entire string.
+template <>
+struct disable_std_hash_fallback<const char*> : std::true_type {};
+
 template <typename T>
 concept natively_std_hashable = requires (T obj) {
     std::hash<T>{}(obj);
@@ -208,7 +213,7 @@ struct Digest<H,H> {
 template <typename T, typename H>
 requires (
     // no internal indirection or padding
-    (std::is_arithmetic_v<H> or std::is_enum_v<H>)
+    (std::is_arithmetic_v<T> or std::is_enum_v<T>)
     and sizeof(H) >  sizeof(size_t)  // std::hash cannot fill an H
     and sizeof(H) >= sizeof(T)       // and not more bits than an H,
     and sizeof(T) >  sizeof(size_t)  // but T is bigger than size_t,
@@ -285,22 +290,29 @@ template <typename H>
 requires (sizeof(H) > sizeof(size_t)) // do not fall back to std::hash
 struct Digest<std::string, H> {
     H operator()(const std::string& s) const {
+        // include the null terminator in the hash
         return Digest<std::string_view,H>{}(s);
     }
 };
 
 // digest a flat char array
-template <typename H, size_t N>
-requires (sizeof(H) > sizeof(size_t)) // do not fall back to std::hash
-struct Digest<char[N], H> {
+template <typename CharT, size_t N, typename H>
+requires std::same_as<std::remove_cvref_t<CharT>, char> // capture char, const char, ...
+struct Digest<CharT[N], H> {
     H operator()(const char s[N]) const {
-        return Digest<std::string_view,H>{}({s, N});
+        size_t n = N;
+        if (s[N - 1] == '\0') {
+            // if the last char is a null terminator, do not include it in the hash.
+            // we want the digest to return the same result as a std::string_view or a
+            // std::string, which do not include the null terminator.
+            n = N - 1;
+        }
+        return Digest<std::string_view,H>{}({s, n});
     }
 };
 
 // digest const char*
 template <typename H>
-requires (sizeof(H) > sizeof(size_t)) // do not fall back to std::hash
 struct Digest<const char*, H> {
     H operator()(const char* s) const {
         return Digest<std::string_view,H>{}(s);
