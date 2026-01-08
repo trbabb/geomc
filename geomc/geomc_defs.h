@@ -95,6 +95,20 @@ namespace geom {
 
 };
 
+#if DEBUG_HELPERS
+
+#include <cxxabi.h>
+
+template <typename T>
+std::string printable_name() {
+    char* name;
+    int status = 0;
+    name = abi::__cxa_demangle(typeid(T).name(), NULL, NULL, &status);
+    return {name};
+}
+
+#endif
+
 #ifdef PARSING_DOXYGEN
 
 /** @brief Functions to extend support of stdlib to geomc classes. */

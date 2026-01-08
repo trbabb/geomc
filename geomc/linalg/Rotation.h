@@ -203,6 +203,10 @@ Ray<T,N> operator/(Ray<T,N> ray, const Rotation<T,N>& rot) {
     return {rot / ray.direction, rot / ray.origin};
 }
 
+// todo: this is maybe not a good idea. it means that
+//   rot * (s * p) != (rot * s) * p!!
+//   maybe use exponentiation instead. or a named function
+
 /// @brief Extend a rotation.
 /// @related Rotation
 template <typename T>

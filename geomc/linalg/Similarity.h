@@ -62,7 +62,7 @@ public:
     
     /// Represent this similarity as an affine transform.
     operator AffineTransform<T,N>() const {
-        return geom::translation(tx) * rx.transform() * geom::scale(sx);
+        return geom::translation(tx) * rx.transform() * geom::scale(Vec<T,N>(sx));
     }
     
     /// Cast the underlying coordinate type.
@@ -94,7 +94,13 @@ public:
     
     /// Transform a point.
     Vec<T,N> operator*(const Vec<T,N>& p) const {
-        return tx + sx * rx * p;
+        // PROBLEM: it is currently the case that:
+        //   (rx * sx) * p != rx * (sx * p)
+        // !!!
+        // This is because (rot * s) means an extrapolation of the rotation.
+        // Because of the broken identity, we should probably redesign this!
+        // (maybe use notation for exponentiation).
+        return tx + rx * (sx * p);
     }
     
     /// Transform a direction vector.
