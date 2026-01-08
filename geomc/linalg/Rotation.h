@@ -248,6 +248,11 @@ public:
         };
     }
     
+    template <typename U>
+    explicit operator Rotation<U,3>() const {
+        return Rotation<U,3>(static_cast<Quat<U>>(q));
+    }
+    
     /// Represent as an affine transform.
     AffineTransform<T,3> transform() const {
         return geom::rotation(q);

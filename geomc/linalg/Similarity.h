@@ -68,7 +68,11 @@ public:
     /// Cast the underlying coordinate type.
     template <typename U>
     explicit operator Similarity<U,N>() const {
-        return Similarity<U,N>(sx, rx, tx);
+        return Similarity<U,N>(
+            static_cast<U>(sx),
+            static_cast<Rotation<U,N>>(rx),
+            static_cast<Vec<U,N>>(tx)
+        );
     }
     
     /// Extend the dimensionality of this similarity.
@@ -95,7 +99,7 @@ public:
     
     /// Transform a direction vector.
     Vec<T,N> apply_direction(const Vec<T,N>& v) const {
-        return sx * rx.transform(v);
+        return sx * rx * v;
     }
     
     /// Inverse-transform a direction vector.
@@ -108,13 +112,13 @@ public:
         return Similarity<T,N>(
             sx * other.sx,
             rx * other.rx,
-            tx + rx.transform(other.tx) * sx
+            tx + rx * other.tx * sx
         );
     }
     
     /// Compose in-place.
     Similarity<T,N>& operator*=(const Similarity<T,N>& other) {
-        tx += rx.transform(other.tx) * sx;
+        tx += rx * other.tx * sx;
         rx *= other.rx;
         sx *= other.sx;
         return *this;
@@ -125,13 +129,13 @@ public:
         return Similarity<T,N>(
             sx / other.sx,
             rx / other.rx,
-            rx.transform(other.tx - tx) / other.sx
+            (rx * (other.tx - tx)) / other.sx
         );
     }
     
     /// In-place apply inverse
     Similarity<T,N>& operator/=(const Similarity<T,N>& other) {
-        tx = rx.transform(other.tx - tx) / other.sx;
+        tx = (rx * (other.tx - tx)) / other.sx;
         rx /= other.rx;
         sx /= other.sx;
         return *this;
@@ -191,7 +195,7 @@ Ray<T,N> operator/(const Ray<T,N>& ray, const Similarity<T,N>& i) {
 /// @related Rotation
 template <typename T, index_t N>
 Similarity<T,N> operator*(const Rotation<T,N>& r, const Similarity<T,N>& i) {
-    return Similarity<T,N>(i.sx, r * i.rx, r.transform(i.tx));
+    return Similarity<T,N>(i.sx, r * i.rx, r * i.tx);
 }
 
 /// @brief Apply a similarity to a rotation.
