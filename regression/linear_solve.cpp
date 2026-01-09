@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <random>
+#include <pcg_random.hpp>
 #include <gtest/gtest.h>
 #include <geomc/linalg/Matrix.h>
 #include <geomc/linalg/LUDecomp.h>
@@ -14,7 +15,7 @@
 using namespace geom;
 using namespace std;
 
-typedef std::mt19937_64 rng_t;
+typedef pcg64 rng_t;
 
 // test: check that PLU = M, actually
 //       (is P what it says it is?)

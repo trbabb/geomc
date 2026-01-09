@@ -2,7 +2,7 @@
 
 // #include <iostream>
 
-#include <random>
+#include <pcg_random.hpp>
 #include <iomanip>
 #include <gtest/gtest.h>
 #include <geomc/Hash.h>
@@ -10,7 +10,7 @@
 using namespace geom;
 using namespace std;
 
-typedef std::mt19937_64 rng_t;
+typedef pcg64 rng_t;
 
 using uint128_t = __uint128_t;
 
