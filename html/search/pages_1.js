@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['library_0',['GEOMC Library',['../index.html',1,'']]]
+  ['backing_20storage_0',['Backing storage',['../group__matrix.html#autotoc_md11',1,'']]]
 ];

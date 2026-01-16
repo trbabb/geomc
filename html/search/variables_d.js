@@ -5,6 +5,6 @@ var searchData=
   ['p2_2',['p2',['../classgeom_1_1_catrom_spline.html#a272a95e7ebca5848717f3a2f00b5704d',1,'geom::CatromSpline']]],
   ['p3_3',['p3',['../classgeom_1_1_catrom_spline.html#a93b66289b3dedf0715e692b7cdb9494a',1,'geom::CatromSpline']]],
   ['pivot_4',['pivot',['../structgeom_1_1_k_d_tree_1_1_k_d_structure_params.html#a0ffeda6cd34ee68d52ffe4374b0c7c80',1,'geom::KDTree::KDStructureParams']]],
-  ['pt_5',['pt',['../classgeom_1_1_grid_iterator.html#a6557d66a1f4b24281a12de0d4e5d9ecd',1,'geom::GridIterator::pt'],['../classgeom_1_1_grid_iterator.html#a6557d66a1f4b24281a12de0d4e5d9ecd',1,'geom::GridIterator&lt; T, 1, Order &gt;::pt']]],
+  ['pt_5',['pt',['../classgeom_1_1_grid_iterator.html#a6557d66a1f4b24281a12de0d4e5d9ecd',1,'geom::GridIterator']]],
   ['pts_6',['pts',['../classgeom_1_1_simplex.html#ab282b2ebe5277e14974e869c1f32101f',1,'geom::Simplex']]]
 ];
