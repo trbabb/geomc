@@ -229,14 +229,6 @@ constexpr auto ceil_div(T a, T b) {
 }
 
 /**
- * @brief Snap `a` to the nearest multiple of `b` larger than or equal to `a`.
- */
-template <typename T>
-constexpr auto snap(T a, T b) {
-    return b * geom::ceil_div(a, b);
-}
-
-/**
  * @brief Compute `floor(a/b)`.
  *
  * Rounds towards negative infinity (rather than towards zero).
@@ -251,6 +243,22 @@ constexpr auto floor_div(T a, T b) {
     } else {
         return (a + b) / b - 1;
     }
+}
+
+/**
+ * @brief Snap `a` to the nearest multiple of `b` larger than or equal to `a`.
+ */
+template <typename T>
+constexpr auto snap_up(T a, T b) {
+    return b * geom::ceil_div(a, b);
+}
+
+/**
+ * @brief Snap `a` to the nearest multiple of `b` smaller than or equal to `a`.
+ */
+template <typename T>
+constexpr auto snap_down(T a, T b) {
+    return b * geom::floor_div(a, b);
 }
 
 template <typename T>
