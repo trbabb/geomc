@@ -130,7 +130,7 @@ concept Transform = requires (Xf xf, Vec<T,N> p) {
     // transforms can be composed
     { xf * xf } -> std::convertible_to<Xf>;
     // transforms have inverses
-    { xf.inverse() } -> std::convertible_to<Xf>;
+    { xf.inv() } -> std::convertible_to<Xf>;
     // transforms can operate on directions
     { xf.apply_direction(p) } -> std::convertible_to<Vec<T,N>>;
     // inverse transforms can operate on directions

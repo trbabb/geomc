@@ -219,9 +219,9 @@ inline T angle_to(T radians_0, T radians_1) {
  * @param a Numerator.
  * @param b Denominator.
  */
-template <typename T>
-constexpr auto ceil_div(T a, T b) {
-    if constexpr (not std::is_integral<T>()) {
+template <typename T, typename U>
+constexpr auto ceil_div(T a, U b) {
+    if constexpr (not (std::is_integral<T>() and std::is_integral<U>())) {
         return std::ceil(a / b);
     } else {
         return (a + b - 1) / b;
@@ -236,9 +236,9 @@ constexpr auto ceil_div(T a, T b) {
  * @param a Numerator.
  * @param b Denominator.
  */
-template <typename T>
-constexpr auto floor_div(T a, T b) {
-    if constexpr (not std::is_integral<T>()) {
+template <typename T, typename U>
+constexpr auto floor_div(T a, U b) {
+    if constexpr (not (std::is_integral<T>() and std::is_integral<U>())) {
         return std::floor(a / b);
     } else {
         return (a + b) / b - 1;
@@ -248,16 +248,16 @@ constexpr auto floor_div(T a, T b) {
 /**
  * @brief Snap `a` to the nearest multiple of `b` larger than or equal to `a`.
  */
-template <typename T>
-constexpr auto snap_up(T a, T b) {
+template <typename T, typename U>
+constexpr auto snap_up(T a, U b) {
     return b * geom::ceil_div(a, b);
 }
 
 /**
  * @brief Snap `a` to the nearest multiple of `b` smaller than or equal to `a`.
  */
-template <typename T>
-constexpr auto snap_down(T a, T b) {
+template <typename T, typename U>
+constexpr auto snap_down(T a, U b) {
     return b * geom::floor_div(a, b);
 }
 
