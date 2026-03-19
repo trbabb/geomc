@@ -199,7 +199,7 @@ inline Similar<Shape> operator/(
     const Shape& s,
     const Similarity<typename Shape::elem_t, Shape::N>& xf)
 {
-    return Similar<Shape>(s, xf.inv());
+    return Similar<Shape>(s, xf.inverse());
 }
 
 /// @brief Transform the shape `s` by the inverse of `xf`.

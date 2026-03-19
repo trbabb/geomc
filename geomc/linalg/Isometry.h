@@ -118,7 +118,7 @@ public:
     
     /// Compute the inverse of the isometry.
     Isometry<T,N> inverse() const {
-        Rotation<T,N> r_inv = rx.inv();
+        Rotation<T,N> r_inv = rx.inverse();
         return Isometry<T,N>(
             r_inv,
             r_inv * (-tx)

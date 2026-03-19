@@ -171,7 +171,7 @@ public:
     }
     
     /// Compute the inverse rotation.
-    Rotation<T,2> inv() const {
+    Rotation<T,2> inverse() const {
         return Rotation<T,2>(-radians);
     }
 };
@@ -341,7 +341,7 @@ public:
     }
     
     /// Compute the inverse rotation.
-    Rotation<T,3> inv() const {
+    Rotation<T,3> inverse() const {
         return Rotation<T,3>(q.conj());
     }
 };
