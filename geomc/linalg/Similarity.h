@@ -149,7 +149,7 @@ public:
     
     /// Compute the inverse of the similarity.
     Similarity<T,N> inverse() const {
-        Rotation<T,N> r_inv = rx.inv();
+        Rotation<T,N> r_inv = rx.inverse();
         return Similarity<T,N>(
             1 / sx,
             r_inv,
