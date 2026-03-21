@@ -94,12 +94,8 @@ public:
     
     /// Transform a point.
     Vec<T,N> operator*(const Vec<T,N>& p) const {
-        // PROBLEM: it is currently the case that:
-        //   (rx * sx) * p != rx * (sx * p)
-        // !!!
-        // This is because (rot * s) means an extrapolation of the rotation.
-        // Because of the broken identity, we should probably redesign this!
-        // (maybe use notation for exponentiation).
+        // UGLY: (rx * sx) rotates a zero-vector and gives the wrong answer -_-
+        // also a potential problem with affine transforms!
         return tx + rx * (sx * p);
     }
     

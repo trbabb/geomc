@@ -36,6 +36,14 @@ namespace geom {
  *     Rotation<T,N> r1, r2;
  *     Rotation<T,N> r3 = r2 / r1; // rotation which takes r1 to r2
  *     Vec<T,N> v = v0 / r3;       // apply the inverse of r3 to v0
+ * 
+ * Rotations can be raised to a power. This corresponds to Fractional
+ * or iterated application of the rotation:
+ * 
+ *     Rotation<T,N> r;
+ *     Rotation<T,N> r_twice = std::pow(r, 2.);
+ *     // or:
+ *     r_twice = r.pow(2.);
  *
  */
 template <typename T, index_t N>
@@ -54,7 +62,7 @@ public:
     T radians;
     
     Rotation():radians(0) {}
-    Rotation(T radians):radians(radians) {}
+    explicit Rotation(T radians):radians(radians) {}
     
     static Rotation<T,2> align_vectors(const Vec<T,2>& dir, const Vec<T,2>& align_with) {
         // numerically stable formula from https://scicomp.stackexchange.com/a/27769
@@ -143,10 +151,8 @@ public:
         return v.rotated(-radians);
     }
     
-    /// In-place scaling of a rotation.
-    Rotation<T,2>& operator*=(T s) {
-        radians *= s;
-        return *this;
+    Rotation<T,2>& pow(T s) const {
+        return {radians * s};
     }
     
     Rotation<T,2> exp() const {
@@ -201,24 +207,6 @@ Ray<T,N> operator*(const Rotation<T,N>& rot, Ray<T,N> ray) {
 template <typename T, index_t N>
 Ray<T,N> operator/(Ray<T,N> ray, const Rotation<T,N>& rot) {
     return {rot / ray.direction, rot / ray.origin};
-}
-
-// todo: this is maybe not a good idea. it means that
-//   rot * (s * p) != (rot * s) * p!!
-//   maybe use exponentiation instead. or a named function
-
-/// @brief Extend a rotation.
-/// @related Rotation
-template <typename T>
-Rotation<T,2> operator*(T s, const Rotation<T,2>& o) {
-    return {o.radians * s};
-}
-
-/// @brief Extend a rotation.
-/// @related Rotation
-template <typename T>
-Rotation<T,2> operator*(const Rotation<T,2>& o, T s) {
-    return {o.radians * s};
 }
 
 /// @brief Minimally interpolate two rotations.
@@ -314,10 +302,9 @@ public:
         return q.conj() * v;
     }
     
-    /// In-place scaling of a rotation.
-    Rotation<T,3>& operator*=(T s) {
-        q = q.rotation_scale(s);
-        return *this;
+    /// Fractional application of this rotation.
+    Rotation<T,3> pow(T s) const {
+        return {q.rotation_scale(s)};
     }
     
     Rotation<T,3> exp() const {
@@ -351,20 +338,6 @@ public:
 template <typename T>
 Vec<T,3> operator/(const Vec<T,3>& v, const Rotation<T,3>& r) {
     return r.q.conj() * v;
-}
-
-/// @brief Extend a rotation.
-/// @related Rotation
-template <typename T>
-Rotation<T,3> operator*(T s, const Rotation<T,3>& o) {
-    return {o.q.rotation_scale(s)};
-}
-
-/// @brief Extend a rotation.
-/// @related Rotation
-template <typename T>
-Rotation<T,3> operator*(const Rotation<T,3>& o, T s) {
-    return {o.q.rotation_scale(s)};
 }
 
 /// @brief Minimally interpolate two rotations.
@@ -409,3 +382,21 @@ std::ostream& operator<<(std::ostream& os, const Rotation<T,N>& rot) {
 #endif
 
 } // namespace geom
+
+
+namespace std {
+
+/**
+ * @brief Fractional application of a rotation.
+ * 
+ * Raise the rotation operation to a (fractional) power. For example, raising to the
+ * power of 2 applies the rotation twice.
+ * 
+ * @related Rotation
+ */
+template <typename T, index_t N>
+geom::Rotation<T,N> pow(const geom::Rotation<T,N>& r, T s) {
+    return r.pow(s);
+}
+
+} // namespace std
