@@ -238,7 +238,7 @@ public:
      * @param t Interpolation parameter between 0 and 1.
      * @return 
      */
-    Quat<T> slerp(const Quat<T> &q1, T t) const {
+    Quat<T> slerp(Quat<T> q1, T t) const {
         // assumed unit quaternion.
         const Quat<T> &q0 = *this;
         T dot = q0.dot(q1);
@@ -246,7 +246,7 @@ public:
             dot = -dot;
             q1 = -q1;
         }
-        dot = std::max(0, std::min<T>(1, dot)); //keep <dot> in the domain of acos.
+        dot = std::max<T>((T)0, std::min<T>((T)1, dot)); //keep <dot> in the domain of acos.
         T omega = std::acos(dot);
         T theta = omega * t;
         Quat<T> q2 = (q1 - q0 * dot).unit();
