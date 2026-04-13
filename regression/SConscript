@@ -18,6 +18,7 @@ test_pkgs = ['gtest', 'gtest_main']
 test_env = env.Clone()
 test_env.Append(LIBS=[lib])
 test_env.Append(CPPPATH=['.'])
+test_env.Append(CXXFLAGS=['-Wno-character-conversion'])
 
 test_sources = Glob('*.cpp')
 

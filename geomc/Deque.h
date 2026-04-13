@@ -32,7 +32,7 @@ namespace geom {
 template <typename T, index_t N>
 class Deque {
     
-    typedef typename std::aligned_storage<sizeof(T), alignof(T)>::type storage_t;
+    struct alignas(T) storage_t { std::byte data[sizeof(T)]; };
     
     // `head + size` scheme chosen over `head + tail` to avoid 
     // ambiguity of "full vs. empty buffer"

@@ -40,7 +40,7 @@ env = Environment(
     CXX='clang++',
     CXXFLAGS=[
         '-O3' if not noopt else '-O0',
-        '-std=c++20',
+        '-std=c++23',
         '-fcolor-diagnostics',
         '-Wall',
         '-Werror',

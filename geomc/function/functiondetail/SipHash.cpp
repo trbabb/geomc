@@ -1,3 +1,4 @@
+#include <bit>
 #include <geomc/geomc_defs.h>
 
 namespace geom {

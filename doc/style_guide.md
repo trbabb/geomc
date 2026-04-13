@@ -99,8 +99,8 @@ Simpler function signatures which fit onto a single line should be kept that way
 
 Complicated `if` expressions can be line-wrapped, and as with wrapped function signatures, the opening brace gets its own line:
 
-    if (complicated_predicate(some_expression(a)) and 
-        complicated_predicate(some_other_expr(b)))
+    if (complicated_predicate(some_expression(a)) 
+        and another_long_predicate(some_other_expr(b), more_arguments))
     {
         // ...
     }
@@ -133,13 +133,13 @@ It is good to highlight parallel structure by aligning similar elements vertical
 
 Prefer also to keep place values aligned.
 
-This makes it easy to examine similarities and differences, reducing mental workload, and making errors much easier to find. Here's an example:
+This makes it easy for human readers to visually examine similarities and differences, reducing mental workload, and making errors much easier to find. Here's an example:
 
     if (a_n->n_items != b_n->n_items) return false;
     if (a_n->n_children != a_n->n_children) return false;
     if (a_n->data != b_n->data) return false;
 
-With vertical alignment, the code is much easier to read. The alignment also highlights that `b_n` has been mistyped as `a_n` on the second row:
+With vertical alignment, the code is much easier to read. The alignment also highlights that `b_n` has been mistyped as `a_n` on the second row, because it stands out against its neighbors:
 
     if (a_n->n_items    != b_n->n_items)    return false;
     if (a_n->n_children != a_n->n_children) return false;
@@ -294,7 +294,7 @@ Increments
     // discouraged:
     popsicles++;
     
-    // also discouraged:
+    // strongly discouraged:
     put_in_freezer(popsicles++);
 
 It is better if every assignment or change to a variable look like an assignment.
@@ -363,16 +363,18 @@ A single space follows comment delimiters:
     // I have no idea what's happening here
 
 If a line or block of code required any mental work or reasoning beyond trivial 
-idioms, a comment is required there. If there is any "why was it done this way" 
+idioms, place a comment there. If there is any "why was it done this way" 
 or "what does this mean" question that is not trivially explained by the code 
-itself without mental effort, a comment is required there. The goal is that a 
-future reader-- including yourself-- should never have to reproduce that 
+itself without mental effort, place a comment there. If code is handling a
+special case, a comment should say what the case is and when it occurs. The goal
+is that a future reader-- including yourself-- should never have to reproduce that 
 reasoning from scratch or from reverse engineering the code.
 
 Comment as though you'll have all your memory of working on the code wiped
 before the next time you'll touch it. This is closer to the truth than many
 people tend to admit, and is also a good method for empathizing with future
-maintainers who are not yourself!
+maintainers who are not yourself! This is also _literally_ true for agents,
+who might get confused by tricky cases and undo careful logic if it isn't documented.
 
 Todos and xxx's indicate specific problem levels. Use them precisely:
 
@@ -384,7 +386,7 @@ Code should not be checked in with `// xxx` comments! If you absolutely *must* c
 
     // xxx: this is broken, see issue #1234
 
-Do not comment out code. If code paths must be disabled, use `#if`s or `if constexpr ()`s to disable them. Always comment why the code is disabled and what it is for.
+Do not comment out code. If code paths _must_ be disabled, use `#if`s or `if constexpr ()`s to disable them. Always comment why the code is disabled and what it is for.
 
 Conditionals
 ------------

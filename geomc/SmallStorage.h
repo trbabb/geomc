@@ -31,7 +31,7 @@ template <typename T, size_t N>
 struct SmallStorage {
 private:
     
-    using storage_t = std::aligned_storage_t<sizeof(T), alignof(T)>;
+    struct alignas(T) storage_t { std::byte data[sizeof(T)]; };
     
     size_t     _capacity = N;
     size_t     _size     = 0;

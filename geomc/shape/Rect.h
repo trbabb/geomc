@@ -236,11 +236,11 @@ public:
      * the arugments. For example, the result of `r(0,2)` will be a 2D Rect
      * with the x and z ranges of `this` Rect.
      */
+    template <typename... I>
+    requires (... and std::convertible_to<I, size_t>)
 #if __cplusplus >= 202302L
     [[deprecated("use operator[] instead")]]
 #endif
-    template <typename... I>
-    requires (... and std::convertible_to<I, size_t>)
     Rect<T,sizeof...(I)> operator()(I... indices) const {
         constexpr index_t M = sizeof...(I);
         Rect<T,M> out {
