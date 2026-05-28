@@ -4,6 +4,7 @@
 #include <functional>
 #include <typeindex>
 #include <span>
+#include <variant>
 
 #include <geomc/function/Utils.h>
 

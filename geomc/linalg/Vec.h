@@ -332,7 +332,7 @@ public:
      * @param items A brace-initializer list.
      */
 #if __cplusplus >= 201103L or PARSING_DOXYGEN
-    Vec(const std::initializer_list<T>& items):
+    constexpr Vec(const std::initializer_list<T>& items):
         detail::VecCommon< T,N,Vec<T,N> >(items.begin())
     {
 #if __cplusplus >= 201402L
