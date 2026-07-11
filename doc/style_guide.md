@@ -491,7 +491,7 @@ The above makes it obvious at the call site whether a function will modify an ar
 In-band signaling
 -----------------
 
-Avoid in-band singaling. Option types or returned success indicators should be used over magic sentiel values. It is good to use std::expected for cases where the caller should always check for success or failure, and std::optional for cases where the caller may choose to ignore the result.
+Avoid in-band singaling. Option types or returned success indicators should be used over magic sentiel values. It is good to use `std::expected` for cases where the caller should always check for success or failure, and `std::optional` for cases where the caller may choose to ignore the result.
 
 Prefer to use booleans for truth values only. Avoid using booleans for two-valued cases that are not truth values, and used named, typed enums instead.
 
@@ -522,7 +522,7 @@ Even a success/failure enum would be preferable to a raw bool (where it can be u
 Exceptions
 ----------
 
-Avoid using exceptions for control flow and error handling, especially where it will suffice perfectly well to return conditional objects or `[[nodiscard]]` error codes. Returned values make it much easier for control flow to be reasoned about locally.
+Avoid using exceptions for control flow and error handling, especially where it will suffice perfectly well to return conditional objects or `[[nodiscard]]` error enums. Returned values make it much easier for control flow to be reasoned about locally.
 
 Types
 -----
