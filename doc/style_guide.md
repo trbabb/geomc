@@ -451,6 +451,24 @@ Unlike `size_t`, `index_t` is signed, which will prevent warnings when used in w
 
 While it is true that some loops will not require the extra bit depth, it is better to maintain consistency, and the choice of `index_t` is unlikely to have any negative impact on performance.
 
+Type annotations
+----------------
+
+Avoid use of `auto` except in cases where an explicit type annotation would be excessively long and redundant, and also the resolved type is obvious, such as with iterators:
+
+    // acceptable use of `auto`:
+    for (auto it = my_vec.begin(); it != my_vec.end(); ++it) {
+        // ...
+    }
+
+Otherwise, use the complete type name:
+
+    // avoid `auto` when the type is not obvious:
+    auto x = some_function();  // what type is x?
+    
+    // better to be explicit:
+    MyClass x = some_function();
+
 Argument passing style
 ----------------------
 
@@ -469,3 +487,55 @@ Objects that are passed by reference should be *always* declared const:
 The above makes it obvious at the call site whether a function will modify an argument:
 
     invert(&dst, src);
+
+In-band signaling
+-----------------
+
+Avoid in-band singaling. Option types or returned success indicators should be used over magic sentiel values. It is good to use std::expected for cases where the caller should always check for success or failure, and std::optional for cases where the caller may choose to ignore the result.
+
+Prefer to use booleans for truth values only. Avoid using booleans for two-valued cases that are not truth values, and used named, typed enums instead.
+
+For example, instead of:
+
+    bool can_access(Path p, bool readonly); // avoid this!
+
+Use:
+
+    enum class FileMode {
+        ReadOnly,
+        ReadWrite
+    };
+
+    // better!
+    bool can_access(Path p, FileMode mode);
+
+Compare the call sites:
+
+    if (can_access(p, true)) { ... } // what does `true` mean?
+
+    if (can_access(p, FileMode::ReadOnly)) { ... } // much clearer!
+
+If there are multiple possible error conditions, use a typed enum to indicate the specific error condition instead of a raw integer or boolean. This makes it easier for the caller to handle different error cases appropriately.
+
+Even a success/failure enum would be preferable to a raw bool (where it can be unclear if `true` means success or error).
+
+Exceptions
+----------
+
+Avoid using exceptions for control flow and error handling, especially where it will suffice perfectly well to return conditional objects or `[[nodiscard]]` error codes. Returned values make it much easier for control flow to be reasoned about locally.
+
+Types
+-----
+
+Name elementary types when they are used in multiple places for a consistent purpose. For example:
+
+    using hash_t = uint64_t;
+
+This makes it easier to change the underlying type later, makes it clear what the type is used for, and reduces the chances of accidentally mixing types or breaking portability.
+
+Use the strongest typing you can for the purpose. For example, wrap elementary types with a strong type when the underlying type's semantics are not needed to be exposed to the caller. For example:
+
+    struct Id {
+        // arithmetic operators are not sensible for Id, so it cannot be accidentally used as a number
+        uint64_t value;
+    };
