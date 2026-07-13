@@ -226,17 +226,17 @@ public:
                 }
                 // if the point is outside the unit sphere, reject it and try again
             } while (ptype::mag2(out) > 1);
-            return shape.radius * out.unit() + shape.center;
+            return shape.shape.radius * out.unit() + shape.shape.center;
         } else {
             // draw a multivariate gaussian, then project it onto the sphere
             Vec<T,N> p;
             for (index_t i = 0; i < N; ++i) {
                 p[i] = _gauss(rng);
             }
-            return p.unit() * shape.radius + shape.center;
+            return p.unit() * shape.shape.radius + shape.shape.center;
         }
     }
-    
+
     bool operator==(const SampleShape& other) const {
         return shape == other.shape;
     }
