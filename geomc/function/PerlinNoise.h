@@ -22,9 +22,10 @@ namespace geom {
  * Perlin noise has _O(2<sup>N</sup>)_ time cost.
  */
 template <typename T, index_t N>
-class PerlinNoise : public Dimensional<T,N> {
+struct PerlinNoise : public Dimensional<T,N> {
+private:
     static constexpr size_t N_GRADIENTS = 0x100;
-    
+
 public:
     
     using gridtype  = PointType<index_t,N>;

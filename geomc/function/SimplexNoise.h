@@ -38,7 +38,8 @@ namespace geom {
  * so the analytic gradient returned by `gradient()` is continuous everywhere.
  */
 template <typename T, index_t N>
-class SimplexNoise : public Dimensional<T,N> {
+struct SimplexNoise : public Dimensional<T,N> {
+private:
     static constexpr size_t N_GRADIENTS = 0x100;
 
 public:
