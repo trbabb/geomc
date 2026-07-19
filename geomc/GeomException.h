@@ -16,10 +16,10 @@ namespace geom {
 
 class GeomException {
 public:
-    GeomException(const char* msg) throw ();
-    
-    const char* what();
-    
+    GeomException(const char* msg) throw () : msg(msg) {}
+
+    const char* what() { return msg; }
+
     const char* msg;
 };
 
@@ -31,8 +31,13 @@ public:
 class DimensionMismatchException : public GeomException {
 public:
     index_t a_0, a_1, b_0, b_1;
-    
-    DimensionMismatchException(index_t a_0, index_t a_1, index_t b_0, index_t b_1) throw ();
+
+    DimensionMismatchException(index_t a_0, index_t a_1, index_t b_0, index_t b_1) throw () :
+        GeomException("dimension mismatch"),
+        a_0(a_0),
+        a_1(a_1),
+        b_0(b_0),
+        b_1(b_1) {}
 };
 
 ///////////////////////
@@ -40,8 +45,10 @@ public:
 class NonsquareMatrixException : public GeomException {
 public:
     index_t rows, cols;
-    
-    NonsquareMatrixException(index_t rows, index_t cols) throw ();
+
+    NonsquareMatrixException(index_t rows, index_t cols) throw () :
+        GeomException("nonsquare matrix"),
+        rows(rows), cols(cols) {}
 };
 
 } // namespace geom

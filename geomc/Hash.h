@@ -7,6 +7,7 @@
 #include <variant>
 
 #include <geomc/function/Utils.h>
+#include <geomc/function/functiondetail/SipHash.h>
 
 namespace geom {
 
@@ -15,13 +16,6 @@ H hash(const T& obj);
 
 
 namespace detail {
-
-void siphash(
-        const void*    in_bytes,
-        const size_t   in_len,
-        const void*    key,
-              uint8_t* out,
-        const size_t   out_len);
 
 template <std::integral H>
 constexpr H _lcg_multiplier() {

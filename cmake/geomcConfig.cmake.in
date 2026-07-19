@@ -1,0 +1,10 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+# geomc's iterator adaptors depend on Boost.Iterator (header-only).
+find_dependency(Boost CONFIG)
+
+include("${CMAKE_CURRENT_LIST_DIR}/geomcTargets.cmake")
+
+check_required_components(geomc)
