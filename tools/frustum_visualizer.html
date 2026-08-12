@@ -26,6 +26,7 @@
   <div class="legend">
     <span class="swatch" style="background:#778297"></span>outside
     <span class="swatch" style="background:#ffbd55"></span>intersection
+    <span class="swatch" style="background:#ff3b70"></span>invalid result
     <span class="swatch" style="background:#62ddff"></span>frustum
   </div>
   <div class="muted" style="margin-top:7px">drag: orbit · wheel: zoom · <span class="key">space</span>: next · <span class="key">←</span>/<span class="key">→</span>: browse · <span class="key">r</span>: reset view</div>
@@ -101,6 +102,7 @@ function draw() {
   // Rays are intentionally faint; dense incorrect intervals should still be obvious.
   drawGroup(sample.outside,cam,'#778297',0.7,0.20);
   drawGroup(sample.hits,cam,'#ffbd55',1.7,0.88);
+  drawGroup(sample.invalid || [],cam,'#ff3b70',2.0,0.95);
   drawGroup(sample.wire,cam,'#62ddff',1.5,0.96);
   ctx.globalAlpha=1;
   const h=sample.height.map(x=>Number(x).toPrecision(4)).join(', ');

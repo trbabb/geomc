@@ -42,6 +42,7 @@ struct Sample {
     std::vector<Segment> wire;
     std::vector<Segment> outside;
     std::vector<Segment> hits;
+    std::vector<Segment> invalid;
 };
 
 T uniform(std::mt19937_64& rng, T lo, T hi) {
@@ -124,6 +125,11 @@ Sample make_sample(const std::string& name, const std::string& description,
 
         if (hit.is_empty()) {
             sample.outside.push_back({ray.at_multiple(draw_range.lo),
+                                      ray.at_multiple(draw_range.hi)});
+        } else if (not std::isfinite(hit.lo) or not std::isfinite(hit.hi)) {
+            // Preserve malformed results as visible diagnostics without writing
+            // non-standard NaN/Infinity tokens into the JSON document.
+            sample.invalid.push_back({ray.at_multiple(draw_range.lo),
                                       ray.at_multiple(draw_range.hi)});
         } else {
             if (draw_range.lo < hit.lo) {
@@ -216,6 +222,8 @@ void write_samples(const Options& options, const std::vector<Sample>& samples) {
         write_segments(out, s.outside);
         out << ",\"hits\":";
         write_segments(out, s.hits);
+        out << ",\"invalid\":";
+        write_segments(out, s.invalid);
         out << '}';
     }
     out << "]}\n";

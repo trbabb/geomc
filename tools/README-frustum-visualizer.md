@@ -3,7 +3,9 @@
 This opt-in browser tool generates random `Frustum<Base>` objects and calls the
 actual C++ `Frustum::intersect()` implementation for a dense set of parameterized
 lines. It displays the returned intersection segments in orange, the remainder
-of each displayed line in gray, and the frustum wireframe in cyan.
+of each displayed line in gray, and the frustum wireframe in cyan. A malformed
+(non-finite) interval is shown as a magenta diagnostic line and counted in the
+HUD rather than being written as invalid JSON.
 
 No graphics packages are required. The launcher compiles a small C++ data
 generator and serves a dependency-free Canvas viewer locally.
