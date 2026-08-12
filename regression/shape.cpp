@@ -358,7 +358,7 @@ TEST(TEST_MODULE_NAME, validate_transformed) {
 
 TEST(TEST_MODULE_NAME, validate_frustum) {
     // explore_compound_shape<Frustum, double>(&rng, std::max(N_TESTS / 4, 1));
-    explore_shape<Frustum<Rect<double,2>>>(&rng, 1);
+    explore_shape<Frustum<Rect<double,2>>>(&rng, N_TESTS);
 }
 
 TEST(TEST_MODULE_NAME, create_oriented_cylinder) {
