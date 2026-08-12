@@ -149,16 +149,24 @@ public:
                 : Rect<T,1>::empty;
         }
 
-        // Put a reference point on h=1. Under homogeneous projection to that
-        // plane, the original straight ray remains a straight line:
+        // Homogeneously project the original ray to the base plane. Use the
+        // ray origin as the reference whenever its height is well-scaled:
         //
         //   x(s) / h(s) = x0 + t(s) v0
-        //   t(s) = (s - s0) / h(s),  h(s0) = 1.
+        //   t(s) = (s - s0) / h(s),  h(s0) = h_ref.
         //
-        // This projective parameterization avoids the several nearly-dependent
-        // orthogonal projections used by the old implementation.
-        const T s0 = ((T)1 - h_origin) / h_direction;
-        const base_point_t x0 = base_origin + s0 * base_direction;
+        // Choosing h_ref=1 unconditionally makes s0 enormous for an almost
+        // horizontal ray and loses the low components of x0 to cancellation.
+        // If the origin is too near h=0, use the slab endpoint farthest from
+        // the projective pole instead.
+        const T h_scale = std::max(std::abs(h_range.lo), std::abs(h_range.hi));
+        const T h_threshold = std::sqrt(std::numeric_limits<T>::epsilon()) * h_scale;
+        const bool use_origin = std::abs(h_origin) > h_threshold;
+        const T h_ref = use_origin
+            ? h_origin
+            : (std::abs(h_range.lo) > std::abs(h_range.hi) ? h_range.lo : h_range.hi);
+        const T s0 = use_origin ? (T)0 : (h_ref - h_origin) / h_direction;
+        const base_point_t x0 = (base_origin + s0 * base_direction) / h_ref;
         const base_point_t v0 = base_direction - h_direction * x0;
 
         if (v0 == (T)0) {
@@ -175,22 +183,25 @@ public:
         // appropriate infinity.
         const T h_at_s_lo = h_direction > 0 ? h_range.lo : h_range.hi;
         const T h_at_s_hi = h_direction > 0 ? h_range.hi : h_range.lo;
-        const T neg_inf = -std::numeric_limits<T>::infinity();
-        const T pos_inf =  std::numeric_limits<T>::infinity();
-        const T t_lo = h_at_s_lo == 0
-            ? neg_inf
-            : (h_at_s_lo - (T)1) / (h_direction * h_at_s_lo);
-        const T t_hi = h_at_s_hi == 0
-            ? pos_inf
-            : (h_at_s_hi - (T)1) / (h_direction * h_at_s_hi);
-        t_range &= Rect<T,1>(t_lo, t_hi);
+        const T inf = std::numeric_limits<T>::infinity();
+        const T t_at_s_lo = h_at_s_lo == 0
+            ? (h_ref > 0 ? -inf : inf)
+            : (h_at_s_lo - h_ref) / (h_direction * h_at_s_lo);
+        const T t_at_s_hi = h_at_s_hi == 0
+            ? (h_ref > 0 ? inf : -inf)
+            : (h_at_s_hi - h_ref) / (h_direction * h_at_s_hi);
+        t_range &= Rect<T,1>::from_corners(t_at_s_lo, t_at_s_hi);
         if (t_range.is_empty()) return Rect<T,1>::empty;
 
         const T tip_s = -h_origin / h_direction;
         auto ray_parameter = [&](T t) {
-            return std::isinf(t) ? tip_s : s0 + t / ((T)1 - h_direction * t);
+            return std::isinf(t)
+                ? tip_s
+                : s0 + t * h_ref / ((T)1 - h_direction * t);
         };
-        return Rect<T,1>(ray_parameter(t_range.lo), ray_parameter(t_range.hi));
+        return Rect<T,1>::from_corners(
+            ray_parameter(t_range.lo),
+            ray_parameter(t_range.hi));
     }
 
     Vec<T,N> convex_support(Vec<T,N> d) const requires ConvexObject<Shape> {
