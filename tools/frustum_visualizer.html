@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>geomc frustum ray inspector</title>
+<style>
+  html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #090c12; color: #e7edf7; font: 14px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; }
+  canvas { width: 100%; height: 100%; display: block; cursor: grab; }
+  canvas.dragging { cursor: grabbing; }
+  .panel { position: fixed; top: 14px; left: 14px; padding: 11px 13px; background: #111722dd; border: 1px solid #344158; border-radius: 7px; pointer-events: none; box-shadow: 0 4px 20px #0008; }
+  .title { color: #7de3ff; font-weight: 700; margin-bottom: 5px; }
+  .muted { color: #91a0b8; }
+  .key { color: #fff; border: 1px solid #53627a; border-bottom-width: 2px; border-radius: 3px; padding: 0 4px; }
+  .legend { margin-top: 7px; }
+  .swatch { display: inline-block; width: 18px; height: 2px; vertical-align: middle; margin: 0 5px 0 9px; }
+  #error { color: #ff718a; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+<canvas id="view"></canvas>
+<div class="panel">
+  <div class="title">geomc · Frustum::intersect</div>
+  <div id="info">Loading samples…</div>
+  <div id="error"></div>
+  <div class="legend">
+    <span class="swatch" style="background:#778297"></span>outside
+    <span class="swatch" style="background:#ffbd55"></span>intersection
+    <span class="swatch" style="background:#ff3b70"></span>invalid result
+    <span class="swatch" style="background:#62ddff"></span>frustum
+  </div>
+  <div class="muted" style="margin-top:7px">drag: orbit · wheel: zoom · <span class="key">space</span>: next · <span class="key">←</span>/<span class="key">→</span>: browse · <span class="key">r</span>: reset view</div>
+</div>
+<script>
+'use strict';
+const canvas = document.getElementById('view');
+const ctx = canvas.getContext('2d');
+const info = document.getElementById('info');
+const error = document.getElementById('error');
+let data, index = 0;
+let yaw = 0.72, pitch = 0.42, distance = 8, dragging = false, lastX = 0, lastY = 0;
+
+const add = (a,b) => [a[0]+b[0], a[1]+b[1], a[2]+b[2]];
+const sub = (a,b) => [a[0]-b[0], a[1]-b[1], a[2]-b[2]];
+const scale = (a,s) => [a[0]*s, a[1]*s, a[2]*s];
+const dot = (a,b) => a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
+const cross = (a,b) => [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]];
+const unit = a => { const n=Math.hypot(...a); return n ? scale(a,1/n) : [0,0,0]; };
+
+function resize() {
+  const dpr = Math.min(devicePixelRatio || 1, 2);
+  const w = Math.floor(innerWidth * dpr), h = Math.floor(innerHeight * dpr);
+  if (canvas.width !== w || canvas.height !== h) { canvas.width=w; canvas.height=h; }
+  draw();
+}
+
+function resetView() {
+  if (!data) return;
+  const s = data.samples[index];
+  yaw = 0.72; pitch = 0.42; distance = Math.max(s.radius * 5.2, 1);
+  draw();
+}
+
+function camera(sample) {
+  const cp=Math.cos(pitch), offset=[cp*Math.cos(yaw), cp*Math.sin(yaw), Math.sin(pitch)];
+  const position=add(sample.center, scale(offset,distance));
+  const forward=unit(sub(sample.center,position));
+  let right=unit(cross(forward,[0,0,1]));
+  if (dot(right,right)===0) right=[1,0,0];
+  const up=unit(cross(right,forward));
+  return {position,forward,right,up};
+}
+
+function projectedSegment(segment, cam) {
+  const aspectW=canvas.width, aspectH=canvas.height;
+  const focal=aspectH/(2*Math.tan(Math.PI/6));
+  const points=[];
+  let depth=0;
+  for (const p of segment) {
+    const q=sub(p,cam.position), z=dot(q,cam.forward);
+    if (z <= 1e-4) return null;
+    points.push([aspectW/2+focal*dot(q,cam.right)/z, aspectH/2-focal*dot(q,cam.up)/z]);
+    depth += z;
+  }
+  return {points, depth:depth/2};
+}
+
+function drawGroup(segments, cam, color, width, alpha) {
+  const projected=[];
+  for (const s of segments) { const p=projectedSegment(s,cam); if(p) projected.push(p); }
+  projected.sort((a,b)=>b.depth-a.depth);
+  ctx.strokeStyle=color; ctx.lineWidth=width*(Math.min(devicePixelRatio||1,2)); ctx.globalAlpha=alpha;
+  ctx.beginPath();
+  for (const s of projected) { ctx.moveTo(...s.points[0]); ctx.lineTo(...s.points[1]); }
+  ctx.stroke();
+}
+
+function draw() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  if (!data) return;
+  const sample=data.samples[index], cam=camera(sample);
+  // Rays are intentionally faint; dense incorrect intervals should still be obvious.
+  drawGroup(sample.outside,cam,'#778297',0.7,0.20);
+  drawGroup(sample.hits,cam,'#ffbd55',1.7,0.88);
+  drawGroup(sample.invalid || [],cam,'#ff3b70',2.0,0.95);
+  drawGroup(sample.wire,cam,'#62ddff',1.5,0.96);
+  ctx.globalAlpha=1;
+  const h=sample.height.map(x=>Number(x).toPrecision(4)).join(', ');
+  info.innerHTML=`sample ${index+1}/${data.samples.length} · <b>${sample.shape}</b> (${sample.description})<br>`+
+    `height [${h}] · ${data.rays_per_sample.toLocaleString()} rays · ${sample.hits.length.toLocaleString()} hits<br>`+
+    `<span class="muted">seed ${data.seed}</span>`;
+}
+
+function setIndex(next) {
+  index=(next+data.samples.length)%data.samples.length;
+  resetView();
+}
+
+canvas.addEventListener('pointerdown', e => { dragging=true; lastX=e.clientX; lastY=e.clientY; canvas.classList.add('dragging'); canvas.setPointerCapture(e.pointerId); });
+canvas.addEventListener('pointermove', e => { if(!dragging)return; yaw-=(e.clientX-lastX)*0.008; pitch=Math.max(-1.48,Math.min(1.48,pitch+(e.clientY-lastY)*0.008)); lastX=e.clientX; lastY=e.clientY; draw(); });
+canvas.addEventListener('pointerup', e => { dragging=false; canvas.classList.remove('dragging'); canvas.releasePointerCapture(e.pointerId); });
+canvas.addEventListener('wheel', e => { e.preventDefault(); distance*=Math.exp(e.deltaY*0.001); distance=Math.max(0.02,Math.min(1e5,distance)); draw(); }, {passive:false});
+addEventListener('keydown', e => {
+  if(!data)return;
+  if(e.code==='Space' || e.code==='ArrowRight') { e.preventDefault(); setIndex(index+1); }
+  else if(e.code==='ArrowLeft') { e.preventDefault(); setIndex(index-1); }
+  else if(e.key==='r' || e.key==='R') resetView();
+});
+addEventListener('resize',resize);
+
+fetch('samples.json').then(r => { if(!r.ok)throw new Error(`${r.status} ${r.statusText}`); return r.json(); })
+  .then(json => { data=json; resetView(); resize(); })
+  .catch(e => { error.textContent='Could not load samples.json:\n'+e+'\nRun this viewer through frustum_visualizer.py.'; info.textContent=''; });
+resize();
+</script>
+</body>
+</html>
