@@ -358,7 +358,86 @@ TEST(TEST_MODULE_NAME, validate_transformed) {
 
 TEST(TEST_MODULE_NAME, validate_frustum) {
     // explore_compound_shape<Frustum, double>(&rng, std::max(N_TESTS / 4, 1));
-    explore_shape<Frustum<Rect<double,2>>>(&rng, 1);
+    explore_shape<Frustum<Rect<double,2>>>(&rng, N_TESTS);
+}
+
+Rect<double,1> reference_rect_frustum_intersection(
+        const Rect<double,2>& base,
+        const Rect<double,1>& height,
+        const Ray<double,3>& ray) {
+    Rect<double,1> result = height.intersect(
+        Ray<double,1>(ray.origin[2], ray.direction[2]));
+    if (result.is_empty()) return result;
+
+    const bool positive = height.lo >= 0;
+    for (index_t axis = 0; axis < 2; ++axis) {
+        double lower = positive ? base.lo[axis] : base.hi[axis];
+        double upper = positive ? base.hi[axis] : base.lo[axis];
+        // x - lower*h >= 0; upper*h - x >= 0.
+        double values[2] = {
+            ray.origin[axis] - lower * ray.origin[2],
+            upper * ray.origin[2] - ray.origin[axis]
+        };
+        double slopes[2] = {
+            ray.direction[axis] - lower * ray.direction[2],
+            upper * ray.direction[2] - ray.direction[axis]
+        };
+        for (index_t side = 0; side < 2; ++side) {
+            if (slopes[side] > 0) {
+                result.lo = std::max(result.lo, -values[side] / slopes[side]);
+            } else if (slopes[side] < 0) {
+                result.hi = std::min(result.hi, -values[side] / slopes[side]);
+            } else if (values[side] < 0) {
+                return Rect<double,1>::empty;
+            }
+            if (result.is_empty()) return result;
+        }
+    }
+    return result;
+}
+
+TEST(TEST_MODULE_NAME, frustum_nearly_horizontal_ray) {
+    Frustum<Rect<double,2>> f(Rect<double,2>({-1, -1}, {1, 1}), 1, 2);
+    constexpr double dz = 1e-12;
+    Ray<double,3> ray({0, 0, 1.5}, {1, 0, dz});
+    Rect<double,1> hit = f.intersect(ray);
+
+    EXPECT_FALSE(hit.is_empty());
+    EXPECT_NEAR(hit.lo, -1.5 / (1 + dz), 1e-12);
+    EXPECT_NEAR(hit.hi,  1.5 / (1 - dz), 1e-12);
+    EXPECT_TRUE(f.contains(ray.at_multiple(0)));
+    EXPECT_TRUE(f.contains(ray.at_multiple((hit.lo + hit.hi) / 2)));
+}
+
+TEST(TEST_MODULE_NAME, frustum_ray_matches_halfspace_reference) {
+    rng_t local_rng(0x29b49b0a62deba1dULL);
+    std::normal_distribution<double> normal;
+    Rect<double,2> base({-0.7, -1.2}, {1.3, 0.9});
+
+    for (index_t i = 0; i < 100000; ++i) {
+        Rect<double,1> requested_height;
+        switch (i % 3) {
+            case 0: requested_height = {0.2, 2.7}; break;
+            case 1: requested_height = {-2.3, -0.15}; break;
+            default: requested_height = {-1.1, 2.1}; break;
+        }
+        Frustum<Rect<double,2>> f(base, requested_height);
+        Ray<double,3> ray(
+            {3 * normal(local_rng), 3 * normal(local_rng), 3 * normal(local_rng)},
+            {normal(local_rng), normal(local_rng), normal(local_rng)});
+        if (i % 10 == 0) ray.direction[2] *= 1e-12;
+        if (i % 97 == 0) ray.direction[2] = 0;
+
+        Rect<double,1> expected = reference_rect_frustum_intersection(
+            base, f.clipped_height(), ray);
+        Rect<double,1> actual = f.intersect(ray);
+        ASSERT_EQ(actual.is_empty(), expected.is_empty()) << "trial " << i;
+        if (expected.is_empty()) continue;
+        double lo_tol = 1e-9 * (1 + std::abs(expected.lo));
+        double hi_tol = 1e-9 * (1 + std::abs(expected.hi));
+        EXPECT_NEAR(actual.lo, expected.lo, lo_tol) << "trial " << i;
+        EXPECT_NEAR(actual.hi, expected.hi, hi_tol) << "trial " << i;
+    }
 }
 
 TEST(TEST_MODULE_NAME, create_oriented_cylinder) {

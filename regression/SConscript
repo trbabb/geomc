@@ -4,9 +4,12 @@ import itertools
 def runUnitTest(env, target, source):
    import subprocess
    app = str(source[0].abspath)
-   if not subprocess.call(app):
-      with open(str(target[0]),'w') as f:
-          f.write("PASSED\n")
+   status = subprocess.call(app)
+   if status:
+      return status
+   with open(str(target[0]),'w') as f:
+      f.write("PASSED\n")
+   return 0
 
 Import("env")
 Import("lib")

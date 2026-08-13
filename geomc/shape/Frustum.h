@@ -106,109 +106,104 @@ public:
     
     /// Ray-shape intersection.
     Rect<T,1> intersect(const Ray<T,N>& ray) const requires RayIntersectableObject<Shape> {
-        // todo: check N=2 case
-        // s-values for the top and bottom slabs
-        Rect<T,1> slab_range = clipped_height().intersect(
-            Ray<T,1>(ray.origin[N-1], ray.direction[N-1]));
-        
-        // we want to project the ray to the h=1 plane. the family of rays that
-        // homogeneously project to a common line on h=1 belong to the plane spanned by 
-        // `o` (the ray origin) and `v`, so we will work in that subspace. we want to choose
-        // an `o` that is close to the origin for stability, so we ⟂ project Z+ to the (o,v)
-        // subspace.
-        
-        // first make our ray subspace basis orthogonal:
-        Vec<T,N> o_ortho = ray.origin - ray.origin.project_on(ray.direction);
-        Vec<T,N> z_plus;
-        z_plus[N-1] = 1;
-        // project the Z+ axis to the ray subspace. (the point on the projected ray
-        // which is closest to the origin is a multiple of this point)
-        // todo: this can probably be optimized:
-        Vec<T,N> o_base = z_plus.project_on(ray.direction) + z_plus.project_on(o_ortho);
-        // project V to the h=0 plane
-        Vec<T,N> v_base = ray.direction - ray.direction.project_on(o_base);
-        
-        // handle degenerate cases
-        if (o_base[N-1] == 0) {
-            // the ray lies in the h=0 plane
-            if (o_base == (T)0) [[unlikely]] {
-                // the ray passes through the origin, and intersects the
-                // frustum tip, if it's included in the height range
-                T s = ray.direction.fraction_on(ray.origin);
-                return Rect<T,1>(s, s) & slab_range;
-            } else {
-                // the ray does not pass through the origin
-                return Rect<T,1>::empty;
+        const Rect<T,1> h_range = clipped_height();
+        const T h_origin = ray.origin[N - 1];
+        const T h_direction = ray.direction[N - 1];
+        Rect<T,1> slab_range = h_range.intersect(
+            Ray<T,1>(h_origin, h_direction));
+        if (slab_range.is_empty()) return Rect<T,1>::empty;
+
+        const base_point_t base_origin = ray.origin.template resized<N - 1>();
+        const base_point_t base_direction = ray.direction.template resized<N - 1>();
+
+        if (h_direction == 0) {
+            if (h_origin != 0) {
+                // At constant nonzero height, homogeneous projection is affine,
+                // so the base-shape ray parameter is the original ray parameter.
+                return base.intersect(Ray<T,N - 1>(
+                    base_origin / h_origin,
+                    base_direction / h_origin)) & slab_range;
             }
-        } else if (v_base == (T)0) {
-            // ray passes through the origin. the frustum intersection is full iff the ray is 
-            // inside the the frustum; else it is empty.
-            return base.contains(o_base.template resized<N-1>())
-                ? slab_range         // full range  & slab_range
-                : Rect<T,1>::empty;  // empty range & slab_range
+
+            // The whole ray lies in the h=0 plane.  A (convex) frustum contains
+            // only its tip in this plane.
+            if (not h_range.contains((T)0)) return Rect<T,1>::empty;
+            index_t pivot = 0;
+            for (index_t i = 1; i < N - 1; ++i) {
+                if (std::abs(base_direction[i]) > std::abs(base_direction[pivot])) pivot = i;
+            }
+            if (base_direction[pivot] == 0) {
+                return base_origin == (T)0 ? Rect<T,1>::full : Rect<T,1>::empty;
+            }
+            T s = -base_origin[pivot] / base_direction[pivot];
+            return ray.at_multiple(s) == (T)0
+                ? Rect<T,1>(s, s)
+                : Rect<T,1>::empty;
         }
-        // put `o` onto the h=1 plane
-        o_base /= o_base[N-1];
-        
-        // form the intersection in the base plane
-        Ray<T,N-1> ray_base = Ray<T,N-1>(
-            o_base.template resized<N-1>(),
-            v_base.template resized<N-1>()
-        );
-        Rect<T,1> s = base.intersect(ray_base);
-        
-        // short circuit: if the projected ray does not intersect
-        // the base shape, then it does not intersect the frustum.
-        if (s.is_empty()) {
-            return Rect<T,1>::empty;
+
+        if (h_range.lo == 0 and h_range.hi == 0) {
+            // A zero-height frustum is just its tip.
+            const T tip_s = -h_origin / h_direction;
+            return ray.at_multiple(tip_s) == (T)0
+                ? Rect<T,1>(tip_s, tip_s)
+                : Rect<T,1>::empty;
         }
-        
-        /* find the hit point `p` on the h=0 plane; the final hit point `q` will lie on some 
-           multiple of `p`. The trick is to write `p` and `q` as a points in the (o,v) basis,
-           and compute the multiple of `v` that takes us to a multiple of `p`.
-           We are solving this geometrical problem:
-           
-               origin
-                  •        ⎫      ⎫
-                 ╱ ╲       │      ⎬ p_y
-                ╱   • p    ⎬ 1.0  ⎭
-               ╱     ·     │
-            o •───────•──> ⎭
-                      q  v
-              
-              ╰──────────╯ 1.0
-                  ╰───╯    k * p_x
-              ╰───╯        o_x
-              ╰───────╯    s   <<< want to find this
-        */
-        Vec<T,N> lo {ray_base.at_multiple(s.lo), 1};
-        Vec<T,N> hi {ray_base.at_multiple(s.hi), 1};
-        T o_x    = ray.origin.fraction_on(ray.direction);
-        T p_lo_y = lo.fraction_on(o_ortho);
-        T p_hi_y = hi.fraction_on(o_ortho);
-        T p_lo_x = lo.fraction_on(ray.direction);
-        T p_hi_x = hi.fraction_on(ray.direction);
-        
-        // construct the interval of overlap with the infinite frustum.
-        s = Rect<T,1>::from_corners(
-            p_lo_x / p_lo_y - o_x,
-            p_hi_x / p_hi_y - o_x
-        );
-        
-        T h0 = ray.origin[N-1] + s.lo * ray.direction[N-1];
-        T h1 = ray.origin[N-1] + s.hi * ray.direction[N-1];
-        if ((h0 < 0) != (h1 < 0)) {
-            // if the two hits are on either side of h=0, then the interval is inverted.
-            // (we have already handled the ray through the origin case).
-            // which of the two half-infinite intervals should be intersected with the slab?
-            s = (slab_range.lo < 0)
-                ? Rect<T,1>(std::numeric_limits<T>::lowest(), s.lo)
-                : Rect<T,1>(s.hi, std::numeric_limits<T>::max());
+
+        // Homogeneously project the original ray to the base plane. Use the
+        // ray origin as the reference whenever its height is well-scaled:
+        //
+        //   x(s) / h(s) = x0 + t(s) v0
+        //   t(s) = (s - s0) / h(s),  h(s0) = h_ref.
+        //
+        // Choosing h_ref=1 unconditionally makes s0 enormous for an almost
+        // horizontal ray and loses the low components of x0 to cancellation.
+        // If the origin is too near h=0, use the slab endpoint farthest from
+        // the projective pole instead.
+        const T h_scale = std::max(std::abs(h_range.lo), std::abs(h_range.hi));
+        const T h_threshold = std::sqrt(std::numeric_limits<T>::epsilon()) * h_scale;
+        const bool use_origin = std::abs(h_origin) > h_threshold;
+        const T h_ref = use_origin
+            ? h_origin
+            : (std::abs(h_range.lo) > std::abs(h_range.hi) ? h_range.lo : h_range.hi);
+        const T s0 = use_origin ? (T)0 : (h_ref - h_origin) / h_direction;
+        const base_point_t x0 = (base_origin + s0 * base_direction) / h_ref;
+        const base_point_t v0 = base_direction - h_direction * x0;
+
+        if (v0 == (T)0) {
+            // The ray passes through the tip: its homogeneous projection is a point.
+            return base.contains(x0) ? slab_range : Rect<T,1>::empty;
         }
-        // intersect the slab with the frustum interval.
-        return s & slab_range;
+
+        Rect<T,1> t_range = base.intersect(Ray<T,N - 1>(x0, v0));
+        if (t_range.is_empty()) return Rect<T,1>::empty;
+
+        // Restrict the projective parameter before mapping back. The map has a
+        // pole at h=0, but clipped_height() guarantees that the retained slab is
+        // on only one side of that pole. Its zero-height endpoint maps to the
+        // appropriate infinity.
+        const T h_at_s_lo = h_direction > 0 ? h_range.lo : h_range.hi;
+        const T h_at_s_hi = h_direction > 0 ? h_range.hi : h_range.lo;
+        const T inf = std::numeric_limits<T>::infinity();
+        const T t_at_s_lo = h_at_s_lo == 0
+            ? (h_ref > 0 ? -inf : inf)
+            : (h_at_s_lo - h_ref) / (h_direction * h_at_s_lo);
+        const T t_at_s_hi = h_at_s_hi == 0
+            ? (h_ref > 0 ? inf : -inf)
+            : (h_at_s_hi - h_ref) / (h_direction * h_at_s_hi);
+        t_range &= Rect<T,1>::from_corners(t_at_s_lo, t_at_s_hi);
+        if (t_range.is_empty()) return Rect<T,1>::empty;
+
+        const T tip_s = -h_origin / h_direction;
+        auto ray_parameter = [&](T t) {
+            return std::isinf(t)
+                ? tip_s
+                : s0 + t * h_ref / ((T)1 - h_direction * t);
+        };
+        return Rect<T,1>::from_corners(
+            ray_parameter(t_range.lo),
+            ray_parameter(t_range.hi));
     }
-    
+
     Vec<T,N> convex_support(Vec<T,N> d) const requires ConvexObject<Shape> {
         Rect<T,1> h = clipped_height();
         T sign = h.lo < 0 ? -1 : 1; // ← the shape is flipped below the origin
