@@ -18,6 +18,7 @@ namespace geom {
 // classes
 template <typename I, typename O, index_t M, index_t N> class Raster;
 template <typename T, index_t N>     class PerlinNoise;
+template <typename T, index_t N>     class SimplexNoise;
 template <typename T, index_t N>     class Path;
 template <typename T, index_t Bands> class SphericalHarmonics;
 template <typename T, index_t Bands> class ZonalHarmonics;
