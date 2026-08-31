@@ -87,11 +87,38 @@ typedef std::ptrdiff_t index_t;
 
 /** @brief Namespace of all `geomc` functions and classes. */
 namespace geom {
-    
+
     // storage fwd decls
     template <typename T, index_t N> struct Storage;
     template <typename T, index_t N> struct SizedStorage;
     template <typename T, index_t N> struct UnmanagedStorage;
+
+    /**
+     * @brief The signed type corresponding to `T`.
+     *
+     * For signed integers and floating point types, this is `T` itself. For
+     * unsigned integers, it is the signed integer of the same width. This is
+     * the natural type for a quantity produced by differencing two values of
+     * type `T` (a displacement, extent, or distance), which may be negative
+     * even when `T` cannot represent negative values.
+     *
+     * The default case handles floating point and already-signed types; the
+     * `is_integral` guard prevents `std::make_signed` from being instantiated
+     * on a floating point type, which is ill-formed.
+     */
+    template <typename T, bool Integral = std::is_integral_v<T>>
+    struct SignedType {
+        using type = T;
+    };
+
+    template <typename T>
+    struct SignedType<T, true> {
+        using type = std::make_signed_t<T>;
+    };
+
+    /// @brief Alias for `SignedType<T>::type`; the signed counterpart of `T`.
+    template <typename T>
+    using signed_type_t = typename SignedType<T>::type;
 
 };
 

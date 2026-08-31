@@ -10,9 +10,21 @@
 #include <geomc/shape/Shape.h>
 
 // todo: remove redundant fn names.
-// todo: check this works sanely with unsigned types.
 // todo: sdf normal function
 // todo: furthest point function
+
+// Coordinates come in two flavors: positions (`point_t`, i.e. `lo`, `hi`,
+// corners, containment) and differences between positions (`point_diff_t`:
+// extents, displacements, distances). The latter may be negative even when the
+// coordinate type cannot be, so they use `diff_t` — the signed counterpart of
+// `T`. For signed and floating point `T`, `diff_t == T` and there is no
+// difference; the split only matters for unsigned `T`.
+//
+// note: because `sdf()` and `normal()` return signed quantities, an unsigned
+// Rect does not model the ProjectionObject / SdfObject concepts (whose results
+// are expected to convert back to `point_t` / `elem_t`). This is deliberate:
+// those functions are meaningless in unsigned space. A future cleanup may push
+// this affine point/vector distinction through the rest of the library.
 
 // all boundaries are inclusive. this is inconsistent with half-open interval convention,
 // but:
@@ -67,6 +79,40 @@ protected:
 
 public:
     using typename Dimensional<T,N>::point_t;
+
+    /**
+     * @brief The signed coordinate type used for quantities produced by
+     * differencing two positions (extents, displacements, and distances).
+     *
+     * Equal to `T` for signed and floating point coordinate types. For unsigned
+     * `T`, this is the signed integer of the same width, so that a difference —
+     * which may be negative even when a position cannot be — is represented
+     * correctly instead of wrapping around.
+     */
+    using diff_t = geom::signed_type_t<T>;
+    /// The point type for a difference between two positions; a `Vec<diff_t,N>`
+    /// if `N > 1`, otherwise a `diff_t`.
+    using point_diff_t = VecType<diff_t,N>;
+
+protected:
+    // point type helper for difference-space quantities
+    typedef PointType<diff_t,N> dtype;
+
+    // Promote a position into the signed "difference" space, so that
+    // subtractions do not wrap for unsigned coordinate types. This is a no-op
+    // (identity) whenever `diff_t == T`.
+    static point_diff_t _to_diff(point_t p) {
+        return (point_diff_t) p;
+    }
+
+    // Demote a difference-space quantity back to a position. Callers are
+    // responsible for ensuring the value is representable (non-negative for
+    // unsigned `T`); out-of-range results wrap, as with any narrowing.
+    static point_t _from_diff(point_diff_t p) {
+        return (point_t) p;
+    }
+
+public:
 
     /// Lower extremes
     point_t lo;
@@ -139,10 +185,12 @@ public:
      * @param dims Lengths of each axis; may be negative.
      * @return A new Rect with its center at `c`.
      */
-    inline static Rect<T,N> from_center(VecType<T,N> c, VecType<T,N> dims) {
+    inline static Rect<T,N> from_center(point_t c, point_diff_t dims) {
+        point_diff_t c_d = _to_diff(c);
+        point_diff_t em  = _to_diff(endpoint_measure);
         return Rect<T,N>::from_corners(
-            c -  dims / 2,
-            c + (dims - endpoint_measure) / 2
+            _from_diff(c_d -  dims       / 2),
+            _from_diff(c_d + (dims - em) / 2)
         );
     }
 
@@ -152,10 +200,11 @@ public:
      * @param dims Lengths of each axis relative to given corner. Lengths may be negative.
      * @return A new Rect with one corner at `corner`.
      */
-    inline static Rect<T,N> from_edge(VecType<T,N> edge, VecType<T,N> dims) {
+    inline static Rect<T,N> from_edge(point_t edge, point_diff_t dims) {
+        point_diff_t em = _to_diff(endpoint_measure);
         return Rect<T,N>::from_corners(
             edge,
-            edge + dims - endpoint_measure
+            _from_diff(_to_diff(edge) + dims - em)
         );
     }
 
@@ -181,8 +230,8 @@ public:
      * @param dims Lengths of each axis.
      * @return Rect<T,N> A new Rect with its center at the origin.
      */
-    inline static Rect<T,N> from_size(VecType<T,N> dims) {
-        return Rect<T,N>::from_center({}, dims);
+    inline static Rect<T,N> from_size(point_diff_t dims) {
+        return Rect<T,N>::from_center(point_t {}, dims);
     }
 
     /**
@@ -360,8 +409,11 @@ public:
      *   Add `dx` to the coordinates of all the bounds.
      * @return A translated Rect.
      */
-    Rect<T,N> operator+(point_t dx) const {
-        return Rect<T,N>(lo + dx, hi + dx);
+    Rect<T,N> operator+(point_diff_t dx) const {
+        return Rect<T,N>(
+            _from_diff(_to_diff(lo) + dx),
+            _from_diff(_to_diff(hi) + dx)
+        );
     }
 
     /**
@@ -371,8 +423,11 @@ public:
      *   Subtract `dx` from the coordinates of all the bounds.
      * @return A translated Rect.
      */
-    Rect<T,N> operator-(point_t dx) const {
-        return Rect<T,N>(lo - dx, hi - dx);
+    Rect<T,N> operator-(point_diff_t dx) const {
+        return Rect<T,N>(
+            _from_diff(_to_diff(lo) - dx),
+            _from_diff(_to_diff(hi) - dx)
+        );
     }
 
 
@@ -383,9 +438,9 @@ public:
      *   Add `dx` to the coordinates of all the bounds.
      * @return  A reference to `this`, for convenience.
      */
-    Rect<T,N>& operator+=(point_t dx) {
-        hi += dx;
-        lo += dx;
+    Rect<T,N>& operator+=(point_diff_t dx) {
+        lo = _from_diff(_to_diff(lo) + dx);
+        hi = _from_diff(_to_diff(hi) + dx);
         return *this;
     }
 
@@ -397,9 +452,9 @@ public:
      *   Subtract `dx` from the coordinates of all the bounds.
      * @return  A reference to `this`, for convenience.
      */
-    Rect<T,N>& operator-=(point_t dx) {
-        hi -= dx;
-        lo -= dx;
+    Rect<T,N>& operator-=(point_diff_t dx) {
+        lo = _from_diff(_to_diff(lo) - dx);
+        hi = _from_diff(_to_diff(hi) - dx);
         return *this;
     }
 
@@ -678,7 +733,13 @@ public:
      * @return The center point of this region.
      */
     point_t center() const {
-        return (hi + lo + endpoint_measure) / 2;
+        // computed as lo + (hi - lo) / 2 rather than (lo + hi) / 2: the sum
+        // (lo + hi) overflows near the top of the type's range and is not
+        // representable at all for unsigned coordinates whose sum exceeds the
+        // maximum. The lo + (hi - lo)/2 form is overflow-safe for a non-empty
+        // Rect (hi >= lo, so hi - lo is representable) in the coordinate type
+        // itself, without needing a wider or signed type.
+        return lo + (hi - lo + endpoint_measure) / 2;
     }
 
     /**
@@ -687,16 +748,23 @@ public:
      *
      * Note that for integer type Rects, since both the high and low boundaries
      * are included, the length along each axis is `hi - lo + 1`.
+     *
+     * The result is a difference of positions, and so has signed type
+     * `point_diff_t`. An empty Rect (with `lo > hi` on some axis) reports a
+     * negative extent along that axis.
      */
-    point_t dimensions() const {
-        return hi - lo + endpoint_measure;
+    point_diff_t dimensions() const {
+        return _to_diff(hi) - _to_diff(lo) + _to_diff(endpoint_measure);
     }
 
     /**
      * @brief Change the size of the region, adjusting about its center.
+     *
+     * A negative length is treated as its absolute value.
+     *
      * @param dim New lengths along each axis.
      */
-    void set_dimensions(point_t dim) {
+    void set_dimensions(point_diff_t dim) {
         // rule: preserve the center point.
         //       for odd-length boxes, this is the center element.
         //       for even-length boxes, it is the middle zero-indexed "fencepost".
@@ -712,11 +780,20 @@ public:
         // [0|1|2|3|4]
         // [0|1|2|3]
 
-        // xxx fixme for int types
-        dim = std::abs(dim);
-        point_t diff = (dim - dimensions()) / 2;
-        lo = lo - diff;
-        hi = hi + diff;
+        // normalize the sign per-axis (Vec::abs() is unavailable for the N == 1
+        // scalar case, so clamp element-wise):
+        for (index_t i = 0; i < N; ++i) {
+            coord(dim, i) = std::abs(coord(dim, i));
+        }
+        // total change to distribute across the two sides. split so that the
+        // sum applied to lo and hi is exactly `delta` even for odd deltas
+        // (integer division would otherwise lose the odd unit); the extra unit
+        // goes to the hi side, consistent with the "hi fencepost" center rule.
+        point_diff_t delta   = dim - dimensions();
+        point_diff_t lo_grow = delta / 2;
+        point_diff_t hi_grow = delta - lo_grow;
+        lo = _from_diff(_to_diff(lo) - lo_grow);
+        hi = _from_diff(_to_diff(hi) + hi_grow);
     }
     
     /**
@@ -798,10 +875,13 @@ public:
      * @brief Morphological dilation.
      *
      * Return a Rect with the boundary extended coordinate-wise by the amount `c`
-     * in all directions.
+     * in all directions. A negative `c` erodes (shrinks) the Rect.
      */
-    Rect<T,N> dilated(point_t c) const {
-        return Rect<T,N>(lo - c, hi + c);
+    Rect<T,N> dilated(point_diff_t c) const {
+        return Rect<T,N>(
+            _from_diff(_to_diff(lo) - c),
+            _from_diff(_to_diff(hi) + c)
+        );
     }
 
     /**
@@ -825,12 +905,15 @@ public:
      * @return The volume of this region.
      */
     T measure_interior() const {
-        T vol = 1;
-        point_t dim = dimensions();
+        // accumulate in signed space so the negative-extent clamp works for
+        // unsigned `T`; the clamped product is non-negative and converts back
+        // to `T` losslessly.
+        diff_t vol = 1;
+        point_diff_t dim = dimensions();
         for (index_t axis = 0; axis < N; axis++) {
-            vol *= std::max(coord(dim, axis), (T)0);
+            vol *= std::max(coord(dim, axis), (diff_t) 0);
         }
-        return vol;
+        return (T) vol;
     }
     
     /**
@@ -847,10 +930,10 @@ public:
      *
      * The `i`th component of the result is the area of the face perpendicular to the `i`th axis.
      */
-    point_t face_areas() const {
-        point_t axial_areas;
-        T prod = 1;
-        point_t dims = dimensions();
+    point_diff_t face_areas() const {
+        point_diff_t axial_areas;
+        diff_t prod = 1;
+        point_diff_t dims = dimensions();
         // include all the extents preceding this axis (but not the axis itself)
         for (index_t i = 0; i < N - 1; ++i) {
             coord(axial_areas, i) = prod;
@@ -911,50 +994,58 @@ public:
             // project to the closest face;
             // i.e. find the axis along which p is closest to a boundary and 
             // snap that coordinate to the boundary.
-            index_t best_axis = 0;
-            T winning_coord   = 0;
-            T best_distance   = std::numeric_limits<T>::max();
+            index_t best_axis    = 0;
+            T      winning_coord = 0;
+            // distances are differences of positions; compute them signed so
+            // they do not wrap for unsigned `T`.
+            diff_t best_distance = std::numeric_limits<diff_t>::max();
             for (index_t i = 0; i < N; ++i) {
                 T   p_i = coord(p,  i);
                 T  lo_i = coord(lo, i);
                 T  hi_i = coord(hi, i);
-                T to_lo = std::abs(p_i - lo_i);
-                T to_hi = std::abs(p_i - hi_i);
-                T  dist = std::min(to_lo, to_hi);
+                diff_t to_lo = std::abs((diff_t) p_i - (diff_t) lo_i);
+                diff_t to_hi = std::abs((diff_t) p_i - (diff_t) hi_i);
+                diff_t  dist = std::min(to_lo, to_hi);
                 if (dist < best_distance) {
                     winning_coord = to_lo < to_hi ? lo_i : hi_i;
                     best_axis     = i;
                     best_distance = dist;
                 }
             }
-            p[best_axis] = winning_coord;
+            coord(p, best_axis) = winning_coord;
             return p;
         } else {
             return clip(p);
         }
     }
     
-    /// Outward-facing direction.
-    point_t normal(point_t p) const {
+    /**
+     * @brief Outward-facing direction.
+     *
+     * Returns a signed direction vector (`point_diff_t`), which for unsigned `T`
+     * is not representable as a `point_t`.
+     */
+    point_diff_t normal(point_t p) const {
         // compute the outward-pointing normal from `p`.
         // we don't just do `p - project(p)`, because that behaves degenerately near
         // the surface of the range (where we are most likely to care about the normal).
-        
+
         // nearest point in the range to `p`
         point_t clipped;
         // how many axes are outside the bound?
         index_t outside = 0;
         // which axis' plane is closest to p?
         index_t nearest_axis;
-        // what is the distance to the nearest bounding plane?
-        T nearest_plane = std::numeric_limits<T>::max();
+        // what is the distance to the nearest bounding plane? (a difference of
+        // positions, so signed to avoid wrapping for unsigned `T`)
+        diff_t nearest_plane = std::numeric_limits<diff_t>::max();
         // is the nearest plane a lower (-1) or upper (+1) bound?
         index_t nearest_sign;
         // the last axis we encountered that we were not contained by
         index_t exterior_axis;
         // is the nearest exterior face a lower bound (-1) or upper bound (+1)?
         index_t exterior_sign;
-        
+
         for (index_t i = 0; i < N; ++i) {
             T x    = coord(p,  i);
             T lo_i = coord(lo, i);
@@ -963,9 +1054,9 @@ public:
             bool is_out = x < lo_i or x > hi_i;
             outside += is_out;
             // compute distances to the two bounding planes
-            T d0 = std::abs(x - coord(lo, i));
-            T d1 = std::abs(x - coord(hi, i));
-            T d_min = std::min(d0, d1);
+            diff_t d0 = std::abs((diff_t) x - (diff_t) lo_i);
+            diff_t d1 = std::abs((diff_t) x - (diff_t) hi_i);
+            diff_t d_min = std::min(d0, d1);
             if (d_min < nearest_plane) {
                 nearest_axis  = i;
                 nearest_plane = d_min;
@@ -978,12 +1069,12 @@ public:
         }
         if (outside == 0) {
             // we're contained by the range. return a normal pointing toward the nearest face.
-            point_t n;
+            point_diff_t n;
             coord(n, nearest_axis) = nearest_sign;
             return n;
         } else if (outside == 1) {
             // we're outside the range, but project to an axial face. return its normal
-            point_t n;
+            point_diff_t n;
             coord(n, exterior_axis) = exterior_sign;
             return n;
         } else {
@@ -991,16 +1082,21 @@ public:
             // draw a vector from that point to `p` and unitize.
             // this still suffers numerical instability near the surface, but it's
             // near a degenerate feature, so there's not really anything we can do.
-            return (p - clipped).unit();
+            return (_to_diff(p) - _to_diff(clipped)).unit();
         }
     }
 
     /**
      * @brief Return the signed distance to the surface of the shape.
+     *
+     * Negative inside the Rect; positive outside. The result is signed
+     * (`diff_t`) and, for unsigned `T`, is not representable as an `elem_t`.
      */
-    T sdf(point_t p) const {
-        T sign = contains(p) ? -1 : 1;
-        return sign * project(p).dist(p);
+    diff_t sdf(point_t p) const {
+        diff_t sign = contains(p) ? -1 : 1;
+        // compute the distance in signed space so it does not wrap for unsigned `T`.
+        point_diff_t d = _to_diff(project(p)) - _to_diff(p);
+        return sign * dtype::mag(d);
     }
 
     /**
@@ -1008,8 +1104,11 @@ public:
      * @return The square of the distance to the nearest point contained by this `Rect`;
      * zero if `p` is inside.
      */
-    T dist2(point_t p) const {
-        return mag2(p - clip(p));
+    diff_t dist2(point_t p) const {
+        // the displacement to the nearest contained point is a difference of
+        // positions; compute it signed so it does not wrap for unsigned `T`.
+        point_diff_t d = _to_diff(p) - _to_diff(clip(p));
+        return dtype::mag2(d);
     }
 
     /**
@@ -1035,10 +1134,13 @@ public:
      *
      * Inverse operation of `remap()`.
      *
+     * The numerator and denominator are differences of positions, so the result
+     * is computed in signed space and returned as `point_diff_t`.
+     *
      * @see unmap_transform()
      */
-    point_t unmap(point_t p) const {
-        return (p - lo) / (hi - lo);
+    point_diff_t unmap(point_t p) const {
+        return (_to_diff(p) - _to_diff(lo)) / (_to_diff(hi) - _to_diff(lo));
     }
     
     /**
@@ -1064,8 +1166,9 @@ public:
      */
     template <index_t M>
     requires (N == 1 and M > 1)
-    Vec<T,M> unmap(Vec<T,M> p) const {
-        return (p - lo) / (hi - lo);
+    Vec<diff_t,M> unmap(Vec<T,M> p) const {
+        diff_t lo_d = (diff_t) lo;
+        return ((Vec<diff_t,M>) p - lo_d) / ((diff_t) hi - lo_d);
     }
 
     /**
@@ -1073,20 +1176,22 @@ public:
      * with `other`, and a boolean indicating whether the two shapes currently
      * overlap.
      */
-    std::pair<point_t,bool> contact_vector(const Rect<T,N>& other) const {
-        point_t v;
+    std::pair<point_diff_t,bool> contact_vector(const Rect<T,N>& other) const {
+        // the contact vector is a displacement, so its components are signed
+        // (`diff_t`); they may be negative even for unsigned `T`.
+        point_diff_t v;
         bool overlap[N];
         bool all_overlap = true;
-        index_t shortest_axis;
-        index_t shortest_val = std::numeric_limits<T>::max();
+        index_t shortest_axis = 0;
+        diff_t  shortest_val  = std::numeric_limits<diff_t>::max();
         for (index_t i = 0; i < N; ++i) {
-            auto r0 = this->axis(i);
-            auto r1 = other.axis(i);
-            T d0 = r1.lo - r0.hi;
-            T d1 = r1.hi - r0.lo;
+            Rect<T,1> r0 = this->axis(i);
+            Rect<T,1> r1 = other.axis(i);
+            diff_t d0 = (diff_t) r1.lo - (diff_t) r0.hi;
+            diff_t d1 = (diff_t) r1.hi - (diff_t) r0.lo;
             overlap[i] = r0.intersects(r1);
             all_overlap = all_overlap and overlap[i];
-            auto s = std::abs(d0) < std::abs(d1) ? d0 : d1;
+            diff_t s = std::abs(d0) < std::abs(d1) ? d0 : d1;
             coord(v, i) = s;
             if (std::abs(s) < std::abs(shortest_val)) {
                 shortest_val  = s;
@@ -1137,9 +1242,14 @@ public:
                     return Rect<T,1>();
                 }
             } else {
+                // the ray parameter is a difference of positions over the
+                // direction; compute it in signed space so it does not wrap for
+                // unsigned `T`. (The parametric interval is nonetheless stored
+                // as `T`; ray casts against unsigned Rects remain degenerate.)
+                diff_t dx_d = (diff_t) dx;
                 interval &= Rect<T,1>::from_corners(
-                    (hi_i - o_i) / dx,
-                    (lo_i - o_i) / dx);
+                    ((diff_t) hi_i - (diff_t) o_i) / dx_d,
+                    ((diff_t) lo_i - (diff_t) o_i) / dx_d);
             }
         }
         return interval;
@@ -1175,14 +1285,16 @@ constexpr T max() {
 } // end namespace detail
 
 
+// `T` and `N` are deduced from the Rect; the displacement's type follows from
+// `T` in a non-deduced context so that it accepts the signed difference type.
 template <typename T, index_t N>
-inline Rect<T,N> operator+(VecType<T,N> p, const Rect<T,N>& r) {
-    return r + p;
+inline Rect<T,N> operator+(VecType<signed_type_t<T>,N> dx, const Rect<T,N>& r) {
+    return r + dx;
 }
 
 template <typename T, index_t N>
-inline Rect<T,N> operator-(VecType<T,N> p, const Rect<T,N>& r) {
-    return r - p;
+inline Rect<T,N> operator-(VecType<signed_type_t<T>,N> dx, const Rect<T,N>& r) {
+    return r - dx;
 }
 
 
